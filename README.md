@@ -27,6 +27,7 @@ Please, be brutal. Break my logic so I can finally sleep. The monograph (30 proo
 
 — Yan Senez
 
+DOI [10.5281/zenodo.18726592](https://doi.org/10.5281/zenodo.18726592)
 ---
 
 ## Overview
@@ -194,3 +195,4 @@ MIT License — Yan Senez, 2026
 
 - **Monograph**: "The Theory of Persistence" (companion to Articles A1-A8)
 - **Prime Spirals**: [github.com/Igrekess/PT_PrimeSpirals](https://github.com/Igrekess/PT_PrimeSpirals)
+
