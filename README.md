@@ -36,6 +36,7 @@ This repository contains the **complete monograph** ([THEORY_OF_PERSISTENCE_COMP
 
 **Central claim**: Starting from a single input s = 1/2 (proved unconditionally), PT derives 23 fundamental constants of the Standard Model + 2 exact structural predictions, with zero free parameters and a mean error of 0.5%.
 
+If you want a more easy version for start : [https://github.com/Igrekess/persistence/](https://github.com/Igrekess/persistence)
 ---
 
 ## Repository Structure
@@ -195,4 +196,5 @@ MIT License — Yan Senez, 2026
 
 - **Monograph**: "The Theory of Persistence" (companion to Articles A1-A8)
 - **Prime Spirals**: [github.com/Igrekess/PT_PrimeSpirals](https://github.com/Igrekess/PT_PrimeSpirals)
+
 
