@@ -6,11 +6,11 @@ Hi everyone,
 
 I'm reaching out because I'm stuck in a loop and I'm honestly starting to lose my mind. I haven't slept more than 3 hours a night for days. Every time I close my eyes, I see transition matrices and gap sequences.
 
-I'm just a photographer loving maths and physics since I was a child. When I was 15, I became obsessed with the Sacks Spiral. My photography background made me look at the 'negative space' between primes—the gaps—rather than the numbers themselves.
+I'm just a photographer loving maths and physics since I was a child, keep saying from years that photography is "just information" and what is not in it always telling something. When I was 15, I became obsessed with the Sacks Spiral.My photography background made me look at the 'negative space' between primes—the gaps—rather than the numbers themselves.
 
 The thing is, I didn't even want to find a 'Theory of Everything'. I just started pulling a thread about how information persists in the Sieve of Eratosthenes. My main goal at this time was to improve deepfake detection and noise reduction in photography. But I always had the intuition that looking at primes in a straight line was a mistake.
 
-Because of photography and my years as retoucher and lighter, I built a geometric model in parallel with the arithmetic, following the growth of dimensions:
+Because of photography and my years as retoucher and lighter probably, I built naturaly a geometric model in parallel with the arithmetic, following the growth of dimensions:
 
 - **The Point (0D)** - Forbidden transitions (T0) in the sieve.
 - **The Line (1D)** - Gap sequences as a variational framework.
@@ -29,7 +29,12 @@ Please, be brutal. Break my logic so I can finally sleep. The monograph (30 proo
 
 DOI [10.5281/zenodo.18726592](https://doi.org/10.5281/zenodo.18726592)
 ---
+<p align="center"><img src="_images/archimedes_spectral_PT_500k_600px.png" alt="archimedes_spectral_PT_500k."/>p>
+<figure><figure-caption>500 000 primes on the Archimedean spiral, coloured by Hardy–Littlewood density C( f ).
+Every colour value is computed entirely from the single input s = 1/2, with zero free parameters.
+https://github.com/Igrekess/PT_PrimeSpirals</figure-caption></figure>
 
+  
 ## Overview
 
 This repository contains the **complete monograph** ([THEORY_OF_PERSISTENCE_COMPLETE.pdf](THEORY_OF_PERSISTENCE_COMPLETE.pdf)) and **61 Python scripts** that independently verify every theorem, derivation, and numerical prediction of the Theory of Persistence (PT). Each script is self-contained and produces a PASS/FAIL verdict.
@@ -196,5 +201,6 @@ MIT License — Yan Senez, 2026
 
 - **Monograph**: "The Theory of Persistence" (companion to Articles A1-A8)
 - **Prime Spirals**: [github.com/Igrekess/PT_PrimeSpirals](https://github.com/Igrekess/PT_PrimeSpirals)
+
 
 
