@@ -105,30 +105,44 @@ scripts/
     verify_sota/               verify_sota.py (requires ptc package)
 ```
 
-### Running the scripts
+### Quick start
 
 ```bash
+# Clone the repository
+git clone https://github.com/Igrekess/PersistenceTheory.git
+cd PersistenceTheory
+
+# Create a virtual environment (recommended)
+python3 -m venv venv
+source venv/bin/activate        # macOS / Linux
+# venv\Scripts\activate         # Windows
+
 # Install dependencies
+pip install -r scripts/requirements.txt
+
+# Run the full verification suite (41 scripts, ~55s)
 cd scripts
-pip install -r requirements.txt
-
-# Run the full suite (41 scripts, ~55s)
 python run_all.py
+```
 
+### Other commands
+
+```bash
 # Run a single chapter
 python run_all.py ch10
+
+# Run a single script standalone
+python ch10_fine_structure/proof_alpha_EM.py
 
 # Show the script tree
 python run_all.py --tree
 
 # Regenerate summary CSV from existing JSON reports
 python run_all.py --summary
-```
 
-Each script can also be run standalone:
-
-```bash
-python ch10_fine_structure/proof_alpha_EM.py
+# Run via pytest
+pytest -v
+pytest -k "ch15"
 ```
 
 ### Output
@@ -141,14 +155,6 @@ The master runner `run_all.py` additionally generates:
 - `reports/summary.csv` -- one row per script (chapter, checks, pass/fail, duration)
 - `reports/values.csv` -- all numerical results (label, computed value, expected, error%, unit)
 - A complete readable report with per-chapter tables and numerical results
-
-### pytest integration
-
-```bash
-cd scripts
-pytest -v              # run all via subprocess isolation
-pytest -k "ch15"       # run a single chapter
-```
 
 ## Prediction Snapshot
 
