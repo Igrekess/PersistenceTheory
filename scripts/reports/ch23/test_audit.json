@@ -1,0 +1,84 @@
+{
+  "script": "test_audit",
+  "chapter": "ch23",
+  "timestamp": "2026-04-14T23:59:17.235555+00:00",
+  "duration_s": 0.642,
+  "n_pass": 14,
+  "n_fail": 0,
+  "n_total": 14,
+  "success": true,
+  "results": [
+    {
+      "label": "n_scored_ge_35",
+      "status": "PASS",
+      "detail": "got 36"
+    },
+    {
+      "label": "mean_err_lt_0.5pct",
+      "status": "PASS",
+      "detail": "mean = 0.1063%"
+    },
+    {
+      "label": "all_sub_5pct",
+      "status": "PASS",
+      "detail": "max = 0.4430% (m_nu3_eV)"
+    },
+    {
+      "label": "alpha_EM_sub_0.001pct",
+      "status": "PASS",
+      "detail": "err = 0.000000%"
+    },
+    {
+      "label": "G_F_sub_0.5pct",
+      "status": "PASS",
+      "detail": "err = 0.0001%"
+    },
+    {
+      "label": "seven_categories_defined",
+      "status": "PASS",
+      "detail": "got 7"
+    },
+    {
+      "label": "zero_fitted_parameters",
+      "status": "PASS",
+      "detail": "PT derives everything from s=1/2 (itself a theorem)"
+    },
+    {
+      "label": "n_pool_eq_4",
+      "status": "PASS",
+      "detail": "got 4"
+    },
+    {
+      "label": "total_effective_bits_lt_30",
+      "status": "PASS",
+      "detail": "total = 21.43"
+    },
+    {
+      "label": "Vus_chosen_best",
+      "status": "PASS",
+      "detail": "chosen = 0.0384%, alts = {'c=1': 0.7104051402184745, 'c=C_F': 1.1584333908898907}"
+    },
+    {
+      "label": "info_ratio_gt_2",
+      "status": "PASS",
+      "detail": "ratio = 5.38"
+    },
+    {
+      "label": "info_ratio_pred_gt_1",
+      "status": "PASS",
+      "detail": "ratio_pred = 1.63"
+    },
+    {
+      "label": "naive_ratio_gt_1",
+      "status": "PASS",
+      "detail": "ratio_naive = 2.41 (must exceed 1 even with maximally pessimistic counting)"
+    },
+    {
+      "label": "no_overclaims_above_5pct",
+      "status": "PASS",
+      "detail": "0 observables >= 5%: []"
+    }
+  ],
+  "pt_version": "v7",
+  "zero_fitted_parameters": true
+}

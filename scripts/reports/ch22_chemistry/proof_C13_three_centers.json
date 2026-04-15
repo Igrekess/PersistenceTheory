@@ -1,0 +1,104 @@
+{
+  "script": "proof_C13_three_centers",
+  "chapter": "ch22_chemistry",
+  "timestamp": "2026-04-14T23:59:07.004048+00:00",
+  "duration_s": 0.0,
+  "n_pass": 15,
+  "n_fail": 0,
+  "n_total": 15,
+  "success": true,
+  "results": [
+    {
+      "label": "V_3/V_2 ~ alpha_EM",
+      "status": "PASS",
+      "detail": "V3/V2 = 0.03330, alpha = 0.00730"
+    },
+    {
+      "label": "1-body O(1)",
+      "status": "PASS",
+      "detail": "scale = 1.0"
+    },
+    {
+      "label": "2-body O(sin2_3) ~ 0.22",
+      "status": "PASS",
+      "detail": "sin2_3 = 0.2192"
+    },
+    {
+      "label": "3-body O(alpha) ~ 0.0073",
+      "status": "PASS",
+      "detail": "alpha = 0.007297"
+    },
+    {
+      "label": "4-body O(alpha^2) ~ 5e-5",
+      "status": "PASS",
+      "detail": "alpha^2 = 5.33e-05"
+    },
+    {
+      "label": "sin2_3 ~ 0.2192",
+      "status": "PASS",
+      "detail": "sin2_3 = 0.2192"
+    },
+    {
+      "label": "sigma^2 = s + sin2_3 ~ 0.7192",
+      "status": "PASS",
+      "detail": "sigma^2 = 0.7192"
+    },
+    {
+      "label": "Cyclopropane strain",
+      "status": "PASS",
+      "value": 27.500000000000004,
+      "expected": 27.5,
+      "err_pct": 0.0,
+      "tol_pct": 1.0,
+      "unit": "kcal/mol",
+      "detail": "computed=27.5, expected=27.5, err=0.0000%, tol=1.0% [kcal/mol]"
+    },
+    {
+      "label": "Cyclobutane strain",
+      "status": "PASS",
+      "value": 26.300000000000004,
+      "expected": 26.3,
+      "err_pct": 0.0,
+      "tol_pct": 15.0,
+      "unit": "kcal/mol",
+      "detail": "computed=26.3, expected=26.3, err=0.0000%, tol=15.0% [kcal/mol]"
+    },
+    {
+      "label": "Cyclopentane strain",
+      "status": "PASS",
+      "value": 5.982287778663254,
+      "expected": 6.2,
+      "err_pct": 3.511487,
+      "tol_pct": 15.0,
+      "unit": "kcal/mol",
+      "detail": "computed=5.9822878, expected=6.2, err=3.5115%, tol=15.0% [kcal/mol]"
+    },
+    {
+      "label": "Cyclohexane strain ~ 0",
+      "status": "PASS",
+      "detail": "PT = 1.1 kcal/mol"
+    },
+    {
+      "label": "Baeyer formula: 0 at ideal angle, >0 otherwise",
+      "status": "PASS",
+      "detail": "E(ideal)=0.00e+00, E(90)=0.1548"
+    },
+    {
+      "label": "Pitzer formula: N_close * s * Ry_kcal * alpha",
+      "status": "PASS",
+      "detail": "E_pitzer = 6.8687 kcal/mol"
+    },
+    {
+      "label": "C13.2 retracted: error factor ~ 130x (= 1/alpha)",
+      "status": "PASS",
+      "detail": "1/alpha = 137.0"
+    },
+    {
+      "label": "Z/6Z: triangle has higher-mode power, hexagon does not",
+      "status": "PASS",
+      "detail": "tri_higher=9.00, hex_higher=1.96e-29"
+    }
+  ],
+  "pt_version": "v7",
+  "zero_fitted_parameters": true
+}

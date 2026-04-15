@@ -1,0 +1,669 @@
+{
+  "script": "test_feynman_programme",
+  "chapter": "ch17",
+  "timestamp": "2026-04-14T23:59:02.162766+00:00",
+  "duration_s": 0.005,
+  "n_pass": 115,
+  "n_fail": 0,
+  "n_total": 115,
+  "success": true,
+  "results": [
+    {
+      "label": "S_p3_positive",
+      "status": "PASS",
+      "detail": "S_3 = 1.517976"
+    },
+    {
+      "label": "S_p5_positive",
+      "status": "PASS",
+      "detail": "S_5 = 1.640027"
+    },
+    {
+      "label": "S_p7_positive",
+      "status": "PASS",
+      "detail": "S_7 = 1.756696"
+    },
+    {
+      "label": "S_Polyakov_vertex",
+      "status": "PASS",
+      "value": 4.914699371220393,
+      "expected": 4.914699371220393,
+      "err_pct": 0.0,
+      "tol_pct": 0.001,
+      "unit": "",
+      "detail": "computed=4.9146994, expected=4.9146994, err=0.0000%, tol=0.001%"
+    },
+    {
+      "label": "S_edge_positive",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "alpha_from_action",
+      "status": "PASS",
+      "value": 0.007337923551856888,
+      "expected": 0.007337923551856888,
+      "err_pct": 0.0,
+      "tol_pct": 0.001,
+      "unit": "",
+      "detail": "computed=0.0073379236, expected=0.0073379236, err=0.0000%, tol=0.001%"
+    },
+    {
+      "label": "S_total_positive",
+      "status": "PASS",
+      "detail": "S_total = 11.5305 > S_vertex = 4.9147"
+    },
+    {
+      "label": "CRT_factorization",
+      "status": "PASS",
+      "value": 0.007337923551856888,
+      "expected": 0.007337923551856888,
+      "err_pct": 0.0,
+      "tol_pct": 0.001,
+      "unit": "",
+      "detail": "computed=0.0073379236, expected=0.0073379236, err=0.0000%, tol=0.001%"
+    },
+    {
+      "label": "gauge_couplings_derived",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "sin2_thetaW_tree",
+      "status": "PASS",
+      "value": 0.23770710276110069,
+      "expected": 0.2312,
+      "err_pct": 2.814491,
+      "tol_pct": 3.0,
+      "unit": "",
+      "detail": "computed=0.2377071, expected=0.2312, err=2.8145%, tol=3.0%"
+    },
+    {
+      "label": "lambda_H_positive",
+      "status": "PASS",
+      "detail": "lambda_H = 0.129452"
+    },
+    {
+      "label": "mass_p3_positive",
+      "status": "PASS",
+      "detail": "m_3 = 0.685552"
+    },
+    {
+      "label": "mass_p5_positive",
+      "status": "PASS",
+      "detail": "m_5 = 1.297405"
+    },
+    {
+      "label": "mass_p7_positive",
+      "status": "PASS",
+      "detail": "m_7 = 1.478244"
+    },
+    {
+      "label": "T1_diagonal_zero_p3",
+      "status": "PASS",
+      "detail": "T[1,1]=0.000000, T[2,2]=0.000000"
+    },
+    {
+      "label": "T1_diagonal_zero_p5",
+      "status": "PASS",
+      "detail": "T[1,1]=0.000000, T[2,2]=0.000000"
+    },
+    {
+      "label": "T1_diagonal_zero_p7",
+      "status": "PASS",
+      "detail": "T[1,1]=0.000000, T[2,2]=0.000000"
+    },
+    {
+      "label": "stochastic_p3",
+      "status": "PASS",
+      "detail": "max row deviation = 0.00e+00"
+    },
+    {
+      "label": "stochastic_p5",
+      "status": "PASS",
+      "detail": "max row deviation = 1.11e-16"
+    },
+    {
+      "label": "stochastic_p7",
+      "status": "PASS",
+      "detail": "max row deviation = 1.11e-16"
+    },
+    {
+      "label": "ward_eta_up_sum_zero",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "optical_theorem_N1",
+      "status": "PASS",
+      "detail": "deviation = 0.00e+00"
+    },
+    {
+      "label": "optical_theorem_N10",
+      "status": "PASS",
+      "detail": "deviation = 0.00e+00"
+    },
+    {
+      "label": "optical_theorem_N100",
+      "status": "PASS",
+      "detail": "deviation = 8.88e-16"
+    },
+    {
+      "label": "asymptotic_freedom_sin2",
+      "status": "PASS",
+      "detail": "sin^2(p) = ['0.2192', '0.1940', '0.1726']"
+    },
+    {
+      "label": "beta_0_sieve_QCD",
+      "status": "PASS",
+      "detail": "sieve: 23, QCD: 23"
+    },
+    {
+      "label": "DFT_complex_N5",
+      "status": "PASS",
+      "detail": "|Im(psi)| = ['0.0000e+00', '1.0820e-02', '1.0820e-02']"
+    },
+    {
+      "label": "DFT_complex_N20",
+      "status": "PASS",
+      "detail": "|Im(psi)| = ['0.0000e+00', '4.0288e-07', '4.0288e-07']"
+    },
+    {
+      "label": "DFT_parseval_bound",
+      "status": "PASS",
+      "detail": "sum|psi|^2 = 0.33333333"
+    },
+    {
+      "label": "resolvent_large_near_pole",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "feynman_propagator_complex",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "born_rule_stochastic",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "spectral_representation",
+      "status": "PASS",
+      "value": 8.326672684688674e-16,
+      "expected": 0.0,
+      "err_pct": 0.0,
+      "tol_pct": 0.001,
+      "unit": "",
+      "detail": "computed=8.3266727e-16, expected=0, err=0.0000%, tol=0.001%"
+    },
+    {
+      "label": "alpha_EM_derived",
+      "status": "PASS",
+      "value": 137.0359990834081,
+      "expected": 137.036,
+      "err_pct": 1e-06,
+      "tol_pct": 0.001,
+      "unit": "",
+      "detail": "computed=137.036, expected=137.036, err=0.0000%, tol=0.001%"
+    },
+    {
+      "label": "sin2_thetaW_derived",
+      "status": "PASS",
+      "value": 0.23118634732083215,
+      "expected": 0.23121,
+      "err_pct": 0.01023,
+      "tol_pct": 0.5,
+      "unit": "",
+      "detail": "computed=0.23118635, expected=0.23121, err=0.0102%, tol=0.5%"
+    },
+    {
+      "label": "m_Z_derived",
+      "status": "PASS",
+      "value": 91.18781529954985,
+      "expected": 91.1876,
+      "err_pct": 0.000236,
+      "tol_pct": 0.5,
+      "unit": "",
+      "detail": "computed=91.187815, expected=91.1876, err=0.0002%, tol=0.5%"
+    },
+    {
+      "label": "m_W_derived",
+      "status": "PASS",
+      "value": 80.36353164224086,
+      "expected": 80.369,
+      "err_pct": 0.006804,
+      "tol_pct": 0.5,
+      "unit": "",
+      "detail": "computed=80.363532, expected=80.369, err=0.0068%, tol=0.5%"
+    },
+    {
+      "label": "bhabha_positive",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "kappa_EW_mixing",
+      "status": "PASS",
+      "value": 1.495730484562795,
+      "expected": 1.495722392383646,
+      "err_pct": 0.000541,
+      "tol_pct": 1.0,
+      "unit": "",
+      "detail": "computed=1.4957305, expected=1.4957224, err=0.0005%, tol=1.0%"
+    },
+    {
+      "label": "Gamma_Z_total",
+      "status": "PASS",
+      "value": 2.481595837211612,
+      "expected": 2.4955,
+      "err_pct": 0.557169,
+      "tol_pct": 2.0,
+      "unit": "",
+      "detail": "computed=2.4815958, expected=2.4955, err=0.5572%, tol=2.0%"
+    },
+    {
+      "label": "A_FB_positive",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "koide_Q_leptons",
+      "status": "PASS",
+      "value": 0.6666605142989361,
+      "expected": 0.6666666666666666,
+      "err_pct": 0.000923,
+      "tol_pct": 0.01,
+      "unit": "",
+      "detail": "computed=0.66666051, expected=0.66666667, err=0.0009%, tol=0.01%"
+    },
+    {
+      "label": "Y_top_near_unity",
+      "status": "PASS",
+      "detail": "y_t = 0.9920"
+    },
+    {
+      "label": "R1_pattern",
+      "status": "PASS",
+      "value": 0.5,
+      "expected": 0.5,
+      "err_pct": 0.0,
+      "tol_pct": 0.001,
+      "unit": "",
+      "detail": "computed=0.5, expected=0.5, err=0.0000%, tol=0.001%"
+    },
+    {
+      "label": "R2_pattern",
+      "status": "PASS",
+      "value": 2.0,
+      "expected": 2.0,
+      "err_pct": 0.0,
+      "tol_pct": 0.001,
+      "unit": "",
+      "detail": "computed=2, expected=2, err=0.0000%, tol=0.001%"
+    },
+    {
+      "label": "R3_pattern",
+      "status": "PASS",
+      "value": 8.0,
+      "expected": 8.0,
+      "err_pct": 0.0,
+      "tol_pct": 0.001,
+      "unit": "",
+      "detail": "computed=8, expected=8, err=0.0000%, tol=0.001%"
+    },
+    {
+      "label": "CRT_product_105",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "gen1_prime_3",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "gen2_prime_5",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "gen3_prime_7",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "koide_ratio_positive",
+      "status": "PASS",
+      "detail": "bare mu/e = 207.3"
+    },
+    {
+      "label": "ghost_order4_negative",
+      "status": "PASS",
+      "detail": "delta_4 = -6.125104e-04"
+    },
+    {
+      "label": "ghost_order5_positive",
+      "status": "PASS",
+      "detail": "delta_5 = 1.902901e-06"
+    },
+    {
+      "label": "ghost_sign_alternation_all",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "ghost_geometric_convergence",
+      "status": "PASS",
+      "detail": "max |delta_{n+1}/delta_n| = 3.106725e-03"
+    },
+    {
+      "label": "ghost_absolute_convergence",
+      "status": "PASS",
+      "detail": "sum|delta_n| = 6.144191e-04, |delta_4| = 6.125104e-04"
+    },
+    {
+      "label": "ghost_residual_negligible",
+      "status": "PASS",
+      "detail": "sum|delta_6..10| = 5.85e-09"
+    },
+    {
+      "label": "OS1_regularity_p3",
+      "status": "PASS",
+      "detail": "max S_2 = 0.497449"
+    },
+    {
+      "label": "OS1_regularity_p5",
+      "status": "PASS",
+      "detail": "max S_2 = 0.243700"
+    },
+    {
+      "label": "OS1_regularity_p7",
+      "status": "PASS",
+      "detail": "max S_2 = 0.157062"
+    },
+    {
+      "label": "OS2_CRT_symmetry",
+      "status": "PASS",
+      "detail": "max|[T,sigma]| = 0.00e+00"
+    },
+    {
+      "label": "OS3_reflection_positivity",
+      "status": "PASS",
+      "detail": "min eigenvalue = -3.802866e-16"
+    },
+    {
+      "label": "OS4_permutation_symmetry",
+      "status": "PASS",
+      "value": 0.344988701865077,
+      "expected": 0.344988701865077,
+      "err_pct": 0.0,
+      "tol_pct": 0.001,
+      "unit": "",
+      "detail": "computed=0.3449887, expected=0.3449887, err=0.0000%, tol=0.001%"
+    },
+    {
+      "label": "OS5_spectral_gap_less_1",
+      "status": "PASS",
+      "detail": "|lambda_1| = 0.750000"
+    },
+    {
+      "label": "OS5_clustering_decay",
+      "status": "PASS",
+      "detail": "|S2_conn| = ['2.2812e-01', '2.1118e-02', '2.1237e-07', '1.2013e-13']"
+    },
+    {
+      "label": "OS5_convergence_ratio",
+      "status": "PASS",
+      "detail": "|conn(100)/conn(2)| = 0.0000"
+    },
+    {
+      "label": "ward_takahashi_bounded",
+      "status": "PASS",
+      "detail": "max|[G^-1, S]| = 0.0000"
+    },
+    {
+      "label": "spin_statistics_involution_squared",
+      "status": "PASS",
+      "detail": "sigma^2 = I"
+    },
+    {
+      "label": "crossing_symmetry",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "T3_has_fermionic_modes",
+      "status": "PASS",
+      "detail": "negative=2, complex=2"
+    },
+    {
+      "label": "sqrt_T_reconstruction",
+      "status": "PASS",
+      "detail": "max|A^2 - T| = 5.03e-16"
+    },
+    {
+      "label": "all_T_p_fermionic_modes",
+      "status": "PASS",
+      "detail": "T_3, T_5, T_7 all have negative/complex eigenvalues"
+    },
+    {
+      "label": "ghost_VP_fermionic_parity",
+      "status": "PASS",
+      "detail": "Ghost VP signs (-,+,-,...) = fermionic exchange parity"
+    },
+    {
+      "label": "phases_quantized",
+      "status": "PASS",
+      "detail": "phases = ['0.0', '86.5', '86.5'] deg"
+    },
+    {
+      "label": "resolvent_complex_phases",
+      "status": "PASS",
+      "detail": "G(z) for z in C yields non-trivial phases for all T_p"
+    },
+    {
+      "label": "DFT_phases_p3",
+      "status": "PASS",
+      "detail": "non-trivial Im(psi) for p=3, N=5"
+    },
+    {
+      "label": "DFT_phases_p5",
+      "status": "PASS",
+      "detail": "non-trivial Im(psi) for p=5, N=5"
+    },
+    {
+      "label": "DFT_phases_p7",
+      "status": "PASS",
+      "detail": "non-trivial Im(psi) for p=7, N=5"
+    },
+    {
+      "label": "born_rule_normalization",
+      "status": "PASS",
+      "detail": "sum P(i->j) = 1 for all initial states (Born = stochasticity)"
+    },
+    {
+      "label": "phase_coherence_CRT",
+      "status": "PASS",
+      "detail": "delta(3->7) = delta(3->5) + delta(5->7) mod 2pi"
+    },
+    {
+      "label": "resolvent_pole_at_1",
+      "status": "PASS",
+      "detail": "|G(1+1e-4)| = 10000.0"
+    },
+    {
+      "label": "axiom_s_half",
+      "status": "PASS",
+      "detail": "s = 1/2 (T1)"
+    },
+    {
+      "label": "D_spacetime_4",
+      "status": "PASS",
+      "detail": "D = 3+1 = 4"
+    },
+    {
+      "label": "N_c_3_R14",
+      "status": "PASS",
+      "detail": "N_c = 3, (N_c-1)(N_c-3) = 0"
+    },
+    {
+      "label": "C_F_derived",
+      "status": "PASS",
+      "detail": "C_F = 1.3333333333"
+    },
+    {
+      "label": "n_f_derived",
+      "status": "PASS",
+      "detail": "n_f = 15.0/3 = 5"
+    },
+    {
+      "label": "gamma_p_ordered",
+      "status": "PASS",
+      "detail": "gamma_3=0.807614 > gamma_5=0.696316 > gamma_7=0.595468"
+    },
+    {
+      "label": "eps_derived",
+      "status": "PASS",
+      "detail": "eps = 0.0133562119"
+    },
+    {
+      "label": "beta_ghost_derived",
+      "status": "PASS",
+      "detail": "beta_ghost = 0.10393080"
+    },
+    {
+      "label": "PROF_2",
+      "status": "PASS",
+      "detail": "PROF = 2 (D17: 2 involutions)"
+    },
+    {
+      "label": "beta_0_num_PT",
+      "status": "PASS",
+      "detail": "mu* + 2^3 = 15 + 8 = 23"
+    },
+    {
+      "label": "beta_0_QCD_coincidence",
+      "status": "PASS",
+      "detail": "PT: 23, QCD: 23"
+    },
+    {
+      "label": "N_c_from_primes",
+      "status": "PASS",
+      "detail": "N_c = |{3,5,7}| = 3"
+    },
+    {
+      "label": "n_f_from_mu_Nc",
+      "status": "PASS",
+      "detail": "n_f = 15.0/3 = 5"
+    },
+    {
+      "label": "ghost_11_coefficient",
+      "status": "PASS",
+      "detail": "gamma_11 = 0.425733 < s = 0.5"
+    },
+    {
+      "label": "Tr_T_sq_decreasing",
+      "status": "PASS",
+      "detail": "Tr(T_3^2)=1.4923 > Tr(T_5^2)=1.2185 > Tr(T_7^2)=1.0994"
+    },
+    {
+      "label": "E4_conjecture",
+      "status": "PASS",
+      "detail": "E4 = 2 * 5^4 = 1250"
+    },
+    {
+      "label": "E4_CMM_compatible",
+      "status": "PASS",
+      "detail": "E4_PT=1250, E4_CMM=1251.12, ecart=0.090%"
+    },
+    {
+      "label": "Newton_e1_p1",
+      "status": "PASS",
+      "detail": "e_1 = p_1 = 0.27527826"
+    },
+    {
+      "label": "E4_Stefan_Boltzmann",
+      "status": "PASS",
+      "detail": "PROF * n_f^(N_gen+1) = 2 * 5^4 = 1250"
+    },
+    {
+      "label": "E4_encadrement",
+      "status": "PASS",
+      "detail": "|E4-CMM| = 1.12"
+    },
+    {
+      "label": "Kirchhoff_sum_h",
+      "status": "PASS",
+      "detail": "sum(h_CMM) = -0.000100"
+    },
+    {
+      "label": "Vieta_penguin",
+      "status": "PASS",
+      "detail": "prod(a_5..a_8) = 0.022634"
+    },
+    {
+      "label": "mass_gap_T5",
+      "status": "PASS",
+      "detail": "m_5 = 1.297405"
+    },
+    {
+      "label": "mass_gap_T7",
+      "status": "PASS",
+      "detail": "m_7 = 1.478244"
+    },
+    {
+      "label": "mass_hierarchy",
+      "status": "PASS",
+      "detail": "m_3=0.6856 < m_5=1.2974 < m_7=1.4782 (larger p = heavier)"
+    },
+    {
+      "label": "fourier_propagator_well_defined",
+      "status": "PASS",
+      "detail": "|G(k=0)| = 1.000000"
+    },
+    {
+      "label": "UV_reg_q2_0.1",
+      "status": "PASS",
+      "detail": "G_PT(q2=0.1) = 0.999172"
+    },
+    {
+      "label": "UV_reg_q2_1.0",
+      "status": "PASS",
+      "detail": "G_PT(q2=1.0) = 0.991797"
+    },
+    {
+      "label": "UV_reg_q2_10.0",
+      "status": "PASS",
+      "detail": "G_PT(q2=10.0) = 0.925005"
+    },
+    {
+      "label": "UV_reg_q2_100.0",
+      "status": "PASS",
+      "detail": "G_PT(q2=100.0) = 0.599087"
+    },
+    {
+      "label": "CRT_105_propagator",
+      "status": "PASS",
+      "detail": "Z/105Z = Z/3Z x Z/5Z x Z/7Z"
+    },
+    {
+      "label": "moller_positive",
+      "status": "PASS",
+      "detail": "dsigma_Moller = 1.2040e+03 pb"
+    },
+    {
+      "label": "compton_positive",
+      "status": "PASS",
+      "detail": "sigma_Thomson ~ 2.4948e+05"
+    },
+    {
+      "label": "R_ratio_basic",
+      "status": "PASS",
+      "detail": "R(u,d) = 1.6667"
+    }
+  ],
+  "pt_version": "v7",
+  "zero_fitted_parameters": true
+}

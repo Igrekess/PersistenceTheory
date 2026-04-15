@@ -1,0 +1,14 @@
+# Persistence Theory -- Python dependencies
+# Install: pip install -r requirements.txt
+#
+# All PT constants are derived from s = 1/2 (zero fitted parameters).
+# These packages provide numerical/symbolic infrastructure only.
+
+numpy>=1.21
+scipy>=1.7
+sympy>=1.9
+mpmath>=1.2
+primesieve>=2.3
+
+# Test infrastructure
+pytest>=7.0

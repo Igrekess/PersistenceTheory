@@ -1,0 +1,239 @@
+{
+  "script": "proof_GFT",
+  "chapter": "ch04",
+  "timestamp": "2026-04-14T23:58:33.124270+00:00",
+  "duration_s": 0.735,
+  "n_pass": 41,
+  "n_fail": 0,
+  "n_total": 41,
+  "success": true,
+  "results": [
+    {
+      "label": "GFT_identity_p=3",
+      "status": "PASS",
+      "detail": "p=3: log_2(6) = 2.584963, D_KL + H = 1.019949 + 1.565014 = 2.584963, residual = 0.00e+00"
+    },
+    {
+      "label": "GFT_identity_p=5",
+      "status": "PASS",
+      "detail": "p=5: log_2(10) = 3.321928, D_KL + H = 1.030431 + 2.291497 = 3.321928, residual = 4.44e-16"
+    },
+    {
+      "label": "GFT_identity_p=7",
+      "status": "PASS",
+      "detail": "p=7: log_2(14) = 3.807355, D_KL + H = 1.069364 + 2.737991 = 3.807355, residual = 0.00e+00"
+    },
+    {
+      "label": "GFT_identity_p=11",
+      "status": "PASS",
+      "detail": "p=11: log_2(22) = 4.459432, D_KL + H = 1.202082 + 3.257349 = 4.459432, residual = 0.00e+00"
+    },
+    {
+      "label": "GFT_identity_p=13",
+      "status": "PASS",
+      "detail": "p=13: log_2(26) = 4.700440, D_KL + H = 1.279975 + 3.420465 = 4.700440, residual = 8.88e-16"
+    },
+    {
+      "label": "D_KL_nonneg_p=3",
+      "status": "PASS",
+      "detail": "D_KL = 1.02302862"
+    },
+    {
+      "label": "H_nonneg_p=3",
+      "status": "PASS",
+      "detail": "H = 1.56193388"
+    },
+    {
+      "label": "D_KL_nonneg_p=5",
+      "status": "PASS",
+      "detail": "D_KL = 1.02727619"
+    },
+    {
+      "label": "H_nonneg_p=5",
+      "status": "PASS",
+      "detail": "H = 2.29465191"
+    },
+    {
+      "label": "D_KL_nonneg_p=7",
+      "status": "PASS",
+      "detail": "D_KL = 1.06220093"
+    },
+    {
+      "label": "H_nonneg_p=7",
+      "status": "PASS",
+      "detail": "H = 2.74515400"
+    },
+    {
+      "label": "D_KL_nonneg_p=11",
+      "status": "PASS",
+      "detail": "D_KL = 1.18355217"
+    },
+    {
+      "label": "H_nonneg_p=11",
+      "status": "PASS",
+      "detail": "H = 3.27587945"
+    },
+    {
+      "label": "D_KL_nonneg_p=13",
+      "status": "PASS",
+      "detail": "D_KL = 1.25089315"
+    },
+    {
+      "label": "H_nonneg_p=13",
+      "status": "PASS",
+      "detail": "H = 3.44954657"
+    },
+    {
+      "label": "D_KL_nonneg_p=17",
+      "status": "PASS",
+      "detail": "D_KL = 1.41157397"
+    },
+    {
+      "label": "H_nonneg_p=17",
+      "status": "PASS",
+      "detail": "H = 3.67588887"
+    },
+    {
+      "label": "D_KL_nonneg_p=19",
+      "status": "PASS",
+      "detail": "D_KL = 1.50022158"
+    },
+    {
+      "label": "H_nonneg_p=19",
+      "status": "PASS",
+      "detail": "H = 3.74770594"
+    },
+    {
+      "label": "D_KL_nonneg_p=23",
+      "status": "PASS",
+      "detail": "D_KL = 1.68229749"
+    },
+    {
+      "label": "H_nonneg_p=23",
+      "status": "PASS",
+      "detail": "H = 3.84126446"
+    },
+    {
+      "label": "Q_positive_p=3",
+      "status": "PASS",
+      "detail": "D_KL(P_gaps || P_geom) = 0.067715 bits at p=3"
+    },
+    {
+      "label": "Q_positive_p=5",
+      "status": "PASS",
+      "detail": "D_KL(P_gaps || P_geom) = 0.010905 bits at p=5"
+    },
+    {
+      "label": "Q_positive_p=7",
+      "status": "PASS",
+      "detail": "D_KL(P_gaps || P_geom) = 0.032659 bits at p=7"
+    },
+    {
+      "label": "Q_positive_p=11",
+      "status": "PASS",
+      "detail": "D_KL(P_gaps || P_geom) = 0.047627 bits at p=11"
+    },
+    {
+      "label": "Q_all_positive",
+      "status": "PASS",
+      "detail": "D_KL > 0 at all tested sieve levels"
+    },
+    {
+      "label": "bekenstein_budget_p=3",
+      "status": "PASS",
+      "detail": "I_max - (D_KL + H) = 0.00e+00"
+    },
+    {
+      "label": "bekenstein_budget_p=5",
+      "status": "PASS",
+      "detail": "I_max - (D_KL + H) = 0.00e+00"
+    },
+    {
+      "label": "bekenstein_budget_p=7",
+      "status": "PASS",
+      "detail": "I_max - (D_KL + H) = 0.00e+00"
+    },
+    {
+      "label": "bekenstein_budget_p=11",
+      "status": "PASS",
+      "detail": "I_max - (D_KL + H) = 0.00e+00"
+    },
+    {
+      "label": "bekenstein_budget_p=13",
+      "status": "PASS",
+      "detail": "I_max - (D_KL + H) = 8.88e-16"
+    },
+    {
+      "label": "bekenstein_budget_p=17",
+      "status": "PASS",
+      "detail": "I_max - (D_KL + H) = 0.00e+00"
+    },
+    {
+      "label": "bekenstein_budget_p=19",
+      "status": "PASS",
+      "detail": "I_max - (D_KL + H) = 0.00e+00"
+    },
+    {
+      "label": "bekenstein_structure_positive",
+      "status": "PASS",
+      "detail": "structural information D_KL > 0 at all scales (primes are never uniform)"
+    },
+    {
+      "label": "ruelle_spectral_radius_beta0",
+      "status": "PASS",
+      "value": 1.0,
+      "expected": 1.0,
+      "err_pct": 0.0,
+      "tol_pct": 0.001,
+      "unit": "spectral_radius",
+      "detail": "computed=1, expected=1, err=0.0000%, tol=0.001% [spectral_radius]"
+    },
+    {
+      "label": "ruelle_spectral_gap_T3",
+      "status": "PASS",
+      "value": 2.0,
+      "expected": 2.0,
+      "err_pct": 0.0,
+      "tol_pct": 0.001,
+      "unit": "gap",
+      "detail": "computed=2, expected=2, err=0.0000%, tol=0.001% [gap]"
+    },
+    {
+      "label": "pressure_beta0",
+      "status": "PASS",
+      "value": 1.0,
+      "expected": 1.0,
+      "err_pct": 0.0,
+      "tol_pct": 0.001,
+      "unit": "",
+      "detail": "computed=1, expected=1, err=0.0000%, tol=0.001%"
+    },
+    {
+      "label": "ruelle_P_beta_positive",
+      "status": "PASS",
+      "detail": "P(beta=0.1) = 0.150000 > 0"
+    },
+    {
+      "label": "ruelle_gap_positive",
+      "status": "PASS",
+      "detail": "spectral gap at beta=0.1: 0.000000 > 0"
+    },
+    {
+      "label": "T_full_leading_eigenvalue",
+      "status": "PASS",
+      "value": 0.9999999999999996,
+      "expected": 1.0,
+      "err_pct": 0.0,
+      "tol_pct": 0.01,
+      "unit": "eigenvalue",
+      "detail": "computed=1, expected=1, err=0.0000%, tol=0.01% [eigenvalue]"
+    },
+    {
+      "label": "T_full_lambda2_bounded",
+      "status": "PASS",
+      "detail": "|lambda_2| = 0.053573 < 1 (mixing guaranteed)"
+    }
+  ],
+  "pt_version": "v7",
+  "zero_fitted_parameters": true
+}

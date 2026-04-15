@@ -1,0 +1,79 @@
+{
+  "script": "proof_C14_thermo_limit",
+  "chapter": "ch22_chemistry",
+  "timestamp": "2026-04-14T23:59:07.806621+00:00",
+  "duration_s": 0.0,
+  "n_pass": 13,
+  "n_fail": 0,
+  "n_total": 13,
+  "success": true,
+  "results": [
+    {
+      "label": "Symmetric cell: eigenvalues = +/- t",
+      "status": "PASS",
+      "detail": "lambda+ = 1.000000, lambda- = -1.000000"
+    },
+    {
+      "label": "Pure ionic (t=0): eigenvalues = eps_A, eps_B",
+      "status": "PASS",
+      "detail": "lambda+ = 3.000000, lambda- = -1.000000"
+    },
+    {
+      "label": "General cell: gap = 2*sqrt(deltaIE^2 + t^2)",
+      "status": "PASS",
+      "detail": "gap = 4.242641, expected = 4.242641"
+    },
+    {
+      "label": "Si-like (covalent): spectral = Pythagorean",
+      "status": "PASS",
+      "detail": "spectral = 1.120000, Pythag = 1.120000"
+    },
+    {
+      "label": "GaAs-like (mixed): spectral = Pythagorean",
+      "status": "PASS",
+      "detail": "spectral = 1.408687, Pythag = 1.408687"
+    },
+    {
+      "label": "NaCl-like (ionic): spectral = Pythagorean",
+      "status": "PASS",
+      "detail": "spectral = 8.503346, Pythag = 8.503346"
+    },
+    {
+      "label": "cos^2(theta_3) vs Phillips (< 1%)",
+      "status": "PASS",
+      "detail": "PT = 0.7808, Phillips = 0.785, dev = 0.53%"
+    },
+    {
+      "label": "cos^2(theta_3) in [0.77, 0.79]",
+      "status": "PASS",
+      "detail": "cos2_3 = 0.780845"
+    },
+    {
+      "label": "Matrix ionicity = cos^2(theta_3) when deltaIE/t = cot(theta_3)",
+      "status": "PASS",
+      "detail": "f_i(matrix) = 0.780845, cos2_3 = 0.780845"
+    },
+    {
+      "label": "DOS near band edge >> DOS at center (Van Hove divergence)",
+      "status": "PASS",
+      "detail": "DOS(edge+eps) = 14.96, DOS(center) = 0.4472"
+    },
+    {
+      "label": "DOS outside band = None",
+      "status": "PASS",
+      "detail": "E > lambda_+ => no states"
+    },
+    {
+      "label": "Spectral gap increases monotonically with N",
+      "status": "PASS",
+      "detail": "gaps: ['4.332382', '4.437197', '4.463401', '4.469952']..."
+    },
+    {
+      "label": "Gap at N=128 within 0.01% of bulk",
+      "status": "PASS",
+      "detail": "gap(128) = 4.47199948, bulk = 4.47213595, dev = 0.0031%"
+    }
+  ],
+  "pt_version": "v7",
+  "zero_fitted_parameters": true
+}

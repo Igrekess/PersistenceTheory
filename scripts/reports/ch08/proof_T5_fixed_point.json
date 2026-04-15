@@ -1,0 +1,214 @@
+{
+  "script": "proof_T5_fixed_point",
+  "chapter": "ch08",
+  "timestamp": "2026-04-14T23:58:54.611041+00:00",
+  "duration_s": 0.064,
+  "n_pass": 33,
+  "n_fail": 0,
+  "n_total": 33,
+  "success": true,
+  "results": [
+    {
+      "label": "gamma_3_active",
+      "status": "PASS",
+      "detail": "gamma_3 = 0.807614 > s = 0.5"
+    },
+    {
+      "label": "gamma_5_active",
+      "status": "PASS",
+      "detail": "gamma_5 = 0.696316 > s = 0.5"
+    },
+    {
+      "label": "gamma_7_active",
+      "status": "PASS",
+      "detail": "gamma_7 = 0.595468 > s = 0.5"
+    },
+    {
+      "label": "gamma_11_ghost",
+      "status": "PASS",
+      "detail": "gamma_11 = 0.425733 < s = 0.5"
+    },
+    {
+      "label": "gamma_13_ghost",
+      "status": "PASS",
+      "detail": "gamma_13 = 0.356241 < s = 0.5"
+    },
+    {
+      "label": "gamma_hierarchy",
+      "status": "PASS",
+      "detail": "gamma_3=0.8076 > gamma_5=0.6963 > gamma_7=0.5955 > 0.5 > gamma_11=0.4257"
+    },
+    {
+      "label": "gamma_7_exact_gt_half",
+      "status": "PASS",
+      "detail": "gamma_7 - 1/2 = 0.095468 > 0 (exact rational)"
+    },
+    {
+      "label": "gamma_11_exact_lt_half",
+      "status": "PASS",
+      "detail": "gamma_11 - 1/2 = -0.074267 < 0 (exact rational)"
+    },
+    {
+      "label": "active_set_is_357",
+      "status": "PASS",
+      "detail": "active primes = [3, 5, 7]"
+    },
+    {
+      "label": "fixed_point_sum",
+      "status": "PASS",
+      "detail": "sum([3, 5, 7]) = 15"
+    },
+    {
+      "label": "q_plus_13_over_15",
+      "status": "PASS",
+      "value": 0.8666666666666667,
+      "expected": 0.8666666666666667,
+      "err_pct": 0.0,
+      "tol_pct": 0.001,
+      "unit": "= 1 - 2/mu*",
+      "detail": "computed=0.86666667, expected=0.86666667, err=0.0000%, tol=0.001% [= 1 - 2/mu*]"
+    },
+    {
+      "label": "q_plus_exact_fraction",
+      "status": "PASS",
+      "detail": "1 - 2/15 = 13/15 = 13/15"
+    },
+    {
+      "label": "mu15_is_fixed_point",
+      "status": "PASS",
+      "detail": "mu* = 15 found in exhaustive search"
+    },
+    {
+      "label": "mu15_is_smallest",
+      "status": "PASS",
+      "detail": "smallest fixed point = 15, subset = [3, 5, 7]"
+    },
+    {
+      "label": "smallest_subset_357",
+      "status": "PASS",
+      "detail": "active set = [3, 5, 7]"
+    },
+    {
+      "label": "mu17_active_set",
+      "status": "PASS",
+      "detail": "active = [2, 3, 5, 7]"
+    },
+    {
+      "label": "mu17_fixed_point",
+      "status": "PASS",
+      "detail": "sum([2, 3, 5, 7]) = 17"
+    },
+    {
+      "label": "mu15_active_set_exact",
+      "status": "PASS",
+      "detail": "active odd primes = [3, 5, 7]"
+    },
+    {
+      "label": "mu15_fixed_point_exact",
+      "status": "PASS",
+      "detail": "sum([3, 5, 7]) = 15"
+    },
+    {
+      "label": "mu17_in_total_fp",
+      "status": "PASS",
+      "detail": "mu=17 is a fixed point of equation A (all primes)"
+    },
+    {
+      "label": "mu15_in_odd_fp",
+      "status": "PASS",
+      "detail": "mu=15 is a fixed point of equation B (odd primes)"
+    },
+    {
+      "label": "mu15_is_unique_odd_fp",
+      "status": "PASS",
+      "detail": "mu=15 is the UNIQUE odd-prime fixed point in [3,100]"
+    },
+    {
+      "label": "delta_1_over_alpha",
+      "status": "PASS",
+      "value": 42.04131622239203,
+      "expected": 42.0,
+      "err_pct": 0.098372,
+      "tol_pct": 0.2,
+      "unit": "= 1/alpha(17) - 1/alpha(15)",
+      "detail": "computed=42.041316, expected=42, err=0.0984%, tol=0.2% [= 1/alpha(17) - 1/alpha(15)]"
+    },
+    {
+      "label": "42_equals_2x3x7",
+      "status": "PASS",
+      "detail": "42 = 2*3*7"
+    },
+    {
+      "label": "42_equals_210_over_5",
+      "status": "PASS",
+      "detail": "42 = primorial({2,3,5,7})/p_central = 210/5"
+    },
+    {
+      "label": "inv_alpha_15",
+      "status": "PASS",
+      "value": 136.27833445429476,
+      "expected": 136.28,
+      "err_pct": 0.001222,
+      "tol_pct": 0.05,
+      "unit": "bare alpha at mu=15",
+      "detail": "computed=136.27833, expected=136.28, err=0.0012%, tol=0.05% [bare alpha at mu=15]"
+    },
+    {
+      "label": "inv_alpha_17",
+      "status": "PASS",
+      "value": 178.3196506766868,
+      "expected": 178.33,
+      "err_pct": 0.005803,
+      "tol_pct": 0.05,
+      "unit": "bare alpha at mu=17",
+      "detail": "computed=178.31965, expected=178.33, err=0.0058%, tol=0.05% [bare alpha at mu=17]"
+    },
+    {
+      "label": "stability_lower",
+      "status": "PASS",
+      "value": 11.63002937973539,
+      "expected": 11.63,
+      "err_pct": 0.000253,
+      "tol_pct": 1.0,
+      "unit": "gamma_7 = 1/2",
+      "detail": "computed=11.630029, expected=11.63, err=0.0003%, tol=1.0% [gamma_7 = 1/2]"
+    },
+    {
+      "label": "stability_upper",
+      "status": "PASS",
+      "value": 17.975224690877383,
+      "expected": 17.98,
+      "err_pct": 0.026559,
+      "tol_pct": 1.0,
+      "unit": "gamma_11 = 1/2",
+      "detail": "computed=17.975225, expected=17.98, err=0.0266%, tol=1.0% [gamma_11 = 1/2]"
+    },
+    {
+      "label": "mu15_inside_band",
+      "status": "PASS",
+      "detail": "15 in [11.63, 17.98]"
+    },
+    {
+      "label": "jacobian_near_zero",
+      "status": "PASS",
+      "detail": "|dPhi/dmu| = 0.000000 (super-stable: near zero)"
+    },
+    {
+      "label": "mertens_ratio_10000",
+      "status": "PASS",
+      "value": 0.9987697373973717,
+      "expected": 1.0,
+      "err_pct": 0.123026,
+      "tol_pct": 5.0,
+      "unit": "prod(1-1/p) / (e^-gamma/ln p)",
+      "detail": "computed=0.99876974, expected=1, err=0.1230%, tol=5.0% [prod(1-1/p) / (e^-gamma/ln p)]"
+    },
+    {
+      "label": "mertens_converging",
+      "status": "PASS",
+      "detail": "ratios = ['0.98686', '0.99186', '0.99613', '0.99841', '0.99877']"
+    }
+  ],
+  "pt_version": "v7",
+  "zero_fitted_parameters": true
+}

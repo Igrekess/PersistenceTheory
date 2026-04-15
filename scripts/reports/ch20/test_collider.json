@@ -1,0 +1,659 @@
+{
+  "script": "test_collider",
+  "chapter": "ch20",
+  "timestamp": "2026-04-14T23:59:04.572226+00:00",
+  "duration_s": 0.001,
+  "n_pass": 71,
+  "n_fail": 0,
+  "n_total": 71,
+  "success": true,
+  "results": [
+    {
+      "label": "m_Z",
+      "status": "PASS",
+      "value": 91.18781529954985,
+      "expected": 91.1876,
+      "err_pct": 0.000236,
+      "tol_pct": 0.5,
+      "unit": "GeV",
+      "detail": "computed=91.187815, expected=91.1876, err=0.0002%, tol=0.5% [GeV]"
+    },
+    {
+      "label": "Gamma_Z",
+      "status": "PASS",
+      "value": 2.4853388269717067,
+      "expected": 2.4955,
+      "err_pct": 0.40718,
+      "tol_pct": 2.0,
+      "unit": "GeV",
+      "detail": "computed=2.4853388, expected=2.4955, err=0.4072%, tol=2.0% [GeV]"
+    },
+    {
+      "label": "sigma_had0",
+      "status": "PASS",
+      "value": 41.42112608128533,
+      "expected": 41.541,
+      "err_pct": 0.288568,
+      "tol_pct": 2.0,
+      "unit": "nb",
+      "detail": "computed=41.421126, expected=41.541, err=0.2886%, tol=2.0% [nb]"
+    },
+    {
+      "label": "R_l",
+      "status": "PASS",
+      "value": 20.829844220046926,
+      "expected": 20.767,
+      "err_pct": 0.302616,
+      "tol_pct": 1.5,
+      "unit": "",
+      "detail": "computed=20.829844, expected=20.767, err=0.3026%, tol=1.5%"
+    },
+    {
+      "label": "Gamma_ee",
+      "status": "PASS",
+      "value": 83.41167113699464,
+      "expected": 83.984,
+      "err_pct": 0.681474,
+      "tol_pct": 2.0,
+      "unit": "MeV",
+      "detail": "computed=83.411671, expected=83.984, err=0.6815%, tol=2.0% [MeV]"
+    },
+    {
+      "label": "Gamma_inv",
+      "status": "PASS",
+      "value": 497.65169764333956,
+      "expected": 499.0,
+      "err_pct": 0.270201,
+      "tol_pct": 2.0,
+      "unit": "MeV",
+      "detail": "computed=497.6517, expected=499, err=0.2702%, tol=2.0% [MeV]"
+    },
+    {
+      "label": "N_nu",
+      "status": "PASS",
+      "value": 3.0,
+      "expected": 2.9963,
+      "err_pct": 0.123486,
+      "tol_pct": 0.5,
+      "unit": "",
+      "detail": "computed=3, expected=2.9963, err=0.1235%, tol=0.5%"
+    },
+    {
+      "label": "sin2_theta_eff",
+      "status": "PASS",
+      "value": 0.23118634732083215,
+      "expected": 0.23153,
+      "err_pct": 0.148427,
+      "tol_pct": 0.5,
+      "unit": "",
+      "detail": "computed=0.23118635, expected=0.23153, err=0.1484%, tol=0.5%"
+    },
+    {
+      "label": "m_W",
+      "status": "PASS",
+      "value": 80.36353164224086,
+      "expected": 80.3692,
+      "err_pct": 0.007053,
+      "tol_pct": 0.5,
+      "unit": "GeV",
+      "detail": "computed=80.363532, expected=80.3692, err=0.0071%, tol=0.5% [GeV]"
+    },
+    {
+      "label": "1_over_alpha_EM",
+      "status": "PASS",
+      "value": 137.0359990834081,
+      "expected": 137.036,
+      "err_pct": 1e-06,
+      "tol_pct": 0.01,
+      "unit": "",
+      "detail": "computed=137.036, expected=137.036, err=0.0000%, tol=0.01%"
+    },
+    {
+      "label": "alpha_s_mZ",
+      "status": "PASS",
+      "value": 0.1180567172279475,
+      "expected": 0.118,
+      "err_pct": 0.048065,
+      "tol_pct": 1.0,
+      "unit": "",
+      "detail": "computed=0.11805672, expected=0.118, err=0.0481%, tol=1.0%"
+    },
+    {
+      "label": "G_F",
+      "status": "PASS",
+      "value": 1.1663796103662725,
+      "expected": 1.1663788,
+      "err_pct": 6.9e-05,
+      "tol_pct": 0.1,
+      "unit": "10^-5 GeV^-2",
+      "detail": "computed=1.1663796, expected=1.1663788, err=0.0001%, tol=0.1% [10^-5 GeV^-2]"
+    },
+    {
+      "label": "m_H",
+      "status": "PASS",
+      "value": 125.28724853598781,
+      "expected": 125.25,
+      "err_pct": 0.029739,
+      "tol_pct": 0.5,
+      "unit": "GeV",
+      "detail": "computed=125.28725, expected=125.25, err=0.0297%, tol=0.5% [GeV]"
+    },
+    {
+      "label": "m_top",
+      "status": "PASS",
+      "value": 172.69829432424154,
+      "expected": 172.57,
+      "err_pct": 0.074343,
+      "tol_pct": 0.5,
+      "unit": "GeV",
+      "detail": "computed=172.69829, expected=172.57, err=0.0743%, tol=0.5% [GeV]"
+    },
+    {
+      "label": "Br_H_bb_dominant",
+      "status": "PASS",
+      "detail": "H->bb is dominant fermionic decay"
+    },
+    {
+      "label": "Br_H_WW_subdominant",
+      "status": "PASS",
+      "detail": "H->WW* > H->gamgam (hierarchy correct)"
+    },
+    {
+      "label": "Br_H_gamgam_rare",
+      "status": "PASS",
+      "detail": "Br(H->gamgam) = 0.13% < 1% (rare)"
+    },
+    {
+      "label": "Br_H_gg_loop",
+      "status": "PASS",
+      "detail": "H->gg loop induced (top loop) nonzero"
+    },
+    {
+      "label": "Gamma_t",
+      "status": "PASS",
+      "value": 1.3059928700386803,
+      "expected": 1.42,
+      "err_pct": 8.028671,
+      "tol_pct": 10.0,
+      "unit": "GeV",
+      "detail": "computed=1.3059929, expected=1.42, err=8.0287%, tol=10.0% [GeV]"
+    },
+    {
+      "label": "A_FB_l",
+      "status": "PASS",
+      "value": 0.016798956916565348,
+      "expected": 0.0171,
+      "err_pct": 1.760486,
+      "tol_pct": 5.0,
+      "unit": "",
+      "detail": "computed=0.016798957, expected=0.0171, err=1.7605%, tol=5.0%"
+    },
+    {
+      "label": "A_FB_b",
+      "status": "PASS",
+      "value": 0.10108574617636827,
+      "expected": 0.0992,
+      "err_pct": 1.900954,
+      "tol_pct": 5.0,
+      "unit": "",
+      "detail": "computed=0.10108575, expected=0.0992, err=1.9010%, tol=5.0%"
+    },
+    {
+      "label": "A_FB_c",
+      "status": "PASS",
+      "value": 0.07223442677884859,
+      "expected": 0.0707,
+      "err_pct": 2.170335,
+      "tol_pct": 5.0,
+      "unit": "",
+      "detail": "computed=0.072234427, expected=0.0707, err=2.1703%, tol=5.0%"
+    },
+    {
+      "label": "R_b",
+      "status": "PASS",
+      "value": 0.2197004383214842,
+      "expected": 0.21629,
+      "err_pct": 1.57679,
+      "tol_pct": 2.0,
+      "unit": "",
+      "detail": "computed=0.21970044, expected=0.21629, err=1.5768%, tol=2.0%"
+    },
+    {
+      "label": "R_c",
+      "status": "PASS",
+      "value": 0.17044934251777374,
+      "expected": 0.1721,
+      "err_pct": 0.959127,
+      "tol_pct": 2.0,
+      "unit": "",
+      "detail": "computed=0.17044934, expected=0.1721, err=0.9591%, tol=2.0%"
+    },
+    {
+      "label": "V_ud",
+      "status": "PASS",
+      "value": 0.9738584905152499,
+      "expected": 0.97373,
+      "err_pct": 0.013196,
+      "tol_pct": 0.5,
+      "unit": "",
+      "detail": "computed=0.97385849, expected=0.97373, err=0.0132%, tol=0.5%"
+    },
+    {
+      "label": "V_us",
+      "status": "PASS",
+      "value": 0.22421395231987395,
+      "expected": 0.2243,
+      "err_pct": 0.038363,
+      "tol_pct": 1.0,
+      "unit": "",
+      "detail": "computed=0.22421395, expected=0.2243, err=0.0384%, tol=1.0%"
+    },
+    {
+      "label": "V_ub",
+      "status": "PASS",
+      "value": 0.0038144378833439413,
+      "expected": 0.00382,
+      "err_pct": 0.145605,
+      "tol_pct": 5.0,
+      "unit": "",
+      "detail": "computed=0.0038144379, expected=0.00382, err=0.1456%, tol=5.0%"
+    },
+    {
+      "label": "V_cd",
+      "status": "PASS",
+      "value": 0.2210722366437628,
+      "expected": 0.221,
+      "err_pct": 0.032686,
+      "tol_pct": 2.0,
+      "unit": "",
+      "detail": "computed=0.22107224, expected=0.221, err=0.0327%, tol=2.0%"
+    },
+    {
+      "label": "V_cs",
+      "status": "PASS",
+      "value": 0.9744058744788537,
+      "expected": 0.975,
+      "err_pct": 0.060936,
+      "tol_pct": 1.0,
+      "unit": "",
+      "detail": "computed=0.97440587, expected=0.975, err=0.0609%, tol=1.0%"
+    },
+    {
+      "label": "V_cb",
+      "status": "PASS",
+      "value": 0.04074626322037984,
+      "expected": 0.0408,
+      "err_pct": 0.131708,
+      "tol_pct": 5.0,
+      "unit": "",
+      "detail": "computed=0.040746263, expected=0.0408, err=0.1317%, tol=5.0%"
+    },
+    {
+      "label": "V_td",
+      "status": "PASS",
+      "value": 0.007998629875803477,
+      "expected": 0.008,
+      "err_pct": 0.017127,
+      "tol_pct": 5.0,
+      "unit": "",
+      "detail": "computed=0.0079986299, expected=0.008, err=0.0171%, tol=5.0%"
+    },
+    {
+      "label": "V_ts",
+      "status": "PASS",
+      "value": 0.038811426048137886,
+      "expected": 0.0388,
+      "err_pct": 0.029449,
+      "tol_pct": 5.0,
+      "unit": "",
+      "detail": "computed=0.038811426, expected=0.0388, err=0.0294%, tol=5.0%"
+    },
+    {
+      "label": "V_tb",
+      "status": "PASS",
+      "value": 0.999214539089689,
+      "expected": 0.9991,
+      "err_pct": 0.011464,
+      "tol_pct": 0.5,
+      "unit": "",
+      "detail": "computed=0.99921454, expected=0.9991, err=0.0115%, tol=0.5%"
+    },
+    {
+      "label": "sin2_th12",
+      "status": "PASS",
+      "value": 0.3036841415194239,
+      "expected": 0.304,
+      "err_pct": 0.103901,
+      "tol_pct": 5.0,
+      "unit": "",
+      "detail": "computed=0.30368414, expected=0.304, err=0.1039%, tol=5.0%"
+    },
+    {
+      "label": "sin2_th13",
+      "status": "PASS",
+      "value": 0.022216298026920815,
+      "expected": 0.0222,
+      "err_pct": 0.073415,
+      "tol_pct": 5.0,
+      "unit": "",
+      "detail": "computed=0.022216298, expected=0.0222, err=0.0734%, tol=5.0%"
+    },
+    {
+      "label": "sin2_th23",
+      "status": "PASS",
+      "value": 0.5732521420592291,
+      "expected": 0.573,
+      "err_pct": 0.044004,
+      "tol_pct": 5.0,
+      "unit": "",
+      "detail": "computed=0.57325214, expected=0.573, err=0.0440%, tol=5.0%"
+    },
+    {
+      "label": "delta_CP_PMNS",
+      "status": "PASS",
+      "value": 197.35828071576714,
+      "expected": 197.0,
+      "err_pct": 0.181868,
+      "tol_pct": 5.0,
+      "unit": "deg",
+      "detail": "computed=197.35828, expected=197, err=0.1819%, tol=5.0% [deg]"
+    },
+    {
+      "label": "Dm31_sq",
+      "status": "PASS",
+      "value": 0.002514329891435153,
+      "expected": 0.00251,
+      "err_pct": 0.172506,
+      "tol_pct": 5.0,
+      "unit": "eV^2",
+      "detail": "computed=0.0025143299, expected=0.00251, err=0.1725%, tol=5.0% [eV^2]"
+    },
+    {
+      "label": "Dm21_sq",
+      "status": "PASS",
+      "value": 7.411645067112687e-05,
+      "expected": 7.42e-05,
+      "err_pct": 0.1126,
+      "tol_pct": 5.0,
+      "unit": "eV^2",
+      "detail": "computed=7.4116451e-05, expected=7.42e-05, err=0.1126%, tol=5.0% [eV^2]"
+    },
+    {
+      "label": "m_nu3",
+      "status": "PASS",
+      "value": 0.050475376261807134,
+      "expected": 0.0507,
+      "err_pct": 0.443045,
+      "tol_pct": 5.0,
+      "unit": "eV",
+      "detail": "computed=0.050475376, expected=0.0507, err=0.4430%, tol=5.0% [eV]"
+    },
+    {
+      "label": "m_e",
+      "status": "PASS",
+      "value": 0.51099895,
+      "expected": 0.511,
+      "err_pct": 0.000205,
+      "tol_pct": 0.01,
+      "unit": "MeV",
+      "detail": "computed=0.51099895, expected=0.511, err=0.0002%, tol=0.01% [MeV]"
+    },
+    {
+      "label": "m_mu",
+      "status": "PASS",
+      "value": 105.65837569318882,
+      "expected": 105.658,
+      "err_pct": 0.000356,
+      "tol_pct": 0.5,
+      "unit": "MeV",
+      "detail": "computed=105.65838, expected=105.658, err=0.0004%, tol=0.5% [MeV]"
+    },
+    {
+      "label": "m_tau",
+      "status": "PASS",
+      "value": 1776.860052940951,
+      "expected": 1776.86,
+      "err_pct": 3e-06,
+      "tol_pct": 0.5,
+      "unit": "MeV",
+      "detail": "computed=1776.8601, expected=1776.86, err=0.0000%, tol=0.5% [MeV]"
+    },
+    {
+      "label": "m_mu_over_m_e",
+      "status": "PASS",
+      "value": 206.76828336572675,
+      "expected": 206.768,
+      "err_pct": 0.000137,
+      "tol_pct": 0.1,
+      "unit": "",
+      "detail": "computed=206.76828, expected=206.768, err=0.0001%, tol=0.1%"
+    },
+    {
+      "label": "m_tau_over_m_mu",
+      "status": "PASS",
+      "value": 16.81702980273522,
+      "expected": 16.817,
+      "err_pct": 0.000177,
+      "tol_pct": 0.5,
+      "unit": "",
+      "detail": "computed=16.81703, expected=16.817, err=0.0002%, tol=0.5%"
+    },
+    {
+      "label": "m_u",
+      "status": "PASS",
+      "value": 2.1562757958986403,
+      "expected": 2.16,
+      "err_pct": 0.172417,
+      "tol_pct": 5.0,
+      "unit": "MeV",
+      "detail": "computed=2.1562758, expected=2.16, err=0.1724%, tol=5.0% [MeV]"
+    },
+    {
+      "label": "m_d",
+      "status": "PASS",
+      "value": 4.656414090080907,
+      "expected": 4.67,
+      "err_pct": 0.290919,
+      "tol_pct": 5.0,
+      "unit": "MeV",
+      "detail": "computed=4.6564141, expected=4.67, err=0.2909%, tol=5.0% [MeV]"
+    },
+    {
+      "label": "m_s",
+      "status": "PASS",
+      "value": 93.39503873129073,
+      "expected": 93.4,
+      "err_pct": 0.005312,
+      "tol_pct": 5.0,
+      "unit": "MeV",
+      "detail": "computed=93.395039, expected=93.4, err=0.0053%, tol=5.0% [MeV]"
+    },
+    {
+      "label": "m_c",
+      "status": "PASS",
+      "value": 1272.4197207850825,
+      "expected": 1270.0,
+      "err_pct": 0.190529,
+      "tol_pct": 3.0,
+      "unit": "MeV",
+      "detail": "computed=1272.4197, expected=1270, err=0.1905%, tol=3.0% [MeV]"
+    },
+    {
+      "label": "m_b",
+      "status": "PASS",
+      "value": 4164.768351202566,
+      "expected": 4180.0,
+      "err_pct": 0.364394,
+      "tol_pct": 3.0,
+      "unit": "MeV",
+      "detail": "computed=4164.7684, expected=4180, err=0.3644%, tol=3.0% [MeV]"
+    },
+    {
+      "label": "m_t_MeV",
+      "status": "PASS",
+      "value": 172698.29432424155,
+      "expected": 172760.0,
+      "err_pct": 0.035718,
+      "tol_pct": 0.5,
+      "unit": "MeV",
+      "detail": "computed=172698.29, expected=172760, err=0.0357%, tol=0.5% [MeV]"
+    },
+    {
+      "label": "N_c",
+      "status": "PASS",
+      "value": 3.0,
+      "expected": 3.0,
+      "err_pct": 0.0,
+      "tol_pct": 0.01,
+      "unit": "",
+      "detail": "computed=3, expected=3, err=0.0000%, tol=0.01%"
+    },
+    {
+      "label": "N_gen",
+      "status": "PASS",
+      "value": 3.0,
+      "expected": 3.0,
+      "err_pct": 0.0,
+      "tol_pct": 0.01,
+      "unit": "",
+      "detail": "computed=3, expected=3, err=0.0000%, tol=0.01%"
+    },
+    {
+      "label": "theta_QCD_zero",
+      "status": "PASS",
+      "detail": "theta_QCD = 0 exact (T real)"
+    },
+    {
+      "label": "sigma_QCD",
+      "status": "PASS",
+      "value": 0.19419893531448074,
+      "expected": 0.18,
+      "err_pct": 7.888297,
+      "tol_pct": 15.0,
+      "unit": "GeV^2",
+      "detail": "computed=0.19419894, expected=0.18, err=7.8883%, tol=15.0% [GeV^2]"
+    },
+    {
+      "label": "Gamma_W",
+      "status": "PASS",
+      "value": 2.0950260233086757,
+      "expected": 2.085,
+      "err_pct": 0.480864,
+      "tol_pct": 3.0,
+      "unit": "GeV",
+      "detail": "computed=2.095026, expected=2.085, err=0.4809%, tol=3.0% [GeV]"
+    },
+    {
+      "label": "Br_W_enu",
+      "status": "PASS",
+      "value": 10.8395541193451,
+      "expected": 10.86,
+      "err_pct": 0.188268,
+      "tol_pct": 3.0,
+      "unit": "%",
+      "detail": "computed=10.839554, expected=10.86, err=0.1883%, tol=3.0% [%]"
+    },
+    {
+      "label": "penguin_trace_naive",
+      "status": "PASS",
+      "detail": "Tr(P_naive) = 56/9 = 56/9"
+    },
+    {
+      "label": "E1_eff_exact",
+      "status": "PASS",
+      "detail": "E1 = -106/9 = -106/9"
+    },
+    {
+      "label": "beta0_from_T3",
+      "status": "PASS",
+      "value": 23.0,
+      "expected": 23.0,
+      "err_pct": 0.0,
+      "tol_pct": 0.001,
+      "unit": "",
+      "detail": "computed=23, expected=23, err=0.0000%, tol=0.001%"
+    },
+    {
+      "label": "E2_eff_derived",
+      "status": "PASS",
+      "detail": "E2 = -N_c * beta_0_num = -69"
+    },
+    {
+      "label": "E3_eff_derived",
+      "status": "PASS",
+      "detail": "E3 = N_c^2 * |e2_naive| = 476"
+    },
+    {
+      "label": "penguin_roots_vs_CMM",
+      "status": "PASS",
+      "detail": "max relative deviation = 0.0018 < 0.5%"
+    },
+    {
+      "label": "alpha_s_mtau",
+      "status": "PASS",
+      "value": 0.34834792607805565,
+      "expected": 0.33,
+      "err_pct": 5.559978,
+      "tol_pct": 8.0,
+      "unit": "",
+      "detail": "computed=0.34834793, expected=0.33, err=5.5600%, tol=8.0%"
+    },
+    {
+      "label": "alpha_s_mb",
+      "status": "PASS",
+      "value": 0.2336033505526989,
+      "expected": 0.2268,
+      "err_pct": 2.999714,
+      "tol_pct": 5.0,
+      "unit": "",
+      "detail": "computed=0.23360335, expected=0.2268, err=2.9997%, tol=5.0%"
+    },
+    {
+      "label": "Gamma_t_vs_NNLO",
+      "status": "PASS",
+      "value": 1.3059928700386803,
+      "expected": 1.322,
+      "err_pct": 1.210827,
+      "tol_pct": 5.0,
+      "unit": "GeV",
+      "detail": "computed=1.3059929, expected=1.322, err=1.2108%, tol=5.0% [GeV]"
+    },
+    {
+      "label": "N3LO_rho_coefficient",
+      "status": "PASS",
+      "detail": "C = n_f + s*mu* = 12.5"
+    },
+    {
+      "label": "N3LO_mZ_pull_lt_5sigma",
+      "status": "PASS",
+      "detail": "|pull(m_Z)| = 0.1 sigma"
+    },
+    {
+      "label": "strangeness_suppression",
+      "status": "PASS",
+      "value": 0.23647607016849626,
+      "expected": 0.217,
+      "err_pct": 8.975148,
+      "tol_pct": 30.0,
+      "unit": "(PYTHIA ref)",
+      "detail": "computed=0.23647607, expected=0.217, err=8.9751%, tol=30.0% [(PYTHIA ref)]"
+    },
+    {
+      "label": "baryon_rate_order",
+      "status": "PASS",
+      "detail": "baryon suppression = 0.383 (LEP: 0.056)"
+    },
+    {
+      "label": "sigma_lambda_ratio",
+      "status": "PASS",
+      "value": 0.2222222222222222,
+      "expected": 0.21,
+      "err_pct": 5.820106,
+      "tol_pct": 15.0,
+      "unit": "(LEP ref)",
+      "detail": "computed=0.22222222, expected=0.21, err=5.8201%, tol=15.0% [(LEP ref)]"
+    }
+  ],
+  "pt_version": "v7",
+  "zero_fitted_parameters": true
+}

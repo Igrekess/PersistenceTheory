@@ -1,0 +1,164 @@
+{
+  "script": "proof_alpha_EM",
+  "chapter": "ch10",
+  "timestamp": "2026-04-14T23:58:56.702150+00:00",
+  "duration_s": 0.0,
+  "n_pass": 17,
+  "n_fail": 0,
+  "n_total": 17,
+  "success": true,
+  "results": [
+    {
+      "label": "inv_alpha_bare",
+      "status": "PASS",
+      "value": 136.27833445429482,
+      "expected": 136.28,
+      "err_pct": 0.001222,
+      "tol_pct": 0.05,
+      "unit": "1/alpha_bare",
+      "detail": "computed=136.27833, expected=136.28, err=0.0012%, tol=0.05% [1/alpha_bare]"
+    },
+    {
+      "label": "exact_vs_float",
+      "status": "PASS",
+      "value": 136.27833445429482,
+      "expected": 136.27833445429476,
+      "err_pct": 0.0,
+      "tol_pct": 0.0001,
+      "unit": "",
+      "detail": "computed=136.27833, expected=136.27833, err=0.0000%, tol=0.0001%"
+    },
+    {
+      "label": "bare_error_lt_1pct",
+      "status": "PASS",
+      "detail": "bare error = 0.5529% < 1%"
+    },
+    {
+      "label": "C_K_value",
+      "status": "PASS",
+      "value": 18.29971687168765,
+      "expected": 18.3,
+      "err_pct": 0.001547,
+      "tol_pct": 0.1,
+      "unit": "C_K",
+      "detail": "computed=18.299717, expected=18.3, err=0.0015%, tol=0.1% [C_K]"
+    },
+    {
+      "label": "Q_koide_eq_2_3",
+      "status": "PASS",
+      "value": 0.6666666666666669,
+      "expected": 0.6666666666666666,
+      "err_pct": 0.0,
+      "tol_pct": 0.0001,
+      "unit": "",
+      "detail": "computed=0.66666667, expected=0.66666667, err=0.0000%, tol=0.0001%"
+    },
+    {
+      "label": "fisher_koide_tree",
+      "status": "PASS",
+      "value": 4.010475201300308,
+      "expected": 4.0,
+      "err_pct": 0.26188,
+      "tol_pct": 0.5,
+      "unit": "C_K * sin^2_3",
+      "detail": "computed=4.0104752, expected=4, err=0.2619%, tol=0.5% [C_K * sin^2_3]"
+    },
+    {
+      "label": "nlo_delta_CK",
+      "status": "PASS",
+      "value": 0.04779813073209738,
+      "expected": 0.047619047619047616,
+      "err_pct": 0.376075,
+      "tol_pct": 10.0,
+      "unit": "delta_CK",
+      "detail": "computed=0.047798131, expected=0.047619048, err=0.3761%, tol=10.0% [delta_CK]"
+    },
+    {
+      "label": "c_3D",
+      "status": "PASS",
+      "value": 1.1291500681071593,
+      "expected": 1.1291500681071593,
+      "err_pct": 0.0,
+      "tol_pct": 0.001,
+      "unit": "",
+      "detail": "computed=1.1291501, expected=1.1291501, err=0.0000%, tol=0.001%"
+    },
+    {
+      "label": "c_2D",
+      "status": "PASS",
+      "value": 1.1605584217036247,
+      "expected": 1.1605584217036247,
+      "err_pct": 0.0,
+      "tol_pct": 0.001,
+      "unit": "",
+      "detail": "computed=1.1605584, expected=1.1605584, err=0.0000%, tol=0.001%"
+    },
+    {
+      "label": "f_charged",
+      "status": "PASS",
+      "value": 0.9629629629629629,
+      "expected": 0.9629629629629629,
+      "err_pct": 0.0,
+      "tol_pct": 0.001,
+      "unit": "",
+      "detail": "computed=0.96296296, expected=0.96296296, err=0.0000%, tol=0.001%"
+    },
+    {
+      "label": "Delta_1",
+      "status": "PASS",
+      "value": 0.7582753543274182,
+      "expected": 0.758,
+      "err_pct": 0.036326,
+      "tol_pct": 1.0,
+      "unit": "Delta_1",
+      "detail": "computed=0.75827535, expected=0.758, err=0.0363%, tol=1.0% [Delta_1]"
+    },
+    {
+      "label": "inv_alpha_order1",
+      "status": "PASS",
+      "value": 137.03660980862225,
+      "expected": 137.038,
+      "err_pct": 0.001014,
+      "tol_pct": 0.01,
+      "unit": "",
+      "detail": "computed=137.03661, expected=137.038, err=0.0010%, tol=0.01%"
+    },
+    {
+      "label": "N2_equals_26",
+      "status": "PASS",
+      "detail": "N_2 = 26"
+    },
+    {
+      "label": "sub_ppb_alpha",
+      "status": "PASS",
+      "detail": "error = 0.00 ppb < 1 ppb"
+    },
+    {
+      "label": "inv_alpha_final",
+      "status": "PASS",
+      "value": 137.03599908340811,
+      "expected": 137.035999084,
+      "err_pct": 0.0,
+      "tol_pct": 0.001,
+      "unit": "",
+      "detail": "computed=137.036, expected=137.036, err=0.0000%, tol=0.001%"
+    },
+    {
+      "label": "vs_pt_constants",
+      "status": "PASS",
+      "value": 137.03599908340811,
+      "expected": 137.0359990834081,
+      "err_pct": 0.0,
+      "tol_pct": 0.001,
+      "unit": "",
+      "detail": "computed=137.036, expected=137.036, err=0.0000%, tol=0.001%"
+    },
+    {
+      "label": "p2_vs_ch10_agree",
+      "status": "PASS",
+      "detail": "p2 vs ch10 agree to 0.0373%"
+    }
+  ],
+  "pt_version": "v7",
+  "zero_fitted_parameters": true
+}

@@ -1,0 +1,624 @@
+{
+  "script": "proof_bridge_axioms",
+  "chapter": "ch09",
+  "timestamp": "2026-04-14T23:58:55.672700+00:00",
+  "duration_s": 0.14,
+  "n_pass": 112,
+  "n_fail": 0,
+  "n_total": 112,
+  "success": true,
+  "results": [
+    {
+      "label": "BA0_sieve_welldef",
+      "status": "PASS",
+      "detail": "17981 gaps, all positive integers"
+    },
+    {
+      "label": "BA1_modular_gauge",
+      "status": "PASS",
+      "detail": "r_{n+1} = (r_n + g_n) mod 3"
+    },
+    {
+      "label": "BA2_GFT_m6",
+      "status": "PASS",
+      "detail": "residual=0.00e+00"
+    },
+    {
+      "label": "BA2_GFT_m30",
+      "status": "PASS",
+      "detail": "residual=0.00e+00"
+    },
+    {
+      "label": "BA2_GFT_m210",
+      "status": "PASS",
+      "detail": "residual=0.00e+00"
+    },
+    {
+      "label": "BA3_holonomy",
+      "status": "PASS",
+      "detail": "max_err=0.00e+00"
+    },
+    {
+      "label": "BA4_selection",
+      "status": "PASS",
+      "detail": "active=[3, 5, 7], sum=15"
+    },
+    {
+      "label": "BA5_coupling",
+      "status": "PASS",
+      "detail": "1/alpha_bare = 136.28"
+    },
+    {
+      "label": "C1_stat_Lorentzian",
+      "status": "PASS",
+      "detail": "g_00(sin2_q+)=-0.005749"
+    },
+    {
+      "label": "C1_therm_Lorentzian",
+      "status": "PASS",
+      "detail": "g_00(sin2_q-)=-0.008735"
+    },
+    {
+      "label": "C1_gamma_Euclidean",
+      "status": "PASS",
+      "detail": "g_00(gamma)=+0.011859"
+    },
+    {
+      "label": "C2_only_stat_matches",
+      "status": "PASS",
+      "detail": "1/prod: stat=136.3, therm=746.8, gamma=3.0"
+    },
+    {
+      "label": "C3_q_plus_rational",
+      "status": "PASS",
+      "detail": "q_+ = 13/15"
+    },
+    {
+      "label": "C4_gamma_is_log_deriv",
+      "status": "PASS",
+      "detail": "gamma_p = -d(ln sin^2)/d(ln mu)"
+    },
+    {
+      "label": "uniqueness_exactly_one_4of4",
+      "status": "PASS",
+      "detail": "scores=[4, 2, 2, 0, 1, 1]"
+    },
+    {
+      "label": "uniqueness_standard_assignment",
+      "status": "PASS",
+      "detail": "sin^2(q_+)->coupling, sin^2(q_-)->geometry, gamma->RG"
+    },
+    {
+      "label": "A1_translation_invariance",
+      "status": "PASS",
+      "detail": "500 random samples"
+    },
+    {
+      "label": "A2_self_adjoint",
+      "status": "PASS",
+      "detail": "K = K^T"
+    },
+    {
+      "label": "A3_NN_locality",
+      "status": "PASS",
+      "detail": "L1_torus(x,y) > 1 => K[x,y] = 0"
+    },
+    {
+      "label": "A4_isotropy",
+      "status": "PASS",
+      "detail": "coeff = 1.0 in all directions"
+    },
+    {
+      "label": "A5_gauge_K1_zero",
+      "status": "PASS",
+      "detail": "max|K*1|=0.00e+00"
+    },
+    {
+      "label": "A6_Green_finite_positive",
+      "status": "PASS",
+      "detail": "G(0) = 0.217331"
+    },
+    {
+      "label": "BA5_tensor_product",
+      "status": "PASS",
+      "detail": "diff=0.00e+00"
+    },
+    {
+      "label": "BA5_multiplicativity",
+      "status": "PASS",
+      "detail": "f(105)=0.0073379236"
+    },
+    {
+      "label": "BA5_CRT_superadditive",
+      "status": "PASS",
+      "detail": "excess=0.3665"
+    },
+    {
+      "label": "BA5_Born_rule",
+      "status": "PASS",
+      "detail": "sin^2 = delta*(2-delta) exact"
+    },
+    {
+      "label": "BA5_k1_unique",
+      "status": "PASS",
+      "detail": "valid_k = [1]"
+    },
+    {
+      "label": "g00_fisher_vs_alpha",
+      "status": "PASS",
+      "value": -0.005749312137481866,
+      "expected": -0.005749356546402851,
+      "err_pct": 0.000772,
+      "tol_pct": 0.01,
+      "unit": "at mu*=15",
+      "detail": "computed=-0.0057493121, expected=-0.0057493565, err=0.0008%, tol=0.01% [at mu*=15]"
+    },
+    {
+      "label": "additive_separability",
+      "status": "PASS",
+      "value": -0.005749312137481866,
+      "expected": -0.005749312137481866,
+      "err_pct": 0.0,
+      "tol_pct": 0.01,
+      "unit": "",
+      "detail": "computed=-0.0057493121, expected=-0.0057493121, err=0.0000%, tol=0.01%"
+    },
+    {
+      "label": "product_form_identity",
+      "status": "PASS",
+      "value": -4.914699371220393,
+      "expected": -4.914699371220393,
+      "err_pct": 0.0,
+      "tol_pct": 0.0001,
+      "unit": "",
+      "detail": "computed=-4.9146994, expected=-4.9146994, err=0.0000%, tol=0.0001%"
+    },
+    {
+      "label": "inv_alpha_product",
+      "status": "PASS",
+      "value": 136.27833445429482,
+      "expected": 136.27833445429482,
+      "err_pct": 0.0,
+      "tol_pct": 0.0001,
+      "unit": "",
+      "detail": "computed=136.27833, expected=136.27833, err=0.0000%, tol=0.0001%"
+    },
+    {
+      "label": "gamma_3_active",
+      "status": "PASS",
+      "detail": "gamma_3=0.807614 > s=0.5"
+    },
+    {
+      "label": "gamma_5_active",
+      "status": "PASS",
+      "detail": "gamma_5=0.696316 > s=0.5"
+    },
+    {
+      "label": "gamma_7_active",
+      "status": "PASS",
+      "detail": "gamma_7=0.595468 > s=0.5"
+    },
+    {
+      "label": "gamma_11_ghost",
+      "status": "PASS",
+      "detail": "gamma_11=0.425733 < s=0.5"
+    },
+    {
+      "label": "exactly_3_active",
+      "status": "PASS",
+      "detail": "count=3"
+    },
+    {
+      "label": "gamma_strictly_decreasing",
+      "status": "PASS",
+      "detail": "gammas = [(3, '0.8076'), (5, '0.6963'), (7, '0.5955'), (11, '0.4257'), (13, '0.3562')]"
+    },
+    {
+      "label": "mu_plus_octants_eq_beta0",
+      "status": "PASS",
+      "detail": "both=23"
+    },
+    {
+      "label": "dim_uniqueness",
+      "status": "PASS",
+      "detail": "(N_c+1)!/(N_c+3) = 4.0, 2^(N_spatial-1) = 4"
+    },
+    {
+      "label": "beta0_fraction",
+      "status": "PASS",
+      "value": 7.666666666666667,
+      "expected": 7.666666666666667,
+      "err_pct": 0.0,
+      "tol_pct": 0.0001,
+      "unit": "beta_0",
+      "detail": "computed=7.6666667, expected=7.6666667, err=0.0000%, tol=0.0001% [beta_0]"
+    },
+    {
+      "label": "full_circle_integral_zero",
+      "status": "PASS",
+      "detail": "max|sum exp(2pi*i*k/p)| = 4.00e-16"
+    },
+    {
+      "label": "sin2_delta_identity_8primes",
+      "status": "PASS",
+      "detail": "max_err=0.00e+00"
+    },
+    {
+      "label": "G_over_alpha_2pi",
+      "status": "PASS",
+      "value": 6.283185307179586,
+      "expected": 6.283185307179586,
+      "err_pct": 0.0,
+      "tol_pct": 0.001,
+      "unit": "Haar measure",
+      "detail": "computed=6.2831853, expected=6.2831853, err=0.0000%, tol=0.001% [Haar measure]"
+    },
+    {
+      "label": "pi_from_euler_product",
+      "status": "PASS",
+      "detail": "pi_approx=3.138737, err=0.0909%"
+    },
+    {
+      "label": "q_plus_exact_13_15",
+      "status": "PASS",
+      "detail": "q_plus = 0.8666666666666667"
+    },
+    {
+      "label": "q_minus_exact_exp",
+      "status": "PASS",
+      "value": 0.9355069850316178,
+      "expected": 0.9355069850316178,
+      "err_pct": 0.0,
+      "tol_pct": 0.0001,
+      "unit": "q_minus",
+      "detail": "computed=0.93550699, expected=0.93550699, err=0.0000%, tol=0.0001% [q_minus]"
+    },
+    {
+      "label": "bifurcation_exists",
+      "status": "PASS",
+      "detail": "|q_plus - q_minus| = 0.068840"
+    },
+    {
+      "label": "bifurcation_gap_p3",
+      "status": "PASS",
+      "detail": "|sin2_stat - sin2_therm| = 0.101960"
+    },
+    {
+      "label": "bifurcation_gap_p5",
+      "status": "PASS",
+      "detail": "|sin2_stat - sin2_therm| = 0.083801"
+    },
+    {
+      "label": "bifurcation_gap_p7",
+      "status": "PASS",
+      "detail": "|sin2_stat - sin2_therm| = 0.068906"
+    },
+    {
+      "label": "stat_dominates_therm_p3",
+      "status": "PASS",
+      "detail": "stat=0.219155, therm=0.117195"
+    },
+    {
+      "label": "primes_gaps_T1_structure",
+      "status": "PASS",
+      "detail": "T[1,1]=0: consecutive gaps both = 1 mod 3 forbidden"
+    },
+    {
+      "label": "composites_fail_T1_structure",
+      "status": "PASS",
+      "detail": "Composites: T[1,1]>0, no forbidden transitions"
+    },
+    {
+      "label": "fixed_point_self_consistent",
+      "status": "PASS",
+      "detail": "active=[3, 5, 7], sum=15"
+    },
+    {
+      "label": "mu15_unique_fixed_point",
+      "status": "PASS",
+      "detail": "none"
+    },
+    {
+      "label": "GFT_exact_m6",
+      "status": "PASS",
+      "detail": "residual=0.00e+00"
+    },
+    {
+      "label": "GFT_exact_m30",
+      "status": "PASS",
+      "detail": "residual=8.88e-16"
+    },
+    {
+      "label": "GFT_exact_m210",
+      "status": "PASS",
+      "detail": "residual=8.88e-16"
+    },
+    {
+      "label": "alpha_cross_pillar",
+      "status": "PASS",
+      "detail": "diff=0.00e+00"
+    },
+    {
+      "label": "G_eq_2pi_alpha",
+      "status": "PASS",
+      "detail": "G=0.04610553"
+    },
+    {
+      "label": "CRT_superadditive_step10",
+      "status": "PASS",
+      "detail": "excess D(15) - [D(3)+D(5)] = 0.3665"
+    },
+    {
+      "label": "alpha_range",
+      "status": "PASS",
+      "detail": "alpha=0.007338, 1/alpha=136.28"
+    },
+    {
+      "label": "gamma_depth_hierarchy",
+      "status": "PASS",
+      "detail": "gammas=[(3, '0.8076'), (5, '0.6963'), (7, '0.5955'), (11, '0.4257'), (13, '0.3562')]"
+    },
+    {
+      "label": "gamma_3_strictly_positive",
+      "status": "PASS",
+      "detail": "gamma_3=0.807614"
+    },
+    {
+      "label": "gamma_5_strictly_positive",
+      "status": "PASS",
+      "detail": "gamma_5=0.696316"
+    },
+    {
+      "label": "gamma_7_strictly_positive",
+      "status": "PASS",
+      "detail": "gamma_7=0.595468"
+    },
+    {
+      "label": "ablation_swap_degrades",
+      "status": "PASS",
+      "detail": "1/alpha_stat=136.28, 1/alpha_therm=746.80, degradation=805x"
+    },
+    {
+      "label": "qp_exponential_decay",
+      "status": "PASS",
+      "detail": "q^3=0.6510 > ... > q^47=0.001200"
+    },
+    {
+      "label": "gamma_14_decreasing",
+      "status": "PASS",
+      "detail": "gamma_3=0.8076 > gamma_47=0.008591"
+    },
+    {
+      "label": "gamma_exponential_rate",
+      "status": "PASS",
+      "detail": "fitted rate=-0.1038, ln(q)=-0.1431, ratio=0.73"
+    },
+    {
+      "label": "spectral_gap_8_primes",
+      "status": "PASS",
+      "detail": "mixing in finite time for all T_p"
+    },
+    {
+      "label": "schwinger_convergence",
+      "status": "PASS",
+      "detail": "S_2(N=20) -> 1/p for 8 primes"
+    },
+    {
+      "label": "CRT_schwinger_factorization",
+      "status": "PASS",
+      "detail": "max err = 9.71e-17"
+    },
+    {
+      "label": "ITPS_norm_p3",
+      "status": "PASS",
+      "detail": "||pi_3||_1 = 1.000000000000000"
+    },
+    {
+      "label": "ITPS_norm_p5",
+      "status": "PASS",
+      "detail": "||pi_5||_1 = 1.000000000000000"
+    },
+    {
+      "label": "ITPS_norm_p7",
+      "status": "PASS",
+      "detail": "||pi_7||_1 = 1.000000000000000"
+    },
+    {
+      "label": "ITPS_norm_p11",
+      "status": "PASS",
+      "detail": "||pi_11||_1 = 1.000000000000000"
+    },
+    {
+      "label": "ITPS_norm_p13",
+      "status": "PASS",
+      "detail": "||pi_13||_1 = 1.000000000000000"
+    },
+    {
+      "label": "ITPS_convergence",
+      "status": "PASS",
+      "detail": "sum (1 - |<pi_p, pi_p>|^2) = 0 (canonical)"
+    },
+    {
+      "label": "CRT_leading_eig_1",
+      "status": "PASS",
+      "detail": "lambda_0 = 1.0000000000"
+    },
+    {
+      "label": "stationary_dist_factors",
+      "status": "PASS",
+      "detail": "err = 0.00e+00"
+    },
+    {
+      "label": "buchstab_contraction",
+      "status": "PASS",
+      "detail": "2/sqrt(p-1) < 1 for all p >= 7"
+    },
+    {
+      "label": "contraction_product_vanishes",
+      "status": "PASS",
+      "detail": "product = 0.004135"
+    },
+    {
+      "label": "spectral_gap_p5",
+      "status": "PASS",
+      "detail": "|lam_2| = 0.333333, theory = 0.333333"
+    },
+    {
+      "label": "spectral_gap_p7",
+      "status": "PASS",
+      "detail": "|lam_2| = 0.200000, theory = 0.200000"
+    },
+    {
+      "label": "spectral_gap_p11",
+      "status": "PASS",
+      "detail": "|lam_2| = 0.111111, theory = 0.111111"
+    },
+    {
+      "label": "spectral_gap_p13",
+      "status": "PASS",
+      "detail": "|lam_2| = 0.090909, theory = 0.090909"
+    },
+    {
+      "label": "spectral_gap_bounded",
+      "status": "PASS",
+      "detail": "gap_min = 0.6667"
+    },
+    {
+      "label": "T3_diagonal_zero",
+      "status": "PASS",
+      "detail": "diag = [0. 0. 0.]"
+    },
+    {
+      "label": "T3_row_stochastic",
+      "status": "PASS",
+      "detail": "row_sums = [1. 1. 1.]"
+    },
+    {
+      "label": "T3_lambda0",
+      "status": "PASS",
+      "value": 0.9999999999999998,
+      "expected": 1.0,
+      "err_pct": 0.0,
+      "tol_pct": 0.0001,
+      "unit": "",
+      "detail": "computed=1, expected=1, err=0.0000%, tol=0.0001%"
+    },
+    {
+      "label": "T3_lambda1",
+      "status": "PASS",
+      "value": -0.49999999999999983,
+      "expected": -0.5,
+      "err_pct": 0.0,
+      "tol_pct": 0.1,
+      "unit": "",
+      "detail": "computed=-0.5, expected=-0.5, err=0.0000%, tol=0.1%"
+    },
+    {
+      "label": "T3_lambda2",
+      "status": "PASS",
+      "value": -0.5000000000000001,
+      "expected": -0.5,
+      "err_pct": 0.0,
+      "tol_pct": 0.1,
+      "unit": "",
+      "detail": "computed=-0.5, expected=-0.5, err=0.0000%, tol=0.1%"
+    },
+    {
+      "label": "r2_zero_at_state0",
+      "status": "PASS",
+      "detail": "v_anti[0] = 0.000000000000000"
+    },
+    {
+      "label": "perron_frobenius_cone",
+      "status": "PASS",
+      "detail": "T_3^n * v >= 0 for all n, v >= 0"
+    },
+    {
+      "label": "T5_stochastic",
+      "status": "PASS",
+      "detail": "4x4 matrix"
+    },
+    {
+      "label": "T7_stochastic",
+      "status": "PASS",
+      "detail": "6x6 matrix"
+    },
+    {
+      "label": "T11_stochastic",
+      "status": "PASS",
+      "detail": "10x10 matrix"
+    },
+    {
+      "label": "contraction_product_small",
+      "status": "PASS",
+      "detail": "product = 4.359184e-04"
+    },
+    {
+      "label": "M3_PSD",
+      "status": "PASS",
+      "detail": "min_eig = 2.500000e-01"
+    },
+    {
+      "label": "M5_PSD",
+      "status": "PASS",
+      "detail": "min_eig = 1.111111e-01"
+    },
+    {
+      "label": "M7_PSD",
+      "status": "PASS",
+      "detail": "min_eig = 4.000000e-02"
+    },
+    {
+      "label": "M11_PSD",
+      "status": "PASS",
+      "detail": "min_eig = 1.234568e-02"
+    },
+    {
+      "label": "M15_tensor_PSD",
+      "status": "PASS",
+      "detail": "min_eig = 2.777778e-02"
+    },
+    {
+      "label": "eig_M3_eq_sigma_sq",
+      "status": "PASS",
+      "detail": "max_diff=3.33e-16"
+    },
+    {
+      "label": "eig_M5_eq_sigma_sq",
+      "status": "PASS",
+      "detail": "max_diff=4.44e-16"
+    },
+    {
+      "label": "eig_M7_eq_sigma_sq",
+      "status": "PASS",
+      "detail": "max_diff=2.22e-16"
+    },
+    {
+      "label": "T_p_irreducible",
+      "status": "PASS",
+      "detail": "T_p^{2n} > 0 for p=3,5"
+    },
+    {
+      "label": "POL5_subcritical",
+      "status": "PASS",
+      "detail": "mu_tail/mu_outer = 0.023704"
+    },
+    {
+      "label": "R_star_below_threshold",
+      "status": "PASS",
+      "detail": "R*=0.018657, threshold=6.3891"
+    },
+    {
+      "label": "SC2_outer_concentration",
+      "status": "PASS",
+      "detail": "concentration = 98.1684%"
+    },
+    {
+      "label": "R_star_monotone",
+      "status": "PASS",
+      "detail": "R(3)=0.052396, R(4)=0.018657, R(5)=0.006784"
+    }
+  ],
+  "pt_version": "v7",
+  "zero_fitted_parameters": true
+}

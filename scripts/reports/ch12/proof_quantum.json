@@ -1,0 +1,259 @@
+{
+  "script": "proof_quantum",
+  "chapter": "ch12",
+  "timestamp": "2026-04-14T23:58:58.372592+00:00",
+  "duration_s": 0.744,
+  "n_pass": 42,
+  "n_fail": 0,
+  "n_total": 42,
+  "success": true,
+  "results": [
+    {
+      "label": "dim_H6",
+      "status": "PASS",
+      "detail": "dim(H_6) = 6"
+    },
+    {
+      "label": "dim_H30",
+      "status": "PASS",
+      "detail": "dim(H_30) = 30"
+    },
+    {
+      "label": "dim_H210_primorial",
+      "status": "PASS",
+      "detail": "dim(H_210) = 210 = primorial(7)"
+    },
+    {
+      "label": "gleason_premise_H6",
+      "status": "PASS",
+      "detail": "dim(H_6) = 6 >= 3: Gleason applies"
+    },
+    {
+      "label": "gleason_premise_H30",
+      "status": "PASS",
+      "detail": "dim(H_30) = 30 >= 3: Gleason applies"
+    },
+    {
+      "label": "gleason_premise_H210",
+      "status": "PASS",
+      "detail": "dim(H_210) = 210 >= 3: Gleason applies"
+    },
+    {
+      "label": "resolution_identity_mod2",
+      "status": "PASS",
+      "detail": "pi_2^(0) + pi_2^(1) = I_6"
+    },
+    {
+      "label": "idempotent_pi2_0",
+      "status": "PASS",
+      "detail": "pi_2^(0)^2 = pi_2^(0)"
+    },
+    {
+      "label": "idempotent_pi2_1",
+      "status": "PASS",
+      "detail": "pi_2^(1)^2 = pi_2^(1)"
+    },
+    {
+      "label": "resolution_identity_mod3",
+      "status": "PASS",
+      "detail": "pi_3^(0) + pi_3^(1) + pi_3^(2) = I_6"
+    },
+    {
+      "label": "orthogonality_pi3_01",
+      "status": "PASS",
+      "detail": "pi_3^(0) * pi_3^(1) = 0"
+    },
+    {
+      "label": "frame_identity",
+      "status": "PASS",
+      "detail": "mu(I) = 1"
+    },
+    {
+      "label": "frame_sigma_additivity",
+      "status": "PASS",
+      "detail": "mu(sum pi_3) = sum mu(pi_3)"
+    },
+    {
+      "label": "born_rule_all_states",
+      "status": "PASS",
+      "detail": "mu(|r><r|) = |psi(r)|^2 for all r in H_6"
+    },
+    {
+      "label": "normalization_psi6",
+      "status": "PASS",
+      "value": 1.0,
+      "expected": 1.0,
+      "err_pct": 0.0,
+      "tol_pct": 1e-10,
+      "unit": "sum |psi|^2",
+      "detail": "computed=1, expected=1, err=0.0000%, tol=1e-10% [sum |psi|^2]"
+    },
+    {
+      "label": "born_rule_empirical",
+      "status": "PASS",
+      "detail": "max |P(r) - |psi(r)|^2| = 5.55e-17"
+    },
+    {
+      "label": "functor_F6",
+      "status": "PASS",
+      "detail": "F(6) = F(2) x F(3): dim = 2*3 = 6"
+    },
+    {
+      "label": "functor_F30",
+      "status": "PASS",
+      "detail": "F(30) = F(2) x F(3) x F(5): dim = 30"
+    },
+    {
+      "label": "functor_F210",
+      "status": "PASS",
+      "detail": "F(210) = F(2) x F(3) x F(5) x F(7): dim = 210"
+    },
+    {
+      "label": "partial_trace_rho3_trace",
+      "status": "PASS",
+      "value": 0.9999999999999998,
+      "expected": 1.0,
+      "err_pct": 0.0,
+      "tol_pct": 1e-10,
+      "unit": "tr(rho_3)",
+      "detail": "computed=1, expected=1, err=0.0000%, tol=1e-10% [tr(rho_3)]"
+    },
+    {
+      "label": "partial_trace_rho3_psd",
+      "status": "PASS",
+      "detail": "rho_3 is positive semi-definite"
+    },
+    {
+      "label": "partial_trace_rho2_trace",
+      "status": "PASS",
+      "value": 0.9999999999999998,
+      "expected": 1.0,
+      "err_pct": 0.0,
+      "tol_pct": 1e-10,
+      "unit": "tr(rho_2)",
+      "detail": "computed=1, expected=1, err=0.0000%, tol=1e-10% [tr(rho_2)]"
+    },
+    {
+      "label": "tensor_structure_shape",
+      "status": "PASS",
+      "detail": "shapes: (6, 6) vs (6, 6)"
+    },
+    {
+      "label": "hbar_2_equals_s",
+      "status": "PASS",
+      "value": 0.5,
+      "expected": 0.5,
+      "err_pct": 0.0,
+      "tol_pct": 0.0,
+      "unit": "hbar(m=2) = s",
+      "detail": "computed=0.5, expected=0.5, err=0.0000%, tol=0.0% [hbar(m=2) = s]"
+    },
+    {
+      "label": "T1_forbidden_mod3",
+      "status": "PASS",
+      "detail": "T[1->1]=0.0000, T[2->2]=0.0000 ~ 0 (T1)"
+    },
+    {
+      "label": "T3_primitive",
+      "status": "PASS",
+      "detail": "T(mod 3)^10 > 0: matrix is primitive (Perron-Frobenius)"
+    },
+    {
+      "label": "spectral_gap_positive",
+      "status": "PASS",
+      "detail": "|lam_1|=1.0000, |lam_2|=0.5573, gap=0.4427"
+    },
+    {
+      "label": "schrodinger_lindblad_structure",
+      "status": "PASS",
+      "detail": "eps_rms = 0.2501: non-trivial spectral structure"
+    },
+    {
+      "label": "interference_nontrivial",
+      "status": "PASS",
+      "detail": "DFT imaginary norm = 0.2385: interference present"
+    },
+    {
+      "label": "crt_superposition",
+      "status": "PASS",
+      "detail": "CRT multi-residence mod 2,3,5,7 bijective on 1000 gaps"
+    },
+    {
+      "label": "decoherence_chain",
+      "status": "PASS",
+      "detail": "purities = ['1.000', '1.000', '0.345', '0.095', '0.083']"
+    },
+    {
+      "label": "data_processing_inequality",
+      "status": "PASS",
+      "detail": "D_KL: 30=1.2923 >= 6=1.0247 >= 3=0.0249, 2=0.9999"
+    },
+    {
+      "label": "complementarity_MI_23",
+      "status": "PASS",
+      "detail": "MI(mod 2, mod 3) = 0.000012 bits ~ 0"
+    },
+    {
+      "label": "no_cloning_bounded",
+      "status": "PASS",
+      "detail": "D_KL(mod m) <= log2(m) for all tested m"
+    },
+    {
+      "label": "entanglement_nonzero",
+      "status": "PASS",
+      "detail": "delta_S(5)=0.0255, delta_S(7)=0.0581 > 0"
+    },
+    {
+      "label": "geom_is_product_state",
+      "status": "PASS",
+      "detail": "max|P_geom(6) - P(2)xP(3)| = 0.0000"
+    },
+    {
+      "label": "deficit_entanglement_correlation",
+      "status": "PASS",
+      "detail": "rho(D_KL, delta_S) = 1.0000"
+    },
+    {
+      "label": "path_integral_convergence",
+      "status": "PASS",
+      "value": 1.000000000000001,
+      "expected": 1.0,
+      "err_pct": 0.0,
+      "tol_pct": 1.0,
+      "unit": "Tr(T^100)",
+      "detail": "computed=1, expected=1, err=0.0000%, tol=1.0% [Tr(T^100)]"
+    },
+    {
+      "label": "gft_unitarity",
+      "status": "PASS",
+      "detail": "|log2(6) - (D_KL + H)| = 0.00e+00"
+    },
+    {
+      "label": "bohm_potential_well",
+      "status": "PASS",
+      "detail": "Q_min = -0.003127 < 0: quantum potential well exists"
+    },
+    {
+      "label": "purity_final_mixed",
+      "status": "PASS",
+      "value": 0.0827425178045759,
+      "expected": 0.08333333333333333,
+      "err_pct": 0.708979,
+      "tol_pct": 5.0,
+      "unit": "purity(M=210)",
+      "detail": "computed=0.082742518, expected=0.083333333, err=0.7090%, tol=5.0% [purity(M=210)]"
+    },
+    {
+      "label": "berry_phase",
+      "status": "PASS",
+      "value": 9.42477796076938,
+      "expected": 9.42477796076938,
+      "err_pct": 0.0,
+      "tol_pct": 1e-10,
+      "unit": "mu_end",
+      "detail": "computed=9.424778, expected=9.424778, err=0.0000%, tol=1e-10% [mu_end]"
+    }
+  ],
+  "pt_version": "v7",
+  "zero_fitted_parameters": true
+}

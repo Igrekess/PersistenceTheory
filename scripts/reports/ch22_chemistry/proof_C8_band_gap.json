@@ -1,0 +1,134 @@
+{
+  "script": "proof_C8_band_gap",
+  "chapter": "ch22_chemistry",
+  "timestamp": "2026-04-14T23:59:11.566336+00:00",
+  "duration_s": 0.0,
+  "n_pass": 24,
+  "n_fail": 0,
+  "n_total": 24,
+  "success": true,
+  "results": [
+    {
+      "label": "delta_3 self-consistent",
+      "status": "PASS",
+      "detail": "delta_3 = 0.1163456790"
+    },
+    {
+      "label": "sin2_3 = delta_3 * (2 - delta_3)",
+      "status": "PASS",
+      "detail": "sin2_3 = 0.2191550410"
+    },
+    {
+      "label": "cos2_3 = (1 - delta_3)^2",
+      "status": "PASS",
+      "detail": "cos2_3 = 0.7808449590"
+    },
+    {
+      "label": "cos2_3 vs Phillips ionicity (< 1%)",
+      "status": "PASS",
+      "detail": "PT = 0.7808, Phillips = 0.785, dev = 0.53%"
+    },
+    {
+      "label": "cos2_3 in [0.77, 0.79]",
+      "status": "PASS",
+      "detail": "cos2_3 = 0.780845"
+    },
+    {
+      "label": "sin2_3 = covalent fraction = 1 - cos2_3",
+      "status": "PASS",
+      "detail": "sin2_3 = 0.219155"
+    },
+    {
+      "label": "Si   : Pythagoras roundtrip (< 0.01%)",
+      "status": "PASS",
+      "detail": "E_h=1.120, E_c=0.000, recon=1.1200, err=0.0000e+00%"
+    },
+    {
+      "label": "Ge   : Pythagoras roundtrip (< 0.01%)",
+      "status": "PASS",
+      "detail": "E_h=0.670, E_c=0.000, recon=0.6700, err=0.0000e+00%"
+    },
+    {
+      "label": "GaAs : Pythagoras roundtrip (< 0.01%)",
+      "status": "PASS",
+      "detail": "E_h=1.180, E_c=0.791, recon=1.4200, err=0.0000e+00%"
+    },
+    {
+      "label": "GaP  : Pythagoras roundtrip (< 0.01%)",
+      "status": "PASS",
+      "detail": "E_h=1.854, E_c=1.292, recon=2.2600, err=0.0000e+00%"
+    },
+    {
+      "label": "InP  : Pythagoras roundtrip (< 0.01%)",
+      "status": "PASS",
+      "detail": "E_h=1.027, E_c=0.876, recon=1.3500, err=0.0000e+00%"
+    },
+    {
+      "label": "ZnS  : Pythagoras roundtrip (< 0.01%)",
+      "status": "PASS",
+      "detail": "E_h=2.260, E_c=2.905, recon=3.6800, err=0.0000e+00%"
+    },
+    {
+      "label": "ZnSe : Pythagoras roundtrip (< 0.01%)",
+      "status": "PASS",
+      "detail": "E_h=1.642, E_c=2.143, recon=2.7000, err=0.0000e+00%"
+    },
+    {
+      "label": "NaCl : Pythagoras roundtrip (< 0.01%)",
+      "status": "PASS",
+      "detail": "E_h=2.167, E_c=8.219, recon=8.5000, err=0.0000e+00%"
+    },
+    {
+      "label": "LiF  : Pythagoras roundtrip (< 0.01%)",
+      "status": "PASS",
+      "detail": "E_h=3.965, E_c=13.009, recon=13.6000, err=0.0000e+00%"
+    },
+    {
+      "label": "gcd(P1, P3) = 1 (coprime channels)",
+      "status": "PASS",
+      "detail": "gcd(3, 7) = 1"
+    },
+    {
+      "label": "CRT modulus P1*P3 = 21",
+      "status": "PASS",
+      "detail": "P1*P3 = 21"
+    },
+    {
+      "label": "sin2(P1) != sin2(P3) (distinct channels)",
+      "status": "PASS",
+      "detail": "sin2_3 = 0.219155, sin2_7 = 0.172614"
+    },
+    {
+      "label": "sin2_3 * sin2_7 > 0 (both active)",
+      "status": "PASS",
+      "detail": "product = 0.03782928"
+    },
+    {
+      "label": "Si   : f_i = 0.000 -> covalent",
+      "status": "PASS",
+      "detail": "classification consistent"
+    },
+    {
+      "label": "NaCl : f_i = 0.935 -> ionic",
+      "status": "PASS",
+      "detail": "classification consistent"
+    },
+    {
+      "label": "GaAs : f_i = 0.310 -> covalent",
+      "status": "PASS",
+      "detail": "classification consistent"
+    },
+    {
+      "label": "NaCl is ionic (f_i > cos2_3)",
+      "status": "PASS",
+      "detail": "f_i(NaCl) = 0.935 > 0.7808"
+    },
+    {
+      "label": "Si is purely covalent (f_i = 0)",
+      "status": "PASS",
+      "detail": "f_i(Si) = 0.000"
+    }
+  ],
+  "pt_version": "v7",
+  "zero_fitted_parameters": true
+}

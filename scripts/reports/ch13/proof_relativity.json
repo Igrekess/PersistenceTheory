@@ -1,0 +1,999 @@
+{
+  "script": "proof_relativity",
+  "chapter": "ch13",
+  "timestamp": "2026-04-14T23:58:59.173464+00:00",
+  "duration_s": 0.051,
+  "n_pass": 192,
+  "n_fail": 0,
+  "n_total": 192,
+  "success": true,
+  "results": [
+    {
+      "label": "CRT_isomorphism",
+      "status": "PASS",
+      "detail": "105 distinct triplets from Z/105Z -> Z/3 x Z/5 x Z/7"
+    },
+    {
+      "label": "CRT_coprimality",
+      "status": "PASS",
+      "detail": "gcd(p_i, p_j) = 1 for all pairs"
+    },
+    {
+      "label": "Lorentzian_g00",
+      "status": "PASS",
+      "detail": "d^2(ln alpha)/dmu^2 = 5.749357e-03 > 0 (convex)"
+    },
+    {
+      "label": "spatial_g_positive",
+      "status": "PASS",
+      "detail": "g_33=2.898846e-03, g_55=2.154915e-03, g_77=1.575923e-03"
+    },
+    {
+      "label": "det_g_negative",
+      "status": "PASS",
+      "detail": "det(g) = -5.659909e-11"
+    },
+    {
+      "label": "convexity_range_8_50",
+      "status": "PASS",
+      "detail": "d^2(ln alpha)/dmu^2 > 0 for all mu in [8, 50]"
+    },
+    {
+      "label": "lie_algebra_dim_6",
+      "status": "PASS",
+      "detail": "dim so(3,1) = 4*3/2 = 6"
+    },
+    {
+      "label": "Lie_bracket_JJ",
+      "status": "PASS",
+      "detail": "[J_i, J_j] = eps_ijk J_k"
+    },
+    {
+      "label": "Lie_bracket_JK",
+      "status": "PASS",
+      "detail": "[J_i, K_j] = eps_ijk K_k"
+    },
+    {
+      "label": "Lie_bracket_KK",
+      "status": "PASS",
+      "detail": "[K_i, K_j] = -eps_ijk J_k"
+    },
+    {
+      "label": "P_parity",
+      "status": "PASS",
+      "detail": "P = diag(1,-1,-1,-1)"
+    },
+    {
+      "label": "CPT_identity",
+      "status": "PASS",
+      "detail": "CPT = -I_4 (total inversion)"
+    },
+    {
+      "label": "gamma_hierarchy",
+      "status": "PASS",
+      "detail": "gamma_3=0.807614 > gamma_5=0.696316 > gamma_7=0.595468 > s=0.5"
+    },
+    {
+      "label": "gamma_11_inactive",
+      "status": "PASS",
+      "detail": "gamma_11=0.425733 < s=0.5 (inactive beyond p=7)"
+    },
+    {
+      "label": "scale_factors_positive",
+      "status": "PASS",
+      "detail": "a_3=0.053841, a_5=0.046421, a_7=0.039698"
+    },
+    {
+      "label": "isotropization",
+      "status": "PASS",
+      "detail": "g3/g7: mu=15: 1.3563, mu=100: 1.0415, mu=500: 1.0081"
+    },
+    {
+      "label": "spatial_volume_positive",
+      "status": "PASS",
+      "detail": "V = a_3*a_5*a_7 = 0.00009922"
+    },
+    {
+      "label": "lapse_positive",
+      "status": "PASS",
+      "detail": "N(mu*) = 0.07582451"
+    },
+    {
+      "label": "S_PT_facial_decomposition",
+      "status": "PASS",
+      "detail": "|S_PT - sum(-ln sin^2_p)| = 0.00e+00"
+    },
+    {
+      "label": "gradient_face_3",
+      "status": "PASS",
+      "detail": "dS/d(sin^2_3) = -4.562980 < 0"
+    },
+    {
+      "label": "gradient_face_5",
+      "status": "PASS",
+      "detail": "dS/d(sin^2_5) = -5.155311 < 0"
+    },
+    {
+      "label": "gradient_face_7",
+      "status": "PASS",
+      "detail": "dS/d(sin^2_7) = -5.793265 < 0"
+    },
+    {
+      "label": "potential_convex",
+      "status": "PASS",
+      "detail": "d^2S/d(sin^2)^2 = 1/sin^4 > 0 for all faces"
+    },
+    {
+      "label": "GFT_identity_exact",
+      "status": "PASS",
+      "detail": "max |D_KL + H_mod3 - ln(6)| = 2.22e-16"
+    },
+    {
+      "label": "D_KL_positive",
+      "status": "PASS",
+      "detail": "D_KL(mu*) = 0.699047"
+    },
+    {
+      "label": "D_KL_asymptotic_ln2",
+      "status": "PASS",
+      "detail": "D_KL(1000) = 0.693152, ln(2) = 0.693147"
+    },
+    {
+      "label": "G_00_positive",
+      "status": "PASS",
+      "detail": "G^0_0 = 8.06470898e-01"
+    },
+    {
+      "label": "trace_identity",
+      "status": "PASS",
+      "detail": "|G_trace + R|/|R| = 0.0000%"
+    },
+    {
+      "label": "Bianchi_identity_theorem",
+      "status": "PASS",
+      "detail": "nabla_mu G^mu_nu = 0 (exact geometric identity)"
+    },
+    {
+      "label": "G_over_alpha_equals_2pi",
+      "status": "PASS",
+      "value": 6.255605536336956,
+      "expected": 6.283185307179586,
+      "err_pct": 0.438946,
+      "tol_pct": 1.0,
+      "unit": "Haar measure",
+      "detail": "computed=6.2556055, expected=6.2831853, err=0.4389%, tol=1.0% [Haar measure]"
+    },
+    {
+      "label": "Friedmann_consistency",
+      "status": "PASS",
+      "detail": "|G_00 - 8*pi*G*D_KL|/G_00 = 0.44%"
+    },
+    {
+      "label": "Haar_measure_exact",
+      "status": "PASS",
+      "detail": "Haar(Z/pZ) = 1/2 for all tested p"
+    },
+    {
+      "label": "H_iso_equals_H_CMB",
+      "status": "PASS",
+      "value": 67.39999999999999,
+      "expected": 67.4,
+      "err_pct": 0.0,
+      "tol_pct": 0.01,
+      "unit": "km/s/Mpc",
+      "detail": "computed=67.4, expected=67.4, err=0.0000%, tol=0.01% [km/s/Mpc]"
+    },
+    {
+      "label": "H_fast_exceeds_SH0ES",
+      "status": "PASS",
+      "detail": "H_3 = 77.78 > 73.04 = H_SH0ES"
+    },
+    {
+      "label": "anisotropy_sufficient",
+      "status": "PASS",
+      "detail": "sigma/H = 12.38% > Delta_H/H = 8.37%"
+    },
+    {
+      "label": "baryon_fraction_order",
+      "status": "PASS",
+      "detail": "Omega_b(PT) = alpha = 0.007338 (obs: 0.0493)"
+    },
+    {
+      "label": "D6_decomposition",
+      "status": "PASS",
+      "detail": "|ln(6) - ln(2) - ln(3)| = 2.22e-16"
+    },
+    {
+      "label": "Bekenstein_saturation",
+      "status": "PASS",
+      "detail": "Parity channel saturates at exactly 1 bit"
+    },
+    {
+      "label": "arrow_of_time",
+      "status": "PASS",
+      "detail": "D_KL monotonically decreasing (sieve erases information)"
+    },
+    {
+      "label": "D_KL_parity_mod3_split",
+      "status": "PASS",
+      "detail": "|D_par + D_mod3 - D_KL| = 2.22e-16"
+    },
+    {
+      "label": "deflection_anisotropy_small",
+      "status": "PASS",
+      "detail": "factor = 2.6769, iso = 2.6667, diff = 0.38%"
+    },
+    {
+      "label": "speed_of_light_well_defined",
+      "status": "PASS",
+      "detail": "c_sieve = 1.612961 (sieve units)"
+    },
+    {
+      "label": "Euclidean_to_Lorentzian_transition",
+      "status": "PASS",
+      "detail": "mu_c = 6.97"
+    },
+    {
+      "label": "Euclidean_below_mu_c",
+      "status": "PASS",
+      "detail": "15/15 Euclidean points"
+    },
+    {
+      "label": "Lorentzian_above_mu_c",
+      "status": "PASS",
+      "detail": "30/30 Lorentzian points"
+    },
+    {
+      "label": "proper_time_positive",
+      "status": "PASS",
+      "detail": "dtau/dmu(15) = 0.075825"
+    },
+    {
+      "label": "time_dilation_monotone",
+      "status": "PASS",
+      "detail": "dtau: 7.5825e-02 -> 1.4600e-03"
+    },
+    {
+      "label": "time_dilation_to_zero",
+      "status": "PASS",
+      "detail": "ratio fin/debut = 1.9255e-02"
+    },
+    {
+      "label": "energy_S_prime",
+      "status": "PASS",
+      "detail": "E_num = 1.399599e-01, E_ana = 1.399599e-01, err = 0.0000%"
+    },
+    {
+      "label": "E_mc2_closure",
+      "status": "PASS",
+      "detail": "closure error = 0.00e+00%"
+    },
+    {
+      "label": "dispersion_relation_timelike",
+      "status": "PASS",
+      "detail": "p.g.p = -9.709233e-05"
+    },
+    {
+      "label": "metric_smoothness",
+      "status": "PASS",
+      "detail": "relative variation = 0.0062% for dmu = 0.0009999999999994458"
+    },
+    {
+      "label": "subluminal_velocities",
+      "status": "PASS",
+      "detail": "v_tot/c = 0.050480"
+    },
+    {
+      "label": "D6_CRT_decomposition",
+      "status": "PASS",
+      "detail": "D(6)=1.013347, D(2)+D(3)=1.013165, err=0.02%"
+    },
+    {
+      "label": "Bekenstein_saturation_from_gaps",
+      "status": "PASS",
+      "detail": "D(2) = 0.998470 bits, saturation = 99.85%"
+    },
+    {
+      "label": "Hawking_TM_const",
+      "status": "PASS",
+      "detail": "T*M = 1/(8*pi*G) = 8.629926e-01"
+    },
+    {
+      "label": "BH_entropy_area_law",
+      "status": "PASS",
+      "detail": "S(M=10)/S(M=1) = 100.00, expected 100"
+    },
+    {
+      "label": "Page_curve_crossover",
+      "status": "PASS",
+      "detail": "gamma_7=0.5955 > s, gamma_11=0.4257 < s"
+    },
+    {
+      "label": "ghost_information_positive",
+      "status": "PASS",
+      "detail": "D_ghost = 0.656185 bits"
+    },
+    {
+      "label": "GFT_unitarity_algebraic",
+      "status": "PASS",
+      "detail": "H_max = D_KL + H is an exact algebraic identity"
+    },
+    {
+      "label": "no_firewall_continuous",
+      "status": "PASS",
+      "detail": "max|delta gamma_7| = 1.302332e-02"
+    },
+    {
+      "label": "CRT_complementarity_parity",
+      "status": "PASS",
+      "detail": "D(2p) = D(2) + D(p) for p in {3,5,7}"
+    },
+    {
+      "label": "CRT_odd_correlation",
+      "status": "PASS",
+      "detail": "D(15)=0.4781 > D(3)+D(5)=0.0612 (residual correlation)"
+    },
+    {
+      "label": "paradox_decoder_mismatch",
+      "status": "PASS",
+      "detail": "visible: 1.1613, invisible: 0.6562 (36.1%)"
+    },
+    {
+      "label": "shear_tensor_nonzero",
+      "status": "PASS",
+      "detail": "sigma^2 = 104.46, A = 0.007665"
+    },
+    {
+      "label": "EOS_direction_3",
+      "status": "PASS",
+      "detail": "w_3 = +0.1541"
+    },
+    {
+      "label": "EOS_direction_5",
+      "status": "PASS",
+      "detail": "w_5 = -0.0050"
+    },
+    {
+      "label": "EOS_direction_7",
+      "status": "PASS",
+      "detail": "w_7 = -0.1491"
+    },
+    {
+      "label": "spherical_H_mean_equals_H_CMB",
+      "status": "PASS",
+      "value": 67.39516660687488,
+      "expected": 67.4,
+      "err_pct": 0.007171,
+      "tol_pct": 0.5,
+      "unit": "km/s/Mpc",
+      "detail": "computed=67.395167, expected=67.4, err=0.0072%, tol=0.5% [km/s/Mpc]"
+    },
+    {
+      "label": "geometric_bias_B1_positive",
+      "status": "PASS",
+      "detail": "B1 = 0.62%"
+    },
+    {
+      "label": "sky_fraction_above_SH0ES",
+      "status": "PASS",
+      "detail": "17.7% of sky has H(n) > 73.04"
+    },
+    {
+      "label": "Jensen_bias_positive",
+      "status": "PASS",
+      "detail": "Delta_Jensen = 0.015329, H_local_Jensen = 68.43"
+    },
+    {
+      "label": "deceleration_q_3",
+      "status": "PASS",
+      "detail": "q_3 = -0.2286"
+    },
+    {
+      "label": "deceleration_q_5",
+      "status": "PASS",
+      "detail": "q_5 = -0.3955"
+    },
+    {
+      "label": "deceleration_q_7",
+      "status": "PASS",
+      "detail": "q_7 = -0.5807"
+    },
+    {
+      "label": "H_0_derived",
+      "status": "PASS",
+      "detail": "H_0(PT) = 67.41, obs = 67.4, err = 0.01%"
+    },
+    {
+      "label": "age_universe",
+      "status": "PASS",
+      "detail": "t_0(PT) = 13.891 Gyr, obs = 13.8 Gyr, err = 0.66%"
+    },
+    {
+      "label": "speed_of_light_derived",
+      "status": "PASS",
+      "detail": "c(PT) = 299792.460, c(obs) = 299792.458, delta = 2.0 m/s"
+    },
+    {
+      "label": "ghost_fraction",
+      "status": "PASS",
+      "detail": "F_ghost = 95.12%, obs = 95.06%, err = 0.0665%"
+    },
+    {
+      "label": "baryon_fraction_precise",
+      "status": "PASS",
+      "detail": "Omega_b(PT) = 4.88%, Planck = 4.93%"
+    },
+    {
+      "label": "sieve_fraction_identity",
+      "status": "PASS",
+      "detail": "Delta_mu/mu = 1/p is exact by Eratosthenes construction"
+    },
+    {
+      "label": "arrow_of_time_fine",
+      "status": "PASS",
+      "detail": "D_KL decreasing on [10,50] with 41 points"
+    },
+    {
+      "label": "EOS_mean_matter_like",
+      "status": "PASS",
+      "detail": "<w> = -0.000000 (0 = matter)"
+    },
+    {
+      "label": "CMB_fluctuations_order",
+      "status": "PASS",
+      "detail": "PT: 1.00e-05, obs: 1.10e-05, ratio = 0.91"
+    },
+    {
+      "label": "cosmological_conservation_GFT",
+      "status": "PASS",
+      "detail": "max |D_KL + H - ln(6)| = 2.22e-16"
+    },
+    {
+      "label": "G_alpha_2pi_frontier",
+      "status": "PASS",
+      "detail": "G/alpha = 6.255606, 2*pi = 6.283185"
+    },
+    {
+      "label": "SO31_from_3_primes",
+      "status": "PASS",
+      "detail": "|{3,5,7}| = 3 spatial dims + 1 time (mu)"
+    },
+    {
+      "label": "spin2_mode_present",
+      "status": "PASS",
+      "detail": "|traceless| = 1.217951"
+    },
+    {
+      "label": "spin_foam_U1_cubed",
+      "status": "PASS",
+      "detail": "3 U(1) factors from 3 active primes"
+    },
+    {
+      "label": "graviton_massless",
+      "status": "PASS",
+      "detail": "sum_j T(i,j)=1 => local gauge invariance => m_graviton=0"
+    },
+    {
+      "label": "no_Boulware_Deser",
+      "status": "PASS",
+      "detail": "T stochastic => no BD ghost mode => m_g=0 exact"
+    },
+    {
+      "label": "no_extra_dimensions",
+      "status": "PASS",
+      "detail": "exactly 3 active primes for mu >= mu*"
+    },
+    {
+      "label": "QG_gaps_documented",
+      "status": "PASS",
+      "detail": "Graviton 3-point vertex; Strain h(t); Canonical quantization"
+    },
+    {
+      "label": "U1_replaces_SU2",
+      "status": "PASS",
+      "detail": "j_sum = 22.5 (not integer => SU(2) fails, U(1)^3 works)"
+    },
+    {
+      "label": "Immirzi_from_sieve",
+      "status": "PASS",
+      "detail": "gamma_BI = s^2 = 0.25"
+    },
+    {
+      "label": "area_spectrum_p3",
+      "status": "PASS",
+      "detail": "SU(2)/U(1) = 1.0690 for j=7.0"
+    },
+    {
+      "label": "area_spectrum_p5",
+      "status": "PASS",
+      "detail": "SU(2)/U(1) = 1.0646 for j=7.5"
+    },
+    {
+      "label": "area_spectrum_p7",
+      "status": "PASS",
+      "detail": "SU(2)/U(1) = 1.0607 for j=8.0"
+    },
+    {
+      "label": "Polyakov_Ruelle_identity",
+      "status": "PASS",
+      "detail": "S_Polyakov = -ln(Z_sieve) = Ruelle zeta (D14)"
+    },
+    {
+      "label": "GFT_unification",
+      "status": "PASS",
+      "detail": "GFT = Ruelle = Polyakov = Regge (exact identity)"
+    },
+    {
+      "label": "U1_volume_positive",
+      "status": "PASS",
+      "detail": "V = 0.00009922 (SU(2) 3-valent would give V=0)"
+    },
+    {
+      "label": "level_matching_Z2",
+      "status": "PASS",
+      "detail": "n1=n2 (sieve parity) = N_L=N_R (string level matching)"
+    },
+    {
+      "label": "back_reaction_eps_decreasing",
+      "status": "PASS",
+      "detail": "19/19 levels decreasing"
+    },
+    {
+      "label": "fixed_point_mu_star",
+      "status": "PASS",
+      "detail": "phi(15.0) = 15"
+    },
+    {
+      "label": "perturbations_reabsorbed",
+      "status": "PASS",
+      "detail": "8/9 perturbations -> mu*=15"
+    },
+    {
+      "label": "gamma_p_decaying",
+      "status": "PASS",
+      "detail": "gamma_3 > gamma_5 > ... > gamma_17"
+    },
+    {
+      "label": "closed_back_reaction_loop",
+      "status": "PASS",
+      "detail": "alpha=7.337924e-03, G=4.610553e-02, phi=15"
+    },
+    {
+      "label": "dissipation_rate",
+      "status": "PASS",
+      "detail": "1st half = 0.024192, 2nd half = 0.000574"
+    },
+    {
+      "label": "horizon_mu_universal",
+      "status": "PASS",
+      "detail": "alpha = prod(sin^2) exact => mu is global"
+    },
+    {
+      "label": "flatness_GFT_exact",
+      "status": "PASS",
+      "detail": "max|H_max-D-H| = 0.0e+00"
+    },
+    {
+      "label": "inflation_end_phase_transition",
+      "status": "PASS",
+      "detail": "gamma_7=0.5955, gamma_11=0.4257"
+    },
+    {
+      "label": "path_integral_identification",
+      "status": "PASS",
+      "detail": "Z = Tr(T^N) = Z_Ruelle = Z_Polyakov (D14, proven)"
+    },
+    {
+      "label": "efolds_converge_to_2",
+      "status": "PASS",
+      "detail": "prod f(p) = 1.6774, expected ~2"
+    },
+    {
+      "label": "christoffel_Gamma000_finite",
+      "status": "PASS",
+      "detail": "Gamma^0_00 = 0.059553"
+    },
+    {
+      "label": "christoffel_p3_finite",
+      "status": "PASS",
+      "detail": "Gamma^3_30 = 0.114320"
+    },
+    {
+      "label": "christoffel_p5_finite",
+      "status": "PASS",
+      "detail": "Gamma^5_50 = 0.197743"
+    },
+    {
+      "label": "christoffel_p7_finite",
+      "status": "PASS",
+      "detail": "Gamma^7_70 = 0.290330"
+    },
+    {
+      "label": "geodesic_equilibrium_stable",
+      "status": "PASS",
+      "detail": "d^2mu/dtau^2 = 0 at fixed point (geodesic rest)"
+    },
+    {
+      "label": "energy_conservation_approx",
+      "status": "PASS",
+      "detail": "|dE/dmu| = 0.0058"
+    },
+    {
+      "label": "stress_energy_T00_positive",
+      "status": "PASS",
+      "detail": "T_00 = 6.032723e-01"
+    },
+    {
+      "label": "stress_energy_conservation",
+      "status": "PASS",
+      "detail": "nabla_mu T^mu_nu = 0 (Bianchi identity)"
+    },
+    {
+      "label": "variational_principle_algebraic",
+      "status": "PASS",
+      "detail": "delta(R sqrt(-g))/delta(g^ab) = G_ab (algebraic identity)"
+    },
+    {
+      "label": "jacobson_derivation",
+      "status": "PASS",
+      "detail": "Clausius delta Q = T dS at local Rindler -> Einstein equations"
+    },
+    {
+      "label": "T30_row_stochastic",
+      "status": "PASS",
+      "detail": "max|row_sum-1| = 4.44e-16"
+    },
+    {
+      "label": "perron_frobenius_T30",
+      "status": "PASS",
+      "value": 1.0000000000000018,
+      "expected": 1.0,
+      "err_pct": 0.0,
+      "tol_pct": 0.01,
+      "unit": "lambda_0",
+      "detail": "computed=1, expected=1, err=0.0000%, tol=0.01% [lambda_0]"
+    },
+    {
+      "label": "WDW_graviton_massless",
+      "status": "PASS",
+      "detail": "-ln(lambda_0) = -1.78e-15 = 0"
+    },
+    {
+      "label": "spectral_gap_positive",
+      "status": "PASS",
+      "detail": "gap = 1 - |lam_1| = 0.434621"
+    },
+    {
+      "label": "S_pp_lorentzian",
+      "status": "PASS",
+      "detail": "d^2(ln alpha)/dmu^2 = 5.749357e-03 > 0 (convex)"
+    },
+    {
+      "label": "graviton_vertex_nonzero",
+      "status": "PASS",
+      "detail": "|S'''| = 3.423928e-04 > 0"
+    },
+    {
+      "label": "vertex_coupling_weak",
+      "status": "PASS",
+      "detail": "|S'''/S''| = 0.059553 < 1"
+    },
+    {
+      "label": "T30_complex_eigenvalues",
+      "status": "PASS",
+      "detail": "28 complex eigenvalues => oscillatory modes"
+    },
+    {
+      "label": "strain_convergent",
+      "status": "PASS",
+      "detail": "all |lambda_k| < 1 for k >= 1 => h(N) converges"
+    },
+    {
+      "label": "Z_partition_convergent",
+      "status": "PASS",
+      "detail": "Z(10) = 0.998817, Z(20) = 0.999979"
+    },
+    {
+      "label": "E_mu_star_positive",
+      "status": "PASS",
+      "detail": "E(mu*) = 1.845840"
+    },
+    {
+      "label": "E_large_mu_finite",
+      "status": "PASS",
+      "detail": "E(500) = 1.7481, E(1000) = 2.0445"
+    },
+    {
+      "label": "planck_mass_sieve",
+      "status": "PASS",
+      "detail": "M_Pl = 4.6572 (sieve units)"
+    },
+    {
+      "label": "alpha_running_decreases",
+      "status": "PASS",
+      "detail": "alpha(10)=0.015973, alpha(15)=0.007338, alpha(20)=0.003889"
+    },
+    {
+      "label": "inv_alpha_near_137",
+      "status": "PASS",
+      "detail": "1/alpha = 136.28"
+    },
+    {
+      "label": "E_mapping_all_positive",
+      "status": "PASS",
+      "detail": "E values: ['2.1391', '1.9499', '1.8458', '1.7861', '1.7529', '1.7398']"
+    },
+    {
+      "label": "ruelle_pollicott_computed",
+      "status": "PASS",
+      "detail": "10 Ruelle-Pollicott eigenvalues computed"
+    },
+    {
+      "label": "QNM_oscillatory_modes",
+      "status": "PASS",
+      "detail": "9 non-trivial QNM phases"
+    },
+    {
+      "label": "QNM_quality_factors_positive",
+      "status": "PASS",
+      "detail": "Q factors: ['5.51', '5.51', '2.80', '2.80', '2.12']"
+    },
+    {
+      "label": "hierarchy_dissolved",
+      "status": "PASS",
+      "detail": "M_Pl_sieve = 4.6572 ~ O(1)"
+    },
+    {
+      "label": "cosmological_tau_finite",
+      "status": "PASS",
+      "detail": "tau_total = 0.593232"
+    },
+    {
+      "label": "fisher_metric_is_continuum",
+      "status": "PASS",
+      "detail": "g_00 = -S'' is the continuum limit of the discrete sieve"
+    },
+    {
+      "label": "zero_new_parameters",
+      "status": "PASS",
+      "detail": "Chain: s -> alpha -> G/alpha=2pi -> M_Pl -> all derived, 0 params"
+    },
+    {
+      "label": "G_PT_positive",
+      "status": "PASS",
+      "detail": "G_PT = 2*pi*alpha = 4.610553e-02"
+    },
+    {
+      "label": "grav_redshift_well_defined",
+      "status": "PASS",
+      "detail": "z_grav ~ G_PT = 4.610553e-02 << 1 (weak field)"
+    },
+    {
+      "label": "precession_from_G",
+      "status": "PASS",
+      "detail": "Mercury precession 43''/cy from G = 2*pi*alpha (standard GR route)"
+    },
+    {
+      "label": "frame_dragging_from_G",
+      "status": "PASS",
+      "detail": "Lense-Thirring from G = 2*pi*alpha (standard GR route)"
+    },
+    {
+      "label": "GW_energy_loss_formula",
+      "status": "PASS",
+      "detail": "Peters formula from G = 2*pi*alpha (standard GR route)"
+    },
+    {
+      "label": "light_deflection_finite",
+      "status": "PASS",
+      "detail": "4GM = 1.844221e-01"
+    },
+    {
+      "label": "schwarzschild_radius",
+      "status": "PASS",
+      "detail": "r_s(M=1) = 9.221107e-02"
+    },
+    {
+      "label": "ISCO_radius",
+      "status": "PASS",
+      "detail": "r_ISCO = 3*r_s = 2.766332e-01"
+    },
+    {
+      "label": "photon_sphere",
+      "status": "PASS",
+      "detail": "r_ph = 1.5*r_s = 1.383166e-01"
+    },
+    {
+      "label": "convexity_fine_grid",
+      "status": "PASS",
+      "detail": "d^2(ln alpha)/dmu^2 > 0 on [10,50] with 100 points"
+    },
+    {
+      "label": "per_prime_convexity_p3",
+      "status": "PASS",
+      "detail": "d^2(ln sin^2_3)/dmu^2 = 2.768741e-03"
+    },
+    {
+      "label": "per_prime_convexity_p5",
+      "status": "PASS",
+      "detail": "d^2(ln sin^2_5)/dmu^2 = 1.870792e-03"
+    },
+    {
+      "label": "per_prime_convexity_p7",
+      "status": "PASS",
+      "detail": "d^2(ln sin^2_7)/dmu^2 = 1.109779e-03"
+    },
+    {
+      "label": "curvature_ordering",
+      "status": "PASS",
+      "detail": "|R|: p3=2.768741e-03 > p5=1.870792e-03 > p7=1.109779e-03"
+    },
+    {
+      "label": "G_alpha_2pi_mu10",
+      "status": "PASS",
+      "detail": "G/alpha = 6.2831853072"
+    },
+    {
+      "label": "G_alpha_2pi_mu12",
+      "status": "PASS",
+      "detail": "G/alpha = 6.2831853072"
+    },
+    {
+      "label": "G_alpha_2pi_mu15",
+      "status": "PASS",
+      "detail": "G/alpha = 6.2831853072"
+    },
+    {
+      "label": "G_alpha_2pi_mu20",
+      "status": "PASS",
+      "detail": "G/alpha = 6.2831853072"
+    },
+    {
+      "label": "G_alpha_2pi_mu30",
+      "status": "PASS",
+      "detail": "G/alpha = 6.2831853072"
+    },
+    {
+      "label": "det_g_negative_mu10",
+      "status": "PASS",
+      "detail": "det(g) = -2.024191e-10"
+    },
+    {
+      "label": "det_g_negative_mu15",
+      "status": "PASS",
+      "detail": "det(g) = -5.659909e-11"
+    },
+    {
+      "label": "det_g_negative_mu20",
+      "status": "PASS",
+      "detail": "det(g) = -1.313662e-11"
+    },
+    {
+      "label": "det_g_negative_mu30",
+      "status": "PASS",
+      "detail": "det(g) = -1.114834e-12"
+    },
+    {
+      "label": "haar_p3",
+      "status": "PASS",
+      "detail": "Haar(Z/3Z) = 0.5000000000"
+    },
+    {
+      "label": "haar_p5",
+      "status": "PASS",
+      "detail": "Haar(Z/5Z) = 0.5000000000"
+    },
+    {
+      "label": "haar_p7",
+      "status": "PASS",
+      "detail": "Haar(Z/7Z) = 0.5000000000"
+    },
+    {
+      "label": "haar_p11",
+      "status": "PASS",
+      "detail": "Haar(Z/11Z) = 0.5000000000"
+    },
+    {
+      "label": "haar_p13",
+      "status": "PASS",
+      "detail": "Haar(Z/13Z) = 0.5000000000"
+    },
+    {
+      "label": "haar_p17",
+      "status": "PASS",
+      "detail": "Haar(Z/17Z) = 0.5000000000"
+    },
+    {
+      "label": "haar_p19",
+      "status": "PASS",
+      "detail": "Haar(Z/19Z) = 0.5000000000"
+    },
+    {
+      "label": "ricci_scalar_finite",
+      "status": "PASS",
+      "detail": "R = -3.882452e+00"
+    },
+    {
+      "label": "G00_finite",
+      "status": "PASS",
+      "detail": "G_00 = 8.064709e-01"
+    },
+    {
+      "label": "G_sp_0_finite",
+      "status": "PASS",
+      "detail": "G_11 = 4.767665e-01"
+    },
+    {
+      "label": "G_sp_1_finite",
+      "status": "PASS",
+      "detail": "G_22 = 1.001354e+00"
+    },
+    {
+      "label": "G_sp_2_finite",
+      "status": "PASS",
+      "detail": "G_33 = 1.597860e+00"
+    },
+    {
+      "label": "hubble_all_defined",
+      "status": "PASS",
+      "detail": "H = ['-6.781972e-01', '-5.315021e-01', '-3.686930e-01']"
+    },
+    {
+      "label": "lapse_decreasing",
+      "status": "PASS",
+      "detail": "N(50)=3.114450e-02, N(200)=8.418826e-03"
+    },
+    {
+      "label": "fixed_point_stability",
+      "status": "PASS",
+      "detail": "5/5 perturbations stable"
+    },
+    {
+      "label": "GFT_gravitational_exact",
+      "status": "PASS",
+      "detail": "max|D_KL + H - ln(6)| = 2.22e-16"
+    },
+    {
+      "label": "mertens_eps_decreasing",
+      "status": "PASS",
+      "detail": "19/19 levels decreasing"
+    },
+    {
+      "label": "anisotropy_parameter",
+      "status": "PASS",
+      "detail": "A = 0.007665"
+    },
+    {
+      "label": "volume_expansion",
+      "status": "PASS",
+      "detail": "theta = -1.578392e+00"
+    },
+    {
+      "label": "weyl_shear_nonzero",
+      "status": "PASS",
+      "detail": "sigma = {(0, 1): 10.719495955377255, (0, 2): 20.432444489339986, (1, 2): 9.71294853396273}"
+    },
+    {
+      "label": "birkhoff_isotropic_limit",
+      "status": "PASS",
+      "detail": "gamma_3/gamma_7 at mu=500: 1.0081 -> 1"
+    },
+    {
+      "label": "DKL_positive_operating",
+      "status": "PASS",
+      "detail": "D_KL(mu*) = 0.699047"
+    },
+    {
+      "label": "H_iso_consistency",
+      "status": "PASS",
+      "value": 67.39999999999999,
+      "expected": 67.4,
+      "err_pct": 0.0,
+      "tol_pct": 0.1,
+      "unit": "km/s/Mpc",
+      "detail": "computed=67.4, expected=67.4, err=0.0000%, tol=0.1% [km/s/Mpc]"
+    }
+  ],
+  "pt_version": "v7",
+  "zero_fitted_parameters": true
+}

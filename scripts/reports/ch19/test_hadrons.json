@@ -1,0 +1,334 @@
+{
+  "script": "test_hadrons",
+  "chapter": "ch19",
+  "timestamp": "2026-04-14T23:59:03.792449+00:00",
+  "duration_s": 0.0,
+  "n_pass": 34,
+  "n_fail": 0,
+  "n_total": 34,
+  "success": true,
+  "results": [
+    {
+      "label": "f_pi_string_relation",
+      "status": "PASS",
+      "value": 0.13162007846365925,
+      "expected": 0.1302,
+      "err_pct": 1.09069,
+      "tol_pct": 5.0,
+      "unit": "131.6 MeV",
+      "detail": "computed=0.13162008, expected=0.1302, err=1.0907%, tol=5.0% [131.6 MeV]"
+    },
+    {
+      "label": "fK_over_fpi",
+      "status": "PASS",
+      "value": 1.1968539379030363,
+      "expected": 1.195852534562212,
+      "err_pct": 0.08374,
+      "tol_pct": 3.0,
+      "unit": "",
+      "detail": "computed=1.1968539, expected=1.1958525, err=0.0837%, tol=3.0%"
+    },
+    {
+      "label": "f_K_derived",
+      "status": "PASS",
+      "value": 0.1575300092163372,
+      "expected": 0.1557,
+      "err_pct": 1.175343,
+      "tol_pct": 3.0,
+      "unit": "",
+      "detail": "computed=0.15753001, expected=0.1557, err=1.1753%, tol=3.0%"
+    },
+    {
+      "label": "m_pi_GMOR",
+      "status": "PASS",
+      "value": 0.1347856558736084,
+      "expected": 0.13498,
+      "err_pct": 0.14398,
+      "tol_pct": 15.0,
+      "unit": "134.8 MeV",
+      "detail": "computed=0.13478566, expected=0.13498, err=0.1440%, tol=15.0% [134.8 MeV]"
+    },
+    {
+      "label": "condensate_tree_level",
+      "status": "PASS",
+      "value": 0.35881534498075485,
+      "expected": 0.35657213269434435,
+      "err_pct": 0.629105,
+      "tol_pct": 5.0,
+      "unit": "358.8 MeV",
+      "detail": "computed=0.35881534, expected=0.35657213, err=0.6291%, tol=5.0% [358.8 MeV]"
+    },
+    {
+      "label": "m_K_ratio_GMOR",
+      "status": "PASS",
+      "value": 0.5047806507839204,
+      "expected": 0.4976,
+      "err_pct": 1.443057,
+      "tol_pct": 5.0,
+      "unit": "504.8 MeV",
+      "detail": "computed=0.50478065, expected=0.4976, err=1.4431%, tol=5.0% [504.8 MeV]"
+    },
+    {
+      "label": "m_rho_Regge",
+      "status": "PASS",
+      "value": 0.7762351943920017,
+      "expected": 0.7755,
+      "err_pct": 0.094803,
+      "tol_pct": 5.0,
+      "unit": "776.2 MeV",
+      "detail": "computed=0.77623519, expected=0.7755, err=0.0948%, tol=5.0% [776.2 MeV]"
+    },
+    {
+      "label": "m_omega_isospin",
+      "status": "PASS",
+      "value": 0.7762351943920017,
+      "expected": 0.7827,
+      "err_pct": 0.825962,
+      "tol_pct": 5.0,
+      "unit": "",
+      "detail": "computed=0.77623519, expected=0.7827, err=0.8260%, tol=5.0%"
+    },
+    {
+      "label": "m_a_2(1320)",
+      "status": "PASS",
+      "value": 1.344478795310051,
+      "expected": 1.3169,
+      "err_pct": 2.094221,
+      "tol_pct": 5.0,
+      "unit": "1344 MeV",
+      "detail": "computed=1.3444788, expected=1.3169, err=2.0942%, tol=5.0% [1344 MeV]"
+    },
+    {
+      "label": "m_rho_3(1690)",
+      "status": "PASS",
+      "value": 1.7357146611882794,
+      "expected": 1.6888,
+      "err_pct": 2.777988,
+      "tol_pct": 5.0,
+      "unit": "1736 MeV",
+      "detail": "computed=1.7357147, expected=1.6888, err=2.7780%, tol=5.0% [1736 MeV]"
+    },
+    {
+      "label": "m_a_4(2040)",
+      "status": "PASS",
+      "value": 2.053725283257116,
+      "expected": 2.04,
+      "err_pct": 0.672808,
+      "tol_pct": 5.0,
+      "unit": "2054 MeV",
+      "detail": "computed=2.0537253, expected=2.04, err=0.6728%, tol=5.0% [2054 MeV]"
+    },
+    {
+      "label": "M_proton",
+      "status": "PASS",
+      "value": 0.954929658551372,
+      "expected": 0.9383,
+      "err_pct": 1.772318,
+      "tol_pct": 5.0,
+      "unit": "954.9 MeV",
+      "detail": "computed=0.95492966, expected=0.9383, err=1.7723%, tol=5.0% [954.9 MeV]"
+    },
+    {
+      "label": "delta_m_neutron_proton",
+      "status": "PASS",
+      "value": 0.0012500691470911335,
+      "expected": 0.001293,
+      "err_pct": 3.320252,
+      "tol_pct": 20.0,
+      "unit": "1.250 MeV",
+      "detail": "computed=0.0012500691, expected=0.001293, err=3.3203%, tol=20.0% [1.250 MeV]"
+    },
+    {
+      "label": "g_rho_pi_pi_KSRF",
+      "status": "PASS",
+      "value": 5.897543926828177,
+      "expected": 5.96,
+      "err_pct": 1.047921,
+      "tol_pct": 5.0,
+      "unit": "",
+      "detail": "computed=5.8975439, expected=5.96, err=1.0479%, tol=5.0%"
+    },
+    {
+      "label": "Gamma_rho_width",
+      "status": "PASS",
+      "value": 0.14764594657604999,
+      "expected": 0.1491,
+      "err_pct": 0.97522,
+      "tol_pct": 5.0,
+      "unit": "147.6 MeV",
+      "detail": "computed=0.14764595, expected=0.1491, err=0.9752%, tol=5.0% [147.6 MeV]"
+    },
+    {
+      "label": "F_pi_0_charge_conservation",
+      "status": "PASS",
+      "value": 1.0,
+      "expected": 1.0,
+      "err_pct": 0.0,
+      "tol_pct": 0.01,
+      "unit": "",
+      "detail": "computed=1, expected=1, err=0.0000%, tol=0.01%"
+    },
+    {
+      "label": "r_pi_squared",
+      "status": "PASS",
+      "value": 0.3877373319214241,
+      "expected": 0.452,
+      "err_pct": 14.217404,
+      "tol_pct": 15.0,
+      "unit": "0.388 fm^2",
+      "detail": "computed=0.38773733, expected=0.452, err=14.2174%, tol=15.0% [0.388 fm^2]"
+    },
+    {
+      "label": "F_pi_resonant_peak",
+      "status": "PASS",
+      "detail": "|F_pi(m_rho^2)| = 5.26"
+    },
+    {
+      "label": "sigma_ee_rho_peak",
+      "status": "PASS",
+      "value": 995.7853862251075,
+      "expected": 1200.0,
+      "err_pct": 17.017884,
+      "tol_pct": 30.0,
+      "unit": "996 nb",
+      "detail": "computed=995.78539, expected=1200, err=17.0179%, tol=30.0% [996 nb]"
+    },
+    {
+      "label": "chiral_limit_Gamma_rho_finite",
+      "status": "PASS",
+      "detail": "Gamma(m_pi->0) = 179.0 MeV"
+    },
+    {
+      "label": "Gamma_Kstar_SU3",
+      "status": "PASS",
+      "value": 0.05241419484768708,
+      "expected": 0.0514,
+      "err_pct": 1.973142,
+      "tol_pct": 30.0,
+      "unit": "52.4 MeV",
+      "detail": "computed=0.052414195, expected=0.0514, err=1.9731%, tol=30.0% [52.4 MeV]"
+    },
+    {
+      "label": "C_mix_eq_Q_Koide",
+      "status": "PASS",
+      "value": 0.6666666666666666,
+      "expected": 0.6666666666666666,
+      "err_pct": 0.0,
+      "tol_pct": 0.001,
+      "unit": "",
+      "detail": "computed=0.66666667, expected=0.66666667, err=0.0000%, tol=0.001%"
+    },
+    {
+      "label": "m_eta_mixing",
+      "status": "PASS",
+      "value": 0.5425544745664411,
+      "expected": 0.5478,
+      "err_pct": 0.957562,
+      "tol_pct": 5.0,
+      "unit": "542.6 MeV",
+      "detail": "computed=0.54255447, expected=0.5478, err=0.9576%, tol=5.0% [542.6 MeV]"
+    },
+    {
+      "label": "m_eta_prime_mixing",
+      "status": "PASS",
+      "value": 0.9467550713896341,
+      "expected": 0.9578,
+      "err_pct": 1.153156,
+      "tol_pct": 5.0,
+      "unit": "946.8 MeV",
+      "detail": "computed=0.94675507, expected=0.9578, err=1.1532%, tol=5.0% [946.8 MeV]"
+    },
+    {
+      "label": "octet_eta_fails_gt_20pct",
+      "status": "PASS",
+      "detail": "eta_8 octet = 414 MeV, err = 24% (signals U(1)_A breaking)"
+    },
+    {
+      "label": "chi_top_fourth_root",
+      "status": "PASS",
+      "value": 0.21058456696930405,
+      "expected": 0.1978,
+      "err_pct": 6.463381,
+      "tol_pct": 15.0,
+      "unit": "210.6 MeV",
+      "detail": "computed=0.21058457, expected=0.1978, err=6.4634%, tol=15.0% [210.6 MeV]"
+    },
+    {
+      "label": "WV_self_consistent",
+      "status": "PASS",
+      "value": 0.9467550713896341,
+      "expected": 0.9467550713896341,
+      "err_pct": 0.0,
+      "tol_pct": 1.0,
+      "unit": "",
+      "detail": "computed=0.94675507, expected=0.94675507, err=0.0000%, tol=1.0%"
+    },
+    {
+      "label": "epsilon_NLO_small",
+      "status": "PASS",
+      "detail": "epsilon = 0.00939"
+    },
+    {
+      "label": "f_pi_NLO",
+      "status": "PASS",
+      "value": 0.13038355322804754,
+      "expected": 0.1302,
+      "err_pct": 0.140978,
+      "tol_pct": 2.0,
+      "unit": "130.4 MeV",
+      "detail": "computed=0.13038355, expected=0.1302, err=0.1410%, tol=2.0% [130.4 MeV]"
+    },
+    {
+      "label": "m_K_NLO",
+      "status": "PASS",
+      "value": 0.4976672906443219,
+      "expected": 0.4976,
+      "err_pct": 0.013523,
+      "tol_pct": 2.0,
+      "unit": "497.7 MeV",
+      "detail": "computed=0.49766729, expected=0.4976, err=0.0135%, tol=2.0% [497.7 MeV]"
+    },
+    {
+      "label": "M_proton_NLO",
+      "status": "PASS",
+      "value": 0.9369871890616753,
+      "expected": 0.9383,
+      "err_pct": 0.139914,
+      "tol_pct": 2.0,
+      "unit": "937.0 MeV",
+      "detail": "computed=0.93698719, expected=0.9383, err=0.1399%, tol=2.0% [937.0 MeV]"
+    },
+    {
+      "label": "delta_m_np_NLO",
+      "status": "PASS",
+      "value": 0.0012861389696638143,
+      "expected": 0.001293,
+      "err_pct": 0.530629,
+      "tol_pct": 5.0,
+      "unit": "1.286 MeV",
+      "detail": "computed=0.001286139, expected=0.001293, err=0.5306%, tol=5.0% [1.286 MeV]"
+    },
+    {
+      "label": "m_eta_NLO",
+      "status": "PASS",
+      "value": 0.5440576404734979,
+      "expected": 0.5478,
+      "err_pct": 0.683162,
+      "tol_pct": 2.0,
+      "unit": "544.1 MeV",
+      "detail": "computed=0.54405764, expected=0.5478, err=0.6832%, tol=2.0% [544.1 MeV]"
+    },
+    {
+      "label": "m_eta_prime_NLO",
+      "status": "PASS",
+      "value": 0.9595484623534549,
+      "expected": 0.9578,
+      "err_pct": 0.18255,
+      "tol_pct": 2.0,
+      "unit": "959.5 MeV",
+      "detail": "computed=0.95954846, expected=0.9578, err=0.1825%, tol=2.0% [959.5 MeV]"
+    }
+  ],
+  "pt_version": "v7",
+  "zero_fitted_parameters": true
+}

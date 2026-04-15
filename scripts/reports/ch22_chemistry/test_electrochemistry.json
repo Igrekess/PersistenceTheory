@@ -1,0 +1,164 @@
+{
+  "script": "test_electrochemistry",
+  "chapter": "ch22_chemistry",
+  "timestamp": "2026-04-14T23:59:14.873177+00:00",
+  "duration_s": 0.0,
+  "n_pass": 29,
+  "n_fail": 0,
+  "n_total": 29,
+  "success": true,
+  "results": [
+    {
+      "label": "P1 channel (sin2_3) is always positive",
+      "status": "PASS",
+      "detail": "sin2_3 = 0.219155"
+    },
+    {
+      "label": "P2 channel (sin2_5) is smaller than P1",
+      "status": "PASS",
+      "detail": "sin2_5 = 0.193975 < sin2_3 = 0.219155"
+    },
+    {
+      "label": "f_proj maximum at IE = IE_ref",
+      "status": "PASS",
+      "detail": "f_proj(IE_ref) = 0.413130 = sin2_3 + sin2_5 = 0.413130"
+    },
+    {
+      "label": "f_proj far from reference approaches sin2_3",
+      "status": "PASS",
+      "detail": "f_proj(IE_ref + 5*Ry) = 0.219155, sin2_3 = 0.219155"
+    },
+    {
+      "label": "Gaussian half-width = Ry (13.606 eV)",
+      "status": "PASS",
+      "detail": "Ry = 13.606 eV"
+    },
+    {
+      "label": "SHE reference: Ry/P1 within 1% of 4.50 eV convention",
+      "status": "PASS",
+      "detail": "Ry/P1 = 4.535 eV, convention = 4.50 eV"
+    },
+    {
+      "label": "MAE of 14 metals (monograph values)",
+      "status": "PASS",
+      "value": 0.1157142857142857,
+      "expected": 0.115,
+      "err_pct": 0.621118,
+      "tol_pct": 15.0,
+      "unit": "V",
+      "detail": "computed=0.11571429, expected=0.115, err=0.6211%, tol=15.0% [V]"
+    },
+    {
+      "label": "Li, Na, K have E^0 < -2 V (strongly electropositive)",
+      "status": "PASS",
+      "detail": "Li=-3.04, Na=-2.71, K=-2.93"
+    },
+    {
+      "label": "Cu, Ag, Au have E^0 > 0 V (noble metals)",
+      "status": "PASS",
+      "detail": "Cu=0.34, Ag=0.8, Au=1.5"
+    },
+    {
+      "label": "PT predicts correct sign for all metals (|E_exp| > 0.1 V)",
+      "status": "PASS",
+      "detail": "Sign(E_PT) == Sign(E_exp) for all non-ambiguous metals"
+    },
+    {
+      "label": "Ordering: E^0(Au) > E^0(Ag) > E^0(Cu) from PT",
+      "status": "PASS",
+      "detail": "Au=1.47, Ag=0.76, Cu=0.35"
+    },
+    {
+      "label": "Ordering: E^0(Cu) > E^0(Fe) from PT",
+      "status": "PASS",
+      "detail": "Cu=0.35, Fe=-0.53"
+    },
+    {
+      "label": "CFSE double-hump: peak at d=3 and d=8",
+      "status": "PASS",
+      "detail": "CFSE(d3)=0.905, CFSE(d8)=0.905"
+    },
+    {
+      "label": "CFSE trough at d=5 (half-filled)",
+      "status": "PASS",
+      "detail": "CFSE(d5)=0.000"
+    },
+    {
+      "label": "Metallic cohesion: Fe > Li (higher IE, deeper period)",
+      "status": "PASS",
+      "detail": "Fe_coh=1.031, Li_coh=0.954"
+    },
+    {
+      "label": "d10s2 penalty is positive (shifts E^0 negative)",
+      "status": "PASS",
+      "detail": "penalty = 0.528 eV"
+    },
+    {
+      "label": "d5s2 exchange lock is positive",
+      "status": "PASS",
+      "detail": "lock = 0.0386 eV"
+    },
+    {
+      "label": "d10 solvation skip factor < 1",
+      "status": "PASS",
+      "detail": "f_solv = 0.8060"
+    },
+    {
+      "label": "Au relativistic factor > 1.2 (significant noble enhancement)",
+      "status": "PASS",
+      "detail": "f_noble(Au) = 1.2595, (Z*alpha)^2 = 0.3323"
+    },
+    {
+      "label": "All mechanisms use only sieve invariants (zero fitted parameters)",
+      "status": "PASS",
+      "detail": "sin2_3, sin2_5, sin2_7, gamma_p, Ry, P1, P2, alpha_EM"
+    },
+    {
+      "label": "Charge contraction ordering: q1 > q2 > q3",
+      "status": "PASS",
+      "detail": "q1=0.8202, q2=0.6953, q3=0.6033"
+    },
+    {
+      "label": "Contraction per charge ~ sin2_3 ~ 22%",
+      "status": "PASS",
+      "detail": "sin2_3 = 0.2192"
+    },
+    {
+      "label": "Solvation |Delta_G| grows with charge (q^2 / R effect)",
+      "status": "PASS",
+      "detail": "q^2/contraction: q2=5.753 > q1=1.219"
+    },
+    {
+      "label": "Born dielectric factor for water ~ 0.9875",
+      "status": "PASS",
+      "detail": "(1 - 1/eps_r) = 0.9875"
+    },
+    {
+      "label": "Irving-Williams: CFSE(Mn) < CFSE(Fe)",
+      "status": "PASS",
+      "detail": "Mn(d5)=0.000, Fe(d6)=0.345"
+    },
+    {
+      "label": "Irving-Williams: CFSE(Fe) < CFSE(Co) < CFSE(Ni)",
+      "status": "PASS",
+      "detail": "Fe=0.345, Co=0.905, Ni=0.905"
+    },
+    {
+      "label": "Hund rule: sin2_3 > sin2_5 > sin2_7 (screening hierarchy)",
+      "status": "PASS",
+      "detail": "sin2_3=0.2192, sin2_5=0.1940, sin2_7=0.1726"
+    },
+    {
+      "label": "Spin-orbit: (Z*alpha)^2 grows quadratically with Z",
+      "status": "PASS",
+      "detail": "Au: 0.3323, Fe: 0.0360, ratio: 9.2"
+    },
+    {
+      "label": "GFT budget: sin2_3 + cos2_3 = 1 (probability conservation)",
+      "status": "PASS",
+      "detail": "sum = 1.000000000000000"
+    }
+  ],
+  "pt_version": "v7",
+  "zero_fitted_parameters": true
+}

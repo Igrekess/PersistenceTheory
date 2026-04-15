@@ -1,0 +1,269 @@
+{
+  "script": "proof_T1_sieve",
+  "chapter": "ch01",
+  "timestamp": "2026-04-14T23:58:30.902171+00:00",
+  "duration_s": 0.257,
+  "n_pass": 44,
+  "n_fail": 0,
+  "n_total": 44,
+  "success": true,
+  "results": [
+    {
+      "label": "sieve_level_2_survivors",
+      "status": "PASS",
+      "detail": "k=2: 2 survivors in [1,6], 2 gaps, distinct gaps: [2, 4]"
+    },
+    {
+      "label": "sieve_level_3_survivors",
+      "status": "PASS",
+      "detail": "k=3: 8 survivors in [1,30], 8 gaps, distinct gaps: [2, 4, 6]"
+    },
+    {
+      "label": "sieve_level_4_survivors",
+      "status": "PASS",
+      "detail": "k=4: 48 survivors in [1,210], 48 gaps, distinct gaps: [2, 4, 6, 8, 10]"
+    },
+    {
+      "label": "sieve_level_5_survivors",
+      "status": "PASS",
+      "detail": "k=5: 480 survivors in [1,2310], 480 gaps, distinct gaps: [2, 4, 6, 8, 10, 12, 14]"
+    },
+    {
+      "label": "sieve_level_6_survivors",
+      "status": "PASS",
+      "detail": "k=6: 5760 survivors in [1,30030], 5760 gaps, distinct gaps: [2, 4, 6, 8, 10, 12, 14, 16]..."
+    },
+    {
+      "label": "T1_forbidden_11_level_2",
+      "status": "PASS",
+      "detail": "T[1->1] = 0 at sieve level k=2"
+    },
+    {
+      "label": "T1_forbidden_22_level_2",
+      "status": "PASS",
+      "detail": "T[2->2] = 0 at sieve level k=2"
+    },
+    {
+      "label": "T1_forbidden_11_level_3",
+      "status": "PASS",
+      "detail": "T[1->1] = 0 at sieve level k=3"
+    },
+    {
+      "label": "T1_forbidden_22_level_3",
+      "status": "PASS",
+      "detail": "T[2->2] = 0 at sieve level k=3"
+    },
+    {
+      "label": "T1_forbidden_11_level_4",
+      "status": "PASS",
+      "detail": "T[1->1] = 0 at sieve level k=4"
+    },
+    {
+      "label": "T1_forbidden_22_level_4",
+      "status": "PASS",
+      "detail": "T[2->2] = 0 at sieve level k=4"
+    },
+    {
+      "label": "T1_forbidden_11_level_5",
+      "status": "PASS",
+      "detail": "T[1->1] = 0 at sieve level k=5"
+    },
+    {
+      "label": "T1_forbidden_22_level_5",
+      "status": "PASS",
+      "detail": "T[2->2] = 0 at sieve level k=5"
+    },
+    {
+      "label": "T1_forbidden_11_level_6",
+      "status": "PASS",
+      "detail": "T[1->1] = 0 at sieve level k=6"
+    },
+    {
+      "label": "T1_forbidden_22_level_6",
+      "status": "PASS",
+      "detail": "T[2->2] = 0 at sieve level k=6"
+    },
+    {
+      "label": "T6_nonzero_00",
+      "status": "PASS",
+      "detail": "T[0->0] = 422 (should be > 0)"
+    },
+    {
+      "label": "T6_nonzero_01",
+      "status": "PASS",
+      "detail": "T[0->1] = 732 (should be > 0)"
+    },
+    {
+      "label": "T6_nonzero_02",
+      "status": "PASS",
+      "detail": "T[0->2] = 732 (should be > 0)"
+    },
+    {
+      "label": "T6_nonzero_10",
+      "status": "PASS",
+      "detail": "T[1->0] = 732 (should be > 0)"
+    },
+    {
+      "label": "T6_nonzero_12",
+      "status": "PASS",
+      "detail": "T[1->2] = 1205 (should be > 0)"
+    },
+    {
+      "label": "T6_nonzero_20",
+      "status": "PASS",
+      "detail": "T[2->0] = 732 (should be > 0)"
+    },
+    {
+      "label": "T6_nonzero_21",
+      "status": "PASS",
+      "detail": "T[2->1] = 1205 (should be > 0)"
+    },
+    {
+      "label": "T1_real_primes_11",
+      "status": "PASS",
+      "detail": "T[1->1] = 0 on 100000 real primes"
+    },
+    {
+      "label": "T1_real_primes_22",
+      "status": "PASS",
+      "detail": "T[2->2] = 0 on 100000 real primes"
+    },
+    {
+      "label": "T1_mechanism_mod6",
+      "status": "PASS",
+      "detail": "class-1 always from pos 1 mod 6 (29028 gaps), class-2 always from pos 5 mod 6 (29029 gaps)"
+    },
+    {
+      "label": "route_A_T11_zero",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "route_A_T22_zero",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "route_A_matches_T3",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "route_A_gaps_in_2_4",
+      "status": "PASS",
+      "detail": "gap values: [2, 4]"
+    },
+    {
+      "label": "route_B_involution_1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "route_B_involution_5",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "route_B_matches_T3",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "route_C_matches_T3",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "route_C_eigenvalue_minus1",
+      "status": "PASS",
+      "value": -1.0,
+      "expected": -1.0,
+      "err_pct": 0.0,
+      "tol_pct": 0.001,
+      "unit": "",
+      "detail": "computed=-1, expected=-1, err=0.0000%, tol=0.001%"
+    },
+    {
+      "label": "route_C_eigenvalue_plus1",
+      "status": "PASS",
+      "value": 1.0,
+      "expected": 1.0,
+      "err_pct": 0.0,
+      "tol_pct": 0.001,
+      "unit": "",
+      "detail": "computed=1, expected=1, err=0.0000%, tol=0.001%"
+    },
+    {
+      "label": "route_C_unique_solution",
+      "status": "PASS",
+      "detail": "a=1 is the unique solution of trace=0 in [0,1]"
+    },
+    {
+      "label": "routes_A_B_agree",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "routes_B_C_agree",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "all_routes_antidiag",
+      "status": "PASS",
+      "detail": "All three routes converge to T3 = antidiag(1,1)"
+    },
+    {
+      "label": "stationary_pi_0",
+      "status": "PASS",
+      "value": 0.5,
+      "expected": 0.5,
+      "err_pct": 0.0,
+      "tol_pct": 0.001,
+      "unit": "",
+      "detail": "computed=0.5, expected=0.5, err=0.0000%, tol=0.001%"
+    },
+    {
+      "label": "stationary_pi_1",
+      "status": "PASS",
+      "value": 0.5,
+      "expected": 0.5,
+      "err_pct": 0.0,
+      "tol_pct": 0.001,
+      "unit": "",
+      "detail": "computed=0.5, expected=0.5, err=0.0000%, tol=0.001%"
+    },
+    {
+      "label": "s_equals_half",
+      "status": "PASS",
+      "value": 0.5,
+      "expected": 0.5,
+      "err_pct": 0.0,
+      "tol_pct": 0.0,
+      "unit": "",
+      "detail": "computed=0.5, expected=0.5, err=0.0000%, tol=0.0%"
+    },
+    {
+      "label": "empirical_freq_class1",
+      "status": "PASS",
+      "value": 0.4999913877740841,
+      "expected": 0.5,
+      "err_pct": 0.001722,
+      "tol_pct": 1.0,
+      "unit": "(29028/58057)",
+      "detail": "computed=0.49999139, expected=0.5, err=0.0017%, tol=1.0% [(29028/58057)]"
+    },
+    {
+      "label": "empirical_freq_class2",
+      "status": "PASS",
+      "value": 0.5000086122259159,
+      "expected": 0.5,
+      "err_pct": 0.001722,
+      "tol_pct": 1.0,
+      "unit": "(29029/58057)",
+      "detail": "computed=0.50000861, expected=0.5, err=0.0017%, tol=1.0% [(29029/58057)]"
+    }
+  ],
+  "pt_version": "v7",
+  "zero_fitted_parameters": true
+}

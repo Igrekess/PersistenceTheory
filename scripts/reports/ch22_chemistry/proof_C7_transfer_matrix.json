@@ -1,0 +1,584 @@
+{
+  "script": "proof_C7_transfer_matrix",
+  "chapter": "ch22_chemistry",
+  "timestamp": "2026-04-14T23:59:10.769835+00:00",
+  "duration_s": 0.001,
+  "n_pass": 114,
+  "n_fail": 0,
+  "n_total": 114,
+  "success": true,
+  "results": [
+    {
+      "label": "H2 is 2x2",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "H2 diagonal = IE_H/Ry",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "H2 off-diag = D0*exp(-S_cross)/Ry",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "H2 symmetric",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "H2O is 3x3",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "H2O O-site energy",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "H2O H-site energies",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "H2O O-H bonds nonzero",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "H2O H-H not bonded = 0",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "H2O symmetric",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "CH4 is 5x5",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "CH4 C-site energy",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "CH4 symmetric",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "CH4 H-H entries = 0",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "C2H6 is 8x8",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "C2H6 symmetric",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "C2H6 C-C bond nonzero",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "Benzene is 12x12",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "Benzene symmetric",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "Benzene trace = sum(site energies)",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "H2   lam_0 = a+t",
+      "status": "PASS",
+      "detail": "lam0=1.268483"
+    },
+    {
+      "label": "H2   lam_1 = a-t",
+      "status": "PASS",
+      "detail": "lam1=0.730341"
+    },
+    {
+      "label": "N2   lam_0 = a+t",
+      "status": "PASS",
+      "detail": "lam0=1.337276"
+    },
+    {
+      "label": "N2   lam_1 = a-t",
+      "status": "PASS",
+      "detail": "lam1=0.799134"
+    },
+    {
+      "label": "O2   lam_0 = a+t",
+      "status": "PASS",
+      "detail": "lam0=1.269953"
+    },
+    {
+      "label": "O2   lam_1 = a-t",
+      "status": "PASS",
+      "detail": "lam1=0.731811"
+    },
+    {
+      "label": "F2   lam_0 = a+t",
+      "status": "PASS",
+      "detail": "lam0=1.549609"
+    },
+    {
+      "label": "F2   lam_1 = a-t",
+      "status": "PASS",
+      "detail": "lam1=1.011467"
+    },
+    {
+      "label": "Cl2  lam_0 = a+t",
+      "status": "PASS",
+      "detail": "lam0=1.222180"
+    },
+    {
+      "label": "Cl2  lam_1 = a-t",
+      "status": "PASS",
+      "detail": "lam1=0.684038"
+    },
+    {
+      "label": "Li2  lam_0 = a+t",
+      "status": "PASS",
+      "detail": "lam0=0.665367"
+    },
+    {
+      "label": "Li2  lam_1 = a-t",
+      "status": "PASS",
+      "detail": "lam1=0.127225"
+    },
+    {
+      "label": "Na2  lam_0 = a+t",
+      "status": "PASS",
+      "detail": "lam0=0.646772"
+    },
+    {
+      "label": "Na2  lam_1 = a-t",
+      "status": "PASS",
+      "detail": "lam1=0.108630"
+    },
+    {
+      "label": "K2   lam_0 = a+t",
+      "status": "PASS",
+      "detail": "lam0=0.588121"
+    },
+    {
+      "label": "K2   lam_1 = a-t",
+      "status": "PASS",
+      "detail": "lam1=0.049979"
+    },
+    {
+      "label": "Br2  lam_0 = a+t",
+      "status": "PASS",
+      "detail": "lam0=1.137364"
+    },
+    {
+      "label": "Br2  lam_1 = a-t",
+      "status": "PASS",
+      "detail": "lam1=0.599222"
+    },
+    {
+      "label": "I2   lam_0 = a+t",
+      "status": "PASS",
+      "detail": "lam0=1.037188"
+    },
+    {
+      "label": "I2   lam_1 = a-t",
+      "status": "PASS",
+      "detail": "lam1=0.499046"
+    },
+    {
+      "label": "HF    eigenvalue formula",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "HF    Perron lam0 > 0 and maximal",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "HCl   eigenvalue formula",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "HCl   Perron lam0 > 0 and maximal",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "HBr   eigenvalue formula",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "HBr   Perron lam0 > 0 and maximal",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "HI    eigenvalue formula",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "HI    Perron lam0 > 0 and maximal",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "CO    eigenvalue formula",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "CO    Perron lam0 > 0 and maximal",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "NO    eigenvalue formula",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "NO    Perron lam0 > 0 and maximal",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "NaCl  eigenvalue formula",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "NaCl  Perron lam0 > 0 and maximal",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "LiF   eigenvalue formula",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "LiF   Perron lam0 > 0 and maximal",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "KBr   eigenvalue formula",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "KBr   Perron lam0 > 0 and maximal",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "NaF   eigenvalue formula",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "NaF   Perron lam0 > 0 and maximal",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "Ethylene lam0 = alpha + beta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "Ethylene lam1 = alpha - beta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "Ethylene trace = 2*alpha",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "Ethylene gap = 2*beta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "Allyl lam0 = alpha + sqrt(2)*beta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "Allyl lam1 = alpha (non-bonding)",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "Allyl lam2 = alpha - sqrt(2)*beta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "Allyl trace = 3*alpha",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "Butadiene 4 eigenvalues match analytic",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "Butadiene trace = 4*alpha",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "Butadiene bonding/antibonding symmetry",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "Butadiene inner pair symmetric",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "Benzene 6 eigenvalues match Fourier formula",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "Benzene trace = 6*alpha",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "Benzene Perron = alpha + 2*beta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "Benzene antibonding = alpha - 2*beta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "Benzene delocalization = 2*beta > 0",
+      "status": "PASS",
+      "detail": "E_deloc = 0.502500"
+    },
+    {
+      "label": "Benzene doubly degenerate pairs",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "H2       lam0 > 0",
+      "status": "PASS",
+      "detail": "lam0=1.268483"
+    },
+    {
+      "label": "H2       lam0 >= |lam_j|",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "H2       Perron vec all positive",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "H2       sum(eigs) = trace",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "HF       lam0 > 0",
+      "status": "PASS",
+      "detail": "lam0=1.443549"
+    },
+    {
+      "label": "HF       lam0 >= |lam_j|",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "HF       Perron vec all positive",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "HF       sum(eigs) = trace",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "H2O      lam0 > 0",
+      "status": "PASS",
+      "detail": "lam0=1.380672"
+    },
+    {
+      "label": "H2O      lam0 >= |lam_j|",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "H2O      Perron vec all positive",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "H2O      sum(eigs) = trace",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "CH4      lam0 > 0",
+      "status": "PASS",
+      "detail": "lam0=1.458452"
+    },
+    {
+      "label": "CH4      lam0 >= |lam_j|",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "CH4      Perron vec all positive",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "CH4      sum(eigs) = trace",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "C6-ring  lam0 > 0",
+      "status": "PASS",
+      "detail": "lam0=1.365718"
+    },
+    {
+      "label": "C6-ring  lam0 >= |lam_j|",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "C6-ring  Perron vec all positive",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "C6-ring  sum(eigs) = trace",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "homonuclear gap = 2t (universal)",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "gap: triple > double > single",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "triple gap = 3 * single gap",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "hetero gap HF > HCl",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "hetero gap HF > HI",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "hetero gap HI > HBr",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "hetero gap >= homo gap",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "all H-X gaps >= 2t",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "ionic NaF gap > NaCl gap",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "benzene pi gap = beta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "butadiene HOMO-LUMO gap > 0",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "benzene HOMO-LUMO gap > 0",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "CH4 spectral gap > 0",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "H2O spectral gap > 0",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "H2 Perron <= Gershgorin bound",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "spectral invariance HF vs FH relabelling",
+      "status": "PASS",
+      "detail": ""
+    }
+  ],
+  "pt_version": "v7",
+  "zero_fitted_parameters": true
+}

@@ -1,0 +1,874 @@
+{
+  "script": "proof_T6_uniqueness",
+  "chapter": "ch02",
+  "timestamp": "2026-04-14T23:58:31.416512+00:00",
+  "duration_s": 0.401,
+  "n_pass": 172,
+  "n_fail": 0,
+  "n_total": 172,
+  "success": true,
+  "results": [
+    {
+      "label": "genesis_add_6",
+      "status": "PASS",
+      "detail": "sum([1]*6) = 6"
+    },
+    {
+      "label": "genesis_add_12",
+      "status": "PASS",
+      "detail": "sum([1]*12) = 12"
+    },
+    {
+      "label": "genesis_add_30",
+      "status": "PASS",
+      "detail": "sum([1]*30) = 30"
+    },
+    {
+      "label": "genesis_add_210",
+      "status": "PASS",
+      "detail": "sum([1]*210) = 210"
+    },
+    {
+      "label": "div_mod_identity_p2",
+      "status": "PASS",
+      "detail": "p|n <=> n mod p = 0 for p=2"
+    },
+    {
+      "label": "div_mod_identity_p3",
+      "status": "PASS",
+      "detail": "p|n <=> n mod p = 0 for p=3"
+    },
+    {
+      "label": "div_mod_identity_p5",
+      "status": "PASS",
+      "detail": "p|n <=> n mod p = 0 for p=5"
+    },
+    {
+      "label": "div_mod_identity_p7",
+      "status": "PASS",
+      "detail": "p|n <=> n mod p = 0 for p=7"
+    },
+    {
+      "label": "div_mod_identity_p11",
+      "status": "PASS",
+      "detail": "p|n <=> n mod p = 0 for p=11"
+    },
+    {
+      "label": "div_mod_identity_p13",
+      "status": "PASS",
+      "detail": "p|n <=> n mod p = 0 for p=13"
+    },
+    {
+      "label": "field_ZpZ_p2",
+      "status": "PASS",
+      "detail": "1/1 invertible elements"
+    },
+    {
+      "label": "field_ZpZ_p3",
+      "status": "PASS",
+      "detail": "2/2 invertible elements"
+    },
+    {
+      "label": "field_ZpZ_p5",
+      "status": "PASS",
+      "detail": "4/4 invertible elements"
+    },
+    {
+      "label": "field_ZpZ_p7",
+      "status": "PASS",
+      "detail": "6/6 invertible elements"
+    },
+    {
+      "label": "field_ZpZ_p11",
+      "status": "PASS",
+      "detail": "10/10 invertible elements"
+    },
+    {
+      "label": "field_ZpZ_p13",
+      "status": "PASS",
+      "detail": "12/12 invertible elements"
+    },
+    {
+      "label": "unique_ideal_p2",
+      "status": "PASS",
+      "detail": "proper ideals: [{0}]"
+    },
+    {
+      "label": "unique_ideal_p3",
+      "status": "PASS",
+      "detail": "proper ideals: [{0}]"
+    },
+    {
+      "label": "unique_ideal_p5",
+      "status": "PASS",
+      "detail": "proper ideals: [{0}]"
+    },
+    {
+      "label": "unique_ideal_p7",
+      "status": "PASS",
+      "detail": "proper ideals: [{0}]"
+    },
+    {
+      "label": "unique_ideal_p11",
+      "status": "PASS",
+      "detail": "proper ideals: [{0}]"
+    },
+    {
+      "label": "unique_ideal_p13",
+      "status": "PASS",
+      "detail": "proper ideals: [{0}]"
+    },
+    {
+      "label": "transitive_action_p3",
+      "status": "PASS",
+      "detail": "orbit(1) = [1, 2]"
+    },
+    {
+      "label": "transitive_action_p5",
+      "status": "PASS",
+      "detail": "orbit(1) = [1, 2, 3, 4]"
+    },
+    {
+      "label": "transitive_action_p7",
+      "status": "PASS",
+      "detail": "orbit(1) = [1, 2, 3, 4, 5, 6]"
+    },
+    {
+      "label": "transitive_action_p11",
+      "status": "PASS",
+      "detail": "orbit(1) = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]"
+    },
+    {
+      "label": "transitive_action_p13",
+      "status": "PASS",
+      "detail": "orbit(1) = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]"
+    },
+    {
+      "label": "div_implies_cp_p3",
+      "status": "PASS",
+      "detail": "all powers of 3 eliminated"
+    },
+    {
+      "label": "div_implies_cp_p5",
+      "status": "PASS",
+      "detail": "all powers of 5 eliminated"
+    },
+    {
+      "label": "div_implies_cp_p7",
+      "status": "PASS",
+      "detail": "all powers of 7 eliminated"
+    },
+    {
+      "label": "swap_cp_violation_p3",
+      "status": "PASS",
+      "detail": "p^2=9 survives with R_p={1}"
+    },
+    {
+      "label": "swap_cp_violation_p5",
+      "status": "PASS",
+      "detail": "p^2=25 survives with R_p={1}"
+    },
+    {
+      "label": "swap_cp_violation_p7",
+      "status": "PASS",
+      "detail": "p^2=49 survives with R_p={1}"
+    },
+    {
+      "label": "A1_modularity",
+      "status": "PASS",
+      "detail": "Eratosthenes depends only on n mod p"
+    },
+    {
+      "label": "A2_translation_covariance",
+      "status": "PASS",
+      "detail": "TC for p=2..13"
+    },
+    {
+      "label": "A3_non_triviality",
+      "status": "PASS",
+      "detail": "R_p={0} is proper for all p"
+    },
+    {
+      "label": "A4_prime_moduli",
+      "status": "PASS",
+      "detail": "all moduli 2..19 are prime"
+    },
+    {
+      "label": "A5_ideal_closure",
+      "status": "PASS",
+      "detail": "{0} closed under multiplication"
+    },
+    {
+      "label": "A6_completeness",
+      "status": "PASS",
+      "detail": "skip p => p^2 survives"
+    },
+    {
+      "label": "lucky_violates_A1",
+      "status": "PASS",
+      "detail": "lucky step 7 touches residues [4, 5] mod 7"
+    },
+    {
+      "label": "sundaram_violates_A1",
+      "status": "PASS",
+      "detail": "Sundaram residues mod 3: [0, 1, 2]"
+    },
+    {
+      "label": "swap_violates_A5_p3_r1",
+      "status": "PASS",
+      "detail": "{1} is not an ideal of Z/3Z"
+    },
+    {
+      "label": "swap_violates_A5_p3_r2",
+      "status": "PASS",
+      "detail": "{2} is not an ideal of Z/3Z"
+    },
+    {
+      "label": "swap_violates_A5_p5_r1",
+      "status": "PASS",
+      "detail": "{1} is not an ideal of Z/5Z"
+    },
+    {
+      "label": "swap_violates_A5_p5_r2",
+      "status": "PASS",
+      "detail": "{2} is not an ideal of Z/5Z"
+    },
+    {
+      "label": "swap_violates_A5_p7_r1",
+      "status": "PASS",
+      "detail": "{1} is not an ideal of Z/7Z"
+    },
+    {
+      "label": "swap_violates_A5_p7_r2",
+      "status": "PASS",
+      "detail": "{2} is not an ideal of Z/7Z"
+    },
+    {
+      "label": "all_swaps_violate_A5",
+      "status": "PASS",
+      "detail": "74/74 violate A5"
+    },
+    {
+      "label": "C1_ring_congruence_p2",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "C1_ring_congruence_p3",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "C1_ring_congruence_p5",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "C1_ring_congruence_p7",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "C1_ring_congruence_p11",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "C2_absorption_m2",
+      "status": "PASS",
+      "detail": "E_2 = 2Z closed by multiplication"
+    },
+    {
+      "label": "C2_absorption_m3",
+      "status": "PASS",
+      "detail": "E_3 = 3Z closed by multiplication"
+    },
+    {
+      "label": "C2_absorption_m5",
+      "status": "PASS",
+      "detail": "E_5 = 5Z closed by multiplication"
+    },
+    {
+      "label": "C2_absorption_m7",
+      "status": "PASS",
+      "detail": "E_7 = 7Z closed by multiplication"
+    },
+    {
+      "label": "C2_absorption_m11",
+      "status": "PASS",
+      "detail": "E_11 = 11Z closed by multiplication"
+    },
+    {
+      "label": "swap_violates_C2_p3",
+      "status": "PASS",
+      "detail": "0*n=0 not in 1+3Z"
+    },
+    {
+      "label": "swap_violates_C2_p5",
+      "status": "PASS",
+      "detail": "0*n=0 not in 1+5Z"
+    },
+    {
+      "label": "swap_violates_C2_p7",
+      "status": "PASS",
+      "detail": "0*n=0 not in 1+7Z"
+    },
+    {
+      "label": "U2_field_dichotomy_p2",
+      "status": "PASS",
+      "detail": "proper absorbing subsets: [{0}]"
+    },
+    {
+      "label": "U2_field_dichotomy_p3",
+      "status": "PASS",
+      "detail": "proper absorbing subsets: [{0}]"
+    },
+    {
+      "label": "U2_field_dichotomy_p5",
+      "status": "PASS",
+      "detail": "proper absorbing subsets: [{0}]"
+    },
+    {
+      "label": "U2_field_dichotomy_p7",
+      "status": "PASS",
+      "detail": "proper absorbing subsets: [{0}]"
+    },
+    {
+      "label": "U2_field_dichotomy_p11",
+      "status": "PASS",
+      "detail": "proper absorbing subsets: [{0}]"
+    },
+    {
+      "label": "U2_field_dichotomy_p13",
+      "status": "PASS",
+      "detail": "proper absorbing subsets: [{0}]"
+    },
+    {
+      "label": "CRT_Z6Z",
+      "status": "PASS",
+      "detail": "Z/6Z = Z/2Z x Z/3Z"
+    },
+    {
+      "label": "CRT_Z10Z",
+      "status": "PASS",
+      "detail": "Z/10Z = Z/2Z x Z/5Z"
+    },
+    {
+      "label": "CRT_Z15Z",
+      "status": "PASS",
+      "detail": "Z/15Z = Z/3Z x Z/5Z"
+    },
+    {
+      "label": "CRT_Z21Z",
+      "status": "PASS",
+      "detail": "Z/21Z = Z/3Z x Z/7Z"
+    },
+    {
+      "label": "prime_irreducible_p2",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "prime_irreducible_p3",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "prime_irreducible_p5",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "prime_irreducible_p7",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "prime_irreducible_p11",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "prime_irreducible_p13",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "dirichlet_mod3",
+      "status": "PASS",
+      "detail": "each [r] (r!=0) mod 3 contains a prime < 500"
+    },
+    {
+      "label": "dirichlet_mod5",
+      "status": "PASS",
+      "detail": "each [r] (r!=0) mod 5 contains a prime < 500"
+    },
+    {
+      "label": "dirichlet_mod7",
+      "status": "PASS",
+      "detail": "each [r] (r!=0) mod 7 contains a prime < 500"
+    },
+    {
+      "label": "dirichlet_mod11",
+      "status": "PASS",
+      "detail": "each [r] (r!=0) mod 11 contains a prime < 500"
+    },
+    {
+      "label": "dirichlet_mod13",
+      "status": "PASS",
+      "detail": "each [r] (r!=0) mod 13 contains a prime < 500"
+    },
+    {
+      "label": "L1_classification_p2",
+      "status": "PASS",
+      "detail": "2^2-2 = 2, enumerated 2"
+    },
+    {
+      "label": "L1_classification_p3",
+      "status": "PASS",
+      "detail": "2^3-2 = 6, enumerated 6"
+    },
+    {
+      "label": "L1_classification_p5",
+      "status": "PASS",
+      "detail": "2^5-2 = 30, enumerated 30"
+    },
+    {
+      "label": "L1_classification_p7",
+      "status": "PASS",
+      "detail": "2^7-2 = 126, enumerated 126"
+    },
+    {
+      "label": "L2_rigidity_k2_to_3",
+      "status": "PASS",
+      "detail": "p=5: deletion+fusion matches Eratosthenes"
+    },
+    {
+      "label": "L2_rigidity_k3_to_4",
+      "status": "PASS",
+      "detail": "p=7: deletion+fusion matches Eratosthenes"
+    },
+    {
+      "label": "L2_rigidity_k4_to_5",
+      "status": "PASS",
+      "detail": "p=11: deletion+fusion matches Eratosthenes"
+    },
+    {
+      "label": "L2_rigidity_k5_to_6",
+      "status": "PASS",
+      "detail": "p=13: deletion+fusion matches Eratosthenes"
+    },
+    {
+      "label": "L3_primitive_m6",
+      "status": "PASS",
+      "detail": "S(factors) subset S(composite)"
+    },
+    {
+      "label": "L3_primitive_m10",
+      "status": "PASS",
+      "detail": "S(factors) subset S(composite)"
+    },
+    {
+      "label": "L3_primitive_m15",
+      "status": "PASS",
+      "detail": "S(factors) subset S(composite)"
+    },
+    {
+      "label": "L3_primitive_m21",
+      "status": "PASS",
+      "detail": "S(factors) subset S(composite)"
+    },
+    {
+      "label": "L4_cp_forces_zero_p3",
+      "status": "PASS",
+      "detail": "for all r!=0: p^2=9 survives"
+    },
+    {
+      "label": "L4_cp_forces_zero_p5",
+      "status": "PASS",
+      "detail": "for all r!=0: p^2=25 survives"
+    },
+    {
+      "label": "L4_cp_forces_zero_p7",
+      "status": "PASS",
+      "detail": "for all r!=0: p^2=49 survives"
+    },
+    {
+      "label": "L4_cp_forces_zero_p11",
+      "status": "PASS",
+      "detail": "for all r!=0: p^2=121 survives"
+    },
+    {
+      "label": "L5_only_zero_p2",
+      "status": "PASS",
+      "detail": "orbit(0)=[0], orbit(1)=[1]"
+    },
+    {
+      "label": "L5_only_zero_p3",
+      "status": "PASS",
+      "detail": "orbit(0)=[0], orbit(1)=[1, 2]"
+    },
+    {
+      "label": "L5_only_zero_p5",
+      "status": "PASS",
+      "detail": "orbit(0)=[0], orbit(1)=[1, 2, 3, 4]"
+    },
+    {
+      "label": "L5_only_zero_p7",
+      "status": "PASS",
+      "detail": "orbit(0)=[0], orbit(1)=[1, 2, 3, 4, 5, 6]"
+    },
+    {
+      "label": "L5_only_zero_p11",
+      "status": "PASS",
+      "detail": "orbit(0)=[0], orbit(1)=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]"
+    },
+    {
+      "label": "L5_only_zero_p13",
+      "status": "PASS",
+      "detail": "orbit(0)=[0], orbit(1)=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]"
+    },
+    {
+      "label": "L6_unique_step_p3",
+      "status": "PASS",
+      "detail": "valid rules: [0]"
+    },
+    {
+      "label": "L6_unique_step_p5",
+      "status": "PASS",
+      "detail": "valid rules: [0]"
+    },
+    {
+      "label": "L6_unique_step_p7",
+      "status": "PASS",
+      "detail": "valid rules: [0]"
+    },
+    {
+      "label": "L7_base_R2",
+      "status": "PASS",
+      "detail": "R_2={1}: 4 survives => CP forces R_2={0}"
+    },
+    {
+      "label": "L7_induction_k2_to_3",
+      "status": "PASS",
+      "detail": "forced rule at p=5 matches Eratosthenes"
+    },
+    {
+      "label": "L7_induction_k3_to_4",
+      "status": "PASS",
+      "detail": "forced rule at p=7 matches Eratosthenes"
+    },
+    {
+      "label": "L7_induction_k4_to_5",
+      "status": "PASS",
+      "detail": "forced rule at p=11 matches Eratosthenes"
+    },
+    {
+      "label": "L7_induction_k5_to_6",
+      "status": "PASS",
+      "detail": "forced rule at p=13 matches Eratosthenes"
+    },
+    {
+      "label": "L7_induction_k6_to_7",
+      "status": "PASS",
+      "detail": "forced rule at p=17 matches Eratosthenes"
+    },
+    {
+      "label": "C1_ind_equivalence_p2",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "C1_ind_equivalence_p3",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "C1_ind_equivalence_p5",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "C1_ind_equivalence_p7",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "C1_ind_equivalence_p11",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "C1_ind_C2_holds_p3",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "C1_ind_C2_holds_p5",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "C1_ind_C2_holds_p7",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "C1_ind_C2_holds_p11",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "C1_ind_C3_holds",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "C1_ind_C4_holds",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "C1_ind_C1_fails_p3",
+      "status": "PASS",
+      "detail": "p=3: C1 bilateral compat fails => C1 independent"
+    },
+    {
+      "label": "C1_ind_C1_fails_p5",
+      "status": "PASS",
+      "detail": "p=5: C1 bilateral compat fails => C1 independent"
+    },
+    {
+      "label": "C1_ind_C1_fails_p7",
+      "status": "PASS",
+      "detail": "p=7: C1 bilateral compat fails => C1 independent"
+    },
+    {
+      "label": "C1_ind_C1_fails_p11",
+      "status": "PASS",
+      "detail": "p=11: C1 bilateral compat fails => C1 independent"
+    },
+    {
+      "label": "CRT_invariance_k2_swap_3_r1",
+      "status": "PASS",
+      "detail": "cyclic gap multisets are identical"
+    },
+    {
+      "label": "CRT_invariance_k2_swap_5_r1",
+      "status": "PASS",
+      "detail": "cyclic gap multisets are identical"
+    },
+    {
+      "label": "CRT_invariance_k3_swap_3_r1",
+      "status": "PASS",
+      "detail": "cyclic gap multisets are identical"
+    },
+    {
+      "label": "CRT_invariance_k3_swap_5_r1",
+      "status": "PASS",
+      "detail": "cyclic gap multisets are identical"
+    },
+    {
+      "label": "CRT_invariance_k4_swap_3_r1",
+      "status": "PASS",
+      "detail": "cyclic gap multisets are identical"
+    },
+    {
+      "label": "CRT_invariance_k4_swap_5_r1",
+      "status": "PASS",
+      "detail": "cyclic gap multisets are identical"
+    },
+    {
+      "label": "CRT_invariance_k5_swap_3_r1",
+      "status": "PASS",
+      "detail": "cyclic gap multisets are identical"
+    },
+    {
+      "label": "CRT_invariance_k5_swap_5_r1",
+      "status": "PASS",
+      "detail": "cyclic gap multisets are identical"
+    },
+    {
+      "label": "totatives_eratosthenes",
+      "status": "PASS",
+      "detail": "Eratosthenes survivors = totatives"
+    },
+    {
+      "label": "totatives_swap_3_r1",
+      "status": "PASS",
+      "detail": "swap_3_r1 does NOT produce totatives"
+    },
+    {
+      "label": "totatives_swap_5_r1",
+      "status": "PASS",
+      "detail": "swap_5_r1 does NOT produce totatives"
+    },
+    {
+      "label": "totatives_swap_all",
+      "status": "PASS",
+      "detail": "swap_all does NOT produce totatives"
+    },
+    {
+      "label": "group_closure_erat",
+      "status": "PASS",
+      "detail": "survivors closed under multiplication mod P"
+    },
+    {
+      "label": "group_closure_swap_3_r1",
+      "status": "PASS",
+      "detail": "300 multiplication violations"
+    },
+    {
+      "label": "G2_ref_S3_invariant",
+      "status": "PASS",
+      "detail": "u=(1/3,1/3,1/3) invariant under S_3"
+    },
+    {
+      "label": "G2_GFT_k3",
+      "status": "PASS",
+      "detail": "|log(3) - D_KL - H| = 2.22e-16"
+    },
+    {
+      "label": "G2_GFT_k4",
+      "status": "PASS",
+      "detail": "|log(3) - D_KL - H| = 0.00e+00"
+    },
+    {
+      "label": "G2_GFT_k5",
+      "status": "PASS",
+      "detail": "|log(3) - D_KL - H| = 0.00e+00"
+    },
+    {
+      "label": "G2_GFT_k6",
+      "status": "PASS",
+      "detail": "|log(3) - D_KL - H| = 0.00e+00"
+    },
+    {
+      "label": "G2_GFT_k7",
+      "status": "PASS",
+      "detail": "|log(3) - D_KL - H| = 2.22e-16"
+    },
+    {
+      "label": "G2_A1_zero",
+      "status": "PASS",
+      "detail": "D_KL(u||u) = 0.00e+00"
+    },
+    {
+      "label": "G2_A1_positive",
+      "status": "PASS",
+      "detail": "D_KL(p||u) >= 0 for all test distributions"
+    },
+    {
+      "label": "G2_A4_DKL_additive_trial1",
+      "status": "PASS",
+      "detail": "err = 0.00e+00"
+    },
+    {
+      "label": "G2_A4_DKL_additive_trial2",
+      "status": "PASS",
+      "detail": "err = 0.00e+00"
+    },
+    {
+      "label": "G2_A4_DKL_additive_trial3",
+      "status": "PASS",
+      "detail": "err = 0.00e+00"
+    },
+    {
+      "label": "G2_chi2_NOT_additive",
+      "status": "PASS",
+      "detail": "gap = 6.920121"
+    },
+    {
+      "label": "G5_simplex_k3",
+      "status": "PASS",
+      "detail": "p = (0.250000, 0.375000, 0.375000)"
+    },
+    {
+      "label": "G5_simplex_k4",
+      "status": "PASS",
+      "detail": "p = (0.291667, 0.354167, 0.354167)"
+    },
+    {
+      "label": "G5_simplex_k5",
+      "status": "PASS",
+      "detail": "p = (0.312500, 0.343750, 0.343750)"
+    },
+    {
+      "label": "G5_simplex_k6",
+      "status": "PASS",
+      "detail": "p = (0.327431, 0.336285, 0.336285)"
+    },
+    {
+      "label": "G5_simplex_k7",
+      "status": "PASS",
+      "detail": "p = (0.337695, 0.331152, 0.331152)"
+    },
+    {
+      "label": "G5_simplex_k8",
+      "status": "PASS",
+      "detail": "p = (0.346218, 0.326891, 0.326891)"
+    },
+    {
+      "label": "G5_fisher_hessian_k4",
+      "status": "PASS",
+      "detail": "max_err=5.68e-05, pos_def=True"
+    },
+    {
+      "label": "G5_fisher_hessian_k5",
+      "status": "PASS",
+      "detail": "max_err=3.74e-05, pos_def=True"
+    },
+    {
+      "label": "G5_fisher_hessian_k6",
+      "status": "PASS",
+      "detail": "max_err=3.72e-05, pos_def=True"
+    },
+    {
+      "label": "G5_fisher_hessian_k7",
+      "status": "PASS",
+      "detail": "max_err=3.68e-05, pos_def=True"
+    },
+    {
+      "label": "G5_markov_map_stochastic",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "G5_fisher_contraction_k5",
+      "status": "PASS",
+      "detail": "max ratio = 1.000000"
+    },
+    {
+      "label": "G5_fisher_contraction_k6",
+      "status": "PASS",
+      "detail": "max ratio = 1.000000"
+    },
+    {
+      "label": "G5_fisher_contraction_k7",
+      "status": "PASS",
+      "detail": "max ratio = 1.000000"
+    },
+    {
+      "label": "G5_fisher_genuine_contraction",
+      "status": "PASS",
+      "detail": "g_after=4.2445 <= g_before=4.7619"
+    },
+    {
+      "label": "disjoint_T6a_T6b",
+      "status": "PASS",
+      "detail": "intersection: set()"
+    },
+    {
+      "label": "disjoint_T6a_T6c",
+      "status": "PASS",
+      "detail": "intersection: set()"
+    },
+    {
+      "label": "disjoint_T6b_T6c",
+      "status": "PASS",
+      "detail": "intersection: set()"
+    }
+  ],
+  "pt_version": "v7",
+  "zero_fitted_parameters": true
+}

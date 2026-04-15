@@ -1,0 +1,134 @@
+{
+  "script": "proof_holonomy",
+  "chapter": "ch06",
+  "timestamp": "2026-04-14T23:58:40.921108+00:00",
+  "duration_s": 0.002,
+  "n_pass": 24,
+  "n_fail": 0,
+  "n_total": 24,
+  "success": true,
+  "results": [
+    {
+      "label": "sin2_identity_float",
+      "status": "PASS",
+      "detail": "Tested 70 (mu, p) pairs, max err = 5.55e-17"
+    },
+    {
+      "label": "sin2_cos2_exact_p3",
+      "status": "PASS",
+      "detail": "sin^2 + cos^2 = 1 (exact Fraction)"
+    },
+    {
+      "label": "sin2_cos2_exact_p5",
+      "status": "PASS",
+      "detail": "sin^2 + cos^2 = 1 (exact Fraction)"
+    },
+    {
+      "label": "sin2_cos2_exact_p7",
+      "status": "PASS",
+      "detail": "sin^2 + cos^2 = 1 (exact Fraction)"
+    },
+    {
+      "label": "sin2_cos2_exact_p11",
+      "status": "PASS",
+      "detail": "sin^2 + cos^2 = 1 (exact Fraction)"
+    },
+    {
+      "label": "sin2_cos2_exact_p13",
+      "status": "PASS",
+      "detail": "sin^2 + cos^2 = 1 (exact Fraction)"
+    },
+    {
+      "label": "alpha_bare_range",
+      "status": "PASS",
+      "detail": "1/alpha_bare = 136.2783 (expected ~136.28)"
+    },
+    {
+      "label": "gamma_strict_decreasing_3to31",
+      "status": "PASS",
+      "detail": "gamma_{p1} > gamma_{p2} for all consecutive primes 3..31 (exact rational)"
+    },
+    {
+      "label": "gamma_decreasing_integers_3to50",
+      "status": "PASS",
+      "detail": "gamma_p strictly decreasing for ALL integers p = 3..50"
+    },
+    {
+      "label": "analytic_monotonicity_bound",
+      "status": "PASS",
+      "detail": "p_crit = 1/ln(15/13) = 6.988 < 7 => monotone for all p >= 7"
+    },
+    {
+      "label": "gamma_7_above_half",
+      "status": "PASS",
+      "detail": "gamma_7 = 0.595468440086150 > 0.5"
+    },
+    {
+      "label": "gamma_11_below_half",
+      "status": "PASS",
+      "detail": "gamma_11 = 0.425733135732971 < 0.5"
+    },
+    {
+      "label": "active_set_is_3_5_7",
+      "status": "PASS",
+      "detail": "active primes = [3, 5, 7]"
+    },
+    {
+      "label": "N_c_equals_3",
+      "status": "PASS",
+      "detail": "N_c = |{active primes}| = 3"
+    },
+    {
+      "label": "threshold_robustness",
+      "status": "PASS",
+      "detail": "Active set = {3,5,7} for all tau in [0.43, 0.45, 0.5, 0.55, 0.59]"
+    },
+    {
+      "label": "stability_margin_large",
+      "status": "PASS",
+      "detail": "gamma_7 - gamma_11 = 0.1697 >> 0.1 (no fine-tuning)"
+    },
+    {
+      "label": "route1_geometric",
+      "status": "PASS",
+      "detail": "sin^2(geom) == delta(2-delta) for all 10 primes"
+    },
+    {
+      "label": "route2_spectral",
+      "status": "PASS",
+      "detail": "sin^2(spectral) == sin^2(geom) for all 10 primes"
+    },
+    {
+      "label": "route3_fisher_additive",
+      "status": "PASS",
+      "detail": "g_00(total) == sum g_00(per-prime) at 6 mu values"
+    },
+    {
+      "label": "fisher_factorization",
+      "status": "PASS",
+      "detail": "ln(alpha) = sum ln(sin^2_p) (additive over CRT)"
+    },
+    {
+      "label": "three_routes_consistent",
+      "status": "PASS",
+      "detail": "All three routes converge to the same holonomy identity"
+    },
+    {
+      "label": "eps3_same_order",
+      "status": "PASS",
+      "detail": "|eps3 - (1-cos^2)| = 3.39e-06 < 5e-5"
+    },
+    {
+      "label": "D1_unified_matches_ch10",
+      "status": "PASS",
+      "detail": "Unified vs ch10 Delta_1: 3.4 ppm"
+    },
+    {
+      "label": "26_equals_Nc3_minus_1",
+      "status": "PASS",
+      "detail": "26 = 26 = N_c^3 - 1"
+    }
+  ],
+  "pt_version": "v7",
+  "zero_fitted_parameters": true
+}

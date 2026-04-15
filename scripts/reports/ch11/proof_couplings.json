@@ -1,0 +1,109 @@
+{
+  "script": "proof_couplings",
+  "chapter": "ch11",
+  "timestamp": "2026-04-14T23:58:57.504713+00:00",
+  "duration_s": 0.0,
+  "n_pass": 11,
+  "n_fail": 0,
+  "n_total": 11,
+  "success": true,
+  "results": [
+    {
+      "label": "sin2_tree",
+      "status": "PASS",
+      "value": 0.23770710276110069,
+      "expected": 0.238,
+      "err_pct": 0.123066,
+      "tol_pct": 0.5,
+      "unit": "sin^2_tree",
+      "detail": "computed=0.2377071, expected=0.238, err=0.1231%, tol=0.5% [sin^2_tree]"
+    },
+    {
+      "label": "tree_error_gt_2pct",
+      "status": "PASS",
+      "detail": "tree error = 2.81% > 2% (dressing needed)"
+    },
+    {
+      "label": "C_Koide",
+      "status": "PASS",
+      "value": 18.29971687168765,
+      "expected": 18.3,
+      "err_pct": 0.001547,
+      "tol_pct": 0.1,
+      "unit": "",
+      "detail": "computed=18.299717, expected=18.3, err=0.0015%, tol=0.1%"
+    },
+    {
+      "label": "C_base",
+      "status": "PASS",
+      "value": 0.787439791032319,
+      "expected": 0.788,
+      "err_pct": 0.071093,
+      "tol_pct": 1.0,
+      "unit": "C_base",
+      "detail": "computed=0.78743979, expected=0.788, err=0.0711%, tol=1.0% [C_base]"
+    },
+    {
+      "label": "alpha_dressing_check",
+      "status": "PASS",
+      "value": 137.03660980862225,
+      "expected": 137.038,
+      "err_pct": 0.001014,
+      "tol_pct": 0.01,
+      "unit": "",
+      "detail": "computed=137.03661, expected=137.038, err=0.0010%, tol=0.01%"
+    },
+    {
+      "label": "sin2_dressed",
+      "status": "PASS",
+      "value": 0.2319608769788547,
+      "expected": 0.23121,
+      "err_pct": 0.32476,
+      "tol_pct": 0.5,
+      "unit": "sin^2_W",
+      "detail": "computed=0.23196088, expected=0.23121, err=0.3248%, tol=0.5% [sin^2_W]"
+    },
+    {
+      "label": "improvement_gt_5x",
+      "status": "PASS",
+      "detail": "improvement = 8.7x > 5x"
+    },
+    {
+      "label": "alpha_s",
+      "status": "PASS",
+      "value": 0.11805671722794375,
+      "expected": 0.118,
+      "err_pct": 0.048065,
+      "tol_pct": 0.5,
+      "unit": "alpha_s",
+      "detail": "computed=0.11805672, expected=0.118, err=0.0481%, tol=0.5% [alpha_s]"
+    },
+    {
+      "label": "q_plus_ne_q_minus",
+      "status": "PASS",
+      "detail": "q_+ = 0.866667 != q_- = 0.935507 (distinct branches)"
+    },
+    {
+      "label": "sin2_tree_vs_ref",
+      "status": "PASS",
+      "value": 0.23770710276110069,
+      "expected": 0.23770710276110069,
+      "err_pct": 0.0,
+      "tol_pct": 0.001,
+      "unit": "",
+      "detail": "computed=0.2377071, expected=0.2377071, err=0.0000%, tol=0.001%"
+    },
+    {
+      "label": "alpha_s_vs_ref",
+      "status": "PASS",
+      "value": 0.11805671722794375,
+      "expected": 0.1180567172279475,
+      "err_pct": 0.0,
+      "tol_pct": 0.01,
+      "unit": "",
+      "detail": "computed=0.11805672, expected=0.11805672, err=0.0000%, tol=0.01%"
+    }
+  ],
+  "pt_version": "v7",
+  "zero_fitted_parameters": true
+}

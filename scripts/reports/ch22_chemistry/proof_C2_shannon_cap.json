@@ -1,0 +1,154 @@
+{
+  "script": "proof_C2_shannon_cap",
+  "chapter": "ch22_chemistry",
+  "timestamp": "2026-04-14T23:59:09.306024+00:00",
+  "duration_s": 0.0,
+  "n_pass": 23,
+  "n_fail": 0,
+  "n_total": 23,
+  "success": true,
+  "results": [
+    {
+      "label": "D_0(P1) = Ry/3",
+      "status": "PASS",
+      "value": 4.535333333333333,
+      "expected": 4.535,
+      "err_pct": 0.00735,
+      "tol_pct": 0.02,
+      "unit": "eV",
+      "detail": "computed=4.5353333, expected=4.535, err=0.0074%, tol=0.02% [eV]"
+    },
+    {
+      "label": "D_0(P2) = Ry/5",
+      "status": "PASS",
+      "value": 2.7212,
+      "expected": 2.721,
+      "err_pct": 0.00735,
+      "tol_pct": 0.02,
+      "unit": "eV",
+      "detail": "computed=2.7212, expected=2.721, err=0.0074%, tol=0.02% [eV]"
+    },
+    {
+      "label": "D_0(P3) = Ry/7",
+      "status": "PASS",
+      "value": 1.9437142857142857,
+      "expected": 1.944,
+      "err_pct": 0.014697,
+      "tol_pct": 0.1,
+      "unit": "eV",
+      "detail": "computed=1.9437143, expected=1.944, err=0.0147%, tol=0.1% [eV]"
+    },
+    {
+      "label": "Total 3-channel cap",
+      "status": "PASS",
+      "value": 9.20024761904762,
+      "expected": 9.2,
+      "err_pct": 0.002692,
+      "tol_pct": 0.1,
+      "unit": "eV",
+      "detail": "computed=9.2002476, expected=9.2, err=0.0027%, tol=0.1% [eV]"
+    },
+    {
+      "label": "H2 saturation D(H2)/cap3",
+      "status": "PASS",
+      "value": 0.9873585183007497,
+      "expected": 0.987,
+      "err_pct": 0.036324,
+      "tol_pct": 0.5,
+      "unit": "",
+      "detail": "computed=0.98735852, expected=0.987, err=0.0363%, tol=0.5%"
+    },
+    {
+      "label": "H2 below P1 cap",
+      "status": "PASS",
+      "detail": "D(H2) = 4.478 < cap = 4.535"
+    },
+    {
+      "label": "CO     below cap",
+      "status": "PASS",
+      "detail": "D=11.17 < cap=18.271 (triple bond, b=3)"
+    },
+    {
+      "label": "N2     below cap",
+      "status": "PASS",
+      "detail": "D=9.79 < cap=18.271 (triple bond, b=3)"
+    },
+    {
+      "label": "NO     below cap",
+      "status": "PASS",
+      "detail": "D=6.51 < cap=11.792 (bond order ~2.5)"
+    },
+    {
+      "label": "O2     below cap",
+      "status": "PASS",
+      "detail": "D=5.16 < cap=11.792 (double bond, b=2)"
+    },
+    {
+      "label": "H2     below cap",
+      "status": "PASS",
+      "detail": "D=4.48 < cap=4.535 (single bond, b=1)"
+    },
+    {
+      "label": "HF     below cap",
+      "status": "PASS",
+      "detail": "D=5.87 < cap=7.257 (polar single, 2 channels)"
+    },
+    {
+      "label": "HCl    below cap",
+      "status": "PASS",
+      "detail": "D=4.43 < cap=7.257 (polar, 2 channels)"
+    },
+    {
+      "label": "HBr    below cap",
+      "status": "PASS",
+      "detail": "D=3.76 < cap=7.257 (polar, 2 channels)"
+    },
+    {
+      "label": "HI     below cap",
+      "status": "PASS",
+      "detail": "D=3.05 < cap=7.257 (polar, 2 channels)"
+    },
+    {
+      "label": "F2     below cap",
+      "status": "PASS",
+      "detail": "D=1.60 < cap=4.535 (single bond, b=1)"
+    },
+    {
+      "label": "Cl2    below cap",
+      "status": "PASS",
+      "detail": "D=2.51 < cap=4.535 (single bond, b=1)"
+    },
+    {
+      "label": "Br2    below cap",
+      "status": "PASS",
+      "detail": "D=1.99 < cap=4.535 (single bond, b=1)"
+    },
+    {
+      "label": "I2     below cap",
+      "status": "PASS",
+      "detail": "D=1.54 < cap=4.535 (single bond, b=1)"
+    },
+    {
+      "label": "Li2    below cap",
+      "status": "PASS",
+      "detail": "D=1.05 < cap=4.535 (single bond, b=1)"
+    },
+    {
+      "label": "Na2    below cap",
+      "status": "PASS",
+      "detail": "D=0.73 < cap=4.535 (single bond, b=1)"
+    },
+    {
+      "label": "NaCl   below cap",
+      "status": "PASS",
+      "detail": "D=4.26 < cap=7.257 (ionic, 2 channels)"
+    },
+    {
+      "label": "LiF    below cap",
+      "status": "PASS",
+      "detail": "D=5.93 < cap=7.257 (ionic, 2 channels)"
+    }
+  ],
+  "pt_version": "v7",
+  "zero_fitted_parameters": true
+}

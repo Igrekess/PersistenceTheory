@@ -1,0 +1,159 @@
+{
+  "script": "proof_C1_periodic_table",
+  "chapter": "ch22_chemistry",
+  "timestamp": "2026-04-14T23:59:08.571546+00:00",
+  "duration_s": 0.0,
+  "n_pass": 29,
+  "n_fail": 0,
+  "n_total": 29,
+  "success": true,
+  "results": [
+    {
+      "label": "cap(s) = 2*(2*0+1) = 2",
+      "status": "PASS",
+      "detail": "cap = 2"
+    },
+    {
+      "label": "cap(p) = 2*(2*1+1) = 6",
+      "status": "PASS",
+      "detail": "cap = 6"
+    },
+    {
+      "label": "cap(d) = 2*(2*2+1) = 10",
+      "status": "PASS",
+      "detail": "cap = 10"
+    },
+    {
+      "label": "cap(f) = 2*(2*3+1) = 14",
+      "status": "PASS",
+      "detail": "cap = 14"
+    },
+    {
+      "label": "total capacity = 32",
+      "status": "PASS",
+      "detail": "sum = 32"
+    },
+    {
+      "label": "period 1: length=2, half=1 (perfect square)",
+      "status": "PASS",
+      "detail": "sqrt(1) = 1"
+    },
+    {
+      "label": "period 2: length=8, half=4 (perfect square)",
+      "status": "PASS",
+      "detail": "sqrt(4) = 2"
+    },
+    {
+      "label": "period 3: length=8, half=4 (perfect square)",
+      "status": "PASS",
+      "detail": "sqrt(4) = 2"
+    },
+    {
+      "label": "period 4: length=18, half=9 (perfect square)",
+      "status": "PASS",
+      "detail": "sqrt(9) = 3"
+    },
+    {
+      "label": "period 5: length=18, half=9 (perfect square)",
+      "status": "PASS",
+      "detail": "sqrt(9) = 3"
+    },
+    {
+      "label": "period 6: length=32, half=16 (perfect square)",
+      "status": "PASS",
+      "detail": "sqrt(16) = 4"
+    },
+    {
+      "label": "period 7: length=32, half=16 (perfect square)",
+      "status": "PASS",
+      "detail": "sqrt(16) = 4"
+    },
+    {
+      "label": "noble gas Z=2 = cumsum(periods)",
+      "status": "PASS",
+      "detail": "cumsum = 2"
+    },
+    {
+      "label": "noble gas Z=10 = cumsum(periods)",
+      "status": "PASS",
+      "detail": "cumsum = 10"
+    },
+    {
+      "label": "noble gas Z=18 = cumsum(periods)",
+      "status": "PASS",
+      "detail": "cumsum = 18"
+    },
+    {
+      "label": "noble gas Z=36 = cumsum(periods)",
+      "status": "PASS",
+      "detail": "cumsum = 36"
+    },
+    {
+      "label": "noble gas Z=54 = cumsum(periods)",
+      "status": "PASS",
+      "detail": "cumsum = 54"
+    },
+    {
+      "label": "noble gas Z=86 = cumsum(periods)",
+      "status": "PASS",
+      "detail": "cumsum = 86"
+    },
+    {
+      "label": "delta_p strictly decreasing: s > p > d > f",
+      "status": "PASS",
+      "detail": "deltas = [0.133333, 0.116346, 0.102211, 0.090393]"
+    },
+    {
+      "label": "delta(1) > 0",
+      "status": "PASS",
+      "detail": "delta(1) = 0.13333333"
+    },
+    {
+      "label": "delta(3) > 0",
+      "status": "PASS",
+      "detail": "delta(3) = 0.11634568"
+    },
+    {
+      "label": "delta(5) > 0",
+      "status": "PASS",
+      "detail": "delta(5) = 0.10221090"
+    },
+    {
+      "label": "delta(7) > 0",
+      "status": "PASS",
+      "detail": "delta(7) = 0.09039251"
+    },
+    {
+      "label": "gamma_11 < 1/2 (no g-shell)",
+      "status": "PASS",
+      "detail": "gamma_11 = 0.425733"
+    },
+    {
+      "label": "9 = 3^2 is composite (no l=4 angular prime)",
+      "status": "PASS",
+      "detail": "9 = 3 x 3"
+    },
+    {
+      "label": "w_d(0) = 0 (empty shell)",
+      "status": "PASS",
+      "detail": "w(0) = 0.00e+00"
+    },
+    {
+      "label": "w_d(1) = 0 (full shell)",
+      "status": "PASS",
+      "detail": "w(1) = 0.00e+00"
+    },
+    {
+      "label": "w_d(1/2) = alpha_d (maximal at half-fill)",
+      "status": "PASS",
+      "detail": "w(1/2) = 0.193975, alpha_d = 0.193975"
+    },
+    {
+      "label": "w_d(f) symmetric: w(0.3) = w(0.7)",
+      "status": "PASS",
+      "detail": "w(0.3) = 0.162939, w(0.7) = 0.162939"
+    }
+  ],
+  "pt_version": "v7",
+  "zero_fitted_parameters": true
+}

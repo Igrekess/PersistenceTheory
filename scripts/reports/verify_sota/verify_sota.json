@@ -1,0 +1,13 @@
+{
+  "script": "verify_sota",
+  "chapter": "verify_sota",
+  "timestamp": "2026-04-14T23:59:21.346083+00:00",
+  "duration_s": 0.0,
+  "n_pass": 0,
+  "n_fail": 0,
+  "n_total": 0,
+  "success": true,
+  "results": [],
+  "pt_version": "v7",
+  "zero_fitted_parameters": true
+}

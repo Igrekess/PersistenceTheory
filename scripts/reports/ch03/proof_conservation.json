@@ -1,0 +1,324 @@
+{
+  "script": "proof_conservation",
+  "chapter": "ch03",
+  "timestamp": "2026-04-14T23:58:32.263780+00:00",
+  "duration_s": 0.711,
+  "n_pass": 43,
+  "n_fail": 0,
+  "n_total": 43,
+  "success": true,
+  "results": [
+    {
+      "label": "gap_sum_N=1000",
+      "status": "PASS",
+      "detail": "sum(gaps) = 7917, p_N - 2 = 7917"
+    },
+    {
+      "label": "gap_sum_N=10000",
+      "status": "PASS",
+      "detail": "sum(gaps) = 104727, p_N - 2 = 104727"
+    },
+    {
+      "label": "gap_sum_N=50000",
+      "status": "PASS",
+      "detail": "sum(gaps) = 611951, p_N - 2 = 611951"
+    },
+    {
+      "label": "gap_sum_N=100000",
+      "status": "PASS",
+      "detail": "sum(gaps) = 1299707, p_N - 2 = 1299707"
+    },
+    {
+      "label": "reconstruction_from_gaps",
+      "status": "PASS",
+      "detail": "2 + sum(gaps) = 1299709, p_N = 1299709"
+    },
+    {
+      "label": "stationarity_class_0",
+      "status": "PASS",
+      "detail": "pi*T[0] = 0.419417, pi[0] = 0.419413, err = 4.40e-06"
+    },
+    {
+      "label": "stationarity_class_1",
+      "status": "PASS",
+      "detail": "pi*T[1] = 0.290294, pi[1] = 0.290289, err = 5.61e-06"
+    },
+    {
+      "label": "stationarity_class_2",
+      "status": "PASS",
+      "detail": "pi*T[2] = 0.290289, pi[2] = 0.290299, err = 1.00e-05"
+    },
+    {
+      "label": "T2_two_parameter_reconstruction",
+      "status": "PASS",
+      "detail": "max reconstruction error = 0.000421 (< 0.02)"
+    },
+    {
+      "label": "symmetry_pi1_eq_pi2",
+      "status": "PASS",
+      "detail": "|pi(1) - pi(2)| = 0.000010"
+    },
+    {
+      "label": "pi1_eq_half_1_minus_alpha",
+      "status": "PASS",
+      "value": 0.29028870866125983,
+      "expected": 0.2902937088112644,
+      "err_pct": 0.001722,
+      "tol_pct": 1.0,
+      "unit": "pi(1)=0.290289",
+      "detail": "computed=0.29028871, expected=0.29029371, err=0.0017%, tol=1.0% [pi(1)=0.290289]"
+    },
+    {
+      "label": "lambda_1_T3",
+      "status": "PASS",
+      "value": 1.0,
+      "expected": 1.0,
+      "err_pct": 0.0,
+      "tol_pct": 0.001,
+      "unit": "",
+      "detail": "computed=1, expected=1, err=0.0000%, tol=0.001%"
+    },
+    {
+      "label": "lambda_2_T3",
+      "status": "PASS",
+      "value": -1.0,
+      "expected": -1.0,
+      "err_pct": 0.0,
+      "tol_pct": 0.001,
+      "unit": "",
+      "detail": "computed=-1, expected=-1, err=0.0000%, tol=0.001%"
+    },
+    {
+      "label": "lambda_1_T5",
+      "status": "PASS",
+      "value": 1.0,
+      "expected": 1.0,
+      "err_pct": 0.0,
+      "tol_pct": 0.001,
+      "unit": "",
+      "detail": "computed=1, expected=1, err=0.0000%, tol=0.001%"
+    },
+    {
+      "label": "lambda_2_T5",
+      "status": "PASS",
+      "value": -0.33333333333333326,
+      "expected": -0.3333333333333333,
+      "err_pct": 0.0,
+      "tol_pct": 0.001,
+      "unit": "",
+      "detail": "computed=-0.33333333, expected=-0.33333333, err=0.0000%, tol=0.001%"
+    },
+    {
+      "label": "kron_leading_eigenvalue",
+      "status": "PASS",
+      "value": 1.0,
+      "expected": 1.0,
+      "err_pct": 0.0,
+      "tol_pct": 0.001,
+      "unit": "",
+      "detail": "computed=1, expected=1, err=0.0000%, tol=0.001%"
+    },
+    {
+      "label": "s_squared",
+      "status": "PASS",
+      "value": 0.25,
+      "expected": 0.25,
+      "err_pct": 0.0,
+      "tol_pct": 0.0,
+      "unit": "",
+      "detail": "computed=0.25, expected=0.25, err=0.0000%, tol=0.0%"
+    },
+    {
+      "label": "self_referential_convergence",
+      "status": "PASS",
+      "detail": "convergence rate = s^2 (sieve output determines own convergence)"
+    },
+    {
+      "label": "primorial_bound_m=6",
+      "status": "PASS",
+      "detail": "|lambda_2^eff| <= s^2 = 0.25 for m=6"
+    },
+    {
+      "label": "primorial_bound_m=30",
+      "status": "PASS",
+      "detail": "|lambda_2^eff| <= s^2 = 0.25 for m=30"
+    },
+    {
+      "label": "primorial_bound_m=210",
+      "status": "PASS",
+      "detail": "|lambda_2^eff| <= s^2 = 0.25 for m=210"
+    },
+    {
+      "label": "primorial_bound_m=2310",
+      "status": "PASS",
+      "detail": "|lambda_2^eff| <= s^2 = 0.25 for m=2310"
+    },
+    {
+      "label": "latent_heat_positive",
+      "status": "PASS",
+      "detail": "L = q_minus - q_plus = 0.08495135 > 0"
+    },
+    {
+      "label": "q_plus_better_fit",
+      "status": "PASS",
+      "detail": "D_KL(emp||Geom(q_plus)) = 0.084199 < D_KL(emp||Geom(q_minus)) = 0.414681"
+    },
+    {
+      "label": "q_plus_dkl_small",
+      "status": "PASS",
+      "detail": "D_KL = 0.084199 bits (< 0.15)"
+    },
+    {
+      "label": "max_entropy_beats_poisson",
+      "status": "PASS",
+      "detail": "H(Geom) = 3.9313 > H(Poisson) = 3.1981"
+    },
+    {
+      "label": "max_entropy_beats_twopoint",
+      "status": "PASS",
+      "detail": "H(Geom) = 3.9313 > H(two-point) = 0.1725"
+    },
+    {
+      "label": "entropy_theory_vs_numerical",
+      "status": "PASS",
+      "value": 3.9312917179998608,
+      "expected": 3.931291717999877,
+      "err_pct": 0.0,
+      "tol_pct": 0.5,
+      "unit": "bits",
+      "detail": "computed=3.9312917, expected=3.9312917, err=0.0000%, tol=0.5% [bits]"
+    },
+    {
+      "label": "q_plus_exact_rational",
+      "status": "PASS",
+      "detail": "q_plus = 13/15 EXACT (Fraction arithmetic)"
+    },
+    {
+      "label": "route1_q_plus",
+      "status": "PASS",
+      "value": 0.8666666666666667,
+      "expected": 0.8666666666666667,
+      "err_pct": 0.0,
+      "tol_pct": 0.001,
+      "unit": "",
+      "detail": "computed=0.86666667, expected=0.86666667, err=0.0000%, tol=0.001%"
+    },
+    {
+      "label": "route1_boltzmann_form",
+      "status": "PASS",
+      "value": 0.056442565964965566,
+      "expected": 0.05644256596496565,
+      "err_pct": 0.0,
+      "tol_pct": 0.001,
+      "unit": "",
+      "detail": "computed=0.056442566, expected=0.056442566, err=0.0000%, tol=0.001%"
+    },
+    {
+      "label": "route2_q_plus",
+      "status": "PASS",
+      "value": 0.8666666666666667,
+      "expected": 0.8666666666666667,
+      "err_pct": 0.0,
+      "tol_pct": 0.001,
+      "unit": "",
+      "detail": "computed=0.86666667, expected=0.86666667, err=0.0000%, tol=0.001%"
+    },
+    {
+      "label": "route2_q_minus",
+      "status": "PASS",
+      "value": 0.9355069850316178,
+      "expected": 0.9355069850316178,
+      "err_pct": 0.0,
+      "tol_pct": 0.001,
+      "unit": "",
+      "detail": "computed=0.93550699, expected=0.93550699, err=0.0000%, tol=0.001%"
+    },
+    {
+      "label": "route2_A_prime_eta",
+      "status": "PASS",
+      "value": 7.500000000000002,
+      "expected": 7.5,
+      "err_pct": 0.0,
+      "tol_pct": 0.01,
+      "unit": "",
+      "detail": "computed=7.5, expected=7.5, err=0.0000%, tol=0.01%"
+    },
+    {
+      "label": "route2_A_convex_stat",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "route2_A_convex_therm",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "route2_nonlinearity",
+      "status": "PASS",
+      "detail": "eta(q_minus) = 15.5056 != mu*/2 = 7.5"
+    },
+    {
+      "label": "route3_q_minus",
+      "status": "PASS",
+      "value": 0.9355069850316178,
+      "expected": 0.9355069850316178,
+      "err_pct": 0.0,
+      "tol_pct": 0.001,
+      "unit": "",
+      "detail": "computed=0.93550699, expected=0.93550699, err=0.0000%, tol=0.001%"
+    },
+    {
+      "label": "route3_mean_from_q_plus",
+      "status": "PASS",
+      "value": 7.500000000000002,
+      "expected": 7.5,
+      "err_pct": 0.0,
+      "tol_pct": 0.001,
+      "unit": "",
+      "detail": "computed=7.5, expected=7.5, err=0.0000%, tol=0.001%"
+    },
+    {
+      "label": "cross_q_plus_r1_r2",
+      "status": "PASS",
+      "value": 0.8666666666666667,
+      "expected": 0.8666666666666667,
+      "err_pct": 0.0,
+      "tol_pct": 0.001,
+      "unit": "",
+      "detail": "computed=0.86666667, expected=0.86666667, err=0.0000%, tol=0.001%"
+    },
+    {
+      "label": "cross_q_plus_r1_r3",
+      "status": "PASS",
+      "value": 0.8666666666666667,
+      "expected": 0.8666666666666667,
+      "err_pct": 0.0,
+      "tol_pct": 0.001,
+      "unit": "",
+      "detail": "computed=0.86666667, expected=0.86666667, err=0.0000%, tol=0.001%"
+    },
+    {
+      "label": "cross_q_minus_r1_r2",
+      "status": "PASS",
+      "value": 0.9355069850316178,
+      "expected": 0.9355069850316178,
+      "err_pct": 0.0,
+      "tol_pct": 0.001,
+      "unit": "",
+      "detail": "computed=0.93550699, expected=0.93550699, err=0.0000%, tol=0.001%"
+    },
+    {
+      "label": "cross_q_minus_r1_r3",
+      "status": "PASS",
+      "value": 0.9355069850316178,
+      "expected": 0.9355069850316178,
+      "err_pct": 0.0,
+      "tol_pct": 0.001,
+      "unit": "",
+      "detail": "computed=0.93550699, expected=0.93550699, err=0.0000%, tol=0.001%"
+    }
+  ],
+  "pt_version": "v7",
+  "zero_fitted_parameters": true
+}

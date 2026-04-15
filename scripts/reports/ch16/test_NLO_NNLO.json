@@ -1,0 +1,354 @@
+{
+  "script": "test_NLO_NNLO",
+  "chapter": "ch16",
+  "timestamp": "2026-04-14T23:59:01.353192+00:00",
+  "duration_s": 0.0,
+  "n_pass": 50,
+  "n_fail": 0,
+  "n_total": 50,
+  "success": true,
+  "results": [
+    {
+      "label": "eps_value",
+      "status": "PASS",
+      "value": 0.013356211928245078,
+      "expected": 0.013356211928245078,
+      "err_pct": 0.0,
+      "tol_pct": 0.001,
+      "unit": "",
+      "detail": "computed=0.013356212, expected=0.013356212, err=0.0000%, tol=0.001%"
+    },
+    {
+      "label": "eps_small",
+      "status": "PASS",
+      "detail": "eps = 0.013356, must be << 1"
+    },
+    {
+      "label": "eps_positive",
+      "status": "PASS",
+      "detail": "eps = 0.013356"
+    },
+    {
+      "label": "hierarchy_1_2",
+      "status": "PASS",
+      "detail": "1-loop/2-loop = 10.9"
+    },
+    {
+      "label": "hierarchy_2_3",
+      "status": "PASS",
+      "detail": "2-loop/3-loop = 5410"
+    },
+    {
+      "label": "beta_0_sieve_equals_QCD",
+      "status": "PASS",
+      "detail": "sieve: 23, QCD: 23"
+    },
+    {
+      "label": "beta_0_equals_23",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "route_1_coupling_iteration",
+      "status": "PASS",
+      "value": 0.0018243381423288304,
+      "expected": 0.0018243381423288304,
+      "err_pct": 0.0,
+      "tol_pct": 0.001,
+      "unit": "",
+      "detail": "computed=0.0018243381, expected=0.0018243381, err=0.0000%, tol=0.001%"
+    },
+    {
+      "label": "route_2_lindblad",
+      "status": "PASS",
+      "value": 0.0018243381423288304,
+      "expected": 0.0018243381423288304,
+      "err_pct": 0.0,
+      "tol_pct": 0.001,
+      "unit": "",
+      "detail": "computed=0.0018243381, expected=0.0018243381, err=0.0000%, tol=0.001%"
+    },
+    {
+      "label": "route_3_ruelle",
+      "status": "PASS",
+      "value": 0.0018243381423288304,
+      "expected": 0.0018243381423288304,
+      "err_pct": 0.0,
+      "tol_pct": 0.001,
+      "unit": "",
+      "detail": "computed=0.0018243381, expected=0.0018243381, err=0.0000%, tol=0.001%"
+    },
+    {
+      "label": "routes_1_2_agree",
+      "status": "PASS",
+      "value": 0.0018243381423288304,
+      "expected": 0.0018243381423288304,
+      "err_pct": 0.0,
+      "tol_pct": 0.001,
+      "unit": "",
+      "detail": "computed=0.0018243381, expected=0.0018243381, err=0.0000%, tol=0.001%"
+    },
+    {
+      "label": "routes_1_3_agree",
+      "status": "PASS",
+      "value": 0.0018243381423288304,
+      "expected": 0.0018243381423288304,
+      "err_pct": 0.0,
+      "tol_pct": 0.001,
+      "unit": "",
+      "detail": "computed=0.0018243381, expected=0.0018243381, err=0.0000%, tol=0.001%"
+    },
+    {
+      "label": "T3_eigenvalue_minus1",
+      "status": "PASS",
+      "value": -1.0,
+      "expected": -1.0,
+      "err_pct": 0.0,
+      "tol_pct": 0.001,
+      "unit": "",
+      "detail": "computed=-1, expected=-1, err=0.0000%, tol=0.001%"
+    },
+    {
+      "label": "T3_eigenvalue_plus1",
+      "status": "PASS",
+      "value": 1.0,
+      "expected": 1.0,
+      "err_pct": 0.0,
+      "tol_pct": 0.001,
+      "unit": "",
+      "detail": "computed=1, expected=1, err=0.0000%, tol=0.001%"
+    },
+    {
+      "label": "lindblad_orthogonality",
+      "status": "PASS",
+      "value": 5.004680467665246e-34,
+      "expected": 0.0,
+      "err_pct": 0.0,
+      "tol_pct": 0.001,
+      "unit": "",
+      "detail": "computed=5.0046805e-34, expected=0, err=0.0000%, tol=0.001%"
+    },
+    {
+      "label": "delta_SE_matches",
+      "status": "PASS",
+      "value": 0.0018243381423288304,
+      "expected": 0.0018243381423288304,
+      "err_pct": 0.0,
+      "tol_pct": 0.001,
+      "unit": "",
+      "detail": "computed=0.0018243381, expected=0.0018243381, err=0.0000%, tol=0.001%"
+    },
+    {
+      "label": "ghost_set_size",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "ghost_p11_below_mustar",
+      "status": "PASS",
+      "detail": "p=11 <= mu*=15.0"
+    },
+    {
+      "label": "ghost_p11_gamma_below_s",
+      "status": "PASS",
+      "detail": "gamma_11=0.425733 < s=0.5"
+    },
+    {
+      "label": "ghost_p13_below_mustar",
+      "status": "PASS",
+      "detail": "p=13 <= mu*=15.0"
+    },
+    {
+      "label": "ghost_p13_gamma_below_s",
+      "status": "PASS",
+      "detail": "gamma_13=0.356241 < s=0.5"
+    },
+    {
+      "label": "beta_ghost_in_range",
+      "status": "PASS",
+      "detail": "beta_ghost = 0.103931"
+    },
+    {
+      "label": "ghost_VP_negative",
+      "status": "PASS",
+      "detail": "Ghost VP must decrease 1/alpha (negative sign)"
+    },
+    {
+      "label": "ghost_VP_perturbative",
+      "status": "PASS",
+      "detail": "|delta * alpha| = 4.47e-06"
+    },
+    {
+      "label": "ghost_VP_convergent",
+      "status": "PASS",
+      "detail": "|delta_5/delta_4| = 3.0652e-03"
+    },
+    {
+      "label": "ghost_VP_sign_alternation",
+      "status": "PASS",
+      "detail": "Order 4 negative, order 5 positive (Hopf antipode)"
+    },
+    {
+      "label": "C_geom_value",
+      "status": "PASS",
+      "value": 23.768813652679167,
+      "expected": 23.769,
+      "err_pct": 0.000784,
+      "tol_pct": 0.1,
+      "unit": "",
+      "detail": "computed=23.768814, expected=23.769, err=0.0008%, tol=0.1%"
+    },
+    {
+      "label": "theorem_mustar_plus_2N_eq_beta0",
+      "status": "PASS",
+      "detail": "15 + 8 = 23 = beta_0 = 23"
+    },
+    {
+      "label": "ghost_mass_perturbative",
+      "status": "PASS",
+      "detail": "correction = 3.29e-05"
+    },
+    {
+      "label": "propagator_finer_than_vertex",
+      "status": "PASS",
+      "detail": "ratio = 0.054"
+    },
+    {
+      "label": "ratio_mu_e_sub_01pct",
+      "status": "PASS",
+      "detail": "err = 0.0000%"
+    },
+    {
+      "label": "eta_up_conservation",
+      "status": "PASS",
+      "detail": "sum(eta_up) = 0"
+    },
+    {
+      "label": "eta_dn_nonconservation",
+      "status": "PASS",
+      "detail": "sum(eta_dn) = 2.4713"
+    },
+    {
+      "label": "n_up_value",
+      "status": "PASS",
+      "value": 1.125,
+      "expected": 1.125,
+      "err_pct": 0.0,
+      "tol_pct": 0.001,
+      "unit": "",
+      "detail": "computed=1.125, expected=1.125, err=0.0000%, tol=0.001%"
+    },
+    {
+      "label": "mH_over_v_NLO",
+      "status": "PASS",
+      "value": 0.5089041412854968,
+      "expected": 0.5089041412854968,
+      "err_pct": 0.0,
+      "tol_pct": 0.01,
+      "unit": "",
+      "detail": "computed=0.50890414, expected=0.50890414, err=0.0000%, tol=0.01%"
+    },
+    {
+      "label": "C_F_value",
+      "status": "PASS",
+      "value": 1.3333333333333333,
+      "expected": 1.3333333333333333,
+      "err_pct": 0.0,
+      "tol_pct": 0.001,
+      "unit": "",
+      "detail": "computed=1.3333333, expected=1.3333333, err=0.0000%, tol=0.001%"
+    },
+    {
+      "label": "V_ub_sub_5pct",
+      "status": "PASS",
+      "detail": "V_ub = 0.003814, err = 0.15%"
+    },
+    {
+      "label": "J_CKM_sub_5pct",
+      "status": "PASS",
+      "detail": "J_CKM = 3.0934e-05, err = 0.44%"
+    },
+    {
+      "label": "penguin_h_all_8_sub5pct",
+      "status": "PASS",
+      "detail": "8/8 penguin coefficients within 5%"
+    },
+    {
+      "label": "schwinger_term",
+      "status": "PASS",
+      "value": 0.0011614097328908762,
+      "expected": 0.00116140973,
+      "err_pct": 0.0,
+      "tol_pct": 0.01,
+      "unit": "",
+      "detail": "computed=0.0011614097, expected=0.0011614097, err=0.0000%, tol=0.01%"
+    },
+    {
+      "label": "a_QED_total",
+      "status": "PASS",
+      "value": 0.0011658471892157217,
+      "expected": 0.0011658471893,
+      "err_pct": 0.0,
+      "tol_pct": 0.01,
+      "unit": "",
+      "detail": "computed=0.0011658472, expected=0.0011658472, err=0.0000%, tol=0.01%"
+    },
+    {
+      "label": "a_EW_order_of_magnitude",
+      "status": "PASS",
+      "detail": "a_EW_1loop = 195.5 x 10^-11"
+    },
+    {
+      "label": "schwinger_from_PT_alpha",
+      "status": "PASS",
+      "value": 0.0011614097328908762,
+      "expected": 0.0011614097251225616,
+      "err_pct": 1e-06,
+      "tol_pct": 0.01,
+      "unit": "",
+      "detail": "computed=0.0011614097, expected=0.0011614097, err=0.0000%, tol=0.01%"
+    },
+    {
+      "label": "muon_mass_sub_01pct",
+      "status": "PASS",
+      "detail": "m_mu = 105.658376 MeV, err = 0.0000%"
+    },
+    {
+      "label": "delta_QED_small",
+      "status": "PASS",
+      "detail": "2*pi*alpha^2 = 3.345881e-04"
+    },
+    {
+      "label": "V_ud_sub_01pct",
+      "status": "PASS",
+      "detail": "V_ud = 0.97385849, err = 0.0132%"
+    },
+    {
+      "label": "V_ud_pull_sub_1sigma",
+      "status": "PASS",
+      "detail": "pull = 0.41 sigma"
+    },
+    {
+      "label": "V_ud_correction_is_NNLO",
+      "status": "PASS",
+      "detail": "delta = 3.35e-04 < alpha = 7.30e-03"
+    },
+    {
+      "label": "first_row_unitarity",
+      "status": "PASS",
+      "value": 0.9986868058999055,
+      "expected": 1.0,
+      "err_pct": 0.131319,
+      "tol_pct": 0.2,
+      "unit": "",
+      "detail": "computed=0.99868681, expected=1, err=0.1313%, tol=0.2%"
+    },
+    {
+      "label": "alpha_EM_derived",
+      "status": "PASS",
+      "detail": "1/alpha = 137.035999"
+    }
+  ],
+  "pt_version": "v7",
+  "zero_fitted_parameters": true
+}

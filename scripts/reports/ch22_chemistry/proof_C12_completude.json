@@ -1,0 +1,89 @@
+{
+  "script": "proof_C12_completude",
+  "chapter": "ch22_chemistry",
+  "timestamp": "2026-04-14T23:59:06.252570+00:00",
+  "duration_s": 0.0,
+  "n_pass": 15,
+  "n_fail": 0,
+  "n_total": 15,
+  "success": true,
+  "results": [
+    {
+      "label": "|c_0| > |c_1|",
+      "status": "PASS",
+      "detail": "|c_0|=1.0000, |c_1|=0.8667"
+    },
+    {
+      "label": "|c_1| > |c_2|",
+      "status": "PASS",
+      "detail": "|c_1|=0.8667, |c_2|=0.7511"
+    },
+    {
+      "label": "|c_2| > |c_3|",
+      "status": "PASS",
+      "detail": "|c_2|=0.7511, |c_3|=0.6510"
+    },
+    {
+      "label": "Truncation bound sum_{k>=3} |c_k| <= q^3/(1-q)",
+      "status": "PASS",
+      "detail": "actual=4.8822, bound=4.8822"
+    },
+    {
+      "label": "Modes k=0,1,2 capture > 55% of variance",
+      "status": "PASS",
+      "detail": "fraction=0.5762"
+    },
+    {
+      "label": "k=0 Shannon fill (f=0.5)",
+      "status": "PASS",
+      "detail": "-ln(f)/2 = 0.3466"
+    },
+    {
+      "label": "k=0 Shannon fill (f=0.25)",
+      "status": "PASS",
+      "detail": "-ln(f)/2 = 0.6931"
+    },
+    {
+      "label": "k=1 Exchange structure (r=0.1)",
+      "status": "PASS",
+      "detail": "-ln(1+r) = -0.0953"
+    },
+    {
+      "label": "k=1 Exchange structure (r=0.5)",
+      "status": "PASS",
+      "detail": "-ln(1+r) = -0.4055"
+    },
+    {
+      "label": "k=2 Pauli repulsion (positive contribution)",
+      "status": "PASS",
+      "detail": "|c_2|^2 = 0.564168"
+    },
+    {
+      "label": "Residual k>=3 between 15% and 50% of total variance",
+      "status": "PASS",
+      "detail": "residual = 0.4238 (42.4%)"
+    },
+    {
+      "label": "Absorption: residual * factor ~ 2% MAE",
+      "status": "PASS",
+      "detail": "MAE ~ 2.00%"
+    },
+    {
+      "label": "Mode k=3 carries between 5% and 20% of variance",
+      "status": "PASS",
+      "detail": "k=3 fraction = 0.1055 (10.5%)"
+    },
+    {
+      "label": "Capturing k=3 brings MAE from 2% toward <1%",
+      "status": "PASS",
+      "detail": "new MAE ~ 1.50%, reduction = 24.9%"
+    },
+    {
+      "label": "GFT completeness: sum of modes = log2(6)",
+      "status": "PASS",
+      "detail": "log2(6) = 2.584963"
+    }
+  ],
+  "pt_version": "v7",
+  "zero_fitted_parameters": true
+}

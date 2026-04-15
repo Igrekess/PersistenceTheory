@@ -1,0 +1,144 @@
+{
+  "script": "proof_C3_permutation",
+  "chapter": "ch22_chemistry",
+  "timestamp": "2026-04-14T23:59:10.001042+00:00",
+  "duration_s": 0.0,
+  "n_pass": 26,
+  "n_fail": 0,
+  "n_total": 26,
+  "success": true,
+  "results": [
+    {
+      "label": "3 * 5 * 7 = 105",
+      "status": "PASS",
+      "detail": "product = 105"
+    },
+    {
+      "label": "channels orthogonal: gcd(Pi, Pj) = 1",
+      "status": "PASS",
+      "detail": "gcd(3,5)=1, gcd(3,7)=1, gcd(5,7)=1"
+    },
+    {
+      "label": "coherent addition: D = D_1 + D_2 + D_3",
+      "status": "PASS",
+      "detail": "D_coh = 7.9696 eV"
+    },
+    {
+      "label": "incoherent < coherent",
+      "status": "PASS",
+      "detail": "E_incoh = 4.6231 < D_coh = 7.9696"
+    },
+    {
+      "label": "sin2_3 * sin2_5 * sin2_7 ~ alpha_EM (< 1% bare)",
+      "status": "PASS",
+      "detail": "1/product = 136.28, 1/alpha = 137.04"
+    },
+    {
+      "label": "all 6 permutations give same alpha (CRT)",
+      "status": "PASS",
+      "detail": "spread = 8.67e-19"
+    },
+    {
+      "label": "R_35 = sin2_3 * sin2_5 > 0",
+      "status": "PASS",
+      "detail": "R_35 = 0.042511"
+    },
+    {
+      "label": "R_37 = sin2_3 * sin2_7 > 0",
+      "status": "PASS",
+      "detail": "R_37 = 0.037829"
+    },
+    {
+      "label": "R_57 = sin2_5 * sin2_7 > 0",
+      "status": "PASS",
+      "detail": "R_57 = 0.033483"
+    },
+    {
+      "label": "triple product R_357 ~ alpha_EM",
+      "status": "PASS",
+      "detail": "R_357 = 7.337924e-03, alpha = 7.297353e-03"
+    },
+    {
+      "label": "contrast > 10^16",
+      "status": "PASS",
+      "detail": "log10(contrast) = 32.1"
+    },
+    {
+      "label": "D_0(N2) = D_P1 + D_P2 + D_P3",
+      "status": "PASS",
+      "detail": "D0 = 9.79, recon = 9.790000"
+    },
+    {
+      "label": "D_0(CO) = D_P1 + D_P2 + D_P3",
+      "status": "PASS",
+      "detail": "D0 = 11.17, recon = 11.170000"
+    },
+    {
+      "label": "D_0(O2) = D_P1 + D_P2 + D_P3",
+      "status": "PASS",
+      "detail": "D0 = 5.16, recon = 5.160000"
+    },
+    {
+      "label": "Regime I NaCl: EA/IE >= s",
+      "status": "PASS",
+      "detail": "EA/IE = 0.7029 >= 0.5"
+    },
+    {
+      "label": "Regime I LiF: EA/IE >= s",
+      "status": "PASS",
+      "detail": "EA/IE = 0.6307 >= 0.5"
+    },
+    {
+      "label": "Regime I KBr: EA/IE >= s",
+      "status": "PASS",
+      "detail": "EA/IE = 0.7749 >= 0.5"
+    },
+    {
+      "label": "Regime II H2: |EA|/IE < s",
+      "status": "PASS",
+      "detail": "|EA|/IE = 0.0554 in [0, 0.5)"
+    },
+    {
+      "label": "Regime II N2: |EA|/IE < s",
+      "status": "PASS",
+      "detail": "|EA|/IE = 0.0048 in [0, 0.5)"
+    },
+    {
+      "label": "Regime II O2: |EA|/IE < s",
+      "status": "PASS",
+      "detail": "|EA|/IE = 0.1073 in [0, 0.5)"
+    },
+    {
+      "label": "Regime II F2: |EA|/IE < s",
+      "status": "PASS",
+      "detail": "|EA|/IE = 0.1952 in [0, 0.5)"
+    },
+    {
+      "label": "Regime III He2: BH <= 0",
+      "status": "PASS",
+      "detail": "BH = 0.00095 - 0.02585 = -0.02490"
+    },
+    {
+      "label": "Regime III Ar2: BH <= 0",
+      "status": "PASS",
+      "detail": "BH = 0.01040 - 0.02585 = -0.01545"
+    },
+    {
+      "label": "delta_3 > s/mu* (channel activation)",
+      "status": "PASS",
+      "detail": "delta_3 = 0.116346 > 0.033333"
+    },
+    {
+      "label": "Pythag NaCl: fully ionic (E_h > D)",
+      "status": "PASS",
+      "detail": "E_h=5.446 > D=4.26, E_c=0"
+    },
+    {
+      "label": "Pythag GaAs: E^2 = E_h^2 + E_c^2",
+      "status": "PASS",
+      "detail": "E_h=2.085, E_c=1.537, recon=2.5900"
+    }
+  ],
+  "pt_version": "v7",
+  "zero_fitted_parameters": true
+}

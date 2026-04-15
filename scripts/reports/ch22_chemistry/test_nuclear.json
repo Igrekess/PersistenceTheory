@@ -1,0 +1,269 @@
+{
+  "script": "test_nuclear",
+  "chapter": "ch22_chemistry",
+  "timestamp": "2026-04-14T23:59:16.458583+00:00",
+  "duration_s": 0.0,
+  "n_pass": 32,
+  "n_fail": 0,
+  "n_total": 32,
+  "success": true,
+  "results": [
+    {
+      "label": "f_pi (pion decay constant)",
+      "status": "PASS",
+      "value": 131.62007846365924,
+      "expected": 130.2,
+      "err_pct": 1.09069,
+      "tol_pct": 5.0,
+      "unit": "MeV",
+      "detail": "computed=131.62008, expected=130.2, err=1.0907%, tol=5.0% [MeV]"
+    },
+    {
+      "label": "M_N (nucleon mass)",
+      "status": "PASS",
+      "value": 954.929658551372,
+      "expected": 938.272,
+      "err_pct": 1.775355,
+      "tol_pct": 5.0,
+      "unit": "MeV",
+      "detail": "computed=954.92966, expected=938.272, err=1.7754%, tol=5.0% [MeV]"
+    },
+    {
+      "label": "m_rho (rho meson)",
+      "status": "PASS",
+      "value": 776.2351943920017,
+      "expected": 775.26,
+      "err_pct": 0.125789,
+      "tol_pct": 5.0,
+      "unit": "MeV",
+      "detail": "computed=776.23519, expected=775.26, err=0.1258%, tol=5.0% [MeV]"
+    },
+    {
+      "label": "sigma_QCD(nf=3) in [0.15, 0.25] GeV^2",
+      "status": "PASS",
+      "detail": "sigma_3 = 0.2280 GeV^2"
+    },
+    {
+      "label": "alpha_s_eff = C_F * s = 2/3",
+      "status": "PASS",
+      "value": 0.6666666666666666,
+      "expected": 0.6666666666666666,
+      "err_pct": 0.0,
+      "tol_pct": 0.01,
+      "unit": "",
+      "detail": "computed=0.66666667, expected=0.66666667, err=0.0000%, tol=0.01%"
+    },
+    {
+      "label": "a_V (volume) vs 15.56 MeV",
+      "status": "PASS",
+      "value": 15.559028358613974,
+      "expected": 15.56,
+      "err_pct": 0.006244,
+      "tol_pct": 5.0,
+      "unit": "MeV",
+      "detail": "computed=15.559028, expected=15.56, err=0.0062%, tol=5.0% [MeV]"
+    },
+    {
+      "label": "a_S (surface) vs 17.23 MeV",
+      "status": "PASS",
+      "value": 17.329879117033187,
+      "expected": 17.23,
+      "err_pct": 0.579681,
+      "tol_pct": 15.0,
+      "unit": "MeV",
+      "detail": "computed=17.329879, expected=17.23, err=0.5797%, tol=15.0% [MeV]"
+    },
+    {
+      "label": "a_C (Coulomb) vs 0.697 MeV",
+      "status": "PASS",
+      "value": 0.691544244780193,
+      "expected": 0.697,
+      "err_pct": 0.782748,
+      "tol_pct": 12.0,
+      "unit": "MeV",
+      "detail": "computed=0.69154424, expected=0.697, err=0.7827%, tol=12.0% [MeV]"
+    },
+    {
+      "label": "a_A (asymmetry) vs 23.29 MeV",
+      "status": "PASS",
+      "value": 23.25,
+      "expected": 23.29,
+      "err_pct": 0.171748,
+      "tol_pct": 25.0,
+      "unit": "MeV",
+      "detail": "computed=23.25, expected=23.29, err=0.1717%, tol=25.0% [MeV]"
+    },
+    {
+      "label": "delta (pairing) coefficient = 12",
+      "status": "PASS",
+      "value": 12.0,
+      "expected": 12.0,
+      "err_pct": 0.0,
+      "tol_pct": 5.0,
+      "unit": "MeV",
+      "detail": "computed=12, expected=12, err=0.0000%, tol=5.0% [MeV]"
+    },
+    {
+      "label": "a_V / mu* close to 1 (binding ~ fixed point)",
+      "status": "PASS",
+      "detail": "a_V/mu* = 1.0373"
+    },
+    {
+      "label": "B/A(He-4)",
+      "status": "PASS",
+      "value": 5.924065825039073,
+      "expected": 7.074,
+      "err_pct": 16.255784,
+      "tol_pct": 20.0,
+      "unit": "MeV",
+      "detail": "computed=5.9240658, expected=7.074, err=16.2558%, tol=20.0% [MeV]"
+    },
+    {
+      "label": "B/A(C-12)",
+      "status": "PASS",
+      "value": 7.523032138341929,
+      "expected": 7.68,
+      "err_pct": 2.043852,
+      "tol_pct": 20.0,
+      "unit": "MeV",
+      "detail": "computed=7.5230321, expected=7.68, err=2.0439%, tol=20.0% [MeV]"
+    },
+    {
+      "label": "B/A(O-16)",
+      "status": "PASS",
+      "value": 7.908622969458118,
+      "expected": 7.976,
+      "err_pct": 0.844747,
+      "tol_pct": 20.0,
+      "unit": "MeV",
+      "detail": "computed=7.908623, expected=7.976, err=0.8447%, tol=20.0% [MeV]"
+    },
+    {
+      "label": "B/A(Ca-40)",
+      "status": "PASS",
+      "value": 8.618191873016036,
+      "expected": 8.551,
+      "err_pct": 0.785778,
+      "tol_pct": 20.0,
+      "unit": "MeV",
+      "detail": "computed=8.6181919, expected=8.551, err=0.7858%, tol=20.0% [MeV]"
+    },
+    {
+      "label": "B/A(Fe-56)",
+      "status": "PASS",
+      "value": 8.841324325390728,
+      "expected": 8.79,
+      "err_pct": 0.583894,
+      "tol_pct": 20.0,
+      "unit": "MeV",
+      "detail": "computed=8.8413243, expected=8.79, err=0.5839%, tol=20.0% [MeV]"
+    },
+    {
+      "label": "B/A(Ni-62)",
+      "status": "PASS",
+      "value": 8.85678097627197,
+      "expected": 8.795,
+      "err_pct": 0.702456,
+      "tol_pct": 20.0,
+      "unit": "MeV",
+      "detail": "computed=8.856781, expected=8.795, err=0.7025%, tol=20.0% [MeV]"
+    },
+    {
+      "label": "B/A(Sn-120)",
+      "status": "PASS",
+      "value": 8.546370146619115,
+      "expected": 8.505,
+      "err_pct": 0.486421,
+      "tol_pct": 20.0,
+      "unit": "MeV",
+      "detail": "computed=8.5463701, expected=8.505, err=0.4864%, tol=20.0% [MeV]"
+    },
+    {
+      "label": "B/A(Pb-208)",
+      "status": "PASS",
+      "value": 7.8706759566447,
+      "expected": 7.867,
+      "err_pct": 0.046726,
+      "tol_pct": 20.0,
+      "unit": "MeV",
+      "detail": "computed=7.870676, expected=7.867, err=0.0467%, tol=20.0% [MeV]"
+    },
+    {
+      "label": "B/A(U-238)",
+      "status": "PASS",
+      "value": 7.643611143602605,
+      "expected": 7.57,
+      "err_pct": 0.972406,
+      "tol_pct": 20.0,
+      "unit": "MeV",
+      "detail": "computed=7.6436111, expected=7.57, err=0.9724%, tol=20.0% [MeV]"
+    },
+    {
+      "label": "Mean B/A error < 5%",
+      "status": "PASS",
+      "detail": "mean = 2.52%"
+    },
+    {
+      "label": "Fe-56 and Ni-62 near Aston maximum (B/A > 8.5 MeV)",
+      "status": "PASS",
+      "detail": "Fe-56: 8.841, Ni-62: 8.857"
+    },
+    {
+      "label": "r_0 (matter) in [0.9, 1.4] fm",
+      "status": "PASS",
+      "detail": "r_0 = 1.124 fm"
+    },
+    {
+      "label": "r_0_charge in [1.0, 1.5] fm",
+      "status": "PASS",
+      "detail": "r_0_charge = 1.249 fm"
+    },
+    {
+      "label": "g_A (axial coupling)",
+      "status": "PASS",
+      "value": 1.2732911504341702,
+      "expected": 1.2724,
+      "err_pct": 0.070037,
+      "tol_pct": 2.0,
+      "unit": "",
+      "detail": "computed=1.2732912, expected=1.2724, err=0.0700%, tol=2.0%"
+    },
+    {
+      "label": "Nuclear SO / atomic SO >> 1 (explains magic numbers)",
+      "status": "PASS",
+      "detail": "C_F * alpha_s_eff / alpha_EM = 121.8"
+    },
+    {
+      "label": "Sieve depth D=2 -> 2^D = 4 quantum numbers",
+      "status": "PASS",
+      "detail": "2^D = 4"
+    },
+    {
+      "label": "Nuclear saturation density n_0 in [0.10, 0.25] fm^-3",
+      "status": "PASS",
+      "detail": "n_0 = 0.168 fm^-3"
+    },
+    {
+      "label": "Sommerfeld parameter eta > 10 (strong Coulomb barrier)",
+      "status": "PASS",
+      "detail": "eta = 24.25"
+    },
+    {
+      "label": "Gamow factor G = 2*pi*eta >> 1",
+      "status": "PASS",
+      "detail": "G = 152.3"
+    },
+    {
+      "label": "alpha_EM << alpha_s (EM << strong)",
+      "status": "PASS",
+      "detail": "alpha_EM = 0.00730, alpha_s = 0.1181"
+    },
+    {
+      "label": "Three forces present: EM, weak (G_F derived), strong (alpha_s)",
+      "status": "PASS",
+      "detail": "alpha_EM, alpha_s, G_F all derived from sieve"
+    }
+  ],
+  "pt_version": "v7",
+  "zero_fitted_parameters": true
+}

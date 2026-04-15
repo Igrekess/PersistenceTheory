@@ -1,0 +1,309 @@
+{
+  "script": "test_PM_algebra",
+  "chapter": "ch_PM",
+  "timestamp": "2026-04-14T23:59:18.795102+00:00",
+  "duration_s": 0.064,
+  "n_pass": 58,
+  "n_fail": 0,
+  "n_total": 58,
+  "success": true,
+  "results": [
+    {
+      "label": "AT_formula_13_shells",
+      "status": "PASS",
+      "detail": "13/13 match"
+    },
+    {
+      "label": "AT_ghost_regime",
+      "status": "PASS",
+      "detail": "Ghost [11, 13]: AT=1"
+    },
+    {
+      "label": "AT_construction_regime",
+      "status": "PASS",
+      "detail": "Construction: AT=ceil((|B|-2)/3)+1"
+    },
+    {
+      "label": "AT_asymptotic_regime",
+      "status": "PASS",
+      "detail": "Asymptotic [41, 43, 47, 53, 59]: AT=1 (PM-PT conjecture)"
+    },
+    {
+      "label": "AT_divisor_is_3",
+      "status": "PASS",
+      "detail": "N_spatial = 3 = |{3,5,7}| active CRT channels"
+    },
+    {
+      "label": "dim_positive",
+      "status": "PASS",
+      "detail": "dim(d) > 0 for d=1..19"
+    },
+    {
+      "label": "dim_d1",
+      "status": "PASS",
+      "detail": "dim(1) = 5-3 = 2"
+    },
+    {
+      "label": "dim_d2",
+      "status": "PASS",
+      "detail": "dim(2) = 10-5 = 5"
+    },
+    {
+      "label": "dim_d3",
+      "status": "PASS",
+      "detail": "dim(3) = 17-7 = 10"
+    },
+    {
+      "label": "dim_monotone",
+      "status": "PASS",
+      "detail": "dim(d) strictly increasing"
+    },
+    {
+      "label": "L1_total_rank_5",
+      "status": "PASS",
+      "detail": "Total rank at depth 5 = 66"
+    },
+    {
+      "label": "CRT_mod_3",
+      "status": "PASS",
+      "detail": "phi(3)=2 independent residues"
+    },
+    {
+      "label": "CRT_mod_5",
+      "status": "PASS",
+      "detail": "phi(5)=4 independent residues"
+    },
+    {
+      "label": "CRT_mod_7",
+      "status": "PASS",
+      "detail": "phi(7)=6 independent residues"
+    },
+    {
+      "label": "sigma_C4_1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "sigma_C4_2",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "sigma_C4_3",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "sigma_C4_4",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "sigma_sum_15",
+      "status": "PASS",
+      "detail": "2^4 - 1 = 15 non-empty subsets"
+    },
+    {
+      "label": "sigma_shell_11",
+      "status": "PASS",
+      "detail": "AT=1, sigma_total=15"
+    },
+    {
+      "label": "sigma_shell_17",
+      "status": "PASS",
+      "detail": "AT=2, sigma_total=11"
+    },
+    {
+      "label": "sigma_shell_29",
+      "status": "PASS",
+      "detail": "AT=3, sigma_total=5"
+    },
+    {
+      "label": "sigma_shell_41",
+      "status": "PASS",
+      "detail": "AT=1, sigma_total=15"
+    },
+    {
+      "label": "phantom_C2_17",
+      "status": "PASS",
+      "detail": "|B|=3 >= 3: C2 applies (phantom=n_base, struct=0)"
+    },
+    {
+      "label": "phantom_C2_19",
+      "status": "PASS",
+      "detail": "|B|=4 >= 3: C2 applies (phantom=n_base, struct=0)"
+    },
+    {
+      "label": "phantom_C2_23",
+      "status": "PASS",
+      "detail": "|B|=5 >= 3: C2 applies (phantom=n_base, struct=0)"
+    },
+    {
+      "label": "phantom_C2_29",
+      "status": "PASS",
+      "detail": "|B|=6 >= 3: C2 applies (phantom=n_base, struct=0)"
+    },
+    {
+      "label": "shells_are_primes",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "B_monotone",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "B_formula_11",
+      "status": "PASS",
+      "detail": "B = pi_odd(<11)-2 = 1"
+    },
+    {
+      "label": "B_formula_13",
+      "status": "PASS",
+      "detail": "B = pi_odd(<13)-2 = 2"
+    },
+    {
+      "label": "B_formula_17",
+      "status": "PASS",
+      "detail": "B = pi_odd(<17)-2 = 3"
+    },
+    {
+      "label": "B_formula_19",
+      "status": "PASS",
+      "detail": "B = pi_odd(<19)-2 = 4"
+    },
+    {
+      "label": "B_formula_23",
+      "status": "PASS",
+      "detail": "B = pi_odd(<23)-2 = 5"
+    },
+    {
+      "label": "B_formula_29",
+      "status": "PASS",
+      "detail": "B = pi_odd(<29)-2 = 6"
+    },
+    {
+      "label": "lucky_T1_zero",
+      "status": "PASS",
+      "detail": "Lucky: T[1->1]=T[2->2]=0 (mod-6 alternation)"
+    },
+    {
+      "label": "prime_T1_holds",
+      "status": "PASS",
+      "detail": "Prime: T[1->1]=T[2->2]=0 (T1 exact)"
+    },
+    {
+      "label": "T1_shared",
+      "status": "PASS",
+      "detail": "T1 structural (mod-6), shared by both odd-number sieves"
+    },
+    {
+      "label": "SAT_rank_bounded",
+      "status": "PASS",
+      "detail": "max rank=8 <= n=8"
+    },
+    {
+      "label": "SAT_active_zone",
+      "status": "PASS",
+      "detail": "5 active clauses"
+    },
+    {
+      "label": "SAT_monotone",
+      "status": "PASS",
+      "detail": "Survivors monotone decreasing"
+    },
+    {
+      "label": "codes_hamming_L1",
+      "status": "PASS",
+      "detail": "Hamming [7,4,3]: dims=[1, 0, 0]"
+    },
+    {
+      "label": "codes_rep_L1",
+      "status": "PASS",
+      "detail": "Repetition [5,1,5]: dims=[1, 1, 1, 1]"
+    },
+    {
+      "label": "codes_no_phantom",
+      "status": "PASS",
+      "detail": "Linear codes: AT=1, no phantom rank"
+    },
+    {
+      "label": "sin2_decreasing",
+      "status": "PASS",
+      "detail": "sin^2: 3->0.2192 .. 97->0.0205"
+    },
+    {
+      "label": "gamma_increasing",
+      "status": "PASS",
+      "detail": "gamma_p increasing (small primes = strongest coupling)"
+    },
+    {
+      "label": "active_357_sin2",
+      "status": "PASS",
+      "detail": "Active: sin^2(3)=0.2192, sin^2(7)=0.1726"
+    },
+    {
+      "label": "sin2_decoupling",
+      "status": "PASS",
+      "detail": "sin^2(97)=0.020512 -> 0"
+    },
+    {
+      "label": "AA_count_20",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "CF_normalisation",
+      "status": "PASS",
+      "value": 3.0145,
+      "expected": 3.0,
+      "err_pct": 0.483333,
+      "tol_pct": 5.0,
+      "unit": "mean(PH+PE+PC)",
+      "detail": "computed=3.0145, expected=3, err=0.4833%, tol=5.0% [mean(PH+PE+PC)]"
+    },
+    {
+      "label": "helix_top3",
+      "status": "PASS",
+      "detail": "Top helix: ['E', 'M', 'A', 'L', 'K']"
+    },
+    {
+      "label": "coil_top2",
+      "status": "PASS",
+      "detail": "Top coil: ['G', 'P', 'D', 'S', 'N']"
+    },
+    {
+      "label": "V4_covers_20",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "V4_disjoint",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "20_shells",
+      "status": "PASS",
+      "detail": "Shells: 3..73"
+    },
+    {
+      "label": "DKL_all_positive",
+      "status": "PASS",
+      "detail": "All AA: D_KL > 0 (non-uniform)"
+    },
+    {
+      "label": "DKL_structured",
+      "status": "PASS",
+      "detail": "Top D_KL: ['E', 'P', 'V']"
+    },
+    {
+      "label": "cross_domain",
+      "status": "PASS",
+      "detail": "PM discriminates 4 instantiation domains"
+    }
+  ],
+  "pt_version": "v7",
+  "zero_fitted_parameters": true
+}

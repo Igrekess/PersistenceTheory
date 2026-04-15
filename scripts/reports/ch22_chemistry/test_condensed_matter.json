@@ -1,0 +1,184 @@
+{
+  "script": "test_condensed_matter",
+  "chapter": "ch22_chemistry",
+  "timestamp": "2026-04-14T23:59:14.121562+00:00",
+  "duration_s": 0.0,
+  "n_pass": 28,
+  "n_fail": 0,
+  "n_total": 28,
+  "success": true,
+  "results": [
+    {
+      "label": "alpha_bare = prod sin^2_p",
+      "status": "PASS",
+      "value": 0.007337923551856888,
+      "expected": 0.007336757153338224,
+      "err_pct": 0.015898,
+      "tol_pct": 1.0,
+      "unit": "",
+      "detail": "computed=0.0073379236, expected=0.0073367572, err=0.0159%, tol=1.0%"
+    },
+    {
+      "label": "Ghost prime 11: gamma_11 < s",
+      "status": "PASS",
+      "detail": "gamma_11 = 0.4257, s = 0.5"
+    },
+    {
+      "label": "Ghost prime 13: gamma_13 < s",
+      "status": "PASS",
+      "detail": "gamma_13 = 0.3562, s = 0.5"
+    },
+    {
+      "label": "Active prime 3: gamma_3 > s",
+      "status": "PASS",
+      "detail": "gamma_3 = 0.8076, s = 0.5"
+    },
+    {
+      "label": "Active prime 5: gamma_5 > s",
+      "status": "PASS",
+      "detail": "gamma_5 = 0.6963, s = 0.5"
+    },
+    {
+      "label": "Active prime 7: gamma_7 > s",
+      "status": "PASS",
+      "detail": "gamma_7 = 0.5955, s = 0.5"
+    },
+    {
+      "label": "Vertex-edge identity: exp(-C_F) ~ sin^2_3^C_F / s (< 1%)",
+      "status": "PASS",
+      "detail": "exp(-C_F) = 0.263597, sin^2_3^C_F/s = 0.264260"
+    },
+    {
+      "label": "Ghost VP coefficient beta_ghost ~ 0.10",
+      "status": "PASS",
+      "detail": "beta_ghost = 0.1039"
+    },
+    {
+      "label": "Pythagorean: Pure covalent (Si-like)",
+      "status": "PASS",
+      "detail": "E_gap = 1.120000"
+    },
+    {
+      "label": "Pythagorean: Mixed (GaAs-like)",
+      "status": "PASS",
+      "detail": "E_gap = 1.408687"
+    },
+    {
+      "label": "Pythagorean: Strongly ionic",
+      "status": "PASS",
+      "detail": "E_gap = 3.041381"
+    },
+    {
+      "label": "Pythagorean: Equal channels",
+      "status": "PASS",
+      "detail": "E_gap = 2.828427"
+    },
+    {
+      "label": "Phillips ionicity cos^2(theta_3) vs 0.785",
+      "status": "PASS",
+      "value": 0.7808449590001525,
+      "expected": 0.785,
+      "err_pct": 0.529305,
+      "tol_pct": 1.0,
+      "unit": "",
+      "detail": "computed=0.78084496, expected=0.785, err=0.5293%, tol=1.0%"
+    },
+    {
+      "label": "sin^2_3 + cos^2_3 = 1",
+      "status": "PASS",
+      "detail": "sum = 1.000000000000000"
+    },
+    {
+      "label": "D_cov monotone: D(2) < D(3) < D(4) < D(5)",
+      "status": "PASS",
+      "detail": "D = [0.693, 2.024, 2.503, 2.603]"
+    },
+    {
+      "label": "D_cov(2) = ln(2) (kinematic floor)",
+      "status": "PASS",
+      "value": 0.6931471805599453,
+      "expected": 0.6931471805599453,
+      "err_pct": 0.0,
+      "tol_pct": 0.01,
+      "unit": "nats",
+      "detail": "computed=0.69314718, expected=0.69314718, err=0.0000%, tol=0.01% [nats]"
+    },
+    {
+      "label": "D_cov(3) = C_F * S3 (first dynamic level)",
+      "status": "PASS",
+      "value": 2.0239677998304955,
+      "expected": 2.0239677998304955,
+      "err_pct": 0.0,
+      "tol_pct": 0.01,
+      "unit": "nats",
+      "detail": "computed=2.0239678, expected=2.0239678, err=0.0000%, tol=0.01% [nats]"
+    },
+    {
+      "label": "Group IV ordering: E(C) > E(Si) > E(Ge) > E(Sn)",
+      "status": "PASS",
+      "detail": "E = [0.5000, 0.1321, 0.0818, 0.0741]"
+    },
+    {
+      "label": "Cascade gate: D(4)-D(3) = C_F*sin2_3*S5",
+      "status": "PASS",
+      "value": 0.479227030296812,
+      "expected": 0.4792270302968119,
+      "err_pct": 0.0,
+      "tol_pct": 0.1,
+      "unit": "nats",
+      "detail": "computed=0.47922703, expected=0.47922703, err=0.0000%, tol=0.1% [nats]"
+    },
+    {
+      "label": "D_total(AlGaAs) >= 0",
+      "status": "PASS",
+      "detail": "D_total = 0.4131"
+    },
+    {
+      "label": "D_total(same) >= D_total(different)",
+      "status": "PASS",
+      "detail": "D(same) = 0.5857, D(diff) = 0.1940"
+    },
+    {
+      "label": "Ga and Al degenerate mod 3 (31%3 == 13%3)",
+      "status": "PASS",
+      "detail": "31 mod 3 = 1, 13 mod 3 = 1"
+    },
+    {
+      "label": "Triple coincidence capped at 1 per prime (transitivity)",
+      "status": "PASS",
+      "value": 0.5857439874470644,
+      "expected": 0.5857439874470644,
+      "err_pct": 0.0,
+      "tol_pct": 0.01,
+      "unit": "",
+      "detail": "computed=0.58574399, expected=0.58574399, err=0.0000%, tol=0.01%"
+    },
+    {
+      "label": "Wide-gap order: D_cov(2) < D_cov(2.5) < D_cov(3.5)",
+      "status": "PASS",
+      "detail": "D = [0.693, 1.359, 2.264]"
+    },
+    {
+      "label": "Phillips threshold ~ 0.785 separates ionic/covalent",
+      "status": "PASS",
+      "detail": "cos^2_3 = 0.7808"
+    },
+    {
+      "label": "Ghost screening: sin^2_7 * s ~ 8.6%",
+      "status": "PASS",
+      "detail": "sin^2_7 * s = 0.0863"
+    },
+    {
+      "label": "Kinematic gate: 1 - ln(2)/(C_F*S3) in [0.6, 0.7]",
+      "status": "PASS",
+      "detail": "f_kin = 0.6575"
+    },
+    {
+      "label": "Boundary reinforcement: gamma_7 > s at period 4",
+      "status": "PASS",
+      "detail": "gamma_7 = 0.5955 > s = 0.5"
+    }
+  ],
+  "pt_version": "v7",
+  "zero_fitted_parameters": true
+}

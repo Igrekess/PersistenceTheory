@@ -1,0 +1,1119 @@
+{
+  "script": "test_IE_atomic",
+  "chapter": "ch22_chemistry",
+  "timestamp": "2026-04-14T23:59:13.286695+00:00",
+  "duration_s": 0.007,
+  "n_pass": 196,
+  "n_fail": 0,
+  "n_total": 196,
+  "success": true,
+  "results": [
+    {
+      "label": "Q1_n_quantum_numbers",
+      "status": "PASS",
+      "detail": "2^2 = 4"
+    },
+    {
+      "label": "Q2_spin_value",
+      "status": "PASS",
+      "detail": "s = 0.5"
+    },
+    {
+      "label": "Q3_active_primes",
+      "status": "PASS",
+      "detail": "|primes| = 3"
+    },
+    {
+      "label": "Q4_orient_l0",
+      "status": "PASS",
+      "detail": "2*0+1"
+    },
+    {
+      "label": "Q5_orient_l1",
+      "status": "PASS",
+      "detail": "2*1+1"
+    },
+    {
+      "label": "Q6_orient_l2",
+      "status": "PASS",
+      "detail": "2*2+1"
+    },
+    {
+      "label": "Q7_orient_l3",
+      "status": "PASS",
+      "detail": "2*3+1"
+    },
+    {
+      "label": "Q8_lmax_3",
+      "status": "PASS",
+      "detail": "gamma_11 = 0.4257 < 0.5"
+    },
+    {
+      "label": "Q9_cap_l0",
+      "status": "PASS",
+      "detail": "cap=2"
+    },
+    {
+      "label": "Q10_cap_l1",
+      "status": "PASS",
+      "detail": "cap=6"
+    },
+    {
+      "label": "Q11_cap_l2",
+      "status": "PASS",
+      "detail": "cap=10"
+    },
+    {
+      "label": "Q12_cap_l3",
+      "status": "PASS",
+      "detail": "cap=14"
+    },
+    {
+      "label": "S1_sigma_1s",
+      "status": "PASS",
+      "value": 0.297734220043075,
+      "expected": 0.3,
+      "err_pct": 0.75526,
+      "tol_pct": 2.0,
+      "unit": "",
+      "detail": "computed=0.29773422, expected=0.3, err=0.7553%, tol=2.0%"
+    },
+    {
+      "label": "S2_sigma_n2",
+      "status": "PASS",
+      "value": 0.34815792924028804,
+      "expected": 0.35,
+      "err_pct": 0.526306,
+      "tol_pct": 2.0,
+      "unit": "",
+      "detail": "computed=0.34815793, expected=0.35, err=0.5263%, tol=2.0%"
+    },
+    {
+      "label": "S3_sigma_inner",
+      "status": "PASS",
+      "value": 0.8571428571428572,
+      "expected": 0.85,
+      "err_pct": 0.840336,
+      "tol_pct": 2.0,
+      "unit": "",
+      "detail": "computed=0.85714286, expected=0.85, err=0.8403%, tol=2.0%"
+    },
+    {
+      "label": "S4_sigma_deep",
+      "status": "PASS",
+      "detail": "sigma_deep = 1.0"
+    },
+    {
+      "label": "S5_ratio_sigma",
+      "status": "PASS",
+      "value": 0.855170010612017,
+      "expected": 0.8571428571428572,
+      "err_pct": 0.230165,
+      "tol_pct": 3.0,
+      "unit": "",
+      "detail": "computed=0.85517001, expected=0.85714286, err=0.2302%, tol=3.0%"
+    },
+    {
+      "label": "E1_IE_H",
+      "status": "PASS",
+      "value": 13.6057,
+      "expected": 13.598,
+      "err_pct": 0.056626,
+      "tol_pct": 0.1,
+      "unit": "eV",
+      "detail": "computed=13.6057, expected=13.598, err=0.0566%, tol=0.1% [eV]"
+    },
+    {
+      "label": "E2_IE_He",
+      "status": "PASS",
+      "value": 24.42791284881212,
+      "expected": 24.587,
+      "err_pct": 0.647038,
+      "tol_pct": 5.0,
+      "unit": "eV",
+      "detail": "computed=24.427913, expected=24.587, err=0.6470%, tol=5.0% [eV]"
+    },
+    {
+      "label": "E3_IE_Li",
+      "status": "PASS",
+      "value": 5.622763775510208,
+      "expected": 5.392,
+      "err_pct": 4.279744,
+      "tol_pct": 10.0,
+      "unit": "eV",
+      "detail": "computed=5.6227638, expected=5.392, err=4.2797%, tol=10.0% [eV]"
+    },
+    {
+      "label": "E4_IE_C",
+      "status": "PASS",
+      "value": 11.466940610893516,
+      "expected": 11.26,
+      "err_pct": 1.837838,
+      "tol_pct": 15.0,
+      "unit": "eV",
+      "detail": "computed=11.466941, expected=11.26, err=1.8378%, tol=15.0% [eV]"
+    },
+    {
+      "label": "E5_PT_vs_Slater",
+      "status": "PASS",
+      "detail": "mean=1.86%"
+    },
+    {
+      "label": "E6_He_PT_better",
+      "status": "PASS",
+      "detail": "PT=0.65% vs Slater=1.50%"
+    },
+    {
+      "label": "E7_shell_jump",
+      "status": "PASS",
+      "detail": "ratio = 2.38"
+    },
+    {
+      "label": "E8_He_Li_ratio",
+      "status": "PASS",
+      "value": 4.344467209383261,
+      "expected": 4.55990356083086,
+      "err_pct": 4.724581,
+      "tol_pct": 10.0,
+      "unit": "",
+      "detail": "computed=4.3444672, expected=4.5599036, err=4.7246%, tol=10.0%"
+    },
+    {
+      "label": "P1_period_1",
+      "status": "PASS",
+      "detail": "2*1^2 = 2"
+    },
+    {
+      "label": "P2_period_2",
+      "status": "PASS",
+      "detail": "2*2^2 = 8"
+    },
+    {
+      "label": "P3_period_3",
+      "status": "PASS",
+      "detail": "2*2^2 = 8"
+    },
+    {
+      "label": "P4_period_4",
+      "status": "PASS",
+      "detail": "2*3^2 = 18"
+    },
+    {
+      "label": "P5_period_5",
+      "status": "PASS",
+      "detail": "2*3^2 = 18"
+    },
+    {
+      "label": "P6_period_6",
+      "status": "PASS",
+      "detail": "2*4^2 = 32"
+    },
+    {
+      "label": "P7_period_7",
+      "status": "PASS",
+      "detail": "2*4^2 = 32"
+    },
+    {
+      "label": "P8_total_118",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "P9_noble_gas_maxima",
+      "status": "PASS",
+      "detail": "6/6"
+    },
+    {
+      "label": "P10_group_ordering",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "P11_noble_alkali_drop",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "P12_madelung",
+      "status": "PASS",
+      "value": 1.0,
+      "expected": 1.0,
+      "err_pct": 0.0,
+      "tol_pct": 5.0,
+      "unit": "",
+      "detail": "computed=1, expected=1, err=0.0000%, tol=5.0%"
+    },
+    {
+      "label": "P13_blocks_V4",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "P14_doubling",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "EN1_chi_MAE",
+      "status": "PASS",
+      "detail": "MAE = 10.8%"
+    },
+    {
+      "label": "EN2_chi_Li",
+      "status": "PASS",
+      "value": 0.9846781936598564,
+      "expected": 0.98,
+      "err_pct": 0.477367,
+      "tol_pct": 15.0,
+      "unit": "",
+      "detail": "computed=0.98467819, expected=0.98, err=0.4774%, tol=15.0%"
+    },
+    {
+      "label": "EN2_chi_C",
+      "status": "PASS",
+      "value": 2.482339096829928,
+      "expected": 2.55,
+      "err_pct": 2.653369,
+      "tol_pct": 15.0,
+      "unit": "",
+      "detail": "computed=2.4823391, expected=2.55, err=2.6534%, tol=15.0%"
+    },
+    {
+      "label": "EN2_chi_F",
+      "status": "PASS",
+      "value": 3.98,
+      "expected": 3.98,
+      "err_pct": 0.0,
+      "tol_pct": 15.0,
+      "unit": "",
+      "detail": "computed=3.98, expected=3.98, err=0.0000%, tol=15.0%"
+    },
+    {
+      "label": "EN2_chi_Cl",
+      "status": "PASS",
+      "value": 3.0909680860710473,
+      "expected": 3.16,
+      "err_pct": 2.184554,
+      "tol_pct": 15.0,
+      "unit": "",
+      "detail": "computed=3.0909681, expected=3.16, err=2.1846%, tol=15.0%"
+    },
+    {
+      "label": "EN3_chi_corr",
+      "status": "PASS",
+      "detail": "rho = 0.931"
+    },
+    {
+      "label": "R1_radii_MAE",
+      "status": "PASS",
+      "detail": "MAE = 15.5%"
+    },
+    {
+      "label": "R2_r_C",
+      "status": "PASS",
+      "value": 68.15085707938661,
+      "expected": 76.0,
+      "err_pct": 10.32782,
+      "tol_pct": 40.0,
+      "unit": "pm",
+      "detail": "computed=68.150857, expected=76, err=10.3278%, tol=40.0% [pm]"
+    },
+    {
+      "label": "R2_r_Si",
+      "status": "PASS",
+      "value": 95.2287634447507,
+      "expected": 111.0,
+      "err_pct": 14.208321,
+      "tol_pct": 40.0,
+      "unit": "pm",
+      "detail": "computed=95.228763, expected=111, err=14.2083%, tol=40.0% [pm]"
+    },
+    {
+      "label": "R2_r_Fe",
+      "status": "PASS",
+      "value": 138.15710093209876,
+      "expected": 132.0,
+      "err_pct": 4.66447,
+      "tol_pct": 40.0,
+      "unit": "pm",
+      "detail": "computed=138.1571, expected=132, err=4.6645%, tol=40.0% [pm]"
+    },
+    {
+      "label": "R2_r_Br",
+      "status": "PASS",
+      "value": 72.62557625691902,
+      "expected": 120.0,
+      "err_pct": 39.478686,
+      "tol_pct": 40.0,
+      "unit": "pm",
+      "detail": "computed=72.625576, expected=120, err=39.4787%, tol=40.0% [pm]"
+    },
+    {
+      "label": "R3_radii_corr",
+      "status": "PASS",
+      "detail": "rho = 0.935"
+    },
+    {
+      "label": "R4_alpha_ordering",
+      "status": "PASS",
+      "detail": "alpha_p = 1.404 > alpha_s = 1.348"
+    },
+    {
+      "label": "EA1_N_negative",
+      "status": "PASS",
+      "detail": "EA(N) = -0.070"
+    },
+    {
+      "label": "EA2_F_gt_O",
+      "status": "PASS",
+      "detail": "F=3.401 > O=1.461"
+    },
+    {
+      "label": "EA3_Cl_gt_S",
+      "status": "PASS",
+      "detail": "Cl=3.613 > S=2.077"
+    },
+    {
+      "label": "EA4_Cl_gt_F",
+      "status": "PASS",
+      "detail": "Cl > F"
+    },
+    {
+      "label": "EA5_per2_order",
+      "status": "PASS",
+      "detail": "B < C < O < F"
+    },
+    {
+      "label": "EA6_alkali_positive",
+      "status": "PASS",
+      "detail": "Li=0.618, Na=0.548"
+    },
+    {
+      "label": "B1_ionic_threshold",
+      "status": "PASS",
+      "value": 1.6651092223153954,
+      "expected": 1.7,
+      "err_pct": 2.052399,
+      "tol_pct": 3.0,
+      "unit": "",
+      "detail": "computed=1.6651092, expected=1.7, err=2.0524%, tol=3.0%"
+    },
+    {
+      "label": "B2_K_pauling",
+      "status": "PASS",
+      "value": 1.387234794549347,
+      "expected": 1.0,
+      "err_pct": 38.723479,
+      "tol_pct": 50.0,
+      "unit": "eV",
+      "detail": "computed=1.3872348, expected=1, err=38.7235%, tol=50.0% [eV]"
+    },
+    {
+      "label": "B3_bond_class",
+      "status": "PASS",
+      "detail": "11/12 = 92%"
+    },
+    {
+      "label": "B4_dblock_uniform",
+      "status": "PASS",
+      "detail": "CV_d=0.107 < CV_p=0.294"
+    },
+    {
+      "label": "B5_cos2_theta3",
+      "status": "PASS",
+      "detail": "cos^2 = 0.7808"
+    },
+    {
+      "label": "B6_f_reorg",
+      "status": "PASS",
+      "value": 0.18979383287328816,
+      "expected": 0.19,
+      "err_pct": 0.108509,
+      "tol_pct": 5.0,
+      "unit": "",
+      "detail": "computed=0.18979383, expected=0.19, err=0.1085%, tol=5.0%"
+    },
+    {
+      "label": "C1_inv_alpha_bare",
+      "status": "PASS",
+      "value": 136.27833445429482,
+      "expected": 136.28,
+      "err_pct": 0.001222,
+      "tol_pct": 0.6,
+      "unit": "",
+      "detail": "computed=136.27833, expected=136.28, err=0.0012%, tol=0.6%"
+    },
+    {
+      "label": "C2_inv_alpha_dressed",
+      "status": "PASS",
+      "value": 137.0359990834081,
+      "expected": 137.036,
+      "err_pct": 1e-06,
+      "tol_pct": 0.01,
+      "unit": "",
+      "detail": "computed=137.036, expected=137.036, err=0.0000%, tol=0.01%"
+    },
+    {
+      "label": "C3_IE_H_Ry",
+      "status": "PASS",
+      "value": 13.6057,
+      "expected": 13.598,
+      "err_pct": 0.056626,
+      "tol_pct": 0.1,
+      "unit": "eV",
+      "detail": "computed=13.6057, expected=13.598, err=0.0566%, tol=0.1% [eV]"
+    },
+    {
+      "label": "C4_subshell_count",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "C5_C_Koide",
+      "status": "PASS",
+      "value": 18.29971687168765,
+      "expected": 18.3,
+      "err_pct": 0.001547,
+      "tol_pct": 0.5,
+      "unit": "",
+      "detail": "computed=18.299717, expected=18.3, err=0.0015%, tol=0.5%"
+    },
+    {
+      "label": "C6_latent_heat",
+      "status": "PASS",
+      "detail": "L = 0.0688"
+    },
+    {
+      "label": "C7_q_bracket",
+      "status": "PASS",
+      "detail": "q_+ = 0.8667 < q_- = 0.9355"
+    },
+    {
+      "label": "P1_T0_mapping",
+      "status": "PASS",
+      "detail": "T0 structural zeros -> no two electrons in same state"
+    },
+    {
+      "label": "P2_involution_spin",
+      "status": "PASS",
+      "detail": "s=0.5: involution gives +-s = +-1/2"
+    },
+    {
+      "label": "P3_cap_l0",
+      "status": "PASS",
+      "detail": "2(2*0+1) = 2"
+    },
+    {
+      "label": "P3_cap_l1",
+      "status": "PASS",
+      "detail": "2(2*1+1) = 6"
+    },
+    {
+      "label": "P3_cap_l2",
+      "status": "PASS",
+      "detail": "2(2*2+1) = 10"
+    },
+    {
+      "label": "P3_cap_l3",
+      "status": "PASS",
+      "detail": "2(2*3+1) = 14"
+    },
+    {
+      "label": "P4_shell_n1",
+      "status": "PASS",
+      "detail": "2*1^2 = 2"
+    },
+    {
+      "label": "P4_shell_n2",
+      "status": "PASS",
+      "detail": "2*2^2 = 8"
+    },
+    {
+      "label": "P4_shell_n3",
+      "status": "PASS",
+      "detail": "2*3^2 = 18"
+    },
+    {
+      "label": "P4_shell_n4",
+      "status": "PASS",
+      "detail": "2*4^2 = 32"
+    },
+    {
+      "label": "P5_odd_sum_n1",
+      "status": "PASS",
+      "detail": "sum = 1"
+    },
+    {
+      "label": "P5_odd_sum_n2",
+      "status": "PASS",
+      "detail": "sum = 4"
+    },
+    {
+      "label": "P5_odd_sum_n3",
+      "status": "PASS",
+      "detail": "sum = 9"
+    },
+    {
+      "label": "P5_odd_sum_n4",
+      "status": "PASS",
+      "detail": "sum = 16"
+    },
+    {
+      "label": "P5_odd_sum_n5",
+      "status": "PASS",
+      "detail": "sum = 25"
+    },
+    {
+      "label": "P6_factor_2_from_spin",
+      "status": "PASS",
+      "detail": "2^(D-1) = 2"
+    },
+    {
+      "label": "A1_f3_value",
+      "status": "PASS",
+      "detail": "f(3) = 1.500000"
+    },
+    {
+      "label": "A2_fp_gt_1",
+      "status": "PASS",
+      "detail": "f(p) > 1 for all p > 3"
+    },
+    {
+      "label": "A3_fp_decreasing",
+      "status": "PASS",
+      "detail": "f(p) decreasing -> small p first"
+    },
+    {
+      "label": "A4_madelung_corr",
+      "status": "PASS",
+      "detail": "rho = 1.000"
+    },
+    {
+      "label": "A5_Cr_anomaly",
+      "status": "PASS",
+      "detail": "Cr: [Ar]3d5 4s1 (half-filled d = alpha=s^2)"
+    },
+    {
+      "label": "A6_Cu_anomaly",
+      "status": "PASS",
+      "detail": "Cu: [Ar]3d10 4s1 (full d = alpha=1/2)"
+    },
+    {
+      "label": "A7_aufbau_total",
+      "status": "PASS",
+      "detail": "sum = 36"
+    },
+    {
+      "label": "IE_succ_shell_jumps",
+      "status": "PASS",
+      "detail": "detected 8/8 shell jumps"
+    },
+    {
+      "label": "IE_succ_Z2_match",
+      "status": "PASS",
+      "detail": "IE_succ=24.43 vs IE_pt=24.43"
+    },
+    {
+      "label": "IE_succ_Z3_match",
+      "status": "PASS",
+      "detail": "IE_succ=5.62 vs IE_pt=5.62"
+    },
+    {
+      "label": "IE_succ_Z6_match",
+      "status": "PASS",
+      "detail": "IE_succ=11.47 vs IE_pt=11.47"
+    },
+    {
+      "label": "IE_succ_Z7_match",
+      "status": "PASS",
+      "detail": "IE_succ=13.02 vs IE_pt=13.02"
+    },
+    {
+      "label": "IE_succ_Z8_match",
+      "status": "PASS",
+      "detail": "IE_succ=14.38 vs IE_pt=14.38"
+    },
+    {
+      "label": "IE_succ_Z10_match",
+      "status": "PASS",
+      "detail": "IE_succ=16.50 vs IE_pt=16.50"
+    },
+    {
+      "label": "IE_succ_Z11_match",
+      "status": "PASS",
+      "detail": "IE_succ=6.94 vs IE_pt=6.94"
+    },
+    {
+      "label": "IE_hydro_Z2",
+      "status": "PASS",
+      "detail": "IE_final=54.4 vs Z^2*Ry=54.4"
+    },
+    {
+      "label": "IE_hydro_Z3",
+      "status": "PASS",
+      "detail": "IE_final=122.5 vs Z^2*Ry=122.5"
+    },
+    {
+      "label": "IE_hydro_Z6",
+      "status": "PASS",
+      "detail": "IE_final=489.8 vs Z^2*Ry=489.8"
+    },
+    {
+      "label": "IE_succ_mono_Z6",
+      "status": "PASS",
+      "detail": "IE strictly increasing for Z=6"
+    },
+    {
+      "label": "IE_succ_mono_Z7",
+      "status": "PASS",
+      "detail": "IE strictly increasing for Z=7"
+    },
+    {
+      "label": "IE_succ_mono_Z10",
+      "status": "PASS",
+      "detail": "IE strictly increasing for Z=10"
+    },
+    {
+      "label": "IE_H_Z1",
+      "status": "PASS",
+      "detail": "PT=13.61 exp=13.60 err=0.1%"
+    },
+    {
+      "label": "IE_He_Z2",
+      "status": "PASS",
+      "detail": "PT=24.43 exp=24.59 err=0.6%"
+    },
+    {
+      "label": "IE_Li_Z3",
+      "status": "PASS",
+      "detail": "PT=5.62 exp=5.39 err=4.3%"
+    },
+    {
+      "label": "IE_Be_Z4",
+      "status": "PASS",
+      "detail": "PT=7.77 exp=9.32 err=16.7%"
+    },
+    {
+      "label": "IE_B_Z5",
+      "status": "PASS",
+      "detail": "PT=9.72 exp=8.30 err=17.1%"
+    },
+    {
+      "label": "IE_N_Z7",
+      "status": "PASS",
+      "detail": "PT=13.02 exp=14.53 err=10.4%"
+    },
+    {
+      "label": "IE_O_Z8",
+      "status": "PASS",
+      "detail": "PT=14.38 exp=13.62 err=5.6%"
+    },
+    {
+      "label": "IE_F_Z9",
+      "status": "PASS",
+      "detail": "PT=15.54 exp=17.42 err=10.8%"
+    },
+    {
+      "label": "IE_Ne_Z10",
+      "status": "PASS",
+      "detail": "PT=16.50 exp=21.57 err=23.5%"
+    },
+    {
+      "label": "IE_Na_Z11",
+      "status": "PASS",
+      "detail": "PT=6.94 exp=5.14 err=35.1%"
+    },
+    {
+      "label": "IE_Mg_Z12",
+      "status": "PASS",
+      "detail": "PT=8.68 exp=7.65 err=13.6%"
+    },
+    {
+      "label": "IE_Si_Z14",
+      "status": "PASS",
+      "detail": "PT=11.90 exp=8.15 err=46.0%"
+    },
+    {
+      "label": "IE_Cl_Z17",
+      "status": "PASS",
+      "detail": "PT=16.07 exp=12.97 err=23.9%"
+    },
+    {
+      "label": "IE_Ar_Z18",
+      "status": "PASS",
+      "detail": "PT=17.28 exp=15.76 err=9.7%"
+    },
+    {
+      "label": "IE_per2_Li_lt_B",
+      "status": "PASS",
+      "detail": "Li < B"
+    },
+    {
+      "label": "IE_per2_B_lt_C",
+      "status": "PASS",
+      "detail": "B < C"
+    },
+    {
+      "label": "IE_per2_N_gt_O",
+      "status": "PASS",
+      "detail": "N >= O (half-shell effect)"
+    },
+    {
+      "label": "IE_per2_F_lt_Ne",
+      "status": "PASS",
+      "detail": "F < Ne"
+    },
+    {
+      "label": "IE_per3_Na_lt_Mg",
+      "status": "PASS",
+      "detail": "Na < Mg"
+    },
+    {
+      "label": "IE_per3_Cl_lt_Ar",
+      "status": "PASS",
+      "detail": "Cl < Ar"
+    },
+    {
+      "label": "IE_alkali_decrease",
+      "status": "PASS",
+      "detail": "Li=5.4 > Na=5.1 > K=4.3"
+    },
+    {
+      "label": "IE_halogen_decrease",
+      "status": "PASS",
+      "detail": "F > Cl > Br (exp)"
+    },
+    {
+      "label": "IE_noble_decrease",
+      "status": "PASS",
+      "detail": "He > Ne > Ar > Kr (exp)"
+    },
+    {
+      "label": "IE_spearman_rho",
+      "status": "PASS",
+      "detail": "rho = 0.887"
+    },
+    {
+      "label": "EN_F_max",
+      "status": "PASS",
+      "detail": "chi(F) = 3.98"
+    },
+    {
+      "label": "EN_per2_increasing",
+      "status": "PASS",
+      "detail": "EN increases across period 2"
+    },
+    {
+      "label": "EN_per3_increasing",
+      "status": "PASS",
+      "detail": "EN increases across period 3"
+    },
+    {
+      "label": "EN_group1_decrease",
+      "status": "PASS",
+      "detail": "Li=0.98 > Na=0.93 > K=0.82"
+    },
+    {
+      "label": "EN_group17_decrease",
+      "status": "PASS",
+      "detail": "F > Cl > Br"
+    },
+    {
+      "label": "EN_dblock_uniform",
+      "status": "PASS",
+      "detail": "CV_d=0.122 < CV_p=0.237"
+    },
+    {
+      "label": "EN_sblock_MAE",
+      "status": "PASS",
+      "detail": "s-block MAE = 8.4%"
+    },
+    {
+      "label": "EN_pblock_MAE",
+      "status": "PASS",
+      "detail": "p-block MAE = 6.1%"
+    },
+    {
+      "label": "EN_FLi_ratio",
+      "status": "PASS",
+      "detail": "chi(F)/chi(Li) = 4.04"
+    },
+    {
+      "label": "R5_alpha_p_gt_s",
+      "status": "PASS",
+      "detail": "alpha_p=1.404 > alpha_s=1.348"
+    },
+    {
+      "label": "R6_per2_contraction",
+      "status": "PASS",
+      "detail": "period 2 radii contraction (rho = -1.000)"
+    },
+    {
+      "label": "R7_group1_increase",
+      "status": "PASS",
+      "detail": "r(Li) < r(Na) < r(K)"
+    },
+    {
+      "label": "R8_F_smallest_halogen",
+      "status": "PASS",
+      "detail": "r(F) < r(Cl) < r(Br)"
+    },
+    {
+      "label": "R9_r_C",
+      "status": "PASS",
+      "detail": "PT=68 exp=76 err=10%"
+    },
+    {
+      "label": "R9_r_N",
+      "status": "PASS",
+      "detail": "PT=57 exp=71 err=20%"
+    },
+    {
+      "label": "R9_r_O",
+      "status": "PASS",
+      "detail": "PT=49 exp=66 err=26%"
+    },
+    {
+      "label": "R9_r_F",
+      "status": "PASS",
+      "detail": "PT=43 exp=57 err=25%"
+    },
+    {
+      "label": "R9_r_Na",
+      "status": "PASS",
+      "detail": "PT=171 exp=166 err=3%"
+    },
+    {
+      "label": "R9_r_Cl",
+      "status": "PASS",
+      "detail": "PT=64 exp=102 err=37%"
+    },
+    {
+      "label": "R9_r_K",
+      "status": "PASS",
+      "detail": "PT=235 exp=203 err=16%"
+    },
+    {
+      "label": "R9_r_Fe",
+      "status": "PASS",
+      "detail": "PT=138 exp=132 err=5%"
+    },
+    {
+      "label": "R10_noble_increase",
+      "status": "PASS",
+      "detail": "r(Ne) < r(Ar) < r(Kr)"
+    },
+    {
+      "label": "QN1_depth_2",
+      "status": "PASS",
+      "detail": "depth = 2"
+    },
+    {
+      "label": "QN2_four_qn",
+      "status": "PASS",
+      "detail": "2^D = 4 quantum numbers"
+    },
+    {
+      "label": "QN3_p2_spin",
+      "status": "PASS",
+      "detail": "p=2 (math/parity) -> m_s = +-1/2"
+    },
+    {
+      "label": "QN4_p3_angular",
+      "status": "PASS",
+      "detail": "p=3 (geometry) -> l (angular momentum)"
+    },
+    {
+      "label": "QN5_p5_principal",
+      "status": "PASS",
+      "detail": "p=5 (dynamics) -> n (energy levels)"
+    },
+    {
+      "label": "QN6_p7_magnetic",
+      "status": "PASS",
+      "detail": "p=7 (3D space) -> m_l (spatial orientation)"
+    },
+    {
+      "label": "QN7_orient_s",
+      "status": "PASS",
+      "detail": "l=0: 2l+1=1"
+    },
+    {
+      "label": "QN7_orient_p",
+      "status": "PASS",
+      "detail": "l=1: 2l+1=3"
+    },
+    {
+      "label": "QN7_orient_d",
+      "status": "PASS",
+      "detail": "l=2: 2l+1=5"
+    },
+    {
+      "label": "QN7_orient_f",
+      "status": "PASS",
+      "detail": "l=3: 2l+1=7"
+    },
+    {
+      "label": "QN8_lmax_criterion",
+      "status": "PASS",
+      "detail": "gamma_11=0.426 < 0.5 -> l=4 inactive"
+    },
+    {
+      "label": "QN9_gamma_hierarchy",
+      "status": "PASS",
+      "detail": "G3=0.808 > G5=0.696 > G7=0.595 > G11=0.426"
+    },
+    {
+      "label": "QN10_total_orbitals",
+      "status": "PASS",
+      "detail": "1+3+5+7 = 16"
+    },
+    {
+      "label": "QN11_electrons_n4",
+      "status": "PASS",
+      "detail": "2*16 = 32 = 2*4^2"
+    },
+    {
+      "label": "IE_mean_err_Z1_12",
+      "status": "PASS",
+      "detail": "mean = 11.6%"
+    },
+    {
+      "label": "IE_median_err_Z1_12",
+      "status": "PASS",
+      "detail": "median = 10.6%"
+    },
+    {
+      "label": "IE_HeH_ratio",
+      "status": "PASS",
+      "detail": "PT=1.795 exp=1.808"
+    },
+    {
+      "label": "IE_all_positive",
+      "status": "PASS",
+      "detail": "IE > 0 for Z=1..18"
+    },
+    {
+      "label": "IE_gt_kT",
+      "status": "PASS",
+      "detail": "IE >> kT for Z=1..12"
+    },
+    {
+      "label": "IE_per2_range",
+      "status": "PASS",
+      "detail": "max/min = 2.9"
+    },
+    {
+      "label": "sigma_hierarchy",
+      "status": "PASS",
+      "detail": "1.0 > 0.857 > 0.348 > 0.298"
+    },
+    {
+      "label": "PT_total_118",
+      "status": "PASS",
+      "detail": "sum = 118"
+    },
+    {
+      "label": "PT_lengths_even",
+      "status": "PASS",
+      "detail": "all period lengths are even"
+    },
+    {
+      "label": "PT_2n2_pattern",
+      "status": "PASS",
+      "detail": "lengths = [2, 8, 8, 18, 18, 32, 32]"
+    },
+    {
+      "label": "PT_noble_2_max",
+      "status": "PASS",
+      "detail": "IE(2) = 24.587 > neighbors"
+    },
+    {
+      "label": "PT_noble_10_max",
+      "status": "PASS",
+      "detail": "IE(10) = 21.565 > neighbors"
+    },
+    {
+      "label": "PT_noble_18_max",
+      "status": "PASS",
+      "detail": "IE(18) = 15.76 > neighbors"
+    },
+    {
+      "label": "PT_alkali_min_per2",
+      "status": "PASS",
+      "detail": "Li = 5.392"
+    },
+    {
+      "label": "PT_alkali_min_per3",
+      "status": "PASS",
+      "detail": "Na = 5.139"
+    },
+    {
+      "label": "delta_p3_positive",
+      "status": "PASS",
+      "detail": "delta_3 = 0.1163"
+    },
+    {
+      "label": "delta_p5_positive",
+      "status": "PASS",
+      "detail": "delta_5 = 0.1022"
+    },
+    {
+      "label": "delta_p7_positive",
+      "status": "PASS",
+      "detail": "delta_7 = 0.0904"
+    },
+    {
+      "label": "sin2_ordering",
+      "status": "PASS",
+      "detail": "sin2_3=0.2192 > sin2_5=0.1940"
+    },
+    {
+      "label": "gamma_ordering",
+      "status": "PASS",
+      "detail": "G3 > G5 > G7"
+    },
+    {
+      "label": "q_plus_value",
+      "status": "PASS",
+      "detail": "q_+ = 0.8667"
+    },
+    {
+      "label": "q_minus_value",
+      "status": "PASS",
+      "detail": "q_- = 0.9355"
+    },
+    {
+      "label": "S_int_positive",
+      "status": "PASS",
+      "detail": "S_int = {3: 0.5475737765174962, 5: 0.25608448744648205, 7: 0.10186198182904514}"
+    },
+    {
+      "label": "EA_halogen_largest",
+      "status": "PASS",
+      "detail": "F > C and Cl > Si"
+    },
+    {
+      "label": "EA_per3_mirrors_per2",
+      "status": "PASS",
+      "detail": "Cl > S > Si (mirrors F > O > C)"
+    },
+    {
+      "label": "ionic_NaCl",
+      "status": "PASS",
+      "detail": "delta_chi(NaCl) > 1.7 -> ionic"
+    },
+    {
+      "label": "covalent_H2",
+      "status": "PASS",
+      "detail": "H-H: delta_chi = 0 -> covalent"
+    },
+    {
+      "label": "polar_HF",
+      "status": "PASS",
+      "detail": "delta_chi(HF) = 1.78"
+    }
+  ],
+  "pt_version": "v7",
+  "zero_fitted_parameters": true
+}

@@ -1,0 +1,114 @@
+{
+  "script": "proof_C9_tier_cascade",
+  "chapter": "ch22_chemistry",
+  "timestamp": "2026-04-14T23:59:12.316807+00:00",
+  "duration_s": 0.0,
+  "n_pass": 20,
+  "n_fail": 0,
+  "n_total": 20,
+  "success": true,
+  "results": [
+    {
+      "label": "delta_3 self-consistent",
+      "status": "PASS",
+      "detail": "delta_3 = 0.1163456790"
+    },
+    {
+      "label": "sin2_3 + cos2_3 = 1",
+      "status": "PASS",
+      "detail": "sum = 1.000000000000000"
+    },
+    {
+      "label": "sin2_5 + cos2_5 = 1",
+      "status": "PASS",
+      "detail": "sum = 1.000000000000000"
+    },
+    {
+      "label": "sin2_7 + cos2_7 = 1",
+      "status": "PASS",
+      "detail": "sum = 1.000000000000000"
+    },
+    {
+      "label": "d-block period 4 -> tier -1",
+      "status": "PASS",
+      "detail": "tier = -1, count = 10"
+    },
+    {
+      "label": "d-block period 5 -> tier 0 (bifurcation)",
+      "status": "PASS",
+      "detail": "tier = 0, count = 10"
+    },
+    {
+      "label": "d-block period 6 -> tier +1 (inverse)",
+      "status": "PASS",
+      "detail": "tier = 1, count = 9"
+    },
+    {
+      "label": "f-block period 6 -> tier -1 (lanthanides)",
+      "status": "PASS",
+      "detail": "tier = -1, count = 14"
+    },
+    {
+      "label": "f-block period 7 -> tier 0 (actinides, bifurcation)",
+      "status": "PASS",
+      "detail": "tier = 0, count = 9"
+    },
+    {
+      "label": "chirality(tier=-1) = -1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "chirality(tier=0) = +1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "chirality(tier=+1) = -1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "Cr(Z=24) d-count = P2 = 5 (half-fill)",
+      "status": "PASS",
+      "detail": "d-count = 5"
+    },
+    {
+      "label": "Mn(Z=25) d-count = P2 = 5 (half-fill)",
+      "status": "PASS",
+      "detail": "d-count = 5"
+    },
+    {
+      "label": "Mo(Z=42) d5 at tier 0 (bifurcation period)",
+      "status": "PASS",
+      "detail": "d-count = 5, tier = 0"
+    },
+    {
+      "label": "Eu(Z=63) f-count = P3 = 7 (half-fill)",
+      "status": "PASS",
+      "detail": "f-count = 7"
+    },
+    {
+      "label": "Am(Z=95) f7 at tier 0 (actinide bifurcation)",
+      "status": "PASS",
+      "detail": "f-count = 7, tier = 0"
+    },
+    {
+      "label": "d-block shell size = 2*P2 = 10",
+      "status": "PASS",
+      "detail": "2*P2 = 10"
+    },
+    {
+      "label": "f-block shell size = 2*P3 = 14",
+      "status": "PASS",
+      "detail": "2*P3 = 14"
+    },
+    {
+      "label": "s+p block shell = 2*P1 = 6",
+      "status": "PASS",
+      "detail": "2*P1 = 6"
+    }
+  ],
+  "pt_version": "v7",
+  "zero_fitted_parameters": true
+}
