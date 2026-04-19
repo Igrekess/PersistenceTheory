@@ -1,6 +1,6 @@
 # The Theory of Persistence
 
-Public companion to the monograph [Senez, Y. (2026). *The Theory of Persistence: A Complete Monograph (2026)*](https://zenodo.org/records/19520809).
+Public companion to the monograph [Senez, Y. (2026). *The Theory of Persistence: A Complete Monograph (2026)*](https://zenodo.org/records/19655984).
 
 The monograph is a preprint. It has not been peer reviewed. Read it that way:
 the mathematical theorems are internally verified, the numerical agreements are
@@ -271,7 +271,7 @@ choices in how the framework is applied.
 - Physics: [PT-PHYSICS (PTP)](https://github.com/Igrekess/PT_PHYSICS)
 - Chemistry: [PT-CHEMISTRY (PTC)](https://github.com/Igrekess/PT_CHEMISTRY)
 - Color: [Simplex Color Space (SCS)](https://github.com/Igrekess/SimplexColorSpace)
-- Monograph: [Senez, Y. (2026). *The Theory of Persistence*](https://zenodo.org/records/19520809)
+- Monograph: [Senez, Y. (2026). *The Theory of Persistence*](https://zenodo.org/records/19655984)
 
 ## Notes
 
