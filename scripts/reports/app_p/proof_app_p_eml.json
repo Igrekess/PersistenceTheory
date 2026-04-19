@@ -1,0 +1,294 @@
+{
+  "script": "proof_app_p_eml",
+  "chapter": "app_p",
+  "timestamp": "2026-04-18T23:09:24.778137+00:00",
+  "duration_s": 1.242,
+  "n_pass": 29,
+  "n_fail": 0,
+  "n_total": 29,
+  "success": true,
+  "results": [
+    {
+      "label": "e = eml(1, 1)",
+      "status": "PASS",
+      "value": 2.718281828459045,
+      "expected": 2.718281828459045,
+      "err_pct": 0.0,
+      "tol_pct": 1e-10,
+      "unit": "",
+      "detail": "computed=2.7182818, expected=2.7182818, err=0.0000%, tol=1e-10%"
+    },
+    {
+      "label": "exp(2) = eml(2, 1)",
+      "status": "PASS",
+      "value": 7.38905609893065,
+      "expected": 7.38905609893065,
+      "err_pct": 0.0,
+      "tol_pct": 1e-10,
+      "unit": "",
+      "detail": "computed=7.3890561, expected=7.3890561, err=0.0000%, tol=1e-10%"
+    },
+    {
+      "label": "ln(3) via EML circuit",
+      "status": "PASS",
+      "value": 1.0986122886681098,
+      "expected": 1.0986122886681098,
+      "err_pct": 0.0,
+      "tol_pct": 1e-10,
+      "unit": "",
+      "detail": "computed=1.0986123, expected=1.0986123, err=0.0000%, tol=1e-10%"
+    },
+    {
+      "label": "q_therm(15) via EML",
+      "status": "PASS",
+      "value": 0.9355069850316178,
+      "expected": 0.9355069850316178,
+      "err_pct": 0.0,
+      "tol_pct": 1e-10,
+      "unit": "",
+      "detail": "computed=0.93550699, expected=0.93550699, err=0.0000%, tol=1e-10%"
+    },
+    {
+      "label": "q_therm EML depth = 1",
+      "status": "PASS",
+      "detail": "q_therm = eml(-1/mu, 1) is depth 1 primitive"
+    },
+    {
+      "label": "q_stat EML depth >= 3",
+      "status": "PASS",
+      "detail": "q_stat = 1 - 2/mu cannot be reduced below depth 3"
+    },
+    {
+      "label": "1/alpha_nue = prod sin2_stat",
+      "status": "PASS",
+      "value": 136.27833445429476,
+      "expected": 136.278,
+      "err_pct": 0.000245,
+      "tol_pct": 0.01,
+      "unit": "",
+      "detail": "computed=136.27833, expected=136.278, err=0.0002%, tol=0.01%"
+    },
+    {
+      "label": "prod q_therm^p = 1/e (exact)",
+      "status": "PASS",
+      "value": 0.3678794411714425,
+      "expected": 0.36787944117144233,
+      "err_pct": 0.0,
+      "tol_pct": 1e-10,
+      "unit": "",
+      "detail": "computed=0.36787944, expected=0.36787944, err=0.0000%, tol=1e-10%"
+    },
+    {
+      "label": "sum p / mu* = 1",
+      "status": "PASS",
+      "value": 1.0,
+      "expected": 1.0,
+      "err_pct": 0.0,
+      "tol_pct": 1e-10,
+      "unit": "",
+      "detail": "computed=1, expected=1, err=0.0000%, tol=1e-10%"
+    },
+    {
+      "label": "C_K asym 1-term (0.12%)",
+      "status": "PASS",
+      "value": 18.321041372402547,
+      "expected": 18.299716840387095,
+      "err_pct": 0.116529,
+      "tol_pct": 0.2,
+      "unit": "",
+      "detail": "computed=18.321041, expected=18.299717, err=0.1165%, tol=0.2%"
+    },
+    {
+      "label": "C_K asym 2-term (5.68 ppm)",
+      "status": "PASS",
+      "value": 18.299820713323626,
+      "expected": 18.299716840387095,
+      "err_pct": 0.000568,
+      "tol_pct": 0.001,
+      "unit": "",
+      "detail": "computed=18.299821, expected=18.299717, err=0.0006%, tol=0.001%"
+    },
+    {
+      "label": "C_K asym 3-term (14 ppb)",
+      "status": "PASS",
+      "value": 18.299717098759903,
+      "expected": 18.299716840387095,
+      "err_pct": 1e-06,
+      "tol_pct": 1e-05,
+      "unit": "",
+      "detail": "computed=18.299717, expected=18.299717, err=0.0000%, tol=1e-05%"
+    },
+    {
+      "label": "m_tau/m_mu D2 1-term (80 ppm)",
+      "status": "PASS",
+      "value": 16.81567474368105,
+      "expected": 16.81702933242618,
+      "err_pct": 0.008055,
+      "tol_pct": 0.01,
+      "unit": "",
+      "detail": "computed=16.815675, expected=16.817029, err=0.0081%, tol=0.01%"
+    },
+    {
+      "label": "m_tau/m_mu D2 2-term (3.58 ppm)",
+      "status": "PASS",
+      "value": 16.81708945428631,
+      "expected": 16.81702933242618,
+      "err_pct": 0.000358,
+      "tol_pct": 0.0005,
+      "unit": "",
+      "detail": "computed=16.817089, expected=16.817029, err=0.0004%, tol=0.0005%"
+    },
+    {
+      "label": "m_tau/m_mu D2 3-term (4.74 ppb)",
+      "status": "PASS",
+      "value": 16.817029412103413,
+      "expected": 16.81702933242618,
+      "err_pct": 0.0,
+      "tol_pct": 1e-05,
+      "unit": "",
+      "detail": "computed=16.817029, expected=16.817029, err=0.0000%, tol=1e-05%"
+    },
+    {
+      "label": "Sum p*gamma 1-term (27 ppm)",
+      "status": "PASS",
+      "value": 10.072973525692838,
+      "expected": 10.072700488239345,
+      "err_pct": 0.002711,
+      "tol_pct": 0.01,
+      "unit": "",
+      "detail": "computed=10.072974, expected=10.0727, err=0.0027%, tol=0.01%"
+    },
+    {
+      "label": "Sum p*gamma 2-term (0.48 ppm)",
+      "status": "PASS",
+      "value": 10.072705325950693,
+      "expected": 10.072700488239345,
+      "err_pct": 4.8e-05,
+      "tol_pct": 0.0001,
+      "unit": "",
+      "detail": "computed=10.072705, expected=10.0727, err=0.0000%, tol=0.0001%"
+    },
+    {
+      "label": "Sum p*gamma 3-term (2 ppb)",
+      "status": "PASS",
+      "value": 10.072700468526834,
+      "expected": 10.072700488239345,
+      "err_pct": 0.0,
+      "tol_pct": 1e-06,
+      "unit": "",
+      "detail": "computed=10.0727, expected=10.0727, err=0.0000%, tol=1e-06%"
+    },
+    {
+      "label": "g_00 = sum da_p/dmu (exact)",
+      "status": "PASS",
+      "value": -0.005749317564484651,
+      "expected": -0.005749317564484651,
+      "err_pct": 0.0,
+      "tol_pct": 1e-10,
+      "unit": "",
+      "detail": "computed=-0.0057493176, expected=-0.0057493176, err=0.0000%, tol=1e-10%"
+    },
+    {
+      "label": "Identity holds at mu=8",
+      "status": "PASS",
+      "value": -0.003864502856241112,
+      "expected": -0.003864502856241112,
+      "err_pct": 0.0,
+      "tol_pct": 1e-10,
+      "unit": "",
+      "detail": "computed=-0.0038645029, expected=-0.0038645029, err=0.0000%, tol=1e-10%"
+    },
+    {
+      "label": "Identity holds at mu=12",
+      "status": "PASS",
+      "value": -0.006618803344889039,
+      "expected": -0.006618803344889039,
+      "err_pct": 0.0,
+      "tol_pct": 1e-10,
+      "unit": "",
+      "detail": "computed=-0.0066188033, expected=-0.0066188033, err=0.0000%, tol=1e-10%"
+    },
+    {
+      "label": "Identity holds at mu=18",
+      "status": "PASS",
+      "value": -0.004750555725755648,
+      "expected": -0.004750555725755648,
+      "err_pct": 0.0,
+      "tol_pct": 1e-10,
+      "unit": "",
+      "detail": "computed=-0.0047505557, expected=-0.0047505557, err=0.0000%, tol=1e-10%"
+    },
+    {
+      "label": "Identity holds at mu=25",
+      "status": "PASS",
+      "value": -0.003053351384580304,
+      "expected": -0.003053351384580304,
+      "err_pct": 0.0,
+      "tol_pct": 1e-10,
+      "unit": "",
+      "detail": "computed=-0.0030533514, expected=-0.0030533514, err=0.0000%, tol=1e-10%"
+    },
+    {
+      "label": "Identity holds at mu=50",
+      "status": "PASS",
+      "value": -0.0009710798654340557,
+      "expected": -0.0009710798654340557,
+      "err_pct": 0.0,
+      "tol_pct": 1e-10,
+      "unit": "",
+      "detail": "computed=-0.00097107987, expected=-0.00097107987, err=0.0000%, tol=1e-10%"
+    },
+    {
+      "label": "1/alpha_nue (EML)",
+      "status": "PASS",
+      "value": 136.27833445429476,
+      "expected": 136.278,
+      "err_pct": 0.000245,
+      "tol_pct": 0.01,
+      "unit": "",
+      "detail": "computed=136.27833, expected=136.278, err=0.0002%, tol=0.01%"
+    },
+    {
+      "label": "gamma_3 (PT)",
+      "status": "PASS",
+      "value": 0.8076140384111393,
+      "expected": 0.808,
+      "err_pct": 0.047768,
+      "tol_pct": 0.1,
+      "unit": "",
+      "detail": "computed=0.80761404, expected=0.808, err=0.0478%, tol=0.1%"
+    },
+    {
+      "label": "gamma_5 (PT)",
+      "status": "PASS",
+      "value": 0.6963158584805759,
+      "expected": 0.696,
+      "err_pct": 0.045382,
+      "tol_pct": 0.1,
+      "unit": "",
+      "detail": "computed=0.69631586, expected=0.696, err=0.0454%, tol=0.1%"
+    },
+    {
+      "label": "gamma_7 (PT)",
+      "status": "PASS",
+      "value": 0.5954684400861497,
+      "expected": 0.595,
+      "err_pct": 0.078729,
+      "tol_pct": 0.1,
+      "unit": "",
+      "detail": "computed=0.59546844, expected=0.595, err=0.0787%, tol=0.1%"
+    },
+    {
+      "label": "sin2(theta_12) PMNS = 1 - gamma_5",
+      "status": "PASS",
+      "value": 0.30368414151942413,
+      "expected": 0.3037,
+      "err_pct": 0.005222,
+      "tol_pct": 0.2,
+      "unit": "",
+      "detail": "computed=0.30368414, expected=0.3037, err=0.0052%, tol=0.2%"
+    }
+  ],
+  "pt_version": "v7",
+  "zero_fitted_parameters": true
+}

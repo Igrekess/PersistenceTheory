@@ -19,7 +19,18 @@ all derived from the sieve structure (0 free, sum CKM = 10 = conservation).
 Everything else is DERIVED.
 
 Perturbative corrections:
-  - 1-loop quarks: eta_UP={0,+1,-1}, eta_DOWN={0,+4.603,-2.125}
+  - 1-loop quarks (UP sector): eta_UP={0,+1,-1}
+    (conservation Σ = 0; integer assignments with structural basis)
+  - 1-loop quarks (DOWN sector): superseded.
+    Legacy values eta_DOWN={0,+4.603,-2.125} are *deprecated* and are
+    NOT used in production v7. They appear only in historical scripts
+    (scripts/ch16_perturbative/pt_perturbative.py). Production code
+    derives DOWN-sector masses via the Fisher geometry of T^3
+    (sec:ch15_quark_fisher, implemented in pt_constants.py L341-507).
+    The deprecated values were retrofitted to a specific m_d/m_u
+    target via factors (17/8)^2·(57/56) that have no independent
+    structural derivation; they are retained here only for
+    bibliographic traceability.
   - NLO CKM (R12)   : V_ub *= (1+2*eps), J_CKM *= (1+eps)
   - NLO Higgs (R15)  : m_H/v = s*(1+C_F*eps)
   - Self-energy (R17): m -> m*(1 - s^2*alpha) for every derived mass

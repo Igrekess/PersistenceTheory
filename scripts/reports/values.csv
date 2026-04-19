@@ -1,4 +1,31 @@
 chapter,script,label,value,expected,err_pct,unit,status
+app_p,proof_app_p_eml,"e = eml(1, 1)",2.718281828459045,2.718281828459045,0.0,,PASS
+app_p,proof_app_p_eml,"exp(2) = eml(2, 1)",7.38905609893065,7.38905609893065,0.0,,PASS
+app_p,proof_app_p_eml,ln(3) via EML circuit,1.0986122886681098,1.0986122886681098,0.0,,PASS
+app_p,proof_app_p_eml,q_therm(15) via EML,0.9355069850316178,0.9355069850316178,0.0,,PASS
+app_p,proof_app_p_eml,1/alpha_nue = prod sin2_stat,136.27833445429476,136.278,0.000245,,PASS
+app_p,proof_app_p_eml,prod q_therm^p = 1/e (exact),0.3678794411714425,0.36787944117144233,0.0,,PASS
+app_p,proof_app_p_eml,sum p / mu* = 1,1.0,1.0,0.0,,PASS
+app_p,proof_app_p_eml,C_K asym 1-term (0.12%),18.321041372402547,18.299716840387095,0.116529,,PASS
+app_p,proof_app_p_eml,C_K asym 2-term (5.68 ppm),18.299820713323626,18.299716840387095,0.000568,,PASS
+app_p,proof_app_p_eml,C_K asym 3-term (14 ppb),18.299717098759903,18.299716840387095,1e-06,,PASS
+app_p,proof_app_p_eml,m_tau/m_mu D2 1-term (80 ppm),16.81567474368105,16.81702933242618,0.008055,,PASS
+app_p,proof_app_p_eml,m_tau/m_mu D2 2-term (3.58 ppm),16.81708945428631,16.81702933242618,0.000358,,PASS
+app_p,proof_app_p_eml,m_tau/m_mu D2 3-term (4.74 ppb),16.817029412103413,16.81702933242618,0.0,,PASS
+app_p,proof_app_p_eml,Sum p*gamma 1-term (27 ppm),10.072973525692838,10.072700488239345,0.002711,,PASS
+app_p,proof_app_p_eml,Sum p*gamma 2-term (0.48 ppm),10.072705325950693,10.072700488239345,4.8e-05,,PASS
+app_p,proof_app_p_eml,Sum p*gamma 3-term (2 ppb),10.072700468526834,10.072700488239345,0.0,,PASS
+app_p,proof_app_p_eml,g_00 = sum da_p/dmu (exact),-0.005749317564484651,-0.005749317564484651,0.0,,PASS
+app_p,proof_app_p_eml,Identity holds at mu=8,-0.003864502856241112,-0.003864502856241112,0.0,,PASS
+app_p,proof_app_p_eml,Identity holds at mu=12,-0.006618803344889039,-0.006618803344889039,0.0,,PASS
+app_p,proof_app_p_eml,Identity holds at mu=18,-0.004750555725755648,-0.004750555725755648,0.0,,PASS
+app_p,proof_app_p_eml,Identity holds at mu=25,-0.003053351384580304,-0.003053351384580304,0.0,,PASS
+app_p,proof_app_p_eml,Identity holds at mu=50,-0.0009710798654340557,-0.0009710798654340557,0.0,,PASS
+app_p,proof_app_p_eml,1/alpha_nue (EML),136.27833445429476,136.278,0.000245,,PASS
+app_p,proof_app_p_eml,gamma_3 (PT),0.8076140384111393,0.808,0.047768,,PASS
+app_p,proof_app_p_eml,gamma_5 (PT),0.6963158584805759,0.696,0.045382,,PASS
+app_p,proof_app_p_eml,gamma_7 (PT),0.5954684400861497,0.595,0.078729,,PASS
+app_p,proof_app_p_eml,sin2(theta_12) PMNS = 1 - gamma_5,0.30368414151942413,0.3037,0.005222,,PASS
 ch01,proof_T1_sieve,route_C_eigenvalue_minus1,-1.0,-1.0,0.0,,PASS
 ch01,proof_T1_sieve,route_C_eigenvalue_plus1,1.0,1.0,0.0,,PASS
 ch01,proof_T1_sieve,stationary_pi_0,0.5,0.5,0.0,,PASS

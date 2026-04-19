@@ -1,4 +1,4 @@
-# Persistence Theory -- Python dependencies
+# Persistence Theory v7 -- Python dependencies
 # Install: pip install -r requirements.txt
 #
 # All PT constants are derived from s = 1/2 (zero fitted parameters).

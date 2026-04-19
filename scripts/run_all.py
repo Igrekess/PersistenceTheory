@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-run_all.py -- Master test runner for Persistence Theory monograph scripts .
+run_all.py -- Master test runner for Persistence Theory monograph scripts (v7).
 
 Discovers and runs all proof/test scripts in chapter subdirectories.
 Reports per-domain results, generates aggregate summary.csv from JSON reports.

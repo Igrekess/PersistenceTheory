@@ -1,4 +1,5 @@
 chapter,script,n_pass,n_fail,n_total,success,duration_s,timestamp
+app_p,proof_app_p_eml,29,0,29,True,1.242,2026-04-18T23:09:24.778137+00:00
 ch01,proof_T1_sieve,44,0,44,True,0.257,2026-04-14T23:58:30.902171+00:00
 ch02,proof_T6_uniqueness,172,0,172,True,0.401,2026-04-14T23:58:31.416512+00:00
 ch03,proof_conservation,43,0,43,True,0.711,2026-04-14T23:58:32.263780+00:00

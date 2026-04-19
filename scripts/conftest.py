@@ -1,5 +1,5 @@
 """
-Persistence Theory -- pytest integration.
+Persistence Theory v7 -- pytest integration.
 
 Collects all proof_* and test_* scripts from chapter subdirectories
 and runs them as subprocess tests. Each script is an independent process,
