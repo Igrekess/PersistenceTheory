@@ -247,7 +247,7 @@ explain why these matches occur.
 | `m_W` | 80.3635 GeV | 80.369 GeV | 0.007% |
 | `m_Z` | 91.1878 GeV | 91.1876 GeV | 0.0002% |
 | `G_F` | 1.16638e-5 | 1.16638e-5 | 0.0001% |
-| ~43 SM observables | — | — | mean 0.29%, median 0.05% |
+| ~43 SM observables | — | — | mean 0.30%, median 0.06% |
 
 The core PT chain requires no continuous fitted parameter; `s = 1/2` is
 Theorem T1 rather than an empirical input. The applied sub-domains
