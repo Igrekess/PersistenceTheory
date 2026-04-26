@@ -1,11 +1,11 @@
 {
   "script": "proof_bridge_axioms",
   "chapter": "ch09",
-  "timestamp": "2026-04-26T14:39:02.076451+00:00",
-  "duration_s": 0.075,
-  "n_pass": 112,
+  "timestamp": "2026-04-26T14:54:36.610384+00:00",
+  "duration_s": 0.076,
+  "n_pass": 113,
   "n_fail": 0,
-  "n_total": 112,
+  "n_total": 113,
   "success": true,
   "results": [
     {
@@ -64,9 +64,9 @@
       "detail": "g_00(gamma)=+0.011859"
     },
     {
-      "label": "C2_only_stat_matches",
+      "label": "C2_alpha_match_validation",
       "status": "PASS",
-      "detail": "1/prod: stat=136.3, therm=746.8, gamma=3.0"
+      "detail": "VALIDATION (not structural): 1/prod_stat=136.3 matches 1/alpha~137 within 5; therm/gamma far off (therm=746.8, gamma=3.0)"
     },
     {
       "label": "C3_q_plus_rational",
@@ -77,6 +77,11 @@
       "label": "C4_gamma_is_log_deriv",
       "status": "PASS",
       "detail": "gamma_p = -d(ln sin^2)/d(ln mu)"
+    },
+    {
+      "label": "uniqueness_structural_only",
+      "status": "PASS",
+      "detail": "C1+C3+C4 alone single out the standard assignation: struct_scores=[np.int64(3), np.int64(1), np.int64(2), np.int64(0), np.int64(1), np.int64(1)] (no empirical input)"
     },
     {
       "label": "uniqueness_exactly_one_4of4",

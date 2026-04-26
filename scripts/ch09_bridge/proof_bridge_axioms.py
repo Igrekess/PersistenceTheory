@@ -159,11 +159,29 @@ prod_stat = _prod_for_coupling(Q_stat)
 prod_therm = _prod_for_coupling(Q_therm)
 prod_gamma = _prod_for_coupling(Q_gamma)
 
-ck.check("C2_only_stat_matches",
+# ---------------------------------------------------------------------
+# C2 is an EMPIRICAL VALIDATION, not a structural criterion.
+# The assignation (q_+ -> vertex/coupling, q_- -> edge/geometry,
+# gamma -> RG) is fixed by structural arguments alone:
+#   C1: only the q_+ and q_- branches give a Lorentzian g_00 < 0
+#       (sin^2 is non-monotone -- gamma is monotone, hence Euclidean)
+#   C3: only q_+ = 1 - 2/mu_star = 13/15 is rational (max-entropy
+#       discrete branch from L0)
+#   C4: only gamma is the logarithmic derivative -d(ln sin^2)/d(ln mu)
+# We test BOTH the structural-only uniqueness (C1+C3+C4 = 3/3) and
+# the joint structural+empirical uniqueness (C1+C2+C3+C4 = 4/4); the
+# empirical match against 1/alpha ~ 137 is reported separately as a
+# validation of the bridge, not as part of the structural derivation.
+# ---------------------------------------------------------------------
+
+# Empirical witness (validation, not structural derivation):
+ck.check("C2_alpha_match_validation",
          abs(1.0 / prod_stat - 137) < 5
          and abs(1.0 / prod_therm - 137) > 100
          and abs(1.0 / prod_gamma - 137) > 100,
-         f"1/prod: stat={1/prod_stat:.1f}, therm={1/prod_therm:.1f}, gamma={1/prod_gamma:.1f}")
+         f"VALIDATION (not structural): 1/prod_stat={1/prod_stat:.1f} "
+         f"matches 1/alpha~137 within 5; therm/gamma far off "
+         f"(therm={1/prod_therm:.1f}, gamma={1/prod_gamma:.1f})")
 
 ck.check("C3_q_plus_rational",
          abs((1.0 - 2.0 / mu_star) - 13.0 / 15.0) < 1e-15, "q_+ = 13/15")
@@ -179,13 +197,29 @@ for p in PRIMES_ACTIFS:
 ck.check("C4_gamma_is_log_deriv", rg_ok, "gamma_p = -d(ln sin^2)/d(ln mu)")
 
 from itertools import permutations
+
+# Structural-only uniqueness: C1+C3+C4 (no reference to 137)
+struct_scores = []
+for perm in permutations(range(3)):
+    c_idx, g_idx, r_idx = perm
+    c1 = _g00_for_geometry(q_funcs[g_idx]) < 0
+    c3 = (c_idx == 0)   # only sin^2(q_+) is rational
+    c4 = (r_idx == 2)   # only gamma is the log derivative
+    struct_scores.append(sum([c1, c3, c4]))
+
+ck.check("uniqueness_structural_only",
+         struct_scores.count(3) == 1 and struct_scores[0] == 3,
+         f"C1+C3+C4 alone single out the standard assignation: "
+         f"struct_scores={struct_scores} (no empirical input)")
+
+# Joint structural+empirical uniqueness: C1+C2+C3+C4 (validation)
 scores = []
 for perm in permutations(range(3)):
     c_idx, g_idx, r_idx = perm
     c1 = _g00_for_geometry(q_funcs[g_idx]) < 0
     c2 = abs(1.0 / _prod_for_coupling(q_funcs[c_idx]) - 137.036) / 137.036 < 0.05
-    c3 = (c_idx == 0)   # only sin^2(q_+) is rational
-    c4 = (r_idx == 2)   # only gamma is the log derivative
+    c3 = (c_idx == 0)
+    c4 = (r_idx == 2)
     scores.append(sum([c1, c2, c3, c4]))
 
 ck.check("uniqueness_exactly_one_4of4",
