@@ -1,7 +1,7 @@
 {
   "script": "test_predictions",
   "chapter": "ch21",
-  "timestamp": "2026-04-26T14:07:16.331870+00:00",
+  "timestamp": "2026-04-26T14:39:14.795869+00:00",
   "duration_s": 0.0,
   "n_pass": 34,
   "n_fail": 0,
@@ -146,8 +146,8 @@
     {
       "label": "P20_sin2_at_mZ",
       "status": "PASS",
-      "value": 0.23118634732083215,
-      "expected": 0.23118634732083215,
+      "value": 0.23118634732083218,
+      "expected": 0.23118634732083218,
       "err_pct": 0.0,
       "tol_pct": 0.1,
       "unit": "",
@@ -156,7 +156,7 @@
     {
       "label": "P21_A_LR",
       "status": "PASS",
-      "value": 0.14966164913593305,
+      "value": 0.14966164913593283,
       "expected": 0.1515,
       "err_pct": 1.213433,
       "tol_pct": 5.0,
@@ -181,7 +181,7 @@
     {
       "label": "P24_sin2_E158",
       "status": "PASS",
-      "value": 0.2380710767440465,
+      "value": 0.23807107674404654,
       "expected": 0.2397,
       "err_pct": 0.679567,
       "tol_pct": 1.0,
@@ -191,7 +191,7 @@
     {
       "label": "P25_AFBb",
       "status": "PASS",
-      "value": 0.10503273129686905,
+      "value": 0.1050327312968689,
       "expected": 0.0992,
       "err_pct": 5.879769,
       "tol_pct": 7.0,

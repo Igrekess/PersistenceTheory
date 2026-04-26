@@ -1,0 +1,29 @@
+{
+  "script": "test_basin_robustness",
+  "chapter": "ch20e",
+  "timestamp": "2026-04-26T14:39:13.417877+00:00",
+  "duration_s": 0.0,
+  "n_pass": 3,
+  "n_fail": 0,
+  "n_total": 3,
+  "success": true,
+  "results": [
+    {
+      "label": "active_primes_sum",
+      "status": "PASS",
+      "detail": "3+5+7 = 15 = mu*"
+    },
+    {
+      "label": "basin_radius_2_converges_to_15",
+      "status": "PASS",
+      "detail": "all Delta_mu_0 in [-2, +2] return to mu* = 15"
+    },
+    {
+      "label": "delta_3_does_not_return_to_15",
+      "status": "PASS",
+      "detail": "mu_0=18 -> mu_inf=6079 (not 15, basin exit confirmed)"
+    }
+  ],
+  "pt_version": "v7",
+  "zero_fitted_parameters": true
+}

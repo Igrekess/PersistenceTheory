@@ -1,0 +1,39 @@
+{
+  "script": "test_bobeth_181_structure",
+  "chapter": "ch20g",
+  "timestamp": "2026-04-26T14:39:13.554475+00:00",
+  "duration_s": 0.0,
+  "n_pass": 4,
+  "n_fail": 0,
+  "n_total": 4,
+  "success": true,
+  "results": [
+    {
+      "label": "super_echo_5_primes",
+      "status": "PASS",
+      "detail": "|[11, 13, 17, 19, 23]| = 5"
+    },
+    {
+      "label": "super_echo_sum_83",
+      "status": "PASS",
+      "detail": "sum = 83 (super-echo arithmetic sum)"
+    },
+    {
+      "label": "pt_estimate_matches_bobeth_int",
+      "status": "PASS",
+      "detail": "2 * sum_super_echo + mu* = 181"
+    },
+    {
+      "label": "bobeth_prefactor_within_1pc",
+      "status": "PASS",
+      "value": 181.0,
+      "expected": 181.42,
+      "err_pct": 0.231507,
+      "tol_pct": 1.0,
+      "unit": "",
+      "detail": "computed=181, expected=181.42, err=0.2315%, tol=1.0%"
+    }
+  ],
+  "pt_version": "v7",
+  "zero_fitted_parameters": true
+}

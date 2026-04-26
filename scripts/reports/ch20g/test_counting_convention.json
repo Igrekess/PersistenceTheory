@@ -1,0 +1,49 @@
+{
+  "script": "test_counting_convention",
+  "chapter": "ch20g",
+  "timestamp": "2026-04-26T14:39:13.807582+00:00",
+  "duration_s": 0.0,
+  "n_pass": 7,
+  "n_fail": 0,
+  "n_total": 7,
+  "success": true,
+  "results": [
+    {
+      "label": "Nc_is_3",
+      "status": "PASS",
+      "detail": "N_c = 3"
+    },
+    {
+      "label": "Ngen_is_3",
+      "status": "PASS",
+      "detail": "N_gen = 3"
+    },
+    {
+      "label": "mu_star_15",
+      "status": "PASS",
+      "detail": "4 N_c + 3 = 15 (matches active sum 3+5+7)"
+    },
+    {
+      "label": "weyl_per_generation_15",
+      "status": "PASS",
+      "detail": "Weyl per generation: 15"
+    },
+    {
+      "label": "weyl_total_45",
+      "status": "PASS",
+      "detail": "Weyl total (3 generations): 45"
+    },
+    {
+      "label": "active_primes_357_sum_15",
+      "status": "PASS",
+      "detail": "active primes {3, 5, 7} sum to mu* = 15"
+    },
+    {
+      "label": "higgs_not_in_mu_star",
+      "status": "PASS",
+      "detail": "Higgs doublet (4 real scalars) not counted (EWSB source, not residue lattice participant)"
+    }
+  ],
+  "pt_version": "v7",
+  "zero_fitted_parameters": true
+}

@@ -1,0 +1,54 @@
+{
+  "script": "test_wilson_coefficients",
+  "chapter": "ch20b",
+  "timestamp": "2026-04-26T14:39:13.099583+00:00",
+  "duration_s": 0.0,
+  "n_pass": 7,
+  "n_fail": 0,
+  "n_total": 7,
+  "success": true,
+  "results": [
+    {
+      "label": "q_plus_canonical",
+      "status": "PASS",
+      "detail": "q_+ = 13/15"
+    },
+    {
+      "label": "echo_primes_set",
+      "status": "PASS",
+      "detail": "echo primes = [11, 13]"
+    },
+    {
+      "label": "beta_echo_positive",
+      "status": "PASS",
+      "detail": "beta_echo = 0.103931"
+    },
+    {
+      "label": "beta_echo_subpercent",
+      "status": "PASS",
+      "detail": "beta_echo = 0.103931 (expected near 0.10)"
+    },
+    {
+      "label": "wilson_C9_minus_C10_identity",
+      "status": "PASS",
+      "value": 0.10393080089649875,
+      "expected": 0.1039,
+      "err_pct": 0.029645,
+      "tol_pct": 5.0,
+      "unit": "",
+      "detail": "computed=0.1039308, expected=0.1039, err=0.0296%, tol=5.0%"
+    },
+    {
+      "label": "contrib_p11_positive",
+      "status": "PASS",
+      "detail": "sin^2(theta_11)*gamma_11 = 0.059157"
+    },
+    {
+      "label": "contrib_p13_positive",
+      "status": "PASS",
+      "detail": "sin^2(theta_13)*gamma_13 = 0.044774"
+    }
+  ],
+  "pt_version": "v7",
+  "zero_fitted_parameters": true
+}

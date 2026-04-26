@@ -1,7 +1,7 @@
 {
   "script": "test_hadrons",
   "chapter": "ch19",
-  "timestamp": "2026-04-26T14:07:13.461793+00:00",
+  "timestamp": "2026-04-26T14:39:11.976605+00:00",
   "duration_s": 0.0,
   "n_pass": 34,
   "n_fail": 0,
@@ -21,7 +21,7 @@
     {
       "label": "fK_over_fpi",
       "status": "PASS",
-      "value": 1.1968539379030363,
+      "value": 1.1968539379030412,
       "expected": 1.195852534562212,
       "err_pct": 0.08374,
       "tol_pct": 3.0,
@@ -31,7 +31,7 @@
     {
       "label": "f_K_derived",
       "status": "PASS",
-      "value": 0.1575300092163372,
+      "value": 0.15753000921633784,
       "expected": 0.1557,
       "err_pct": 1.175343,
       "tol_pct": 3.0,
@@ -41,7 +41,7 @@
     {
       "label": "m_pi_GMOR",
       "status": "PASS",
-      "value": 0.1347856558736084,
+      "value": 0.1347856558736081,
       "expected": 0.13498,
       "err_pct": 0.14398,
       "tol_pct": 15.0,
@@ -52,7 +52,7 @@
       "label": "condensate_tree_level",
       "status": "PASS",
       "value": 0.35881534498075485,
-      "expected": 0.35657213269434435,
+      "expected": 0.3565721326943449,
       "err_pct": 0.629105,
       "tol_pct": 5.0,
       "unit": "358.8 MeV",
@@ -61,7 +61,7 @@
     {
       "label": "m_K_ratio_GMOR",
       "status": "PASS",
-      "value": 0.5047806507839204,
+      "value": 0.5047806507839263,
       "expected": 0.4976,
       "err_pct": 1.443057,
       "tol_pct": 5.0,
@@ -131,7 +131,7 @@
     {
       "label": "delta_m_neutron_proton",
       "status": "PASS",
-      "value": 0.0012500691470911335,
+      "value": 0.0012500691470911525,
       "expected": 0.001293,
       "err_pct": 3.320252,
       "tol_pct": 20.0,
@@ -151,7 +151,7 @@
     {
       "label": "Gamma_rho_width",
       "status": "PASS",
-      "value": 0.14764594657604999,
+      "value": 0.14764594657605012,
       "expected": 0.1491,
       "err_pct": 0.97522,
       "tol_pct": 5.0,
@@ -186,7 +186,7 @@
     {
       "label": "sigma_ee_rho_peak",
       "status": "PASS",
-      "value": 995.7853862251075,
+      "value": 995.7853862251065,
       "expected": 1200.0,
       "err_pct": 17.017884,
       "tol_pct": 30.0,
@@ -201,7 +201,7 @@
     {
       "label": "Gamma_Kstar_SU3",
       "status": "PASS",
-      "value": 0.05241419484768708,
+      "value": 0.05241419484768507,
       "expected": 0.0514,
       "err_pct": 1.973142,
       "tol_pct": 30.0,
@@ -221,7 +221,7 @@
     {
       "label": "m_eta_mixing",
       "status": "PASS",
-      "value": 0.5425544745664411,
+      "value": 0.5425544745664465,
       "expected": 0.5478,
       "err_pct": 0.957562,
       "tol_pct": 5.0,
@@ -231,7 +231,7 @@
     {
       "label": "m_eta_prime_mixing",
       "status": "PASS",
-      "value": 0.9467550713896341,
+      "value": 0.9467550713896372,
       "expected": 0.9578,
       "err_pct": 1.153156,
       "tol_pct": 5.0,
@@ -256,8 +256,8 @@
     {
       "label": "WV_self_consistent",
       "status": "PASS",
-      "value": 0.9467550713896341,
-      "expected": 0.9467550713896341,
+      "value": 0.9467550713896371,
+      "expected": 0.9467550713896372,
       "err_pct": 0.0,
       "tol_pct": 1.0,
       "unit": "",
@@ -281,7 +281,7 @@
     {
       "label": "m_K_NLO",
       "status": "PASS",
-      "value": 0.4976672906443219,
+      "value": 0.4976672906443277,
       "expected": 0.4976,
       "err_pct": 0.013523,
       "tol_pct": 2.0,
@@ -301,7 +301,7 @@
     {
       "label": "delta_m_np_NLO",
       "status": "PASS",
-      "value": 0.0012861389696638143,
+      "value": 0.0012861389696638339,
       "expected": 0.001293,
       "err_pct": 0.530629,
       "tol_pct": 5.0,
@@ -311,7 +311,7 @@
     {
       "label": "m_eta_NLO",
       "status": "PASS",
-      "value": 0.5440576404734979,
+      "value": 0.5440576404735032,
       "expected": 0.5478,
       "err_pct": 0.683162,
       "tol_pct": 2.0,
@@ -321,7 +321,7 @@
     {
       "label": "m_eta_prime_NLO",
       "status": "PASS",
-      "value": 0.9595484623534549,
+      "value": 0.9595484623534579,
       "expected": 0.9578,
       "err_pct": 0.18255,
       "tol_pct": 2.0,

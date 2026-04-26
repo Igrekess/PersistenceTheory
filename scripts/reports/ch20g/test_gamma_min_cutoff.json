@@ -1,0 +1,64 @@
+{
+  "script": "test_gamma_min_cutoff",
+  "chapter": "ch20g",
+  "timestamp": "2026-04-26T14:39:13.908084+00:00",
+  "duration_s": 0.0,
+  "n_pass": 10,
+  "n_fail": 0,
+  "n_total": 10,
+  "success": true,
+  "results": [
+    {
+      "label": "gamma_p5_lt_prev",
+      "status": "PASS",
+      "detail": "gamma_5(14.726) = 0.6912 < gamma_prev = 0.8042"
+    },
+    {
+      "label": "gamma_p7_lt_prev",
+      "status": "PASS",
+      "detail": "gamma_7(14.726) = 0.5891 < gamma_prev = 0.6912"
+    },
+    {
+      "label": "gamma_p11_lt_prev",
+      "status": "PASS",
+      "detail": "gamma_11(14.726) = 0.4179 < gamma_prev = 0.5891"
+    },
+    {
+      "label": "gamma_p13_lt_prev",
+      "status": "PASS",
+      "detail": "gamma_13(14.726) = 0.3482 < gamma_prev = 0.4179"
+    },
+    {
+      "label": "gamma_p17_lt_prev",
+      "status": "PASS",
+      "detail": "gamma_17(14.726) = 0.2370 < gamma_prev = 0.3482"
+    },
+    {
+      "label": "gamma_p19_lt_prev",
+      "status": "PASS",
+      "detail": "gamma_19(14.726) = 0.1939 < gamma_prev = 0.2370"
+    },
+    {
+      "label": "gamma_p23_lt_prev",
+      "status": "PASS",
+      "detail": "gamma_23(14.726) = 0.1276 < gamma_prev = 0.1939"
+    },
+    {
+      "label": "gamma_p29_lt_prev",
+      "status": "PASS",
+      "detail": "gamma_29(14.726) = 0.0659 < gamma_prev = 0.1276"
+    },
+    {
+      "label": "gamma_23_positive",
+      "status": "PASS",
+      "detail": "gamma_23(mu_b) = 0.1276"
+    },
+    {
+      "label": "gamma_29_smaller",
+      "status": "PASS",
+      "detail": "gamma_29 = 0.0659 < gamma_23 = 0.1276 (cutoff at 23)"
+    }
+  ],
+  "pt_version": "v7",
+  "zero_fitted_parameters": true
+}

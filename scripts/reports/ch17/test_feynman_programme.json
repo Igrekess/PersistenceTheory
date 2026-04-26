@@ -1,8 +1,8 @@
 {
   "script": "test_feynman_programme",
   "chapter": "ch17",
-  "timestamp": "2026-04-26T14:07:11.963106+00:00",
-  "duration_s": 0.004,
+  "timestamp": "2026-04-26T14:39:09.047246+00:00",
+  "duration_s": 0.003,
   "n_pass": 115,
   "n_fail": 0,
   "n_total": 115,
@@ -71,7 +71,7 @@
     {
       "label": "sin2_thetaW_tree",
       "status": "PASS",
-      "value": 0.23770710276110069,
+      "value": 0.2377071027611007,
       "expected": 0.2312,
       "err_pct": 2.814491,
       "tol_pct": 3.0,
@@ -211,7 +211,7 @@
     {
       "label": "sin2_thetaW_derived",
       "status": "PASS",
-      "value": 0.23118634732083215,
+      "value": 0.23118634732083218,
       "expected": 0.23121,
       "err_pct": 0.01023,
       "tol_pct": 0.5,
@@ -221,7 +221,7 @@
     {
       "label": "m_Z_derived",
       "status": "PASS",
-      "value": 91.18781529954985,
+      "value": 91.18781529954725,
       "expected": 91.1876,
       "err_pct": 0.000236,
       "tol_pct": 0.5,
@@ -231,7 +231,7 @@
     {
       "label": "m_W_derived",
       "status": "PASS",
-      "value": 80.36353164224086,
+      "value": 80.36353164223857,
       "expected": 80.369,
       "err_pct": 0.006804,
       "tol_pct": 0.5,
@@ -246,7 +246,7 @@
     {
       "label": "kappa_EW_mixing",
       "status": "PASS",
-      "value": 1.495730484562795,
+      "value": 1.4957304845627948,
       "expected": 1.495722392383646,
       "err_pct": 0.000541,
       "tol_pct": 1.0,
@@ -256,7 +256,7 @@
     {
       "label": "Gamma_Z_total",
       "status": "PASS",
-      "value": 2.481595837211612,
+      "value": 2.481595837211541,
       "expected": 2.4955,
       "err_pct": 0.557169,
       "tol_pct": 2.0,

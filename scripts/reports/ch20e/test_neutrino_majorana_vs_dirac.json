@@ -1,0 +1,49 @@
+{
+  "script": "test_neutrino_majorana_vs_dirac",
+  "chapter": "ch20e",
+  "timestamp": "2026-04-26T14:39:13.370086+00:00",
+  "duration_s": 0.0,
+  "n_pass": 5,
+  "n_fail": 0,
+  "n_total": 5,
+  "success": true,
+  "results": [
+    {
+      "label": "alpha_bare_positive",
+      "status": "PASS",
+      "detail": "alpha_bare = 0.007338"
+    },
+    {
+      "label": "inv_alpha_bare_136_28",
+      "status": "PASS",
+      "value": 136.27833445429476,
+      "expected": 136.28,
+      "err_pct": 0.001222,
+      "tol_pct": 0.5,
+      "unit": "(1/alpha_bare)",
+      "detail": "computed=136.27833, expected=136.28, err=0.0012%, tol=0.5% [(1/alpha_bare)]"
+    },
+    {
+      "label": "m_nu_3_target",
+      "status": "PASS",
+      "value": 0.050475375876573594,
+      "expected": 0.0505,
+      "err_pct": 0.048761,
+      "tol_pct": 2.0,
+      "unit": "eV",
+      "detail": "computed=0.050475376, expected=0.0505, err=0.0488%, tol=2.0% [eV]"
+    },
+    {
+      "label": "m_nu_below_0_06eV",
+      "status": "PASS",
+      "detail": "m_nu_3 = 0.050475 eV (DESI bound 0.05-0.07 eV)"
+    },
+    {
+      "label": "mechanism_is_dirac",
+      "status": "PASS",
+      "detail": "PT prediction: P1 forbids low-energy Majorana (Dirac route)"
+    }
+  ],
+  "pt_version": "v7",
+  "zero_fitted_parameters": true
+}

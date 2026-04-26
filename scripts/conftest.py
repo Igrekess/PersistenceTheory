@@ -71,6 +71,36 @@ def _discover_scripts():
 _ALL_SCRIPTS = list(_discover_scripts())
 
 
+def pytest_ignore_collect(collection_path, config):
+    """
+    Prevent pytest from importing chapter test_*.py and proof_*.py scripts.
+
+    These scripts are designed to run as standalone processes (they call
+    `ck.summary()` -> `sys.exit()` at module level via the Checker framework
+    in lib/pt_check.py). Importing them via pytest's normal collection
+    mechanism triggers an INTERNALERROR.
+
+    Instead, every script is exposed to pytest as a parametrised case of
+    `test_pt_script` (defined in test_runner.py), which invokes the script
+    via `subprocess.run`. The only files pytest should collect from this
+    directory are conftest.py and test_runner.py.
+    """
+    p = collection_path if hasattr(collection_path, "name") else None
+    if p is None:
+        return False
+    # Allow pytest to collect conftest.py and test_runner.py at top level
+    if p.parent == SCRIPT_DIR and p.name in ("conftest.py", "test_runner.py"):
+        return False
+    # Ignore any other Python file in chapter subdirectories
+    if p.suffix == ".py":
+        try:
+            p.relative_to(SCRIPT_DIR)
+            return True
+        except ValueError:
+            return False
+    return False
+
+
 def _make_id(domain, path):
     return f"{domain}/{path.name}"
 
@@ -81,23 +111,3 @@ def _make_id(domain, path):
 )
 def pt_script(request):
     return request.param
-
-
-def test_pt_script(pt_script):
-    """Run a PT test script as subprocess; PASS iff exit code == 0."""
-    domain, script_path = pt_script
-    result = subprocess.run(
-        [sys.executable, str(script_path)],
-        capture_output=True,
-        text=True,
-        timeout=300,
-        cwd=str(SCRIPT_DIR),
-        env={**os.environ, "PYTHONPATH": str(SCRIPT_DIR)},
-        encoding="utf-8",
-        errors="replace",
-    )
-    if result.returncode != 0:
-        output = (result.stdout + result.stderr)[-500:]
-        pytest.fail(
-            f"{script_path.name} exited with code {result.returncode}\n{output}"
-        )

@@ -1,8 +1,8 @@
 {
   "script": "test_audit",
   "chapter": "ch23",
-  "timestamp": "2026-04-26T14:07:27.314483+00:00",
-  "duration_s": 0.606,
+  "timestamp": "2026-04-26T14:39:29.224998+00:00",
+  "duration_s": 0.795,
   "n_pass": 14,
   "n_fail": 0,
   "n_total": 14,

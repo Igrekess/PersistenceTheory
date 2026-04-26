@@ -1,0 +1,59 @@
+{
+  "script": "test_super_echo_selection",
+  "chapter": "ch20g",
+  "timestamp": "2026-04-26T14:39:13.950015+00:00",
+  "duration_s": 0.0,
+  "n_pass": 9,
+  "n_fail": 0,
+  "n_total": 9,
+  "success": true,
+  "results": [
+    {
+      "label": "super_echo_5_primes",
+      "status": "PASS",
+      "detail": "super-echo: (11, 13, 17, 19, 23)"
+    },
+    {
+      "label": "super_echo_min_11",
+      "status": "PASS",
+      "detail": "min element = 11 (first inactive)"
+    },
+    {
+      "label": "super_echo_max_23",
+      "status": "PASS",
+      "detail": "max element = 23 (cutoff)"
+    },
+    {
+      "label": "gamma_p11_at_mub_positive",
+      "status": "PASS",
+      "detail": "gamma_11(mu_b) = 0.4179"
+    },
+    {
+      "label": "gamma_p13_at_mub_positive",
+      "status": "PASS",
+      "detail": "gamma_13(mu_b) = 0.3482"
+    },
+    {
+      "label": "gamma_p17_at_mub_positive",
+      "status": "PASS",
+      "detail": "gamma_17(mu_b) = 0.2370"
+    },
+    {
+      "label": "gamma_p19_at_mub_positive",
+      "status": "PASS",
+      "detail": "gamma_19(mu_b) = 0.1939"
+    },
+    {
+      "label": "gamma_p23_at_mub_positive",
+      "status": "PASS",
+      "detail": "gamma_23(mu_b) = 0.1276"
+    },
+    {
+      "label": "p29_below_threshold_or_subdominant",
+      "status": "PASS",
+      "detail": "gamma_29(mu_b) = 0.0659 < gamma_23 = 0.1276"
+    }
+  ],
+  "pt_version": "v7",
+  "zero_fitted_parameters": true
+}

@@ -1,8 +1,8 @@
 {
   "script": "proof_T4_convergence",
   "chapter": "ch07",
-  "timestamp": "2026-04-26T14:07:04.667315+00:00",
-  "duration_s": 12.419,
+  "timestamp": "2026-04-26T14:38:59.835407+00:00",
+  "duration_s": 14.717,
   "n_pass": 64,
   "n_fail": 0,
   "n_total": 64,

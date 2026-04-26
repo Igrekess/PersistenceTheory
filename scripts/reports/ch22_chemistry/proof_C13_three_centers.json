@@ -1,7 +1,7 @@
 {
   "script": "proof_C13_three_centers",
   "chapter": "ch22_chemistry",
-  "timestamp": "2026-04-26T14:07:17.775848+00:00",
+  "timestamp": "2026-04-26T14:39:16.626457+00:00",
   "duration_s": 0.0,
   "n_pass": 15,
   "n_fail": 0,
@@ -96,7 +96,7 @@
     {
       "label": "Z/6Z: triangle has higher-mode power, hexagon does not",
       "status": "PASS",
-      "detail": "tri_higher=9.00, hex_higher=1.96e-29"
+      "detail": "tri_higher=9.00, hex_higher=1.86e-29"
     }
   ],
   "pt_version": "v7",

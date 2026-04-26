@@ -3,98 +3,60 @@
 test_DM_candidate.py -- Chapter 20e: DM scalar singlet candidate (p=2)
 
 Monograph: chapters/ch20e_DM_candidate.tex
-Derivation chain: PT bifurcation q_+/q_- -> p=2 operator -> scalar singlet
-                   -> mass m_DM ~ 62.5 GeV (Higgs/2 resonance)
-Zero fitted parameters.
-
-Main result:
-  The p=2 scalar singlet is the unique structural DM candidate.
-  Mass: m_DM ~ m_H/2 = 62.5 GeV (Higgs resonance).
-  Coupling lambda_HS sub-percent for compatibility with LZ 2024 limits.
+Derivation: PT bifurcation -> p=2 operator -> scalar singlet at m_H/2.
 """
 
+import sys
 import math
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+from lib.pt_check import Checker
 
 
-# ---------------------------------------------------------------
-# Constants
-# ---------------------------------------------------------------
-M_H = 125.25  # Higgs mass [GeV] (PDG)
-M_DM_TARGET = M_H / 2.0  # PT prediction: resonance at half-Higgs
-
-# PT-derived quantities
-S = 0.5
-ALPHA_EM = 1.0 / 137.035999083  # PT prediction
-SIN2_THETA_W = 0.231186  # PT NNLO
+M_H = 125.25      # GeV (PDG)
+V_HIGGS = 246.220 # GeV
+GAMMA_H = 4.07e-3 # GeV (PDG total Higgs width)
 
 
 def predict_DM_mass():
-    """
-    PT prediction: m_DM = m_H / 2 (p=2 operator -> binary resonance).
-    """
-    return M_H / 2
+    return M_H / 2.0
 
 
-def lambda_HS_upper_limit():
-    """
-    Upper limit on Higgs portal coupling from invisible Higgs branching:
-        Br(H -> inv) < 0.107  (PDG 2024)
-    With lambda_HS as the portal coupling, the relation is:
-        Br(H -> inv) ~ (lambda_HS^2 v^2) / (8 pi m_H Gamma_H)
-    Solving for lambda_HS at Br = 0.107 gives the upper limit.
-    """
-    v = 246.220  # GeV
-    Gamma_H = 4.07e-3  # GeV (PDG total Higgs width)
-    Br_inv_limit = 0.107
-    # 8 pi m_H Gamma_H Br_inv = lambda^2 v^2
-    lambda_max = math.sqrt(8 * math.pi * M_H * Gamma_H * Br_inv_limit) / v
-    return lambda_max
+def lambda_HS_upper_limit(Br_inv_limit=0.107):
+    """Upper limit from Br(H -> inv) < 0.107 (PDG 2024)."""
+    return math.sqrt(8 * math.pi * M_H * GAMMA_H * Br_inv_limit) / V_HIGGS
 
 
-def relic_abundance_estimate(lambda_HS):
-    """
-    Cross-section for s-channel Higgs exchange:
-        sigma v ~ lambda_HS^2 / (8 pi m_DM^2)
-    For m_DM ~ m_H/2, this is dominated by the Higgs resonance.
-    Standard relic abundance Omega h^2 ~ 0.12 requires sigma v ~ 3e-26 cm^3/s.
-    """
+def relic_sigma_v(lambda_HS):
     m_DM = predict_DM_mass()
-    sigma_v = lambda_HS ** 2 / (8 * math.pi * m_DM ** 2)
-    return sigma_v
+    return lambda_HS ** 2 / (8 * math.pi * m_DM ** 2)
 
 
-def main():
-    print("=" * 70)
-    print("Chapter 20e: DM scalar singlet candidate (p=2 operator)")
-    print("=" * 70)
-    print()
+ck = Checker("test_DM_candidate", chapter="ch20e", total_steps=3)
 
-    m_DM = predict_DM_mass()
-    print(f"PT prediction: m_DM = m_H / 2 = {m_DM:.2f} GeV")
-    print(f"Source: p=2 binary operator -> Higgs resonance via portal")
-    print()
+# ---- Step 1: Mass prediction ----
+ck.section("Step 1: m_DM = m_H / 2 (PT p=2 prediction)")
+m_DM = predict_DM_mass()
+ck.check("m_DM_is_mH_over_2", abs(m_DM - M_H / 2) < 1e-6,
+         f"m_DM = {m_DM:.3f} GeV, m_H/2 = {M_H/2:.3f} GeV")
+ck.check("m_DM_resonance_window", 60.0 < m_DM < 65.0,
+         f"m_DM = {m_DM:.2f} GeV in resonance window")
 
-    # Coupling upper limit from invisible Higgs branching
-    lam_max = lambda_HS_upper_limit()
-    print(f"Higgs portal coupling upper limit:")
-    print(f"  lambda_HS_max = {lam_max:.4f} (from Br(H -> inv) < 0.107, PDG 2024)")
-    print()
+# ---- Step 2: Coupling constraint ----
+ck.section("Step 2: Higgs portal lambda_HS constraint")
+lam_max = lambda_HS_upper_limit()
+ck.check("lambda_HS_max_subunit", lam_max < 1.0,
+         f"lambda_HS_max = {lam_max:.4f}")
+ck.check("lambda_HS_max_above_target", lam_max > 1e-3,
+         f"lambda_HS_max = {lam_max:.4f} > 0.001 minimum target")
 
-    # Relic abundance
-    print(f"Relic abundance window:")
-    for lam in [1e-3, 5e-3, 1e-2, 5e-2]:
-        sv = relic_abundance_estimate(lam)
-        print(f"  lambda_HS = {lam:.4f} -> sigma v = {sv:.3e} (units of GeV^-2)")
-    print()
-    print(f"Target Omega_DM h^2 ~ 0.12 requires sigma v ~ 1e-9 GeV^-2")
-    print(f"PT [PRED]: lambda_HS in [1e-3, 1e-2] -> resonance window at m_H/2")
-    print()
+# ---- Step 3: Falsifiable predictions ----
+ck.section("Step 3: PRED falsifiers")
+ck.check("LZ_2024_target_mass", abs(m_DM - 62.5) < 0.5,
+         f"m_DM = {m_DM:.2f} GeV; LZ 2024+ target ~62.5 GeV")
+sv_at_lam_001 = relic_sigma_v(0.01)
+ck.check("relic_abundance_finite", sv_at_lam_001 > 0,
+         f"sigma v at lambda_HS=0.01: {sv_at_lam_001:.3e}")
 
-    print("Falsifiable tests (per ch20e [PRED]):")
-    print("  - LZ 2024+: direct detection at m_DM = 62.5 GeV")
-    print("  - HL-LHC: Br(H -> inv) at sub-percent precision")
-    print("  - Cosmology: Omega_DM h^2 = 0.120 (Planck 2018 baseline)")
-
-
-if __name__ == "__main__":
-    main()
+ck.summary()

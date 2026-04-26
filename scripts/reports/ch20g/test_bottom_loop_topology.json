@@ -1,0 +1,49 @@
+{
+  "script": "test_bottom_loop_topology",
+  "chapter": "ch20g",
+  "timestamp": "2026-04-26T14:39:13.688186+00:00",
+  "duration_s": 0.0,
+  "n_pass": 7,
+  "n_fail": 0,
+  "n_total": 7,
+  "success": true,
+  "results": [
+    {
+      "label": "sin2_p13_positive",
+      "status": "PASS",
+      "detail": "sin^2(theta_13, q_-) = 0.087189"
+    },
+    {
+      "label": "gamma_13_positive",
+      "status": "PASS",
+      "detail": "gamma_13 = 1.312996"
+    },
+    {
+      "label": "sin2_p3_positive",
+      "status": "PASS",
+      "detail": "sin^2(theta_3, q_-) = 0.117195"
+    },
+    {
+      "label": "gamma_7_positive",
+      "status": "PASS",
+      "detail": "gamma_7 = 1.631787"
+    },
+    {
+      "label": "dC7_negative",
+      "status": "PASS",
+      "detail": "Delta C_7^bottom = -0.531320 (negative as expected)"
+    },
+    {
+      "label": "dC7_subunit",
+      "status": "PASS",
+      "detail": "|Delta C_7^bottom| = 0.531320 (perturbative)"
+    },
+    {
+      "label": "dC7_above_threshold",
+      "status": "PASS",
+      "detail": "|Delta C_7^bottom| measurable"
+    }
+  ],
+  "pt_version": "v7",
+  "zero_fitted_parameters": true
+}

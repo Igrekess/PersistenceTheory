@@ -1,0 +1,39 @@
+{
+  "script": "test_meerkat_filament",
+  "chapter": "ch20f",
+  "timestamp": "2026-04-26T14:39:13.512195+00:00",
+  "duration_s": 0.0,
+  "n_pass": 4,
+  "n_fail": 0,
+  "n_total": 4,
+  "success": true,
+  "results": [
+    {
+      "label": "pt_target_is_half",
+      "status": "PASS",
+      "detail": "PT prediction: residual alignment = s = 0.5"
+    },
+    {
+      "label": "observed_above_05",
+      "status": "PASS",
+      "detail": "observed range [0.595, 0.64] > 0.5"
+    },
+    {
+      "label": "observed_below_07",
+      "status": "PASS",
+      "detail": "residual deviation from 0.5 is bounded < 0.2"
+    },
+    {
+      "label": "alignment_consistent_with_PT",
+      "status": "PASS",
+      "value": 0.6174999999999999,
+      "expected": 0.5,
+      "err_pct": 23.5,
+      "tol_pct": 30.0,
+      "unit": "",
+      "detail": "computed=0.6175, expected=0.5, err=23.5000%, tol=30.0%"
+    }
+  ],
+  "pt_version": "v7",
+  "zero_fitted_parameters": true
+}

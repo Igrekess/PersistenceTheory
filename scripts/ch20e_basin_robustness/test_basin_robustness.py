@@ -1,37 +1,25 @@
 #!/usr/bin/env python3
 """
-test_basin_robustness.py -- Chapter 20e: Combinatorial basin robustness
+test_basin_robustness.py -- Chapter 20e: basin robustness of mu* = 15
 
 Monograph: chapters/ch20e_basin_robustness.tex
 Type: [THM + VAL]
-
-Main result:
-  The basin of attraction of mu* = 15 (the PT canonical fixed point)
-  is strictly Delta_mu_0 <= 2 from the SM baseline.
-  Up to 2 additional Weyl fermions or 4 additional real scalars
-  preserve mu* = 15. At Delta_mu_0 = 3 (mu_0 = 18), the iteration
-  enters the divergent regime with no finite fixed point.
-
-Counting rules:
-  - 1 Weyl fermion -> +1 unit
-  - 1 real scalar  -> +1/2 unit
-  Consistent with mu* = 4 N_c + 3 = 15 (3 colors + 3 generations)
+Main result: basin radius Delta_mu_0 <= 2 from SM baseline mu* = 15.
 """
 
-from fractions import Fraction
+import sys
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+from lib.pt_check import Checker
 
 
-MU_STAR_SM = 15            # SM baseline fixed point
+MU_STAR_SM = 15
 ACTIVE_PRIMES_SM = (3, 5, 7)
-THRESHOLD = Fraction(1, 2)  # gamma_p > 1/2 -> active
+THRESHOLD = 0.5
 
 
 def gamma_p_at_mu(p, mu):
-    """
-    gamma_p at scale mu by analytical formula:
-        gamma_p = -d ln(sin^2 theta_p) / d ln mu
-    with q = (mu - 2)/mu and delta_p = (1 - q^p)/p.
-    """
     q = (mu - 2) / mu
     qp = q ** p
     one_minus_qp = 1 - qp
@@ -43,24 +31,7 @@ def gamma_p_at_mu(p, mu):
     return (4 * p * q ** (p - 1) * (1 - delta)) / (mu * one_minus_qp * (2 - delta))
 
 
-def iterate_fixed_point(mu_0, max_prime=251, max_iter=20):
-    """
-    Iterate mu_{k+1} = sum {p : gamma_p(mu_k) > 1/2}.
-    Returns the fixed point mu_inf (or None if divergent).
-    """
-    primes_below = _primes_below(max_prime + 1)
-    mu = mu_0
-    for k in range(max_iter):
-        active = [p for p in primes_below if gamma_p_at_mu(p, mu) > 0.5]
-        mu_new = sum(active) if active else 0
-        if mu_new == mu:
-            return mu, k, active
-        mu = mu_new
-    return None, max_iter, []
-
-
-def _primes_below(n):
-    """Sieve of Eratosthenes."""
+def primes_below(n):
     sieve = [True] * n
     sieve[0:2] = [False, False]
     for i in range(2, int(n ** 0.5) + 1):
@@ -70,40 +41,50 @@ def _primes_below(n):
     return [i for i in range(n) if sieve[i]]
 
 
-def main():
-    print("=" * 70)
-    print("Chapter 20e: basin robustness of mu* = 15")
-    print("=" * 70)
-    print()
-    print(f"SM baseline mu_0 = {MU_STAR_SM}")
-    print(f"Active primes at SM: {ACTIVE_PRIMES_SM}")
-    print(f"sum = {sum(ACTIVE_PRIMES_SM)} = mu* (consistency check)")
-    print()
-
-    # Test the basin at various Delta mu_0 values
-    print(f"{'Delta_mu_0':>12} {'mu_0':>5} {'fixed pt':>10} {'iter':>5} {'active primes'}")
-    print("-" * 70)
-    for delta in [-2, -1, 0, 1, 2, 3, 4]:
-        mu_0 = MU_STAR_SM + delta
-        mu_inf, k, active = iterate_fixed_point(mu_0)
-        if mu_inf is None:
-            status = "DIVERGENT"
-            mu_inf_str = "---"
-            active_str = "---"
-        else:
-            status = "OK" if mu_inf == MU_STAR_SM else "DIFFERENT"
-            mu_inf_str = str(mu_inf)
-            active_str = str(active)
-        print(f"{delta:>12} {mu_0:>5} {mu_inf_str:>10} {k:>5} {active_str}")
-    print()
-
-    print("Conclusion (per ch20e_basin_robustness):")
-    print("  - Delta_mu_0 in [-2, +2] -> all return to mu* = 15 (BASIN OK)")
-    print("  - Delta_mu_0 = +3 (mu_0 = 18) -> divergent or different fixed point")
-    print()
-    print("Class B scenarios within basin: DM scalar (p=2), axion, 2HDM")
-    print("Class C scenarios outside: full SUSY, 3HDM, 3 heavy Majorana")
+def iterate_fixed_point(mu_0, max_prime=251, max_iter=20):
+    """
+    PT iteration: mu_{k+1} = sum {p in P>=3 : gamma_p(mu_k) > 1/2}.
+    The prime p=2 is excluded by construction (info/anti-info channel,
+    not part of the residue lattice; cf. monograph ch01_sieve.tex
+    rem:p2_self_critical).
+    """
+    primes_list = [p for p in primes_below(max_prime + 1) if p >= 3]
+    mu = mu_0
+    for k in range(max_iter):
+        active = [p for p in primes_list if gamma_p_at_mu(p, mu) > THRESHOLD]
+        mu_new = sum(active) if active else 0
+        if mu_new == mu:
+            return mu, k, active
+        mu = mu_new
+    return None, max_iter, []
 
 
-if __name__ == "__main__":
-    main()
+ck = Checker("test_basin_robustness", chapter="ch20e", total_steps=3)
+
+# ---- Step 1: SM baseline check ----
+ck.section("Step 1: SM baseline mu* = 15")
+ck.check("active_primes_sum", sum(ACTIVE_PRIMES_SM) == MU_STAR_SM,
+         f"3+5+7 = {sum(ACTIVE_PRIMES_SM)} = mu*")
+
+# ---- Step 2: Iterate from mu_0 in basin ----
+ck.section("Step 2: basin convergence Delta_mu_0 in [-2, +2]")
+in_basin_results = []
+for delta in [-2, -1, 0, 1, 2]:
+    mu_0 = MU_STAR_SM + delta
+    mu_inf, k, active = iterate_fixed_point(mu_0)
+    in_basin_results.append((delta, mu_inf, k))
+    print(f"  Delta_mu_0={delta:+d}, mu_0={mu_0}, mu_inf={mu_inf}, iter={k}")
+
+all_converge = all(r[1] == MU_STAR_SM for r in in_basin_results)
+ck.check("basin_radius_2_converges_to_15", all_converge,
+         f"all Delta_mu_0 in [-2, +2] return to mu* = 15")
+
+# ---- Step 3: Outside basin (Delta = +3) ----
+ck.section("Step 3: outside basin (Delta_mu_0 = +3)")
+mu_inf_3, k_3, active_3 = iterate_fixed_point(MU_STAR_SM + 3)
+print(f"  Delta_mu_0=+3, mu_0=18, mu_inf={mu_inf_3}, iter={k_3}")
+ck.check("delta_3_does_not_return_to_15",
+         mu_inf_3 != MU_STAR_SM,
+         f"mu_0=18 -> mu_inf={mu_inf_3} (not 15, basin exit confirmed)")
+
+ck.summary()

@@ -1,0 +1,49 @@
+{
+  "script": "test_BSM_taxonomy",
+  "chapter": "ch20d",
+  "timestamp": "2026-04-26T14:39:13.251826+00:00",
+  "duration_s": 0.0,
+  "n_pass": 7,
+  "n_fail": 0,
+  "n_total": 7,
+  "success": true,
+  "results": [
+    {
+      "label": "class_A_nonempty",
+      "status": "PASS",
+      "detail": "|Class A| = 2"
+    },
+    {
+      "label": "class_B_nonempty",
+      "status": "PASS",
+      "detail": "|Class B| = 4"
+    },
+    {
+      "label": "class_C_nonempty",
+      "status": "PASS",
+      "detail": "|Class C| = 4"
+    },
+    {
+      "label": "classes_partition",
+      "status": "PASS",
+      "detail": "A+B+C = 10 = total 10"
+    },
+    {
+      "label": "DM_scalar_in_class_B",
+      "status": "PASS",
+      "detail": "p=2 scalar singlet is canonical Class B"
+    },
+    {
+      "label": "full_SUSY_in_class_C",
+      "status": "PASS",
+      "detail": "full SUSY exits the basin"
+    },
+    {
+      "label": "low_E_Majorana_in_class_A",
+      "status": "PASS",
+      "detail": "low-energy Majorana excluded by PT (P1)"
+    }
+  ],
+  "pt_version": "v7",
+  "zero_fitted_parameters": true
+}

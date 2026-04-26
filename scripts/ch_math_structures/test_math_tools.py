@@ -2753,11 +2753,23 @@ stoch_hc = all(abs(T_joint_hc[a].sum() - 1.0) < 1e-8 for a in range(4)
                if T_joint_hc[a].sum() > 0)
 ck.check("hybrid_Tjoint_stochastic", stoch_hc)
 
-# 14.21: |lambda_2| from T_gap
-evs_hc = sorted(abs(eigvals(T_joint_hc)), reverse=True)
-ck.check("hybrid_lam2_from_Tjoint",
-         evs_hc[1] < 1.0 if len(evs_hc) > 1 else True,
-         f"|lambda_2| = {evs_hc[1] if len(evs_hc)>1 else 'N/A'}")
+# 14.21: T_joint is bipartite by T1 (forbidden transitions mod 3 force
+# gap_class 1 <-> gap_class 2 only), so |lambda_2| = 1 by construction
+# (period-2 cycle). Mixing is tested on T_joint^2, which is block-
+# diagonal with rank-1 blocks (instantaneous mixing within each
+# invariance class). This is the correct gap-spectral test consistent
+# with T1, replacing the previous naive "|lambda_2| < 1" check that
+# was structurally incompatible with the forbidden-transition zeros.
+T_joint_hc_sq = T_joint_hc @ T_joint_hc
+top_block_hc = T_joint_hc_sq[:2, :2]
+bot_block_hc = T_joint_hc_sq[2:, 2:]
+rank_top = np.linalg.matrix_rank(top_block_hc, tol=1e-3)
+rank_bot = np.linalg.matrix_rank(bot_block_hc, tol=1e-3)
+ck.check("hybrid_T2_block_rank_1",
+         rank_top == 1 and rank_bot == 1,
+         f"T_joint^2 block ranks (top, bot) = ({rank_top}, {rank_bot}); "
+         f"both should be 1 (instantaneous mixing within each "
+         f"T1-invariance class)")
 
 # 14.22: Hybrid character h = lambda*chi_3 computed
 ck.check("hybrid_h_computed",

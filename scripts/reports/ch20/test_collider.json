@@ -1,7 +1,7 @@
 {
   "script": "test_collider",
   "chapter": "ch20",
-  "timestamp": "2026-04-26T14:07:14.159498+00:00",
+  "timestamp": "2026-04-26T14:39:13.007782+00:00",
   "duration_s": 0.001,
   "n_pass": 71,
   "n_fail": 0,
@@ -11,7 +11,7 @@
     {
       "label": "m_Z",
       "status": "PASS",
-      "value": 91.18781529954985,
+      "value": 91.18781529954725,
       "expected": 91.1876,
       "err_pct": 0.000236,
       "tol_pct": 0.5,
@@ -21,7 +21,7 @@
     {
       "label": "Gamma_Z",
       "status": "PASS",
-      "value": 2.4853388269717067,
+      "value": 2.4853388269716357,
       "expected": 2.4955,
       "err_pct": 0.40718,
       "tol_pct": 2.0,
@@ -31,7 +31,7 @@
     {
       "label": "sigma_had0",
       "status": "PASS",
-      "value": 41.42112608128533,
+      "value": 41.42112608128769,
       "expected": 41.541,
       "err_pct": 0.288568,
       "tol_pct": 2.0,
@@ -41,7 +41,7 @@
     {
       "label": "R_l",
       "status": "PASS",
-      "value": 20.829844220046926,
+      "value": 20.829844220046937,
       "expected": 20.767,
       "err_pct": 0.302616,
       "tol_pct": 1.5,
@@ -51,7 +51,7 @@
     {
       "label": "Gamma_ee",
       "status": "PASS",
-      "value": 83.41167113699464,
+      "value": 83.41167113699223,
       "expected": 83.984,
       "err_pct": 0.681474,
       "tol_pct": 2.0,
@@ -61,7 +61,7 @@
     {
       "label": "Gamma_inv",
       "status": "PASS",
-      "value": 497.65169764333956,
+      "value": 497.6516976433253,
       "expected": 499.0,
       "err_pct": 0.270201,
       "tol_pct": 2.0,
@@ -81,7 +81,7 @@
     {
       "label": "sin2_theta_eff",
       "status": "PASS",
-      "value": 0.23118634732083215,
+      "value": 0.23118634732083218,
       "expected": 0.23153,
       "err_pct": 0.148427,
       "tol_pct": 0.5,
@@ -91,7 +91,7 @@
     {
       "label": "m_W",
       "status": "PASS",
-      "value": 80.36353164224086,
+      "value": 80.36353164223857,
       "expected": 80.3692,
       "err_pct": 0.007053,
       "tol_pct": 0.5,
@@ -121,7 +121,7 @@
     {
       "label": "G_F",
       "status": "PASS",
-      "value": 1.1663796103662725,
+      "value": 1.1663796103663389,
       "expected": 1.1663788,
       "err_pct": 6.9e-05,
       "tol_pct": 0.1,
@@ -131,7 +131,7 @@
     {
       "label": "m_H",
       "status": "PASS",
-      "value": 125.28724853598781,
+      "value": 125.28724853598425,
       "expected": 125.25,
       "err_pct": 0.029739,
       "tol_pct": 0.5,
@@ -141,7 +141,7 @@
     {
       "label": "m_top",
       "status": "PASS",
-      "value": 172.69829432424154,
+      "value": 172.69829432423663,
       "expected": 172.57,
       "err_pct": 0.074343,
       "tol_pct": 0.5,
@@ -171,7 +171,7 @@
     {
       "label": "Gamma_t",
       "status": "PASS",
-      "value": 1.3059928700386803,
+      "value": 1.3059928700386432,
       "expected": 1.42,
       "err_pct": 8.028671,
       "tol_pct": 10.0,
@@ -181,7 +181,7 @@
     {
       "label": "A_FB_l",
       "status": "PASS",
-      "value": 0.016798956916565348,
+      "value": 0.0167989569165653,
       "expected": 0.0171,
       "err_pct": 1.760486,
       "tol_pct": 5.0,
@@ -191,7 +191,7 @@
     {
       "label": "A_FB_b",
       "status": "PASS",
-      "value": 0.10108574617636827,
+      "value": 0.10108574617636813,
       "expected": 0.0992,
       "err_pct": 1.900954,
       "tol_pct": 5.0,
@@ -201,7 +201,7 @@
     {
       "label": "A_FB_c",
       "status": "PASS",
-      "value": 0.07223442677884859,
+      "value": 0.07223442677884848,
       "expected": 0.0707,
       "err_pct": 2.170335,
       "tol_pct": 5.0,
@@ -211,7 +211,7 @@
     {
       "label": "R_b",
       "status": "PASS",
-      "value": 0.2197004383214842,
+      "value": 0.21970043832148417,
       "expected": 0.21629,
       "err_pct": 1.57679,
       "tol_pct": 2.0,
@@ -221,7 +221,7 @@
     {
       "label": "R_c",
       "status": "PASS",
-      "value": 0.17044934251777374,
+      "value": 0.17044934251777372,
       "expected": 0.1721,
       "err_pct": 0.959127,
       "tol_pct": 2.0,
@@ -441,7 +441,7 @@
     {
       "label": "m_u",
       "status": "PASS",
-      "value": 2.1562757958986403,
+      "value": 2.1562757958986056,
       "expected": 2.16,
       "err_pct": 0.172417,
       "tol_pct": 5.0,
@@ -451,7 +451,7 @@
     {
       "label": "m_d",
       "status": "PASS",
-      "value": 4.656414090080907,
+      "value": 4.656414090080911,
       "expected": 4.67,
       "err_pct": 0.290919,
       "tol_pct": 5.0,
@@ -461,7 +461,7 @@
     {
       "label": "m_s",
       "status": "PASS",
-      "value": 93.39503873129073,
+      "value": 93.39503873129297,
       "expected": 93.4,
       "err_pct": 0.005312,
       "tol_pct": 5.0,
@@ -471,7 +471,7 @@
     {
       "label": "m_c",
       "status": "PASS",
-      "value": 1272.4197207850825,
+      "value": 1272.419720785087,
       "expected": 1270.0,
       "err_pct": 0.190529,
       "tol_pct": 3.0,
@@ -481,7 +481,7 @@
     {
       "label": "m_b",
       "status": "PASS",
-      "value": 4164.768351202566,
+      "value": 4164.76835120264,
       "expected": 4180.0,
       "err_pct": 0.364394,
       "tol_pct": 3.0,
@@ -491,7 +491,7 @@
     {
       "label": "m_t_MeV",
       "status": "PASS",
-      "value": 172698.29432424155,
+      "value": 172698.29432423663,
       "expected": 172760.0,
       "err_pct": 0.035718,
       "tol_pct": 0.5,
@@ -536,7 +536,7 @@
     {
       "label": "Gamma_W",
       "status": "PASS",
-      "value": 2.0950260233086757,
+      "value": 2.0950260233086158,
       "expected": 2.085,
       "err_pct": 0.480864,
       "tol_pct": 3.0,
@@ -546,7 +546,7 @@
     {
       "label": "Br_W_enu",
       "status": "PASS",
-      "value": 10.8395541193451,
+      "value": 10.839554119345102,
       "expected": 10.86,
       "err_pct": 0.188268,
       "tol_pct": 3.0,
@@ -591,7 +591,7 @@
     {
       "label": "alpha_s_mtau",
       "status": "PASS",
-      "value": 0.34834792607805565,
+      "value": 0.3483479260780509,
       "expected": 0.33,
       "err_pct": 5.559978,
       "tol_pct": 8.0,
@@ -601,7 +601,7 @@
     {
       "label": "alpha_s_mb",
       "status": "PASS",
-      "value": 0.2336033505526989,
+      "value": 0.23360335055269685,
       "expected": 0.2268,
       "err_pct": 2.999714,
       "tol_pct": 5.0,
@@ -611,7 +611,7 @@
     {
       "label": "Gamma_t_vs_NNLO",
       "status": "PASS",
-      "value": 1.3059928700386803,
+      "value": 1.3059928700386432,
       "expected": 1.322,
       "err_pct": 1.210827,
       "tol_pct": 5.0,
@@ -631,7 +631,7 @@
     {
       "label": "strangeness_suppression",
       "status": "PASS",
-      "value": 0.23647607016849626,
+      "value": 0.23647607016848712,
       "expected": 0.217,
       "err_pct": 8.975148,
       "tol_pct": 30.0,

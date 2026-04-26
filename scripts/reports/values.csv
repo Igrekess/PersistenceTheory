@@ -17,9 +17,9 @@ app_p,proof_app_p_eml,Sum p*gamma 2-term (0.48 ppm),10.072705325950693,10.072700
 app_p,proof_app_p_eml,Sum p*gamma 3-term (2 ppb),10.072700468526834,10.072700488239345,0.0,,PASS
 app_p,proof_app_p_eml,g_00 = sum da_p/dmu (exact),-0.005749317564484651,-0.005749317564484651,0.0,,PASS
 app_p,proof_app_p_eml,Identity holds at mu=8,-0.003864502856241112,-0.003864502856241112,0.0,,PASS
-app_p,proof_app_p_eml,Identity holds at mu=12,-0.006618803344889039,-0.006618803344889038,0.0,,PASS
+app_p,proof_app_p_eml,Identity holds at mu=12,-0.006618803344889039,-0.006618803344889039,0.0,,PASS
 app_p,proof_app_p_eml,Identity holds at mu=18,-0.004750555725755648,-0.004750555725755648,0.0,,PASS
-app_p,proof_app_p_eml,Identity holds at mu=25,-0.003053351384580304,-0.0030533513845803044,0.0,,PASS
+app_p,proof_app_p_eml,Identity holds at mu=25,-0.003053351384580304,-0.003053351384580304,0.0,,PASS
 app_p,proof_app_p_eml,Identity holds at mu=50,-0.0009710798654340557,-0.0009710798654340557,0.0,,PASS
 app_p,proof_app_p_eml,1/alpha_nue (EML),136.27833445429476,136.278,0.000245,,PASS
 app_p,proof_app_p_eml,gamma_3 (PT),0.8076140384111393,0.808,0.047768,,PASS
@@ -97,13 +97,13 @@ ch10,proof_alpha_EM,Delta_1,0.7582753543274182,0.758,0.036326,Delta_1,PASS
 ch10,proof_alpha_EM,inv_alpha_order1,137.03660980862225,137.038,0.001014,,PASS
 ch10,proof_alpha_EM,inv_alpha_final,137.03599908340811,137.035999084,0.0,,PASS
 ch10,proof_alpha_EM,vs_pt_constants,137.03599908340811,137.0359990834081,0.0,,PASS
-ch11,proof_couplings,sin2_tree,0.23770710276110069,0.238,0.123066,sin^2_tree,PASS
+ch11,proof_couplings,sin2_tree,0.2377071027611007,0.238,0.123066,sin^2_tree,PASS
 ch11,proof_couplings,C_Koide,18.29971687168765,18.3,0.001547,,PASS
 ch11,proof_couplings,C_base,0.787439791032319,0.788,0.071093,C_base,PASS
 ch11,proof_couplings,alpha_dressing_check,137.03660980862225,137.038,0.001014,,PASS
-ch11,proof_couplings,sin2_dressed,0.2319608769788547,0.23121,0.32476,sin^2_W,PASS
+ch11,proof_couplings,sin2_dressed,0.23196087697885473,0.23121,0.32476,sin^2_W,PASS
 ch11,proof_couplings,alpha_s,0.11805671722794375,0.118,0.048065,alpha_s,PASS
-ch11,proof_couplings,sin2_tree_vs_ref,0.23770710276110069,0.23770710276110069,0.0,,PASS
+ch11,proof_couplings,sin2_tree_vs_ref,0.2377071027611007,0.2377071027611007,0.0,,PASS
 ch11,proof_couplings,alpha_s_vs_ref,0.11805671722794375,0.1180567172279475,0.0,,PASS
 ch12,proof_quantum,normalization_psi6,1.0,1.0,0.0,sum |psi|^2,PASS
 ch12,proof_quantum,partial_trace_rho3_trace,0.9999999999999998,1.0,0.0,tr(rho_3),PASS
@@ -201,14 +201,14 @@ ch16,test_NLO_NNLO,first_row_unitarity,0.9986868058999055,1.0,0.131319,,PASS
 ch17,test_feynman_programme,S_Polyakov_vertex,4.914699371220393,4.914699371220393,0.0,,PASS
 ch17,test_feynman_programme,alpha_from_action,0.007337923551856888,0.007337923551856888,0.0,,PASS
 ch17,test_feynman_programme,CRT_factorization,0.007337923551856888,0.007337923551856888,0.0,,PASS
-ch17,test_feynman_programme,sin2_thetaW_tree,0.23770710276110069,0.2312,2.814491,,PASS
+ch17,test_feynman_programme,sin2_thetaW_tree,0.2377071027611007,0.2312,2.814491,,PASS
 ch17,test_feynman_programme,spectral_representation,4.996003610813204e-16,0.0,0.0,,PASS
 ch17,test_feynman_programme,alpha_EM_derived,137.0359990834081,137.036,1e-06,,PASS
-ch17,test_feynman_programme,sin2_thetaW_derived,0.23118634732083215,0.23121,0.01023,,PASS
-ch17,test_feynman_programme,m_Z_derived,91.18781529954985,91.1876,0.000236,,PASS
-ch17,test_feynman_programme,m_W_derived,80.36353164224086,80.369,0.006804,,PASS
-ch17,test_feynman_programme,kappa_EW_mixing,1.495730484562795,1.495722392383646,0.000541,,PASS
-ch17,test_feynman_programme,Gamma_Z_total,2.481595837211612,2.4955,0.557169,,PASS
+ch17,test_feynman_programme,sin2_thetaW_derived,0.23118634732083218,0.23121,0.01023,,PASS
+ch17,test_feynman_programme,m_Z_derived,91.18781529954725,91.1876,0.000236,,PASS
+ch17,test_feynman_programme,m_W_derived,80.36353164223857,80.369,0.006804,,PASS
+ch17,test_feynman_programme,kappa_EW_mixing,1.4957304845627948,1.495722392383646,0.000541,,PASS
+ch17,test_feynman_programme,Gamma_Z_total,2.481595837211541,2.4955,0.557169,,PASS
 ch17,test_feynman_programme,koide_Q_leptons,0.6666605142989361,0.6666666666666666,0.000923,,PASS
 ch17,test_feynman_programme,R1_pattern,0.5,0.5,0.0,,PASS
 ch17,test_feynman_programme,R2_pattern,2.0,2.0,0.0,,PASS
@@ -246,67 +246,67 @@ ch18,test_quarkonium,lambda2_T13_eq_1,1.0,1.0,0.0,,PASS
 ch18,test_quarkonium,large_distance_slope,0.1947292775618173,0.19419893531448074,0.273092,,PASS
 ch18,test_quarkonium,sigma_5_from_T_string,0.19419893531448074,0.19419893531448074,0.0,,PASS
 ch18,test_quarkonium,alpha_s_eff_is_2_over_3,0.6666666666666666,0.6666666666666666,0.0,,PASS
-ch18,test_quarkonium,cc_J/psi(1S),3.1581590945122033,3.0969,1.978078,,PASS
-ch18,test_quarkonium,cc_psi(2S),3.7199530942403185,3.6861,0.918399,,PASS
-ch18,test_quarkonium,cc_psi(4040),4.10640566544196,4.04,1.643705,,PASS
-ch18,test_quarkonium,bb_Y(1S),9.306098838345282,9.4603,1.629982,,PASS
-ch18,test_quarkonium,bb_Y(2S),9.963114339465728,10.0233,0.600458,,PASS
-ch18,test_quarkonium,bb_Y(3S),10.34489387778067,10.3552,0.099526,,PASS
-ch18,test_quarkonium,bb_Y(4S),10.640301417655555,10.5794,0.57566,,PASS
-ch18,test_quarkonium,bb_Y(10860),10.891746768296182,10.8852,0.060144,,PASS
-ch18,test_quarkonium,bb_Y(11020),11.115516365681161,11.019,0.875909,,PASS
+ch18,test_quarkonium,cc_J/psi(1S),3.1581590945122175,3.0969,1.978078,,PASS
+ch18,test_quarkonium,cc_psi(2S),3.7199530942403216,3.6861,0.918399,,PASS
+ch18,test_quarkonium,cc_psi(4040),4.106405665441969,4.04,1.643705,,PASS
+ch18,test_quarkonium,bb_Y(1S),9.306098838345413,9.4603,1.629982,,PASS
+ch18,test_quarkonium,bb_Y(2S),9.963114339465857,10.0233,0.600458,,PASS
+ch18,test_quarkonium,bb_Y(3S),10.344893877780805,10.3552,0.099526,,PASS
+ch18,test_quarkonium,bb_Y(4S),10.640301417655696,10.5794,0.57566,,PASS
+ch18,test_quarkonium,bb_Y(10860),10.89174676829634,10.8852,0.060144,,PASS
+ch18,test_quarkonium,bb_Y(11020),11.115516365681302,11.019,0.875909,,PASS
 ch18,test_quarkonium,sigma_Richardson_self_consistent,0.19419893531448074,0.19419893531448074,0.0,,PASS
 ch18,test_quarkonium,Richardson_IR_slope,0.15182991588353814,0.19419893531448074,21.817328,,PASS
 ch19,test_hadrons,f_pi_string_relation,0.13162007846365925,0.1302,1.09069,131.6 MeV,PASS
-ch19,test_hadrons,fK_over_fpi,1.1968539379030363,1.195852534562212,0.08374,,PASS
-ch19,test_hadrons,f_K_derived,0.1575300092163372,0.1557,1.175343,,PASS
-ch19,test_hadrons,m_pi_GMOR,0.1347856558736084,0.13498,0.14398,134.8 MeV,PASS
-ch19,test_hadrons,condensate_tree_level,0.35881534498075485,0.35657213269434435,0.629105,358.8 MeV,PASS
-ch19,test_hadrons,m_K_ratio_GMOR,0.5047806507839204,0.4976,1.443057,504.8 MeV,PASS
+ch19,test_hadrons,fK_over_fpi,1.1968539379030412,1.195852534562212,0.08374,,PASS
+ch19,test_hadrons,f_K_derived,0.15753000921633784,0.1557,1.175343,,PASS
+ch19,test_hadrons,m_pi_GMOR,0.1347856558736081,0.13498,0.14398,134.8 MeV,PASS
+ch19,test_hadrons,condensate_tree_level,0.35881534498075485,0.3565721326943449,0.629105,358.8 MeV,PASS
+ch19,test_hadrons,m_K_ratio_GMOR,0.5047806507839263,0.4976,1.443057,504.8 MeV,PASS
 ch19,test_hadrons,m_rho_Regge,0.7762351943920017,0.7755,0.094803,776.2 MeV,PASS
 ch19,test_hadrons,m_omega_isospin,0.7762351943920017,0.7827,0.825962,,PASS
 ch19,test_hadrons,m_a_2(1320),1.344478795310051,1.3169,2.094221,1344 MeV,PASS
 ch19,test_hadrons,m_rho_3(1690),1.7357146611882794,1.6888,2.777988,1736 MeV,PASS
 ch19,test_hadrons,m_a_4(2040),2.053725283257116,2.04,0.672808,2054 MeV,PASS
 ch19,test_hadrons,M_proton,0.954929658551372,0.9383,1.772318,954.9 MeV,PASS
-ch19,test_hadrons,delta_m_neutron_proton,0.0012500691470911335,0.001293,3.320252,1.250 MeV,PASS
+ch19,test_hadrons,delta_m_neutron_proton,0.0012500691470911525,0.001293,3.320252,1.250 MeV,PASS
 ch19,test_hadrons,g_rho_pi_pi_KSRF,5.897543926828177,5.96,1.047921,,PASS
-ch19,test_hadrons,Gamma_rho_width,0.14764594657604999,0.1491,0.97522,147.6 MeV,PASS
+ch19,test_hadrons,Gamma_rho_width,0.14764594657605012,0.1491,0.97522,147.6 MeV,PASS
 ch19,test_hadrons,F_pi_0_charge_conservation,1.0,1.0,0.0,,PASS
 ch19,test_hadrons,r_pi_squared,0.3877373319214241,0.452,14.217404,0.388 fm^2,PASS
-ch19,test_hadrons,sigma_ee_rho_peak,995.7853862251075,1200.0,17.017884,996 nb,PASS
-ch19,test_hadrons,Gamma_Kstar_SU3,0.05241419484768708,0.0514,1.973142,52.4 MeV,PASS
+ch19,test_hadrons,sigma_ee_rho_peak,995.7853862251065,1200.0,17.017884,996 nb,PASS
+ch19,test_hadrons,Gamma_Kstar_SU3,0.05241419484768507,0.0514,1.973142,52.4 MeV,PASS
 ch19,test_hadrons,C_mix_eq_Q_Koide,0.6666666666666666,0.6666666666666666,0.0,,PASS
-ch19,test_hadrons,m_eta_mixing,0.5425544745664411,0.5478,0.957562,542.6 MeV,PASS
-ch19,test_hadrons,m_eta_prime_mixing,0.9467550713896341,0.9578,1.153156,946.8 MeV,PASS
+ch19,test_hadrons,m_eta_mixing,0.5425544745664465,0.5478,0.957562,542.6 MeV,PASS
+ch19,test_hadrons,m_eta_prime_mixing,0.9467550713896372,0.9578,1.153156,946.8 MeV,PASS
 ch19,test_hadrons,chi_top_fourth_root,0.21058456696930405,0.1978,6.463381,210.6 MeV,PASS
-ch19,test_hadrons,WV_self_consistent,0.9467550713896341,0.9467550713896341,0.0,,PASS
+ch19,test_hadrons,WV_self_consistent,0.9467550713896371,0.9467550713896372,0.0,,PASS
 ch19,test_hadrons,f_pi_NLO,0.13038355322804754,0.1302,0.140978,130.4 MeV,PASS
-ch19,test_hadrons,m_K_NLO,0.4976672906443219,0.4976,0.013523,497.7 MeV,PASS
+ch19,test_hadrons,m_K_NLO,0.4976672906443277,0.4976,0.013523,497.7 MeV,PASS
 ch19,test_hadrons,M_proton_NLO,0.9369871890616753,0.9383,0.139914,937.0 MeV,PASS
-ch19,test_hadrons,delta_m_np_NLO,0.0012861389696638143,0.001293,0.530629,1.286 MeV,PASS
-ch19,test_hadrons,m_eta_NLO,0.5440576404734979,0.5478,0.683162,544.1 MeV,PASS
-ch19,test_hadrons,m_eta_prime_NLO,0.9595484623534549,0.9578,0.18255,959.5 MeV,PASS
-ch20,test_collider,m_Z,91.18781529954985,91.1876,0.000236,GeV,PASS
-ch20,test_collider,Gamma_Z,2.4853388269717067,2.4955,0.40718,GeV,PASS
-ch20,test_collider,sigma_had0,41.42112608128533,41.541,0.288568,nb,PASS
-ch20,test_collider,R_l,20.829844220046926,20.767,0.302616,,PASS
-ch20,test_collider,Gamma_ee,83.41167113699464,83.984,0.681474,MeV,PASS
-ch20,test_collider,Gamma_inv,497.65169764333956,499.0,0.270201,MeV,PASS
+ch19,test_hadrons,delta_m_np_NLO,0.0012861389696638339,0.001293,0.530629,1.286 MeV,PASS
+ch19,test_hadrons,m_eta_NLO,0.5440576404735032,0.5478,0.683162,544.1 MeV,PASS
+ch19,test_hadrons,m_eta_prime_NLO,0.9595484623534579,0.9578,0.18255,959.5 MeV,PASS
+ch20,test_collider,m_Z,91.18781529954725,91.1876,0.000236,GeV,PASS
+ch20,test_collider,Gamma_Z,2.4853388269716357,2.4955,0.40718,GeV,PASS
+ch20,test_collider,sigma_had0,41.42112608128769,41.541,0.288568,nb,PASS
+ch20,test_collider,R_l,20.829844220046937,20.767,0.302616,,PASS
+ch20,test_collider,Gamma_ee,83.41167113699223,83.984,0.681474,MeV,PASS
+ch20,test_collider,Gamma_inv,497.6516976433253,499.0,0.270201,MeV,PASS
 ch20,test_collider,N_nu,3.0,2.9963,0.123486,,PASS
-ch20,test_collider,sin2_theta_eff,0.23118634732083215,0.23153,0.148427,,PASS
-ch20,test_collider,m_W,80.36353164224086,80.3692,0.007053,GeV,PASS
+ch20,test_collider,sin2_theta_eff,0.23118634732083218,0.23153,0.148427,,PASS
+ch20,test_collider,m_W,80.36353164223857,80.3692,0.007053,GeV,PASS
 ch20,test_collider,1_over_alpha_EM,137.0359990834081,137.036,1e-06,,PASS
 ch20,test_collider,alpha_s_mZ,0.1180567172279475,0.118,0.048065,,PASS
-ch20,test_collider,G_F,1.1663796103662725,1.1663788,6.9e-05,10^-5 GeV^-2,PASS
-ch20,test_collider,m_H,125.28724853598781,125.25,0.029739,GeV,PASS
-ch20,test_collider,m_top,172.69829432424154,172.57,0.074343,GeV,PASS
-ch20,test_collider,Gamma_t,1.3059928700386803,1.42,8.028671,GeV,PASS
-ch20,test_collider,A_FB_l,0.016798956916565348,0.0171,1.760486,,PASS
-ch20,test_collider,A_FB_b,0.10108574617636827,0.0992,1.900954,,PASS
-ch20,test_collider,A_FB_c,0.07223442677884859,0.0707,2.170335,,PASS
-ch20,test_collider,R_b,0.2197004383214842,0.21629,1.57679,,PASS
-ch20,test_collider,R_c,0.17044934251777374,0.1721,0.959127,,PASS
+ch20,test_collider,G_F,1.1663796103663389,1.1663788,6.9e-05,10^-5 GeV^-2,PASS
+ch20,test_collider,m_H,125.28724853598425,125.25,0.029739,GeV,PASS
+ch20,test_collider,m_top,172.69829432423663,172.57,0.074343,GeV,PASS
+ch20,test_collider,Gamma_t,1.3059928700386432,1.42,8.028671,GeV,PASS
+ch20,test_collider,A_FB_l,0.0167989569165653,0.0171,1.760486,,PASS
+ch20,test_collider,A_FB_b,0.10108574617636813,0.0992,1.900954,,PASS
+ch20,test_collider,A_FB_c,0.07223442677884848,0.0707,2.170335,,PASS
+ch20,test_collider,R_b,0.21970043832148417,0.21629,1.57679,,PASS
+ch20,test_collider,R_c,0.17044934251777372,0.1721,0.959127,,PASS
 ch20,test_collider,V_ud,0.9738584905152499,0.97373,0.013196,,PASS
 ch20,test_collider,V_us,0.22421395231987395,0.2243,0.038363,,PASS
 ch20,test_collider,V_ub,0.0038144378833439413,0.00382,0.145605,,PASS
@@ -328,23 +328,29 @@ ch20,test_collider,m_mu,105.65837569318882,105.658,0.000356,MeV,PASS
 ch20,test_collider,m_tau,1776.860052940951,1776.86,3e-06,MeV,PASS
 ch20,test_collider,m_mu_over_m_e,206.76828336572675,206.768,0.000137,,PASS
 ch20,test_collider,m_tau_over_m_mu,16.81702980273522,16.817,0.000177,,PASS
-ch20,test_collider,m_u,2.1562757958986403,2.16,0.172417,MeV,PASS
-ch20,test_collider,m_d,4.656414090080907,4.67,0.290919,MeV,PASS
-ch20,test_collider,m_s,93.39503873129073,93.4,0.005312,MeV,PASS
-ch20,test_collider,m_c,1272.4197207850825,1270.0,0.190529,MeV,PASS
-ch20,test_collider,m_b,4164.768351202566,4180.0,0.364394,MeV,PASS
-ch20,test_collider,m_t_MeV,172698.29432424155,172760.0,0.035718,MeV,PASS
+ch20,test_collider,m_u,2.1562757958986056,2.16,0.172417,MeV,PASS
+ch20,test_collider,m_d,4.656414090080911,4.67,0.290919,MeV,PASS
+ch20,test_collider,m_s,93.39503873129297,93.4,0.005312,MeV,PASS
+ch20,test_collider,m_c,1272.419720785087,1270.0,0.190529,MeV,PASS
+ch20,test_collider,m_b,4164.76835120264,4180.0,0.364394,MeV,PASS
+ch20,test_collider,m_t_MeV,172698.29432423663,172760.0,0.035718,MeV,PASS
 ch20,test_collider,N_c,3.0,3.0,0.0,,PASS
 ch20,test_collider,N_gen,3.0,3.0,0.0,,PASS
 ch20,test_collider,sigma_QCD,0.19419893531448074,0.18,7.888297,GeV^2,PASS
-ch20,test_collider,Gamma_W,2.0950260233086757,2.085,0.480864,GeV,PASS
-ch20,test_collider,Br_W_enu,10.8395541193451,10.86,0.188268,%,PASS
+ch20,test_collider,Gamma_W,2.0950260233086158,2.085,0.480864,GeV,PASS
+ch20,test_collider,Br_W_enu,10.839554119345102,10.86,0.188268,%,PASS
 ch20,test_collider,beta0_from_T3,23.0,23.0,0.0,,PASS
-ch20,test_collider,alpha_s_mtau,0.34834792607805565,0.33,5.559978,,PASS
-ch20,test_collider,alpha_s_mb,0.2336033505526989,0.2268,2.999714,,PASS
-ch20,test_collider,Gamma_t_vs_NNLO,1.3059928700386803,1.322,1.210827,GeV,PASS
-ch20,test_collider,strangeness_suppression,0.23647607016849626,0.217,8.975148,(PYTHIA ref),PASS
+ch20,test_collider,alpha_s_mtau,0.3483479260780509,0.33,5.559978,,PASS
+ch20,test_collider,alpha_s_mb,0.23360335055269685,0.2268,2.999714,,PASS
+ch20,test_collider,Gamma_t_vs_NNLO,1.3059928700386432,1.322,1.210827,GeV,PASS
+ch20,test_collider,strangeness_suppression,0.23647607016848712,0.217,8.975148,(PYTHIA ref),PASS
 ch20,test_collider,sigma_lambda_ratio,0.2222222222222222,0.21,5.820106,(LEP ref),PASS
+ch20b,test_wilson_coefficients,wilson_C9_minus_C10_identity,0.10393080089649875,0.1039,0.029645,,PASS
+ch20e,test_neutrino_majorana_vs_dirac,inv_alpha_bare_136_28,136.27833445429476,136.28,0.001222,(1/alpha_bare),PASS
+ch20e,test_neutrino_majorana_vs_dirac,m_nu_3_target,0.050475375876573594,0.0505,0.048761,eV,PASS
+ch20f,test_hubble_tension,H0_matches_planck,67.41,67.4,0.014837,km/s/Mpc,PASS
+ch20f,test_meerkat_filament,alignment_consistent_with_PT,0.6174999999999999,0.5,23.5,,PASS
+ch20g,test_bobeth_181_structure,bobeth_prefactor_within_1pc,181.0,181.42,0.231507,,PASS
 ch21,test_predictions,P4_delta_CP_PMNS,197.35828071576714,197.0,0.181868,deg,PASS
 ch21,test_predictions,P5_m_nu3,0.050475376261807134,0.0507,0.443045,eV,PASS
 ch21,test_predictions,P6_sin2_th23,0.5732521420592291,0.573,0.044004,,PASS
@@ -352,11 +358,11 @@ ch21,test_predictions,P7_sin2_th13,0.022216298026920815,0.0222,0.073415,,PASS
 ch21,test_predictions,P8_lambda_Higgs,0.12949171250876443,0.12938347743146458,0.083654,,PASS
 ch21,test_predictions,P9_H_0,67.41,67.4,0.014837,km/s/Mpc,PASS
 ch21,test_predictions,P16_spectral_index,0.9639017122278849,0.9649,0.10346,,PASS
-ch21,test_predictions,P20_sin2_at_mZ,0.23118634732083215,0.23118634732083215,0.0,,PASS
-ch21,test_predictions,P21_A_LR,0.14966164913593305,0.1515,1.213433,,PASS
+ch21,test_predictions,P20_sin2_at_mZ,0.23118634732083218,0.23118634732083218,0.0,,PASS
+ch21,test_predictions,P21_A_LR,0.14966164913593283,0.1515,1.213433,,PASS
 ch21,test_predictions,P22_QW_Cs,-75.4363230337939,-72.62,3.878164,,PASS
-ch21,test_predictions,P24_sin2_E158,0.2380710767440465,0.2397,0.679567,,PASS
-ch21,test_predictions,P25_AFBb,0.10503273129686905,0.0992,5.879769,,PASS
+ch21,test_predictions,P24_sin2_E158,0.23807107674404654,0.2397,0.679567,,PASS
+ch21,test_predictions,P25_AFBb,0.1050327312968689,0.0992,5.879769,,PASS
 ch21,test_predictions,P26_n_s_cross_check,0.9639017122278849,0.9649,0.10346,,PASS
 ch22_chemistry,proof_C13_three_centers,Cyclopropane strain,27.500000000000004,27.5,0.0,kcal/mol,PASS
 ch22_chemistry,proof_C13_three_centers,Cyclobutane strain,26.300000000000004,26.3,0.0,kcal/mol,PASS
@@ -381,9 +387,9 @@ ch22_chemistry,test_IE_atomic,EN2_chi_C,2.482339096829928,2.55,2.653369,,PASS
 ch22_chemistry,test_IE_atomic,EN2_chi_F,3.98,3.98,0.0,,PASS
 ch22_chemistry,test_IE_atomic,EN2_chi_Cl,3.0909680860710473,3.16,2.184554,,PASS
 ch22_chemistry,test_IE_atomic,R2_r_C,68.15085707938661,76.0,10.32782,pm,PASS
-ch22_chemistry,test_IE_atomic,R2_r_Si,95.2287634447507,111.0,14.208321,pm,PASS
-ch22_chemistry,test_IE_atomic,R2_r_Fe,138.15710093209876,132.0,4.66447,pm,PASS
-ch22_chemistry,test_IE_atomic,R2_r_Br,72.62557625691902,120.0,39.478686,pm,PASS
+ch22_chemistry,test_IE_atomic,R2_r_Si,95.22876344475071,111.0,14.208321,pm,PASS
+ch22_chemistry,test_IE_atomic,R2_r_Fe,138.15710093209879,132.0,4.66447,pm,PASS
+ch22_chemistry,test_IE_atomic,R2_r_Br,72.62557625691903,120.0,39.478686,pm,PASS
 ch22_chemistry,test_IE_atomic,B1_ionic_threshold,1.6651092223153954,1.7,2.052399,,PASS
 ch22_chemistry,test_IE_atomic,B2_K_pauling,1.387234794549347,1.0,38.723479,eV,PASS
 ch22_chemistry,test_IE_atomic,B6_f_reorg,0.18979383287328816,0.19,0.108509,,PASS

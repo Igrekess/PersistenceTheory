@@ -1,0 +1,59 @@
+{
+  "script": "test_hadronic_margin",
+  "chapter": "ch20c",
+  "timestamp": "2026-04-26T14:39:13.154948+00:00",
+  "duration_s": 0.0,
+  "n_pass": 9,
+  "n_fail": 0,
+  "n_total": 9,
+  "success": true,
+  "results": [
+    {
+      "label": "q_plus_rational",
+      "status": "PASS",
+      "detail": "q_+ = 13/15"
+    },
+    {
+      "label": "q_plus_lt_q_minus",
+      "status": "PASS",
+      "detail": "q_+ = 0.866667 < q_- = 0.935507"
+    },
+    {
+      "label": "super_echo_5primes",
+      "status": "PASS",
+      "detail": "super-echo primes: [11, 13, 17, 19, 23]"
+    },
+    {
+      "label": "beta_s_echo_q_plus_positive",
+      "status": "PASS",
+      "detail": "beta_s-echo(q_+) = 0.1598"
+    },
+    {
+      "label": "beta_s_echo_q_plus_subO1",
+      "status": "PASS",
+      "detail": "beta_s-echo(q_+) = 0.1598 (subleading)"
+    },
+    {
+      "label": "beta_s_echo_q_minus_positive",
+      "status": "PASS",
+      "detail": "beta_s-echo(q_-) = 0.4697"
+    },
+    {
+      "label": "beta_s_echo_q_minus_subO1",
+      "status": "PASS",
+      "detail": "beta_s-echo(q_-) = 0.4697 (subleading)"
+    },
+    {
+      "label": "cumulative_margin_positive",
+      "status": "PASS",
+      "detail": "cumulative margin = +/- 0.629"
+    },
+    {
+      "label": "margin_sufficient_for_P5coverage",
+      "status": "PASS",
+      "detail": "margin 0.629 > 0.20 covers ~88% of P_5' tension (residual <= 1.14 sigma per ch20c thm:P5_coverage)"
+    }
+  ],
+  "pt_version": "v7",
+  "zero_fitted_parameters": true
+}

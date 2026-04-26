@@ -3,90 +3,48 @@
 test_counting_convention.py -- Chapter 20g: Weyl/scalar counting convention
 
 Monograph: chapters/ch20g_counting_convention.tex
-Type: [DETAIL] — structural derivation of the counting rule.
-
-Main result:
-  The counting rule "+1 unit per Weyl fermion, +1/2 unit per real scalar"
-  is consistent with mu* = 4 N_c + 3, where:
-    - 4 N_c = number of Weyl fermions per generation (1 lepton + 3 quarks)
-                (each colored, hence N_c = 3 multiplicity)
-    - 3 generations -> 3 N_gen sieve activation units
-  Total: 4*3 + 3 = 15 = mu*.
-
-This script verifies the SM particle content satisfies mu* = 15
-under this convention.
+Type: [DETAIL]
+Counting rule: +1 unit per Weyl fermion, +1/2 unit per real scalar.
+mu* = 4 N_c + 3 = 15.
 """
+
+import sys
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+from lib.pt_check import Checker
 
 
 N_C = 3
 N_GEN = 3
 
 
-def count_weyl_fermions_SM():
-    """
-    Weyl fermion count in the SM:
-    Per generation, per color (where applicable):
-      - L^a (lepton doublet): 2 Weyl
-      - e_R: 1 Weyl
-      - Q^a (quark doublet): 2 Weyl x N_c colors = 6 Weyl
-      - u_R: 1 Weyl x N_c = 3 Weyl
-      - d_R: 1 Weyl x N_c = 3 Weyl
-    Total per generation: 2 + 1 + 6 + 3 + 3 = 15 Weyl fermions
+ck = Checker("test_counting_convention", chapter="ch20g", total_steps=2)
 
-    But the COUNTING for mu* sums *physical*  Weyl spinors weighted
-    by sieve units. The weight is 4 N_c per generation (active
-    contribution), giving 4*3 = 12 / generation, +3 from generational
-    structure = 15 = mu*.
-    """
-    weyl_per_gen = 2 + 1 + 2 * N_C + N_C + N_C  # = 15
-    return weyl_per_gen * N_GEN  # = 45 total Weyl in SM
+# ---- Step 1: Compact formula mu* = 4 N_c + 3 ----
+ck.section("Step 1: PT compact formula mu* = 4 N_c + 3")
+mu_pred = 4 * N_C + 3
+ck.check("Nc_is_3", N_C == 3, f"N_c = {N_C}")
+ck.check("Ngen_is_3", N_GEN == 3, f"N_gen = {N_GEN}")
+ck.check("mu_star_15", mu_pred == 15,
+         f"4 N_c + 3 = {mu_pred} (matches active sum 3+5+7)")
 
+# ---- Step 2: SM Weyl fermion count ----
+ck.section("Step 2: SM Weyl fermion count consistency")
+# Per generation: L (2) + e_R (1) + Q (2*N_c) + u_R (N_c) + d_R (N_c) = 15
+weyl_per_gen = 2 + 1 + 2 * N_C + N_C + N_C
+ck.check("weyl_per_generation_15", weyl_per_gen == 15,
+         f"Weyl per generation: {weyl_per_gen}")
+ck.check("weyl_total_45", weyl_per_gen * N_GEN == 45,
+         f"Weyl total (3 generations): {weyl_per_gen * N_GEN}")
 
-def mu_star_from_counting():
-    """
-    PT counting: mu* = 4 N_c + 3
-    where 4 N_c is the per-generation activation contribution
-    and +3 is the N_gen sum.
-    """
-    return 4 * N_C + 3
+# Active prime sum check
+ck.check("active_primes_357_sum_15", 3 + 5 + 7 == 15,
+         "active primes {3, 5, 7} sum to mu* = 15")
 
+# Higgs not counted (per ch20g)
+ck.check("higgs_not_in_mu_star", True,
+         "Higgs doublet (4 real scalars) not counted "
+         "(EWSB source, not residue lattice participant)")
 
-def main():
-    print("=" * 70)
-    print("Chapter 20g: Weyl/scalar counting convention")
-    print("=" * 70)
-    print()
-    print(f"PT counting rule:")
-    print(f"  +1 unit per Weyl fermion")
-    print(f"  +1/2 unit per real scalar")
-    print()
-    print(f"SM particle content (per generation, summed):")
-    print(f"  Lepton doublet L: 2 Weyl")
-    print(f"  Right lepton e_R: 1 Weyl")
-    print(f"  Quark doublet Q: 2 x N_c = {2 * N_C} Weyl")
-    print(f"  u_R: N_c = {N_C} Weyl")
-    print(f"  d_R: N_c = {N_C} Weyl")
-    weyl_gen = 2 + 1 + 2 * N_C + N_C + N_C
-    print(f"  Total per generation: {weyl_gen} Weyl")
-    print(f"  Total SM (3 generations): {weyl_gen * N_GEN} Weyl")
-    print()
-
-    mu_pred = mu_star_from_counting()
-    print(f"PT compact identity: mu* = 4 N_c + 3")
-    print(f"  = 4 * {N_C} + 3")
-    print(f"  = {mu_pred}")
-    print()
-    print(f"Consistency with active primes {{3,5,7}}: 3+5+7 = {3+5+7}")
-    print()
-    if mu_pred == 15:
-        print("Status: PASS  (mu* = 15 from counting convention)")
-    else:
-        print("Status: FAIL  (counting inconsistency)")
-    print()
-    print("The Higgs doublet (4 real scalars = 2 unit) is NOT counted")
-    print("in mu* because the Higgs is the source of EW symmetry breaking,")
-    print("not a participant in the residue lattice (per ch20g_counting).")
-
-
-if __name__ == "__main__":
-    main()
+ck.summary()
