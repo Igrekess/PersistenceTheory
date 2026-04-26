@@ -166,6 +166,9 @@ def _load_all_reports():
         if not chapter_dir.is_dir():
             continue
         for json_file in sorted(chapter_dir.glob("*.json")):
+            # Skip macOS AppleDouble metadata files (binary, not JSON)
+            if json_file.name.startswith("._"):
+                continue
             try:
                 with open(json_file, encoding="utf-8") as f:
                     report = json.load(f)
@@ -174,7 +177,7 @@ def _load_all_reports():
                     report.get("script", ""),
                     report,
                 ))
-            except (json.JSONDecodeError, OSError):
+            except (json.JSONDecodeError, OSError, UnicodeDecodeError):
                 continue
     return reports
 

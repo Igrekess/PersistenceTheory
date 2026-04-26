@@ -1,8 +1,8 @@
 {
   "script": "test_math_tools",
   "chapter": "ch_math_structures",
-  "timestamp": "2026-04-26T14:02:04.387091+00:00",
-  "duration_s": 1.522,
+  "timestamp": "2026-04-26T14:07:31.024625+00:00",
+  "duration_s": 1.49,
   "n_pass": 387,
   "n_fail": 1,
   "n_total": 388,

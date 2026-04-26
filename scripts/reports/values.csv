@@ -17,15 +17,26 @@ app_p,proof_app_p_eml,Sum p*gamma 2-term (0.48 ppm),10.072705325950693,10.072700
 app_p,proof_app_p_eml,Sum p*gamma 3-term (2 ppb),10.072700468526834,10.072700488239345,0.0,,PASS
 app_p,proof_app_p_eml,g_00 = sum da_p/dmu (exact),-0.005749317564484651,-0.005749317564484651,0.0,,PASS
 app_p,proof_app_p_eml,Identity holds at mu=8,-0.003864502856241112,-0.003864502856241112,0.0,,PASS
-app_p,proof_app_p_eml,Identity holds at mu=12,-0.006618803344889039,-0.006618803344889039,0.0,,PASS
+app_p,proof_app_p_eml,Identity holds at mu=12,-0.006618803344889039,-0.006618803344889038,0.0,,PASS
 app_p,proof_app_p_eml,Identity holds at mu=18,-0.004750555725755648,-0.004750555725755648,0.0,,PASS
-app_p,proof_app_p_eml,Identity holds at mu=25,-0.003053351384580304,-0.003053351384580304,0.0,,PASS
+app_p,proof_app_p_eml,Identity holds at mu=25,-0.003053351384580304,-0.0030533513845803044,0.0,,PASS
 app_p,proof_app_p_eml,Identity holds at mu=50,-0.0009710798654340557,-0.0009710798654340557,0.0,,PASS
 app_p,proof_app_p_eml,1/alpha_nue (EML),136.27833445429476,136.278,0.000245,,PASS
 app_p,proof_app_p_eml,gamma_3 (PT),0.8076140384111393,0.808,0.047768,,PASS
 app_p,proof_app_p_eml,gamma_5 (PT),0.6963158584805759,0.696,0.045382,,PASS
 app_p,proof_app_p_eml,gamma_7 (PT),0.5954684400861497,0.595,0.078729,,PASS
 app_p,proof_app_p_eml,sin2(theta_12) PMNS = 1 - gamma_5,0.30368414151942413,0.3037,0.005222,,PASS
+app_q,proof_app_q,beta_ghost = sum sin^2 * gamma (expected ~0.104),0.1039308008964987,0.104,0.066538,,PASS
+app_q,proof_app_q,sin^2(theta_W) = gamma_7^2/sum gamma^2,0.23770710276110066,0.2377,0.002988,,PASS
+app_q,proof_app_q,sin^2(theta_12) = 1 - gamma_5,0.30368414151942413,0.304,0.103901,,PASS
+app_q,proof_app_q,A_CKM = gamma_3,0.8076140384111393,0.808,0.047768,,PASS
+app_q,proof_app_q,A_CKM = gamma_3 (bridge rule),0.8076140384111393,0.808,0.047768,,PASS
+app_r,proof_app_r,gamma_3(15),0.8076140384111393,0.8076,0.001738,,PASS
+app_r,proof_app_r,gamma_5(15),0.6963158584805759,0.6963,0.002278,,PASS
+app_r,proof_app_r,gamma_7(15),0.5954684400861497,0.5955,0.0053,,PASS
+app_r,proof_app_r,Gap gamma_7 - gamma_11 (robustness),0.16973530435317846,0.17,0.155703,,PASS
+app_s,proof_app_s,Phi(15) = 1/e,0.36787944117144233,0.36787944117144233,0.0,,PASS
+app_s,proof_app_s,S(15) = sum gamma_p,2.099398336977865,2.099,0.018977,,PASS
 ch01,proof_T1_sieve,route_C_eigenvalue_minus1,-1.0,-1.0,0.0,,PASS
 ch01,proof_T1_sieve,route_C_eigenvalue_plus1,1.0,1.0,0.0,,PASS
 ch01,proof_T1_sieve,stationary_pi_0,0.5,0.5,0.0,,PASS
@@ -36,9 +47,9 @@ ch01,proof_T1_sieve,empirical_freq_class2,0.5000086122259159,0.5,0.001722,(29029
 ch03,proof_conservation,pi1_eq_half_1_minus_alpha,0.29028870866125983,0.2902937088112644,0.001722,pi(1)=0.290289,PASS
 ch03,proof_conservation,lambda_1_T3,1.0,1.0,0.0,,PASS
 ch03,proof_conservation,lambda_2_T3,-1.0,-1.0,0.0,,PASS
-ch03,proof_conservation,lambda_1_T5,1.0,1.0,0.0,,PASS
+ch03,proof_conservation,lambda_1_T5,0.9999999999999999,1.0,0.0,,PASS
 ch03,proof_conservation,lambda_2_T5,-0.33333333333333326,-0.3333333333333333,0.0,,PASS
-ch03,proof_conservation,kron_leading_eigenvalue,1.0,1.0,0.0,,PASS
+ch03,proof_conservation,kron_leading_eigenvalue,0.9999999999999999,1.0,0.0,,PASS
 ch03,proof_conservation,s_squared,0.25,0.25,0.0,,PASS
 ch03,proof_conservation,entropy_theory_vs_numerical,3.9312917179998608,3.931291717999877,0.0,bits,PASS
 ch03,proof_conservation,route1_q_plus,0.8666666666666667,0.8666666666666667,0.0,,PASS
@@ -55,7 +66,7 @@ ch03,proof_conservation,cross_q_minus_r1_r3,0.9355069850316178,0.935506985031617
 ch04,proof_GFT,ruelle_spectral_radius_beta0,1.0,1.0,0.0,spectral_radius,PASS
 ch04,proof_GFT,ruelle_spectral_gap_T3,2.0,2.0,0.0,gap,PASS
 ch04,proof_GFT,pressure_beta0,1.0,1.0,0.0,,PASS
-ch04,proof_GFT,T_full_leading_eigenvalue,0.9999999999999996,1.0,0.0,eigenvalue,PASS
+ch04,proof_GFT,T_full_leading_eigenvalue,1.0000000000000007,1.0,0.0,eigenvalue,PASS
 ch08,proof_T5_fixed_point,q_plus_13_over_15,0.8666666666666667,0.8666666666666667,0.0,= 1 - 2/mu*,PASS
 ch08,proof_T5_fixed_point,delta_1_over_alpha,42.04131622239203,42.0,0.098372,= 1/alpha(17) - 1/alpha(15),PASS
 ch08,proof_T5_fixed_point,inv_alpha_15,136.27833445429476,136.28,0.001222,bare alpha at mu=15,PASS
@@ -70,8 +81,8 @@ ch09,proof_bridge_axioms,inv_alpha_product,136.27833445429482,136.27833445429482
 ch09,proof_bridge_axioms,beta0_fraction,7.666666666666667,7.666666666666667,0.0,beta_0,PASS
 ch09,proof_bridge_axioms,G_over_alpha_2pi,6.283185307179586,6.283185307179586,0.0,Haar measure,PASS
 ch09,proof_bridge_axioms,q_minus_exact_exp,0.9355069850316178,0.9355069850316178,0.0,q_minus,PASS
-ch09,proof_bridge_axioms,T3_lambda0,0.9999999999999998,1.0,0.0,,PASS
-ch09,proof_bridge_axioms,T3_lambda1,-0.49999999999999983,-0.5,0.0,,PASS
+ch09,proof_bridge_axioms,T3_lambda0,0.9999999999999999,1.0,0.0,,PASS
+ch09,proof_bridge_axioms,T3_lambda1,-0.5,-0.5,0.0,,PASS
 ch09,proof_bridge_axioms,T3_lambda2,-0.5000000000000001,-0.5,0.0,,PASS
 ch10,proof_alpha_EM,inv_alpha_bare,136.27833445429482,136.28,0.001222,1/alpha_bare,PASS
 ch10,proof_alpha_EM,exact_vs_float,136.27833445429482,136.27833445429476,0.0,,PASS
@@ -128,21 +139,21 @@ ch14,proof_thermodynamics,w_cross_check_q0,-0.9982536646116007,-1.00308500660149
 ch14,proof_thermodynamics,D_HL_hardy_littlewood,0.10041049279683634,0.1004,0.010451,bits,PASS
 ch15,test_43_observables,alpha_EM,0.0072973525693153215,0.0072973525692838015,0.0,,PASS
 ch15,test_43_observables,1/alpha_EM,137.0359990834081,137.035999084,0.0,,PASS
-ch15,test_43_observables,sin2_thetaW,0.23118634732083215,0.23121,0.01023,,PASS
+ch15,test_43_observables,sin2_thetaW,0.23118634732083218,0.23121,0.01023,,PASS
 ch15,test_43_observables,alpha_s,0.1180567172279475,0.118,0.048065,,PASS
-ch15,test_43_observables,G_F,1.1663796103662724e-05,1.1663788e-05,6.9e-05,GeV^-2,PASS
+ch15,test_43_observables,G_F,1.1663796103663388e-05,1.1663788e-05,6.9e-05,GeV^-2,PASS
 ch15,test_43_observables,m_mu,105.65837569318882,105.6583755,0.0,MeV,PASS
 ch15,test_43_observables,m_tau,1776.860052940951,1776.86,3e-06,MeV,PASS
-ch15,test_43_observables,m_u,2.1562757958986403,2.16,0.172417,MeV,PASS
-ch15,test_43_observables,m_d,4.656414090080907,4.67,0.290919,MeV,PASS
-ch15,test_43_observables,m_s,93.39503873129073,93.4,0.005312,MeV,PASS
-ch15,test_43_observables,m_c,1272.4197207850825,1270.0,0.190529,MeV,PASS
-ch15,test_43_observables,m_b,4164.768351202566,4180.0,0.364394,MeV,PASS
-ch15,test_43_observables,m_t,172698.29432424155,172760.0,0.035718,MeV,PASS
-ch15,test_43_observables,m_W,80.36353164224086,80.3692,0.007053,GeV,PASS
-ch15,test_43_observables,m_Z,91.18781529954985,91.1876,0.000236,GeV,PASS
-ch15,test_43_observables,m_H,125.28724853598781,125.25,0.029739,GeV,PASS
-ch15,test_43_observables,v_higgs,246.19027115698256,246.22,0.012074,GeV,PASS
+ch15,test_43_observables,m_u,2.1562757958986056,2.16,0.172417,MeV,PASS
+ch15,test_43_observables,m_d,4.656414090080911,4.67,0.290919,MeV,PASS
+ch15,test_43_observables,m_s,93.39503873129297,93.4,0.005312,MeV,PASS
+ch15,test_43_observables,m_c,1272.419720785087,1270.0,0.190529,MeV,PASS
+ch15,test_43_observables,m_b,4164.76835120264,4180.0,0.364394,MeV,PASS
+ch15,test_43_observables,m_t,172698.29432423663,172760.0,0.035718,MeV,PASS
+ch15,test_43_observables,m_W,80.36353164223857,80.3692,0.007053,GeV,PASS
+ch15,test_43_observables,m_Z,91.18781529954725,91.1876,0.000236,GeV,PASS
+ch15,test_43_observables,m_H,125.28724853598425,125.25,0.029739,GeV,PASS
+ch15,test_43_observables,v_higgs,246.19027115697554,246.22,0.012074,GeV,PASS
 ch15,test_43_observables,V_ud,0.9738584905152499,0.97373,0.013196,,PASS
 ch15,test_43_observables,V_us,0.22421395231987395,0.2243,0.038363,,PASS
 ch15,test_43_observables,V_ub,0.0038144378833439413,0.00382,0.145605,,PASS
@@ -167,8 +178,8 @@ ch15,test_43_observables,Dm31_sq,0.002514329891435153,0.00251,0.172506,eV^2,PASS
 ch15,test_43_observables,Dm21_sq,7.411645067112687e-05,7.42e-05,0.1126,eV^2,PASS
 ch15,test_43_observables,sigma_QCD,0.19419893531448074,0.194,0.102544,GeV^2,PASS
 ch15,test_43_observables,regge_slope,0.8775169241248735,0.88,0.282168,GeV^-2,PASS
-ch15,test_43_observables,Gamma_t,1.3059928700386803,1.42,8.028671,GeV,PASS
-ch15,test_43_observables,R_tau,3.649216830514097,3.636,0.363499,,PASS
+ch15,test_43_observables,Gamma_t,1.3059928700386432,1.42,8.028671,GeV,PASS
+ch15,test_43_observables,R_tau,3.6492168305140815,3.636,0.363499,,PASS
 ch16,test_NLO_NNLO,eps_value,0.013356211928245078,0.013356211928245078,0.0,,PASS
 ch16,test_NLO_NNLO,route_1_coupling_iteration,0.0018243381423288304,0.0018243381423288304,0.0,,PASS
 ch16,test_NLO_NNLO,route_2_lindblad,0.0018243381423288304,0.0018243381423288304,0.0,,PASS
@@ -177,7 +188,7 @@ ch16,test_NLO_NNLO,routes_1_2_agree,0.0018243381423288304,0.0018243381423288304,
 ch16,test_NLO_NNLO,routes_1_3_agree,0.0018243381423288304,0.0018243381423288304,0.0,,PASS
 ch16,test_NLO_NNLO,T3_eigenvalue_minus1,-1.0,-1.0,0.0,,PASS
 ch16,test_NLO_NNLO,T3_eigenvalue_plus1,1.0,1.0,0.0,,PASS
-ch16,test_NLO_NNLO,lindblad_orthogonality,5.004680467665246e-34,0.0,0.0,,PASS
+ch16,test_NLO_NNLO,lindblad_orthogonality,0.0,0.0,0.0,,PASS
 ch16,test_NLO_NNLO,delta_SE_matches,0.0018243381423288304,0.0018243381423288304,0.0,,PASS
 ch16,test_NLO_NNLO,C_geom_value,23.768813652679167,23.769,0.000784,,PASS
 ch16,test_NLO_NNLO,n_up_value,1.125,1.125,0.0,,PASS
@@ -191,7 +202,7 @@ ch17,test_feynman_programme,S_Polyakov_vertex,4.914699371220393,4.91469937122039
 ch17,test_feynman_programme,alpha_from_action,0.007337923551856888,0.007337923551856888,0.0,,PASS
 ch17,test_feynman_programme,CRT_factorization,0.007337923551856888,0.007337923551856888,0.0,,PASS
 ch17,test_feynman_programme,sin2_thetaW_tree,0.23770710276110069,0.2312,2.814491,,PASS
-ch17,test_feynman_programme,spectral_representation,8.326672684688674e-16,0.0,0.0,,PASS
+ch17,test_feynman_programme,spectral_representation,4.996003610813204e-16,0.0,0.0,,PASS
 ch17,test_feynman_programme,alpha_EM_derived,137.0359990834081,137.036,1e-06,,PASS
 ch17,test_feynman_programme,sin2_thetaW_derived,0.23118634732083215,0.23121,0.01023,,PASS
 ch17,test_feynman_programme,m_Z_derived,91.18781529954985,91.1876,0.000236,,PASS
@@ -224,28 +235,28 @@ ch18,test_quarkonium,sigma_times_regge,0.1704128523854884,0.17041285238548842,0.
 ch18,test_quarkonium,condensate_over_sigma_sq,1.0471975511965976,1.0471975511965976,0.0,,PASS
 ch18,test_quarkonium,C_F_value,1.3333333333333333,1.3333333333333333,0.0,,PASS
 ch18,test_quarkonium,rho_T3_eq_1,1.0,1.0,0.0,,PASS
-ch18,test_quarkonium,rho_T5_eq_3,2.999999999999999,3.0,0.0,,PASS
-ch18,test_quarkonium,lambda2_T5_eq_1,1.0,1.0,0.0,,PASS
-ch18,test_quarkonium,rho_T7_eq_5,4.999999999999999,5.0,0.0,,PASS
-ch18,test_quarkonium,lambda2_T7_eq_1,1.0000000000000002,1.0,0.0,,PASS
-ch18,test_quarkonium,rho_T11_eq_9,8.999999999999998,9.0,0.0,,PASS
-ch18,test_quarkonium,lambda2_T11_eq_1,1.0000000000000004,1.0,0.0,,PASS
-ch18,test_quarkonium,rho_T13_eq_11,11.000000000000009,11.0,0.0,,PASS
-ch18,test_quarkonium,lambda2_T13_eq_1,1.0000000000000009,1.0,0.0,,PASS
+ch18,test_quarkonium,rho_T5_eq_3,2.9999999999999996,3.0,0.0,,PASS
+ch18,test_quarkonium,lambda2_T5_eq_1,1.0000000000000004,1.0,0.0,,PASS
+ch18,test_quarkonium,rho_T7_eq_5,4.999999999999997,5.0,0.0,,PASS
+ch18,test_quarkonium,lambda2_T7_eq_1,1.0,1.0,0.0,,PASS
+ch18,test_quarkonium,rho_T11_eq_9,9.0,9.0,0.0,,PASS
+ch18,test_quarkonium,lambda2_T11_eq_1,1.0000000000000002,1.0,0.0,,PASS
+ch18,test_quarkonium,rho_T13_eq_11,10.999999999999998,11.0,0.0,,PASS
+ch18,test_quarkonium,lambda2_T13_eq_1,1.0,1.0,0.0,,PASS
 ch18,test_quarkonium,large_distance_slope,0.1947292775618173,0.19419893531448074,0.273092,,PASS
 ch18,test_quarkonium,sigma_5_from_T_string,0.19419893531448074,0.19419893531448074,0.0,,PASS
 ch18,test_quarkonium,alpha_s_eff_is_2_over_3,0.6666666666666666,0.6666666666666666,0.0,,PASS
-ch18,test_quarkonium,cc_J/psi(1S),3.1581590945122064,3.0969,1.978078,,PASS
-ch18,test_quarkonium,cc_psi(2S),3.719953094240321,3.6861,0.918399,,PASS
+ch18,test_quarkonium,cc_J/psi(1S),3.1581590945122033,3.0969,1.978078,,PASS
+ch18,test_quarkonium,cc_psi(2S),3.7199530942403185,3.6861,0.918399,,PASS
 ch18,test_quarkonium,cc_psi(4040),4.10640566544196,4.04,1.643705,,PASS
 ch18,test_quarkonium,bb_Y(1S),9.306098838345282,9.4603,1.629982,,PASS
-ch18,test_quarkonium,bb_Y(2S),9.963114339465731,10.0233,0.600458,,PASS
+ch18,test_quarkonium,bb_Y(2S),9.963114339465728,10.0233,0.600458,,PASS
 ch18,test_quarkonium,bb_Y(3S),10.34489387778067,10.3552,0.099526,,PASS
-ch18,test_quarkonium,bb_Y(4S),10.640301417655559,10.5794,0.57566,,PASS
-ch18,test_quarkonium,bb_Y(10860),10.891746768296196,10.8852,0.060144,,PASS
-ch18,test_quarkonium,bb_Y(11020),11.115516365681174,11.019,0.875909,,PASS
+ch18,test_quarkonium,bb_Y(4S),10.640301417655555,10.5794,0.57566,,PASS
+ch18,test_quarkonium,bb_Y(10860),10.891746768296182,10.8852,0.060144,,PASS
+ch18,test_quarkonium,bb_Y(11020),11.115516365681161,11.019,0.875909,,PASS
 ch18,test_quarkonium,sigma_Richardson_self_consistent,0.19419893531448074,0.19419893531448074,0.0,,PASS
-ch18,test_quarkonium,Richardson_IR_slope,0.15182991588353795,0.19419893531448074,21.817328,,PASS
+ch18,test_quarkonium,Richardson_IR_slope,0.15182991588353814,0.19419893531448074,21.817328,,PASS
 ch19,test_hadrons,f_pi_string_relation,0.13162007846365925,0.1302,1.09069,131.6 MeV,PASS
 ch19,test_hadrons,fK_over_fpi,1.1968539379030363,1.195852534562212,0.08374,,PASS
 ch19,test_hadrons,f_K_derived,0.1575300092163372,0.1557,1.175343,,PASS
@@ -407,7 +418,7 @@ ch22_chemistry,test_nuclear,B/A(Pb-208),7.8706759566447,7.867,0.046726,MeV,PASS
 ch22_chemistry,test_nuclear,B/A(U-238),7.643611143602605,7.57,0.972406,MeV,PASS
 ch22_chemistry,test_nuclear,g_A (axial coupling),1.2732911504341702,1.2724,0.070037,,PASS
 ch_PM,test_PM_algebra,CF_normalisation,3.0145,3.0,0.483333,mean(PH+PE+PC),PASS
-ch_math_structures,test_complex_mechanics,|W|^2 = prod(sin^2) = alpha_bare,0.00733792355185689,0.007337923551856888,0.0,alpha_bare,PASS
+ch_math_structures,test_complex_mechanics,|W|^2 = prod(sin^2) = alpha_bare,0.007337923551856887,0.007337923551856888,0.0,alpha_bare,PASS
 ch_math_structures,test_complex_mechanics,1/alpha_bare ~ 136.28,136.27833445429482,136.28,0.001222,1/alpha,PASS
 ch_math_structures,test_complex_mechanics,|W_all|^2 = prod(sin^2) for 9 primes,2.4557210633699322e-08,2.455721063369933e-08,0.0,extended product,PASS
 ch_math_structures,test_complex_mechanics,Decomposition: prod(1/theta^2) * prod(theta/sin)^2 = 1/alpha,136.27833445429482,136.27833445429482,0.0,1/alpha,PASS
@@ -415,7 +426,7 @@ ch_math_structures,test_complex_mechanics,Geometric factor prod(1/theta^2) ~ 110
 ch_math_structures,test_complex_mechanics,Non-classicality factor prod(theta/sin)^2 ~ 1.24,1.235090289366615,1.24,0.395944,non-classical,PASS
 ch_math_structures,test_complex_mechanics,Zeta link: a_1 = 1/6 = zeta(2)/pi^2,0.16666666666666666,0.16666666666666669,0.0,,PASS
 ch_math_structures,test_complex_mechanics,Zeta link: a_2/(zeta(4)/pi^4) = 7/4 (Bernoulli factor),1.75,1.75,0.0,,PASS
-ch_math_structures,test_math_tools,alpha_from_complex_product,0.00733792355185689,0.007337923551856888,0.0,(|W|^2 vs prod sin^2),PASS
+ch_math_structures,test_math_tools,alpha_from_complex_product,0.007337923551856887,0.007337923551856888,0.0,(|W|^2 vs prod sin^2),PASS
 ch_math_structures,test_math_tools,alpha_EM_inverse,136.27833445429482,136.28,0.001222,1/alpha,PASS
 ch_math_structures,test_math_tools,persist_transform_constant_Pplus,1.414213562373095,1.4142135623730951,0.0,(P+ of f=1),PASS
 ch_math_structures,test_math_tools,holonomic_alpha_EM,136.27833445429482,136.28,0.001222,(1/alpha),PASS

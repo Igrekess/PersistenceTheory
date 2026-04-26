@@ -1,8 +1,8 @@
 {
   "script": "test_feynman_programme",
   "chapter": "ch17",
-  "timestamp": "2026-04-26T14:01:44.573899+00:00",
-  "duration_s": 0.008,
+  "timestamp": "2026-04-26T14:07:11.963106+00:00",
+  "duration_s": 0.004,
   "n_pass": 115,
   "n_fail": 0,
   "n_total": 115,

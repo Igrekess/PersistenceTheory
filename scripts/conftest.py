@@ -20,33 +20,45 @@ import pytest
 
 SCRIPT_DIR = Path(__file__).resolve().parent
 
-# Domain directories in monograph order
-DOMAINS = [
-    "ch01_sieve", "ch02_uniqueness", "ch03_conservation",
-    "ch04_gft", "ch05_geometry", "ch06_holonomy",
-    "ch07_convergence", "ch08_fixed_point",
-    "ch_math_structures", "ch_PM", "ch25_BA0_closing",
-    "ch09_bridge", "ch10_fine_structure", "ch11_couplings",
-    "ch12_quantum", "ch13_relativity", "ch14_thermodynamics",
-    "ch15_sm_observables",
-    "ch16_perturbative", "ch17_feynman", "ch18_quarkonium",
-    "ch19_hadrons", "ch20_collider", "ch21_predictions",
-    "ch22_chemistry",
-    "ch23_audit",
-    "verify_sota",
-]
-
-_SKIP_PREFIXES = ("pt_", "_", "__")
+_SKIP_PREFIXES = ("pt_", "_", "__", "conftest")
 _SKIP_FILES = {"run_all.py", "conftest.py"}
+_SKIP_DIR_PREFIXES = (".", "__", "archive", "lib", "reports")
+
+
+def _discover_domains():
+    """
+    Auto-discover all subdirectories containing runnable .py scripts.
+
+    Replaces the previous manually-maintained DOMAINS list so that
+    new chapter directories (e.g. Class B Extensions ch20[bcdefg]_*)
+    are picked up automatically without code changes.
+    """
+    for entry in sorted(os.listdir(SCRIPT_DIR)):
+        path = SCRIPT_DIR / entry
+        if not path.is_dir():
+            continue
+        if entry.startswith(_SKIP_DIR_PREFIXES):
+            continue
+        # Confirm at least one runnable script exists in this directory
+        has_script = any(
+            f.endswith(".py")
+            and not f.startswith("._")
+            and not any(f.startswith(p) for p in _SKIP_PREFIXES)
+            and f not in _SKIP_FILES
+            for f in os.listdir(path) if os.path.isfile(path / f)
+        )
+        if has_script:
+            yield entry
 
 
 def _discover_scripts():
     """Yield (domain, script_path) for all runnable scripts."""
-    for domain in DOMAINS:
+    for domain in _discover_domains():
         domain_dir = SCRIPT_DIR / domain
-        if not domain_dir.is_dir():
-            continue
         for f in sorted(os.listdir(domain_dir)):
+            # Skip macOS AppleDouble metadata files (._foo.py etc.)
+            if f.startswith("._"):
+                continue
             if not f.endswith(".py"):
                 continue
             if any(f.startswith(p) for p in _SKIP_PREFIXES):

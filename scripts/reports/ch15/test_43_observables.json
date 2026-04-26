@@ -1,8 +1,8 @@
 {
   "script": "test_43_observables",
   "chapter": "ch15",
-  "timestamp": "2026-04-26T14:01:43.097233+00:00",
-  "duration_s": 0.0,
+  "timestamp": "2026-04-26T14:08:56.689670+00:00",
+  "duration_s": 0.001,
   "n_pass": 55,
   "n_fail": 0,
   "n_total": 55,
@@ -56,7 +56,7 @@
     {
       "label": "sin2_thetaW",
       "status": "PASS",
-      "value": 0.23118634732083215,
+      "value": 0.23118634732083218,
       "expected": 0.23121,
       "err_pct": 0.01023,
       "tol_pct": 2.0,
@@ -76,7 +76,7 @@
     {
       "label": "G_F",
       "status": "PASS",
-      "value": 1.1663796103662724e-05,
+      "value": 1.1663796103663388e-05,
       "expected": 1.1663788e-05,
       "err_pct": 6.9e-05,
       "tol_pct": 2.0,
@@ -106,7 +106,7 @@
     {
       "label": "m_u",
       "status": "PASS",
-      "value": 2.1562757958986403,
+      "value": 2.1562757958986056,
       "expected": 2.16,
       "err_pct": 0.172417,
       "tol_pct": 2.0,
@@ -116,7 +116,7 @@
     {
       "label": "m_d",
       "status": "PASS",
-      "value": 4.656414090080907,
+      "value": 4.656414090080911,
       "expected": 4.67,
       "err_pct": 0.290919,
       "tol_pct": 2.0,
@@ -126,7 +126,7 @@
     {
       "label": "m_s",
       "status": "PASS",
-      "value": 93.39503873129073,
+      "value": 93.39503873129297,
       "expected": 93.4,
       "err_pct": 0.005312,
       "tol_pct": 2.0,
@@ -136,7 +136,7 @@
     {
       "label": "m_c",
       "status": "PASS",
-      "value": 1272.4197207850825,
+      "value": 1272.419720785087,
       "expected": 1270.0,
       "err_pct": 0.190529,
       "tol_pct": 2.0,
@@ -146,7 +146,7 @@
     {
       "label": "m_b",
       "status": "PASS",
-      "value": 4164.768351202566,
+      "value": 4164.76835120264,
       "expected": 4180.0,
       "err_pct": 0.364394,
       "tol_pct": 2.0,
@@ -156,7 +156,7 @@
     {
       "label": "m_t",
       "status": "PASS",
-      "value": 172698.29432424155,
+      "value": 172698.29432423663,
       "expected": 172760.0,
       "err_pct": 0.035718,
       "tol_pct": 2.0,
@@ -166,7 +166,7 @@
     {
       "label": "m_W",
       "status": "PASS",
-      "value": 80.36353164224086,
+      "value": 80.36353164223857,
       "expected": 80.3692,
       "err_pct": 0.007053,
       "tol_pct": 2.0,
@@ -176,7 +176,7 @@
     {
       "label": "m_Z",
       "status": "PASS",
-      "value": 91.18781529954985,
+      "value": 91.18781529954725,
       "expected": 91.1876,
       "err_pct": 0.000236,
       "tol_pct": 2.0,
@@ -186,7 +186,7 @@
     {
       "label": "m_H",
       "status": "PASS",
-      "value": 125.28724853598781,
+      "value": 125.28724853598425,
       "expected": 125.25,
       "err_pct": 0.029739,
       "tol_pct": 2.0,
@@ -196,7 +196,7 @@
     {
       "label": "v_higgs",
       "status": "PASS",
-      "value": 246.19027115698256,
+      "value": 246.19027115697554,
       "expected": 246.22,
       "err_pct": 0.012074,
       "tol_pct": 2.0,
@@ -446,7 +446,7 @@
     {
       "label": "Gamma_t",
       "status": "PASS",
-      "value": 1.3059928700386803,
+      "value": 1.3059928700386432,
       "expected": 1.42,
       "err_pct": 8.028671,
       "tol_pct": 15.0,
@@ -456,7 +456,7 @@
     {
       "label": "R_tau",
       "status": "PASS",
-      "value": 3.649216830514097,
+      "value": 3.6492168305140815,
       "expected": 3.636,
       "err_pct": 0.363499,
       "tol_pct": 2.0,

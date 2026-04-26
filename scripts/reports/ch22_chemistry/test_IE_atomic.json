@@ -1,8 +1,8 @@
 {
   "script": "test_IE_atomic",
   "chapter": "ch22_chemistry",
-  "timestamp": "2026-04-26T14:01:56.880623+00:00",
-  "duration_s": 0.005,
+  "timestamp": "2026-04-26T14:07:23.741803+00:00",
+  "duration_s": 0.004,
   "n_pass": 196,
   "n_fail": 0,
   "n_total": 196,

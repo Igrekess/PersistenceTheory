@@ -1,8 +1,8 @@
 {
   "script": "test_PM_algebra",
   "chapter": "ch_PM",
-  "timestamp": "2026-04-26T14:02:02.019384+00:00",
-  "duration_s": 0.045,
+  "timestamp": "2026-04-26T14:07:28.741516+00:00",
+  "duration_s": 0.025,
   "n_pass": 58,
   "n_fail": 0,
   "n_total": 58,
