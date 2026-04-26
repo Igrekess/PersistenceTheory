@@ -51,8 +51,27 @@ DOMAIN_LABELS = {
     "ch20_collider":       "Part V   Collider (ch20) -- 72 obs",
     "ch21_predictions":    "Part V   Predictions (ch21) -- P1-P28",
     "ch22_chemistry":      "Part VI  Chemistry (ch22) -- C1-C14",
-    "ch23_audit":          "Part VII Audit (ch23)",
-    "verify_sota":         "Part VII SOTA verification (requires ptc)",
+    # Part VII: Cosmological Scale (existing chapters)
+    "ch20f_cosmological_DM":  "Part VII Cosmological DM (ch20f) -- F_inactive",
+    "ch20f_dark_energy":      "Part VII Dark energy (ch20f) -- P20 routes A/B/D",
+    "ch20f_neutrino_mass_bound": "Part VII Neutrino mass bound (ch20f) -- DESI DR3",
+    # Part VIII: Class B Extensions (added 2026-04-26, 13 chapters)
+    "ch20b_wilson_coefficients":      "Part VIII Wilson |C9-C10|=beta_echo (ch20b) [PRED]",
+    "ch20c_hadronic_margin":          "Part VIII Hadronic margin b->sll (ch20c) [DER-PHYS]",
+    "ch20d_BSM_taxonomy":             "Part VIII BSM taxonomy A/B/C (ch20d) [META]",
+    "ch20e_DM_candidate":             "Part VIII DM scalar singlet p=2 (ch20e) [PRED]",
+    "ch20e_RH_neutrinos":             "Part VIII Right-handed neutrinos Dirac (ch20e)",
+    "ch20e_basin_robustness":         "Part VIII Basin robustness mu*=15 (ch20e) [THM+VAL]",
+    "ch20f_hubble_tension":           "Part VIII Hubble tension H_0=67.43 (ch20f) [PRED]",
+    "ch20f_meerkat_filament":         "Part VIII MeerKAT filament alignment (ch20f) [VAL]",
+    "ch20g_bobeth_181_structure":     "Part VIII Bobeth 181-prefactor (ch20g) [DETAIL]",
+    "ch20g_bottom_loop_topology":     "Part VIII Bottom-loop topology b->sgamma (ch20g) [DER]",
+    "ch20g_counting_convention":      "Part VIII Counting convention mu*=4Nc+3 (ch20g)",
+    "ch20g_higgs_portal_derivation":  "Part VIII Higgs portal lambda_HS (ch20g) [DER]",
+    "ch20g_super_echo_cutoff":        "Part VIII Super-echo cutoff {11..23} (ch20g) [DER]",
+    # Part IX: Audit & Appendices
+    "ch23_audit":          "Part IX  Audit (ch23)",
+    "verify_sota":         "Part IX  SOTA verification (requires ptc)",
 }
 
 # Prefixes that indicate library/utility modules (not runnable scripts)

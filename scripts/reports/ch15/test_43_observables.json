@@ -1,8 +1,8 @@
 {
   "script": "test_43_observables",
   "chapter": "ch15",
-  "timestamp": "2026-04-14T23:59:00.598718+00:00",
-  "duration_s": 0.001,
+  "timestamp": "2026-04-26T14:01:43.097233+00:00",
+  "duration_s": 0.0,
   "n_pass": 55,
   "n_fail": 0,
   "n_total": 55,

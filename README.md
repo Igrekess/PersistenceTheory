@@ -32,7 +32,7 @@ elsewhere.
 
 ## What is in this repository
 
-- The PDF monograph (~640 pages).
+- The PDF monograph (~876 pages).
 - The Python scripts under `scripts/`, one per chapter, each verifying the
   theorems or numerical values claimed in that chapter.
 - A master runner that executes the full verification suite and generates
@@ -144,7 +144,31 @@ scripts/
   Part VI -- Chemistry
     ch22_chemistry/            14 scripts (periodic table through nuclear)
 
-  Part VII -- Audit & Appendices
+  Part VII -- Cosmological Scale
+    ch20f_cosmological_DM/     test_cosmological_DM.py
+    ch20f_dark_energy/         test_dark_energy.py
+    ch20f_neutrino_mass_bound/ test_neutrino_mass_bound.py
+
+  Part VIII -- Class B Extensions (13 chapters, added 2026-04-26)
+    A. Wilson coefficients & flavor
+      ch20b_wilson_coefficients/   test_wilson_coefficients.py
+      ch20c_hadronic_margin/       test_hadronic_margin.py
+      ch20g_bobeth_181_structure/  test_bobeth_181_structure.py
+    B. BSM taxonomy & DM
+      ch20d_BSM_taxonomy/          test_BSM_taxonomy.py
+      ch20e_DM_candidate/          test_DM_candidate.py
+      ch20e_RH_neutrinos/          test_neutrino_majorana_vs_dirac.py
+      ch20e_basin_robustness/      test_basin_robustness.py
+    C. Auxiliary cosmology
+      ch20f_hubble_tension/        test_hubble_tension.py
+      ch20f_meerkat_filament/      test_meerkat_filament.py
+    D. Loop derivations
+      ch20g_bottom_loop_topology/  test_bottom_loop_topology.py
+      ch20g_counting_convention/   test_counting_convention.py
+      ch20g_higgs_portal_derivation/ test_higgs_portal_derivation.py
+      ch20g_super_echo_cutoff/     test_super_echo_selection.py + test_gamma_min_cutoff.py
+
+  Part IX -- Audit & Appendices
     ch23_audit/                test_audit.py
     verify_sota/               verify_sota.py
     app_p_eml/                 proof_app_p_eml.py     (EML circuit form)
@@ -284,6 +308,41 @@ choices in how the framework is applied.
   parts of the drafting process and for the companion scripts.
 
 ## Recent updates
+
+- **2026-04-26** — 10/10 [THM] structural commitments + Class B Extensions
+  + audit cleanup (monograph reaches 876 pages):
+  - **Promotion C2 [DER]→[THM]** (`thm:C2_universal`): the leakage domain
+    cardinality `N(p) = (p+1)^(p+1) - 1` is proved via ZFC additivity +
+    L0 max-entropy (Mac Lane 1971, Riehl 2017, Jaynes 1957).
+  - **Promotion C4 [DER]→[THM]** (`thm:C4_NNLO`): the Fisher-Koide NNLO
+    coefficient `5/18 = p_2/(2 p_1²)` is proved via Pontryagin discrete
+    sum + Wick theorem + T6 cyclic-phase loop closure + channel
+    orthogonality at NNLO (Pontryagin 1966, Peskin-Schroeder 1995).
+  - **Counter: 10/10 [THM], 0 [DER]** structural commitments left open.
+    First example in theoretical physics (to our knowledge) of a framework
+    with zero open structural commitments, modulo external peer review.
+  - **Audit Niveau 1+2+3**: cleanup of obsolete `[DER]` statements,
+    harmonisation of numerical claims (43 SM observables, mean 0.082%
+    on 37 independent predictions, `1/α_EM` accurate to 0.004 ppb),
+    and conceptual reinforcement of C2/C3/C4 against rigorous critique
+    (information-theoretic disjointness for `lem:C2_op_distinct`,
+    explicit T6 dependency chain in `rem:C4_independent`, independent
+    derivation of the spectator factor `2^(N_gen-1)` for C3).
+  - **13 Class B Extensions integrated** as a new Part of the monograph:
+    Wilson coefficient identity, hadronic margin for `b→sℓℓ`, BSM
+    scenario taxonomy, scalar singlet DM candidate (`m_DM ~ m_H/2`),
+    right-handed neutrino mechanism, basin robustness of `μ* = 15`,
+    auxiliary cosmology (Hubble tension, MeerKAT filament alignment),
+    and four loop derivations (bottom-loop topology, counting
+    convention, Higgs portal, super-echo cutoff).
+  - **Companion scripts**: `scripts/ch20b_*` to `scripts/ch20g_*` (13
+    new directories, 14 scripts) provide reproducibility checks for
+    each Class B chapter.
+  - **Nomenclature finalised**: full migration from legacy `\qstat/\qtherm`
+    to canonical `\qplus/\qminus` (461 LaTeX occurrences). Source
+    consistent with rendered PDF.
+  - **Zero unresolved references** in the LaTeX compile (32 → 0 typos
+    or renamings; 23 missing bibliography entries added).
 
 - **2026-04-19** — Internal closure work:
   - Appendix P (EML circuit form), following Odrzywołek (arXiv:2603.21852v2)

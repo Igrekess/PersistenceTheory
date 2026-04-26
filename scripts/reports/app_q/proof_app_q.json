@@ -1,0 +1,189 @@
+{
+  "script": "proof_app_q",
+  "chapter": "app_q",
+  "timestamp": "2026-04-26T14:01:11.859951+00:00",
+  "duration_s": 0.113,
+  "n_pass": 30,
+  "n_fail": 0,
+  "n_total": 30,
+  "success": true,
+  "results": [
+    {
+      "label": "1/(p1*p3) == 1/21",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "NLO = Plancherel(p1) * Plancherel(p3)",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "Channel M excludes p_2 at NLO (D-tree)",
+      "status": "PASS",
+      "detail": "structural: Fisher alpha_{35}, alpha_{57} decouple from mass formula"
+    },
+    {
+      "label": "p2/(2 p1^2) == 5/18",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "1/2 * 1/p1^2 * p_2 == 5/18",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "NNLO C_K == 5*delta_3^2/(18*21)",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "Haar on f_3: lambda=1 => 1/3",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "Counting on f_3: lambda=3 => factor 3",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "Haar on f_5: lambda=1 => 1/5",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "Counting on f_5: lambda=5 => factor 5",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "Haar on f_7: lambda=1 => 1/7",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "Counting on f_7: lambda=7 => factor 7",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "Duality 1/3 * 3 = 1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "Duality 1/5 * 5 = 1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "Duality 1/7 * 7 = 1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "Haar C1-compat: 1/6 = 1/2 * 1/3",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "Canonical values exhaust {0, 1, p} under (C1)-(C3)",
+      "status": "PASS",
+      "detail": "Haar uniqueness on finite abelian groups (Pontryagin)"
+    },
+    {
+      "label": "beta_ghost = sum sin^2 * gamma (expected ~0.104)",
+      "status": "PASS",
+      "value": 0.1039308008964987,
+      "expected": 0.104,
+      "err_pct": 0.066538,
+      "tol_pct": 5.0,
+      "unit": "",
+      "detail": "computed=0.1039308, expected=0.104, err=0.0665%, tol=5.0%"
+    },
+    {
+      "label": "Product form sin^2*gamma unique (Lehmann decomposition)",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "p=3 active (gamma > 1/2)",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "p=5 active (gamma > 1/2)",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "p=7 active (gamma > 1/2)",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "p=11 inactive (gamma < 1/2, self-energy only)",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "p=13 inactive (gamma < 1/2, self-energy only)",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "sin^2(theta_W) = gamma_7^2/sum gamma^2",
+      "status": "PASS",
+      "value": 0.23770710276110066,
+      "expected": 0.2377,
+      "err_pct": 0.002988,
+      "tol_pct": 5.0,
+      "unit": "",
+      "detail": "computed=0.2377071, expected=0.2377, err=0.0030%, tol=5.0%"
+    },
+    {
+      "label": "sin^2(theta_12) = 1 - gamma_5",
+      "status": "PASS",
+      "value": 0.30368414151942413,
+      "expected": 0.304,
+      "err_pct": 0.103901,
+      "tol_pct": 5.0,
+      "unit": "",
+      "detail": "computed=0.30368414, expected=0.304, err=0.1039%, tol=5.0%"
+    },
+    {
+      "label": "A_CKM = gamma_3",
+      "status": "PASS",
+      "value": 0.8076140384111393,
+      "expected": 0.808,
+      "err_pct": 0.047768,
+      "tol_pct": 1.0,
+      "unit": "",
+      "detail": "computed=0.80761404, expected=0.808, err=0.0478%, tol=1.0%"
+    },
+    {
+      "label": "Q_Koide = 2/3",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "2|Q_b| = 2/3 = Q_Koide (Zbb vertex)",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "A_CKM = gamma_3 (bridge rule)",
+      "status": "PASS",
+      "value": 0.8076140384111393,
+      "expected": 0.808,
+      "err_pct": 0.047768,
+      "tol_pct": 1.0,
+      "unit": "",
+      "detail": "computed=0.80761404, expected=0.808, err=0.0478%, tol=1.0%"
+    }
+  ],
+  "pt_version": "v7",
+  "zero_fitted_parameters": true
+}

@@ -1,12 +1,12 @@
 {
   "script": "test_math_tools",
   "chapter": "ch_math_structures",
-  "timestamp": "2026-04-14T23:59:21.282622+00:00",
-  "duration_s": 1.591,
-  "n_pass": 388,
-  "n_fail": 0,
+  "timestamp": "2026-04-26T14:02:04.387091+00:00",
+  "duration_s": 1.522,
+  "n_pass": 387,
+  "n_fail": 1,
   "n_total": 388,
-  "success": true,
+  "success": false,
   "results": [
     {
       "label": "pt_number_signature_prime",
@@ -276,7 +276,7 @@
     {
       "label": "alpha_from_complex_product",
       "status": "PASS",
-      "value": 0.00733792355185689,
+      "value": 0.007337923551856887,
       "expected": 0.007337923551856888,
       "err_pct": 0.0,
       "tol_pct": 0.01,
@@ -716,7 +716,7 @@
     {
       "label": "U_T3_eigenvalues",
       "status": "PASS",
-      "detail": "eigenvalues = [1.0, 1.0, -1.0]"
+      "detail": "eigenvalues = [np.float64(1.0), np.float64(1.0), np.float64(-1.0)]"
     },
     {
       "label": "purity_pure_state_K5",
@@ -1266,7 +1266,7 @@
     {
       "label": "cat_associativity",
       "status": "PASS",
-      "detail": "err = 5.55e-17"
+      "detail": "err = 1.11e-16"
     },
     {
       "label": "cat_composition_functorial",
@@ -1626,12 +1626,12 @@
     {
       "label": "crt_lam2_lt_1_q5",
       "status": "PASS",
-      "detail": "|lambda_2(T_5)| = 0.5449462105784524"
+      "detail": "|lambda_2(T_5)| = 0.5449462105784519"
     },
     {
       "label": "crt_lam2_lt_1_q7",
       "status": "PASS",
-      "detail": "|lambda_2(T_7)| = 0.6159684716052267"
+      "detail": "|lambda_2(T_7)| = 0.6159684716052269"
     },
     {
       "label": "crt_capacity_R_positive_q3",
@@ -1850,8 +1850,8 @@
     },
     {
       "label": "hybrid_lam2_from_Tjoint",
-      "status": "PASS",
-      "detail": "|lambda_2| = 0.9999999999999998"
+      "status": "FAIL",
+      "detail": "|lambda_2| = 1.0"
     },
     {
       "label": "hybrid_h_computed",

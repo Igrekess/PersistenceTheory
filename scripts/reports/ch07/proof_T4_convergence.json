@@ -1,8 +1,8 @@
 {
   "script": "proof_T4_convergence",
   "chapter": "ch07",
-  "timestamp": "2026-04-14T23:58:53.717207+00:00",
-  "duration_s": 12.658,
+  "timestamp": "2026-04-26T14:01:36.604035+00:00",
+  "duration_s": 12.378,
   "n_pass": 64,
   "n_fail": 0,
   "n_total": 64,
@@ -86,7 +86,7 @@
     {
       "label": "T2_row0_annihilation",
       "status": "PASS",
-      "detail": "T^2 row-0 = pi + lam1^2 * l1 (mu_2 term absent), max_err = 5.55e-17"
+      "detail": "T^2 row-0 = pi + lam1^2 * l1 (mu_2 term absent), max_err = 1.11e-16"
     },
     {
       "label": "eps_strictly_decreasing",

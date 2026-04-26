@@ -1,8 +1,8 @@
 {
   "script": "test_quarkonium",
   "chapter": "ch18",
-  "timestamp": "2026-04-14T23:59:02.979050+00:00",
-  "duration_s": 0.02,
+  "timestamp": "2026-04-26T14:01:45.298390+00:00",
+  "duration_s": 0.019,
   "n_pass": 54,
   "n_fail": 0,
   "n_total": 54,
@@ -221,7 +221,7 @@
     {
       "label": "rho_T5_eq_3",
       "status": "PASS",
-      "value": 2.999999999999999,
+      "value": 2.9999999999999996,
       "expected": 3.0,
       "err_pct": 0.0,
       "tol_pct": 0.001,
@@ -231,7 +231,7 @@
     {
       "label": "lambda2_T5_eq_1",
       "status": "PASS",
-      "value": 1.0,
+      "value": 1.0000000000000004,
       "expected": 1.0,
       "err_pct": 0.0,
       "tol_pct": 0.001,
@@ -241,7 +241,7 @@
     {
       "label": "rho_T7_eq_5",
       "status": "PASS",
-      "value": 4.999999999999999,
+      "value": 4.999999999999997,
       "expected": 5.0,
       "err_pct": 0.0,
       "tol_pct": 0.001,
@@ -251,7 +251,7 @@
     {
       "label": "lambda2_T7_eq_1",
       "status": "PASS",
-      "value": 1.0000000000000002,
+      "value": 1.0,
       "expected": 1.0,
       "err_pct": 0.0,
       "tol_pct": 0.001,
@@ -261,7 +261,7 @@
     {
       "label": "rho_T11_eq_9",
       "status": "PASS",
-      "value": 8.999999999999998,
+      "value": 9.0,
       "expected": 9.0,
       "err_pct": 0.0,
       "tol_pct": 0.001,
@@ -271,7 +271,7 @@
     {
       "label": "lambda2_T11_eq_1",
       "status": "PASS",
-      "value": 1.0000000000000004,
+      "value": 1.0000000000000002,
       "expected": 1.0,
       "err_pct": 0.0,
       "tol_pct": 0.001,
@@ -281,7 +281,7 @@
     {
       "label": "rho_T13_eq_11",
       "status": "PASS",
-      "value": 11.000000000000009,
+      "value": 10.999999999999998,
       "expected": 11.0,
       "err_pct": 0.0,
       "tol_pct": 0.001,
@@ -291,7 +291,7 @@
     {
       "label": "lambda2_T13_eq_1",
       "status": "PASS",
-      "value": 1.0000000000000009,
+      "value": 1.0,
       "expected": 1.0,
       "err_pct": 0.0,
       "tol_pct": 0.001,
@@ -346,7 +346,7 @@
     {
       "label": "cc_J/psi(1S)",
       "status": "PASS",
-      "value": 3.1581590945122064,
+      "value": 3.1581590945122033,
       "expected": 3.0969,
       "err_pct": 1.978078,
       "tol_pct": 2.5,
@@ -356,7 +356,7 @@
     {
       "label": "cc_psi(2S)",
       "status": "PASS",
-      "value": 3.719953094240321,
+      "value": 3.7199530942403185,
       "expected": 3.6861,
       "err_pct": 0.918399,
       "tol_pct": 2.5,
@@ -386,7 +386,7 @@
     {
       "label": "bb_Y(2S)",
       "status": "PASS",
-      "value": 9.963114339465731,
+      "value": 9.963114339465728,
       "expected": 10.0233,
       "err_pct": 0.600458,
       "tol_pct": 2.5,
@@ -406,7 +406,7 @@
     {
       "label": "bb_Y(4S)",
       "status": "PASS",
-      "value": 10.640301417655559,
+      "value": 10.640301417655555,
       "expected": 10.5794,
       "err_pct": 0.57566,
       "tol_pct": 2.5,
@@ -416,7 +416,7 @@
     {
       "label": "bb_Y(10860)",
       "status": "PASS",
-      "value": 10.891746768296196,
+      "value": 10.891746768296182,
       "expected": 10.8852,
       "err_pct": 0.060144,
       "tol_pct": 2.5,
@@ -426,7 +426,7 @@
     {
       "label": "bb_Y(11020)",
       "status": "PASS",
-      "value": 11.115516365681174,
+      "value": 11.115516365681161,
       "expected": 11.019,
       "err_pct": 0.875909,
       "tol_pct": 2.5,
@@ -461,7 +461,7 @@
     {
       "label": "Richardson_IR_slope",
       "status": "PASS",
-      "value": 0.15182991588353795,
+      "value": 0.15182991588353814,
       "expected": 0.19419893531448074,
       "err_pct": 21.817328,
       "tol_pct": 25.0,

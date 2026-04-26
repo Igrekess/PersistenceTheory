@@ -1,7 +1,7 @@
 {
   "script": "test_audit",
   "chapter": "ch23",
-  "timestamp": "2026-04-14T23:59:17.235555+00:00",
+  "timestamp": "2026-04-26T14:02:00.610752+00:00",
   "duration_s": 0.642,
   "n_pass": 14,
   "n_fail": 0,
@@ -56,7 +56,7 @@
     {
       "label": "Vus_chosen_best",
       "status": "PASS",
-      "detail": "chosen = 0.0384%, alts = {'c=1': 0.7104051402184745, 'c=C_F': 1.1584333908898907}"
+      "detail": "chosen = 0.0384%, alts = {'c=1': np.float64(0.7104051402184745), 'c=C_F': np.float64(1.1584333908898907)}"
     },
     {
       "label": "info_ratio_gt_2",

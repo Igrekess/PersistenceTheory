@@ -1,7 +1,7 @@
 {
   "script": "test_NLO_NNLO",
   "chapter": "ch16",
-  "timestamp": "2026-04-14T23:59:01.353192+00:00",
+  "timestamp": "2026-04-26T14:01:43.833020+00:00",
   "duration_s": 0.0,
   "n_pass": 50,
   "n_fail": 0,
@@ -121,12 +121,12 @@
     {
       "label": "lindblad_orthogonality",
       "status": "PASS",
-      "value": 5.004680467665246e-34,
+      "value": 0.0,
       "expected": 0.0,
       "err_pct": 0.0,
       "tol_pct": 0.001,
       "unit": "",
-      "detail": "computed=5.0046805e-34, expected=0, err=0.0000%, tol=0.001%"
+      "detail": "computed=0, expected=0, err=0.0000%, tol=0.001%"
     },
     {
       "label": "delta_SE_matches",

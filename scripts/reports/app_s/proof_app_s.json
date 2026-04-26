@@ -1,0 +1,134 @@
+{
+  "script": "proof_app_s",
+  "chapter": "app_s",
+  "timestamp": "2026-04-26T14:01:12.676153+00:00",
+  "duration_s": 0.247,
+  "n_pass": 22,
+  "n_fail": 0,
+  "n_total": 22,
+  "success": true,
+  "results": [
+    {
+      "label": "exp(x + 2pi*i) = exp(x) (U(1) stabiliser)",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "ln(λy) - ln(y) = ln(λ) (additive shift, NOT stabiliser)",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "D = d + iA covariance established algebraically",
+      "status": "PASS",
+      "detail": "standard U(1) gauge construction, verified in text"
+    },
+    {
+      "label": "Phi(15) = 1/e",
+      "status": "PASS",
+      "value": 0.36787944117144233,
+      "expected": 0.36787944117144233,
+      "err_pct": 0.0,
+      "tol_pct": 1e-08,
+      "unit": "",
+      "detail": "computed=0.36787944, expected=0.36787944, err=0.0000%, tol=1e-08%"
+    },
+    {
+      "label": "Sum P_act = mu* (self-consistency)",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "S(15) = sum gamma_p",
+      "status": "PASS",
+      "value": 2.099398336977865,
+      "expected": 2.099,
+      "err_pct": 0.018977,
+      "tol_pct": 0.5,
+      "unit": "",
+      "detail": "computed=2.0993983, expected=2.099, err=0.0190%, tol=0.5%"
+    },
+    {
+      "label": "S - 15*S' = 1.2936 > 0 (Lorentzian regime)",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "d^2(ln alpha)/dmu^2 = 0.00575 > 0 at mu*=15",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "2 + 1 + 1 = 4",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "SU(3)_C rank 2 from face f_3 (N_c=3)",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "SU(2)_L rank 1 from p=2 involution",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "U(1)_Y rank 1 from Gell-Mann-Nishijima",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "Heisenberg commutation: CS = omega*SC",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "T_3 extended: det = -1 (transposition in S_3)",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "T_3 extended orthogonal (T^T T = I)",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "depth(q_therm) = 1 (primitive)",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "depth(q_stat) >= 2 (derived)",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "Arrow Identity dH/dD_KL = -1 (ch04 GFT)",
+      "status": "PASS",
+      "detail": "Thermodynamic arrow linked to EML asymmetry"
+    },
+    {
+      "label": "U(1) stabiliser preserves Grassmann grading",
+      "status": "PASS",
+      "detail": "commutativity of exp with Grassmann even subspace"
+    },
+    {
+      "label": "D = d - iA valid for Grassmann-valued psi",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "eml(0, eml(2/mu, 1)) = q_stat",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "ln(z) = eml(1, eml(eml(1,z),1))",
+      "status": "PASS",
+      "detail": ""
+    }
+  ],
+  "pt_version": "v7",
+  "zero_fitted_parameters": true
+}

@@ -1,0 +1,189 @@
+{
+  "script": "proof_app_r",
+  "chapter": "app_r",
+  "timestamp": "2026-04-26T14:01:12.198853+00:00",
+  "duration_s": 0.113,
+  "n_pass": 31,
+  "n_fail": 0,
+  "n_total": 31,
+  "success": true,
+  "results": [
+    {
+      "label": "rank(SM) = 2 + 1 + 1 = 4",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "SU(3)xSU(2)xU(1) known gauge structure",
+      "status": "PASS",
+      "detail": "empirical + Weinberg theorem locality+unitarity+renormalizability"
+    },
+    {
+      "label": "rank(SU(2)) = 1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "rank(SU(3)) = 2",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "rank(SU(5)) = 4",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "rank(U(1)) = 1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "U(1)^1 dual dimension = 1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "U(1)^2 dual dimension = 2",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "U(1)^3 dual dimension = 3",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "U(1)^4 dual dimension = 4",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "210 = 2*3*5*7",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "gcd(3,5) = 1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "gcd(5,7) = 1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "gcd(3,7) = 1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "p = 2 is prime",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "p = 3 is prime",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "p = 5 is prime",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "p = 7 is prime",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "p = 11 is prime",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "p = 13 is prime",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "mu* = 3+5+7 = 15",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "Matches MU_STAR constant",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "p=3: gamma = 0.8076 > 0.5 (ACTIVE)",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "p=5: gamma = 0.6963 > 0.5 (ACTIVE)",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "p=7: gamma = 0.5955 > 0.5 (ACTIVE)",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "p=11: gamma = 0.4257 < 0.5 (INACTIVE)",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "p=13: gamma = 0.3562 < 0.5 (INACTIVE)",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "label": "gamma_3(15)",
+      "status": "PASS",
+      "value": 0.8076140384111393,
+      "expected": 0.8076,
+      "err_pct": 0.001738,
+      "tol_pct": 0.5,
+      "unit": "",
+      "detail": "computed=0.80761404, expected=0.8076, err=0.0017%, tol=0.5%"
+    },
+    {
+      "label": "gamma_5(15)",
+      "status": "PASS",
+      "value": 0.6963158584805759,
+      "expected": 0.6963,
+      "err_pct": 0.002278,
+      "tol_pct": 0.5,
+      "unit": "",
+      "detail": "computed=0.69631586, expected=0.6963, err=0.0023%, tol=0.5%"
+    },
+    {
+      "label": "gamma_7(15)",
+      "status": "PASS",
+      "value": 0.5954684400861497,
+      "expected": 0.5955,
+      "err_pct": 0.0053,
+      "tol_pct": 0.5,
+      "unit": "",
+      "detail": "computed=0.59546844, expected=0.5955, err=0.0053%, tol=0.5%"
+    },
+    {
+      "label": "Gap gamma_7 - gamma_11 (robustness)",
+      "status": "PASS",
+      "value": 0.16973530435317846,
+      "expected": 0.17,
+      "err_pct": 0.155703,
+      "tol_pct": 10,
+      "unit": "",
+      "detail": "computed=0.1697353, expected=0.17, err=0.1557%, tol=10%"
+    }
+  ],
+  "pt_version": "v7",
+  "zero_fitted_parameters": true
+}

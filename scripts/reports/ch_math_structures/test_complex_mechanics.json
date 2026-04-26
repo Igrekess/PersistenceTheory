@@ -1,7 +1,7 @@
 {
   "script": "test_complex_mechanics",
   "chapter": "ch_math_structures",
-  "timestamp": "2026-04-14T23:59:19.555092+00:00",
+  "timestamp": "2026-04-26T14:02:02.745383+00:00",
   "duration_s": 0.0,
   "n_pass": 40,
   "n_fail": 0,
@@ -96,7 +96,7 @@
     {
       "label": "|W|^2 = prod(sin^2) = alpha_bare",
       "status": "PASS",
-      "value": 0.00733792355185689,
+      "value": 0.007337923551856887,
       "expected": 0.007337923551856888,
       "err_pct": 0.0,
       "tol_pct": 0.01,

@@ -1,8 +1,8 @@
 {
   "script": "test_feynman_programme",
   "chapter": "ch17",
-  "timestamp": "2026-04-14T23:59:02.162766+00:00",
-  "duration_s": 0.005,
+  "timestamp": "2026-04-26T14:01:44.573899+00:00",
+  "duration_s": 0.008,
   "n_pass": 115,
   "n_fail": 0,
   "n_total": 115,
@@ -146,7 +146,7 @@
     {
       "label": "optical_theorem_N100",
       "status": "PASS",
-      "detail": "deviation = 8.88e-16"
+      "detail": "deviation = 4.44e-16"
     },
     {
       "label": "asymptotic_freedom_sin2",
@@ -191,12 +191,12 @@
     {
       "label": "spectral_representation",
       "status": "PASS",
-      "value": 8.326672684688674e-16,
+      "value": 4.996003610813204e-16,
       "expected": 0.0,
       "err_pct": 0.0,
       "tol_pct": 0.001,
       "unit": "",
-      "detail": "computed=8.3266727e-16, expected=0, err=0.0000%, tol=0.001%"
+      "detail": "computed=4.9960036e-16, expected=0, err=0.0000%, tol=0.001%"
     },
     {
       "label": "alpha_EM_derived",
@@ -391,7 +391,7 @@
     {
       "label": "OS3_reflection_positivity",
       "status": "PASS",
-      "detail": "min eigenvalue = -3.802866e-16"
+      "detail": "min eigenvalue = -1.081040e-16"
     },
     {
       "label": "OS4_permutation_symmetry",
@@ -441,7 +441,7 @@
     {
       "label": "sqrt_T_reconstruction",
       "status": "PASS",
-      "detail": "max|A^2 - T| = 5.03e-16"
+      "detail": "max|A^2 - T| = 3.89e-16"
     },
     {
       "label": "all_T_p_fermionic_modes",
