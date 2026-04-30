@@ -74,9 +74,8 @@ DOMAIN_LABELS = {
     "verify_sota":         "Part IX  SOTA verification (requires ptc)",
 }
 
-# Prefixes that indicate library/utility modules, or external-data analyses
-# that should not run in the default reproducibility suite.
-_SKIP_PREFIXES = ("pt_", "_", "__", "conftest", "analyze_")
+# Prefixes that indicate library/utility modules (not runnable scripts)
+_SKIP_PREFIXES = ("pt_", "_", "__", "conftest")
 _SKIP_FILES = {"run_all.py", "conftest.py"}
 
 

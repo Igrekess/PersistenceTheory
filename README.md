@@ -34,9 +34,9 @@ elsewhere.
 
 - The PDF monographs: English edition 885 pages, French edition 913 pages.
 - The Python scripts under `scripts/`, organised by chapter. The public tree
-  currently contains 76 script files: 74 are included in the default runner,
-  including the 56-script canonical registry cited in the monograph; 2 are
-  manual LVK/GWTC-4.0 diagnostic analyses requiring external data.
+  currently contains 73 runner-visible script files, including the 56-script
+  canonical registry cited in the monograph. Exploratory QG/Kerr diagnostics
+  are intentionally kept out of the clean public tree.
 - A master runner that executes the full verification suite and generates
   JSON reports.
 
@@ -132,8 +132,7 @@ scripts/
   Part IV -- Physical Reconstruction
     ch12_quantum/              proof_quantum.py
     ch13_relativity/           proof_relativity.py
-                                + 15 QG/Kerr structural tests
-                                + 2 manual external LVK diagnostic analyses
+                                + 14 registered QG/Kerr SOTA tests
     ch14_thermodynamics/       proof_thermodynamics.py
     ch15_sm_observables/       test_43_observables.py
 
@@ -208,10 +207,10 @@ pytest -v                                   # full test suite
 pytest -k "ch15"                            # one chapter via pytest
 ```
 
-The two `analyze_qg_*` scripts in `ch13_relativity/` need the external
-LVK/GWTC-4.0 remnant posterior archive under `PT_LVK_REMNANTS_DIR` (or
-`/tmp/pt_lvk_remnants`). They are included for reproducibility of the QG/Kerr
-confrontation, but the large LVK release itself is intentionally not vendored.
+Some QG/Kerr tests can use an external LVK/GWTC-4.0 remnant posterior archive
+when `PT_LVK_REMNANTS_DIR` is available. The large LVK release itself is not
+vendored; without it, the structural part of those tests still runs and the
+empirical branch exits cleanly.
 
 ### Output
 
@@ -323,14 +322,14 @@ choices in how the framework is applied.
 - **2026-04-30** — Public monographs and QG/Kerr companion scripts synced
   with the current master text:
   - English PDF updated to 885 pages; French PDF updated to 913 pages.
-  - Added the QG/Kerr structural suite in `scripts/ch13_relativity/`,
+  - Added the registered QG/Kerr SOTA suite in `scripts/ch13_relativity/`,
     covering canonical constraints, covariant boundary amplitudes, finite
     Dirac algebra, continuum CRT lift, topology-changing foams, Fourier/RG
     decorations, black-hole/ringdown precision, Kerr macro-mode selection,
     half-holonomy uniqueness/stability/exactness, and the `dtau` systematic
     separation diagnostics.
-  - Added the LVK/GWTC-4.0 diagnostic analysis scripts. These require an
-    external local LVK data directory and are not a vendored dataset.
+  - Exploratory frontier summaries and standalone LVK analysis notebooks/scripts
+    are kept out of the clean public tree.
 
 - **2026-04-26** — 10/10 [THM] structural commitments + Class B Extensions
   + audit cleanup (monograph reached 876 pages at that snapshot):
