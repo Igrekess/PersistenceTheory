@@ -2,3 +2,5 @@ numpy
 scipy
 matplotlib
 primesieve
+pandas
+h5py

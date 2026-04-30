@@ -32,9 +32,11 @@ elsewhere.
 
 ## What is in this repository
 
-- The PDF monograph (~876 pages).
-- The Python scripts under `scripts/`, one per chapter, each verifying the
-  theorems or numerical values claimed in that chapter.
+- The PDF monographs: English edition 885 pages, French edition 913 pages.
+- The Python scripts under `scripts/`, organised by chapter. The public tree
+  currently contains 76 script files: 74 are included in the default runner,
+  including the 56-script canonical registry cited in the monograph; 2 are
+  manual LVK/GWTC-4.0 diagnostic analyses requiring external data.
 - A master runner that executes the full verification suite and generates
   JSON reports.
 
@@ -130,6 +132,8 @@ scripts/
   Part IV -- Physical Reconstruction
     ch12_quantum/              proof_quantum.py
     ch13_relativity/           proof_relativity.py
+                                + 15 QG/Kerr structural tests
+                                + 2 manual external LVK diagnostic analyses
     ch14_thermodynamics/       proof_thermodynamics.py
     ch15_sm_observables/       test_43_observables.py
 
@@ -204,12 +208,19 @@ pytest -v                                   # full test suite
 pytest -k "ch15"                            # one chapter via pytest
 ```
 
+The two `analyze_qg_*` scripts in `ch13_relativity/` need the external
+LVK/GWTC-4.0 remnant posterior archive under `PT_LVK_REMNANTS_DIR` (or
+`/tmp/pt_lvk_remnants`). They are included for reproducibility of the QG/Kerr
+confrontation, but the large LVK release itself is intentionally not vendored.
+
 ### Output
 
-Each script writes a JSON report to `reports/<chapter>/<script>.json` and
-prints `[PASS]`/`[FAIL]` lines on the console. The master runner produces a
-`summary.csv` (one row per script) and a `values.csv` (all numerical results
-with computed value, expected, error%).
+Scripts print `[PASS]`/`[FAIL]` lines on the console. The canonical
+report-generating scripts also write JSON reports to
+`reports/<chapter>/<script>.json`; the master runner aggregates those reports
+into `summary.csv` and `values.csv`. Newer QG/Kerr structural scripts are
+kept as console-first companion checks unless or until they are promoted into
+the JSON report registry.
 
 ## Prediction Snapshot
 
@@ -309,8 +320,20 @@ choices in how the framework is applied.
 
 ## Recent updates
 
+- **2026-04-30** — Public monographs and QG/Kerr companion scripts synced
+  with the current master text:
+  - English PDF updated to 885 pages; French PDF updated to 913 pages.
+  - Added the QG/Kerr structural suite in `scripts/ch13_relativity/`,
+    covering canonical constraints, covariant boundary amplitudes, finite
+    Dirac algebra, continuum CRT lift, topology-changing foams, Fourier/RG
+    decorations, black-hole/ringdown precision, Kerr macro-mode selection,
+    half-holonomy uniqueness/stability/exactness, and the `dtau` systematic
+    separation diagnostics.
+  - Added the LVK/GWTC-4.0 diagnostic analysis scripts. These require an
+    external local LVK data directory and are not a vendored dataset.
+
 - **2026-04-26** — 10/10 [THM] structural commitments + Class B Extensions
-  + audit cleanup (monograph reaches 876 pages):
+  + audit cleanup (monograph reached 876 pages at that snapshot):
   - **Promotion C2 [DER]→[THM]** (`thm:C2_universal`): the leakage domain
     cardinality `N(p) = (p+1)^(p+1) - 1` is proved via ZFC additivity +
     L0 max-entropy (Mac Lane 1971, Riehl 2017, Jaynes 1957).

@@ -9,6 +9,8 @@ scipy>=1.7
 sympy>=1.9
 mpmath>=1.2
 primesieve>=2.3
+pandas>=1.5
+h5py>=3.8
 
 # Test infrastructure
 pytest>=7.0
