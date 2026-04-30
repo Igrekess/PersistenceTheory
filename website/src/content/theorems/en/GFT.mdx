@@ -1,0 +1,171 @@
+---
+id: GFT
+name: 'GFT — Gap Fundamental Theorem'
+short: '$\log_2 m = D_\mathrm{KL} + H$ — fundamental principle of persistence.'
+statement: 'For any distribution $P$ on $\mathbb{Z}/m\mathbb{Z}$, the identity $H_{\max}(m) = D_\mathrm{KL}(P \| U_m) + H(P)$ is an algebraic tautology. It is the fundamental principle of persistence: total capacity decomposes exactly into persistent information (D_KL) plus irreducible noise (entropy H).'
+status: IDENTITY
+monograph_chapter: chap:gft
+order: 0
+lang: en
+---
+
+import Tag from '@components/Tag.astro';
+
+## Statement
+
+For any probability distribution $P = (p_1, \ldots, p_m)$ on the $m$ classes
+of $\mathbb{Z}/m\mathbb{Z}$, the following identity is tautological:
+
+$$
+\boxed{\log_2 m = D_{\mathrm{KL}}(P \,\|\, U_m) + H(P),}
+$$
+
+where:
+- $\log_2 m = H_{\max}(m)$ is the total informational capacity (entropy of
+  the uniform distribution on $m$ states),
+- $D_{\mathrm{KL}}(P \,\|\, U_m) = \sum_i p_i \log_2(m \cdot p_i)$ is the
+  Kullback–Leibler divergence of $P$ from uniform,
+- $H(P) = -\sum_i p_i \log_2 p_i$ is the Shannon entropy of $P$.
+
+**Total capacity is conserved**: whatever is not "persistent information"
+($D_{\mathrm{KL}}$) is "noise" ($H$), and conversely.
+This conservation is the **fundamental principle of persistence**.
+
+<Tag level="IDENTITY" />
+
+<div data-max-depth="L1" className="bg-amber-50 border-l-4 border-amber-300 px-4 py-3 my-6">
+**Plain reading.** Picture a fixed total budget of $\log_2 m$ bits (the "informational
+capacity"). Every distribution divides this budget into two parts: what is **structured**
+(deviates from pure randomness) and what stays **disordered**. Their sum is exactly
+the total budget. No more, no less. It’s the informational version of the first
+principle: capacity is neither created nor destroyed, only partitioned between
+persistence and entropy.
+</div>
+
+## Why it matters
+
+GFT is the **master identity** of PT, the **fundamental principle of persistence**.
+It provides the framework in which all
+conservation laws are formulated: at every sieve step, information that
+"persists" ($D_{\mathrm{KL}}$ growing) exactly compensates entropy that
+"releases" ($H$ decreasing). No loss, no net gain.
+
+Direct consequences:
+- **Bekenstein bound**: $D_{\mathrm{KL}} \leq \log_2 m$ (persistent
+  information cannot exceed capacity), so $H \geq 0$.
+- **Arrow of time**: $dH / dD_{\mathrm{KL}} = -1$ (for any evolution
+  preserving $\log_2 m$).
+- **Ruelle equivalence**: $Z_{\mathrm{Ruelle}} = \mathrm{Tr}(T_m^N)$, free
+  energy zero.
+
+GFT also justifies the "persistence" semantics of the theory’s name: what
+"persists" is precisely $D_{\mathrm{KL}}$.
+
+## Proof — outline
+
+1. **Write** $D_{\mathrm{KL}}(P \,\|\, U_m) = \sum_i p_i \log_2(p_i / (1/m))$.
+2. **Distribute** the logarithm: $\log_2(p_i / (1/m)) = \log_2 p_i + \log_2 m$.
+3. **Sum**: $\sum_i p_i \log_2 p_i + \sum_i p_i \log_2 m$.
+4. **Recognise**: first term is $-H(P)$, second is $\log_2 m$.
+5. **Rearrange**: $\log_2 m - H(P) = D_{\mathrm{KL}}$, so $\log_2 m = D_{\mathrm{KL}} + H$.
+
+<div data-min-depth="L3" className="bg-stone-50 border border-stone-300 rounded-lg p-4 my-8">
+
+### Detailed proof (L3 mode)
+
+#### Step 1 — Definition of $D_{\mathrm{KL}}$
+
+The Kullback–Leibler divergence between $P = (p_1, \ldots, p_m)$ and the
+uniform distribution $U_m = (1/m, \ldots, 1/m)$ is:
+
+$$
+D_{\mathrm{KL}}(P \,\|\, U_m) = \sum_{i=1}^m p_i \log_2 \frac{p_i}{1/m}.
+$$
+
+#### Step 2 — Distributing the logarithm
+
+By log properties:
+
+$$
+\log_2 \frac{p_i}{1/m} = \log_2 p_i + \log_2 m.
+$$
+
+Substituting:
+
+$$
+D_{\mathrm{KL}} = \sum_i p_i (\log_2 p_i + \log_2 m) = \sum_i p_i \log_2 p_i + \log_2 m \sum_i p_i.
+$$
+
+#### Step 3 — Normalisation and entropy
+
+Since $P$ is a distribution, $\sum_i p_i = 1$, and by definition of Shannon
+entropy, $H(P) = -\sum_i p_i \log_2 p_i$.
+
+So:
+
+$$
+D_{\mathrm{KL}} = -H(P) + \log_2 m,
+$$
+
+which rearranges to:
+
+$$
+\log_2 m = D_{\mathrm{KL}} + H(P).
+$$
+
+#### QED
+
+The identity is purely algebraic. It depends neither on the nature of $P$
+(arbitrary), nor on the physical origin of the $m$ states, nor on any
+dynamical hypothesis. This makes it an **identity** in the strong sense,
+stronger than a theorem: it cannot be falsified because it is true by
+algebra alone.
+
+#### Consequence — Bekenstein bound
+
+Since $H(P) \geq 0$ for every distribution (positive entropy), immediately:
+
+$$
+D_{\mathrm{KL}}(P \,\|\, U_m) \leq \log_2 m.
+$$
+
+This is the **universal Bekenstein bound**: no distribution on $m$ states
+can have more than $\log_2 m$ bits of persistent structure. PT identifies
+this bound with the holographic information cap of a finite region.
+
+#### Consequence — arrow of time
+
+If a dynamical evolution preserves $\log_2 m$ (sieve case: $m$ fixed), then:
+
+$$
+\frac{dH}{dD_{\mathrm{KL}}} = -1.
+$$
+
+Any increase in $D_{\mathrm{KL}}$ pays an equal decrease in $H$, and vice
+versa. This is the PT arrow of time: natural evolution increases $H$
+(second law), so decreases $D_{\mathrm{KL}}$ ("decrystallisation"). The
+sieve locally inverts this arrow — $D_{\mathrm{KL}}$ grows at every step,
+which defines "persistence".
+
+#### Consequence — Ruelle equivalence
+
+For the transfer matrix $T_m$, the Ruelle partition function is:
+
+$$
+Z_{\mathrm{Ruelle}} = \mathrm{Tr}(T_m^N) = \sum_\lambda \lambda^N,
+$$
+
+where the sum is over eigenvalues of $T_m$. As $N \to \infty$, this becomes
+the exponential of topological entropy. GFT gives the explicit identity
+with $\log_2 m$ as cap, and free energy $F_R = 0$ (in the pure Ruelle
+sense).
+
+For the complete derivation and consequences (Bekenstein, arrow of time,
+Ruelle), see [chapter 4 of the monograph](/en/monograph).
+</div>
+
+## See also
+
+- [T2 — Spectral conservation](/en/theorems/T2) — spectral version of conservation
+- [Essay — What is persistence?](/en/essays/what-is-persistence) — the semantics of $D_{\mathrm{KL}}$
+- [All theorems](/en/theorems)

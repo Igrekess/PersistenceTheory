@@ -1,0 +1,103 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import ResearchTopic from '@components/ResearchTopic.astro';
+
+const features = [
+  { title: 'Onde continue, points remarquables', body: 'La mécanique Fisher/holonomie est continue ; le crible sélectionne les points et canaux persistants.', status: 'THM/DER' },
+  { title: 'Covariance des points persistants', body: 'Contraintes, amplitudes de bord, algèbre de Dirac, foams topologiques et décorations Fourier/RG forment le secteur QG minimal.', status: 'DER/VAL' },
+  { title: 'Observables Kerr', body: 'Le canal de phase Kerr est sélectionné par demi-holonomie ; le canal dissipatif $d\\tau$ reste à valider finement sur les ringdowns.', status: 'OUVERT' },
+];
+
+const sections = [
+  {
+    eyebrow: 'L1',
+    title: 'Ne pas quantifier le décor, lire le décor depuis le quantique',
+    paragraphs: [
+      'Le conflit habituel vient d’une fausse question : on demande si le continu doit être quantifié ou si le discret doit fabriquer le continu. La lecture PT dit autre chose : il existe une mécanique ondulatoire continue, et le crible en marque les points de persistance.',
+      'Vulgarisé : pense à une onde dont certains lieux deviennent stables, comme des nœuds ou des résonances. Le crible ne remplace pas l’onde ; il indique les positions, canaux et fermetures où cette onde devient lisible.',
+      'Dans cette lecture, la question n’est plus “comment rendre quantique la métrique ?”, mais “pourquoi cette mécanique continue sélectionne-t-elle précisément ces points remarquables ?”. La gravité quantique PT est donc une théorie de cette sélection persistante.',
+    ],
+  },
+  {
+    eyebrow: 'L2',
+    title: 'Architecture physique : continu, points remarquables, covariance',
+    paragraphs: [
+      'Le secteur classique sort de la géométrie informationnelle : la famille de distributions du crible porte une métrique de Fisher $g^F$, puis la restriction active donne la géométrie Fisher-Bianchi, la signature lorentzienne et les équations d’Einstein.',
+      'Le secteur quantique minimal ajoute la dynamique : les matrices de transfert $T_m$ définissent l’espace de Hilbert CRT, les contraintes canoniques sélectionnent les états persistants, et les amplitudes de bord donnent la version covariante du calcul.',
+      'Le point conceptuel décisif est la dissolution de la “limite continue”. La PT ne part pas d’une maille géométrique qui devrait tendre vers zéro : elle part d’une mécanique continue de phase, de métrique et d’holonomie, dont le crible marque les points persistants.',
+      'Côté trous noirs, le ringdown devient un observable de sélection. La phase Kerr suit une demi-holonomie de spin ; le canal dissipatif $d\\tau$ est lu comme candidat de gravité de surface, encore à isoler des effets de start-time et d’overtones.',
+    ],
+    items: [
+      'Mécanique continue : métrique de Fisher, phases, holonomies, temps propre et équations d’Einstein.',
+      'Points remarquables : matrice de transfert, CRT, contraintes et états persistants.',
+      'Covariant : amplitudes à bord arbitraire, algèbre de Dirac et foams physiques.',
+      'Observable : sélecteur Kerr, phase de ringdown et candidat dissipatif $d\\tau$.',
+    ],
+  },
+  {
+    eyebrow: 'L3',
+    title: 'Démonstration technique complète',
+    depth: 'L3',
+    paragraphs: [
+      'Le niveau L3 déroule la chaîne sans raccourci : mécanique continue Fisher/holonomie, sélection des points persistants par le crible, espace de Hilbert CRT, secteur GR, contraintes, amplitudes covariantes, foams, puis observables Kerr. Chaque étape doit préserver la même logique PT : exclusion des auto-recopies, involution de spin, covariance de bord et persistance des canaux admissibles.',
+      'Le support continu est $g^F$ avec les phases et holonomies associées. Il est défini sur la famille de distributions et donne directement la géométrie informationnelle : c’est le support ondulatoire sur lequel les canaux se lisent.',
+      'La sélection discrète est portée par $T_m$. Par CRT, elle marque les points remarquables de cette mécanique continue, se factorise en premiers et fournit une structure tensorielle. La limite inductive $\\mathcal H_\\infty=\\varinjlim\\bigotimes_p\\mathcal H_p$ garde ces sélections persistantes sans postuler un espace-temps continu primitif.',
+      'La covariance impose que l’amplitude ne dépende pas d’un découpage arbitraire de l’histoire. Les amplitudes à frontière arbitraire se recollent, l’algèbre de Dirac finie se relève cylindriquement, et les changements de topologie restent des foams physiques s’ils respectent les canaux admissibles.',
+      'L’observable test est Kerr. Le sélecteur macroscopique prend $M\\Omega_H(a)=a/(2(1+\\sqrt{1-a^2}))$ et force la correction de phase $\\phi(a)=\\phi_0+\\pi M\\Omega_H(a)$, donc $M\\omega(a)=M\\omega_0+\\Omega_H(a)/2$.',
+    ],
+    items: [
+      'Preuve 1 : $g^F$ et les holonomies donnent la mécanique continue.',
+      'Preuve 2 : $T_m$ sélectionne les points persistants et la structure Hilbertienne CRT.',
+      'Preuve 3 : contraintes, amplitudes et foams donnent la covariance QG minimale.',
+      'Preuve 4 : Kerr sélectionne une demi-holonomie de phase et laisse $d\\tau$ comme test dissipatif.',
+    ],
+    demo: {
+      kind: 'kerr',
+      title: 'Sélecteur Kerr macroscopique',
+      caption: 'Le curseur montre la quantité $M\\Omega_H(a)=a/(2(1+\\sqrt{1-a^2}))$, qui pilote la demi-holonomie de phase du ringdown dans la lecture PT.',
+      labels: ['spin Kerr a'],
+    },
+    proof: {
+      title: 'Chaîne démonstrative L3',
+      steps: [
+        'Mécanique informationnelle : sur la famille de distributions, la métrique de Fisher $g^F$ mesure la sensibilité des états persistants. Avec les phases et holonomies, elle fournit le support continu de la dynamique PT.',
+        'Sélection discrète : le crible donne une matrice de transfert $T_m$ dont les transitions interdites éliminent les auto-recopies. Les survivants sont les points remarquables de cette mécanique continue.',
+        'Factorisation CRT : la structure modulaire se décompose en facteurs premiers. Cette factorisation donne naturellement le produit tensoriel local des degrés de liberté.',
+        'Support quantique : la limite inductive $\\mathcal H_\\infty=\\varinjlim\\bigotimes_p\\mathcal H_p$ fournit l’espace de Hilbert PT. Le quantique vient de la sélection persistante des canaux, pas d’une quantification secondaire de la métrique.',
+        'Relativité classique : la restriction de $g^F$ aux actifs donne la géométrie Fisher-Bianchi ; la signature lorentzienne, le temps propre et les équations d’Einstein suivent dans le secteur GR.',
+        'Contraintes canoniques : les contraintes QG PT annulent les redondances de bord et sélectionnent les états physiques persistants. Leur algèbre finie vérifie la fermeture attendue.',
+        'Lift continu : l’algèbre de Dirac finie se relève cylindriquement. Les points remarquables du crible restent compatibles avec la mécanique continue au lieu d’ajouter la covariance à la main.',
+        'Amplitudes de frontière : pour une frontière arbitraire, l’amplitude covariante se compose correctement quand on recolle deux régions. C’est l’analogue PT de l’indépendance du choix de découpage.',
+        'Foams physiques : les changements de topologie sont admissibles seulement s’ils respectent les canaux de persistance. Les décorations Fourier/RG ajoutent les modes supérieurs sans casser la fermeture.',
+        'Sélecteur Kerr : pour un trou noir réel, la rotation sélectionne $\\Omega_H(a)$ ; l’involution de spin impose la demi-holonomie et donc la correction de phase $\\pi M\\Omega_H(a)$.',
+        'Unicité du canal de phase : les autres déformations admissibles au même ordre échouent dès qu’on impose ensemble involution de spin, holonomie Kerr et invariance dissipative.',
+        'Canal dissipatif ouvert : $R_\\tau(a)=1/(4M\\kappa_H(a))-1$ est le candidat naturel lié à la gravité de surface. Son statut dépend de la séparation observationnelle entre signal réel, start-time, overtones et systématiques pyRing/LVK.',
+      ],
+      conclusion: 'En PT, la gravité quantique est la covariance persistante d’une mécanique ondulatoire continue dont le crible sélectionne les points remarquables. La chaîne fermée articule Fisher/holonomie, sélection CRT, Hilbert, GR, contraintes, amplitudes et observables Kerr. Le point ouvert restant est empirique : isoler ou exclure proprement le canal dissipatif $d\\tau$ dans les ringdowns réels.',
+    },
+  },
+];
+
+const sources = [
+  'ch. 13 : secteur GR, WDW, vertex graviton, contrainte graviton.',
+  'ch. 24 : “secteur QG minimal fermé ; validation ringdown empirique en cours”.',
+  'ch. 9 : espace de Hilbert CRT, reconstruction métrique et ponts.',
+  'Annexe F : registre des scripts QG compagnons, 56 scripts, 2 694/2 695 vérifications passantes, 1 échec connu indépendant des ajouts QG.',
+  'Annexe S : statut QG, sélecteur Kerr, demi-holonomie et canal dissipatif $d\\tau$.',
+];
+---
+
+<BaseLayout
+  title="Gravité quantique en PT"
+  description="Ce que la PT dérive, reformule et laisse ouvert à propos de la gravité quantique."
+>
+  <ResearchTopic
+    eyebrow="Gravité quantique"
+    title="La gravité quantique en PT : du crible au ringdown"
+    description="La PT ne cherche pas seulement à quantifier Einstein. Elle propose que la géométrie d’Einstein soit la lecture gravitationnelle d’une mécanique ondulatoire continue dont le crible sélectionne les points persistants."
+    lead="Le cœur de l’idée est puissant : si la mécanique Fisher/holonomie sélectionne les mêmes points remarquables que le crible, alors la gravité classique est une projection géométrique d’un objet plus fondamental. La page se lit en trois profondeurs : intuition L1, architecture physique L2, démonstration technique L3."
+    features={features}
+    sections={sections}
+    sources={sources}
+  />
+</BaseLayout>

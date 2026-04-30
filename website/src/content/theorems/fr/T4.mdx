@@ -1,0 +1,168 @@
+---
+id: T4
+name: 'T4 — Convergence spectrale'
+short: '$\alpha_k \to 1/2$ quand la profondeur du crible $k \to \infty$.'
+statement: 'La fraction de transition mixte $\alpha_k = n_{12}(k)/[n_{12}(k)+n_{21}(k)]$ converge vers $s = 1/2$ quand $k \to \infty$, par compactness Mertens et monotonie spectrale.'
+status: THM
+monograph_chapter: chap:convergence
+order: 6
+lang: fr
+---
+
+import Tag from '@components/Tag.astro';
+
+## Énoncé
+
+Soit le crible profond à $k$ étages (élimination des multiples de $p_1, \ldots, p_k$).
+Définissons la fraction de transition mixte :
+
+$$
+\alpha_k = \frac{n_{12}(k)}{n_{12}(k) + n_{21}(k)},
+$$
+
+où $n_{ij}(k)$ compte les transitions de la classe $i$ vers la classe $j$ parmi
+les survivants à la profondeur $k$. Alors :
+
+$$
+\boxed{\lim_{k \to \infty} \alpha_k = s = \frac{1}{2}.}
+$$
+
+La preuve repose sur trois piliers :
+
+1. **Annihilation spectrale** $r_2(0) = 0$ — l’eigenvecteur antisymétrique
+   s’annule au site 0 (résultat structurel).
+2. **Compactness de Mertens** — bornes asymptotiques sur les survivants
+   $\prod (1 - 1/p)$.
+3. **Décomposition de Gordin** — la suite $\{\alpha_k\}$ est quasi-martingale
+   plus reste borné.
+
+<Tag level="THM" />
+
+<div data-max-depth="L1" className="bg-amber-50 border-l-4 border-amber-300 px-4 py-3 my-6">
+**Lecture vulgarisée.** Plus on raffine le crible (plus on enlève de multiples), plus
+la fraction de transitions de type « 1 → 2 » par rapport à « 2 → 1 » se rapproche de
+50/50. À profondeur infinie, c’est exactement 50/50. Ce $1/2$ est la **valeur stationnaire**
+qui définit $s$. T4 est ce qui prouve que le crible « finit le travail » : il ne
+laisse pas de biais résiduel.
+</div>
+
+## Pourquoi ça compte
+
+T4 est le **pont** entre le crible fini (à profondeur $k$) et le crible idéal
+(à profondeur infinie). Les théorèmes T1, T2, T3 sont des affirmations exactes
+sur la matrice de transfert idéale ; T4 garantit que la matrice empirique
+calculée à profondeur finie converge vers cette matrice idéale.
+
+Sans T4, on aurait $|\alpha_k - 1/2| > 0$ persistant, ce qui signifierait
+qu’une nouvelle constante (différente de $s = 1/2$) émerge à la limite.
+La PT serait alors mal définie. T4 ferme cette objection.
+
+## Démonstration — schéma
+
+1. **Réduire** la convergence d'$\alpha_k$ à la convergence d’une chaîne de
+   Markov sur l’état de transition.
+2. **Décomposer** $\alpha_k$ en quasi-martingale plus reste borné (Gordin).
+3. **Borner** le reste via compactness de Mertens.
+4. **Annuler** le mode antisymétrique au site 0 par l’argument $r_2(0) = 0$.
+5. **Conclure** : seul le mode symétrique survit, valeur propre $\lambda_1 = 1$,
+   distribution stationnaire uniforme — d’où $\alpha_\infty = 1/2$.
+
+<div data-min-depth="L3" className="bg-stone-50 border border-stone-300 rounded-lg p-4 my-8">
+
+### Démonstration détaillée (mode L3)
+
+#### Étape 1 — Récurrence exacte
+
+À chaque profondeur $k$, la déviation $D(k) = \alpha_k - 1/2$ satisfait une
+récurrence exacte (Théorème de récurrence, ch. 7) :
+
+$$
+D(k + 1) = (p_k - 3) D(k) + \Delta_k,
+$$
+
+où $\Delta_k$ est un reste qui dépend des corrélations entre les premiers
+éliminés à l’étape $k+1$.
+
+Cette récurrence est vérifiée pour $k = 3, \ldots, 11$ par calcul direct sur
+les survivants.
+
+#### Étape 2 — Factorisation spectrale
+
+Le polynôme caractéristique de l’opérateur de récurrence se factorise comme :
+
+$$
+f(1) = 4 (\alpha - 1/2)^2 (\alpha^2 + (p - 3)\alpha + 1).
+$$
+
+Le premier facteur $(\alpha - 1/2)^2$ a un zéro double à $\alpha = 1/2$, ce
+qui force le point fixe asymptotique. Le second facteur a des racines
+complexes pour $|p - 3| < 2$ et des racines réelles dans $(-1, 0)$ pour
+$|p - 3| > 2$ — dans tous les cas, $|R_\text{spec}| < 1$.
+
+#### Étape 3 — Borne spectrale
+
+La borne de spectre globale est :
+
+$$
+R_\text{spec} \approx 0{,}287 \ll 1.
+$$
+
+C’est strictement inférieur à 1, ce qui garantit la convergence géométrique
+de $D(k) \to 0$.
+
+#### Étape 4 — Annihilation $r_2(0) = 0$
+
+Pour fermer rigoureusement la convergence, on a besoin que le reste $\Delta_k$
+ne contribue pas au mode dominant $\lambda_2^2 \approx 0{,}36$. C’est ici
+qu’intervient l’**annihilation spectrale** :
+
+L’eigenvecteur antisymétrique $r_2$ associé à $\lambda_2$ a une **valeur
+exactement nulle** à l’état 0, donc :
+
+$$
+\langle r_2, \delta_0 \rangle = r_2(0) = 0.
+$$
+
+Ce résultat est structurel (cf. ch. 7, Théorème de fermeture spectrale) et
+non conditionnel à PNT. Conséquence : seul le mode $\lambda_1^2 \approx 0{,}012$
+survit dans les corrélations partant de l’état 0, et la convergence est
+**exponentielle** avec exposant fortement amorti.
+
+#### Étape 5 — Décomposition de Gordin
+
+La suite $\alpha_k$ peut s’écrire :
+
+$$
+\alpha_k = M_k + R_k,
+$$
+
+où $M_k$ est une martingale par rapport à la filtration des survivants, et
+$R_k$ un reste borné par compactness de Mertens :
+
+$$
+|R_k| \leq C \cdot \prod_{i \leq k} \left(1 - \frac{1}{p_i}\right) \to 0.
+$$
+
+Par théorème de convergence des martingales et $R_k \to 0$, $\alpha_k$
+converge p.s. vers une limite. L’identification de cette limite à $1/2$ est
+forcée par les étapes 1–4.
+
+#### Conséquence : fermeture du problème de hiérarchie
+
+Le résultat $r_2(0) = 0$ a une conséquence inattendue : il **ferme le problème
+de hiérarchie** de la PT. Le mode $\lambda_2^2 \approx 0{,}36$ aurait
+contribué à un déphasage hiérarchique entre échelles ; son annulation au
+site 0 garantit qu’aucune nouvelle échelle n’émerge spontanément. C’est ce
+qui permet à T5 de fixer un point fixe unique $\mu^* = 15$ sans corrections
+hiérarchiques.
+
+Pour la dérivation complète et les preuves auxiliaires (récurrence, factorisation,
+borne spectrale, annihilation), voir [chapitre 7 de la monographie](/monograph).
+</div>
+
+## Voir aussi
+
+- [T1 — Transitions interdites mod 3](/theorems/T1) — base de la matrice de transfert
+- [T2 — Conservation spectrale](/theorems/T2) — version finie de T4
+- [T5 — Point fixe](/theorems/T5) — utilise la convergence T4 pour fixer $\mu^*$
+- [Tous les théorèmes](/theorems)

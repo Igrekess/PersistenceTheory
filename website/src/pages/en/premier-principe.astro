@@ -1,0 +1,226 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+
+const mainFormula = String.raw`\log_2 m = D_{\mathrm{KL}}(P\|U_m)+H(P)`;
+const samples = [
+  { m: 2, cap: 1.0, dkl: 1.0, h: 0.0 },
+  { m: 6, cap: 2.585, dkl: 1.585, h: 1.0 },
+  { m: 30, cap: 4.907, dkl: 3.252, h: 1.655 },
+  { m: 210, cap: 7.714, dkl: 4.916, h: 2.798 },
+];
+const maxCap = 8;
+const chart = { left: 58, right: 720, top: 32, bottom: 300 };
+const barWidth = 66;
+const y = (value: number) => chart.bottom - (value / maxCap) * (chart.bottom - chart.top);
+const barX = (index: number) => 105 + index * 155;
+const principles = [
+  {
+    tag: 'capacity',
+    title: 'Total capacity is fixed',
+    body: 'For $m$ possibilities, there is a total budget of distinctions. In technical language, that budget is $\\log_2 m$ bits.',
+  },
+  {
+    tag: 'persistence',
+    title: 'Structure is distance from uniformity',
+    body: '$D_{\\mathrm{KL}}$ measures what distinguishes the actual distribution from the maximally undifferentiated state.',
+  },
+  {
+    tag: 'entropy',
+    title: 'The remainder stays as uncertainty',
+    body: '$H(P)$ measures what remains dispersed, uncrystallized, not selected as persistent structure.',
+  },
+];
+---
+
+<BaseLayout
+  title="The fundamental principle of persistence"
+  description="A mathematics page on GFT, the identity log2(m)=DKL+H, and its role as the fundamental principle of the Theory of Persistence."
+>
+  <section class="border-b border-slate-200 bg-white">
+    <div class="max-w-6xl mx-auto px-4 py-12 md:py-16">
+      <p class="font-sans text-sm font-semibold uppercase tracking-wider text-derorange mb-3">
+        PT mathematics / master identity
+      </p>
+      <h1 class="text-4xl md:text-5xl font-bold text-thmblue leading-tight mb-5">
+        The fundamental principle of persistence
+      </h1>
+      <p class="text-lg text-slate-700 leading-relaxed max-w-3xl" data-max-depth="L1">
+        PT starts from an almost childlike idea: when a system has a fixed
+        number of possibilities, its budget of distinctions is fixed. Part of
+        that budget may become structure, another part may remain uncertainty,
+        but the total does not disappear.
+      </p>
+      <p class="text-lg text-slate-700 leading-relaxed max-w-3xl" data-min-depth="L2">
+        GFT is the identity that formalizes this budget. For any distribution
+        {String.raw`$P$`} over {String.raw`$m$`} states, total capacity
+        {String.raw`$\log_2 m$`} decomposes exactly into persistent information
+        and residual entropy.
+      </p>
+      <div class="mt-7 max-w-3xl bg-slate-50 border border-slate-200 rounded-lg px-4 py-4 font-mono text-slate-900 overflow-x-auto">
+        {`$${mainFormula}$`}
+      </div>
+    </div>
+  </section>
+
+  <section class="max-w-6xl mx-auto px-4 py-12">
+    <div class="grid lg:grid-cols-[0.88fr_1.12fr] gap-8 items-center mb-12">
+      <div>
+        <span class="pt-tag pt-tag-bridge">L1 · intuition</span>
+        <h2 class="text-3xl font-bold text-thmblue mt-4 mb-4">
+          One budget, two ways to occupy it
+        </h2>
+        <p class="text-slate-700 leading-relaxed mb-4">
+          Picture a game with several possible squares. The more squares there
+          are, the more distinctions you need to say exactly where you are.
+          That total number of distinctions is the system’s budget.
+        </p>
+        <p class="text-slate-700 leading-relaxed mb-4">
+          Mathematically, that budget is written {String.raw`$\log_2(m)$`}
+          because it is counted in yes/no questions, hence in bits. But the
+          idea behind it is simply this: the system has a total amount of
+          distinction available.
+        </p>
+        <p class="text-slate-700 leading-relaxed mb-4">
+          One part becomes form: it distinguishes, constrains, selects. That is
+          persistence. The other part remains open, dispersed, undecided. That
+          is entropy.
+        </p>
+        <p class="text-slate-700 leading-relaxed">
+          The fundamental principle says that the two parts compensate exactly. When
+          structure gains one bit, available entropy loses one bit, and
+          conversely. PT places that conservation at the center of the theory.
+        </p>
+      </div>
+
+      <div class="bg-white border border-slate-200 rounded-lg p-5">
+        <h3 class="font-sans font-semibold text-thmblue mb-3">Information budget of the sieve</h3>
+        <div class="mb-2 flex justify-end gap-4 text-sm font-sans text-slate-800">
+          <span class="flex items-center gap-2"><span class="w-4 h-4 rounded bg-thmblue inline-block"></span>persistence</span>
+          <span class="flex items-center gap-2"><span class="w-4 h-4 rounded bg-derorange inline-block"></span>entropy</span>
+        </div>
+        <svg viewBox="0 0 760 360" class="w-full h-auto" role="img" aria-label="GFT budget at primorial levels">
+          <rect x="0" y="0" width="760" height="360" rx="8" fill="#ffffff" />
+          {[0,2,4,6,8].map((tick) => (
+            <g>
+              <line x1={chart.left} x2={chart.right} y1={y(tick)} y2={y(tick)} stroke="#e2e8f0" />
+              <text x="24" y={y(tick) + 4} font-size="12" fill="#5f6f80" font-family="ui-sans-serif, system-ui">{tick}</text>
+            </g>
+          ))}
+          <text x="24" y="24" font-size="12" fill="#5f6f80" font-family="ui-sans-serif, system-ui">bits</text>
+          {samples.map((sample, index) => {
+            const x0 = barX(index);
+            const dklTop = y(sample.dkl);
+            const capTop = y(sample.cap);
+            return (
+              <g>
+                <rect x={x0} y={dklTop} width={barWidth} height={chart.bottom - dklTop} fill="#14566b" rx="4" />
+                <rect x={x0} y={capTop} width={barWidth} height={dklTop - capTop} fill="#c96f24" rx="4" />
+                <text x={x0 + barWidth / 2} y={chart.bottom + 26} text-anchor="middle" font-size="13" fill="#17202a" font-weight="700" font-family="ui-sans-serif, system-ui">m={sample.m}</text>
+                <text x={x0 + barWidth / 2} y={capTop - 8} text-anchor="middle" font-size="12" fill="#5f6f80" font-family="ui-sans-serif, system-ui">{sample.cap.toFixed(2)}</text>
+              </g>
+            );
+          })}
+          <text x="390" y="344" text-anchor="middle" font-size="13" fill="#5f6f80" font-family="ui-sans-serif, system-ui">
+            each bar shows the same total budget: persistence + entropy
+          </text>
+        </svg>
+      </div>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-4 mb-12">
+      {principles.map((item) => (
+        <div class="pt-card">
+          <span class="pt-tag pt-tag-der">{item.tag}</span>
+          <h3 class="font-sans font-semibold text-thmblue text-xl mt-3 mb-2">{item.title}</h3>
+          <p class="text-sm text-slate-700">{item.body}</p>
+        </div>
+      ))}
+    </div>
+
+    <div data-min-depth="L2" class="mb-12">
+      <span class="pt-tag pt-tag-id">L2 · standard</span>
+      <h2 class="text-3xl font-bold text-thmblue mt-4 mb-4">
+        Why this is a fundamental principle
+      </h2>
+      <div class="grid lg:grid-cols-[1fr_0.9fr] gap-6 items-start">
+        <div class="text-slate-700 leading-relaxed">
+          <p class="mb-4">
+            The identity is algebraic tautology: it is true for any
+            distribution. Its force therefore does not come from technical
+            difficulty, but from the conservation language it gives to PT.
+          </p>
+          <p class="mb-4">
+            In the sieve, {String.raw`$D_{\mathrm{KL}}$`} becomes the structured
+            part: what has been selected, constrained, made distinct.
+            {String.raw`$H(P)$`} becomes the part still dispersed. Their sum
+            remains the same information cap.
+          </p>
+          <div class="bg-slate-50 border border-slate-200 rounded-lg p-4 font-mono text-sm text-slate-900 overflow-x-auto">
+            {String.raw`$dD_{\mathrm{KL}}+dH=0,\quad \frac{dH}{dD_{\mathrm{KL}}}=-1$`}
+          </div>
+        </div>
+        <div class="bg-white border border-slate-200 rounded-lg p-5">
+          <h3 class="font-sans font-semibold text-thmblue mb-3">Exact status</h3>
+          <ul class="space-y-3 text-sm text-slate-700">
+            <li><strong>GFT-ID.</strong> Exact algebraic identity.</li>
+            <li><strong>Arrow.</strong> Fixed-{String.raw`$m$`} identity: variations compensate.</li>
+            <li><strong>Bekenstein.</strong> Immediate theorem: {String.raw`$D_{\mathrm{KL}}\le\log_2 m$`}.</li>
+            <li><strong>Physical reading.</strong> Interpretive bridge treated elsewhere in the monograph.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div data-min-depth="L3">
+      <span class="pt-tag pt-tag-id">L3 · proof</span>
+      <h2 class="text-3xl font-bold text-thmblue mt-4 mb-4">
+        Complete proof
+      </h2>
+      <div class="bg-white border border-slate-200 rounded-lg p-6">
+        <p class="text-slate-700 leading-relaxed mb-4">
+          Let {String.raw`$P=(p_0,\ldots,p_{m-1})$`} be a probability
+          distribution and let {String.raw`$U_m=(1/m,\ldots,1/m)$`} be the
+          uniform distribution. By definition:
+        </p>
+        <div class="bg-slate-50 border border-slate-200 rounded-lg p-4 font-mono text-sm text-slate-900 overflow-x-auto mb-4">
+          {String.raw`$D_{\mathrm{KL}}(P\|U_m)=\sum_r p_r\log_2\frac{p_r}{1/m}$`}
+        </div>
+        <p class="text-slate-700 leading-relaxed mb-4">
+          Distribute the logarithm, then use {String.raw`$\sum_r p_r=1$`}:
+        </p>
+        <div class="bg-slate-50 border border-slate-200 rounded-lg p-4 font-mono text-sm text-slate-900 overflow-x-auto mb-4">
+          {String.raw`$D_{\mathrm{KL}}=\sum_r p_r(\log_2 p_r+\log_2 m)=\log_2 m+\sum_r p_r\log_2 p_r$`}
+        </div>
+        <p class="text-slate-700 leading-relaxed mb-4">
+          Since {String.raw`$H(P)=-\sum_r p_r\log_2 p_r$`}, we obtain:
+        </p>
+        <div class="bg-slate-50 border border-slate-200 rounded-lg p-4 font-mono text-sm text-slate-900 overflow-x-auto">
+          {String.raw`$D_{\mathrm{KL}}=\log_2 m-H(P)\quad\Longleftrightarrow\quad \log_2 m=D_{\mathrm{KL}}+H(P)$`}
+        </div>
+      </div>
+
+      <div class="mt-8 grid md:grid-cols-2 gap-4">
+        <div class="pt-card">
+          <h3 class="font-sans font-semibold text-thmblue mb-2">What this page claims</h3>
+          <p class="text-sm text-slate-700">
+            GFT is a universal identity, then a PT reading principle when its
+            two terms are applied to the sieve and to residue distributions.
+          </p>
+        </div>
+        <div class="pt-card">
+          <h3 class="font-sans font-semibold text-thmblue mb-2">What it does not claim</h3>
+          <p class="text-sm text-slate-700">
+            The identity alone does not prove a new law about primes. Its depth
+            comes from its role in the PT chain, not from the algebra.
+          </p>
+        </div>
+      </div>
+
+      <div class="mt-8 flex flex-wrap gap-3 text-sm font-sans">
+        <a href="/en/theorems/GFT" class="rounded-md border border-slate-300 px-3 py-2 text-thmblue hover:bg-slate-50">GFT sheet</a>
+        <a href="/en/theorems/T2" class="rounded-md border border-slate-300 px-3 py-2 text-thmblue hover:bg-slate-50">T2 · spectral conservation</a>
+        <a href="/en/gaps-premiers" class="rounded-md border border-slate-300 px-3 py-2 text-thmblue hover:bg-slate-50">Prime gaps</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

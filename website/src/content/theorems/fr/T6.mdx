@@ -1,0 +1,177 @@
+---
+id: T6
+name: 'T6 — Holonomie'
+short: '$\sin^2 \theta_p = \delta_p (2 - \delta_p)$ — la trigonométrie émerge du crible.'
+statement: 'Pour $\delta_p = (1 - q^p)/p$ et $\cos \theta_p = 1 - \delta_p$, l’identité $\sin^2 \theta_p = \delta_p (2 - \delta_p)$ est tautologique. Conséquence : la trigonométrie est forcée par la structure $\mathbb{Z}/p\mathbb{Z}$, $\pi$ émerge via $\zeta(2) = \pi^2/6$.'
+status: THM
+monograph_chapter: chap:holonomy
+order: 8
+lang: fr
+---
+
+import Tag from '@components/Tag.astro';
+
+## Énoncé
+
+Pour tout premier $p$ et paramètre de branche $q$ avec $0 < \delta_p < 1$, on définit l’angle de phase cyclique $\theta_p$ par :
+
+$$
+\cos\theta_p = 1 - \delta_p(q),
+\quad\text{où}\quad
+\delta_p(q) = \frac{1 - q^p}{p}.
+$$
+
+L’identité algébrique en découle :
+
+$$
+\boxed{\sin^2\theta_p = \delta_p(q)\cdot(2 - \delta_p(q))}
+$$
+
+<Tag level="THM" />
+
+<div data-max-depth="L1" className="bg-amber-50 border-l-4 border-amber-300 px-4 py-3 my-6">
+**Lecture vulgarisée.** Quand on tourne autour d’un cercle de $p$ points en sautant
+toujours du même nombre de cases, on revient au point de départ après un certain
+nombre de tours. Le théorème dit : l’angle qu’on parcourt à chaque saut est
+exactement donné par la formule ci-dessus, sans approximation. Conséquence : la
+trigonométrie (sin, cos, $\pi$) n’est pas inventée par la PT, elle **sort
+naturellement** du crible des nombres premiers.
+</div>
+
+## Pourquoi ça compte
+
+T6 est le maillon qui fait passer le crible (purement arithmétique) à la
+géométrie (angles, rotations, $\pi$). Sans T6, la PT serait bloquée au niveau
+des classes mod $p$ ; avec T6, on a accès à la trigonométrie complète et donc
+aux holonomies, aux groupes de Lie, et aux observables physiques (BA5 :
+$\alpha_{\mathrm{EM}} = \prod \sin^2\theta_p$).
+
+Statut épistémique : **théorème/dérivation** dans la monographie. La réduction
+$\sin^2\theta_p=\delta_p(2-\delta_p)$ est algébrique une fois
+$\cos\theta_p=1-\delta_p$ posé ; le contenu non trivial est que cette définition
+de l’angle est forcée par la géométrie du crible.
+
+## Démonstration — schéma
+
+La preuve est une dérivation directe en quatre temps :
+
+1. **Définir** $\cos\theta_p = 1 - \delta_p$ (choix forcé par la matrice de
+   transfert restreinte aux résidus non nuls — voir route 1 ci-dessous).
+2. **Appliquer Pythagore** : $\sin^2\theta_p + \cos^2\theta_p = 1$.
+3. **Substituer** : $\sin^2\theta_p = 1 - (1-\delta_p)^2 = 2\delta_p - \delta_p^2$.
+4. **Factoriser** : $\sin^2\theta_p = \delta_p(2 - \delta_p)$.
+
+Le travail substantiel consiste à montrer que la définition de $\cos\theta_p$
+n’est pas arbitraire — elle est imposée par la géométrie du crible, et trois
+routes mathématiquement disjointes y conduisent.
+
+<div data-min-depth="L3" className="bg-stone-50 border border-stone-300 rounded-lg p-4 my-8">
+
+### Démonstration détaillée (mode L3)
+
+#### Route 1 — Géométrique (matrice de transfert restreinte)
+
+Après que T1 force la diagonale principale du noyau de transition à zéro
+sur les classes de résidus non nulles, la matrice $T_p$ restreinte aux
+deux classes survivantes $\{r_1, r_2\}$ s’écrit :
+
+$$
+T_p|_\text{réduit} = \begin{pmatrix} 1-\delta_p & * \\ * & 1-\delta_p \end{pmatrix}
+$$
+
+où la diagonale est la fraction qui reste dans la même classe. Par
+conservation des probabilités (la somme par ligne vaut 1) :
+
+$$
+\text{(hors-diagonal)} = 1 - (1 - \delta_p) = \delta_p.
+$$
+
+L’amplitude de transition au carré, sommée sur les deux entrées hors-diagonale,
+donne la probabilité totale de changement de classe :
+
+$$
+1 - (1 - \delta_p)^2 = 2\delta_p - \delta_p^2 = \delta_p(2 - \delta_p).
+$$
+
+C’est la **route stochastique** : $\cos\theta_p$ est la fraction de masse
+qui reste dans la même classe, $\sin^2\theta_p$ est la fraction qui change.
+
+#### Route 2 — Spectrale (transformée de Fourier sur $\mathbb{Z}/p\mathbb{Z}$)
+
+Soit $\omega = e^{2\pi i/p}$ et $\chi_j(r) = \omega^{jr}$ les caractères
+additifs de $\mathbb{Z}/p\mathbb{Z}$. La transformée de Fourier du noyau
+$T_p$, restreinte aux résidus survivants $\{1, \ldots, p-1\}$, a pour
+valeur propre du mode fondamental :
+
+$$
+\widehat{T}_p(\chi_1) = \sum_{r=1}^{p-1} T_p(0, r)\,\omega^r = 1 - \delta_p = \cos\theta_p.
+$$
+
+La contraction du premier mode de Fourier non trivial vaut donc :
+
+$$
+1 - |\widehat{T}_p(\chi_1)|^2 = 1 - (1 - \delta_p)^2 = \delta_p(2 - \delta_p) = \sin^2\theta_p.
+$$
+
+Cette route identifie $\sin^2\theta_p$ comme **le poids spectral perdu par
+le caractère fondamental** à chaque pas du crible — un objet d’analyse
+harmonique sur $\mathbb{Z}/p\mathbb{Z}$, indépendant de toute interprétation
+géométrique.
+
+Vérification numérique : `proof_holonomy.py`, Part 1, confirme la contraction
+$|\hat{P}(1)|^2$ à $p = 3$.
+
+#### Route 3 — Information-géométrique (composante de Fisher)
+
+La composante par premier de l’information de Fisher
+
+$$
+F_p(\mu) = \sum_r P_r^{-1}\left(\frac{\partial P_r}{\partial \mu}\right)^2
+$$
+
+(voir §9.5 de la monographie) satisfait $F_p \propto \sin^2\theta_p$ au
+point fixe du crible. Spécifiquement, la double intégration
+
+$$
+\ln\alpha = -\iint g_{00}\,d\mu^2
+$$
+
+reproduit le produit $\prod \sin^2\theta_p$ parce que la métrique de Fisher
+est additivement séparable sur les facteurs CRT. Cette route donne
+$\sin^2\theta_p$ comme **composante de courbure** de la variété statistique,
+sans référence à des angles de rotation.
+
+#### Cohérence des trois routes
+
+L’accord exact des trois routes — géométrique, spectrale,
+information-géométrique — est une vérification de cohérence non triviale.
+Elles utilisent des machineries mathématiques disjointes : probabilités
+finies, analyse de Fourier discrète, géométrie d’information.
+L’identité $\sin^2\theta_p = \delta_p(2-\delta_p)$ apparaît dans chacune.
+
+#### Émergence de $\pi$
+
+L’apparition de $\pi$ dans la PT est une conséquence directe de T6, via
+l’identité de Bâle :
+
+$$
+\zeta(2) = \sum_{n \geq 1} \frac{1}{n^2} = \frac{\pi^2}{6}.
+$$
+
+La somme sur les premiers actifs $\{3, 5, 7\}$ des $\sin^2\theta_p$ pondérés
+par les multiplicités donne, à la limite continue, une intégrale qui contient
+$\zeta(2)$ et donc $\pi^2$.
+
+Pour la dérivation complète, voir [chapitre 6 de la monographie](/monograph)
+(énoncé p. 95, motivation p. 110, trois routes p. 158, vérification numérique
+p. 230).
+</div>
+
+## Voir aussi
+
+- [Calculatrice 2 — sin²(θ_p) sur les deux branches](/calculator) — calcule
+  l’identité en direct pour $p \in \{2, 3, 5, 7, 11, ...\}$
+- [Essai — D’où vient α_EM = 1/137 ?](/essays/where-alpha-comes-from) —
+  application directe de T6
+- [Théorème T5 (point fixe)](/theorems/T5) — utilise T6 pour fermer le crible
+- [Tous les théorèmes](/theorems)

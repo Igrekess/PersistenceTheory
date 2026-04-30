@@ -1,0 +1,66 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Monographie">
+  <section class="max-w-5xl mx-auto px-4 py-12">
+    <h1 class="text-3xl md:text-4xl font-bold text-thmblue mb-4">Monographie</h1>
+    <p class="text-stone-700 mb-6">
+      <em>The Theory of Persistence — From the Sieve to the Standard Model</em>,
+      yan senez, 2026. 880 pages, environ 40 Mo.
+    </p>
+
+    <div class="flex flex-wrap gap-3 mb-8">
+      <a
+        href="https://github.com/Igrekess/PersistenceTheory/raw/main/TheTheoryOfPersistence.pdf"
+        class="px-5 py-3 bg-thmblue text-white font-sans font-semibold rounded hover:bg-thmblue/90"
+      >
+        Télécharger l’édition anglaise
+      </a>
+      <a
+        href="https://github.com/Igrekess/PersistenceTheory/raw/main/TheorieDeLaPersistance_FR.pdf"
+        class="px-5 py-3 bg-thmblue text-white font-sans font-semibold rounded hover:bg-thmblue/90"
+      >
+        Télécharger l’édition française
+      </a>
+      <a
+        href="https://github.com/Igrekess/PersistenceTheory"
+        class="px-5 py-3 bg-white border border-stone-300 text-stone-800 font-sans font-semibold rounded hover:bg-stone-50"
+      >
+        Repo GitHub
+      </a>
+    </div>
+
+    <h2 class="text-xl font-semibold text-thmblue mt-8 mb-3 font-sans">Lecture en ligne</h2>
+    <p class="text-stone-700 mb-3 text-sm">
+      Le PDF se charge ci-dessous depuis GitHub (~40 Mo).
+      Si la prévisualisation est lente, télécharge plutôt le fichier.
+    </p>
+
+    <div class="border border-stone-300 rounded overflow-hidden bg-stone-100" style="height: 80vh;">
+      <iframe
+        src="https://github.com/Igrekess/PersistenceTheory/raw/main/TheorieDeLaPersistance_FR.pdf"
+        title="La Théorie de la Persistance — édition française"
+        class="w-full h-full"
+        loading="lazy"
+      ></iframe>
+    </div>
+
+    <h2 class="text-xl font-semibold text-thmblue mt-12 mb-3 font-sans">Statut éditorial</h2>
+    <ul class="list-disc list-inside text-stone-700 space-y-1 marker:text-thmblue">
+      <li>Préimpression — non révisée par les pairs</li>
+      <li>Édition française et anglaise à parité (drift FR/EN = 0 sur ~4 400 labels)</li>
+      <li>56 scripts Python compagnons, 2 694/2 695 contrôles passants, 1 échec connu indépendant des ajouts récents</li>
+      <li>Sources LaTeX disponibles publiquement (repo monographie)</li>
+    </ul>
+
+    <h2 class="text-xl font-semibold text-thmblue mt-12 mb-3 font-sans">Citation</h2>
+    <pre class="text-xs"><code>@book&#123;senez2026persistence,
+  author    = &#123;Senez, Yan&#125;,
+  title     = &#123;The Theory of Persistence: From the Sieve to the Standard Model&#125;,
+  year      = &#123;2026&#125;,
+  publisher = &#123;Self-published preprint&#125;,
+  url       = &#123;https://persistencetheory.org&#125;
+&#125;</code></pre>
+  </section>
+</BaseLayout>

@@ -1,0 +1,105 @@
+---
+id: N4
+name: 'N4 — First cascade level'
+short: 'In the canonical sieve ordering, $p = 3$ is the first dynamical level. $p = 2$ has a structurally distinct role (info / anti-info).'
+statement: 'In the canonical sieve ordering, the prime $p = 3$ is the first **dynamical** level: it produces the first non-trivial transfer matrix and the symmetry $s = 1/2$. The prime $p = 2$ has a structurally distinct role — it is the info / anti-info operator creating the GFT partition.'
+status: THM
+monograph_chapter: chap:uniqueness
+order: 13
+tier: secondary
+lang: en
+---
+
+import Tag from '@components/Tag.astro';
+
+## Statement
+
+In the canonically-ordered Eratosthenes sieve, the prime $p = 3$ is the **first dynamical cascade level**: it produces the first non-trivial transfer matrix and imposes the fundamental symmetry $s = 1/2$.
+
+The prime $p = 2$ has a **structurally distinct role**: it is the **info / anti-info** operator creating the GFT partition $\log_2 m = D_{\rm KL} + H$. It is *kinematic*, not *dynamical*.
+
+<Tag level="THM" />
+
+<div data-max-depth="L1" className="bg-amber-50 border-l-4 border-amber-300 px-4 py-3 my-6">
+**Plain reading.** Why does PT start at $p = 3$ and not $p = 2$? Because 2 does
+not "move" — it just separates evens from odds, that’s binary. Real dynamics
+begins at 3, which creates the first non-trivial rule (forbidden mod-3
+transitions, T1).
+</div>
+
+## Why it matters
+
+N4 justifies the **special role of $p = 2$** throughout the PT cascade.
+Without this distinction, one would try to include $p = 2$ in the
+$\alpha_{\rm EM}$ computation (BA5) — and obtain wrong numbers. The $p = 2$
+factor enters elsewhere: via the informational leakage $F(2) \approx 0.758$
+that dresses $\alpha_{\rm bare}$ to give $\alpha_{\rm EM} = 1/137.036$.
+
+It is also N4 that justifies U4 (excluding $p = 2$ as a dynamical prime) in T0.
+
+## Proof — outline
+
+1. **$p = 2$ is kinematic.** The even/odd partition is a Boolean projection,
+   without dynamics.
+2. **$p = 3$ is dynamical.** The transfer matrix $T_3$ has two distinct states
+   ($\{1, 2\} \pmod 3$) with a non-trivial elimination rule.
+3. **Forced symmetry.** $T_3 = \mathrm{antidiag}(1,1)$ has stationary
+   distribution $(1/2, 1/2)$, hence $s = 1/2$.
+
+<div data-min-depth="L3" className="bg-stone-50 border border-stone-300 rounded-lg p-4 my-8">
+
+### Detailed proof (L3 mode)
+
+#### Part 1 — $p = 2$ is kinematic
+
+The mod-2 sieve partitions $\mathbb{N}$ into evens $\{2, 4, 6, \ldots\}$ and
+odds $\{1, 3, 5, 7, \ldots\}$. This partition is:
+- **Boolean**: an integer is even or odd, no intermediate state.
+- **Without transitions**: an integer’s class is trivially determined by its
+  last bit.
+
+The mod-2 transfer matrix on survivors (odds) is trivial: all survivors are
+in the same class (1 mod 2). No inter-class dynamics — no analogue of T1.
+
+This is what makes PT call $p = 2$ a **partition operator** rather than
+**a cascade actor**. Its role appears in GFT: $\log_2 m = D_{\rm KL} + H$,
+where the factor 2 separates persistence from entropy.
+
+#### Part 2 — $p = 3$ is the first dynamical
+
+The mod-3 sieve on 6-rough survivors (integers neither multiples of 2 nor of 3)
+gives two non-trivial classes: $\{1, 2\} \pmod 3$. The transfer matrix $T_3$
+(theorem T1) has an explicit elimination rule:
+$T_3 = \mathrm{antidiag}(1, 1)$.
+
+This is the **first non-trivial transfer matrix** of the sieve — the
+distinction between $T_2$ (kinematic) and $T_3$ (dynamical) is structural.
+
+#### Part 3 — The symmetry $s = 1/2$
+
+The stationary distribution of $T_3$ is computed by diagonalisation:
+eigenvalues $\pm 1$, stationary eigenvector $(1, 1)/\sqrt{2}$.
+Hence weight $1/2$ on each class — that is the value of $s$.
+
+This symmetry could not emerge at $p = 2$ (which has only one non-trivial
+state). It emerges at $p = 3$ for the first time, and stays constant for
+all later active primes (by CRT).
+
+#### Consequence: U4 exclusion in T0
+
+T0 (BA0 closure) includes condition U4: exclusion of $p = 2$ as a dynamical
+prime. N4 justifies this condition at a structural level.
+
+This exclusion is not lost: $p = 2$ returns at another level via the $F(2)$
+dressing of $\alpha_{\rm EM}$ (binary channel). But its dynamical contribution
+is filtered out of the main cascade.
+
+For the complete derivation, see [chapter 2 of the monograph](/en/monograph).
+</div>
+
+## See also
+
+- [T0 — BA0 Closure](/en/theorems/T0) — uses U4 ($p = 2$ exclusion)
+- [T1 — Forbidden mod-3 transitions](/en/theorems/T1) — first dynamics example
+- [GFT](/en/theorems/GFT) — where $p = 2$ appears as info/anti-info partition
+- [All theorems](/en/theorems)

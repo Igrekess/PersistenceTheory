@@ -1,0 +1,110 @@
+---
+id: N3
+name: 'N3 — Minimalité structurelle de ℕ'
+short: '$(\mathbb{N}_{\geq 1}, \times)$ est l’unique monoïde libre commutatif à factorisation unique avec atomes dénombrables.'
+statement: '$(\mathbb{N}_{\geq 1}, \times)$ est, à isomorphisme près, l’unique monoïde libre commutatif cancellatif à factorisation unique avec un nombre dénombrable d’atomes. Le crible utilise uniquement la divisibilité — pas de métrique, topologie ou structure additive.'
+status: THM
+monograph_chapter: chap:uniqueness
+order: 12
+tier: secondary
+lang: fr
+---
+
+import Tag from '@components/Tag.astro';
+
+## Énoncé
+
+Le crible d’Ératosthène est **structurellement minimal** au sens suivant :
+
+- **(M1) Monoïde minimal.** $(\mathbb{N}_{\geq 1}, \times)$ est, à isomorphisme près, l’unique monoïde libre commutatif cancellatif à factorisation unique (UFD) avec un nombre dénombrable d’atomes.
+- **(M2) Opération minimale.** Le crible utilise uniquement la divisibilité ($a \mid b$), qui ne requiert ni métrique, ni topologie, ni structure additive.
+
+<Tag level="THM" />
+
+<div data-max-depth="L1" className="bg-amber-50 border-l-4 border-amber-300 px-4 py-3 my-6">
+**Lecture vulgarisée.** ℕ avec la multiplication n’est pas un cadre arbitraire : c’est
+**le plus simple possible** pour faire émerger des « briques fondamentales » uniques.
+Aucune structure plus pauvre ne marche, aucune structure plus riche n’est nécessaire.
+Le crible utilise la seule opération vraiment indispensable : « est-ce qu’on divise ? ».
+</div>
+
+## Pourquoi ça compte
+
+N3 verrouille **l’inévitabilité** de la PT à un niveau encore plus profond que N1
+et N2. N1 dit : sur ℕ, les premiers sont uniques. N2 dit : sur ℕ, le crible
+est unique. N3 va plus loin : ℕ lui-même est forcé. Pas la peine de chercher
+ailleurs un cadre plus simple.
+
+Conséquence : la PT prend comme point de départ le minimum logique — un monoïde
+commutatif, libre, à factorisation unique. Toute alternative serait soit
+plus riche (donc soumise à la même structure) soit incohérente.
+
+## Démonstration — schéma
+
+1. **(M1) Existence d’un tel monoïde.** $(\mathbb{N}_{\geq 1}, \times)$ vérifie :
+   commutatif (✓), libre (engendré par les premiers, sans relation cachée),
+   cancellatif ($a c = b c \Rightarrow a = b$ pour $c \neq 0$), UFD
+   (factorisation unique).
+2. **(M1) Unicité.** Tout monoïde avec ces propriétés et un ensemble dénombrable
+   d’atomes est isomorphe à $(\mathbb{N}_{\geq 1}, \times)$.
+3. **(M2) Divisibilité comme primitive minimale.** La relation $a \mid b$ est
+   l’unique relation binaire définissable sans structure additionnelle (métrique,
+   topologie, ordre additif), capable d’identifier les atomes.
+
+<div data-min-depth="L3" className="bg-stone-50 border border-stone-300 rounded-lg p-4 my-8">
+
+### Démonstration détaillée (mode L3)
+
+#### Partie M1.1 — ℕ vérifie les axiomes UFD
+
+- **Commutatif** : $ab = ba$ pour tout $a, b \in \mathbb{N}_{\geq 1}$.
+- **Libre** : aucune relation cachée entre premiers ($p \cdot q \neq r$ pour des
+  primaires distincts $p, q, r$).
+- **Cancellatif** : $ac = bc$ avec $c \neq 0$ implique $a = b$.
+- **UFD** : théorème fondamental de l’arithmétique.
+
+#### Partie M1.2 — Unicité par isomorphisme
+
+Soit $(M, \cdot)$ un monoïde commutatif libre cancellatif UFD avec un ensemble
+dénombrable d’atomes $\{a_n\}_{n \in \mathbb{N}}$. Indexons les atomes par
+$\mathbb{N}$ : $a_1, a_2, \ldots$. La factorisation unique d’un élément $m \in M$ s’écrit :
+
+$$
+m = a_1^{k_1} \cdot a_2^{k_2} \cdots a_n^{k_n}
+$$
+
+avec $k_i \geq 0$. Ceci définit une bijection $\varphi : M \to \mathbb{N}_{\geq 1}$
+en envoyant $a_i \mapsto p_i$ (le $i$-ème nombre premier). $\varphi$ est un
+isomorphisme de monoïdes par construction.
+
+#### Partie M2 — Minimalité opérationnelle
+
+La relation de divisibilité $a \mid b \iff \exists c : ac = b$ est définissable
+purement à partir de la structure multiplicative. Aucune autre relation n’a cette
+propriété. En particulier :
+- Pas besoin d’**ordre** $a < b$ — le crible n’utilise pas l’ordre, juste « est-ce
+  que ce nombre est multiple ? ».
+- Pas besoin de **métrique** $d(a, b)$ — pas de notion de proximité.
+- Pas besoin de **topologie** — pas de continuité.
+- Pas besoin de **structure additive** — la cascade utilise uniquement la
+  multiplication.
+
+C’est cette pauvreté axiomatique qui rend la PT philosophiquement remarquable :
+la physique se reconstruit depuis presque rien.
+
+#### Conséquence : irréductibilité de PT
+
+N3 implique qu’il n’y a pas de cadre plus simple où la cascade PT pourrait
+s’installer. Toute tentative de reformulation alternative se ramène, par
+isomorphisme, au cadre $(\mathbb{N}, \times)$. PT est **structurellement
+unique**.
+
+Pour la dérivation complète, voir [chapitre 2 de la monographie](/monograph).
+</div>
+
+## Voir aussi
+
+- [N1 — Unicité algébrique](/theorems/N1) — atomes uniques sur ℕ
+- [N2 — Auto-cohérence](/theorems/N2) — crible unique sur ℕ
+- [N4 — Premier niveau de cascade](/theorems/N4) — pourquoi p = 3 est le départ dynamique
+- [Tous les théorèmes](/theorems)

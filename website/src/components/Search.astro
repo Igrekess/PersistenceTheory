@@ -1,0 +1,102 @@
+---
+interface Props {
+  lang: 'fr' | 'en';
+}
+const { lang } = Astro.props;
+const placeholder = lang === 'fr' ? 'Rechercher…' : 'Search…';
+---
+
+<div id="pf-search-wrap" class="relative">
+  <input
+    id="pf-search-input"
+    type="search"
+    placeholder={placeholder}
+    class="px-3 py-1 border border-stone-300 rounded text-sm w-40 focus:w-56 transition-all focus:outline-none focus:ring-1 focus:ring-thmblue"
+    aria-label={placeholder}
+    autocomplete="off"
+  />
+  <div
+    id="pf-results"
+    class="hidden absolute right-0 mt-1 w-[28rem] max-h-[70vh] overflow-y-auto bg-white border border-stone-200 rounded shadow-lg z-50 text-sm"
+  ></div>
+</div>
+
+<script define:vars={{ lang }}>
+  let pagefind = null;
+  const input = document.getElementById('pf-search-input');
+  const results = document.getElementById('pf-results');
+
+  async function ensurePagefind() {
+    if (pagefind) return pagefind;
+    try {
+      const path = '/pagefind/pagefind.js';
+      pagefind = await import(/* @vite-ignore */ path);
+      await pagefind.options({
+        baseUrl: '/',
+      });
+      return pagefind;
+    } catch (e) {
+      console.warn('Pagefind not available (run `npm run build` first):', e);
+      return null;
+    }
+  }
+
+  function escapeHtml(s) {
+    return String(s).replace(/[&<>"']/g, c => ({
+      '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+    }[c]));
+  }
+
+  let lastQuery = '';
+  let timer = null;
+
+  async function runSearch(q) {
+    if (!results) return;
+    const pf = await ensurePagefind();
+    if (!pf) {
+      results.innerHTML = '<div class="p-3 text-stone-500">Search index not available in dev mode.</div>';
+      results.classList.remove('hidden');
+      return;
+    }
+    if (!q) { results.classList.add('hidden'); return; }
+    const out = await pf.debouncedSearch(q, {}, 250);
+    if (!out) return;
+    if (!out.results.length) {
+      results.innerHTML = `<div class="p-3 text-stone-500">${lang === 'fr' ? 'Aucun résultat.' : 'No results.'}</div>`;
+      results.classList.remove('hidden');
+      return;
+    }
+    const top = await Promise.all(out.results.slice(0, 8).map(r => r.data()));
+    // Filter by current language: keep only URLs whose lang matches
+    const filtered = top.filter(d => {
+      const url = d.url || d.raw_url || '';
+      const isEn = url.startsWith('/en/');
+      return lang === 'en' ? isEn : !isEn;
+    });
+    results.innerHTML = (filtered.length ? filtered : top).map(d => {
+      const title = escapeHtml(d.meta?.title || d.url);
+      const excerpt = d.excerpt || '';
+      return `<a href="${d.url}" class="block px-4 py-3 border-b border-stone-100 hover:bg-stone-50">
+        <div class="font-sans font-semibold text-thmblue">${title}</div>
+        <div class="text-stone-600 text-xs mt-1">${excerpt}</div>
+      </a>`;
+    }).join('');
+    results.classList.remove('hidden');
+  }
+
+  if (input && results) {
+    input.addEventListener('input', () => {
+      const q = input.value.trim();
+      if (q === lastQuery) return;
+      lastQuery = q;
+      runSearch(q);
+    });
+    input.addEventListener('focus', () => {
+      if (input.value.trim()) results.classList.remove('hidden');
+    });
+    document.addEventListener('click', (e) => {
+      const wrap = document.getElementById('pf-search-wrap');
+      if (wrap && !wrap.contains(e.target)) results.classList.add('hidden');
+    });
+  }
+</script>

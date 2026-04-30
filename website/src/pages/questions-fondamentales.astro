@@ -1,0 +1,442 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+
+const statusClass = (type: string) => {
+  if (type === 'THM') return 'pt-tag-thm';
+  if (type === 'ID') return 'pt-tag-id';
+  if (type === 'PRED') return 'pt-tag-pred';
+  if (type === 'VAL') return 'pt-tag-val';
+  if (type === 'BRIDGE') return 'pt-tag-bridge';
+  if (type === 'OUVERT' || type === 'COND') return 'pt-tag-cond';
+  return 'pt-tag-der';
+};
+
+const groups = [
+  {
+    title: 'Fondations',
+    items: [
+      {
+        q: 'Pourquoi y a-t-il une conservation fondamentale ?',
+        answer: 'La PT formule le principe fondamental de la persistance : un budget total de distinctions se partage entre structure persistante et dispersion entropique.',
+        details: [
+          'Si un système offre $m$ possibilités, il faut un certain nombre de distinctions oui/non pour repérer l’une d’elles. Ce budget total est noté techniquement $\\log_2(m)$, mais l’idée simple est : le système ne peut pas porter plus de distinctions que son espace de possibilités ne le permet.',
+          'Ce budget se partage exactement entre structure persistante, mesurée par $D_{KL}$, et dispersion entropique, mesurée par $H(P)$. La notation compacte est $\\log_2(m) = D_{KL}(P\\Vert U_m) + H(P)$.',
+          'La conservation n’est donc pas ajoutée comme une loi extérieure. Elle exprime le fait qu’une distinction ne peut pas produire plus de capacité qu’elle n’en porte.',
+        ],
+        type: 'ID',
+        mode: 'Principe fondamental',
+        source: 'GFT, préface, chapitres arithmétiques',
+      },
+      {
+        q: 'Pourquoi le discret et le continu semblent-ils tous deux fondamentaux ?',
+        answer: 'La PT dissout l’opposition en partant d’une mécanique ondulatoire continue dont le discret marque les points de persistance.',
+        details: [
+          'Les équations PT ne fabriquent pas le continu à partir du discret. Elles décrivent une dynamique continue de phases, d’ondes, de métrique de Fisher et d’holonomies ; le crible y marque les positions qui persistent.',
+          'Le discret est donc la cristallisation observable de cette mécanique continue : actifs, canaux, fermetures, périodes, nombres magiques. Ce sont les points où l’onde de persistance devient arithmétiquement stable et lisible.',
+        ],
+        type: 'DER',
+        mode: 'Dissous',
+        source: 'ch. 5, ch. 13, ch. 24, R50',
+      },
+      {
+        q: 'Pourquoi quelque chose plutôt que rien ?',
+        answer: 'La monographie propose une réponse interprétative : le néant absolu n’est pas stable dès qu’une distinction est admise.',
+        details: [
+          'PT ne prétend pas démontrer physiquement l’existence de l’être. Elle dit plutôt que si une distinction quelconque est possible, alors une arithmétique minimale est déjà forcée.',
+          'La question recule donc d’un cran : non plus “pourquoi ces constantes ?”, mais “pourquoi y a-t-il une structure logique plutôt que rien ?”.',
+        ],
+        type: 'BRIDGE',
+        mode: 'Interprété',
+        source: 'ch. 24, ch. 26',
+      },
+      {
+        q: 'Pourquoi zéro paramètre continu ajustable ?',
+        answer: 'Les constantes sans dimension descendent du point fixe $\\mu^* = 15$ et de choix structurels discrets.',
+        details: [
+          'Le moteur PT ne règle pas une valeur réelle pour améliorer un accord expérimental. Il part de $s=1/2$, des actifs $3,5,7$, du point fixe $\\mu^*=15$, puis applique des règles classées par statut.',
+          'Cela ne veut pas dire zéro hypothèse. Cela veut dire que les hypothèses restantes sont discrètes, nommées, auditables, et qu’elles ne peuvent pas être ajustées observable par observable.',
+        ],
+        type: 'DER',
+        mode: 'Contraint',
+        source: 'préface, ch. 23, engagements C1-C10',
+      },
+      {
+        q: 'Pourquoi le crible plutôt qu’un autre objet ?',
+        answer: 'La monographie réduit la question à une chaîne : distinction, exclusion, factorisation, invariance et jauge.',
+        details: [
+          'Le crible d’Ératosthène est le système minimal qui combine multiplication, divisibilité, classes résiduelles et élimination irréversible des composites.',
+          'C’est cette combinaison qui porte à la fois une dynamique discrète, une géométrie de Fisher, une holonomie cyclique et des constantes sans dimension. La question résiduelle devient alors : pourquoi la physique est-elle une théorie de jauge ?',
+        ],
+        type: 'DER',
+        mode: 'Réduit',
+        source: 'ch. 1, ch. 9, App. Q',
+      },
+    ],
+  },
+  {
+    title: 'Modèle Standard',
+    items: [
+      {
+        q: 'Pourquoi trois générations de fermions ?',
+        answer: 'Les trois générations correspondent aux trois actifs $3,5,7$ au point fixe $\\mu^* = 15$.',
+        details: [
+          'Une génération n’est pas une copie arbitraire. Elle correspond à un canal actif dont l’exposant de sensibilité reste au-dessus du seuil $1/2$.',
+          'Les actifs $3,5,7$ survivent ; $11$ tombe sous le seuil. Cela explique simultanément les trois familles et l’absence attendue de quatrième génération.',
+        ],
+        type: 'THM',
+        mode: 'Dérivé',
+        source: 'T5, ch. 15, essais',
+      },
+      {
+        q: 'Pourquoi trois couleurs ?',
+        answer: '$N_c = 3$ est traité comme une valeur entière dérivée dans la chaîne de reconstruction.',
+        details: [
+          'La même structure de rang trois qui sélectionne les actifs donne la multiplicité de couleur. En physique, ce rang organise les quarks et les facteurs de Casimir.',
+          'Le point fort est que ce $3$ n’est pas isolé : il réapparaît dans les secteurs hadronique, nucléaire et espace-temps.',
+        ],
+        type: 'THM',
+        mode: 'Dérivé',
+        source: 'ch. 13, ch. 15, ch. 22d',
+      },
+      {
+        q: 'Pourquoi les constantes de couplage ont ces valeurs ?',
+        answer: 'Les couplages sont lus depuis les phases cycliques, les dimensions anomales et les transitions inter-canal.',
+        details: [
+          'Un couplage n’est pas une constante brute injectée dans le Lagrangien. Il mesure le coût géométrique d’un transport autour d’un canal cyclique du crible.',
+          'Les corrections fines viennent ensuite des inactifs, des changements de canal et des effets de polarisation, avec des coefficients tirés de quantités PT déjà présentes.',
+        ],
+        type: 'DER',
+        mode: 'Expliqué et validé',
+        source: 'ch. 10-12, observables',
+      },
+      {
+        q: 'Pourquoi les masses et mélanges sont hiérarchiques ?',
+        answer: 'La hiérarchie vient de cascades de canaux, de rapports de courbure et d’exposants structurels.',
+        details: [
+          'La PT remplace l’image de Yukawa libres par une image de cascade. Une masse ou un angle de mélange dépend de la profondeur, de la courbure, de la phase et de la communication entre canaux.',
+          'Les petites valeurs deviennent des effets de projection, d’atténuation ou d’écho. Les 43 observables du Modèle Standard sont comparées aux mesures avec une erreur moyenne annoncée autour de 0,30 %.',
+        ],
+        type: 'VAL',
+        mode: 'Validé',
+        source: 'ch. 15, ch. 23',
+      },
+      {
+        q: 'Pourquoi l’anomalie $g-2$ du muon ?',
+        answer: 'Elle est lue comme un écho de polarisation du vide plutôt que comme le signe direct d’une nouvelle particule.',
+        details: [
+          'Le muon, plus profond que l’électron, voit plus fortement certaines corrections de canal. Le décalage devient alors une cible de précision du moteur PT.',
+          'Le statut reste celui d’une prédiction à confronter aux nouvelles moyennes expérimentales et aux calculs hadroniques, pas celui d’un théorème arithmétique.',
+        ],
+        type: 'PRED',
+        mode: 'Dissous/prédit',
+        source: 'ch. 20, ch. 21',
+      },
+      {
+        q: 'Pourquoi pas d’axion, pas de SUSY légère, pas de proton instable ?',
+        answer: 'PT les traite comme prédictions négatives : certaines extensions ne sont pas naturelles dans le crible.',
+        details: [
+          'Si $\\theta_{QCD}=0$ est structurel, l’axion n’est pas nécessaire. Si $s=1/2$ ferme le point fixe, une supersymétrie légère n’est pas attendue. Si le nombre baryonique est conservé par la structure du crible, la désintégration du proton n’est pas attendue.',
+          'Ces points exposent la PT au risque expérimental : elle ne peut pas toujours ajouter un nouveau secteur pour absorber une anomalie.',
+        ],
+        type: 'PRED',
+        mode: 'Prédictions négatives',
+        source: 'ch. 21, ch. 26',
+      },
+    ],
+  },
+  {
+    title: 'Espace-temps et gravitation',
+    items: [
+      {
+        q: 'Pourquoi la relativité générale ?',
+        answer: 'La métrique d’espace-temps est identifiée à la métrique de Fisher du crible.',
+        details: [
+          'Une distribution de classes du crible possède une géométrie informationnelle. Quand cette géométrie est restreinte aux directions actives et à la coordonnée d’échelle, elle prend une signature lorentzienne.',
+          'La relativité générale n’est donc pas importée comme décor continu : elle est la forme prise par l’information persistante quand elle devient géométrie mesurable.',
+        ],
+        type: 'THM',
+        mode: 'Dérivé',
+        source: 'ch. 13, lemme F',
+      },
+      {
+        q: 'Pourquoi le temps ?',
+        answer: 'Le temps apparaît quand la lecture d’échelle devient une direction métrique de signe temporel.',
+        details: [
+          'Les couches du crible sont des niveaux logiques, pas des instants. La coordonnée $\\mu$ ordonne cette hiérarchie, mais elle ne devient temps physique que lorsque la métrique lui donne un signe opposé aux directions spatiales.',
+          'C’est le rôle de $g_{00}<0$ : la profondeur logique devient durée propre mesurable, $\\tau=\\int\\sqrt{|g_{00}|}\\,d\\mu$.',
+        ],
+        type: 'THM',
+        mode: 'Reformulé',
+        source: 'ch. 13, rigidité du temps',
+      },
+      {
+        q: 'Pourquoi la vitesse de la lumière ?',
+        answer: 'En PT, $c$ est une constante de conversion en unités canoniques du crible : $\\hbar=c=1$.',
+        details: [
+          'La valeur $299\\,792\\,458\\,\\mathrm{m/s}$ traduit notre choix de mètre et de seconde. Elle est fixée par convention métrologique, comme le MeV traduit notre choix d’unité d’énergie.',
+          'Le point physique à expliquer n’est donc pas ce nombre SI, mais l’existence d’une vitesse limite commune. Elle vient de la signature lorentzienne de Fisher et du choix d’unités naturelles où les cônes lumineux ont pente unitaire.',
+        ],
+        type: 'DER',
+        mode: 'Unités + géométrie',
+        source: 'R51, ch. 10, ch. 13',
+      },
+      {
+        q: 'Pourquoi trois dimensions d’espace et une de temps ?',
+        answer: 'Les trois actifs donnent trois directions spatiales ; la profondeur $\\mu$ devient la direction temporelle.',
+        details: [
+          'Le résultat relie les trois directions stables aux actifs $3,5,7$, puis montre que la coordonnée d’échelle possède le signe temporel dans le régime lorentzien.',
+          'La dimension anomale mesure la sensibilité d’un canal à la profondeur. Elle explique pourquoi certains canaux deviennent actifs, tandis que d’autres restent en écho ou inactifs.',
+        ],
+        type: 'DER',
+        mode: 'Dérivé',
+        source: 'ch. 6, ch. 13, essais',
+      },
+      {
+        q: 'Pourquoi la gravité est-elle si faible ?',
+        answer: 'La faiblesse apparente dépend du système d’unités et du canal mesuré.',
+        details: [
+          'En unités usuelles, la gravité paraît extrêmement faible parce qu’on la compare à des interactions microscopiques avec des unités héritées de l’électromagnétisme.',
+          'En unités PT, $G$ est relié à la géométrie de Fisher, à la topologie $S^1$ et à la relation $G\\simeq 2\\pi\\alpha_{EM}$. La faiblesse devient un effet de projection entre canaux et unités.',
+        ],
+        type: 'DER',
+        mode: 'Expliqué',
+        source: 'ch. 13, R39',
+      },
+      {
+        q: 'La gravité quantique est-elle résolue ?',
+        answer: 'La monographie ferme le secteur QG minimal, mais garde une validation observationnelle fine ouverte.',
+        details: [
+          'Le noyau QG relie contrainte de Wheeler-DeWitt, amplitudes de bord, algèbre de Dirac, mousses topologiques, corrections Fourier/RG et secteur Kerr dans une même chaîne de persistance.',
+          'Ce qui reste ouvert n’est pas le squelette logique minimal, mais la calibration de précision du canal dissipatif $d\\tau$ dans les postérieurs ringdown de trous noirs réels.',
+        ],
+        type: 'OUVERT',
+        mode: 'Minimal fermé, validation ouverte',
+        source: 'ch. 13, ch. 24, annexes F/S',
+      },
+    ],
+  },
+  {
+    title: 'Cosmologie',
+    items: [
+      {
+        q: 'Que signifie “avant le Big Bang” ?',
+        answer: 'La PT dissout la question au sens strict : la chronologie cosmologique est une lecture interne du crible.',
+        details: [
+          'Demander ce qu’il y avait “avant” suppose déjà une horloge extérieure au monde. Or le temps physique apparaît avec la métrique ; il n’est pas le contenant préalable dans lequel le crible commencerait à tourner.',
+          'Le Big Bang devient alors une frontière de lecture de la structure, non un événement déclenché par une horloge plus fondamentale.',
+        ],
+        type: 'BRIDGE',
+        mode: 'Dissous',
+        source: 'préface, ch. 13',
+      },
+      {
+        q: 'Pourquoi un secteur sombre ?',
+        answer: 'La fraction sombre est lue comme effet cosmologique des canaux inactifs du crible.',
+        details: [
+          'Les actifs $3,5,7$ portent les directions directement visibles. Les inactifs, à partir de $11$, contribuent comme fraction géométrique non lumineuse via $F_{inactive}(N)=1-2/(e^\\gamma\\ln N)$.',
+          'La monographie sépare cette fraction en composante de type matière noire et composante de type énergie noire par une lecture thermodynamique de Clausius.',
+        ],
+        type: 'DER',
+        mode: 'Dérivé et testé',
+        source: 'ch. 13, ch. 14, ch. 20',
+      },
+      {
+        q: 'Pourquoi pas de particule de matière noire ?',
+        answer: 'PT prédit que la matière noire dominante est géométrique, pas particulaire.',
+        details: [
+          'Le point PT est plus fort que “il existe un secteur sombre” : l’effet gravitationnel attribué à la matière noire vient de la fraction inactive du crible, pas d’un WIMP dominant ajouté au spectre.',
+          'Cela reste testable : les recherches directes de WIMPs devraient continuer à ne pas trouver de particule dominante, tandis que les signatures cosmologiques doivent suivre la même fonction inactive que l’énergie noire.',
+        ],
+        type: 'PRED',
+        mode: 'Prédiction négative',
+        source: 'P14, ch. 20f, ch. 21, ch. 26',
+      },
+      {
+        q: 'Pourquoi une tension de Hubble ?',
+        answer: 'La PT la reformule via l’anisotropie Bianchi I du crible.',
+        details: [
+          'Un taux local mesuré le long de lignes de visée et un taux extrait d’un fond cosmologique isotropisé ne sondent pas exactement la même projection informationnelle.',
+          'La prédiction qualitative est que les relevés à large couverture doivent réduire la tension apparente en moyennant mieux les directions anisotropes.',
+        ],
+        type: 'PRED',
+        mode: 'Reformulé',
+        source: 'ch. 13, ch. 20f',
+      },
+      {
+        q: 'Pourquoi l’énergie noire ressemble-t-elle à une constante cosmologique ?',
+        answer: 'Elle est lue comme pression informationnelle d’un secteur inactif presque constant à grande échelle.',
+        details: [
+          'L’énergie noire n’est pas une énergie du vide librement ajustée. Elle vient d’une séparation thermodynamique dans la fraction inactive : une partie se manifeste comme information gravitationnelle, une autre comme pression cosmologique.',
+          'La quasi-constance vient du fait que la fraction inactive varie lentement avec l’échelle logarithmique. Les écarts éventuels à $w=-1$ deviennent donc des tests de dérive.',
+        ],
+        type: 'DER',
+        mode: 'Expliqué/testable',
+        source: 'ch. 14, ch. 20f',
+      },
+      {
+        q: 'Quelles prédictions cosmologiques restent à trancher ?',
+        answer: 'La masse du troisième neutrino, l’équation d’état sombre et les signatures DESI/Euclid/CMB-S4 restent décisives.',
+        details: [
+          'Ces prédictions ne sont pas indépendantes : elles dépendent de la même lecture actifs/inactifs.',
+          'Une rupture nette dans une sous-chaîne contraindrait tout le bloc cosmologique. C’est ce qui rend le secteur sombre PT réellement falsifiable.',
+        ],
+        type: 'PRED',
+        mode: 'Prédit/ouvert',
+        source: 'ch. 21, how-to-read',
+      },
+    ],
+  },
+  {
+    title: 'Chimie et nucléaire',
+    items: [
+      {
+        q: 'Pourquoi les périodes du tableau périodique ?',
+        answer: 'Les longueurs $2,8,8,18,18,32,32$ sortent des canaux $s,p,d,f$, du doublement de spin et de la profondeur radiale.',
+        details: [
+          'Le tableau périodique n’est pas seulement mémorisé : les blocs deviennent des canaux polygonaux d’orientations $2\\ell+1$, doublés par l’involution de spin.',
+          'Les périodes longues apparaissent quand les canaux internes $d$ et $f$ deviennent accessibles. L’irrégularité apparente devient une lecture de profondeur, pas une liste d’exceptions.',
+        ],
+        type: 'DER',
+        mode: 'Dérivé',
+        source: 'ch. 22, PTC',
+      },
+      {
+        q: 'Pourquoi les pics d’énergie d’ionisation ?',
+        answer: 'Les pics viennent des fermetures, demi-remplissages, pénétrations radiales et corrections CPR.',
+        details: [
+          'L’énergie d’ionisation mesure le coût de retirer un électron d’un canal. Elle augmente quand le canal est fermé, symétrique ou contracté vers le cœur, et baisse quand l’électron est en position de bord plus exposée.',
+          'La correction CPR continue formalise contraction, pénétration et résonance inter-canal sans gate discret arbitraire.',
+        ],
+        type: 'VAL',
+        mode: 'Validé',
+        source: 'ch. 22, page IE',
+      },
+      {
+        q: 'Pourquoi les affinités électroniques varient autant ?',
+        answer: 'L’EA est une observable de bord : elle voit le canal receveur, la vacance et le contact radial.',
+        details: [
+          'Ajouter un électron ne dépend pas seulement de la case suivante. L’atome présente un bord de capture : une place disponible, une pression de vacance, une profondeur radiale et une stabilisation possible par les électrons voisins.',
+          'C’est pourquoi un halogène comme le chlore capture fortement, tandis qu’un métal de transition comme le titane n’offre pas le même bord stabilisateur.',
+        ],
+        type: 'VAL',
+        mode: 'Validé',
+        source: 'ch. 22, page EA',
+      },
+      {
+        q: 'Pourquoi les noyaux ont des nombres magiques et des énergies de liaison ?',
+        answer: 'La physique nucléaire est reconstruite par une cascade $s=1/2 \\to N_c \\to \\alpha_s \\to V_{NN} \\to E_{bind}$.',
+        details: [
+          'Les nombres magiques viennent de fermetures de couches nucléaires amplifiées par le couplage spin-orbite fort.',
+          'Les énergies de liaison résultent ensuite d’un potentiel effectif et de corrections de couche. Le statut est une validation large, avec limites explicites sur noyaux déformés, deutéron et régimes denses.',
+        ],
+        type: 'VAL',
+        mode: 'Validé avec limites',
+        source: 'ch. 22d, scores PTC',
+      },
+      {
+        q: 'Pourquoi la chimie est-elle régulière malgré tant d’exceptions ?',
+        answer: 'Les exceptions deviennent des effets de bord, de demi-remplissage, de résonance et de profondeur.',
+        details: [
+          'La PT ne nie pas les anomalies chimiques. Elle les classe : fermeture, demi-fermeture, pénétration radiale ou compétition entre canaux proches.',
+          'C’est ce qui permet au même moteur de parler du tableau périodique, des énergies d’ionisation, des affinités électroniques, des liaisons et des blocs de transition.',
+        ],
+        type: 'VAL',
+        mode: 'Unifié',
+        source: 'PTC, ch. 22-22c',
+      },
+    ],
+  },
+  {
+    title: 'Dissolutions et limites',
+    items: [
+      {
+        q: 'Pourquoi l’UV n’a-t-il pas besoin d’une complétion séparée ?',
+        answer: 'En PT, le crible est la théorie fondamentale et la QFT est une limite infrarouge.',
+        details: [
+          'Les divergences UV apparaissent dans une description continue perturbative. Le crible, lui, possède déjà une structure bornée de canaux, de phases et de transitions.',
+          'La question “quelle complétion UV ajouter ?” est donc dissoute : il faut montrer comment la QFT émerge comme approximation de basse énergie du crible.',
+        ],
+        type: 'DER',
+        mode: 'Dissous',
+        source: 'R49, ch. 24, ch. 26',
+      },
+      {
+        q: 'Pourquoi le discret n’est-il pas séparé du continuum ?',
+        answer: 'Parce que le discret n’est pas un concurrent du continuum : il est le marquage persistant de son onde.',
+        details: [
+          'Une théorie discrète naïve cherche à fabriquer un continuum par limite ; ce n’est pas la logique PT. La logique PT est celle d’un champ continu de phase et de sensibilité dont certaines positions deviennent remarquables parce qu’elles ferment, résonnent ou persistent.',
+          'La bonne question n’est donc pas “comment le continu émerge-t-il du discret ?”, mais “pourquoi cette mécanique continue marque-t-elle précisément ces points de persistance ?”. C’est là que le crible devient essentiel.',
+        ],
+        type: 'DER',
+        mode: 'Dissous',
+        source: 'R50, ch. 5, ch. 24',
+      },
+      {
+        q: 'Qu’est-ce que la PT ne prétend pas encore fermer ?',
+        answer: 'Elle distingue explicitement théorèmes, identités, ponts, validations, prédictions et programmes ouverts.',
+        details: [
+          'Les validations chimiques, nucléaires et cosmologiques ne doivent pas être présentées comme des théorèmes purs. Elles gagnent leur force par cohérence, scores numériques, absence de fit continu et prédictions risquées.',
+          'Les points encore ouverts incluent certains régimes cosmologiques tardifs, les noyaux déformés, des raffinements QG observationnels et la connexion exacte à certains programmes mathématiques profonds.',
+        ],
+        type: 'OUVERT',
+        mode: 'Clarifié',
+        source: 'how-to-read, ch. 23, ch. 26',
+      },
+    ],
+  },
+];
+---
+
+<BaseLayout
+  title="Questions fondamentales"
+  description="Carte des questions auxquelles la Théorie de la Persistance répond, qu’elle reformule ou qu’elle dissout, avec statut épistémique."
+>
+  <section class="max-w-6xl mx-auto px-4 py-14">
+    <p class="text-sm font-sans font-semibold uppercase tracking-wider text-derorange mb-3">
+      Carte épistémique
+    </p>
+    <h1 class="text-4xl md:text-5xl font-bold text-thmblue mb-5">
+      Questions auxquelles répond la PT
+    </h1>
+    <p class="text-xl text-slate-700 leading-relaxed max-w-4xl mb-8">
+      Cette page ne classe pas toutes les idées au même niveau. Certaines réponses sont des théorèmes ou des identités, d’autres sont des ponts physiques, des validations numériques, des prédictions, ou des dissolutions conceptuelles.
+    </p>
+
+    <div class="bg-amber-50 border-l-4 border-amber-300 px-5 py-4 mb-10 text-slate-800 leading-relaxed">
+      <strong>Règle de lecture :</strong> “répondre” ne veut pas toujours dire “résoudre par une formule”. En PT, une question peut être dérivée, expliquée, validée, prédite, ou dissoute quand le cadre qui la produisait cesse d’être applicable.
+    </div>
+
+    <div class="space-y-10">
+      {groups.map((group) => (
+        <section>
+          <h2 class="text-2xl font-bold text-thmblue mb-4">{group.title}</h2>
+          <div class="grid md:grid-cols-2 gap-4">
+            {group.items.map((item) => (
+              <article class="pt-card">
+                <div class="flex items-start justify-between gap-3 mb-3">
+                  <span class={`pt-tag ${statusClass(item.type)}`}>{item.type}</span>
+                  <span class="text-xs text-slate-500 font-sans">{item.mode}</span>
+                </div>
+                <h3 class="font-sans font-semibold text-lg text-thmblue mb-2">{item.q}</h3>
+                <p class="text-sm text-slate-700 leading-relaxed mb-3">{item.answer}</p>
+                <div class="space-y-2 mb-3">
+                  {item.details.map((paragraph) => (
+                    <p class="text-sm text-slate-600 leading-relaxed">{paragraph}</p>
+                  ))}
+                </div>
+                <p class="text-xs text-slate-500 font-sans">{item.source}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+      ))}
+    </div>
+
+    <div class="mt-12 bg-white border border-slate-200 rounded-lg p-6">
+      <h2 class="text-2xl font-bold text-thmblue mb-3">Ce qui reste explicitement ouvert</h2>
+      <p class="text-slate-700 leading-relaxed">
+        La monographie ne prétend pas que tout soit fermé : la validation ringdown fine du canal dissipatif Kerr, certains régimes cosmologiques tardifs, la connexion exacte au programme de Riemann, les noyaux déformés et quelques limites nucléaires restent des programmes de recherche. La force de la PT, ici, est aussi de dire où elle affirme, où elle prédit, et où elle travaille encore.
+      </p>
+    </div>
+  </section>
+</BaseLayout>

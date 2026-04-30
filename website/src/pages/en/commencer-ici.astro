@@ -1,0 +1,62 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+
+const steps = [
+  ['1', 'Understand the idea', '/en/essays/idea-5min', 'Persistence is what passes through a constraint without losing structural identity.'],
+  ['2', 'State the principle', '/en/premier-principe', 'GFT fixes the budget: total distinction = persistence + entropy.'],
+  ['3', 'See one proof route', '/en/tableau-periodique', 'The periodic table gives a robust, visual, chemical first demonstration.'],
+  ['4', 'Compare with measurements', '/en/resultats', 'Numerical results are grouped by domain, status, and validation level.'],
+  ['5', 'Inspect the limits', '/en/limites', 'A credible theory must state what is proved, derived, validated, or still open.'],
+];
+---
+
+<BaseLayout
+  title="Start here"
+  description="Guided route for reading the Theory of Persistence in the right order."
+>
+  <section class="max-w-6xl mx-auto px-4 py-12">
+    <p class="pt-tag pt-tag-bridge mb-4">Guided route</p>
+    <h1 class="text-4xl md:text-5xl font-bold text-thmblue mb-5">Start here</h1>
+    <p class="text-lg text-slate-700 leading-relaxed max-w-3xl mb-10">
+      The site has many entry points. This page gives the recommended order:
+      first the principle, then a readable demonstration, then results,
+      epistemic status, and limits.
+    </p>
+
+    <div class="grid md:grid-cols-5 gap-3 mb-12">
+      {steps.map(([num, title, href, text]) => (
+        <a href={href} class="pt-card block group">
+          <span class="text-sm font-mono text-derorange">{num}</span>
+          <h2 class="font-sans font-semibold text-thmblue text-xl mt-2 mb-2 group-hover:underline">{title}</h2>
+          <p class="text-sm text-slate-700">{text}</p>
+        </a>
+      ))}
+    </div>
+
+    <div class="grid lg:grid-cols-[0.85fr_1.15fr] gap-8 items-start">
+      <div>
+        <h2 class="text-2xl font-bold text-thmblue mb-3">The through-line</h2>
+        <p class="text-slate-700 leading-relaxed mb-4">
+          PT does not begin with a constant to tune. It begins with a
+          conservation constraint: a system has a total budget of distinctions.
+          That budget may appear as persistent structure or as entropic
+          dispersion, but the balance is exact.
+        </p>
+        <p class="text-slate-700 leading-relaxed">
+          The scientific question then becomes: does this conservation force
+          recognizable structures in the world? The first robust showcase is
+          chemical: periods, channels, shells, then IE and EA.
+        </p>
+      </div>
+      <div class="bg-white border border-slate-200 rounded-lg p-5">
+        <h2 class="font-sans font-semibold text-thmblue text-xl mb-3">Recommended 20-minute route</h2>
+        <ol class="space-y-3 text-slate-700">
+          <li><strong>5 min.</strong> Read “The idea in 5 minutes”.</li>
+          <li><strong>5 min.</strong> Read “Fundamental principle” in L1 mode.</li>
+          <li><strong>7 min.</strong> Read the periodic-table demonstration.</li>
+          <li><strong>3 min.</strong> Open the results dashboard and limits page.</li>
+        </ol>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

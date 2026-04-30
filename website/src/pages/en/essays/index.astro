@@ -1,0 +1,87 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '@layouts/BaseLayout.astro';
+
+const items = (await getCollection('essays_en'))
+  .sort((a, b) => a.data.order - b.data.order);
+const intro = items.find(es => es.data.slug === 'idea-5min');
+const rest = items.filter(es => es.data.slug !== 'idea-5min');
+---
+
+<BaseLayout title="In a few words">
+  <section class="max-w-5xl mx-auto px-4 py-12">
+    <h1 class="text-3xl md:text-4xl font-bold text-thmblue mb-3">
+      In a few words
+    </h1>
+    <p class="text-stone-700 mb-8 max-w-3xl">
+      Short texts to enter Persistence Theory without reading the full
+      monograph. Each starts at L1 (popular), pushes one notch deeper at L2,
+      and links to the precise results for the rest.
+    </p>
+
+    <div class="grid md:grid-cols-2 gap-4">
+      {intro && (
+        <a href={`/en/essays/${intro.data.slug}`} class="pt-card block group border-thmblue/40">
+          <div class="flex items-start justify-between gap-3 mb-2">
+            <div class="text-xs font-sans text-stone-500 uppercase tracking-wider">
+              {intro.data.level} · {intro.data.reading_minutes} min
+            </div>
+          </div>
+          <h2 class="font-sans font-semibold text-base text-thmblue group-hover:underline mb-2">
+            {intro.data.title}
+          </h2>
+          <p class="text-sm text-stone-700">{intro.data.summary}</p>
+          {intro.data.related_theorems.length > 0 && (
+            <div class="mt-3 text-xs font-sans text-stone-500">
+              Related theorems: {intro.data.related_theorems.join(', ')}
+            </div>
+          )}
+        </a>
+      )}
+      <a href="/en/questions-fondamentales" class="pt-card block group border-derorange/40">
+        <div class="text-xs font-sans text-stone-500 uppercase tracking-wider mb-2">
+          L1 → L3 · guided map
+        </div>
+        <h2 class="font-sans font-semibold text-base text-thmblue group-hover:underline mb-2">
+          Fundamental questions PT addresses
+        </h2>
+        <p class="text-sm text-stone-700">
+          A plain-language map of the questions PT explains, reframes, or
+          dissolves: time, relativity, cosmology, chemistry, nuclear physics,
+          and the Standard Model, with epistemic status.
+        </p>
+      </a>
+      <a href="/en/predictions" class="pt-card block group border-predred/40">
+        <div class="text-xs font-sans text-stone-500 uppercase tracking-wider mb-2">
+          PRED · testable registry
+        </div>
+        <h2 class="font-sans font-semibold text-base text-thmblue group-hover:underline mb-2">
+          PT predictions
+        </h2>
+        <p class="text-sm text-stone-700">
+          The registry of predictions, explanatory reconstructions, and
+          negative predictions: neutrinos, Higgs, g−2, αs, superheavy
+          elements, chemistry, nuclear physics, and emerging signals.
+        </p>
+      </a>
+      {rest.map(es => (
+        <a href={`/en/essays/${es.data.slug}`} class="pt-card block group">
+          <div class="flex items-start justify-between gap-3 mb-2">
+            <div class="text-xs font-sans text-stone-500 uppercase tracking-wider">
+              {es.data.level} · {es.data.reading_minutes} min
+            </div>
+          </div>
+          <h2 class="font-sans font-semibold text-base text-thmblue group-hover:underline mb-2">
+            {es.data.title}
+          </h2>
+          <p class="text-sm text-stone-700">{es.data.summary}</p>
+          {es.data.related_theorems.length > 0 && (
+            <div class="mt-3 text-xs font-sans text-stone-500">
+              Related theorems: {es.data.related_theorems.join(', ')}
+            </div>
+          )}
+        </a>
+      ))}
+    </div>
+  </section>
+</BaseLayout>

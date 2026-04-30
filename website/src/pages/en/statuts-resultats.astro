@@ -1,0 +1,61 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+
+const rows = [
+  ['GFT', 'IDENTITY', 'Fundamental principle: capacity = persistence + entropy.', 'Theorems / GFT', 'Algebraic'],
+  ['T0–T6 + L0', 'THM / DER', 'Arithmetic chain and closure at mu* = 15.', 'Theorems page', 'Proof-based'],
+  ['43 observables', 'DER / VAL', 'Physical derivations under explicit bridges.', 'Observables + scripts', 'Numerical'],
+  ['Periodic table', 'DER', 'Capacities 2, 6, 10, 14 and periods 2, 8, 8, 18, 18, 32, 32.', 'Periodic-table page', 'Structural'],
+  ['Ionization energies', 'VAL', 'Continuous channel reading and CPR corrections.', 'IE page / PTC', 'Comparative'],
+  ['Electron affinities', 'VAL / DER', 'Boundary capture, vacancy pressure, continuous reading.', 'EA page / PTC', 'Comparative'],
+  ['Quantum gravity', 'DER / COND', 'Fisher, GR, constraints, Kerr, and observables chain.', 'QG page', 'Partly open'],
+  ['Predictions', 'PRED', 'Explicit experimental windows.', 'Predictions page', 'Falsifiable'],
+];
+---
+
+<BaseLayout
+  title="Result status"
+  description="Audit table of the epistemic status of major PT results."
+>
+  <section class="max-w-6xl mx-auto px-4 py-12">
+    <p class="pt-tag pt-tag-cond mb-4">Epistemic audit</p>
+    <h1 class="text-4xl md:text-5xl font-bold text-thmblue mb-5">Result status</h1>
+    <p class="text-lg text-slate-700 leading-relaxed max-w-3xl mb-10">
+      This page is a guardrail. A result may be exact, proved, derived under a
+      bridge, numerically validated, predictive, or still conditional. These
+      statuses must not be mixed.
+    </p>
+
+    <div class="bg-white border border-slate-200 rounded-lg overflow-x-auto">
+      <table class="w-full text-sm">
+        <thead class="bg-slate-50 text-thmblue">
+          <tr>
+            <th class="text-left p-3">Result</th>
+            <th class="text-left p-3">Status</th>
+            <th class="text-left p-3">Meaning</th>
+            <th class="text-left p-3">Site source</th>
+            <th class="text-left p-3">Check</th>
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map(([name, status, meaning, source, control]) => (
+            <tr class="border-t border-slate-200">
+              <td class="p-3 font-semibold">{name}</td>
+              <td class="p-3 font-mono text-derorange">{status}</td>
+              <td class="p-3">{meaning}</td>
+              <td class="p-3">{source}</td>
+              <td class="p-3">{control}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+
+    <div class="mt-8 bg-amber-50 border border-amber-200 rounded-lg p-5 text-slate-800">
+      <strong>Reading rule:</strong> numerical validation does not automatically
+      turn a derivation into a theorem. Conversely, an algebraic identity can be
+      proved exactly without being, by itself, a physical law. PT’s strength is
+      the complete chain and its rigidity.
+    </div>
+  </section>
+</BaseLayout>

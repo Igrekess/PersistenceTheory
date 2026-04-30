@@ -1,0 +1,165 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Preuve interactive"
+  description="Module pédagogique interactif pour manipuler les canaux PT du tableau périodique."
+>
+  <section class="max-w-6xl mx-auto px-4 py-12">
+    <p class="pt-tag pt-tag-id mb-4">Module pédagogique</p>
+    <h1 class="text-4xl md:text-5xl font-bold text-thmblue mb-5">Manipuler la preuve chimique</h1>
+    <p class="text-lg text-slate-700 leading-relaxed max-w-3xl mb-10">
+      Le but n’est pas de simuler toute la chimie atomique. Le but est de rendre
+      visible la brique PT centrale : un canal possède des orientations, le spin
+      double chaque orientation, puis l’occupation du canal transforme la
+      géométrie en période, fermeture, bord de capture ou vacance.
+    </p>
+
+    <div class="grid lg:grid-cols-[0.85fr_1.15fr] gap-8 items-start">
+      <div class="bg-white border border-slate-200 rounded-lg p-5">
+        <label class="block font-sans font-semibold text-thmblue mb-2" for="pt-channel">Canal</label>
+        <select id="pt-channel" class="w-full border border-slate-300 rounded px-3 py-2 mb-5">
+          <option value="s">s : 1 orientation</option>
+          <option value="p">p : 3 orientations</option>
+          <option value="d">d : 5 orientations</option>
+          <option value="f">f : 7 orientations</option>
+        </select>
+
+        <label class="block font-sans font-semibold text-thmblue mb-2" for="pt-fill">Occupation</label>
+        <input id="pt-fill" type="range" min="0" max="2" value="1" step="1" class="w-full mb-2" />
+        <div class="text-sm text-slate-600 mb-6">
+          <span id="pt-fill-label">1</span> électrons sur <span id="pt-capacity-label">2</span>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3 text-sm">
+          <div class="rounded border border-slate-200 p-3">
+            <div class="text-slate-500">Capacité</div>
+            <div id="pt-capacity" class="text-2xl font-bold text-thmblue">2</div>
+          </div>
+          <div class="rounded border border-slate-200 p-3">
+            <div class="text-slate-500">Vacance</div>
+            <div id="pt-vacancy" class="text-2xl font-bold text-derorange">1</div>
+          </div>
+          <div class="rounded border border-slate-200 p-3 col-span-2">
+            <div class="text-slate-500">Lecture PT</div>
+            <div id="pt-reading" class="font-semibold text-thmblue">bord actif</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white border border-slate-200 rounded-lg p-5">
+        <h2 class="font-sans font-semibold text-thmblue text-xl mb-3">Polygone du canal</h2>
+        <svg id="pt-poly" viewBox="0 0 420 300" class="w-full h-auto bg-slate-50 rounded border border-slate-200" role="img" aria-label="Polygone du canal PT">
+          <circle cx="210" cy="145" r="92" fill="none" stroke="#cbd5e1" stroke-width="2" />
+          <g id="pt-poly-lines"></g>
+          <g id="pt-poly-points"></g>
+          <text id="pt-poly-caption" x="210" y="270" text-anchor="middle" font-size="18" font-family="ui-sans-serif, system-ui" fill="#12324a">canal s</text>
+        </svg>
+        <p class="text-sm text-slate-700 leading-relaxed mt-4">
+          Les points verts représentent les places occupées. Les points blancs
+          représentent la vacance restante. Quand le canal est presque fermé,
+          l’effet de bord devient chimiquement important : c’est l’intuition
+          derrière les lectures EA et EI.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <script is:inline>
+    const data = {
+      s: { orientations: 1, capacity: 2, label: 'canal s' },
+      p: { orientations: 3, capacity: 6, label: 'canal p' },
+      d: { orientations: 5, capacity: 10, label: 'canal d' },
+      f: { orientations: 7, capacity: 14, label: 'canal f' },
+    };
+
+    const channel = document.getElementById('pt-channel');
+    const fill = document.getElementById('pt-fill');
+    const fillLabel = document.getElementById('pt-fill-label');
+    const capacityLabel = document.getElementById('pt-capacity-label');
+    const capacityBox = document.getElementById('pt-capacity');
+    const vacancyBox = document.getElementById('pt-vacancy');
+    const reading = document.getElementById('pt-reading');
+    const lines = document.getElementById('pt-poly-lines');
+    const points = document.getElementById('pt-poly-points');
+    const caption = document.getElementById('pt-poly-caption');
+
+    function render() {
+      const cfg = data[channel.value];
+      fill.max = cfg.capacity;
+      if (Number(fill.value) > cfg.capacity) fill.value = cfg.capacity;
+      const n = Number(fill.value);
+      const vacancy = cfg.capacity - n;
+      capacityLabel.textContent = cfg.capacity;
+      fillLabel.textContent = n;
+      capacityBox.textContent = cfg.capacity;
+      vacancyBox.textContent = vacancy;
+      caption.textContent = `${cfg.label} : ${cfg.orientations} orientations x 2 spins`;
+
+      if (n === 0) reading.textContent = 'canal vide : aucune capture stabilisée';
+      else if (vacancy === 0) reading.textContent = 'fermeture : structure saturée';
+      else if (vacancy <= 2) reading.textContent = 'bord actif : forte pression de capture';
+      else if (n === Math.floor(cfg.capacity / 2)) reading.textContent = 'demi-remplissage : symétrie spéciale';
+      else reading.textContent = 'canal ouvert : occupation et vacance coexistent';
+
+      lines.innerHTML = '';
+      points.innerHTML = '';
+      const m = cfg.orientations;
+      const cx = 210, cy = 145, r = 92;
+      const verts = [];
+      const seats = [];
+      if (m === 1) {
+        verts.push([cx - r, cy], [cx + r, cy]);
+        seats.push([cx - r, cy], [cx + r, cy]);
+      } else {
+        for (let i = 0; i < m; i++) {
+          const a = -Math.PI / 2 + (2 * Math.PI * i) / m;
+          verts.push([cx + r * Math.cos(a), cy + r * Math.sin(a)]);
+        }
+        const innerSeats = [];
+        const outerSeats = [];
+        verts.forEach(([x, y]) => {
+          const vx = x - cx;
+          const vy = y - cy;
+          const norm = Math.hypot(vx, vy) || 1;
+          const ux = vx / norm;
+          const uy = vy / norm;
+          innerSeats.push([x - ux * 12, y - uy * 12]);
+          outerSeats.push([x + ux * 12, y + uy * 12]);
+        });
+        seats.push(...innerSeats, ...outerSeats);
+      }
+
+      for (let i = 0; i < verts.length; i++) {
+        const [x1, y1] = verts[i];
+        const [x2, y2] = verts[(i + 1) % verts.length];
+        if (m > 1 || i === 0) {
+          const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+          line.setAttribute('x1', x1); line.setAttribute('y1', y1);
+          line.setAttribute('x2', x2); line.setAttribute('y2', y2);
+          line.setAttribute('stroke', '#64748b'); line.setAttribute('stroke-width', '4');
+          lines.appendChild(line);
+        }
+      }
+
+      let seatIndex = 0;
+      seats.forEach(([x, y]) => {
+        const occupied = seatIndex < n;
+        const c = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+        c.setAttribute('cx', x);
+        c.setAttribute('cy', y);
+        c.setAttribute('r', '13');
+        c.setAttribute('fill', occupied ? '#1b7f3b' : '#ffffff');
+        c.setAttribute('stroke', '#14532d');
+        c.setAttribute('stroke-width', '3');
+        points.appendChild(c);
+        seatIndex += 1;
+      });
+    }
+
+    channel.addEventListener('change', render);
+    fill.addEventListener('input', render);
+    render();
+  </script>
+</BaseLayout>

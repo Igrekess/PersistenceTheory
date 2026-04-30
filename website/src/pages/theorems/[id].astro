@@ -1,0 +1,28 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Tag from '@components/Tag.astro';
+
+export async function getStaticPaths() {
+  const all = await getCollection('theorems_fr');
+  return all.map(thm => ({
+    params: { id: thm.data.id },
+    props: { thm },
+  }));
+}
+
+const { thm } = Astro.props;
+const { Content } = await render(thm);
+---
+
+<BaseLayout title={thm.data.name}>
+  <article class="max-w-3xl mx-auto px-4 py-12 prose prose-stone">
+    <header class="not-prose mb-6">
+      <Tag level={thm.data.status} />
+      <h1 class="text-3xl md:text-4xl font-bold text-thmblue mt-3 mb-2">{thm.data.name}</h1>
+      <p class="text-stone-700 italic">{thm.data.short}</p>
+    </header>
+
+    <Content />
+  </article>
+</BaseLayout>

@@ -1,0 +1,87 @@
+---
+slug: what-is-persistence
+title: 'Qu’est-ce que la persistance ?'
+summary: 'Le mot « persistance » a un sens technique précis dans la PT : c’est la part structurée de l’information, mesurée en bits, qui résiste au mélange. Voici comment on la définit et pourquoi c’est conservé.'
+level: L1
+reading_minutes: 6
+related_theorems: ['GFT', 'T2']
+lang: fr
+order: 6
+---
+
+## La question
+
+Quand un signal traverse un canal bruité, une partie passe et une partie est perdue. Quand un système physique évolue, certaines structures restent, d’autres se diluent. Quand on mélange un jeu de cartes, l’ordre initial s’efface, mais la connaissance qu’on en a est plus subtile.
+
+Dans ces trois situations, on a une intuition de « ce qui persiste ». La PT en donne une définition opératoire.
+
+## La définition
+
+En mots simples, la persistance est la part d’un système qui reste lisible
+après mélange, bruit ou contrainte. Si tout devient parfaitement aléatoire, il
+n’y a plus de persistance. Si une forme reste reconnaissable, alors une partie
+de l’information a persisté.
+
+On peut le voir avec une image très ordinaire : un galet. La mer ne lui ajoute
+pas une forme depuis l’extérieur ; elle enlève ce qui ne tient pas. Ce qui
+reste n’est pas un accident quelconque, mais la trace stable d’un long filtrage.
+En PT, le discret joue souvent ce rôle : il marque les positions remarquables où
+une mécanique continue sous contrainte devient stable et lisible.
+
+La formule technique dit la même chose avec trois termes :
+
+- le budget total : le nombre de distinctions possibles dans le système ;
+- la persistance : la part structurée de ce budget ;
+- l’entropie : la part encore dispersée ou imprévisible.
+
+La persistance d’une distribution $P$ sur $m$ états est :
+
+$$
+D_{KL}(P \,\|\, U_m) = \log_2 m - H(P),
+$$
+
+où $H(P)$ est l’entropie de Shannon et $U_m$ la distribution uniforme sur $m$ états. Ici, $m$ est seulement le nombre de possibilités, et $\log_2(m)$ compte le budget total en bits : autrement dit, le nombre de distinctions binaires qu’il faudrait pour repérer un état. Plus $P$ s’écarte du hasard, plus $D_{KL}$ est grande.
+
+Une distribution uniforme a $D_{KL} = 0$ — aucune persistance, c’est du bruit pur. Une distribution concentrée sur un seul état a $D_{KL} = \log_2 m$ — toute la capacité informationnelle est structurée.
+
+C’est le **Théorème fondamental des écarts** (GFT) :
+
+$$
+\log_2 m \;=\; D_{KL}(P \,\|\, U_m) \;+\; H(P).
+$$
+
+Cette identité est exacte, pas approximative. Pour toute distribution, sur tout nombre d’états. C’est le **principe fondamental de la persistance** : le budget total de distinctions se conserve, il se répartit entre persistance et entropie.
+
+## Pourquoi c’est central
+
+La conservation $\log_2 m = D_{KL} + H$ est une **identité algébrique**, pas une loi physique. Mais elle a une conséquence physique forte : si on connaît deux des trois grandeurs ($\log_2 m$, $D_{KL}$, $H$), la troisième est déterminée. Pas de double comptage possible.
+
+C’est précisément ce qui empêche, dans la PT, de tricher en ajoutant un paramètre supplémentaire pour compenser une erreur. Toute correction sur $D_{KL}$ doit apparaître en miroir sur $H$. Toute redéfinition de $H$ doit changer $D_{KL}$ d’autant. Le bilan est conservé exactement.
+
+Dans le langage des codes binaires : $\log_2 m$ est la longueur de description optimale d’un état. $D_{KL}$ est ce qu’on économise sur cette description grâce à la structure de $P$. $H$ est ce qu’on doit encore dépenser parce que $P$ n’est pas concentrée.
+
+## La persistance physique
+
+Quand on identifie $P$ à la distribution des écarts entre premiers consécutifs, $D_{KL}$ devient une **quantité physique** :
+
+- elle décompte les bits par lesquels la suite des écarts s’écarte du hasard ;
+- elle est conservée le long de la cascade T0 → L0 → T6 (chaque étape transfère sa structure à la suivante) ;
+- elle plafonne par canal CRT à 1 bit ($\sin^2\theta_p \le 1$, théorème T6).
+
+Cette dernière borne est le **cap de Shannon PT** : aucun premier ne peut transporter plus d’un bit. Trois premiers actifs, trois bits, ce qui est exactement le contenu informationnel d’une particule du Modèle Standard avec ses quantités de jauge.
+
+## Une analogie
+
+Imagine un texte. Sa **longueur en bits** est $\log_2 m$ — c’est la capacité brute. Son **entropie** $H$ mesure combien de mots sont vraiment imprévisibles. Sa **persistance** $D_{KL}$ mesure ce que le texte a de structuré : grammaire, redondances, motifs.
+
+Un texte aléatoire a $D_{KL} = 0$, $H = \log_2 m$ : c’est inutile et illisible.
+
+Un texte hyper-structuré (« aaaaaa... ») a $D_{KL} = \log_2 m$, $H = 0$ : prévisible, sans information nouvelle.
+
+Un texte intéressant vit au milieu, avec un partage entre les deux. La PT dit que la physique aussi vit au milieu, et que ce partage suit la cascade arithmétique du crible.
+
+## Et la conservation ?
+
+Une dernière façon de le formuler : le théorème **GFT** est l’équivalent PT d’une loi de conservation de l’énergie, mais formulée directement dans le langage de la persistance. La capacité informationnelle ne se crée pas, ne se détruit pas — elle se transforme. C’est pourquoi l’identité tient à toute échelle, pour toute distribution.
+
+C’est ce qui rend la persistance utilisable comme biomarqueur (imagerie médicale, IST/IEE), comme mesure linguistique (évolvabilité des langues), ou comme contrôle de cohérence interne dans une dérivation physique. Le même objet, partout.

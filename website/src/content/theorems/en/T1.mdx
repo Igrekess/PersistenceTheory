@@ -1,0 +1,155 @@
+---
+id: T1
+name: 'T1 — Forbidden auto-transitions mod 3'
+short: 'The sieve forbids two consecutive identical residues mod 3.'
+statement: 'For the mod-3 sieve transfer matrix $T_3$, we have $T_{11} = T_{22} = 0$: three consecutive survivors cannot all belong to the same non-zero class modulo 3.'
+status: THM
+monograph_chapter: chap:sieve
+order: 3
+lang: en
+---
+
+import Tag from '@components/Tag.astro';
+import SieveAnimation from '@components/SieveAnimation.astro';
+
+## Statement
+
+Let $T_3$ be the transfer matrix of the sieve of 6-rough integers (integers
+divisible by neither 2 nor 3) on residue classes modulo 3. Then:
+
+$$
+\boxed{T_3[1, 1] = T_3[2, 2] = 0.}
+$$
+
+In other words: three consecutive survivors $n_1 < n_2 < n_3$ **cannot** all
+belong to the same class $\{1, 2\} \pmod 3$.
+
+<Tag level="THM" />
+
+<div data-max-depth="L1" className="bg-amber-50 border-l-4 border-amber-300 px-4 py-3 my-6">
+**Plain reading.** List integers divisible by neither 2 nor 3:
+1, 5, 7, 11, 13, 17, 19, 23, 25, 29, 31, 35, … Look at their remainder mod 3:
+1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, … It **always** alternates. Three in a row with
+the same remainder is arithmetically impossible. That’s T1.
+</div>
+
+<SieveAnimation lang="en" />
+
+## Why it matters
+
+T1 is the **first exact constraint** on the dynamics of the sieve. It is
+what forces $s = 1/2$ (zero-diagonal theorem) and opens the way to T3
+(the matrix $T_3$ is purely antidiagonal), T6 (the holonomy sin²θ_p
+emerges from restricted matrices after T1), and T2 (spectral conservation).
+
+Without T1, the transfer matrix would have a positive diagonal term and the
+symmetry $s = 1/2$ would not be forced — it would have to be imposed as
+a postulate.
+
+T1 holds **at the sieve level**, not at the prime level: twin primes like
+$(61, 67)$ may share the same class mod 3, but the determining dynamics of
+PT is sieve-level dynamics, not prime-level (cf. Cor. T1-primes, ch. 1).
+
+## Proof — outline
+
+1. **Characterise** 6-rough integers as an arithmetic sequence mod 6.
+2. **List survivors** mod 6: $\{1, 5\} \pmod 6$.
+3. **Reduce mod 3**: $1 \to 1$, $5 \to 2$.
+4. **Observe** that the sequence $\{1, 5, 7, 11, 13, 17, \ldots\} \pmod 3$
+   strictly alternates between 1 and 2.
+5. **Conclude**: the transfer matrix on $\{1, 2\}$ has only off-diagonal
+   non-zero entries.
+
+<div data-min-depth="L3" className="bg-stone-50 border border-stone-300 rounded-lg p-4 my-8">
+
+### Detailed proof (L3 mode)
+
+#### Step 1 — Characterisation of 6-rough integers
+
+An integer $n$ is 6-rough if $\gcd(n, 6) = 1$. This is equivalent to:
+
+$$
+n \equiv 1 \pmod 6 \quad\text{or}\quad n \equiv 5 \pmod 6.
+$$
+
+The 6-rough integers form two arithmetic progressions mod 6:
+$\{1, 7, 13, 19, 25, \ldots\}$ and $\{5, 11, 17, 23, 29, \ldots\}$.
+
+#### Step 2 — Reduction mod 3
+
+Reduce both progressions modulo 3:
+- $1, 7, 13, 19, 25, \ldots \equiv 1, 1, 1, 1, 1, \ldots \pmod 3$,
+- $5, 11, 17, 23, 29, \ldots \equiv 2, 2, 2, 2, 2, \ldots \pmod 3$.
+
+#### Step 3 — Forced alternation
+
+But sorting their union in increasing order yields:
+
+$$
+1, 5, 7, 11, 13, 17, 19, 23, 25, 29, 31, 35, \ldots
+$$
+
+with mod-3 classes:
+
+$$
+1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, \ldots
+$$
+
+The alternation is rigorous: between two consecutive 6-rough integers, the
+mod-3 class **must** change.
+
+**Formal proof**: if $n$ and $n + g$ are two consecutive 6-rough (with
+$g \in \{2, 4\}$ — the possible gaps between adjacent 6-rough), then:
+- $g = 2$ sends $1 \pmod 3 \to 0 \pmod 3$ or $2 \pmod 3 \to 1 \pmod 3$:
+  the first option contradicts "6-rough" (multiple of 3), so $g = 2$ gives
+  $2 \to 1$.
+- $g = 4$ gives $1 \to 2$ or $2 \to 0$: the second option contradicts
+  "6-rough", so $g = 4$ gives $1 \to 2$.
+
+In both cases, the class changes. QED.
+
+#### Step 4 — Transfer matrix
+
+The transfer matrix $T_3$ on states $\{1, 2\}$ (the non-zero classes mod 3)
+captures the probability of transitioning from one class to the other in one
+sieve step:
+
+$$
+T_3 = \begin{pmatrix} P(1 \to 1) & P(1 \to 2) \\ P(2 \to 1) & P(2 \to 2) \end{pmatrix}
+   = \begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix}.
+$$
+
+This is precisely the statement of T1 (the diagonal coefficients are zero).
+T3 follows: $T_3$ is antidiagonal.
+
+#### Step 5 — Consequence: $s = 1/2$
+
+The antidiagonal matrix $T_3 = \mathrm{antidiag}(1, 1)$ has eigenvalues
+$\pm 1$. The stationary distribution is uniform on $\{1, 2\}$ with weight
+$1/2$ each. This stationarity, combined with the Dirichlet exchange
+symmetry, forces the fundamental value $s = 1/2$.
+
+Thus the "fundamental sieve symmetry" is not a postulate but a consequence
+of T1.
+
+#### Sieve / primes distinction
+
+At the **sieve level** (6-rough integers), T1 is exact: no mod-3 transition
+repeats. At the **prime level** (subsequence of 6-rough that are prime), T1
+is only approximate: pairs like $(61, 67)$ or $(151, 157)$ share mod-3 class
+(both $\equiv 1$). But these violations are of order $O(1/\ln N)$ — they
+vanish in the asymptotic limit.
+
+All later PT derivations use the **sieve-level matrix**, not the empirical
+prime-level matrix (cf. Remark T0_scope, ch. 1).
+
+For the complete derivation and the sieve/primes discussion, see
+[chapter 1 of the monograph](/en/monograph).
+</div>
+
+## See also
+
+- [T0 — BA0 Closure](/en/theorems/T0) — fixes the dynamical field
+- [T3 — Antidiagonal transfer](/en/theorems/T3) — direct consequence of T1
+- [T2 — Spectral conservation](/en/theorems/T2) — uses $T_3$ to propagate
+- [All theorems](/en/theorems)

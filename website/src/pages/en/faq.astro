@@ -1,0 +1,50 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import faqData from '@/data/faq.json';
+
+const total = faqData.categories.reduce((s, c) => s + c.entries.length, 0);
+---
+
+<BaseLayout
+  title="FAQ"
+  description="Answers to frequently asked questions about Persistence Theory: epistemic status, reading the formalism, relation to the Standard Model, falsifiability, what the theory does not say."
+>
+  <section class="max-w-3xl mx-auto px-4 py-12">
+    <h1 class="text-3xl md:text-4xl font-bold text-thmblue mb-3">Frequently asked questions</h1>
+    <p class="text-stone-700 mb-2 max-w-3xl">
+      {total} questions, organized in {faqData.categories.length} sections.
+      Click a question to expand the answer.
+    </p>
+    <p class="text-sm text-stone-500 mb-8">
+      Not finding your answer? The <a href="/en/audit" class="underline hover:text-thmblue">audit</a>
+      page details the theory’s structural choices (C1–C10). For substantive
+      critique, see <a href="/en/about" class="underline hover:text-thmblue">About</a>.
+    </p>
+
+    {faqData.categories.map(cat => (
+      <div class="mb-8">
+        <h2 class="text-xl font-sans font-semibold text-thmblue mb-3 border-b border-stone-200 pb-1">
+          {cat.en}
+        </h2>
+        <div class="space-y-2">
+          {cat.entries.map(e => (
+            <details class="group bg-white border border-stone-200 rounded-md">
+              <summary class="cursor-pointer list-none px-4 py-3 font-sans text-stone-800 hover:bg-stone-50 flex items-start gap-2">
+                <span class="text-thmblue font-mono text-sm mt-0.5 group-open:rotate-90 transition-transform">▸</span>
+                <span class="flex-1 font-medium">{e.en.q}</span>
+              </summary>
+              <div class="px-4 pb-4 pl-9 text-stone-700">
+                {e.en.a}
+              </div>
+            </details>
+          ))}
+        </div>
+      </div>
+    ))}
+
+    <p class="text-sm text-stone-500 mt-12 italic">
+      This FAQ is living. If an important question is missing or an answer is
+      imprecise, contact yan.senez@protonmail.com.
+    </p>
+  </section>
+</BaseLayout>

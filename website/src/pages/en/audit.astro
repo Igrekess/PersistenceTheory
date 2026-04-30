@@ -1,0 +1,59 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+
+const commitments = [
+  { id: 'C1', label: 'SCU calibration as Buckingham π convention', detail: '1 SCU ≡ 1 MeV. Dissolved as a unit convention; cf. App. P §C1.' },
+  { id: 'C2', label: 'N(p) = (p+1)^(p+1) − 1 universal', detail: 'Domain [p+1] via ZFC + L0 max-entropy; simplified plain-Set + ZFC additivity proof.' },
+  { id: 'C3', label: 'n_up = 9/8 via 2-loop Fisher on T³', detail: 'T³ Fisher amplitude derived; cf. ch10 thm:n_up_fisher_T3.' },
+  { id: 'C4', label: 'NNLO coefficient 5/18 = p₂/(2p₁²)', detail: 'Pontryagin + Wick + T6 cyclic-phase loop closure.' },
+  { id: 'C5', label: 'Fisher–Koide NLO 1/21', detail: '1/21 = Haar(Z/3Z) × Haar(Z/7Z); f₅ excluded NNLO via T6.' },
+  { id: 'C6', label: 'Berry holonomy 3π', detail: 'Limit N_gen × π justified by self-consistency.' },
+  { id: 'C7', label: 'Linear γ₃ in the spiral resummation', detail: 'Promoted to THM 2026-04-26; App. P §C7 pp. 681-683.' },
+  { id: 'C8', label: '24 quark exponents', detail: 'Catalogue closed by combinatorial enumeration.' },
+  { id: 'C9', label: 'Higgs portal δ = m_H²/M²', detail: 'Inverse hierarchy excluded; cf. App. P §C9.' },
+  { id: 'C10', label: 'Super-echo {11,13,17,19,23}', detail: 'Hadronic cutoff p = 23 derived.' },
+];
+---
+
+<BaseLayout title="Transparent audit">
+  <section class="max-w-4xl mx-auto px-4 py-12">
+    <h1 class="text-3xl md:text-4xl font-bold text-thmblue mb-3">Transparent audit</h1>
+    <p class="text-stone-700 mb-6 max-w-3xl">
+      The Theory of Persistence submits itself to an explicit internal audit. This
+      page makes public the inventory of structural choices, external audits and
+      applied corrections.
+    </p>
+
+    <h2 class="text-xl font-semibold text-thmblue mt-10 mb-3 font-sans">
+      The 10 structural commitments (C1–C10)
+    </h2>
+    <p class="text-stone-700 mb-4">
+      Each discrete choice in the derivation chain is <strong>closed by an
+      independent classical mathematical argument</strong>. All ten sit at
+      <span class="pt-tag pt-tag-thm">THM</span>. None is a continuous parameter;
+      none can be tuned to improve a fit.
+    </p>
+
+    <div class="grid md:grid-cols-2 gap-3 mb-10">
+      {commitments.map(c => (
+        <div class="pt-card text-sm">
+          <div class="flex items-center gap-2 mb-1">
+            <span class="font-sans font-bold text-thmblue">{c.id}</span>
+            <span class="pt-tag pt-tag-thm">THM</span>
+          </div>
+          <p class="text-stone-800 font-sans font-semibold">{c.label}</p>
+          <p class="text-stone-600 mt-1">{c.detail}</p>
+        </div>
+      ))}
+    </div>
+
+    <h2 class="text-xl font-semibold text-thmblue mt-10 mb-3 font-sans">
+      Peer-review status
+    </h2>
+    <p class="text-stone-700">
+      <strong>Preprint — not peer-reviewed.</strong> The author welcomes critical
+      scrutiny and independent verification. The 56 companion Python scripts,
+      2,694/2,695 passing checks, and 1 known failure independent of recent additions are public and reproducible.
+    </p>
+  </section>
+</BaseLayout>

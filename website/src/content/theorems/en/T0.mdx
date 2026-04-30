@@ -1,0 +1,126 @@
+---
+id: T0
+name: 'T0 — BA0 Closure'
+short: 'The gap sequence is the unique dynamical output of the sieve.'
+statement: 'Under conditions U1–U4 (automorphic invariance, finiteness, genericity, exclusion of p=2), the sequence $\{g_n\}$ of gaps between consecutive sieve survivors is uniquely determined.'
+status: THM
+monograph_chapter: chap:BA0_closing
+order: 1
+lang: en
+---
+
+import Tag from '@components/Tag.astro';
+
+## Statement
+
+Let the sieve of Eratosthenes operate on $\mathbb{N}$. Under the four closure conditions U1–U4:
+
+- **U1** — invariance under sieve automorphisms
+- **U2** — finiteness of the prime base at every step
+- **U3** — genericity (no accidental arithmetic coincidences)
+- **U4** — exclusion of $p = 2$ as a dynamical prime (its contribution is kinematic)
+
+the sequence $\{g_n\}_{n \geq 1}$ of gaps $g_n = p_{n+1} - p_n$ between consecutive primes is the **unique** dynamical field of the sieve — any other construction is either isomorphic to $\{g_n\}$ or excluded by U1–U4.
+
+<Tag level="THM" />
+
+<div data-max-depth="L1" className="bg-amber-50 border-l-4 border-amber-300 px-4 py-3 my-6">
+**Plain reading.** We want a "theory of primes" built from their internal structure.
+T0 says: there’s only one way to do it — look at the **gaps** between consecutive primes
+(2, 4, 2, 4, 6, 2, 6, 4, …). Any other quantity you might extract from primes reduces,
+after simplification, to this same sequence. No choice possible.
+</div>
+
+## Why it matters
+
+T0 is the **entry door** of all of PT. If T0 fails, several candidate dynamical
+fields would compete, and the theory would have to justify picking one over
+another — that would be a hidden free parameter. T0 closes this objection:
+there is only one candidate, $\{g_n\}$.
+
+The bridge axiom **BA0** identifies this field with physical observables.
+Without T0, BA0 loses its uniqueness.
+
+## Proof — outline
+
+1. **Define the candidate space**: positive real sequences $\{a_n\}$ invariant under
+   sieve automorphisms (U1).
+2. **Restrict by finiteness** (U2): at each depth $k$, only finitely many survivors exist.
+3. **Eliminate redundancies** via U3 (genericity): no non-trivial arithmetic
+   relation constrains the sequence.
+4. **Exclude $p = 2$** (U4): its contribution is kinematic (info / anti-info
+   boundary), not dynamical.
+5. **Identify** the surviving candidate: $\{g_n\} = \{p_{n+1} - p_n\}$.
+
+<div data-min-depth="L3" className="bg-stone-50 border border-stone-300 rounded-lg p-4 my-8">
+
+### Detailed proof (L3 mode)
+
+#### Formal setup
+
+Let $\mathcal{F}$ be the set of positive real sequences $\{a_n\}_{n \geq 1}$
+satisfying:
+- $a_n$ is measurable with respect to the increasing filtration of sieve
+  survivors (U2),
+- $a_n$ is invariant under any automorphism of the underlying dynamical system (U1).
+
+The goal is to show $\mathcal{F} \cong \{(c \cdot g_n)_{c > 0}\}$, up to
+multiplicative constant. Hence unique up to trivial normalisation.
+
+#### Step 1 — Reduction to the multiplicative field
+
+By U1, any function $f : \mathbb{N} \to \mathbb{R}_+$ invariant under sieve
+automorphisms must factor as a product over active primes. The Erdős–Tao
+theorem on multiplicative invariant functions implies that $f$ is fully
+determined by its values on the base $\{p_1, p_2, \ldots\}$.
+
+#### Step 2 — Finiteness (U2)
+
+At depth $k$, the sieve eliminates multiples of $p_1, \ldots, p_k$. The
+number of survivors in any interval $[N, 2N]$ is bounded by
+$N \prod_{i \leq k} (1 - 1/p_i)$, which decreases but stays positive
+(Mertens' theorem). So $\{g_n\}$ is well-defined for every $n$.
+
+#### Step 3 — Genericity (U3)
+
+The genericity hypothesis excludes accidental arithmetic relations between
+consecutive primes (for example $p_{n+1} = 2 p_n$). Such relations would
+reduce $\{g_n\}$ to a poorer projection (a sub-sub field). U3 ensures
+that no such reduction is forced by arithmetic.
+
+Consequence: $\{g_n\}$ has the maximal dimensionality compatible with the
+sieve filtration.
+
+#### Step 4 — Exclusion of $p = 2$ (U4)
+
+The prime $p = 2$ plays a special role: it separates evens from odds, but
+this separation is **kinematic** (binary) and not dynamical in the sieve
+sense. Passing to $p = 2$ treats elimination of multiples as a Boolean
+projection without cascade. U4 isolates this contribution in the binary
+infrastructure (cf. the $p = 2$ channel in the $\alpha_{\mathrm{EM}}$
+dressing, ch. 10) rather than in the main dynamical field.
+
+#### Step 5 — Uniqueness
+
+U1–U4 together leave only one candidate satisfying simultaneously: invariance,
+finiteness, genericity, maximal dimensionality. That candidate is
+$\{g_n\}_{n \geq 1}$. Any other sequence $\{a_n\} \in \mathcal{F}$ satisfies
+$a_n = c \cdot g_n$ for some constant $c > 0$. Modulo this renormalisation,
+$\{g_n\}$ is unique.
+
+#### Consequence: BA0
+
+The bridge axiom **BA0** asserts: "the dynamical field of PT, identified with
+$\{g_n\}$, is the object from which all of physics is reconstructed." T0
+shows that this field is **forced** — not a choice.
+
+For the complete derivation and auxiliary proofs (Erdős–Tao theorem, Mertens
+bounds, U4 exclusion), see [the BA0_closing chapter of the monograph](/en/monograph).
+</div>
+
+## See also
+
+- [L0 — Unique geometric distribution](/en/theorems/L0) — fixes the law of $g_n$
+- [T1 — Forbidden mod-3 transitions](/en/theorems/T1) — first constraint on $\{g_n\}$
+- [Sieve mod-3 animation](/en/) (on the home page) — visualises the gaps
+- [All theorems](/en/theorems)

@@ -1,0 +1,38 @@
+---
+type Level =
+  | 'THM' | 'IDENTITY' | 'DER' | 'COND'
+  | 'BRIDGE' | 'VAL' | 'PRED' | 'CLOSURE';
+
+interface Props {
+  level: Level;
+  label?: string;
+}
+
+const { level, label } = Astro.props;
+
+const classMap: Record<Level, string> = {
+  THM: 'pt-tag-thm',
+  IDENTITY: 'pt-tag-id',
+  DER: 'pt-tag-der',
+  COND: 'pt-tag-cond',
+  BRIDGE: 'pt-tag-bridge',
+  VAL: 'pt-tag-val',
+  PRED: 'pt-tag-pred',
+  CLOSURE: 'pt-tag-thm',
+};
+
+const labelMap: Record<Level, string> = {
+  THM: 'Théorème',
+  IDENTITY: 'Identité',
+  DER: 'Dérivé',
+  COND: 'Conditionnel',
+  BRIDGE: 'Pont',
+  VAL: 'Validation',
+  PRED: 'Prédiction',
+  CLOSURE: 'Clôture',
+};
+
+const text = label ?? labelMap[level];
+---
+
+<span class={`pt-tag ${classMap[level]}`}>{text}</span>

@@ -1,0 +1,172 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import data from '@/data/observables.json';
+
+export async function getStaticPaths() {
+  return data.map((o: any) => ({
+    params: { id: String(o.id) },
+    props: { o },
+  }));
+}
+
+const { o } = Astro.props as { o: any };
+
+const sectorLabels: Record<string, string> = {
+  gauge: 'gauge', leptons: 'leptons', quarks: 'quarks', bosons: 'bosons',
+  CKM: 'CKM', PMNS: 'PMNS', QCD: 'QCD',
+  combinatorics: 'combinatorics', gravity: 'gravity', cosmology: 'cosmology',
+};
+
+function fmtErr(obs: any): string {
+  if (obs.exact) return 'exact';
+  if (obs.sc) return '~0% (self-consistent)';
+  if (obs.error_pct < 0.0001) return `${(obs.error_pct * 1e9).toFixed(1)} ppb`;
+  if (obs.error_pct < 0.01) return `${obs.error_pct.toFixed(4)}%`;
+  return `${obs.error_pct.toFixed(3)}%`;
+}
+
+const errClass = (() => {
+  if (o.exact || o.sc) return 'bg-idgreen/15 text-idgreen';
+  if (o.error_pct < 0.01) return 'bg-thmblue/15 text-thmblue';
+  if (o.error_pct < 0.1) return 'bg-derorange/15 text-derorange';
+  if (o.error_pct < 1) return 'bg-condorange/20 text-condorange';
+  return 'bg-predred/20 text-predred';
+})();
+
+function renderMd(src: string): string {
+  if (!src) return '';
+  const blocks = src.split(/\n\n+/);
+  const html: string[] = [];
+  for (const block of blocks) {
+    const trimmed = block.trim();
+    if (!trimmed) continue;
+    if (trimmed.startsWith('### ')) html.push(`<h3>${escInlineMd(trimmed.slice(4))}</h3>`);
+    else if (trimmed.startsWith('## ')) html.push(`<h2>${escInlineMd(trimmed.slice(3))}</h2>`);
+    else if (/^[-*] /m.test(trimmed) && trimmed.split('\n').every(l => /^[-*] /.test(l.trim()))) {
+      const items = trimmed.split('\n').map(l => `<li>${escInlineMd(l.replace(/^[-*]\s+/, ''))}</li>`).join('');
+      html.push(`<ul>${items}</ul>`);
+    } else html.push(`<p>${escInlineMd(trimmed)}</p>`);
+  }
+  return html.join('\n');
+}
+function escInlineMd(s: string): string {
+  return s
+    .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+    .replace(/(^|[\s(])\*([^*]+)\*([\s).,;:!?]|$)/g, '$1<em>$2</em>$3')
+    .replace(/`([^`]+)`/g, '<code>$1</code>');
+}
+
+const hasRichDerivation = !!(o.derivation_en && o.derivation_en.trim().length > 0);
+const derivationHtml = hasRichDerivation ? renderMd(o.derivation_en) : '';
+---
+
+<BaseLayout title={`Observable #${o.id} — ${o.name}`}>
+  <article class="max-w-3xl mx-auto px-4 py-12">
+    <header class="mb-8">
+      <div class="flex items-center gap-3 mb-2 text-xs font-sans text-stone-500 uppercase tracking-wider">
+        <span>#{o.id}</span>
+        <span>·</span>
+        <span class="capitalize">{sectorLabels[o.sector] ?? o.sector}</span>
+      </div>
+      <h1 class="text-3xl md:text-4xl font-bold text-thmblue mb-4 font-mono">{o.name}</h1>
+
+      <div class="grid sm:grid-cols-3 gap-3 my-4">
+        <div class="border border-stone-200 rounded p-3 bg-stone-50">
+          <div class="text-xs font-sans text-stone-500">PT value</div>
+          <div class="font-mono font-bold text-thmblue mt-1">{o.pt}{o.unit ? ` ${o.unit}` : ''}</div>
+        </div>
+        <div class="border border-stone-200 rounded p-3 bg-stone-50">
+          <div class="text-xs font-sans text-stone-500">PDG / CODATA</div>
+          <div class="font-mono mt-1">{o.pdg}{o.unit ? ` ${o.unit}` : ''}</div>
+        </div>
+        <div class="border border-stone-200 rounded p-3 bg-stone-50">
+          <div class="text-xs font-sans text-stone-500">Error</div>
+          <div class="mt-1">
+            <span class={`inline-block px-2 py-0.5 rounded text-xs font-sans ${errClass}`}>{fmtErr(o)}</span>
+          </div>
+        </div>
+      </div>
+
+      {o.note && <p class="text-sm text-stone-600 italic">Note: {o.note}.</p>}
+    </header>
+
+    <section class="prose prose-stone max-w-none katex-target">
+      <h2>Formula</h2>
+      {o.formula_tex ? (
+        <p set:html={`$$${o.formula_tex}$$`} />
+      ) : (
+        <p class="text-stone-500 italic">No symbolic formula. See monograph chapter {o.chapter ?? '(corresponding)'}.</p>
+      )}
+
+      {o.inputs && o.inputs.length > 0 && (
+        <>
+          <h2>Input theorems</h2>
+          <p>This derivation uses the following theorems from the PT chain:</p>
+          <ul class="not-prose flex flex-wrap gap-2 my-3">
+            {o.inputs.map((t: string) => (
+              <li>
+                <a href={`/en/theorems/${t}`} class="inline-block px-3 py-1 rounded-full bg-thmblue/10 text-thmblue font-mono text-sm hover:bg-thmblue/20">{t}</a>
+              </li>
+            ))}
+          </ul>
+        </>
+      )}
+
+      <h2>Derivation</h2>
+      {hasRichDerivation ? (
+        <div set:html={derivationHtml} />
+      ) : (
+        <div>
+          <p>
+            This value is derived in chapter <code>{o.chapter ?? '(corresponding)'}</code> of the monograph,
+            via the arithmetic sieve cascade and the input theorems above.
+          </p>
+          <p>
+            A detailed commented derivation will be added progressively.
+            For now, the <a href="/en/monograph">monograph PDF</a> contains the full proof.
+          </p>
+        </div>
+      )}
+
+      <hr class="my-8 border-stone-200" />
+
+      <h2>See also</h2>
+      <ul>
+        <li><a href="/en/observables">All 43 observables</a></li>
+        <li><a href="/en/calculator">PT calculators</a> — γ_p, sin²θ_p, α_EM live</li>
+        <li><a href="/en/monograph">Full monograph</a></li>
+        <li><a href="/en/scripts">Verification scripts</a></li>
+      </ul>
+    </section>
+  </article>
+
+</BaseLayout>
+
+<style is:global>
+  .katex-target h2 {
+    font-family: ui-sans-serif, system-ui, sans-serif;
+    font-weight: 600;
+    color: rgb(29 78 216);
+    font-size: 1.35rem;
+    margin-top: 2rem;
+    margin-bottom: 0.5rem;
+  }
+  .katex-target h3 {
+    font-family: ui-sans-serif, system-ui, sans-serif;
+    font-weight: 600;
+    color: rgb(29 78 216);
+    font-size: 1.1rem;
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+  .katex-target p { margin: 0.75rem 0; line-height: 1.65; }
+  .katex-target ul { margin: 0.5rem 0; padding-left: 1.5rem; list-style: disc; }
+  .katex-target li { margin: 0.25rem 0; }
+  .katex-target .katex-display { margin: 1rem 0; }
+  .katex-target code {
+    background: rgb(245 245 244);
+    padding: 0.1rem 0.3rem;
+    border-radius: 3px;
+    font-size: 0.9em;
+  }
+</style>

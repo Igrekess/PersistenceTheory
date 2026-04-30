@@ -1,0 +1,129 @@
+---
+id: T3
+name: 'T3 — Antidiagonal transfer'
+short: '$T_3 = \mathrm{antidiag}(1,1)$ — the mod-3 matrix is purely off-diagonal.'
+statement: 'The mod-3 sieve transfer matrix on 6-rough survivors is $T_3 = \begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix}$ — a direct consequence of T1.'
+status: THM
+monograph_chapter: chap:sieve
+order: 5
+lang: en
+---
+
+import Tag from '@components/Tag.astro';
+
+## Statement
+
+The mod-3 sieve transfer matrix on 6-rough survivors is:
+
+$$
+\boxed{T_3 = \begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix} = \mathrm{antidiag}(1, 1).}
+$$
+
+This purely antidiagonal structure is a direct consequence of **T1**
+(forbidden transitions): the diagonal coefficients being zero (T1) and each
+row needing to sum to 1 (stochastic matrix), the off-diagonal coefficients
+must equal 1.
+
+<Tag level="THM" />
+
+<div data-max-depth="L1" className="bg-amber-50 border-l-4 border-amber-300 px-4 py-3 my-6">
+**Plain reading.** Given T1 (two consecutive 6-rough integers are never in the
+same mod-3 class), the "matrix" describing how to move between classes is
+ultra-simple: we always switch, never stay. As a 2×2 table, it’s a checkerboard:
+0s on the diagonals, 1s elsewhere.
+</div>
+
+## Why it matters
+
+T3 makes explicit the matrix $T_3$ used everywhere downstream: T2 uses it
+for spectral conservation, T6 for holonomy, T4 for convergence. It is the
+**simplest possible form** of a non-trivial 2×2 stochastic matrix — a pure
+flip operator.
+
+That $T_3$ is purely antidiagonal also has important geometric consequences:
+its eigenvalues are $\pm 1$, its square is the identity $T_3^2 = I$, and
+its action on the basis $\{1, 2\}$ is an involution.
+
+## Proof — outline
+
+1. **Start from T1**: $T_3[1,1] = T_3[2,2] = 0$.
+2. **Impose row sum = 1** (stochastic matrix).
+3. **Conclude** $T_3[1,2] = T_3[2,1] = 1$.
+
+<div data-min-depth="L3" className="bg-stone-50 border border-stone-300 rounded-lg p-4 my-8">
+
+### Detailed proof (L3 mode)
+
+#### Step 1 — Stochastic matrix
+
+A Markov-chain transfer matrix $T$ satisfies $\sum_j T[i, j] = 1$ for each
+row $i$ (outgoing transition probabilities sum to 1).
+
+For $T_3$ on $\{1, 2\}$:
+
+$$
+T_3[1, 1] + T_3[1, 2] = 1, \qquad T_3[2, 1] + T_3[2, 2] = 1.
+$$
+
+#### Step 2 — Applying T1
+
+T1 asserts $T_3[1, 1] = T_3[2, 2] = 0$. Substituting:
+
+$$
+T_3[1, 2] = 1, \qquad T_3[2, 1] = 1.
+$$
+
+Hence:
+
+$$
+T_3 = \begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix}.
+$$
+
+#### Spectrum
+
+The characteristic polynomial is:
+
+$$
+\det(T_3 - \lambda I) = \lambda^2 - 1.
+$$
+
+So $\lambda \in \{+1, -1\}$. Associated eigenvectors:
+- $\lambda_1 = +1$: $v_1 = (1, 1)^T$ (stationary, uniform on $\{1, 2\}$),
+- $\lambda_2 = -1$: $v_2 = (1, -1)^T$ (antisymmetric mode).
+
+#### Involution
+
+Since $T_3^2 = I$, two successive applications return to the starting state.
+Consistent with the plain reading: "flip, flip, back".
+
+#### Articulation with T6
+
+On the branch $q = 1 - 2/\mu$, the generalised transfer matrix at non-trivial
+depth takes the form:
+
+$$
+T_3(q) = \begin{pmatrix} 1 - \delta_3 & \delta_3 \\ \delta_3 & 1 - \delta_3 \end{pmatrix}
+$$
+
+with $\delta_3 = (1 - q^3)/3$. The diagonal $1 - \delta_3 = \cos\theta_3$
+appears naturally, and the T6 formula $\sin^2\theta_3 = \delta_3 (2 - \delta_3)$
+emerges as the squared off-diagonal transition amplitude.
+
+In the ideal case $q \to 1$ (pure sieve limit), $\delta_3 \to 0$ and
+$\cos\theta_3 \to 1$, $\sin^2\theta_3 \to 0$. At $q = 13/15$ (fixed point
+$\mu^* = 15$), $\delta_3 = 0.1163$ and $\sin^2\theta_3 = 0.2192$ — the
+value entering the calculation of $\alpha_{\mathrm{EM}}$.
+
+T3 is therefore the limit case of T6 where $\delta = 1/2$ (stationary
+half-flip line), or more precisely the **combinatorial envelope** of
+which T6 is the analytically parametrised version.
+
+For the complete derivation, see [chapter 3 of the monograph](/en/monograph).
+</div>
+
+## See also
+
+- [T1 — Forbidden mod-3 transitions](/en/theorems/T1) — gives the zero diagonal
+- [T6 — Holonomy](/en/theorems/T6) — parametrised version of $T_3$
+- [Calculator 2 — sin²(θ_p)](/en/calculator) — see $\delta_3$ and $\sin^2\theta_3$ live
+- [All theorems](/en/theorems)

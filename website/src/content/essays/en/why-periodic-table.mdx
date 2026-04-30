@@ -1,0 +1,80 @@
+---
+slug: why-periodic-table
+title: 'Why does the periodic table have this shape?'
+summary: 'The sequence 2, 8, 8, 18, 18, 32, 32 is not merely memorized in PT: it is derived from s, p, d, f channels, spin, and sieve depth.'
+level: L1
+reading_minutes: 6
+related_theorems: ['T1', 'T5', 'T6']
+lang: en
+order: 5
+---
+
+## The fact to explain
+
+The periodic table is not just a list. It has a very specific architecture:
+two elements in the first period, then 8, 8, 18, 18, 32, 32. Standard chemistry
+explains this structure through electronic subshells $s$, $p$, $d$, $f$ and
+Pauli exclusion.
+
+The PT question is sharper: why do these subshells have these capacities, and
+why do they stop there?
+
+## The short idea
+
+Each orbital family corresponds to an odd number of orientations:
+
+| block | orientations | with spin | capacity |
+|-------|--------------|-----------|----------|
+| $s$   | 1            | $\times 2$ | 2        |
+| $p$   | 3            | $\times 2$ | 6        |
+| $d$   | 5            | $\times 2$ | 10       |
+| $f$   | 7            | $\times 2$ | 14       |
+
+The compact formula is:
+
+$$
+\mathrm{Cap}(\ell)=2(2\ell+1).
+$$
+
+The factor $2\ell+1$ counts available orientations. The factor 2 comes from
+spin: one orientation can be occupied in two opposite states, but it cannot be
+copied freely. In the PT reading, this limit is tied to the exclusion
+constraint from T1: the allowed doubling is not arbitrary copying, it is an
+involution.
+
+## The periods follow
+
+Once the capacities $2,6,10,14$ are obtained, the period lengths follow by
+successively opening channels:
+
+| periods | structure | length |
+|---------|-----------|--------|
+| 1       | $s^2$ | 2 |
+| 2-3     | $s^2p^6$ | 8 |
+| 4-5     | $s^2d^{10}p^6$ | 18 |
+| 6-7     | $s^2f^{14}d^{10}p^6$ | 32 |
+
+This is not a regression on the table: it is the consequence of four discrete
+capacities. The [Periodic table](/en/tableau-periodique) page shows the full
+derivation and its companion script.
+
+## Why no g block?
+
+The next block would require 9 orientations, hence capacity 18. But in the PT
+logic, that fifth channel does not open as a primary channel: $9=3^2$ is not a
+new prime, and the next prime, $p=11$, remains below the activity threshold at
+the fixed point $\mu^*=15$. It can leave an echo, but it does not become a new
+fundamental direction of the table.
+
+So PT does not merely say "there are s, p, d, f blocks". It explains why the
+list stops at those four blocks.
+
+## What remains physical
+
+The period and capacity structure is the rigid part. Quantitative chemistry
+then requires physical derivations: screening, atomic radii, electronegativity,
+ionization energies. In the monograph, this part is marked as derivation and
+validation, not as a pure arithmetic identity.
+
+The right reading is therefore: PT derives the skeleton of the table, then
+tests real chemistry on that skeleton.

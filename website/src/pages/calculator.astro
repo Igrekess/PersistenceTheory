@@ -1,0 +1,308 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Calculatrices PT"
+  description="Trois calculatrices interactives pour explorer le crible PT : dimensions anomales γ_p, holonomies sin²(θ_p) sur les deux branches, et α_EM bare → dressed."
+>
+  <section class="max-w-5xl mx-auto px-4 py-12">
+    <h1 class="text-3xl md:text-4xl font-bold text-thmblue mb-3">
+      Calculatrices PT
+    </h1>
+    <p class="text-stone-700 mb-8 max-w-3xl">
+      Trois outils interactifs pour manipuler la cascade arithmétique du crible.
+      Tout se calcule dans le navigateur, en JavaScript natif, sans aucune
+      dépendance.
+    </p>
+
+    <!-- ============ Calc 1 — γ_p(μ) ============ -->
+    <article id="calc-gamma" class="pt-card mb-8">
+      <header class="mb-4">
+        <div class="text-xs font-sans text-stone-500 uppercase tracking-wider mb-1">Calculatrice 1</div>
+        <h2 class="text-xl font-sans font-semibold text-thmblue mb-1">
+          γ<sub>p</sub>(μ) — dimensions anomales et activité
+        </h2>
+        <p class="text-sm text-stone-600">
+          Formule canonique (T6) :
+          γ<sub>p</sub> = 4·q<sup>p−1</sup>·(1−δ<sub>p</sub>) ÷ (μ·δ<sub>p</sub>·(2−δ<sub>p</sub>))
+          avec q = 1 − 2/μ et δ<sub>p</sub> = (1−q<sup>p</sup>)/p.
+          Un premier est <em>actif</em> si γ<sub>p</sub> &gt; s = 1/2.
+        </p>
+      </header>
+
+      <div class="flex flex-wrap items-center gap-4 mb-4">
+        <label class="font-sans text-sm font-medium text-stone-700 flex items-center gap-3 flex-1">
+          <span class="whitespace-nowrap">μ =&nbsp;<span id="mu-gamma-display" class="font-bold text-thmblue text-lg tabular-nums">15</span></span>
+          <input id="mu-gamma" type="range" min="3" max="100" step="0.1" value="15" class="flex-1 accent-thmblue" />
+        </label>
+        <button id="mu-gamma-reset" class="text-xs font-sans text-stone-600 underline hover:text-thmblue">μ* = 15</button>
+      </div>
+
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm font-sans tabular-nums">
+          <thead class="border-b border-stone-200 text-xs text-stone-500 uppercase">
+            <tr>
+              <th class="text-left py-2 pr-4">p</th>
+              <th class="text-right py-2 px-2">δ<sub>p</sub></th>
+              <th class="text-right py-2 px-2">γ<sub>p</sub></th>
+              <th class="text-left py-2 pl-4">statut</th>
+            </tr>
+          </thead>
+          <tbody id="gamma-tbody">
+            <!-- filled by JS -->
+          </tbody>
+        </table>
+      </div>
+
+      <div id="fixed-point-indicator" class="mt-4 p-3 rounded font-sans text-sm">
+        <!-- filled by JS -->
+      </div>
+    </article>
+
+    <!-- ============ Calc 2 — sin²θ_p sur deux branches ============ -->
+    <article id="calc-sin" class="pt-card mb-8">
+      <header class="mb-4">
+        <div class="text-xs font-sans text-stone-500 uppercase tracking-wider mb-1">Calculatrice 2</div>
+        <h2 class="text-xl font-sans font-semibold text-thmblue mb-1">
+          sin²(θ<sub>p</sub>) — holonomie sur les deux branches
+        </h2>
+        <p class="text-sm text-stone-600">
+          Identité algébrique (T6) : sin²(θ<sub>p</sub>) = δ<sub>p</sub>·(2 − δ<sub>p</sub>).
+          Branche q<sub>+</sub> = 1 − 2/μ (couplages, leptons, α<sub>EM</sub>) ;
+          branche q<sub>−</sub> = e<sup>−1/μ</sup> (géométrie, quarks, CKM).
+        </p>
+      </header>
+
+      <div class="flex flex-wrap items-center gap-6 mb-6">
+        <label class="font-sans text-sm font-medium text-stone-700 flex items-center gap-3">
+          <span class="whitespace-nowrap">p =&nbsp;<span id="p-sin-display" class="font-bold text-thmblue text-lg tabular-nums">3</span></span>
+          <select id="p-sin" class="border border-stone-300 rounded px-2 py-1 bg-white">
+            <option value="2">2</option>
+            <option value="3" selected>3</option>
+            <option value="5">5</option>
+            <option value="7">7</option>
+            <option value="11">11</option>
+            <option value="13">13</option>
+            <option value="17">17</option>
+            <option value="19">19</option>
+            <option value="23">23</option>
+          </select>
+        </label>
+        <label class="font-sans text-sm font-medium text-stone-700 flex items-center gap-3 flex-1 min-w-[280px]">
+          <span class="whitespace-nowrap">μ =&nbsp;<span id="mu-sin-display" class="font-bold text-thmblue text-lg tabular-nums">15</span></span>
+          <input id="mu-sin" type="range" min="3" max="100" step="0.1" value="15" class="flex-1 accent-thmblue" />
+        </label>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-4">
+        <div class="border border-stone-200 rounded p-4 bg-stone-50">
+          <div class="text-xs font-sans text-stone-500 uppercase tracking-wider mb-2">Branche q<sub>+</sub> (couplages)</div>
+          <div class="text-sm text-stone-600">q<sub>+</sub> = <span id="qplus-val" class="font-mono tabular-nums">—</span></div>
+          <div class="text-sm text-stone-600">δ<sub>p</sub> = <span id="delta-plus-val" class="font-mono tabular-nums">—</span></div>
+          <div class="text-2xl text-thmblue font-bold mt-2 tabular-nums">
+            sin²θ<sub>p</sub> = <span id="sin2-plus-val">—</span>
+          </div>
+        </div>
+        <div class="border border-stone-200 rounded p-4 bg-stone-50">
+          <div class="text-xs font-sans text-stone-500 uppercase tracking-wider mb-2">Branche q<sub>−</sub> (géométrie)</div>
+          <div class="text-sm text-stone-600">q<sub>−</sub> = <span id="qminus-val" class="font-mono tabular-nums">—</span></div>
+          <div class="text-sm text-stone-600">δ<sub>p</sub> = <span id="delta-minus-val" class="font-mono tabular-nums">—</span></div>
+          <div class="text-2xl text-thmblue font-bold mt-2 tabular-nums">
+            sin²θ<sub>p</sub> = <span id="sin2-minus-val">—</span>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- ============ Calc 3 — α_EM bare → dressed ============ -->
+    <article id="calc-alpha" class="pt-card mb-8">
+      <header class="mb-4">
+        <div class="text-xs font-sans text-stone-500 uppercase tracking-wider mb-1">Calculatrice 3</div>
+        <h2 class="text-xl font-sans font-semibold text-thmblue mb-1">
+          α<sub>EM</sub> — du produit nu à la valeur habillée
+        </h2>
+        <p class="text-sm text-stone-600">
+          Calcul à μ* = 15, branche q<sub>+</sub>. Le produit BA5
+          α<sub>bare</sub> = ∏ sin²θ<sub>p</sub> sur &#123;3, 5, 7&#125; donne 1/136,28.
+          L’habillage par le canal binaire p = 2 ferme l’écart à 1/137,036.
+        </p>
+      </header>
+
+      <div class="grid md:grid-cols-3 gap-3 mb-4">
+        <div class="border border-stone-200 rounded p-3 bg-stone-50 text-center">
+          <div class="text-xs font-sans text-stone-500">sin²θ<sub>3</sub></div>
+          <div class="text-xl text-thmblue font-bold mt-1 tabular-nums" id="alpha-sin3">—</div>
+        </div>
+        <div class="border border-stone-200 rounded p-3 bg-stone-50 text-center">
+          <div class="text-xs font-sans text-stone-500">sin²θ<sub>5</sub></div>
+          <div class="text-xl text-thmblue font-bold mt-1 tabular-nums" id="alpha-sin5">—</div>
+        </div>
+        <div class="border border-stone-200 rounded p-3 bg-stone-50 text-center">
+          <div class="text-xs font-sans text-stone-500">sin²θ<sub>7</sub></div>
+          <div class="text-xl text-thmblue font-bold mt-1 tabular-nums" id="alpha-sin7">—</div>
+        </div>
+      </div>
+
+      <div class="space-y-2 font-sans text-sm">
+        <div class="flex flex-wrap items-baseline justify-between gap-2 py-2 border-b border-stone-200">
+          <span class="text-stone-700">Produit nu : α<sub>bare</sub> = sin²θ<sub>3</sub>·sin²θ<sub>5</sub>·sin²θ<sub>7</sub></span>
+          <span class="font-mono tabular-nums">α<sub>bare</sub> = <span id="alpha-bare-val">—</span> = 1/<span id="alpha-bare-inv" class="text-thmblue font-bold">—</span></span>
+        </div>
+        <div class="flex flex-wrap items-baseline justify-between gap-2 py-2 border-b border-stone-200">
+          <span class="text-stone-700">Habillage canal binaire (F(2), R51) :</span>
+          <span class="font-mono tabular-nums">F(2) = 0,7583</span>
+        </div>
+        <div class="flex flex-wrap items-baseline justify-between gap-2 py-2 border-b border-stone-200">
+          <span class="text-stone-700">α<sub>dressed</sub><sup>−1</sup> = α<sub>bare</sub><sup>−1</sup> + F(2) :</span>
+          <span class="font-mono tabular-nums">1/α ≈ <span id="alpha-tree-inv" class="text-thmblue font-bold">—</span></span>
+        </div>
+        <div class="flex flex-wrap items-baseline justify-between gap-2 py-2 border-b border-stone-200">
+          <span class="text-stone-700">PT complet (spirale + écho + 2-loop, ch. 10) :</span>
+          <span class="font-mono tabular-nums">1/α = <span class="text-thmblue font-bold">137,035 999 083</span></span>
+        </div>
+        <div class="flex flex-wrap items-baseline justify-between gap-2 py-2">
+          <span class="text-stone-700">CODATA 2022 :</span>
+          <span class="font-mono tabular-nums">1/α = 137,035 999 084</span>
+        </div>
+      </div>
+
+      <p class="text-xs text-stone-500 mt-4 italic">
+        Écart PT — CODATA : 0,004 ppb. Zéro paramètre ajusté à toutes les étapes.
+        Pour les détails de la spirale de feedback et des termes d’écho, voir
+        <a href="/monograph" class="underline hover:text-thmblue">la monographie chapitre 10</a>.
+      </p>
+    </article>
+
+    <p class="text-sm text-stone-600 mt-8">
+      Tu veux pousser plus loin ?
+      <a href="/theorems/T6" class="underline hover:text-thmblue">Théorème T6 (holonomie)</a>,
+      <a href="/theorems/T5" class="underline hover:text-thmblue">T5 (point fixe)</a>,
+      <a href="/essays/where-alpha-comes-from" class="underline hover:text-thmblue">essai sur α<sub>EM</sub></a>,
+      <a href="/scripts" class="underline hover:text-thmblue">scripts de vérification</a>.
+    </p>
+  </section>
+
+  <script is:inline>
+    (function () {
+      const ACTIVE_PRIMES = [3, 5, 7, 11, 13];
+      const F2 = 0.7582727826;
+
+      // δ_p(q) = (1 - q^p) / p
+      function delta(p, q) {
+        return (1 - Math.pow(q, p)) / p;
+      }
+
+      // sin²(θ_p) = δ_p (2 - δ_p)
+      function sin2theta(p, q) {
+        const d = delta(p, q);
+        return d * (2 - d);
+      }
+
+      // γ_p = 4 q^(p-1) (1 - δ_p) / (μ δ_p (2 - δ_p))
+      function gamma(p, mu) {
+        const q = 1 - 2 / mu;
+        const d = delta(p, q);
+        const num = 4 * Math.pow(q, p - 1) * (1 - d);
+        const den = mu * d * (2 - d);
+        return num / den;
+      }
+
+      function fmt(x, dec) {
+        if (!isFinite(x)) return '—';
+        return x.toLocaleString('fr-FR', { minimumFractionDigits: dec, maximumFractionDigits: dec });
+      }
+
+      // ---------- Calc 1 ----------
+      const muGamma = document.getElementById('mu-gamma');
+      const muGammaDisplay = document.getElementById('mu-gamma-display');
+      const muGammaReset = document.getElementById('mu-gamma-reset');
+      const gammaTbody = document.getElementById('gamma-tbody');
+      const fixedPointIndicator = document.getElementById('fixed-point-indicator');
+
+      function renderGamma() {
+        const mu = parseFloat(muGamma.value);
+        muGammaDisplay.textContent = fmt(mu, mu === Math.floor(mu) ? 0 : 1);
+
+        const q = 1 - 2 / mu;
+        let activeSum = 0;
+        let rows = '';
+        for (const p of ACTIVE_PRIMES) {
+          const d = delta(p, q);
+          const g = gamma(p, mu);
+          const active = g > 0.5;
+          if (active) activeSum += p;
+          rows += `<tr class="border-b border-stone-100 ${active ? 'bg-amber-50' : ''}">
+            <td class="py-2 pr-4 font-mono">${p}</td>
+            <td class="py-2 px-2 text-right font-mono">${fmt(d, 5)}</td>
+            <td class="py-2 px-2 text-right font-mono font-bold ${active ? 'text-thmblue' : 'text-stone-500'}">${fmt(g, 5)}</td>
+            <td class="py-2 pl-4">${active ? '<span class="text-derorange font-medium">actif (γ &gt; ½)</span>' : '<span class="text-stone-400">inactif</span>'}</td>
+          </tr>`;
+        }
+        gammaTbody.innerHTML = rows;
+
+        const isFixedPoint = Math.abs(activeSum - mu) < 0.05;
+        fixedPointIndicator.className = 'mt-4 p-3 rounded font-sans text-sm ' +
+          (isFixedPoint ? 'bg-amber-50 border border-amber-300 text-amber-900' : 'bg-stone-50 border border-stone-200 text-stone-700');
+        fixedPointIndicator.innerHTML = isFixedPoint
+          ? `<strong>Point fixe.</strong> Σ p<sub>actifs</sub> = ${activeSum} = μ. C’est μ* = ${activeSum}, l’unique point fixe stable du crible (T5).`
+          : `Σ p<sub>actifs</sub> = ${activeSum} ≠ μ = ${fmt(mu, mu === Math.floor(mu) ? 0 : 1)} : pas un point fixe. Glisse vers μ = 15.`;
+      }
+
+      muGamma.addEventListener('input', renderGamma);
+      muGammaReset.addEventListener('click', () => { muGamma.value = '15'; renderGamma(); });
+      renderGamma();
+
+      // ---------- Calc 2 ----------
+      const pSin = document.getElementById('p-sin');
+      const muSin = document.getElementById('mu-sin');
+      const pSinDisplay = document.getElementById('p-sin-display');
+      const muSinDisplay = document.getElementById('mu-sin-display');
+      const qplusVal = document.getElementById('qplus-val');
+      const qminusVal = document.getElementById('qminus-val');
+      const deltaPlusVal = document.getElementById('delta-plus-val');
+      const deltaMinusVal = document.getElementById('delta-minus-val');
+      const sin2PlusVal = document.getElementById('sin2-plus-val');
+      const sin2MinusVal = document.getElementById('sin2-minus-val');
+
+      function renderSin() {
+        const p = parseInt(pSin.value, 10);
+        const mu = parseFloat(muSin.value);
+        pSinDisplay.textContent = p;
+        muSinDisplay.textContent = fmt(mu, mu === Math.floor(mu) ? 0 : 1);
+
+        const qPlus = 1 - 2 / mu;
+        const qMinus = Math.exp(-1 / mu);
+        const dPlus = delta(p, qPlus);
+        const dMinus = delta(p, qMinus);
+
+        qplusVal.textContent = fmt(qPlus, 5);
+        qminusVal.textContent = fmt(qMinus, 5);
+        deltaPlusVal.textContent = fmt(dPlus, 5);
+        deltaMinusVal.textContent = fmt(dMinus, 5);
+        sin2PlusVal.textContent = fmt(sin2theta(p, qPlus), 5);
+        sin2MinusVal.textContent = fmt(sin2theta(p, qMinus), 5);
+      }
+
+      pSin.addEventListener('change', renderSin);
+      muSin.addEventListener('input', renderSin);
+      renderSin();
+
+      // ---------- Calc 3 ----------
+      const muStar = 15;
+      const qStar = 1 - 2 / muStar;
+      const s3 = sin2theta(3, qStar);
+      const s5 = sin2theta(5, qStar);
+      const s7 = sin2theta(7, qStar);
+      const aBare = s3 * s5 * s7;
+      const aTree = 1 / (1 / aBare + F2);
+
+      document.getElementById('alpha-sin3').textContent = fmt(s3, 4);
+      document.getElementById('alpha-sin5').textContent = fmt(s5, 4);
+      document.getElementById('alpha-sin7').textContent = fmt(s7, 4);
+      document.getElementById('alpha-bare-val').textContent = aBare.toExponential(4).replace('.', ',');
+      document.getElementById('alpha-bare-inv').textContent = fmt(1 / aBare, 3);
+      document.getElementById('alpha-tree-inv').textContent = fmt(1 / aTree, 3);
+    })();
+  </script>
+</BaseLayout>

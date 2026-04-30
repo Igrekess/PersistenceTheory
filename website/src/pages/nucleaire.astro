@@ -1,0 +1,121 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import ResearchTopic from '@components/ResearchTopic.astro';
+
+const features = [
+  { title: 'Même logique, autre profondeur', body: 'Le noyau est lu comme une couche plus profonde de persistance : couleur, pions, fermetures et liaison sortent de la même cascade.', status: 'DER' },
+  { title: 'Nombres magiques', body: 'Sans spin-orbite on retrouve 2, 8, 20 ; avec le spin-orbite PT nucléaire on obtient 2, 8, 20, 28, 50, 82, 126.', status: 'VAL' },
+  { title: '408/413 tests', body: 'Le score annoncé est 408 tests passants sur 413, soit 98,8 %, avec zéro paramètre ajusté.', status: 'VAL' },
+];
+
+const sections = [
+  {
+    eyebrow: 'L1',
+    title: 'Le noyau est une chimie plus profonde',
+    paragraphs: [
+      'On peut entrer dans le nucléaire sans commencer par des équations. Un atome a deux niveaux d’organisation : autour, les électrons dessinent la chimie ordinaire ; au centre, les protons et les neutrons dessinent une chimie beaucoup plus compacte, plus profonde, où la force forte remplace l’électromagnétisme comme canal dominant.',
+      'La PT ne traite donc pas le noyau comme un continent séparé. Elle pose une question simple : si la persistance organise déjà les électrons, les quarks et les canaux de couleur, que devient cette même logique quand les degrés de liberté sont enfermés dans un volume minuscule et très dense ?',
+      'La réponse intuitive est celle des couches. Dans un atome, certaines couches électroniques fermées donnent les gaz nobles. Dans un noyau, certaines couches de protons et de neutrons se ferment aussi : ce sont les nombres magiques. Un noyau proche d’une fermeture résiste mieux aux déformations, se lie plus proprement et modifie même sa radioactivité.',
+      'C’est le point pédagogique central : la stabilité nucléaire n’est pas seulement “beaucoup de force forte”. C’est une géométrie de canaux. Certaines places sont exposées, d’autres protégées ; certaines configurations ferment une couche, d’autres laissent un bord fragile. La PT cherche à lire cette architecture avec le même vocabulaire que la chimie : canaux, fermetures, profondeur et échos.',
+      'L’image à garder est donc simple : le noyau est un objet de couches très serrées. Quand une couche se ferme, l’ensemble devient plus stable ; quand elle reste ouverte, il devient plus réactif, plus déformable ou plus susceptible de se désintégrer.',
+    ],
+    items: [
+      'Protons et neutrons jouent ici le rôle des objets organisés en couches.',
+      'Les fermetures nucléaires sont l’analogue profond des gaz nobles.',
+      'La force forte rend le spin-orbite nucléaire beaucoup plus puissant que dans l’atome.',
+      'La radioactivité dépend aussi de cette architecture : une fermeture peut freiner la préformation d’une particule alpha.',
+    ],
+  },
+  {
+    eyebrow: 'L2',
+    title: 'Comment la PT calcule le secteur nucléaire',
+    paragraphs: [
+      'La monographie organise le secteur en huit familles : équations, potentiel nucléon-nucléon, énergies de liaison, nombres magiques, radioactivité, réactions, phases NLO et calculs ab initio.',
+      'Le calcul commence par les constantes déjà présentes dans la théorie : $s=1/2$, $N_c=3$, $C_F=4/3$ et le couplage fort effectif. À partir de là, la PT reconstruit un potentiel nucléaire, puis les termes de liaison : volume, surface, Coulomb, asymétrie, appariement et corrections de fermeture.',
+      'Il faut insister sur un point : ce ne sont pas des boutons ajustés pour sauver la courbe. Les termes sont des lectures continues ou des corrections de couche imposées par la hiérarchie PT. C’est justement ce qui rend le secteur nucléaire intéressant pour un physicien.',
+    ],
+    items: [
+      'Potentiel : le canal couleur laisse un résiduel effectif entre nucléons.',
+      'Liaison : formule de masse de type Bethe-Weizsäcker, mais avec dictionnaire PT.',
+      'Couches : les fermetures magiques apparaissent quand les canaux internes se referment.',
+      'Radioactivité : le facteur $(5/8)^{n_{magic}}$ réduit la préformation près des fermetures.',
+    ],
+  },
+  {
+    eyebrow: 'Nombres magiques',
+    title: 'D’où viennent les nombres magiques ?',
+    paragraphs: [
+      'Dans le modèle nucléaire usuel, les nombres magiques sont souvent présentés comme le résultat d’un potentiel moyen plus un fort couplage spin-orbite. La lecture PT reprend cette structure, mais elle en donne une raison : la profondeur nucléaire amplifie le spin-orbite parce que le canal fort remplace l’échelle électromagnétique.',
+      'Au niveau discret, la profondeur de crible $D=2$ donne quatre nombres quantiques $(n,l,m_l,m_s)$. Sans le terme spin-orbite, on récupère bien les premières fermetures 2, 8 et 20, mais on ne force pas les grandes fermetures nucléaires.',
+      'Avec le spin-orbite PT, la force effective vaut $\\lambda_{LS}=C_F\\alpha_{s,eff}(\\hbar c/(2m_\\pi))^2\\simeq0{,}475\\,\\mathrm{fm}^2$. Comme $\\alpha_{s,eff}/\\alpha_{EM}$ est de l’ordre de 100, le noyau voit une séparation spin-orbite beaucoup plus forte que l’atome.',
+      'C’est là que le module devient parlant : la même logique de canaux explique pourquoi 28, 50, 82 et 126 apparaissent. Les fermetures correspondent aux orbitales $0f_{7/2}$, $0g_{9/2}$, $0h_{11/2}$ et $0i_{13/2}$ qui descendent et ouvrent les grands écarts.',
+    ],
+    visual: {
+      kind: 'magic-shells',
+      title: 'La fermeture des couches nucléaires',
+      caption: 'Sans spin-orbite, la structure reste trop pauvre. Avec le spin-orbite nucléaire dérivé par la PT, les sept fermetures standards sont reconstruites.',
+      labels: ['Sans spin-orbite', 'Avec spin-orbite PT', 'Les grandes fermetures viennent de l’amplification forte du canal LS.'],
+    },
+  },
+  {
+    eyebrow: 'L3',
+    title: 'Démonstration technique : cascade, nombres magiques, limites',
+    depth: 'L3',
+    paragraphs: [
+      'Le chapitre nucléaire relève d’une validation physique : les sorties sont comparées à l’expérience et aux tests structuraux. Son statut n’est pas celui d’une identité arithmétique pure comme GFT ou T5, mais celui d’une cascade dérivée dont les conséquences sont confrontées aux données.',
+      'Les 5 échecs sont explicitement listés comme limitations de l’approximation monopolaire ou de corrections à trois corps, pas comme réfutations de la cascade.',
+      'La cascade technique annoncée est $s=1/2\\to N_c\\to C_F\\to\\alpha_s\\to\\sigma_{QCD}\\to f_\\pi,m_\\pi,M_N\\to V_{NN}\\to E_{bind}$. Chaque étage hérite des constantes déjà dérivées dans les chapitres précédents.',
+      'Pour les nombres magiques, la route est précise : $D=2$ donne $(n,l,m_l,m_s)$, le potentiel Woods-Saxon PT fixe le spectre moyen, puis le terme LS dérivé ouvre les écarts 28, 50, 82 et 126. Les orbitales responsables sont $0s_{1/2}$, $0p_{3/2}$, $0d_{3/2}$, $0f_{7/2}$, $0g_{9/2}$, $0h_{11/2}$ et $0i_{13/2}$.',
+      'Le score 408/413 mélange tests algébriques, structuraux et empiriques ; la monographie indique environ 132 comparaisons authentiquement expérimentales. C’est donc un très gros test de cohérence, mais pas 413 constantes indépendantes.',
+    ],
+    items: [
+      'Potentiel $V_{NN}$ : composantes OPE, $\\sigma$, $\\omega$, tenseur.',
+      'Liaison : Bethe-Weizsäcker + corrections PT, saturation autour du fer.',
+      'Nombres magiques : $2,8,20,28,50,82,126$ obtenus avec amplification spin-orbite forte.',
+      'Radioactivité : alpha NLO avec facteur spectroscopique $(5/8)^{n_{magic}}$.',
+      'Ouvert : rayon du deutéron par force tenseur, noyaux déformés, EOS au-delà de $2n_0$.',
+    ],
+    demo: {
+      kind: 'magic-proximity',
+      title: 'Écho d’une fermeture magique',
+      caption: 'Le facteur spectroscopique utilisé dans la radioactivité alpha est $(5/8)^{n_{magic}}$. Près d’une fermeture, l’écho de couche est fort ; loin d’elle, il s’efface continûment.',
+      labels: ['distance à une fermeture magique'],
+    },
+    proof: {
+      title: 'Démonstration L3 de la cascade nucléaire',
+      steps: [
+        'La chaîne part des constantes déjà dérivées dans le secteur SM : $s=1/2$, $\\mu^*=15$, $N_c=3$, $C_F=4/3$, $\\alpha_{EM}$ et $\\alpha_s$. Le nucléaire n’ajoute pas de paramètre continu libre.',
+        'Le canal couleur fixe le résiduel fort. Les échelles $f_\\pi$, $m_\\pi$ et $M_N$ héritent de la chaîne hadronique précédente ; elles alimentent le potentiel nucléon-nucléon.',
+        'Le potentiel $V_{NN}$ est décomposé en composantes de type pion, sigma, omega et tenseur. Chaque composante correspond à une lecture PT différente du résiduel de couleur et de la profondeur de canal.',
+        'Les énergies de liaison sont ensuite lues par une formule de masse de type Bethe-Weizsäcker corrigée PT : volume, surface, Coulomb, asymétrie, appariement et corrections de fermeture.',
+        'Les nombres magiques ne sont pas une table plaquée : $D=2$ fournit les quatre nombres quantiques, le potentiel Woods-Saxon PT donne le spectre moyen, puis $\\lambda_{LS}=C_F\\alpha_{s,eff}(\\hbar c/(2m_\\pi))^2$ produit les grands écarts spin-orbite.',
+        'La radioactivité alpha se démontre par Gamow + corrections PT. Le facteur spectroscopique $(5/8)^{n_{magic}}$ réduit la préformation près des fermetures magiques et remplace une partie du solveur many-body complet.',
+        'La validation annoncée 408/413 teste cette cascade en huit familles : équations, $V_{NN}$, liaison, nombres magiques, radioactivité, réactions, phases NLO, ab initio.',
+      ],
+      conclusion: 'La lecture PT du nucléaire repose sur une cascade dérivée puis validée : constantes du secteur SM, résiduel de couleur, potentiel $V_{NN}$, liaison, nombres magiques et radioactivité. Sa force est la cohérence sans paramètre continu libre sur de nombreuses familles, avec des limites connues explicitement indiquées.',
+    },
+  },
+];
+
+const sources = [
+  'ch. 22d : Physique nucléaire, status box et ledger.',
+  'pt_chimie_scores.tex : 408/413 tests, 98,8 %.',
+  'ch. 24 : nucléaire dans les directions post-programme.',
+  'Appendix F : scripts compagnons et couverture.',
+];
+---
+
+<BaseLayout
+  title="Nucléaire en PT"
+  description="Lecture PT du secteur nucléaire : cascade, nombres magiques, énergies de liaison, radioactivité et validation."
+>
+  <ResearchTopic
+    eyebrow="Physique nucléaire"
+    title="Le noyau comme profondeur de persistance"
+    description="La PT traite le nucléaire comme une couche d’observation de la même structure : les canaux qui donnent les constantes du Modèle Standard se recombinent en force nucléaire, fermetures et énergies de liaison."
+    lead="L’intérêt du secteur nucléaire est qu’il teste la PT loin de son point d’entrée : si la même cascade explique aussi les noyaux, la théorie gagne une profondeur explicative considérable."
+    features={features}
+    sections={sections}
+    sources={sources}
+  />
+</BaseLayout>

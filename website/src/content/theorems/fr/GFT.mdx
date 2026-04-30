@@ -1,0 +1,174 @@
+---
+id: GFT
+name: 'GFT — Théorème fondamental des écarts'
+short: '$\log_2 m = D_\mathrm{KL} + H$ — principe fondamental de la persistance.'
+statement: 'Pour toute distribution $P$ sur $\mathbb{Z}/m\mathbb{Z}$, l’identité $H_{\max}(m) = D_\mathrm{KL}(P \| U_m) + H(P)$ est une tautologie algébrique. C’est le principe fondamental de la persistance : la capacité totale se décompose exactement en information persistante (D_KL) plus bruit irréductible (entropie H).'
+status: IDENTITY
+monograph_chapter: chap:gft
+order: 0
+lang: fr
+---
+
+import Tag from '@components/Tag.astro';
+
+## Énoncé
+
+Pour toute distribution de probabilités $P = (p_1, \ldots, p_m)$ sur les
+$m$ classes de $\mathbb{Z}/m\mathbb{Z}$, l’identité suivante est tautologique :
+
+$$
+\boxed{\log_2 m = D_{\mathrm{KL}}(P \,\|\, U_m) + H(P),}
+$$
+
+où :
+- $\log_2 m = H_{\max}(m)$ est la capacité informationnelle totale (entropie de la
+  distribution uniforme sur $m$ états),
+- $D_{\mathrm{KL}}(P \,\|\, U_m) = \sum_i p_i \log_2(m \cdot p_i)$ est la
+  divergence de Kullback–Leibler de $P$ par rapport à l’uniforme,
+- $H(P) = -\sum_i p_i \log_2 p_i$ est l’entropie de Shannon de $P$.
+
+**La capacité totale se conserve** : tout ce qui n’est pas « information
+persistante » ($D_{\mathrm{KL}}$) est « bruit » ($H$), et réciproquement.
+Cette conservation est le **principe fondamental de la persistance**.
+
+<Tag level="IDENTITY" />
+
+<div data-max-depth="L1" className="bg-amber-50 border-l-4 border-amber-300 px-4 py-3 my-6">
+**Lecture vulgarisée.** Imaginez un budget total fixé à $\log_2 m$ bits (la « capacité
+informationnelle »). Chaque distribution divise ce budget en deux parts : ce qui est
+**structuré** (s’éloigne de l’aléatoire pur) et ce qui reste **désordonné**. La somme
+des deux est exactement le budget total. Pas plus, pas moins. C’est la version
+PT du principe fondamental : la capacité ne se crée pas et ne se détruit pas, elle se
+partage entre persistance et entropie.
+</div>
+
+## Pourquoi ça compte
+
+GFT est l’**identité maîtresse** de la PT, c’est-à-dire le
+**principe fondamental de la persistance**. Elle donne le cadre dans lequel
+toutes les conservations se formulent : à chaque pas du crible, l’information
+qui « se persiste » ($D_{\mathrm{KL}}$ qui croît) compense exactement l’entropie
+qui « se libère » ($H$ qui décroît). Pas de perte, pas de gain net.
+
+Conséquences directes :
+- **Borne de Bekenstein** : $D_{\mathrm{KL}} \leq \log_2 m$ (l’information
+  persistante ne peut pas dépasser la capacité), donc $H \geq 0$.
+- **Flèche du temps** : $dH / dD_{\mathrm{KL}} = -1$ (pour toute évolution
+  qui préserve $\log_2 m$).
+- **Équivalence Ruelle** : $Z_{\mathrm{Ruelle}} = \mathrm{Tr}(T_m^N)$, énergie
+  libre nulle.
+
+C’est aussi GFT qui justifie la sémantique « persistance » du nom de la
+théorie : ce qui « persiste » est précisément $D_{\mathrm{KL}}$.
+
+## Démonstration — schéma
+
+1. **Écrire** $D_{\mathrm{KL}}(P \,\|\, U_m) = \sum_i p_i \log_2(p_i / (1/m))$.
+2. **Distribuer** le logarithme : $\log_2(p_i / (1/m)) = \log_2 p_i + \log_2 m$.
+3. **Sommer** : $\sum_i p_i \log_2 p_i + \sum_i p_i \log_2 m$.
+4. **Reconnaître** : le premier terme est $-H(P)$, le second est $\log_2 m$.
+5. **Réarranger** : $\log_2 m - H(P) = D_{\mathrm{KL}}$, soit $\log_2 m = D_{\mathrm{KL}} + H$.
+
+<div data-min-depth="L3" className="bg-stone-50 border border-stone-300 rounded-lg p-4 my-8">
+
+### Démonstration détaillée (mode L3)
+
+#### Étape 1 — Définition de $D_{\mathrm{KL}}$
+
+La divergence de Kullback–Leibler entre $P = (p_1, \ldots, p_m)$ et la
+distribution uniforme $U_m = (1/m, \ldots, 1/m)$ est :
+
+$$
+D_{\mathrm{KL}}(P \,\|\, U_m) = \sum_{i=1}^m p_i \log_2 \frac{p_i}{1/m}.
+$$
+
+#### Étape 2 — Distribution du logarithme
+
+Par propriétés du logarithme :
+
+$$
+\log_2 \frac{p_i}{1/m} = \log_2 p_i + \log_2 m.
+$$
+
+Substituons :
+
+$$
+D_{\mathrm{KL}} = \sum_i p_i (\log_2 p_i + \log_2 m) = \sum_i p_i \log_2 p_i + \log_2 m \sum_i p_i.
+$$
+
+#### Étape 3 — Normalisation et entropie
+
+Comme $P$ est une distribution, $\sum_i p_i = 1$, et par définition de
+l’entropie de Shannon, $H(P) = -\sum_i p_i \log_2 p_i$.
+
+Donc :
+
+$$
+D_{\mathrm{KL}} = -H(P) + \log_2 m,
+$$
+
+soit, en réarrangeant :
+
+$$
+\log_2 m = D_{\mathrm{KL}} + H(P).
+$$
+
+#### CQFD
+
+L’identité est purement algébrique. Elle ne dépend ni de la nature de $P$
+(arbitraire), ni de l’origine physique des $m$ états, ni de quelconque
+hypothèse dynamique. C’est ce qui en fait une **identité** au sens fort,
+plus forte qu’un théorème : elle ne peut pas être falsifiée car elle est
+vraie par les seules règles de l’algèbre.
+
+#### Conséquence — borne de Bekenstein
+
+Comme $H(P) \geq 0$ pour toute distribution (entropie positive), on a
+immédiatement :
+
+$$
+D_{\mathrm{KL}}(P \,\|\, U_m) \leq \log_2 m.
+$$
+
+C’est la **borne de Bekenstein universelle** : aucune distribution sur
+$m$ états ne peut avoir plus de $\log_2 m$ bits de structure persistante.
+La PT identifie cette borne au cap holographique de l’information dans
+une région finie.
+
+#### Conséquence — flèche du temps
+
+Si une évolution dynamique préserve $\log_2 m$ (cas du crible : $m$ fixe),
+alors :
+
+$$
+\frac{dH}{dD_{\mathrm{KL}}} = -1.
+$$
+
+Toute augmentation de $D_{\mathrm{KL}}$ se paie par une diminution équivalente
+de $H$, et inversement. C’est la flèche du temps PT : l’évolution naturelle
+fait croître $H$ (second principe), donc fait décroître $D_{\mathrm{KL}}$
+(« décristallisation »). Le crible inverse cette flèche localement —
+$D_{\mathrm{KL}}$ croît à chaque étape, ce qui définit la « persistance ».
+
+#### Conséquence — équivalence Ruelle
+
+Pour la matrice de transfert $T_m$, la fonction de partition de Ruelle vaut :
+
+$$
+Z_{\mathrm{Ruelle}} = \mathrm{Tr}(T_m^N) = \sum_\lambda \lambda^N,
+$$
+
+où la somme porte sur les valeurs propres de $T_m$. À la limite $N \to \infty$,
+cette fonction devient l’exponentielle de l’entropie topologique. GFT donne
+l’identité explicite avec $\log_2 m$ comme cap, et l’énergie libre $F_R = 0$
+(au sens Ruelle pur).
+
+Pour la dérivation complète et les conséquences (Bekenstein, flèche du temps,
+Ruelle), voir [chapitre 4 de la monographie](/monograph).
+</div>
+
+## Voir aussi
+
+- [T2 — Conservation spectrale](/theorems/T2) — version spectrale de la conservation
+- [Essai — Qu’est-ce que la persistance ?](/essays/what-is-persistence) — la sémantique de $D_{\mathrm{KL}}$
+- [Tous les théorèmes](/theorems)

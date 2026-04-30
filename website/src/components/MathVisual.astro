@@ -1,0 +1,437 @@
+---
+type MathVisualType =
+  | 'survivor-wheel'
+  | 'survivor-gaps'
+  | 'prime-channels'
+  | 'sieve-dynamics'
+  | 'gft-budget'
+  | 'discrete-continuum'
+  | 'crt-phase'
+  | 'anomalous-dimensions'
+  | 'euler-zeta'
+  | 'prime-spiral'
+  | 'hash-diffusion'
+  | 'compression'
+  | 'zkp'
+  | 'theorem-atlas'
+  | 'calculator';
+
+interface Props {
+  type: MathVisualType;
+  lang?: 'fr' | 'en';
+}
+
+const { type, lang = 'fr' } = Astro.props;
+const labels = {
+  fr: {
+    survivorWheel: 'survivants modulo 30',
+    removed: 'éliminé',
+    notRetained: 'non retenu',
+    survivor: 'survivant',
+    gaps: 'gaps circulaires',
+    primeChannels: 'canaux premiers',
+    recomposition: 'recomposition CRT',
+    sieveDensity: 'densité des survivants',
+    total: 'budget total',
+    structure: 'structure',
+    entropy: 'entropie',
+    continuum: 'mécanique continue',
+    persistentPoints: 'points persistants',
+    cyclicPhase: 'phase continue associée au résidu',
+    active: 'actif',
+    echo: 'écho',
+    eulerProduct: 'produit d’Euler',
+    persistencePoints: 'points de persistance',
+    input: 'entrée',
+    output: 'sortie dispersée',
+    witness: 'témoin caché',
+    proof: 'preuve vérifiable',
+    logicalMap: 'carte logique',
+  },
+  en: {
+    survivorWheel: 'survivors modulo 30',
+    removed: 'removed',
+    notRetained: 'not retained',
+    survivor: 'survivor',
+    gaps: 'circular gaps',
+    primeChannels: 'prime channels',
+    recomposition: 'CRT recomposition',
+    sieveDensity: 'survivor density',
+    total: 'total budget',
+    structure: 'structure',
+    entropy: 'entropy',
+    continuum: 'continuous mechanics',
+    persistentPoints: 'persistent points',
+    cyclicPhase: 'continuous phase associated with the residue',
+    active: 'active',
+    echo: 'echo',
+    eulerProduct: 'Euler product',
+    persistencePoints: 'persistence points',
+    input: 'input',
+    output: 'diffused output',
+    witness: 'hidden witness',
+    proof: 'verifiable proof',
+    logicalMap: 'logical map',
+  },
+}[lang];
+
+const visualTitle: Record<MathVisualType, string> = {
+  'survivor-wheel': labels.survivorWheel,
+  'survivor-gaps': labels.gaps,
+  'prime-channels': labels.primeChannels,
+  'sieve-dynamics': labels.sieveDensity,
+  'gft-budget': 'log₂(m) = D_KL + H',
+  'discrete-continuum': labels.continuum,
+  'crt-phase': 'CRT → phase',
+  'anomalous-dimensions': 'γ_p > 1/2',
+  'euler-zeta': labels.eulerProduct,
+  'prime-spiral': labels.persistencePoints,
+  'hash-diffusion': 'hash → D_KL faible',
+  compression: 'compression = structure + résidu',
+  zkp: lang === 'fr' ? 'preuve sans révélation' : 'proof without revealing',
+  'theorem-atlas': labels.logicalMap,
+  calculator: lang === 'fr' ? 'calculateur GFT' : 'GFT calculator',
+};
+
+const survivors30 = [1, 7, 11, 13, 17, 19, 23, 29];
+const residuePoints = Array.from({ length: 30 }, (_, i) => {
+  const n = i + 1;
+  const angle = -Math.PI / 2 + (i * 2 * Math.PI) / 30;
+  return {
+    n,
+    x: 380 + Math.cos(angle) * 112,
+    y: 180 + Math.sin(angle) * 112,
+    survivor: survivors30.includes(n),
+  };
+});
+const survivorOnlyPoints = survivors30.map((n) => {
+  const i = n - 1;
+  const angle = -Math.PI / 2 + (i * 2 * Math.PI) / 30;
+  return { n, x: 380 + Math.cos(angle) * 112, y: 180 + Math.sin(angle) * 112 };
+});
+const gaps = [6, 4, 2, 4, 2, 4, 6, 2];
+const primeSpiral = Array.from({ length: 125 }, (_, i) => {
+  const n = i + 2;
+  const prime = (() => {
+    if (n < 2) return false;
+    for (let d = 2; d * d <= n; d += 1) if (n % d === 0) return false;
+    return true;
+  })();
+  const a = n * 0.45;
+  const r = 7 + Math.sqrt(n) * 15;
+  return { n, prime, x: 380 + Math.cos(a) * r, y: 270 + Math.sin(a) * r };
+});
+const curvePoints = [
+  [72, 218],
+  [168, 142],
+  [272, 176],
+  [380, 170],
+  [500, 92],
+  [640, 136],
+];
+const persistentOnCurve = [
+  { x: 72, y: 218, keep: true },
+  { x: 168, y: 142, keep: true },
+  { x: 272, y: 176, keep: false },
+  { x: 380, y: 170, keep: true },
+  { x: 500, y: 92, keep: true },
+  { x: 640, y: 136, keep: false },
+];
+---
+
+<div class="bg-white border border-slate-200 rounded-lg p-5 shadow-sm shadow-slate-900/5">
+  <h3 class="font-sans text-center text-xl md:text-2xl font-extrabold text-thmblue mb-8">
+    {visualTitle[type]}
+  </h3>
+  <div class="w-[110%] -mx-[5%]">
+  {type === 'survivor-wheel' && (
+    <svg viewBox="0 0 760 410" class="w-full h-auto" role="img" aria-label={labels.survivorWheel}>
+      <rect x="34" y="28" width="692" height="350" rx="24" fill="#f8fafc" stroke="#d7e1ea" />
+      <circle cx="380" cy="180" r="112" fill="#eef3f7" stroke="#c7d4df" stroke-width="4" />
+      {residuePoints.map((p) => (
+        <g>
+          <circle cx={p.x} cy={p.y} r={p.survivor ? 10 : 6} fill={p.survivor ? '#e8f5ee' : '#f3f6f9'} stroke={p.survivor ? '#198754' : '#c7d4df'} stroke-width={p.survivor ? 4 : 2} />
+          {p.survivor && <text x={p.x} y={p.y + 4} text-anchor="middle" font-size="10" font-weight="800" fill="#14566b" font-family="ui-sans-serif, system-ui">{p.n}</text>}
+        </g>
+      ))}
+      <rect x="132" y="324" width="156" height="30" rx="15" fill="#e8f5ee" stroke="#198754" />
+      <circle cx="156" cy="339" r="7" fill="#198754" />
+      <text x="184" y="345" font-size="16" font-weight="700" fill="#14566b" font-family="ui-sans-serif, system-ui">{labels.survivor}</text>
+      <rect x="472" y="324" width="156" height="30" rx="15" fill="#f8fafc" stroke="#c7d4df" />
+      <circle cx="496" cy="339" r="6" fill="#f3f6f9" stroke="#c7d4df" stroke-width="2" />
+      <text x="524" y="345" font-size="16" font-weight="700" fill="#5f6f80" font-family="ui-sans-serif, system-ui">{labels.removed}</text>
+    </svg>
+  )}
+
+  {type === 'survivor-gaps' && (
+    <svg viewBox="0 0 760 430" class="w-full h-auto" role="img" aria-label={labels.gaps}>
+      <rect x="34" y="26" width="692" height="372" rx="24" fill="#f8fafc" stroke="#d7e1ea" />
+      <circle cx="380" cy="194" r="116" fill="#eef3f7" stroke="#c7d4df" stroke-width="4" />
+      {survivorOnlyPoints.map((p, i) => {
+        const q = survivorOnlyPoints[(i + 1) % survivorOnlyPoints.length];
+        const large = gaps[i] === 6;
+        const labelX = 380 + (((p.x + q.x) / 2) - 380) * 0.76;
+        const labelY = 194 + (((p.y + q.y) / 2) - 194) * 0.76;
+        return (
+          <g>
+            <path d={`M ${p.x} ${p.y} Q 380 194 ${q.x} ${q.y}`} fill="none" stroke={large ? '#c96f24' : '#198754'} stroke-width={large ? 5 : 3} opacity="0.65" />
+            <text x={labelX} y={labelY} text-anchor="middle" font-size="16" font-weight="800" fill={large ? '#c96f24' : '#198754'} font-family="ui-sans-serif, system-ui">{gaps[i]}</text>
+          </g>
+        );
+      })}
+      {survivorOnlyPoints.map((p) => (
+        <g>
+          <circle cx={p.x} cy={p.y} r="15" fill="#ffffff" stroke="#198754" stroke-width="4" />
+          <text x={p.x} y={p.y + 5} text-anchor="middle" font-size="12" font-weight="800" fill="#14566b" font-family="ui-sans-serif, system-ui">{p.n}</text>
+        </g>
+      ))}
+      <text x="380" y="358" text-anchor="middle" font-size="20" font-weight="800" fill="#14566b" font-family="ui-sans-serif, system-ui">6, 4, 2, 4, 2, 4, 6, 2</text>
+    </svg>
+  )}
+
+  {type === 'prime-channels' && (
+    <svg viewBox="0 0 760 440" class="w-full h-auto" role="img" aria-label={labels.primeChannels}>
+      <rect x="34" y="28" width="692" height="380" rx="24" fill="#f8fafc" stroke="#d7e1ea" />
+      {[2, 3, 5].map((p, i) => (
+        <g>
+          <circle cx={142 + i * 120} cy="184" r="48" fill="#e8f5ee" stroke="#198754" stroke-width="5" />
+          <text x={142 + i * 120} y="194" text-anchor="middle" font-size="30" font-weight="900" fill="#14566b" font-family="ui-sans-serif, system-ui">p={p}</text>
+        </g>
+      ))}
+      <path d="M390 184 H490" stroke="#6b7a90" stroke-width="7" stroke-linecap="round" />
+      <path d="M490 184 l-24 -17 v34 z" fill="#6b7a90" />
+      <rect x="532" y="128" width="132" height="112" rx="18" fill="#fff7ed" stroke="#c96f24" stroke-width="4" />
+      <text x="598" y="174" text-anchor="middle" font-size="24" font-weight="900" fill="#c96f24" font-family="ui-sans-serif, system-ui">30</text>
+      <text x="598" y="202" text-anchor="middle" font-size="13" font-weight="700" fill="#5f6f80" font-family="ui-sans-serif, system-ui">
+        <tspan x="598" dy="0">recomposition</tspan>
+        <tspan x="598" dy="16">CRT</tspan>
+      </text>
+      <text x="262" y="306" text-anchor="middle" font-size="18" fill="#5f6f80" font-family="ui-sans-serif, system-ui">Z/2Z × Z/3Z × Z/5Z</text>
+    </svg>
+  )}
+
+  {type === 'sieve-dynamics' && (
+    <svg viewBox="0 0 760 390" class="w-full h-auto" role="img" aria-label={labels.sieveDensity}>
+      <rect x="34" y="28" width="692" height="330" rx="24" fill="#f8fafc" stroke="#d7e1ea" />
+      <line x1="106" y1="288" x2="660" y2="288" stroke="#d7e1ea" stroke-width="3" />
+      <line x1="106" y1="92" x2="106" y2="288" stroke="#d7e1ea" stroke-width="3" />
+      {[
+        ['2', 0.5],
+        ['2·3', 0.333],
+        ['2·3·5', 0.267],
+        ['2·3·5·7', 0.229],
+      ].map(([name, val], i) => {
+        const x = 172 + i * 132;
+        const h = Number(val) * 310;
+        return (
+          <g>
+            <rect x={x - 34} y={288 - h} width="68" height={h} rx="8" fill={i % 2 ? '#c96f24' : '#14566b'} />
+            <text x={x} y={310} text-anchor="middle" font-size="15" font-weight="800" fill="#17202a" font-family="ui-sans-serif, system-ui">{name}</text>
+            <text x={x} y={278 - h} text-anchor="middle" font-size="14" font-weight="800" fill="#14566b" font-family="ui-sans-serif, system-ui">{Number(val).toFixed(3)}</text>
+          </g>
+        );
+      })}
+      <text x="382" y="342" text-anchor="middle" font-size="17" fill="#5f6f80" font-family="ui-sans-serif, system-ui">∏(1 - 1/p)</text>
+    </svg>
+  )}
+
+  {type === 'gft-budget' && (
+    <svg viewBox="0 0 760 390" class="w-full h-auto" role="img" aria-label={labels.total}>
+      <rect x="34" y="28" width="692" height="330" rx="24" fill="#f8fafc" stroke="#d7e1ea" />
+      <rect x="96" y="136" width="568" height="82" rx="16" fill="#eef3f7" stroke="#d7e1ea" />
+      <rect x="96" y="136" width="346" height="82" rx="16" fill="#14566b" />
+      <path d="M442 136 H648 A16 16 0 0 1 664 152 V202 A16 16 0 0 1 648 218 H442 Z" fill="#c96f24" />
+      <text x="268" y="187" text-anchor="middle" font-size="28" font-weight="900" fill="#fff" font-family="ui-sans-serif, system-ui">D_KL</text>
+      <text x="554" y="187" text-anchor="middle" font-size="28" font-weight="900" fill="#fff" font-family="ui-sans-serif, system-ui">H</text>
+      <text x="268" y="260" text-anchor="middle" font-size="18" font-weight="800" fill="#14566b" font-family="ui-sans-serif, system-ui">{labels.structure}</text>
+      <text x="554" y="260" text-anchor="middle" font-size="18" font-weight="800" fill="#c96f24" font-family="ui-sans-serif, system-ui">{labels.entropy}</text>
+      <text x="380" y="318" text-anchor="middle" font-size="17" fill="#5f6f80" font-family="ui-sans-serif, system-ui">{labels.total}</text>
+    </svg>
+  )}
+
+  {type === 'discrete-continuum' && (
+    <svg viewBox="0 0 760 430" class="w-full h-auto" role="img" aria-label={labels.continuum}>
+      <rect x="34" y="28" width="692" height="370" rx="24" fill="#f8fafc" stroke="#d7e1ea" />
+      <path d={`M ${curvePoints.map(([x, y], i) => `${i === 0 ? '' : 'S'} ${x} ${y}`).join(' ')}`} fill="none" />
+      <path d="M72 228 C150 118, 220 166, 272 186 S350 200, 380 180 S450 82, 500 102 S590 166, 640 146" fill="none" stroke="#c7d4df" stroke-width="10" stroke-linecap="round" />
+      {persistentOnCurve.map((p) => (
+        <g>
+          <circle cx={p.x} cy={p.y + 10} r="18" fill={p.keep ? '#e8f5ee' : '#fff7ed'} stroke={p.keep ? '#198754' : '#c96f24'} stroke-width="4" />
+          <circle cx={p.x} cy={p.y + 10} r="5" fill={p.keep ? '#198754' : '#c96f24'} />
+        </g>
+      ))}
+      <text x="236" y="338" text-anchor="middle" font-size="17" font-weight="800" fill="#198754" font-family="ui-sans-serif, system-ui">{labels.persistentPoints}</text>
+      <text x="544" y="338" text-anchor="middle" font-size="17" font-weight="800" fill="#c96f24" font-family="ui-sans-serif, system-ui">{labels.notRetained}</text>
+    </svg>
+  )}
+
+  {type === 'crt-phase' && (
+    <svg viewBox="0 0 760 430" class="w-full h-auto" role="img" aria-label={labels.cyclicPhase}>
+      <rect x="34" y="28" width="692" height="370" rx="24" fill="#f8fafc" stroke="#d7e1ea" />
+      {[2, 3, 5].map((p, i) => (
+        <g>
+          <circle cx={128 + i * 114} cy="164" r="43" fill="#eef3f7" stroke="#14566b" stroke-width="4" />
+          <text x={128 + i * 114} y="173" text-anchor="middle" font-size="22" font-weight="900" fill="#14566b" font-family="ui-sans-serif, system-ui">Z/{p}</text>
+        </g>
+      ))}
+      <path d="M410 164 H520" stroke="#c96f24" stroke-width="6" stroke-linecap="round" />
+      <path d="M520 164 l-23 -16 v32 z" fill="#c96f24" />
+      <circle cx="610" cy="164" r="62" fill="#fff7ed" stroke="#c96f24" stroke-width="4" />
+      <path d="M610 164 L650 118" stroke="#c96f24" stroke-width="5" stroke-linecap="round" />
+      <circle cx="650" cy="118" r="10" fill="#ffffff" stroke="#c96f24" stroke-width="4" />
+      <text x="610" y="264" text-anchor="middle" font-size="16" font-weight="800" fill="#c96f24" font-family="ui-sans-serif, system-ui">
+        <tspan x="610" dy="0">{lang === 'fr' ? 'phase continue' : 'continuous phase'}</tspan>
+        <tspan x="610" dy="19">{lang === 'fr' ? 'associée au résidu' : 'associated with the residue'}</tspan>
+      </text>
+      <text x="242" y="264" text-anchor="middle" font-size="17" font-weight="800" fill="#14566b" font-family="ui-sans-serif, system-ui">signatures locales</text>
+    </svg>
+  )}
+
+  {type === 'anomalous-dimensions' && (
+    <svg viewBox="0 0 760 390" class="w-full h-auto" role="img" aria-label="gamma threshold">
+      <rect x="34" y="28" width="692" height="330" rx="24" fill="#f8fafc" stroke="#d7e1ea" />
+      <line x1="98" y1="284" x2="668" y2="284" stroke="#d7e1ea" stroke-width="3" />
+      <line x1="98" y1="88" x2="98" y2="284" stroke="#d7e1ea" stroke-width="3" />
+      <line x1="98" y1="179" x2="668" y2="179" stroke="#c96f24" stroke-width="4" stroke-dasharray="10 8" />
+      <text x="116" y="169" font-size="16" font-weight="900" fill="#c96f24" font-family="ui-sans-serif, system-ui">1/2</text>
+      {[
+        [3, 0.81],
+        [5, 0.70],
+        [7, 0.60],
+        [11, 0.49],
+        [13, 0.45],
+        [17, 0.40],
+      ].map(([p, g], i) => {
+        const x = 162 + i * 92;
+        const y = 284 - Number(g) * 210;
+        const ok = Number(g) > 0.5;
+        return (
+          <g>
+            <circle cx={x} cy={y} r="18" fill={ok ? '#e8f5ee' : '#fff7ed'} stroke={ok ? '#198754' : '#c96f24'} stroke-width="4" />
+            <text x={x} y={y + 6} text-anchor="middle" font-size="14" font-weight="900" fill="#17202a" font-family="ui-sans-serif, system-ui">{p}</text>
+            <text x={x} y="314" text-anchor="middle" font-size="14" font-weight="700" fill="#5f6f80" font-family="ui-sans-serif, system-ui">p={p}</text>
+          </g>
+        );
+      })}
+      <text x="264" y="348" text-anchor="middle" font-size="16" font-weight="800" fill="#198754" font-family="ui-sans-serif, system-ui">{labels.active}</text>
+      <text x="552" y="348" text-anchor="middle" font-size="16" font-weight="800" fill="#c96f24" font-family="ui-sans-serif, system-ui">{labels.echo}</text>
+    </svg>
+  )}
+
+  {type === 'euler-zeta' && (
+    <svg viewBox="0 0 760 390" class="w-full h-auto" role="img" aria-label={labels.eulerProduct}>
+      <rect x="34" y="28" width="692" height="330" rx="24" fill="#f8fafc" stroke="#d7e1ea" />
+      {[2, 3, 5, 7, 11].map((p, i) => (
+        <g>
+          <rect x={92 + i * 118} y="132" width="76" height="92" rx="14" fill={i % 2 ? '#fff7ed' : '#e8f5ee'} stroke={i % 2 ? '#c96f24' : '#198754'} stroke-width="3" />
+          <text x={130 + i * 118} y="170" text-anchor="middle" font-size="19" font-weight="900" fill="#14566b" font-family="ui-sans-serif, system-ui">p={p}</text>
+          <text x={130 + i * 118} y="200" text-anchor="middle" font-size="16" font-weight="800" fill="#5f6f80" font-family="ui-sans-serif, system-ui">(1-p⁻ˢ)⁻¹</text>
+        </g>
+      ))}
+      <path d="M190 268 H570" stroke="#6b7a90" stroke-width="5" stroke-linecap="round" />
+      <text x="380" y="310" text-anchor="middle" font-size="18" font-weight="800" fill="#14566b" font-family="ui-sans-serif, system-ui">ζ(s) = ∏p (1 - p⁻ˢ)⁻¹</text>
+    </svg>
+  )}
+
+  {type === 'prime-spiral' && (
+    <svg viewBox="0 0 760 600" class="w-full h-auto" role="img" aria-label={labels.persistencePoints}>
+      <rect x="34" y="28" width="692" height="540" rx="24" fill="#f8fafc" stroke="#d7e1ea" />
+      <circle cx="380" cy="270" r="180" fill="none" stroke="#e5edf4" stroke-width="2" />
+      <circle cx="380" cy="270" r="120" fill="none" stroke="#e5edf4" stroke-width="2" />
+      <circle cx="380" cy="270" r="60" fill="none" stroke="#e5edf4" stroke-width="2" />
+      {primeSpiral.map((p) => (
+        <circle cx={p.x} cy={p.y} r={p.prime ? 5.5 : 2.2} fill={p.prime ? '#198754' : '#c7d4df'} opacity={p.prime ? 1 : 0.48} />
+      ))}
+      <text x="380" y="512" text-anchor="middle" font-size="16" fill="#5f6f80" font-family="ui-sans-serif, system-ui">r = √n, θ ∝ n</text>
+    </svg>
+  )}
+
+  {type === 'hash-diffusion' && (
+    <svg viewBox="0 0 760 430" class="w-full h-auto" role="img" aria-label={labels.output}>
+      <rect x="34" y="28" width="692" height="370" rx="24" fill="#f8fafc" stroke="#d7e1ea" />
+      <rect x="84" y="132" width="144" height="84" rx="16" fill="#e8f5ee" stroke="#198754" stroke-width="4" />
+      <text x="156" y="181" text-anchor="middle" font-size="21" font-weight="900" fill="#14566b" font-family="ui-sans-serif, system-ui">{labels.input}</text>
+      <path d="M264 174 C314 118, 374 118, 424 174" fill="none" stroke="#6b7a90" stroke-width="6" stroke-linecap="round" />
+      <path d="M424 174 l-25 -12 l7 27 z" fill="#6b7a90" />
+      {Array.from({ length: 16 }, (_, i) => {
+        const x = 532 + (i % 4) * 34;
+        const y = 122 + Math.floor(i / 4) * 34;
+        return <rect x={x} y={y} width="22" height="22" rx="5" fill={i % 3 === 0 ? '#14566b' : i % 3 === 1 ? '#198754' : '#c96f24'} opacity="0.82" />;
+      })}
+      <text x="584" y="300" text-anchor="middle" font-size="18" font-weight="800" fill="#14566b" font-family="ui-sans-serif, system-ui">{labels.output}</text>
+    </svg>
+  )}
+
+  {type === 'compression' && (
+    <svg viewBox="0 0 760 390" class="w-full h-auto" role="img" aria-label="compression">
+      <rect x="34" y="28" width="692" height="330" rx="24" fill="#f8fafc" stroke="#d7e1ea" />
+      <rect x="96" y="118" width="216" height="64" rx="14" fill="#eef3f7" stroke="#d7e1ea" />
+      <text x="204" y="158" text-anchor="middle" font-size="19" font-weight="900" fill="#14566b" font-family="ui-sans-serif, system-ui">AAAAAAAABBC</text>
+      <path d="M330 150 H420" stroke="#6b7a90" stroke-width="6" stroke-linecap="round" />
+      <path d="M420 150 l-24 -16 v32 z" fill="#6b7a90" />
+      <rect x="452" y="108" width="190" height="48" rx="12" fill="#14566b" />
+      <rect x="452" y="174" width="112" height="48" rx="12" fill="#c96f24" />
+      <text x="547" y="139" text-anchor="middle" font-size="18" font-weight="900" fill="#fff" font-family="ui-sans-serif, system-ui">{labels.structure}</text>
+      <text x="508" y="205" text-anchor="middle" font-size="18" font-weight="900" fill="#fff" font-family="ui-sans-serif, system-ui">{labels.entropy}</text>
+      <text x="380" y="296" text-anchor="middle" font-size="18" font-weight="800" fill="#14566b" font-family="ui-sans-serif, system-ui">D_KL + H = log₂(m)</text>
+    </svg>
+  )}
+
+  {type === 'zkp' && (
+    <svg viewBox="0 0 760 390" class="w-full h-auto" role="img" aria-label="ZKP">
+      <rect x="34" y="28" width="692" height="330" rx="24" fill="#f8fafc" stroke="#d7e1ea" />
+      <rect x="114" y="118" width="162" height="128" rx="18" fill="#fff7ed" stroke="#c96f24" stroke-width="4" />
+      <circle cx="195" cy="168" r="26" fill="#ffffff" stroke="#c96f24" stroke-width="5" />
+      <rect x="186" y="168" width="18" height="38" rx="7" fill="#c96f24" />
+      <text x="195" y="284" text-anchor="middle" font-size="17" font-weight="800" fill="#c96f24" font-family="ui-sans-serif, system-ui">{labels.witness}</text>
+      <path d="M310 182 H450" stroke="#6b7a90" stroke-width="6" stroke-linecap="round" />
+      <path d="M450 182 l-24 -16 v32 z" fill="#6b7a90" />
+      <rect x="488" y="128" width="158" height="108" rx="18" fill="#e8f5ee" stroke="#198754" stroke-width="4" />
+      <path d="M532 183 l25 24 47 -58" fill="none" stroke="#198754" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" />
+      <text x="567" y="284" text-anchor="middle" font-size="17" font-weight="800" fill="#198754" font-family="ui-sans-serif, system-ui">{labels.proof}</text>
+    </svg>
+  )}
+
+  {type === 'theorem-atlas' && (
+    <svg viewBox="0 0 760 390" class="w-full h-auto" role="img" aria-label={labels.logicalMap}>
+      <rect x="34" y="28" width="692" height="330" rx="24" fill="#f8fafc" stroke="#d7e1ea" />
+      {([
+        ['T0', 210, 116],
+        ['T1', 550, 116],
+        ['CRT', 188, 246],
+        ['Fisher', 380, 270],
+        ['Tests', 572, 246],
+      ] as const).map(([, x, y]) => (
+        <line x1="380" y1="162" x2={x} y2={y} stroke="#d7e1ea" stroke-width="4" />
+      ))}
+      {([
+        ['T0', 210, 116, '#198754', '#e8f5ee'],
+        ['T1', 550, 116, '#198754', '#e8f5ee'],
+        ['CRT', 188, 246, '#6d5bd0', '#f0edff'],
+        ['Fisher', 380, 270, '#c96f24', '#fff7ed'],
+        ['Tests', 572, 246, '#5f6f80', '#eef3f7'],
+      ] as const).map(([label, x, y, color, fill]) => (
+        <g>
+          <circle cx={x} cy={y} r="38" fill={fill} stroke={color} stroke-width="4" />
+          <text x={x} y={Number(y) + 6} text-anchor="middle" font-size="16" font-weight="900" fill={color} font-family="ui-sans-serif, system-ui">{label}</text>
+        </g>
+      ))}
+      <circle cx="380" cy="162" r="50" fill="#f8fafc" stroke="#14566b" stroke-width="5" />
+      <text x="380" y="169" text-anchor="middle" font-size="22" font-weight="900" fill="#14566b" font-family="ui-sans-serif, system-ui">GFT</text>
+    </svg>
+  )}
+
+  {type === 'calculator' && (
+    <svg viewBox="0 0 760 390" class="w-full h-auto" role="img" aria-label="calculator">
+      <rect x="34" y="28" width="692" height="330" rx="24" fill="#f8fafc" stroke="#d7e1ea" />
+      <rect x="104" y="106" width="552" height="58" rx="14" fill="#ffffff" stroke="#d7e1ea" />
+      <text x="380" y="143" text-anchor="middle" font-size="23" font-weight="900" fill="#14566b" font-family="ui-sans-serif, system-ui">P = [0.40, 0.30, 0.20, 0.10]</text>
+      <rect x="104" y="210" width="276" height="64" rx="14" fill="#14566b" />
+      <rect x="380" y="210" width="276" height="64" rx="14" fill="#c96f24" />
+      <text x="242" y="250" text-anchor="middle" font-size="22" font-weight="900" fill="#fff" font-family="ui-sans-serif, system-ui">D_KL</text>
+      <text x="518" y="250" text-anchor="middle" font-size="22" font-weight="900" fill="#fff" font-family="ui-sans-serif, system-ui">H</text>
+      <text x="380" y="324" text-anchor="middle" font-size="18" font-weight="800" fill="#14566b" font-family="ui-sans-serif, system-ui">log₂(m) = D_KL + H</text>
+    </svg>
+  )}
+  </div>
+</div>

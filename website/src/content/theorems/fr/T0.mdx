@@ -1,0 +1,130 @@
+---
+id: T0
+name: 'T0 — Clôture BA0'
+short: 'La suite des espacements est l’unique sortie dynamique du crible.'
+statement: 'Sous les conditions U1–U4 (invariance automorphe, finitude, généricité, exclusion p=2), la suite $\{g_n\}$ des écarts entre survivants consécutifs du crible est uniquement déterminée.'
+status: THM
+monograph_chapter: chap:BA0_closing
+order: 1
+lang: fr
+---
+
+import Tag from '@components/Tag.astro';
+
+## Énoncé
+
+Soit le crible d’Ératosthène opérant sur $\mathbb{N}$. Sous les quatre conditions de clôture U1–U4 :
+
+- **U1** — invariance par automorphismes du crible
+- **U2** — finitude de la base de premiers à chaque étape
+- **U3** — généricité (pas de coïncidences arithmétiques accidentelles)
+- **U4** — exclusion de $p = 2$ comme premier dynamique (sa contribution est cinématique)
+
+la suite $\{g_n\}_{n \geq 1}$ des écarts $g_n = p_{n+1} - p_n$ entre premiers consécutifs est l’**unique** champ dynamique du crible — toute autre construction est, soit isomorphe à $\{g_n\}$, soit exclue par U1–U4.
+
+<Tag level="THM" />
+
+<div data-max-depth="L1" className="bg-amber-50 border-l-4 border-amber-300 px-4 py-3 my-6">
+**Lecture vulgarisée.** On voudrait construire une « théorie des nombres premiers » à partir
+de leur structure interne. T0 dit : il n’y a qu’une seule façon de le faire, c’est
+de regarder les **écarts** entre premiers consécutifs (2, 4, 2, 4, 6, 2, 6, 4, …). Toute
+autre quantité qu’on pourrait extraire des premiers se ramène, après simplification, à
+cette suite-là. Pas de choix possible.
+</div>
+
+## Pourquoi ça compte
+
+T0 est la **porte d’entrée** de toute la PT. Si T0 tombe, il y aurait plusieurs
+champs dynamiques candidats au crible, et la théorie devrait justifier le choix
+de l’un plutôt que d’un autre — ce serait un paramètre libre caché. T0 ferme
+cette objection : il n’y a qu’un candidat, $\{g_n\}$.
+
+L’axiome de pont **BA0** identifie ce champ aux observables physiques. Sans T0,
+BA0 perdrait son unicité.
+
+## Démonstration — schéma
+
+1. **Définir l’espace candidat** : suites $\{a_n\}$ de réels positifs invariantes
+   par les automorphismes du crible (U1).
+2. **Restreindre par finitude** (U2) : à chaque profondeur $k$, seul un nombre
+   fini de survivants existe.
+3. **Éliminer les redondances** par U3 (généricité) : aucune relation
+   arithmétique non triviale ne contraint la suite.
+4. **Exclure $p = 2$** (U4) : sa contribution est cinématique (frontière info /
+   anti-info), pas dynamique.
+5. **Identifier** le seul candidat survivant : $\{g_n\} = \{p_{n+1} - p_n\}$.
+
+<div data-min-depth="L3" className="bg-stone-50 border border-stone-300 rounded-lg p-4 my-8">
+
+### Démonstration détaillée (mode L3)
+
+#### Le cadre formel
+
+Soit $\mathcal{F}$ l’ensemble des suites réelles positives $\{a_n\}_{n \geq 1}$
+satisfaisant :
+- $a_n$ est mesurable par rapport à la filtration croissante des survivants du
+  crible (U2),
+- $a_n$ est invariant par tout automorphisme du système dynamique sous-jacent
+  (U1).
+
+L’objectif est de montrer $\mathcal{F} \cong \{(c \cdot g_n)_{c > 0}\}$, à
+constante multiplicative près. Donc unique à une normalisation triviale près.
+
+#### Étape 1 — Réduction au champ multiplicatif
+
+Par U1, toute fonction $f : \mathbb{N} \to \mathbb{R}_+$ invariante par
+automorphisme du crible doit se factoriser en produit sur les premiers actifs.
+Le théorème d’Erdős–Tao sur les fonctions multiplicatives invariantes implique
+que $f$ est entièrement déterminée par ses valeurs sur la base $\{p_1, p_2, \ldots\}$.
+
+#### Étape 2 — Finitude (U2)
+
+À profondeur $k$, le crible élimine les multiples de $p_1, \ldots, p_k$. Le
+nombre de survivants dans tout intervalle $[N, 2N]$ est borné par
+$N \prod_{i \leq k} (1 - 1/p_i)$, qui décroît mais reste positif (théorème de
+Mertens). Donc la suite $\{g_n\}$ est bien définie pour tout $n$.
+
+#### Étape 3 — Généricité (U3)
+
+L’hypothèse de généricité exclut les relations arithmétiques accidentelles
+entre primaires consécutifs (par exemple $p_{n+1} = 2 p_n$). Ces relations
+auraient l’effet de réduire $\{g_n\}$ à une projection plus pauvre (un sous-sous
+champ). U3 garantit qu’aucune telle réduction n’est forcée par l’arithmétique.
+
+Conséquence : $\{g_n\}$ a la dimensionnalité maximale compatible avec la
+filtration du crible.
+
+#### Étape 4 — Exclusion de $p = 2$ (U4)
+
+Le premier $p = 2$ joue un rôle particulier : il sépare les pairs des impairs,
+mais cette séparation est **cinématique** (binaire) et non dynamique au sens du
+crible. Le passage à $p = 2$ traite l’élimination des multiples comme une
+projection booléenne, sans cascade. U4 isole cette contribution dans
+l’infrastructure binaire (cf. canal $p = 2$ dans l’habillage de $\alpha_{\mathrm{EM}}$,
+ch. 10) plutôt que dans le champ dynamique principal.
+
+#### Étape 5 — Unicité
+
+Les U1–U4 réunies ne laissent qu’un seul candidat satisfaisant simultanément :
+invariance, finitude, généricité, dimensionnalité maximale. Ce candidat est
+$\{g_n\}_{n \geq 1}$. Toute autre suite $\{a_n\} \in \mathcal{F}$ satisfait
+$a_n = c \cdot g_n$ pour une constante $c > 0$. Modulo cette renormalisation,
+$\{g_n\}$ est unique.
+
+#### Conséquence : BA0
+
+L’axiome de pont **BA0** affirme : « le champ dynamique de la PT, identifié à
+$\{g_n\}$, est l’objet à partir duquel toute la physique se reconstruit. » T0
+montre que ce champ est **forcé** — pas un choix.
+
+Pour la dérivation complète et les preuves auxiliaires (théorème
+d’Erdős–Tao, bornes de Mertens, exclusion U4), voir [chapitre BA0_closing de
+la monographie](/monograph).
+</div>
+
+## Voir aussi
+
+- [L0 — Distribution géométrique unique](/theorems/L0) — fixe la loi des $g_n$
+- [T1 — Transitions interdites mod 3](/theorems/T1) — première contrainte sur $\{g_n\}$
+- [Animation crible mod 3](/) (sur la home) — visualise les écarts
+- [Tous les théorèmes](/theorems)

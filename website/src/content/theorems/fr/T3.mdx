@@ -1,0 +1,130 @@
+---
+id: T3
+name: 'T3 — Transfert antidiagonal'
+short: '$T_3 = \mathrm{antidiag}(1,1)$ — la matrice mod 3 est purement off-diagonale.'
+statement: 'La matrice de transfert mod 3 du crible des survivants 6-rough est $T_3 = \begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix}$ — conséquence directe de T1.'
+status: THM
+monograph_chapter: chap:sieve
+order: 5
+lang: fr
+---
+
+import Tag from '@components/Tag.astro';
+
+## Énoncé
+
+La matrice de transfert mod 3 du crible des survivants 6-rough est :
+
+$$
+\boxed{T_3 = \begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix} = \mathrm{antidiag}(1, 1).}
+$$
+
+Cette structure purement antidiagonale est conséquence directe de **T1**
+(transitions interdites) : les coefficients diagonaux étant nuls (T1) et
+chaque ligne devant sommer à 1 (matrice stochastique), les coefficients
+hors-diagonale sont forcément égaux à 1.
+
+<Tag level="THM" />
+
+<div data-max-depth="L1" className="bg-amber-50 border-l-4 border-amber-300 px-4 py-3 my-6">
+**Lecture vulgarisée.** Étant donné T1 (deux entiers 6-rough consécutifs ne sont
+jamais dans la même classe mod 3), la « matrice » qui décrit comment passer d’une
+classe à l’autre est ultra-simple : on bascule toujours, jamais on ne reste. Sous
+forme de tableau, c’est un échiquier 2 × 2 : 0 sur les diagonales, 1 ailleurs.
+</div>
+
+## Pourquoi ça compte
+
+T3 explicite la matrice $T_3$ utilisée partout dans la suite : T2 l’utilise
+pour la conservation spectrale, T6 pour l’holonomie, T4 pour la convergence.
+C’est la **forme la plus simple possible** d’une matrice stochastique
+non triviale 2×2 — un opérateur de bascule pur.
+
+Le fait que $T_3$ soit purement antidiagonale a aussi des conséquences
+géométriques importantes : ses valeurs propres sont $\pm 1$, son carré est
+l’identité $T_3^2 = I$, et son action sur la base $\{1, 2\}$ est une
+involution.
+
+## Démonstration — schéma
+
+1. **Partir de T1** : $T_3[1,1] = T_3[2,2] = 0$.
+2. **Imposer la somme par ligne = 1** (matrice stochastique).
+3. **Conclure** $T_3[1,2] = T_3[2,1] = 1$.
+
+<div data-min-depth="L3" className="bg-stone-50 border border-stone-300 rounded-lg p-4 my-8">
+
+### Démonstration détaillée (mode L3)
+
+#### Étape 1 — La matrice est stochastique
+
+Une matrice de transfert $T$ d’une chaîne de Markov vérifie $\sum_j T[i, j] = 1$
+pour chaque ligne $i$ (les probabilités de transition partantes somment à 1).
+
+Pour $T_3$ sur $\{1, 2\}$ :
+
+$$
+T_3[1, 1] + T_3[1, 2] = 1, \qquad T_3[2, 1] + T_3[2, 2] = 1.
+$$
+
+#### Étape 2 — Application de T1
+
+T1 affirme $T_3[1, 1] = T_3[2, 2] = 0$. En substituant :
+
+$$
+T_3[1, 2] = 1, \qquad T_3[2, 1] = 1.
+$$
+
+D’où la forme :
+
+$$
+T_3 = \begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix}.
+$$
+
+#### Spectre
+
+Le polynôme caractéristique est :
+
+$$
+\det(T_3 - \lambda I) = \lambda^2 - 1.
+$$
+
+Donc $\lambda \in \{+1, -1\}$. Les vecteurs propres associés :
+- $\lambda_1 = +1$ : $v_1 = (1, 1)^T$ (stationnaire, uniforme sur $\{1, 2\}$),
+- $\lambda_2 = -1$ : $v_2 = (1, -1)^T$ (mode antisymétrique).
+
+#### Involution
+
+Comme $T_3^2 = I$, deux applications successives ramènent à l’état de départ.
+C’est cohérent avec la lecture vulgarisée : « bascule, bascule, retour ».
+
+#### Articulation avec T6
+
+Sur la branche $q = 1 - 2/\mu$, la matrice de transfert généralisée à profondeur
+non triviale prend la forme :
+
+$$
+T_3(q) = \begin{pmatrix} 1 - \delta_3 & \delta_3 \\ \delta_3 & 1 - \delta_3 \end{pmatrix}
+$$
+
+avec $\delta_3 = (1 - q^3)/3$. La diagonale $1 - \delta_3 = \cos\theta_3$ apparaît
+naturellement, et la formule T6 $\sin^2\theta_3 = \delta_3 (2 - \delta_3)$
+émerge comme amplitude carrée de transition off-diagonal.
+
+Au cas idéal $q \to 1$ (limite cribline pure), $\delta_3 \to 0$ et donc
+$\cos\theta_3 \to 1$, $\sin^2\theta_3 \to 0$. À $q = 13/15$ (point fixe
+$\mu^* = 15$), $\delta_3 = 0{,}1163$ et $\sin^2\theta_3 = 0{,}2192$ — la
+valeur qui entre dans le calcul de $\alpha_{\mathrm{EM}}$.
+
+T3 est donc le cas limite de T6 où $\delta = 1/2$ (ligne stationnaire à
+demi-bascule) ou plus précisément l’**enveloppe combinatoire** dont T6
+donne la version analytique paramétrée.
+
+Pour la dérivation complète, voir [chapitre 3 de la monographie](/monograph).
+</div>
+
+## Voir aussi
+
+- [T1 — Transitions interdites mod 3](/theorems/T1) — donne la diagonale nulle
+- [T6 — Holonomie](/theorems/T6) — version paramétrée de $T_3$
+- [Calculatrice 2 — sin²(θ_p)](/calculator) — voit $\delta_3$ et $\sin^2\theta_3$ en direct
+- [Tous les théorèmes](/theorems)

@@ -1,0 +1,251 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+
+const statusClass = (type: string) => {
+  if (type.includes('PRED') || type.includes('NEG')) return 'pt-tag-pred';
+  if (type.includes('EXPL')) return 'pt-tag-val';
+  if (type === 'OPEN') return 'pt-tag-cond';
+  if (type === 'EMERGENT') return 'pt-tag-bridge';
+  return 'pt-tag-der';
+};
+
+const predictionTypes = [
+  { tag: 'PRED', label: 'Strong prediction', text: 'observable not yet measured at decisive precision, or derived before the measurement became decisive.' },
+  { tag: 'EXPL', label: 'Explanatory reconstruction', text: 'already known experimental value reconstructed by the PT chain without a fitted continuous parameter.' },
+  { tag: 'NEG', label: 'Negative prediction', text: 'predicted absence of a phenomenon: no QCD axion, no low-energy SUSY, no extra dimensions, etc.' },
+  { tag: 'OPEN', label: 'Open programme', text: 'testable direction not promoted to Tier‑1 status in the monograph.' },
+];
+
+const grandCarrefour = [
+  { id: 'P4', value: 'δCP(PMNS) = 197.358°', type: 'PRED', test: 'DUNE 2032' },
+  { id: 'P6', value: 'sin²θ23 = 0.5733', type: 'EXPL', test: 'DUNE 2032' },
+  { id: 'P7', value: 'sin²θ13 = 0.02222', type: 'EXPL', test: 'JUNO/DUNE' },
+];
+
+const corePredictions = [
+  { id: 'P1', claim: 'Dirac neutrinos, no active Majorana mass', type: 'PRED', test: 'LEGEND/nEXO, 2030+', criterion: '0νββ confirmed at 3σ.' },
+  { id: 'P2', claim: 'Normal neutrino mass hierarchy', type: 'EXPL', test: 'JUNO 2027', criterion: 'Inverted hierarchy confirmed at 5σ.' },
+  { id: 'P3', claim: 'θQCD = 0 exactly', type: 'PRED', test: 'ADMX/IAXO', criterion: 'Non-zero θQCD above 10⁻¹⁰.' },
+  { id: 'P4', claim: 'δCP(PMNS) = 197.358°', type: 'PRED', test: 'DUNE 2032', criterion: 'DUNE-compatible interval missed.' },
+  { id: 'P5', claim: 'mν3 = 0.0505 eV', type: 'PRED', test: 'KATRIN/JUNO/cosmology', criterion: 'Mass incompatible with the PMNS chain.' },
+  { id: 'P6', claim: 'sin²θ23 = 0.5733', type: 'EXPL', test: 'DUNE 2032', criterion: 'Precision measurement outside band.' },
+  { id: 'P7', claim: 'sin²θ13 = 0.02222', type: 'EXPL', test: 'JUNO 2027', criterion: 'Precision measurement outside band.' },
+  { id: 'P8', claim: 'λH = mH²/(2v²) = 0.1295', type: 'PRED', test: 'HL‑LHC', criterion: 'Higgs self-coupling incompatible at 3σ.' },
+  { id: 'P9', claim: 'H0 = 67.41 km/s/Mpc', type: 'EXPL', test: 'Euclid/DESI', criterion: 'H0 > 70 confirmed at 5σ.' },
+  { id: 'P10', claim: 'No QCD axion', type: 'NEG', test: 'ADMX/IAXO', criterion: 'QCD axion detected.' },
+  { id: 'P11', claim: 'No SUSY below 100 TeV', type: 'NEG', test: 'HL‑LHC/FCC‑hh', criterion: 'Low-energy SUSY particle.' },
+  { id: 'P12', claim: 'Ngen = 3 exactly', type: 'EXPL', test: 'colliders', criterion: 'Active fourth generation.' },
+  { id: 'P13', claim: 'No proton decay', type: 'NEG', test: 'Hyper‑K', criterion: 'Proton decay confirmed.' },
+  { id: 'P14', claim: 'No WIMP as fundamental dark matter', type: 'NEG/EXPL', test: 'LZ/XENONnT', criterion: 'Robust non-geometric WIMP.' },
+  { id: 'P15', claim: 'αGW < 10⁻³, PT value ≃ 2×10⁻⁴', type: 'PRED', test: 'Einstein Telescope', criterion: 'Incompatible gravitational asymmetry.' },
+  { id: 'P16', claim: 'Scalar spectral index ns = 0.964', type: 'EXPL', test: 'CMB‑S4', criterion: 'New precision value outside band.' },
+  { id: 'P17', claim: 'No g−2 anomaly requiring BSM physics', type: 'PRED', test: 'Fermilab/J‑PARC', criterion: 'Stable excess not absorbed by echo VP.' },
+  { id: 'P18', claim: 'mW = 80.3635 GeV, CDF‑II rejected', type: 'EXPL', test: 'ATLAS/CMS/HL‑LHC', criterion: 'World average > 80.40 GeV at 5σ.' },
+  { id: 'P19', claim: 'No extra spatial dimensions', type: 'NEG', test: 'LHC Run 3/FCC', criterion: 'Extra dimension observed.' },
+  { id: 'P21', claim: 'No g shell: 9 = 3² composite and γ11 < 1/2', type: 'PRED', test: 'Z ≥ 121 synthesis', criterion: 'Stable g shell observed.' },
+  { id: 'P22', claim: 'Period 8 = 32 elements: 8s + 6f + 7d + 8p', type: 'PRED', test: 'Z = 119–150 elements', criterion: 'Incompatible period length.' },
+  { id: 'P23', claim: 'Chemistry ends near Z ≈ 134', type: 'PRED', test: 'superheavy programme', criterion: 'Stable chemistry beyond the PT threshold.' },
+];
+
+const radiativePredictions = [
+  { id: 'P24', claim: 'mW = 80.3635 GeV excludes the CDF‑II anomaly', type: 'EXPL', test: 'HL‑LHC mW' },
+  { id: 'P25', claim: 'aμ = 116 592 058 × 10⁻¹¹ and RHVP = 1.04203', type: 'PRED', test: 'Fermilab/J‑PARC, lattice/e⁺e⁻ HVP' },
+  { id: 'P25b', claim: 'ae = 1.15965218105 × 10⁻³ from echo-VP universality', type: 'PRED', test: 'Penning trap, CODATA/α' },
+  { id: 'P26', claim: 'Full sin²θW(Q) running curve', type: 'PRED', test: 'MESA, FCC‑ee, FCC‑hh' },
+  { id: 'P27', claim: 'PT-specific N³LO coefficients', type: 'PRED', test: 'future SM multi-loop calculations' },
+  { id: 'P28', claim: 'Γt = 1.306 GeV', type: 'EXPL', test: 'HL‑LHC top width' },
+];
+
+const alphaScales = [
+  { scale: '1 TeV', pt: '0.0878', ref: '0.0876 ± 0.0013', note: 'sub-percent' },
+  { scale: 'mt', pt: '0.1073', ref: '0.1078 ± 0.0011', note: 'sub-percent' },
+  { scale: 'mZ', pt: '0.1181', ref: '0.1180 ± 0.0009', note: 'R42 anchor' },
+  { scale: 'mb', pt: '0.237 at 2 loops; 0.2217 in exact PT formula', ref: '0.221 ± 0.002', note: 'non-perturbative regime' },
+  { scale: 'mτ', pt: '0.353 at 2 loops', ref: '0.332 ± 0.013', note: 'non-perturbative regime' },
+];
+
+const nearTerm = [
+  { id: 'Pchem‑1', claim: 'IE(Z=119) = 4.45(2) eV', type: 'PRED', test: 'FSCC/synthesis 2027' },
+  { id: 'Pchem‑2', claim: 'IE(Z=120) = 5.19(3) eV', type: 'PRED', test: 'FSCC/synthesis 2028' },
+  { id: 'Pchem‑3', claim: 'EA(Z=119) = 0.66(3) eV', type: 'PRED', test: 'FSCC/synthesis 2027' },
+  { id: 'Pnucl‑1', claim: 'Binding energy of 310Uut', type: 'PRED', test: 'FRIB/GSI 2027' },
+  { id: 'Pgw‑1', claim: 'Ωinfo = 26.48%, ΩΛ = 68.65%', type: 'PRED', test: 'DESI DR3' },
+  { id: 'Pbio‑1', claim: 'RNA PDB DSSR‑strict: F1 ≥ 0.95', type: 'PRED', test: 'new RNA structures' },
+  { id: 'h95', claim: '95 GeV excess as Z-echo scalar: mZ RHVP = 95.02 GeV', type: 'EMERGENT', test: 'CMS/ATLAS Run 3 and HL‑LHC' },
+];
+---
+
+<BaseLayout
+  title="PT Predictions"
+  description="Plain-language and technical registry of Persistence Theory predictions, with epistemic status and tests."
+>
+  <section class="max-w-6xl mx-auto px-4 py-14">
+    <p class="text-sm font-sans font-semibold uppercase tracking-wider text-derorange mb-3">
+      In a few words / testable registry
+    </p>
+    <h1 class="text-4xl md:text-5xl font-bold text-thmblue mb-5">
+      PT Predictions
+    </h1>
+    <p class="text-xl text-slate-700 leading-relaxed max-w-4xl">
+      A fundamental theory must be willing to be contradicted. The active
+      monograph lists 28 Tier‑1 items (P1–P19, P21–P28 and P25b), plus αs
+      running scales. This page presents them without turning them into
+      theorems: they are physical tests of the PT bridge.
+    </p>
+
+    <div class="grid md:grid-cols-4 gap-4 mt-8">
+      {predictionTypes.map((item) => (
+        <article class="pt-card">
+          <span class={`pt-tag ${statusClass(item.tag)}`}>{item.tag}</span>
+          <h2 class="font-sans font-semibold text-thmblue mt-3 mb-2">{item.label}</h2>
+          <p class="text-sm text-slate-700 leading-relaxed">{item.text}</p>
+        </article>
+      ))}
+    </div>
+
+    <div class="mt-10 bg-amber-50 border-l-4 border-amber-300 px-5 py-4 text-slate-800 leading-relaxed">
+      <strong>Reading rule:</strong> PRED and NEG carry the strongest
+      Popperian weight. EXPL still matters because a no-free-parameter
+      reconstruction strongly constrains the theory, but it is not a temporal
+      prediction in the same sense.
+    </div>
+
+    <section class="mt-12">
+      <h2 class="text-3xl font-bold text-thmblue mb-4">The Grand Carrefour 2032</h2>
+      <p class="text-slate-700 leading-relaxed max-w-4xl mb-5">
+        The clearest test is DUNE/JUNO: three independent PMNS-sector numbers
+        must land together. The monograph estimates the chance coincidence near
+        10⁻⁶. That is precisely the kind of experimental lock that could push
+        PT toward recognized physics, or force a revision of its bridge.
+      </p>
+      <div class="grid md:grid-cols-3 gap-4">
+        {grandCarrefour.map((item) => (
+          <article class="pt-card">
+            <div class="flex justify-between items-start gap-3">
+              <span class={`pt-tag ${statusClass(item.type)}`}>{item.id}</span>
+              <span class="text-xs font-sans text-slate-500">{item.test}</span>
+            </div>
+            <p class="font-sans font-semibold text-lg text-thmblue mt-4">{item.value}</p>
+            <p class="text-xs text-slate-500 mt-2">{item.type}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="mt-12">
+      <h2 class="text-3xl font-bold text-thmblue mb-4">Main Tier‑1 Registry</h2>
+      <div class="overflow-x-auto rounded-lg border border-slate-200 bg-white">
+        <table class="w-full text-sm">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>PT statement</th>
+              <th>Status</th>
+              <th>Test</th>
+              <th>What would put it in trouble</th>
+            </tr>
+          </thead>
+          <tbody>
+            {corePredictions.map((item) => (
+              <tr>
+                <td class="font-sans font-semibold text-thmblue">{item.id}</td>
+                <td>{item.claim}</td>
+                <td><span class={`pt-tag ${statusClass(item.type)}`}>{item.type}</span></td>
+                <td>{item.test}</td>
+                <td>{item.criterion}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="mt-12">
+      <h2 class="text-3xl font-bold text-thmblue mb-4">Radiative Sector</h2>
+      <p class="text-slate-700 leading-relaxed max-w-4xl mb-5">
+        P24–P28 test the same logic in radiative corrections: weak masses,
+        magnetic moments, electroweak running, higher-order coefficients, and
+        the top width. The important point is not only the numerical value, but
+        the lack of an adjustment knob once the PT chain is fixed.
+      </p>
+      <div class="grid md:grid-cols-2 gap-4">
+        {radiativePredictions.map((item) => (
+          <article class="pt-card">
+            <div class="flex items-start justify-between gap-3 mb-3">
+              <span class={`pt-tag ${statusClass(item.type)}`}>{item.id}</span>
+              <span class="text-xs font-sans text-slate-500">{item.type}</span>
+            </div>
+            <h3 class="font-sans font-semibold text-thmblue mb-2">{item.claim}</h3>
+            <p class="text-sm text-slate-700">Test: {item.test}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="mt-12">
+      <h2 class="text-3xl font-bold text-thmblue mb-4">αs Running</h2>
+      <p class="text-slate-700 leading-relaxed max-w-4xl mb-5">
+        The monograph counts αs running as an additional testable surface: the
+        Z-point value is derived, then the flow predicts other scales. Below
+        mb, the text explicitly distinguishes the perturbative two-loop formula
+        from the exact non-perturbative PT formula.
+      </p>
+      <div class="overflow-x-auto rounded-lg border border-slate-200 bg-white">
+        <table class="w-full text-sm">
+          <thead>
+            <tr>
+              <th>Scale</th>
+              <th>PT</th>
+              <th>Reference</th>
+              <th>Reading</th>
+            </tr>
+          </thead>
+          <tbody>
+            {alphaScales.map((item) => (
+              <tr>
+                <td class="font-sans font-semibold text-thmblue">{item.scale}</td>
+                <td>{item.pt}</td>
+                <td>{item.ref}</td>
+                <td>{item.note}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="mt-12">
+      <h2 class="text-3xl font-bold text-thmblue mb-4">Near-Term Extensions and Emerging Signals</h2>
+      <p class="text-slate-700 leading-relaxed max-w-4xl mb-5">
+        These entries matter for the research programme, but they should not
+        all be read as equivalent to the 28 Tier‑1 items. Some belong to
+        already formalized sub-sectors, while others are emerging signals that
+        need experimental locking.
+      </p>
+      <div class="grid md:grid-cols-2 gap-4">
+        {nearTerm.map((item) => (
+          <article class="pt-card">
+            <div class="flex items-start justify-between gap-3 mb-3">
+              <span class={`pt-tag ${statusClass(item.type)}`}>{item.type}</span>
+              <span class="text-xs font-sans text-slate-500">{item.id}</span>
+            </div>
+            <h3 class="font-sans font-semibold text-thmblue mb-2">{item.claim}</h3>
+            <p class="text-sm text-slate-700">Window: {item.test}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="mt-12 bg-white border border-slate-200 rounded-lg p-6">
+      <h2 class="text-2xl font-bold text-thmblue mb-3">What Is Not Tier‑1 Yet</h2>
+      <p class="text-slate-700 leading-relaxed">
+        The late-time cosmological sector, historically labelled P20, remains
+        an open programme. It yields testable estimators for w0, wa, and
+        DESI/Euclid/CMB‑S4 tensions, but the monograph does not count it among
+        the 28 Tier‑1 predictions. That distinction is healthy: it separates
+        what is locked, what is strongly motivated, and what still needs the
+        observational trial.
+      </p>
+    </section>
+  </section>
+</BaseLayout>

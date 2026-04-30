@@ -1,0 +1,104 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import ResearchTopic from '@components/ResearchTopic.astro';
+
+const features = [
+  { title: 'Fisher devient espace-temps', body: 'La métrique de Fisher du crible est identifiée à la métrique d’espace-temps par unicité informationnelle.', status: 'THM' },
+  { title: 'Signature et SO(3,1)', body: 'La signature lorentzienne et le groupe SO(3,1) sont reconstruits depuis la géométrie de Fisher-Bianchi.', status: 'THM' },
+  { title: 'Équations d’Einstein', body: 'Le tenseur d’Einstein apparaît comme identité de cumulants pour une métrique hessienne.', status: 'DER' },
+];
+
+const sections = [
+  {
+    eyebrow: 'L1',
+    title: 'Einstein depuis une carte d’information',
+    paragraphs: [
+      'En relativité générale, on part d’une métrique d’espace-temps et on écrit sa dynamique. En PT, la métrique elle-même est lue depuis une distribution de probabilité du crible.',
+      'Pour vulgariser : la PT ne demande pas “dans quel espace vit le crible ?”. Elle demande “quelle notion de distance est forcée par ce que le crible permet de distinguer ?”. Cette distance naturelle est la métrique de Fisher.',
+      'Imagine une ville dont on ne connaîtrait pas le plan, mais seulement les trajets les plus stables entre ses quartiers. À force de comparer ces trajets, on reconstruit une carte. La PT fait quelque chose de ce type : elle reconstruit la géométrie depuis les distinctions persistantes du crible.',
+      'Le message est simple : l’espace-temps n’est pas un contenant primitif. Il est la lecture géométrique continue de la mécanique de persistance ; les structures arithmétiques en marquent les points remarquables. Einstein n’est pas collé après coup ; il apparaît comme la grammaire géométrique de cette carte.',
+    ],
+    visual: {
+      kind: 'fisher-bianchi',
+      title: 'De Fisher à Bianchi I',
+      caption: 'La métrique de Fisher mesure les distinctions persistantes ; restreinte aux trois actifs, elle devient une géométrie anisotrope à trois directions spatiales et une direction temporelle.',
+      labels: ['métrique de Fisher', 'trois actifs', 'signature lorentzienne'],
+    },
+    demo: {
+      kind: 'anisotropy',
+      title: 'Lecture directionnelle',
+      caption: 'Le curseur illustre l’idée de lecture moyenne : une méthode peut échantillonner une direction effective, tandis que la cosmologie isotrope lit une moyenne.',
+      labels: ['direction effective'],
+    },
+  },
+  {
+    eyebrow: 'L2',
+    title: 'Architecture physique : Fisher, Bianchi, Einstein',
+    paragraphs: [
+      'La chaîne donnée dans la monographie suit : $s=1/2 \\to \\sin^2\\theta_p,\\gamma_p \\to g^{F}_{\\mu\\nu} \\to$ Bianchi I $\\to$ SO(3,1) $\\to G_{\\mu\\nu}$.',
+      'La métrique de Fisher est unique sous les transformations qui ne créent pas d’information. Quand elle est décomposée sur les trois premiers actifs $3,5,7$, elle prend une forme Bianchi I à trois directions spatiales et une direction temporelle.',
+      'Le rôle des trois premiers actifs est décisif : ils fournissent trois facteurs d’échelle spatiaux. Le terme temporel vient de la courbure de la direction $\\mu$. On obtient alors une structure $3+1$ sans la poser comme décor initial.',
+      'La relativité PT n’est donc pas seulement “compatible avec Einstein”. Elle prétend expliquer pourquoi une géométrie lorentzienne et des équations de type Einstein sont les bonnes structures quand l’information persistante est lue comme distance, courbure et énergie.',
+    ],
+    items: [
+      'Signature lorentzienne : $g_{00}<0$ après le seuil géométrique.',
+      'SO(3,1) : symétrie de la métrique Fisher-Bianchi.',
+      'Équations d’Einstein : route cumulants/hessienne et route Lovelock.',
+      'Constante gravitationnelle : $G \\simeq 2\\pi\\alpha_{EM}$ en unités PT.',
+    ],
+  },
+  {
+    eyebrow: 'L3',
+    title: 'Démonstration technique : routes Fisher, Einstein et Lovelock',
+    depth: 'L3',
+    paragraphs: [
+      'Le chapitre 13 annonce 38/38 composantes d’Einstein validées, la signature lorentzienne comme théorème algébrique, SO(3,1) par tests structuraux, et la limite continue R50 comme dissoute.',
+      'La partie la plus sensible est le pont “métrique de Fisher = métrique d’espace-temps”. La monographie le rattache au lemme F, à l’unicité de Cencov, et à l’argument que toute autre métrique violerait la monotonie informationnelle.',
+      'Deux routes se superposent. La route hessienne lit $g_{ab}=\\partial_a\\partial_b\\ln Z$ et fait des équations d’Einstein une identité de cumulants. La route Lovelock dit qu’en dimension $3+1$, avec conservation covariante, le tenseur admissible est essentiellement le tenseur d’Einstein.',
+      'La métrique Bianchi I obtenue en PT a des facteurs $a_p=\\gamma_p/\\mu$ pour $p\\in\\{3,5,7\\}$ et un terme temporel piloté par $S^{\\prime\\prime}(\\mu)$. C’est ce qui relie les dimensions anomales PT à des taux de Hubble directionnels.',
+    ],
+    items: [
+      'Entrées : Fisher, holonomie $\\sin^2\\theta_p$, point fixe $\\mu^*=15$, $N_c=3$.',
+      'Sorties : signature lorentzienne, SO(3,1), $G_{\\mu\\nu}$, $G\\simeq2\\pi\\alpha_{EM}$, $H_0$.',
+      'Statut : mélange THM/DER/VAL selon les étapes ; ne pas confondre avec un unique théorème pur.',
+      'Point conceptuel : le continu est la mécanique géométrique native de la distribution ; le discret en marque les points persistants, non une maille à raffiner.',
+    ],
+    proof: {
+      title: 'Démonstration L3',
+      steps: [
+        'Le crible définit une famille de distributions de probabilité sur les classes résiduelles. Par Cencov, la géométrie riemannienne monotone naturellement associée à cette famille est $g^F$, la métrique de Fisher.',
+        'La factorisation CRT sépare les facteurs premiers. Restreinte aux trois premiers actifs $3,5,7$, la métrique devient diagonale et anisotrope : c’est la forme Bianchi I.',
+        'Les facteurs d’échelle sont $a_p=\\gamma_p/\\mu$, où $\\gamma_p$ est la dimension anomale PT. Les trois facteurs actifs fournissent les trois directions spatiales.',
+        'La direction $\\mu$ porte la composante $g_{00}$ ; le chapitre 13 prouve $g_{00}<0$ au régime physique. La signature est donc lorentzienne.',
+        'L’algèbre d’isométrie de la métrique Fisher-Bianchi restreinte au secteur actif donne SO(3,1), la symétrie locale de la relativité restreinte.',
+        'Pour la métrique Bianchi I $ds^2=-N^2d\\mu^2+\\sum_p a_p^2dx_p^2$, les paramètres de Hubble directionnels sont $H_p=\\dot a_p/a_p$. Le calcul standard du tenseur d’Einstein donne notamment $G_{00}=H_3H_5+H_3H_7+H_5H_7$.',
+        'La route hessienne renforce le calcul : si $g_{ab}=\\partial_a\\partial_b\\ln Z$, alors $G_{ab}$ et $T_{ab}$ sont deux contractions du même potentiel de cumulants ; l’identité de Bianchi contractée donne la compatibilité dynamique.',
+        'La route Lovelock verrouille la forme : en dimension $3+1$, sous covariance et conservation, le tenseur admissible est le tenseur d’Einstein, hors corrections topologiques/higher-curvature non actives dans ce secteur.',
+      ],
+      conclusion: 'La relativité PT suit la chaîne Fisher → Bianchi I → signature lorentzienne → SO(3,1) → tenseur d’Einstein. Les étapes ne portent pas toutes le même statut, mais elles forment une reconstruction cohérente de la géométrie relativiste depuis le crible.',
+    },
+  },
+];
+
+const sources = [
+  'Monographie ch. 13 : Relativité générale depuis la géométrie de Fisher.',
+  'ch. 9 : reconstruction métrique, lemme F.',
+  'ch. 24 : portée, limites et statut de la gravité quantique.',
+  'Glossaire : Cencov, Lovelock, Fisher information.',
+];
+---
+
+<BaseLayout
+  title="Relativité en PT"
+  description="Comment la Théorie de la Persistance reconstruit la relativité générale depuis la métrique de Fisher du crible."
+>
+  <ResearchTopic
+    eyebrow="Relativité"
+    title="La relativité comme géométrie de Fisher du crible"
+    description="La PT ne plaque pas Einstein sur le crible : elle tente de montrer que la métrique d’espace-temps est la géométrie d’information naturelle du crible."
+    lead="La relativité devient la lecture géométrique de la persistance : une fois la métrique de Fisher imposée, la signature, les directions, les équations d’Einstein et la constante gravitationnelle ne sont plus des ingrédients indépendants."
+    features={features}
+    sections={sections}
+    sources={sources}
+  />
+</BaseLayout>

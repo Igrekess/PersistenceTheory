@@ -1,0 +1,172 @@
+---
+import data from '@/data/observables.json';
+
+interface Props {
+  lang: 'fr' | 'en';
+}
+const { lang } = Astro.props;
+
+const labels = {
+  fr: {
+    filter: 'Filtrer par secteur :',
+    all: 'Tous',
+    search: 'Rechercher…',
+    n: '#', name: 'Observable', sector: 'Secteur', pt: 'PT', pdg: 'PDG', err: 'Écart',
+    sectors: {
+      gauge: 'jauge',
+      leptons: 'leptons',
+      quarks: 'quarks',
+      bosons: 'bosons',
+      CKM: 'CKM',
+      PMNS: 'PMNS',
+      QCD: 'QCD',
+      combinatorics: 'combinatoires',
+      gravity: 'gravité',
+      cosmology: 'cosmologie',
+    },
+    note_sc: 'auto-cohérence',
+    note_exact: 'exact',
+    summary: '43 observables · écart moyen 0,30 % · médiane 0,06 %',
+  },
+  en: {
+    filter: 'Filter by sector:',
+    all: 'All',
+    search: 'Search…',
+    n: '#', name: 'Observable', sector: 'Sector', pt: 'PT', pdg: 'PDG', err: 'Error',
+    sectors: {
+      gauge: 'gauge',
+      leptons: 'leptons',
+      quarks: 'quarks',
+      bosons: 'bosons',
+      CKM: 'CKM',
+      PMNS: 'PMNS',
+      QCD: 'QCD',
+      combinatorics: 'combinatorics',
+      gravity: 'gravity',
+      cosmology: 'cosmology',
+    },
+    note_sc: 'self-consistent',
+    note_exact: 'exact',
+    summary: '43 observables · mean error 0.30% · median 0.06%',
+  },
+}[lang];
+
+const sectors = Array.from(new Set(data.map(o => o.sector)));
+
+function fmtErr(o: any): string {
+  if (o.exact) return labels.note_exact;
+  if (o.sc) return `~0% (${labels.note_sc})`;
+  if (o.error_pct < 0.0001) return `${(o.error_pct * 1e9).toFixed(1)} ppb`;
+  if (o.error_pct < 0.01) return `${o.error_pct.toFixed(4).replace('.', lang === 'fr' ? ',' : '.')} %`;
+  return `${o.error_pct.toFixed(3).replace('.', lang === 'fr' ? ',' : '.')} %`;
+}
+
+function errBadgeClass(o: any): string {
+  if (o.exact || o.sc) return 'bg-idgreen/15 text-idgreen';
+  if (o.error_pct < 0.01) return 'bg-thmblue/15 text-thmblue';
+  if (o.error_pct < 0.1) return 'bg-derorange/15 text-derorange';
+  if (o.error_pct < 1) return 'bg-condorange/20 text-condorange';
+  return 'bg-predred/20 text-predred';
+}
+---
+
+<div class="not-prose">
+  <div class="flex flex-wrap gap-2 items-center mb-4 text-sm font-sans">
+    <span class="text-stone-600">{labels.filter}</span>
+    <button
+      type="button"
+      class="px-3 py-1 border border-stone-300 rounded hover:bg-stone-100 sector-btn"
+      data-sector="all"
+    >
+      {labels.all}
+    </button>
+    {sectors.map(s => (
+      <button
+        type="button"
+        class="px-3 py-1 border border-stone-300 rounded hover:bg-stone-100 sector-btn capitalize"
+        data-sector={s}
+      >
+        {labels.sectors[s as keyof typeof labels.sectors]}
+      </button>
+    ))}
+    <input
+      type="text"
+      id="obs-search"
+      placeholder={labels.search}
+      class="ml-auto px-3 py-1 border border-stone-300 rounded text-sm"
+    />
+  </div>
+
+  <p class="text-sm text-stone-500 italic mb-3">
+    {labels.summary} · {lang === 'fr' ? 'cliquer une ligne pour voir la dérivation' : 'click a row to see the derivation'}
+  </p>
+
+  <div class="overflow-x-auto rounded border border-stone-200">
+    <table class="w-full text-sm bg-white">
+      <thead class="bg-stone-50 text-stone-700">
+        <tr>
+          <th class="text-left px-3 py-2 w-12">{labels.n}</th>
+          <th class="text-left px-3 py-2">{labels.name}</th>
+          <th class="text-left px-3 py-2">{labels.sector}</th>
+          <th class="text-right px-3 py-2 font-mono">{labels.pt}</th>
+          <th class="text-right px-3 py-2 font-mono">{labels.pdg}</th>
+          <th class="text-right px-3 py-2">{labels.err}</th>
+        </tr>
+      </thead>
+      <tbody id="obs-tbody">
+        {data.map(o => {
+          const href = `${lang === 'fr' ? '' : '/en'}/observables/${o.id}`;
+          return (
+            <tr class="obs-row border-t border-stone-100 hover:bg-thmblue/5 cursor-pointer group" data-sector={o.sector} data-name={o.name.toLowerCase()} data-href={href}>
+              <td class="px-3 py-2 text-stone-500"><a href={href} class="block">{o.id}</a></td>
+              <td class="px-3 py-2 font-mono"><a href={href} class="block group-hover:text-thmblue group-hover:underline">{o.name}</a></td>
+              <td class="px-3 py-2 text-stone-600"><a href={href} class="block">{labels.sectors[o.sector as keyof typeof labels.sectors]}</a></td>
+              <td class="px-3 py-2 text-right font-mono"><a href={href} class="block">{o.pt}{o.unit ? ` ${o.unit}` : ''}</a></td>
+              <td class="px-3 py-2 text-right font-mono text-stone-600"><a href={href} class="block">{o.pdg}{o.unit ? ` ${o.unit}` : ''}</a></td>
+              <td class="px-3 py-2 text-right">
+                <a href={href} class="block">
+                  <span class={`inline-block px-2 py-0.5 rounded text-xs font-sans ${errBadgeClass(o)}`}>
+                    {fmtErr(o)}
+                  </span>
+                </a>
+              </td>
+            </tr>
+          );
+        })}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<script>
+  let activeSector: string = 'all';
+  let activeQuery: string = '';
+
+  function applyFilters() {
+    const rows = document.querySelectorAll<HTMLTableRowElement>('.obs-row');
+    rows.forEach(row => {
+      const sector = row.dataset.sector ?? '';
+      const name = row.dataset.name ?? '';
+      const matchSector = activeSector === 'all' || sector === activeSector;
+      const matchQuery = !activeQuery || name.includes(activeQuery);
+      row.style.display = matchSector && matchQuery ? '' : 'none';
+    });
+  }
+
+  document.querySelectorAll<HTMLButtonElement>('.sector-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      activeSector = btn.dataset.sector ?? 'all';
+      document.querySelectorAll('.sector-btn').forEach(b => b.classList.remove('bg-thmblue', 'text-white'));
+      btn.classList.add('bg-thmblue', 'text-white');
+      applyFilters();
+    });
+  });
+
+  const search = document.getElementById('obs-search') as HTMLInputElement | null;
+  if (search) {
+    search.addEventListener('input', () => {
+      activeQuery = search.value.trim().toLowerCase();
+      applyFilters();
+    });
+  }
+</script>

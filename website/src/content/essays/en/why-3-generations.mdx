@@ -1,0 +1,65 @@
+---
+slug: why-3-generations
+title: 'Why three fermion generations?'
+summary: 'We observe three families of quarks and leptons, not two, not four. The Standard Model takes that 3 as given. PT derives it.'
+level: L1
+reading_minutes: 5
+related_theorems: ['T5']
+lang: en
+order: 7
+---
+
+## The observation
+
+The Standard Model contains three fermion generations:
+
+| Generation | Quarks  | Leptons        |
+|-----------:|:--------|:---------------|
+| 1          | u, d    | e, $\nu_e$     |
+| 2          | c, s    | $\mu$, $\nu_\mu$ |
+| 3          | t, b    | $\tau$, $\nu_\tau$ |
+
+The symmetry is exact: every generation has the same gauge structure, the same charge, the same content. Only masses change.
+
+Why three? Not two, not four? LEP experiments at CERN measured the $Z^0$ decay width and found a number of light neutrinos consistent with **3.000 ± 0.008**. Not 2, not 4. Precisely 3.
+
+The Standard Model takes this number as given and says nothing about it.
+
+## The PT answer
+
+The number of generations equals the **number of active primes** at the fixed point $\mu^* = 15$. That number is 3, and **only** 3:
+
+$$
+N_{\mathrm{gen}} = |\{p \text{ active}\}| = |\{3, 5, 7\}| = 3.
+$$
+
+The argument is short:
+
+1. A prime $p$ is active if $\gamma_p > s = 1/2$ (BA4 criterion).
+2. At the fixed point $\mu^* = 15$: $\gamma_3 = 0.808$, $\gamma_5 = 0.696$, $\gamma_7 = 0.595$, $\gamma_{11} = 0.478$, ...
+3. Three are above threshold. The fourth (and all subsequent) are below.
+4. The cascade stops at $p = 7$. No fourth generation possible.
+
+This is what the monograph calls the "finiteness theorem": the number of active primes is bounded by the monotone decay of $\gamma_p$ in $p$.
+
+## The same structure for $N_c$
+
+The same logic gives **three quark colors**: $N_c = 3$. Three active primes, three directions in SU(3) color space. That is why $N_{\mathrm{gen}} = N_c = 3$ in PT — they are the same quantity, counted along the lepton or color axis.
+
+This coincidence is not accidental in the Standard Model either: it is what makes the theory anomaly-free (gauge anomalies of leptons and quarks exactly cancel when $N_{\mathrm{gen}} = N_c$). But the Standard Model does not say why this common number is 3.
+
+PT gives the cause: this number is $|\{3, 5, 7\}|$.
+
+## A simple prediction
+
+If a fourth generation of light leptons were discovered (a new neutrino $\nu_x$ with $m_{\nu_x} < m_Z/2$), PT would be wrong. The cascade could not resume at $p = 11$ without breaking the fixed-point self-consistency.
+
+This is P12 in the list of falsifiable predictions: **$N_{\mathrm{gen}} = 3$ exactly**. No PT mechanism can accommodate a fourth light neutrino.
+
+The decisive experiments: LEP, Planck (via $N_{\mathrm{eff}}^\nu$), DUNE (precision oscillations). The number holds to better than a percent. As long as it holds, PT survives.
+
+## Why it matters
+
+This 3 is probably the most accessible PT result. It can be tested without extreme precision: a fourth family of charged fermions would be directly visible. Fifty years of experiments say it does not exist.
+
+The Standard Model accommodates this fact. PT **derives** it. That is the difference between describing the world and understanding it: in one case the 3 is an input, in the other it is a consequence of the sieve of Eratosthenes.

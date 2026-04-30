@@ -1,0 +1,270 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+
+const statusClass = (type: string) => {
+  if (type.includes('PRED') || type.includes('NEG')) return 'pt-tag-pred';
+  if (type.includes('EXPL')) return 'pt-tag-val';
+  if (type === 'OPEN') return 'pt-tag-cond';
+  if (type === 'EMERGENT') return 'pt-tag-bridge';
+  return 'pt-tag-der';
+};
+
+const predictionTypes = [
+  {
+    tag: 'PRED',
+    label: 'Prédiction forte',
+    text: 'observable pas encore mesurée à la précision décisive, ou dérivée avant que la mesure ne tranche vraiment.',
+  },
+  {
+    tag: 'EXPL',
+    label: 'Reconstruction explicative',
+    text: 'valeur déjà connue expérimentalement, mais reconstruite par la chaîne PT sans paramètre continu ajusté.',
+  },
+  {
+    tag: 'NEG',
+    label: 'Prédiction négative',
+    text: 'absence attendue d’un phénomène : pas d’axion QCD, pas de SUSY basse énergie, pas de dimensions supplémentaires, etc.',
+  },
+  {
+    tag: 'OPEN',
+    label: 'Programme ouvert',
+    text: 'piste testable, mais pas encore promue au rang Tier‑1 dans la monographie.',
+  },
+];
+
+const grandCarrefour = [
+  { id: 'P4', value: 'δCP(PMNS) = 197,358°', type: 'PRED', test: 'DUNE 2032' },
+  { id: 'P6', value: 'sin²θ23 = 0,5733', type: 'EXPL', test: 'DUNE 2032' },
+  { id: 'P7', value: 'sin²θ13 = 0,02222', type: 'EXPL', test: 'JUNO/DUNE' },
+];
+
+const corePredictions = [
+  { id: 'P1', claim: 'Neutrinos de Dirac, pas de Majorana actif', type: 'PRED', test: 'LEGEND/nEXO, 2030+', criterion: '0νββ confirmé à 3σ.' },
+  { id: 'P2', claim: 'Hiérarchie normale des masses de neutrinos', type: 'EXPL', test: 'JUNO 2027', criterion: 'Hiérarchie inversée confirmée à 5σ.' },
+  { id: 'P3', claim: 'θQCD = 0 exactement', type: 'PRED', test: 'ADMX/IAXO', criterion: 'θQCD non nul au-dessus de 10⁻¹⁰.' },
+  { id: 'P4', claim: 'δCP(PMNS) = 197,358°', type: 'PRED', test: 'DUNE 2032', criterion: 'Valeur hors intervalle de compatibilité DUNE.' },
+  { id: 'P5', claim: 'mν3 = 0,0505 eV', type: 'PRED', test: 'KATRIN/JUNO/cosmologie', criterion: 'Masse incompatible avec la chaîne PMNS.' },
+  { id: 'P6', claim: 'sin²θ23 = 0,5733', type: 'EXPL', test: 'DUNE 2032', criterion: 'Mesure de précision hors bande.' },
+  { id: 'P7', claim: 'sin²θ13 = 0,02222', type: 'EXPL', test: 'JUNO 2027', criterion: 'Mesure de précision hors bande.' },
+  { id: 'P8', claim: 'λH = mH²/(2v²) = 0,1295', type: 'PRED', test: 'HL‑LHC', criterion: 'Auto-couplage de Higgs incompatible à 3σ.' },
+  { id: 'P9', claim: 'H0 = 67,41 km/s/Mpc', type: 'EXPL', test: 'Euclid/DESI', criterion: 'H0 > 70 confirmé à 5σ.' },
+  { id: 'P10', claim: 'Pas d’axion QCD', type: 'NEG', test: 'ADMX/IAXO', criterion: 'Axion QCD détecté.' },
+  { id: 'P11', claim: 'Pas de SUSY sous 100 TeV', type: 'NEG', test: 'HL‑LHC/FCC‑hh', criterion: 'Particule SUSY basse énergie.' },
+  { id: 'P12', claim: 'Ngen = 3 exactement', type: 'EXPL', test: 'colliders', criterion: 'Quatrième génération active.' },
+  { id: 'P13', claim: 'Pas de désintégration du proton', type: 'NEG', test: 'Hyper‑K', criterion: 'Désintégration du proton confirmée.' },
+  { id: 'P14', claim: 'Pas de WIMP comme matière noire fondamentale', type: 'NEG/EXPL', test: 'LZ/XENONnT', criterion: 'WIMP robuste et non géométrique.' },
+  { id: 'P15', claim: 'αGW < 10⁻³, valeur PT ≃ 2×10⁻⁴', type: 'PRED', test: 'Einstein Telescope', criterion: 'Asymétrie gravitationnelle incompatible.' },
+  { id: 'P16', claim: 'Indice spectral ns = 0,964', type: 'EXPL', test: 'CMB‑S4', criterion: 'Nouvelle valeur de précision hors bande.' },
+  { id: 'P17', claim: 'Pas d’anomalie g−2 nécessitant du BSM', type: 'PRED', test: 'Fermilab/J‑PARC', criterion: 'Excès stable non absorbable par VP d’écho.' },
+  { id: 'P18', claim: 'mW = 80,3635 GeV, rejet de CDF‑II', type: 'EXPL', test: 'ATLAS/CMS/HL‑LHC', criterion: 'Moyenne mondiale > 80,40 GeV à 5σ.' },
+  { id: 'P19', claim: 'Pas de dimensions spatiales supplémentaires', type: 'NEG', test: 'LHC Run 3/FCC', criterion: 'Dimension supplémentaire observée.' },
+  { id: 'P21', claim: 'Pas de couche g : 9 = 3² composite et γ11 < 1/2', type: 'PRED', test: 'synthèse Z ≥ 121', criterion: 'Couche g stable observée.' },
+  { id: 'P22', claim: 'Période 8 = 32 éléments : 8s + 6f + 7d + 8p', type: 'PRED', test: 'éléments Z = 119–150', criterion: 'Longueur de période incompatible.' },
+  { id: 'P23', claim: 'Fin chimique vers Z ≈ 134', type: 'PRED', test: 'programme superlourd', criterion: 'Chimie stable au-delà du seuil PT.' },
+];
+
+const radiativePredictions = [
+  { id: 'P24', claim: 'mW = 80,3635 GeV exclut l’anomalie CDF‑II', type: 'EXPL', test: 'HL‑LHC mW' },
+  { id: 'P25', claim: 'aμ = 116 592 058 × 10⁻¹¹ et RHVP = 1,04203', type: 'PRED', test: 'Fermilab/J‑PARC, HVP lattice/e⁺e⁻' },
+  { id: 'P25b', claim: 'ae = 1,15965218105 × 10⁻³ par universalité VP d’écho', type: 'PRED', test: 'Penning trap, CODATA/α' },
+  { id: 'P26', claim: 'Courbe complète de running sin²θW(Q)', type: 'PRED', test: 'MESA, FCC‑ee, FCC‑hh' },
+  { id: 'P27', claim: 'Coefficients N³LO spécifiques à la PT', type: 'PRED', test: 'futurs calculs multi-boucles SM' },
+  { id: 'P28', claim: 'Γt = 1,306 GeV', type: 'EXPL', test: 'HL‑LHC largeur du top' },
+];
+
+const alphaScales = [
+  { scale: '1 TeV', pt: '0,0878', ref: '0,0876 ± 0,0013', note: 'sous‑pourcent' },
+  { scale: 'mt', pt: '0,1073', ref: '0,1078 ± 0,0011', note: 'sous‑pourcent' },
+  { scale: 'mZ', pt: '0,1181', ref: '0,1180 ± 0,0009', note: 'ancre R42' },
+  { scale: 'mb', pt: '0,237 en 2‑boucles ; 0,2217 en formule PT exacte', ref: '0,221 ± 0,002', note: 'régime non perturbatif' },
+  { scale: 'mτ', pt: '0,353 en 2‑boucles', ref: '0,332 ± 0,013', note: 'régime non perturbatif' },
+];
+
+const nearTerm = [
+  { id: 'Pchem‑1', claim: 'IE(Z=119) = 4,45(2) eV', type: 'PRED', test: 'FSCC/synthèse 2027' },
+  { id: 'Pchem‑2', claim: 'IE(Z=120) = 5,19(3) eV', type: 'PRED', test: 'FSCC/synthèse 2028' },
+  { id: 'Pchem‑3', claim: 'EA(Z=119) = 0,66(3) eV', type: 'PRED', test: 'FSCC/synthèse 2027' },
+  { id: 'Pnucl‑1', claim: 'Énergie de liaison de 310Uut', type: 'PRED', test: 'FRIB/GSI 2027' },
+  { id: 'Pgw‑1', claim: 'Ωinfo = 26,48 %, ΩΛ = 68,65 %', type: 'PRED', test: 'DESI DR3' },
+  { id: 'Pbio‑1', claim: 'RNA PDB DSSR‑strict : F1 ≥ 0,95', type: 'PRED', test: 'nouvelles structures RNA' },
+  { id: 'h95', claim: 'Excès 95 GeV comme scalaire d’écho Z : mZ RHVP = 95,02 GeV', type: 'EMERGENT', test: 'CMS/ATLAS Run 3 et HL‑LHC' },
+];
+---
+
+<BaseLayout
+  title="Prédictions de la PT"
+  description="Registre vulgarisé et technique des prédictions de la Théorie de la Persistance, avec statuts épistémiques et critères de test."
+>
+  <section class="max-w-6xl mx-auto px-4 py-14">
+    <p class="text-sm font-sans font-semibold uppercase tracking-wider text-derorange mb-3">
+      En quelques mots / registre testable
+    </p>
+    <h1 class="text-4xl md:text-5xl font-bold text-thmblue mb-5">
+      Prédictions de la PT
+    </h1>
+    <p class="text-xl text-slate-700 leading-relaxed max-w-4xl">
+      Une théorie fondamentale doit accepter d’être contredite. La monographie
+      actuelle recense 28 entrées Tier‑1 (P1–P19, P21–P28 et P25b), auxquelles
+      s’ajoutent des échelles de running de αs. Cette page les présente sans
+      les transformer en théorèmes : ce sont des tests physiques du pont PT.
+    </p>
+
+    <div class="grid md:grid-cols-4 gap-4 mt-8">
+      {predictionTypes.map((item) => (
+        <article class="pt-card">
+          <span class={`pt-tag ${statusClass(item.tag)}`}>{item.tag}</span>
+          <h2 class="font-sans font-semibold text-thmblue mt-3 mb-2">{item.label}</h2>
+          <p class="text-sm text-slate-700 leading-relaxed">{item.text}</p>
+        </article>
+      ))}
+    </div>
+
+    <div class="mt-10 bg-amber-50 border-l-4 border-amber-300 px-5 py-4 text-slate-800 leading-relaxed">
+      <strong>Règle de lecture :</strong> PRED et NEG portent le poids
+      poppérien le plus fort. EXPL reste important, car une reconstruction
+      sans paramètre libre contraint sévèrement la théorie, mais ce n’est pas
+      une prédiction temporelle au même sens.
+    </div>
+
+    <section class="mt-12">
+      <h2 class="text-3xl font-bold text-thmblue mb-4">Le Grand Carrefour 2032</h2>
+      <p class="text-slate-700 leading-relaxed max-w-4xl mb-5">
+        Le test le plus lisible est DUNE/JUNO : trois nombres indépendants du
+        secteur PMNS doivent tomber ensemble. La monographie estime la
+        probabilité de coïncidence fortuite autour de 10⁻⁶. C’est exactement le
+        type de verrou expérimental qui peut faire basculer la PT vers une
+        physique reconnue, ou au contraire la forcer à réviser son pont.
+      </p>
+      <div class="grid md:grid-cols-3 gap-4">
+        {grandCarrefour.map((item) => (
+          <article class="pt-card">
+            <div class="flex justify-between items-start gap-3">
+              <span class={`pt-tag ${statusClass(item.type)}`}>{item.id}</span>
+              <span class="text-xs font-sans text-slate-500">{item.test}</span>
+            </div>
+            <p class="font-sans font-semibold text-lg text-thmblue mt-4">{item.value}</p>
+            <p class="text-xs text-slate-500 mt-2">{item.type}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="mt-12">
+      <h2 class="text-3xl font-bold text-thmblue mb-4">Registre Tier‑1 principal</h2>
+      <div class="overflow-x-auto rounded-lg border border-slate-200 bg-white">
+        <table class="w-full text-sm">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Énoncé PT</th>
+              <th>Statut</th>
+              <th>Test</th>
+              <th>Ce qui la mettrait en défaut</th>
+            </tr>
+          </thead>
+          <tbody>
+            {corePredictions.map((item) => (
+              <tr>
+                <td class="font-sans font-semibold text-thmblue">{item.id}</td>
+                <td>{item.claim}</td>
+                <td><span class={`pt-tag ${statusClass(item.type)}`}>{item.type}</span></td>
+                <td>{item.test}</td>
+                <td>{item.criterion}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="mt-12">
+      <h2 class="text-3xl font-bold text-thmblue mb-4">Secteur radiatif</h2>
+      <p class="text-slate-700 leading-relaxed max-w-4xl mb-5">
+        P24–P28 testent la même logique dans les corrections radiatives :
+        masses faibles, moments magnétiques, running électrofaible,
+        coefficients d’ordre supérieur et largeur du top. Le point important
+        n’est pas seulement la valeur numérique, mais l’absence de bouton
+        d’ajustement une fois la chaîne PT fixée.
+      </p>
+      <div class="grid md:grid-cols-2 gap-4">
+        {radiativePredictions.map((item) => (
+          <article class="pt-card">
+            <div class="flex items-start justify-between gap-3 mb-3">
+              <span class={`pt-tag ${statusClass(item.type)}`}>{item.id}</span>
+              <span class="text-xs font-sans text-slate-500">{item.type}</span>
+            </div>
+            <h3 class="font-sans font-semibold text-thmblue mb-2">{item.claim}</h3>
+            <p class="text-sm text-slate-700">Test : {item.test}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="mt-12">
+      <h2 class="text-3xl font-bold text-thmblue mb-4">Running de αs</h2>
+      <p class="text-slate-700 leading-relaxed max-w-4xl mb-5">
+        La monographie compte le running de αs comme une surface testable
+        supplémentaire : la valeur au point Z est dérivée, puis le flot prédit
+        les autres échelles. Sous mb, le texte distingue explicitement la
+        formule perturbative 2‑boucles et la formule PT exacte non
+        perturbative.
+      </p>
+      <div class="overflow-x-auto rounded-lg border border-slate-200 bg-white">
+        <table class="w-full text-sm">
+          <thead>
+            <tr>
+              <th>Échelle</th>
+              <th>PT</th>
+              <th>Référence</th>
+              <th>Lecture</th>
+            </tr>
+          </thead>
+          <tbody>
+            {alphaScales.map((item) => (
+              <tr>
+                <td class="font-sans font-semibold text-thmblue">{item.scale}</td>
+                <td>{item.pt}</td>
+                <td>{item.ref}</td>
+                <td>{item.note}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="mt-12">
+      <h2 class="text-3xl font-bold text-thmblue mb-4">Extensions proches et signaux émergents</h2>
+      <p class="text-slate-700 leading-relaxed max-w-4xl mb-5">
+        Ces entrées sont importantes pour le programme de recherche, mais elles
+        ne doivent pas toutes être lues comme équivalentes aux 28 items Tier‑1.
+        Certaines appartiennent à des sous‑secteurs déjà formalisés, d’autres
+        sont des signaux émergents à verrouiller expérimentalement.
+      </p>
+      <div class="grid md:grid-cols-2 gap-4">
+        {nearTerm.map((item) => (
+          <article class="pt-card">
+            <div class="flex items-start justify-between gap-3 mb-3">
+              <span class={`pt-tag ${statusClass(item.type)}`}>{item.type}</span>
+              <span class="text-xs font-sans text-slate-500">{item.id}</span>
+            </div>
+            <h3 class="font-sans font-semibold text-thmblue mb-2">{item.claim}</h3>
+            <p class="text-sm text-slate-700">Fenêtre : {item.test}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="mt-12 bg-white border border-slate-200 rounded-lg p-6">
+      <h2 class="text-2xl font-bold text-thmblue mb-3">Ce qui n’est pas encore Tier‑1</h2>
+      <p class="text-slate-700 leading-relaxed">
+        Le secteur cosmologique tardif, historiquement étiqueté P20, reste
+        traité comme programme ouvert. Il produit des estimateurs testables
+        pour w0, wa et les tensions DESI/Euclid/CMB‑S4, mais la monographie ne
+        le compte pas parmi les 28 prédictions Tier‑1. C’est une force de la
+        présentation actuelle : elle sépare ce qui est verrouillé, ce qui est
+        très motivé, et ce qui doit encore passer l’épreuve observationnelle.
+      </p>
+    </section>
+  </section>
+</BaseLayout>

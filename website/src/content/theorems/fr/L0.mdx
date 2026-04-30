@@ -1,0 +1,150 @@
+---
+id: L0
+name: 'L0 — Distribution géométrique unique'
+short: 'L’unique distribution sans-mémoire d’entropie maximale sur les écarts pairs.'
+statement: 'Toute distribution sur $\{2,4,6,\ldots\}$ qui est sans-mémoire, d’espérance fixée, et d’entropie maximale est nécessairement géométrique : $P(X=2k) = (1-q)q^{k-1}$ avec $q = 1 - 2/\mu$.'
+status: THM
+monograph_chapter: chap:conservation
+order: 2
+lang: fr
+---
+
+import Tag from '@components/Tag.astro';
+
+## Énoncé
+
+Soit $X$ une variable aléatoire à valeurs dans les écarts pairs $\{2, 4, 6, \ldots\}$
+satisfaisant :
+
+- **(a)** absence de mémoire : $P(X > a + b \mid X > a) = P(X > b)$,
+- **(b)** espérance fixée : $\mathbb{E}[X] = \mu$,
+- **(c)** entropie maximale (Shannon) parmi les distributions vérifiant (a) et (b).
+
+Alors $X$ suit nécessairement une **loi géométrique** :
+
+$$
+\boxed{P(X = 2k) = (1 - q)\, q^{k-1}, \qquad q = 1 - 2/\mu, \qquad k \geq 1.}
+$$
+
+<Tag level="THM" />
+
+<div data-max-depth="L1" className="bg-amber-50 border-l-4 border-amber-300 px-4 py-3 my-6">
+**Lecture vulgarisée.** Si on cherche la « plus simple » loi de probabilité pour décrire
+les écarts entre nombres premiers — celle qui n’invente aucune structure cachée —, on
+n’a aucun choix : c’est la loi géométrique. Comme tirer à pile ou face pour décider
+quand le prochain premier arrive, sauf que le biais de la pièce est fixé par
+l’espérance moyenne $\mu$.
+</div>
+
+## Pourquoi ça compte
+
+L0 est le **deuxième maillon** de la chaîne (après T0). Une fois que T0 a
+identifié $\{g_n\}$ comme champ dynamique, L0 fixe sa loi statistique sans
+aucun choix arbitraire. C’est ce qui rend la PT **sans paramètre libre** :
+aucune distribution alternative ne peut être insérée à la place de la loi
+géométrique sans violer une des trois conditions (a)(b)(c).
+
+Conséquence directe : tout ce qui suit (T1, T2, T6, etc.) hérite de la
+paramétrisation $q = 1 - 2/\mu$, et $q$ devient l’unique variable libre du
+système — fixée elle-même au point fixe par T5.
+
+## Démonstration — schéma
+
+1. **Reformuler** : « sans mémoire » sur $\mathbb{N}$ implique que $\log P(X = 2k)$
+   est affine en $k$.
+2. **Multiplicateurs de Lagrange** : entropie max sous $\mathbb{E}[X] = \mu$ donne
+   une famille exponentielle.
+3. **Identifier** la loi : géométrique de paramètre $q$.
+4. **Calculer** $q$ depuis $\mu$ : la relation $\mu = 2/(1-q)$ inverse à $q = 1 - 2/\mu$.
+
+<div data-min-depth="L3" className="bg-stone-50 border border-stone-300 rounded-lg p-4 my-8">
+
+### Démonstration détaillée (mode L3)
+
+#### Étape 1 — Conséquence de l’absence de mémoire
+
+L’absence de mémoire $P(X > a + b \mid X > a) = P(X > b)$ implique, sur le
+support discret $\{2, 4, 6, \ldots\}$ :
+
+$$
+P(X > 2(k+1)) = P(X > 2) \cdot P(X > 2k).
+$$
+
+Par récurrence : $P(X > 2k) = q^k$ avec $q = P(X > 2) \in (0, 1)$. Et donc :
+
+$$
+P(X = 2k) = P(X > 2(k-1)) - P(X > 2k) = q^{k-1}(1 - q).
+$$
+
+C’est déjà la forme géométrique. L’unicité parmi les lois sans mémoire est
+immédiate.
+
+#### Étape 2 — Maximisation d’entropie
+
+Sans la condition (a), la classe des distributions sur $\{2, 4, 6, \ldots\}$
+satisfaisant $\sum_{k} 2k \cdot p_k = \mu$ et $\sum_k p_k = 1$ est plus large.
+Par multiplicateurs de Lagrange :
+
+$$
+\mathcal{L} = -\sum_k p_k \log p_k - \alpha\!\left(\sum_k 2k\, p_k - \mu\right) - \beta\!\left(\sum_k p_k - 1\right).
+$$
+
+La condition $\partial \mathcal{L} / \partial p_k = 0$ donne
+$\log p_k = -1 - 2 \alpha k - \beta$, donc $p_k \propto e^{-2 \alpha k}$.
+On retrouve une famille géométrique avec $q = e^{-2\alpha}$.
+
+L’unicité de l’argmax (entropie strictement concave) garantit qu’il n’y a
+qu’une seule solution dans cette famille à $\mu$ fixé.
+
+#### Étape 3 — Conjonction (a) + (c)
+
+L’étape 1 montre : (a) seul ⇒ géométrique.
+L’étape 2 montre : (b) + (c) seuls ⇒ géométrique.
+
+Le théorème L0 affirme : (a) ∧ (b) ∧ (c) déterminent **la même** distribution
+géométrique avec une cohérence forcée : la valeur de $q$ est fixée à la fois
+par (a) (paramètre libre du modèle exponentiel) et par (b) (relation à $\mu$).
+La compatibilité entre les deux est garantie par la propriété
+$\mathbb{E}[X] = \frac{2}{1 - q}$ pour $X$ géométrique sur les pairs.
+
+#### Étape 4 — Calcul de $q$
+
+Pour $X$ géométrique sur $\{2, 4, 6, \ldots\}$ avec paramètre $q$ :
+
+$$
+\mathbb{E}[X] = \sum_{k \geq 1} 2k \cdot (1 - q) q^{k-1}
+= 2(1 - q) \cdot \frac{1}{(1 - q)^2}
+= \frac{2}{1 - q}.
+$$
+
+L’imposition $\mathbb{E}[X] = \mu$ inverse à :
+
+$$
+q = 1 - \frac{2}{\mu}.
+$$
+
+C’est la branche $q_+$ de la PT. La branche $q_- = e^{-1/\mu}$ apparaît dans
+la version **continue** (limite haute énergie) et donne la géométrie / quarks
+plutôt que les couplages / leptons.
+
+#### Pourquoi pas une autre loi ?
+
+Les seules autres distributions sur $\mathbb{N}$ avec entropie maximale à
+moyenne fixée sont :
+- la loi exponentielle (sur $\mathbb{R}_+$) — exclue car $\{g_n\}$ est discret,
+- la loi de Poisson — exclue car elle ne satisfait pas l’absence de mémoire
+  (a) sur les pairs.
+
+La géométrique est l’unique candidat sur $\{2, 4, 6, \ldots\}$ qui satisfait
+les trois conditions simultanément.
+
+Pour la dérivation complète, voir [chapitre 3 de la monographie](/monograph)
+(L0 démontré dans la section « Maximum entropy under mean constraint »).
+</div>
+
+## Voir aussi
+
+- [T0 — Clôture BA0](/theorems/T0) — fixe le champ dynamique $\{g_n\}$
+- [T6 — Holonomie](/theorems/T6) — utilise $q$ pour calculer $\delta_p$ et $\sin^2\theta_p$
+- [Calculatrice 2 — sin²(θ_p)](/calculator) — joue avec les deux branches $q_+ / q_-$
+- [Tous les théorèmes](/theorems)

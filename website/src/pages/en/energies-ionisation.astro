@@ -1,0 +1,329 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { readFileSync } from 'node:fs';
+import { ionizationHighlights, ionizationMetrics, ionizationRows, periodStarts } from '@/data/ionization';
+
+const blockColor: Record<string, string> = {
+  s: '#1f4e79',
+  p: '#2b7a3d',
+  d: '#df7b16',
+  f: '#6f5aa8',
+};
+
+const chart = { left: 48, right: 970, top: 26, bottom: 284, maxY: 25 };
+const residualChart = { left: 48, right: 970, top: 34, mid: 78, bottom: 122, maxAbs: 5 };
+const x = (z: number) => chart.left + ((z - 1) / 117) * (chart.right - chart.left);
+const y = (value: number) => chart.bottom - (value / chart.maxY) * (chart.bottom - chart.top);
+const xr = (z: number) => residualChart.left + ((z - 1) / 117) * (residualChart.right - residualChart.left);
+const yr = (err: number) => residualChart.mid - (err / residualChart.maxAbs) * (residualChart.mid - residualChart.top);
+const pathFor = (key: 'ref' | 'pt') =>
+  ionizationRows.map((row, index) => `${index === 0 ? 'M' : 'L'} ${x(row.z).toFixed(1)} ${y(row[key]).toFixed(1)}`).join(' ');
+const residualPath = ionizationRows
+  .map((row, index) => `${index === 0 ? 'M' : 'L'} ${xr(row.z).toFixed(1)} ${yr(row.err).toFixed(1)}`)
+  .join(' ');
+const experimentalUncertainty = {
+  displayEV: 0.0005,
+  relativeLow: 0.010,
+  relativeHigh: 0.002,
+  ptMAEmeV: 2.9,
+};
+
+const highlightedRows = ionizationRows.filter((row) => ionizationHighlights.includes(row.z));
+const sourcePath = 'public/scripts-source/ptc/ie_geo.py';
+const proofPath = 'public/scripts-source/ptc/PT_IE_SUPERHEAVY_JJ2_DERIVATION.md';
+const cprProofPath = 'public/scripts-source/ptc/PT_IE_CONTRACTION_PENETRATION_RESONANCE.md';
+const cprContinuumProofPath = 'public/scripts-source/ptc/PT_IE_CPR_CONTINUUM.md';
+const source = readFileSync(new URL('../../../public/scripts-source/ptc/ie_geo.py', import.meta.url), 'utf-8');
+const sourceLineCount = source.trimEnd().split('\n').length;
+
+const pipeline = [
+  {
+    tag: 'Ry',
+    title: 'Scale',
+    text: 'The Rydberg is not injected as a free constant: it descends from $m_e$, $\\alpha_{EM}$, and the PT cascade.',
+    formula: '$Ry = m_e\\alpha_{EM}^2/2$',
+  },
+  {
+    tag: 'S(Z)',
+    title: 'Screening',
+    text: 'The bare nuclear charge is reduced by a screening action built from shells, polygons, and PT corrections.',
+    formula: '$Z_{eff}=Ze^{-S(Z)}$',
+  },
+  {
+    tag: 'IE',
+    title: 'Ionization',
+    text: 'The removal energy then follows a Rydberg-like law, modulated by the period and by the ejection amplitude of the active channel.',
+    formula: '$IE=Ry\\,(Z_{eff}/per)^2\\,A_{ej}$',
+  },
+  {
+    tag: 'CPR-cont',
+    title: 'Resonance',
+    text: 'The continuous branch adds a $(Z\\alpha)^2$ envelope projected by the s/p/d/f geometric vertices; the threshold branch remains active for superheavy elements.',
+    formula: '$\\Delta S=\\Delta S_{jj2}+\\Delta S_{CPR}+\\Delta S_{cont}$',
+  },
+];
+
+const checks = [
+  ['H', '13.598 eV', 'hydrogenic Rydberg baseline'],
+  ['He > H', '24.593 eV', 'closure of the first shell'],
+  ['N > O', '14.533 > 13.619', 'half-filled p³ stability'],
+  ['Ne > F', '21.564 > 17.421', 'period closure'],
+  ['Cr/Cu', 'd⁵ / d¹⁰', 'informational promotions of the d pentagon'],
+];
+---
+
+<BaseLayout
+  title="Ionization energies derived by PT"
+  description="PT-Chemistry demonstration page: from the periodic table skeleton to first ionization energies, with a PT vs reference plot and reproducible script."
+>
+  <section class="border-b border-stone-200 bg-white">
+    <div class="max-w-6xl mx-auto px-4 py-12 md:py-16">
+      <div class="grid gap-8">
+        <div class="max-w-3xl">
+          <p class="font-sans text-sm font-semibold uppercase tracking-wider text-derorange mb-3">
+            PT chemistry / quantitative validation
+          </p>
+          <h1 class="text-4xl md:text-5xl font-bold text-thmblue leading-tight mb-5">
+            Ionization energies derived by PT
+          </h1>
+          <p class="text-lg text-stone-700 leading-relaxed mb-5">
+            The periodic table gives the skeleton. Ionization energy tests
+            whether that skeleton can produce measurable numbers: how much
+            energy does it take to remove the first electron from an atom?
+          </p>
+          <p class="text-stone-700 leading-relaxed">
+            This page shows two levels: the geometric engine, readable and
+            directly tied to shell polygons, then the full atomic engine adding
+            PT screening and relaxation corrections, including the jj2 spinor
+            correction, superheavy CPR, and the continuous CPR branch projected
+            on the s/p/d/f channels.
+          </p>
+        </div>
+
+        <div class="bg-stone-50 border border-stone-200 rounded-lg p-4">
+          <div class="flex items-center justify-between gap-4 mb-3">
+            <h2 class="font-sans font-semibold text-thmblue">
+              PT vs references, Z = 1–118
+            </h2>
+            <div class="flex gap-3 text-xs font-sans">
+              <span class="flex items-center gap-1"><span class="w-4 h-0.5 bg-thmblue inline-block"></span>PT</span>
+              <span class="flex items-center gap-1"><span class="w-4 h-1 bg-derorange/60 inline-block"></span>ref.</span>
+              <span class="flex items-center gap-1"><span class="w-4 h-0.5 bg-red-600 inline-block"></span>error</span>
+            </div>
+          </div>
+          <svg viewBox="0 0 1000 480" class="w-full h-auto" role="img" aria-label="PT and reference ionization energy curves">
+            <rect x="0" y="0" width="1000" height="330" fill="white" rx="8" />
+            {[0, 5, 10, 15, 20, 25].map((tick) => (
+              <>
+                <line x1={chart.left} x2={chart.right} y1={y(tick)} y2={y(tick)} stroke="#e7e5e4" stroke-width="1" />
+                <text x="14" y={y(tick) + 4} font-size="11" fill="#78716c" font-family="ui-sans-serif, system-ui">{tick}</text>
+              </>
+            ))}
+            {periodStarts.map((z0) => (
+              <line x1={x(z0)} x2={x(z0)} y1={chart.top} y2={chart.bottom} stroke="#f5f5f4" stroke-width="2" />
+            ))}
+            <path d={pathFor('ref')} fill="none" stroke="#df7b16" stroke-opacity="0.52" stroke-width="7" stroke-linejoin="round" stroke-linecap="round" />
+            <path d={pathFor('pt')} fill="none" stroke="#1f4e79" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round" />
+            {ionizationRows.filter((row) => [1, 2, 10, 18, 36, 54, 86, 118].includes(row.z)).map((row) => (
+              <g>
+                <circle cx={x(row.z)} cy={y(row.pt)} r="3.2" fill={blockColor[row.b]} stroke="white" stroke-width="1" />
+                <text x={x(row.z) + 5} y={y(row.pt) - 6} font-size="11" fill="#292524" font-family="ui-sans-serif, system-ui">{row.s}</text>
+              </g>
+            ))}
+            <line x1={chart.left} x2={chart.right} y1={chart.bottom} y2={chart.bottom} stroke="#a8a29e" />
+            <text x="460" y="318" text-anchor="middle" font-size="12" fill="#57534e" font-family="ui-sans-serif, system-ui">atomic number Z</text>
+            <text x="22" y="24" font-size="12" fill="#57534e" font-family="ui-sans-serif, system-ui">eV</text>
+
+            <g transform="translate(0,340)">
+              <rect x="0" y="0" width="1000" height="132" fill="white" rx="8" />
+              <text x="48" y="18" font-size="12" fill="#1f4e79" font-weight="700" font-family="ui-sans-serif, system-ui">residual PT - reference (%)</text>
+              {[-5, 0, 5].map((tick) => (
+                <>
+                  <line x1={residualChart.left} x2={residualChart.right} y1={yr(tick)} y2={yr(tick)} stroke={tick === 0 ? '#a8a29e' : '#e7e5e4'} stroke-width={tick === 0 ? '1.4' : '1'} />
+                  <text x="18" y={yr(tick) + 4} font-size="11" fill="#78716c" font-family="ui-sans-serif, system-ui">{tick > 0 ? '+' : ''}{tick}</text>
+                </>
+              ))}
+              {periodStarts.map((z0) => (
+                <line x1={xr(z0)} x2={xr(z0)} y1={residualChart.top} y2={residualChart.bottom} stroke="#f5f5f4" stroke-width="2" />
+              ))}
+              <path d={residualPath} fill="none" stroke="#dc2626" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" />
+              {ionizationRows.filter((row) => Math.abs(row.err) > 0.5).map((row) => (
+                <g>
+                  <circle cx={xr(row.z)} cy={yr(row.err)} r="3" fill="#dc2626" />
+                  <text x={xr(row.z) + 5} y={yr(row.err) - 5} font-size="10" fill="#57534e" font-family="ui-sans-serif, system-ui">{row.s}</text>
+                </g>
+              ))}
+            </g>
+          </svg>
+          <div class="mt-4 grid md:grid-cols-3 gap-3 text-sm font-sans">
+            <div class="rounded-md border border-slate-200 bg-white p-3">
+              <div class="text-xs font-semibold uppercase tracking-wide text-slate-500">Displayed uncertainty</div>
+              <div class="mt-1 font-mono text-slate-900">±{experimentalUncertainty.displayEV.toFixed(4)} eV</div>
+              <p class="mt-1 text-slate-600">
+                The plotted references are rounded to the millielectronvolt.
+              </p>
+            </div>
+            <div class="rounded-md border border-slate-200 bg-white p-3">
+              <div class="text-xs font-semibold uppercase tracking-wide text-slate-500">Relative scale</div>
+              <div class="mt-1 font-mono text-slate-900">
+                ≈ {experimentalUncertainty.relativeHigh.toFixed(3)}–{experimentalUncertainty.relativeLow.toFixed(3)}%
+              </div>
+              <p class="mt-1 text-slate-600">
+                Order of magnitude from rounding alone, from 25 eV to 5 eV.
+              </p>
+            </div>
+            <div class="rounded-md border border-slate-200 bg-white p-3">
+              <div class="text-xs font-semibold uppercase tracking-wide text-slate-500">Residual reading</div>
+              <div class="mt-1 font-mono text-slate-900">PT MAE ≈ {experimentalUncertainty.ptMAEmeV.toFixed(1)} meV</div>
+              <p class="mt-1 text-slate-600">
+                Error bars would be sub-pixel here; superheavy references remain compiled/evaluated values.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="max-w-6xl mx-auto px-4 py-12">
+    <div class="grid md:grid-cols-5 gap-4 mb-10">
+      <div class="pt-card">
+        <div class="text-xs font-sans text-stone-500 uppercase tracking-wider mb-2">Full engine</div>
+        <div class="text-3xl font-bold text-thmblue">{ionizationMetrics.complete.mae86.toFixed(3)}%</div>
+        <p class="text-sm text-stone-700 mt-2">MAE for Z = 1–86, NIST references.</p>
+      </div>
+      <div class="pt-card">
+        <div class="text-xs font-sans text-stone-500 uppercase tracking-wider mb-2">Full engine</div>
+        <div class="text-3xl font-bold text-thmblue">{ionizationMetrics.complete.mae103.toFixed(3)}%</div>
+        <p class="text-sm text-stone-700 mt-2">MAE for Z = 1–103, measured references.</p>
+      </div>
+      <div class="pt-card">
+        <div class="text-xs font-sans text-stone-500 uppercase tracking-wider mb-2">Full engine</div>
+        <div class="text-3xl font-bold text-thmblue">{ionizationMetrics.complete.mae118.toFixed(3)}%</div>
+        <p class="text-sm text-stone-700 mt-2">Global MAE for Z = 1–118 after CPR-continuum.</p>
+      </div>
+      <div class="pt-card">
+        <div class="text-xs font-sans text-stone-500 uppercase tracking-wider mb-2">Superheavy</div>
+        <div class="text-3xl font-bold text-thmblue">{ionizationMetrics.superheavy.maePercent.toFixed(3)}%</div>
+        <p class="text-sm text-stone-700 mt-2">MAE for Z = 104–118, threshold branch jj2 + CPR.</p>
+      </div>
+      <div class="pt-card">
+        <div class="text-xs font-sans text-stone-500 uppercase tracking-wider mb-2">Fitted parameters</div>
+        <div class="text-3xl font-bold text-thmblue">0</div>
+        <p class="text-sm text-stone-700 mt-2">Calibration comes from the PT chain, not from a chemistry fit.</p>
+      </div>
+    </div>
+
+    <div class="grid lg:grid-cols-[0.9fr_1.1fr] gap-8 items-start mb-12">
+      <div>
+        <h2 class="text-3xl font-bold text-thmblue mb-4">
+          From shell structure to measured value
+        </h2>
+        <p class="text-stone-700 leading-relaxed mb-4">
+          Ionization energy is not just nuclear charge. It depends on the outer
+          shell, inner-electron screening, period closures, half-fillings, and
+          fine corrections moving the d and f blocks.
+        </p>
+        <p class="text-stone-700 leading-relaxed">
+          In PT, these contributions assemble into a screening action $S(Z)$.
+          The nucleus attracts as $Z$, but the external electron sees an
+          effective charge {'$Z_{eff}$'} projected by period geometry.
+        </p>
+      </div>
+
+      <div class="grid gap-3">
+        {pipeline.map((step) => (
+          <div class="bg-white border border-stone-200 rounded-lg p-4">
+            <div class="flex items-start gap-4">
+              <span class="pt-tag pt-tag-der shrink-0">{step.tag}</span>
+              <div>
+                <h3 class="font-sans font-semibold text-thmblue">{step.title}</h3>
+                <p class="text-sm text-stone-700 mt-1">{step.text}</p>
+                <p class="font-mono text-sm text-stone-800 bg-stone-50 border border-stone-200 rounded px-3 py-2 mt-3">{step.formula}</p>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <div class="bg-white border border-stone-200 rounded-lg overflow-hidden mb-12">
+      <div class="px-4 py-3 border-b border-stone-200 flex items-center justify-between gap-4">
+        <h2 class="font-sans font-semibold text-thmblue">
+          Checkpoints a chemist recognizes
+        </h2>
+        <span class="text-xs font-sans text-stone-500">full engine `IE_eV`</span>
+      </div>
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm">
+          <thead class="bg-stone-50 text-stone-600 font-sans">
+            <tr>
+              <th class="text-left p-3">Z</th>
+              <th class="text-left p-3">Element</th>
+              <th class="text-left p-3">Block</th>
+              <th class="text-right p-3">Ref. eV</th>
+              <th class="text-right p-3">PT eV</th>
+              <th class="text-right p-3">Error</th>
+            </tr>
+          </thead>
+          <tbody>
+            {highlightedRows.map((row) => (
+              <tr class="border-t border-stone-100">
+                <td class="p-3 font-mono">{row.z}</td>
+                <td class="p-3 font-sans font-semibold text-thmblue">{row.s}</td>
+                <td class="p-3"><span class="px-2 py-0.5 rounded text-white text-xs font-sans" style={`background:${blockColor[row.b]}`}>{row.b}</span></td>
+                <td class="p-3 text-right font-mono">{row.ref.toFixed(3)}</td>
+                <td class="p-3 text-right font-mono">{row.pt.toFixed(3)}</td>
+                <td class="p-3 text-right font-mono">{row.err > 0 ? '+' : ''}{row.err.toFixed(3)}%</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="grid lg:grid-cols-[1fr_1fr] gap-8 mb-12">
+      <div>
+        <h2 class="text-3xl font-bold text-thmblue mb-4">
+          What the curve has to get right
+        </h2>
+        <p class="text-stone-700 leading-relaxed mb-4">
+          An ionization curve is full of discontinuities. Alkali metals drop,
+          noble gases rise, half-fillings create bumps, and d/f transitions do
+          not behave like a simple $Z^2$ law.
+        </p>
+        <p class="text-stone-700 leading-relaxed">
+          That is why this test matters: PT must follow the chemical shape, not
+          merely reproduce an average.
+        </p>
+      </div>
+      <div class="grid gap-3">
+        {checks.map(([name, value, detail]) => (
+          <div class="flex items-center justify-between gap-4 border border-stone-200 rounded-lg bg-white p-4">
+            <div>
+              <div class="font-sans font-semibold text-thmblue">{name}</div>
+              <div class="text-sm text-stone-600">{detail}</div>
+            </div>
+            <div class="font-mono text-sm text-stone-800 text-right">{value}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <div data-min-depth="L3" class="bg-stone-900 text-stone-100 rounded-lg overflow-hidden">
+      <div class="px-4 py-3 border-b border-stone-700 flex items-center justify-between gap-4">
+        <div>
+          <h2 class="font-sans font-semibold">Attached script: {sourcePath}</h2>
+          <p class="text-xs text-stone-400">{sourceLineCount} lines, copied from the geometric PTC engine `ie_geo.py`. Attached proofs: {proofPath}; {cprProofPath}; {cprContinuumProofPath}.</p>
+        </div>
+        <div class="flex gap-3">
+          <a href="/scripts-source/ptc/ie_geo.py" class="text-sm font-sans text-amber-200 hover:underline">open script</a>
+          <a href="/scripts-source/ptc/PT_IE_SUPERHEAVY_JJ2_DERIVATION.md" class="text-sm font-sans text-amber-200 hover:underline">jj2 proof</a>
+          <a href="/scripts-source/ptc/PT_IE_CONTRACTION_PENETRATION_RESONANCE.md" class="text-sm font-sans text-amber-200 hover:underline">CPR proof</a>
+          <a href="/scripts-source/ptc/PT_IE_CPR_CONTINUUM.md" class="text-sm font-sans text-amber-200 hover:underline">CPR-cont proof</a>
+        </div>
+      </div>
+      <pre class="overflow-x-auto text-xs leading-relaxed p-4"><code>{source}</code></pre>
+    </div>
+  </section>
+</BaseLayout>

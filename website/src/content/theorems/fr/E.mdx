@@ -1,0 +1,126 @@
+---
+id: E
+name: 'Lemme E — Reconstruction du couplage'
+short: 'Le couplage de la QFT reconstruite est $g^2 = \prod_{p \in \{3,5,7\}} \sin^2\theta_p(q_+)$ — invariant spectral, pas une identification.'
+statement: 'Soit $(\mathcal{A}, \Omega)$ la $C^*$-algèbre et l’état du vide obtenus par reconstruction d’Osterwalder–Schrader depuis la limite inductive du système de transfert du crible. Alors le couplage de la QFT reconstruite est $g^2 = \prod_{p \in \{3,5,7\}} \sin^2\theta_p(q_+)$, unique valeur compatible avec les axiomes OS et la rigidité spectrale.'
+status: THM
+monograph_chapter: chap:bridge
+order: 15
+tier: secondary
+lang: fr
+---
+
+import Tag from '@components/Tag.astro';
+
+## Énoncé
+
+Soit $(\mathcal{A}, \Omega)$ la $C^*$-algèbre et l’état du vide obtenus par **reconstruction d’Osterwalder–Schrader** depuis la limite inductive du système de transfert du crible $\{(H_{m_K}, T_{m_K}, \Omega_{m_K})\}_{K \geq 1}$.
+
+Alors le couplage de la **théorie quantique des champs reconstruite** est
+
+$$
+\boxed{g^2 = \prod_{p \in \{3, 5, 7\}} \sin^2\theta_p(q_+),}
+$$
+
+et c’est **l’unique valeur** compatible avec (i) les axiomes OS et (ii) la rigidité spectrale du système de transfert.
+
+<Tag level="THM" />
+
+<div data-max-depth="L1" className="bg-amber-50 border-l-4 border-amber-300 px-4 py-3 my-6">
+**Lecture vulgarisée.** Le lemme E est le pont qui dit : « le nombre $\alpha_{\rm EM}$
+n’est pas une identification arbitraire entre crible et physique, c’est une **propriété
+intrinsèque** de la théorie quantique des champs reconstruite à partir du crible ». Pas
+de geste interprétatif — la valeur émerge nécessairement.
+</div>
+
+## Pourquoi ça compte
+
+Le lemme E **élimine l’étape ontologique** de la PT. Sans E, on devrait dire :
+« le crible donne ces nombres, et on **identifie** ces nombres au couplage
+électromagnétique. » Cette identification serait un postulat externe.
+
+Avec E, on dit : « la QFT reconstruite *a* ce couplage. » Ce n’est pas une
+identification, c’est un calcul intrinsèque.
+
+C’est ce qui fait dire à BA5 (Pontryagin) qu’il est devenu un **théorème**
+plutôt qu’un axiome de pont.
+
+## Démonstration — schéma
+
+1. **Reconstruction OS** : depuis $\{T_m\}$, construire la limite inductive
+   $\mathcal{A}$ et le vide $\Omega$.
+2. **Rigidité spectrale** : T1 fixe le motif des zéros, T5 les premiers
+   actifs, T6 les amplitudes.
+3. **Fonction de partition de Ruelle** : $Z_N = \sum_i \lambda_i^N$ est uniquement
+   déterminé.
+4. **Couplage spectral** : le couplage est l’invariant $\prod \sin^2\theta_p$
+   forcé par Pontryagin (BA5) et T6.
+
+<div data-min-depth="L3" className="bg-stone-50 border border-stone-300 rounded-lg p-4 my-8">
+
+### Démonstration détaillée (mode L3)
+
+#### Étape E.1 — Reconstruction OS
+
+Le théorème de la limite inductive (cf. ch. 9 monographie, thm:inductive_limit)
+construit l’algèbre $\mathcal{A}$ et le vide $\Omega$ depuis le système
+$\{(H_{m_K}, T_{m_K}, \Omega_{m_K})\}_{K \geq 1}$ par reconstruction d’Osterwalder–Schrader. Les axiomes OS (réflexion-positivité, invariance euclidienne,
+décroissance des corrélations) sont vérifiés uniformément.
+
+#### Étape E.2 — Rigidité du spectre
+
+Le spectre $\sigma(T_m)$ est **rigide** au sens suivant : il est entièrement
+déterminé par trois théorèmes structurels indépendants :
+- **T1** fixe le motif des zéros de la matrice (transitions interdites mod 3).
+- **T5** fixe les premiers actifs $\{3, 5, 7\}$ par auto-cohérence du point fixe.
+- **T6** fixe les valeurs des sin² par identité algébrique sur chaque facteur.
+
+Aucun degré de liberté résiduel. La fonction de partition de Ruelle :
+
+$$
+Z_N = \mathrm{Tr}(T_m^N) = \sum_i \lambda_i^N
+$$
+
+est entièrement déterminée par ce spectre rigide.
+
+#### Étape E.3 — Couplage comme invariant spectral
+
+Le couplage $g$ de la QFT reconstruite est défini comme la limite à grande
+distance des fonctions de corrélation à 4 points (vertex de Feynman pris à
+l’asymptotique). Par théorèmes OS, ce couplage est un **invariant spectral** —
+il dépend uniquement du spectre $\sigma(T)$, pas de la représentation
+particulière.
+
+#### Étape E.4 — Identification avec le produit
+
+Sur la branche $q_+ = 1 - 2/\mu^*$, T6 donne $\sin^2\theta_p$ pour chaque
+premier actif. Par BA5 (produit Pontryagin), l’invariant spectral pertinent
+est :
+
+$$
+g^2 = \prod_{p \in \{3,5,7\}} \sin^2\theta_p(q_+) = \alpha_{\rm bare}.
+$$
+
+#### Unicité
+
+L’unicité vient de quatre théorèmes externes combinés :
+- **G1** (uniqueness de $D_{\rm KL}$, Shore–Johnson autonome CRT) — ch. 5.
+- **G3** (uniqueness de la métrique de Fisher, Čencov) — ch. 5.
+- **T5** (uniqueness de $\mu^*$) — ch. 8.
+- **T6** (identité d’holonomie) — ch. 6.
+
+Ces quatre unicités déterminent les premiers actifs $\{3, 5, 7\}$, les angles
+$\sin^2\theta_p$, et la branche $q_+$. Par Pontryagin, le couplage est leur
+produit. Aucune autre valeur n’est compatible.
+
+Pour la dérivation complète, voir [chapitre 9 de la monographie](/monograph),
+section *Coupling Reconstruction (Lemma E)*.
+</div>
+
+## Voir aussi
+
+- [BA5 — Produit de Pontryagin](/theorems/BA5) — fournit la forme produit
+- [Lemme F — Reconstruction métrique](/theorems/F) — métrique de Fisher reconstruite
+- [Lemme G — Reconstruction Hilbert](/theorems/G) — espace d’états
+- [Observable 1/α_EM](/observables/1) — application directe
+- [Tous les théorèmes](/theorems)

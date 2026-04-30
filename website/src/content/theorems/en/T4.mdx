@@ -1,0 +1,166 @@
+---
+id: T4
+name: 'T4 — Spectral convergence'
+short: '$\alpha_k \to 1/2$ as the sieve depth $k \to \infty$.'
+statement: 'The mixed-transition fraction $\alpha_k = n_{12}(k)/[n_{12}(k)+n_{21}(k)]$ converges to $s = 1/2$ as $k \to \infty$, by Mertens compactness and spectral monotonicity.'
+status: THM
+monograph_chapter: chap:convergence
+order: 6
+lang: en
+---
+
+import Tag from '@components/Tag.astro';
+
+## Statement
+
+Consider the deep sieve at $k$ stages (eliminating multiples of $p_1, \ldots, p_k$).
+Define the mixed-transition fraction:
+
+$$
+\alpha_k = \frac{n_{12}(k)}{n_{12}(k) + n_{21}(k)},
+$$
+
+where $n_{ij}(k)$ counts transitions from class $i$ to class $j$ among
+survivors at depth $k$. Then:
+
+$$
+\boxed{\lim_{k \to \infty} \alpha_k = s = \frac{1}{2}.}
+$$
+
+The proof rests on three pillars:
+
+1. **Spectral annihilation** $r_2(0) = 0$ — the antisymmetric eigenvector
+   vanishes at site 0 (structural result).
+2. **Mertens compactness** — asymptotic bounds on survivors
+   $\prod (1 - 1/p)$.
+3. **Gordin decomposition** — the sequence $\{\alpha_k\}$ is a quasi-martingale
+   plus a bounded remainder.
+
+<Tag level="THM" />
+
+<div data-max-depth="L1" className="bg-amber-50 border-l-4 border-amber-300 px-4 py-3 my-6">
+**Plain reading.** The deeper we refine the sieve (the more multiples we remove),
+the closer the fraction of "1 → 2" transitions vs. "2 → 1" gets to 50/50. At
+infinite depth, it’s exactly 50/50. That $1/2$ is the **stationary value**
+defining $s$. T4 proves that the sieve "finishes the job": no residual bias
+remains.
+</div>
+
+## Why it matters
+
+T4 is the **bridge** between the finite sieve (at depth $k$) and the ideal
+sieve (at infinite depth). T1, T2, T3 are exact statements about the ideal
+transfer matrix; T4 guarantees that the empirical matrix computed at finite
+depth converges to that ideal matrix.
+
+Without T4, $|\alpha_k - 1/2| > 0$ would persist, meaning a new constant
+(different from $s = 1/2$) would emerge in the limit. PT would then be
+ill-defined. T4 closes this objection.
+
+## Proof — outline
+
+1. **Reduce** the convergence of $\alpha_k$ to convergence of a Markov chain
+   on the transition state.
+2. **Decompose** $\alpha_k$ into quasi-martingale plus bounded remainder
+   (Gordin).
+3. **Bound** the remainder via Mertens compactness.
+4. **Annihilate** the antisymmetric mode at site 0 by the $r_2(0) = 0$ argument.
+5. **Conclude**: only the symmetric mode survives, eigenvalue $\lambda_1 = 1$,
+   uniform stationary distribution — hence $\alpha_\infty = 1/2$.
+
+<div data-min-depth="L3" className="bg-stone-50 border border-stone-300 rounded-lg p-4 my-8">
+
+### Detailed proof (L3 mode)
+
+#### Step 1 — Exact recurrence
+
+At each depth $k$, the deviation $D(k) = \alpha_k - 1/2$ satisfies an exact
+recurrence (Recurrence Theorem, ch. 7):
+
+$$
+D(k + 1) = (p_k - 3) D(k) + \Delta_k,
+$$
+
+where $\Delta_k$ is a remainder depending on correlations between primes
+eliminated at step $k+1$.
+
+This recurrence is verified for $k = 3, \ldots, 11$ by direct computation
+on survivors.
+
+#### Step 2 — Spectral factorisation
+
+The characteristic polynomial of the recurrence operator factors as:
+
+$$
+f(1) = 4 (\alpha - 1/2)^2 (\alpha^2 + (p - 3)\alpha + 1).
+$$
+
+The first factor $(\alpha - 1/2)^2$ has a double zero at $\alpha = 1/2$,
+forcing the asymptotic fixed point. The second factor has complex roots
+for $|p - 3| < 2$ and real roots in $(-1, 0)$ for $|p - 3| > 2$ — in all
+cases, $|R_\text{spec}| < 1$.
+
+#### Step 3 — Spectral bound
+
+The global spectral bound is:
+
+$$
+R_\text{spec} \approx 0.287 \ll 1.
+$$
+
+Strictly less than 1, ensuring geometric convergence of $D(k) \to 0$.
+
+#### Step 4 — Annihilation $r_2(0) = 0$
+
+To rigorously close the convergence, the remainder $\Delta_k$ must not
+contribute to the dominant mode $\lambda_2^2 \approx 0.36$. Here the
+**spectral annihilation** intervenes:
+
+The antisymmetric eigenvector $r_2$ associated with $\lambda_2$ has an
+**exactly zero** value at state 0, hence:
+
+$$
+\langle r_2, \delta_0 \rangle = r_2(0) = 0.
+$$
+
+This result is structural (cf. ch. 7, Spectral Closure Theorem) and
+unconditional on PNT. Consequence: only the mode $\lambda_1^2 \approx 0.012$
+survives in correlations starting from state 0, and convergence is
+**exponential** with strongly damped exponent.
+
+#### Step 5 — Gordin decomposition
+
+The sequence $\alpha_k$ writes:
+
+$$
+\alpha_k = M_k + R_k,
+$$
+
+with $M_k$ a martingale relative to the survivor filtration, and $R_k$ a
+remainder bounded by Mertens compactness:
+
+$$
+|R_k| \leq C \cdot \prod_{i \leq k} \left(1 - \frac{1}{p_i}\right) \to 0.
+$$
+
+By the martingale convergence theorem and $R_k \to 0$, $\alpha_k$ converges
+a.s. to a limit. Identification of that limit with $1/2$ is forced by steps 1–4.
+
+#### Consequence: closing the hierarchy problem
+
+The result $r_2(0) = 0$ has an unexpected consequence: it **closes the PT
+hierarchy problem**. The mode $\lambda_2^2 \approx 0.36$ would have
+contributed a hierarchical phase shift between scales; its annihilation at
+site 0 ensures no new scale spontaneously emerges. This is what allows T5
+to fix a unique fixed point $\mu^* = 15$ without hierarchical corrections.
+
+For the complete derivation and auxiliary proofs (recurrence, factorisation,
+spectral bound, annihilation), see [chapter 7 of the monograph](/en/monograph).
+</div>
+
+## See also
+
+- [T1 — Forbidden mod-3 transitions](/en/theorems/T1) — basis of the transfer matrix
+- [T2 — Spectral conservation](/en/theorems/T2) — finite version of T4
+- [T5 — Fixed point](/en/theorems/T5) — uses T4 convergence to fix $\mu^*$
+- [All theorems](/en/theorems)

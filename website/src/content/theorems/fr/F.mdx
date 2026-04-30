@@ -1,0 +1,130 @@
+---
+id: F
+name: 'Lemme F — Reconstruction métrique'
+short: 'La métrique de l’espace-temps de la QFT reconstruite est la métrique de Fisher du crible évaluée à $\mu^* = 15$.'
+statement: 'La métrique de l’espace-temps de la QFT reconstruite par Osterwalder–Schrader est la métrique d’information de Fisher $g^F_{ab}$ du système de transfert du crible, évaluée au point fixe $\mu^* = 15$.'
+status: THM
+monograph_chapter: chap:bridge
+order: 16
+tier: secondary
+lang: fr
+---
+
+import Tag from '@components/Tag.astro';
+
+## Énoncé
+
+La **métrique de l’espace-temps** de la théorie quantique des champs reconstruite (par Osterwalder–Schrader, cf. Lemme E) est la **métrique d’information de Fisher** $g^F_{ab}$ du système de transfert du crible, évaluée au point fixe $\mu^* = 15$.
+
+$$
+\boxed{g_{\rm spacetime} = g^F_{\rm sieve}\big|_{\mu^* = 15}.}
+$$
+
+<Tag level="THM" />
+
+<div data-max-depth="L1" className="bg-amber-50 border-l-4 border-amber-300 px-4 py-3 my-6">
+**Lecture vulgarisée.** L’espace-temps lui-même n’est pas postulé en PT. Il
+**émerge** de la géométrie statistique du crible. Plus précisément : la métrique
+de Fisher (qui mesure la « distance » entre distributions de probabilité) coïncide,
+au point fixe, avec la métrique riemannienne de l’espace-temps reconstruit.
+</div>
+
+## Pourquoi ça compte
+
+Le lemme F est le pont qui fait passer de **l’arithmétique** à la **gravité**.
+La cascade T0 → T6 + T5 + Lemme E donne le couplage $\alpha_{\rm EM}$ (interaction
+électromagnétique). Le lemme F donne la **structure de l’espace** lui-même.
+
+C’est ce qui justifie l’identité dérivée
+$G_{\rm SCU} / \alpha_{\rm EM} = 2\pi$ (observable #42) : la gravité n’est pas
+une force fondamentale séparée, c’est l’enveloppe géométrique de la même cascade.
+
+## Démonstration — schéma
+
+1. **Étape F.1** : la métrique de Fisher = Hessienne de la fonction de
+   log-partition.
+2. **Étape F.2** : la fonction de partition est un invariant spectral
+   (par Lemme E.2, rigidité du spectre).
+3. **Étape F.3** : la métrique se décompose additivement sur les facteurs CRT.
+4. **Étape F.4** : Čencov (G3) donne l’**unicité** de la métrique
+   sur la simplexe de probabilité.
+5. **Conclusion** : l’identité métrique espace-temps ↔ Fisher est forcée.
+
+<div data-min-depth="L3" className="bg-stone-50 border border-stone-300 rounded-lg p-4 my-8">
+
+### Démonstration détaillée (mode L3)
+
+#### Étape F.1 — Fisher = Hessienne de la log-partition
+
+Pour une famille exponentielle $p(x; \theta) = e^{\theta \cdot T(x) - A(\theta)}$,
+la métrique de Fisher est :
+
+$$
+g^F_{ab}(\theta) = \frac{\partial^2 A(\theta)}{\partial \theta^a \, \partial \theta^b},
+$$
+
+où $A(\theta)$ est la log-partition. C’est un résultat standard de géométrie
+de l’information.
+
+Pour le système de transfert du crible, $A = \ln Z$ avec
+$Z = \mathrm{Tr}(T^N)$ la fonction de partition de Ruelle, et
+$\theta = \mu$ le paramètre d’échelle.
+
+#### Étape F.2 — La log-partition est un invariant spectral
+
+Par l’étape E.2 du Lemme E, le spectre de $\{T_m\}$ est rigide :
+- T1 fixe le motif des zéros,
+- T5 fixe les premiers actifs,
+- T6 fixe les sin² eux-mêmes.
+
+Donc $Z_N = \sum_i \lambda_i^N$ et sa Hessienne sont entièrement déterminés
+sans paramètre libre.
+
+#### Étape F.3 — Séparabilité CRT
+
+La métrique de Fisher se décompose additivement sur les facteurs CRT :
+
+$$
+g_{00} = \sum_p g_{00}^{(p)},
+$$
+
+parce que $T_m = \bigotimes_p T_p$ implique $\ln Z = \sum_p \ln Z_p$, et la
+Hessienne d’une somme est la somme des Hessiennes.
+
+Cela permet de calculer la métrique facteur par facteur : trois contributions
+indépendantes pour les trois primaires actifs $\{3, 5, 7\}$.
+
+#### Étape F.4 — Unicité de Čencov (G3)
+
+Le théorème de Čencov garantit que $F_{\mu\mu}$ est l’**unique métrique
+riemannienne monotone** sur la simplexe de probabilité (à constante près).
+« Monotone » signifie qu’elle décroît sous les morphismes markoviens — c’est
+l’axiome d’invariance par projection.
+
+L’invariance physique de l’espace-temps sous les transformations qui ne
+créent pas d’information impose la même condition. Donc la métrique de
+l’espace-temps est forcément la métrique de Čencov-Fisher.
+
+#### Étape F.5 — Décomposition Bianchi I
+
+La métrique reconstruite a la structure de Bianchi I (anisotrope, trois axes
+indépendants), conséquence directe de la décomposition CRT en trois facteurs :
+
+$$
+ds^2 = -dt^2 + a_3(t)^2 dx_3^2 + a_5(t)^2 dx_5^2 + a_7(t)^2 dx_7^2,
+$$
+
+où chaque facteur $a_p(t)$ est piloté par $\gamma_p$. C’est la signature
+géométrique de la PT (cf. essai [Pourquoi 3 dimensions ?](/essays/why-3-dimensions)).
+
+Pour la dérivation complète, voir [chapitre 9 de la monographie](/monograph),
+section *Metric Reconstruction (Lemma F)*.
+</div>
+
+## Voir aussi
+
+- [Lemme E — Reconstruction du couplage](/theorems/E) — pendant pour $\alpha_{\rm EM}$
+- [Lemme G — Reconstruction Hilbert](/theorems/G) — pendant pour l’espace d’états
+- [Observable G_SCU/α_EM = 2π](/observables/42) — application directe
+- [Essai — Pourquoi 3 dimensions ?](/essays/why-3-dimensions)
+- [Tous les théorèmes](/theorems)

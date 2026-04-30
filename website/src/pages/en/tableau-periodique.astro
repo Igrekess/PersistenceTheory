@@ -1,0 +1,1678 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { readFileSync } from 'node:fs';
+
+type PeriodSegment = {
+  type: 's' | 'p' | 'd' | 'f';
+  count: number;
+};
+
+type PeriodRow = {
+  k: number;
+  length: number;
+  range: string;
+  label: string;
+  segments: PeriodSegment[];
+};
+
+const blocks = [
+  {
+    name: 's',
+    ell: 0,
+    orientations: 1,
+    capacity: 2,
+    shape: 'duet',
+    explanation: 'One orientation, two possible spin states.',
+    pt: 'spin involution derived from T1',
+  },
+  {
+    name: 'p',
+    ell: 1,
+    orientations: 3,
+    capacity: 6,
+    shape: 'triangle',
+    explanation: 'Three spatial directions, filled by spin pairs.',
+    pt: 'first active prime P1 = 3',
+  },
+  {
+    name: 'd',
+    ell: 2,
+    orientations: 5,
+    capacity: 10,
+    shape: 'pentagon',
+    explanation: 'Five positions, with half-filled and closed-shell stabilities.',
+    pt: 'first active prime P2 = 5',
+  },
+  {
+    name: 'f',
+    ell: 3,
+    orientations: 7,
+    capacity: 14,
+    shape: 'heptagon',
+    explanation: 'Seven positions, the last active channel in PT geometry.',
+    pt: 'first active prime P3 = 7',
+  },
+];
+
+const periods: PeriodRow[] = [
+  { k: 1, length: 2, range: '1-2', label: 'H-He', segments: [{ type: 's', count: 2 }] },
+  { k: 2, length: 8, range: '3-10', label: 'Li-Ne', segments: [{ type: 's', count: 2 }, { type: 'p', count: 6 }] },
+  { k: 3, length: 8, range: '11-18', label: 'Na-Ar', segments: [{ type: 's', count: 2 }, { type: 'p', count: 6 }] },
+  { k: 4, length: 18, range: '19-36', label: 'K-Kr', segments: [{ type: 's', count: 2 }, { type: 'd', count: 10 }, { type: 'p', count: 6 }] },
+  { k: 5, length: 18, range: '37-54', label: 'Rb-Xe', segments: [{ type: 's', count: 2 }, { type: 'd', count: 10 }, { type: 'p', count: 6 }] },
+  { k: 6, length: 32, range: '55-86', label: 'Cs-Rn', segments: [{ type: 's', count: 2 }, { type: 'f', count: 14 }, { type: 'd', count: 10 }, { type: 'p', count: 6 }] },
+  { k: 7, length: 32, range: '87-118', label: 'Fr-Og', segments: [{ type: 's', count: 2 }, { type: 'f', count: 14 }, { type: 'd', count: 10 }, { type: 'p', count: 6 }] },
+];
+
+const periodCells = (period: PeriodRow): PeriodSegment['type'][] =>
+  period.segments.flatMap((segment) =>
+    Array.from({ length: segment.count }, () => segment.type)
+  );
+
+const polygonVertices = (count: number, radius = 52, center = 80) =>
+  Array.from({ length: count }, (_, index) => {
+    const angle = -Math.PI / 2 + (2 * Math.PI * index) / count;
+    return {
+      x: center + radius * Math.cos(angle),
+      y: center + radius * Math.sin(angle),
+    };
+  });
+
+const polygonPoints = (count: number) =>
+  polygonVertices(count)
+    .map((point) => `${point.x.toFixed(1)},${point.y.toFixed(1)}`)
+    .join(' ');
+
+const spinPair = (
+  point: { x: number; y: number },
+  offset = 4.6,
+  center = 80
+) => {
+  const dx = point.x - center;
+  const dy = point.y - center;
+  const norm = Math.hypot(dx, dy) || 1;
+  const ux = dx / norm;
+  const uy = dy / norm;
+  return {
+    inner: { x: point.x - ux * offset, y: point.y - uy * offset },
+    outer: { x: point.x + ux * offset, y: point.y + uy * offset },
+  };
+};
+
+const derivationSteps = [
+  {
+    tag: 'T1',
+    title: 'Exclusion',
+    plain: 'Two electrons cannot occupy exactly the same state.',
+    technical: 'T1 forbids self-transitions mod 3: a state cannot copy itself onto itself. The only allowed doubling is the spin involution, hence the factor 2.',
+  },
+  {
+    tag: 'C1',
+    title: 'Orientations',
+    plain: 'Each orbital family has a determined number of directions.',
+    technical: 'For an orbital index ℓ, magnetic values run from -ℓ to +ℓ. This gives 2ℓ+1 discrete positions: 1, 3, 5, 7 for s, p, d, f.',
+  },
+  {
+    tag: 'DER',
+    title: 'Capacities',
+    plain: 'Directions are multiplied by the two spin states.',
+    technical: 'Each position can host two opposite spins. The capacity is therefore Cap(ℓ)=2(2ℓ+1), directly producing 2, 6, 10, 14.',
+  },
+  {
+    tag: 'THM',
+    title: 'Four blocks',
+    plain: 'The table stops at s, p, d, f for an arithmetic reason.',
+    technical: 'Depth D=2 gives four orbital types, the V4 group. The next step would require 9 or p=11, but 9 is composite and p=11 remains in echo.',
+  },
+];
+
+const comparisonRows = [
+  {
+    topic: 'Pauli',
+    standard: 'A quantum principle imposed on electrons.',
+    pt: 'Exclusion derived from T1: the spin involution gives the factor 2.',
+  },
+  {
+    topic: 'Capacities',
+    standard: 'Subshells contain 2, 6, 10, or 14 electrons.',
+    pt: 'Capacity forced by 2(2ℓ+1), with 2ℓ+1 = 1, 3, 5, 7.',
+  },
+  {
+    topic: 'Madelung',
+    standard: 'Empirical n+l rule, then n.',
+    pt: 'Filling order motivated by the decreasing master function of the sieve.',
+  },
+  {
+    topic: 'Cr, Cu, Pd, Au',
+    standard: 'Anomalous configurations memorized as exceptions.',
+    pt: 'd5/d10 informational stabilities of the Z/10Z pentagon.',
+  },
+  {
+    topic: 'Lanthanides / actinides',
+    standard: 'Rows separated below the table for readability.',
+    pt: 'Buried f channel: s -> f -> d -> p when P3 = 7 opens.',
+  },
+  {
+    topic: 'No g block',
+    standard: 'Observed absence beyond the known stable domain.',
+    pt: '9 = 3^2 is composite and p=11 remains in echo below threshold.',
+  },
+];
+
+const shellFamilies = [
+  {
+    periods: '1',
+    sequence: ['s2'],
+    length: 2,
+    interpretation: 'The minimal shell closes only the spin-orbital s channel.',
+  },
+  {
+    periods: '2-3',
+    sequence: ['s2', 'p6'],
+    length: 8,
+    interpretation: 'First complete chemical motif: s opening, p closure.',
+  },
+  {
+    periods: '4-5',
+    sequence: ['s2', 'd10', 'p6'],
+    length: 18,
+    interpretation: 'The d pentagon appears between the s opening and the p closure.',
+  },
+  {
+    periods: '6-7',
+    sequence: ['s2', 'f14', 'd10', 'p6'],
+    length: 32,
+    interpretation: 'The f channel is buried before the d return, then the p closure.',
+  },
+];
+
+const promotions = [
+  { z: 24, symbol: 'Cr', aufbau: 'd4s2', pt: 'd5s1', reason: 'half filling' },
+  { z: 29, symbol: 'Cu', aufbau: 'd9s2', pt: 'd10s1', reason: 'closure' },
+  { z: 41, symbol: 'Nb', aufbau: 'd3s2', pt: 'd4s1', reason: 'near half filling' },
+  { z: 42, symbol: 'Mo', aufbau: 'd4s2', pt: 'd5s1', reason: 'half filling' },
+  { z: 44, symbol: 'Ru', aufbau: 'd6s2', pt: 'd7s1', reason: 'post half filling' },
+  { z: 45, symbol: 'Rh', aufbau: 'd7s2', pt: 'd8s1', reason: 'post half filling' },
+  { z: 46, symbol: 'Pd', aufbau: 'd8s2', pt: 'd10s0', reason: 'double closure' },
+  { z: 47, symbol: 'Ag', aufbau: 'd9s2', pt: 'd10s1', reason: 'closure' },
+  { z: 78, symbol: 'Pt', aufbau: 'd8s2', pt: 'd9s1', reason: 'near closure' },
+  { z: 79, symbol: 'Au', aufbau: 'd9s2', pt: 'd10s1', reason: 'closure' },
+  { z: 111, symbol: 'Rg', aufbau: 'd9s2', pt: 'd10s1', reason: 'relativistic closure' },
+];
+
+const elementSymbols = [
+  '', 'H', 'He', 'Li', 'Be', 'B', 'C', 'N', 'O', 'F', 'Ne',
+  'Na', 'Mg', 'Al', 'Si', 'P', 'S', 'Cl', 'Ar',
+  'K', 'Ca', 'Sc', 'Ti', 'V', 'Cr', 'Mn', 'Fe', 'Co', 'Ni', 'Cu', 'Zn',
+  'Ga', 'Ge', 'As', 'Se', 'Br', 'Kr',
+  'Rb', 'Sr', 'Y', 'Zr', 'Nb', 'Mo', 'Tc', 'Ru', 'Rh', 'Pd', 'Ag', 'Cd',
+  'In', 'Sn', 'Sb', 'Te', 'I', 'Xe',
+  'Cs', 'Ba', 'La', 'Ce', 'Pr', 'Nd', 'Pm', 'Sm', 'Eu', 'Gd', 'Tb', 'Dy',
+  'Ho', 'Er', 'Tm', 'Yb', 'Lu', 'Hf', 'Ta', 'W', 'Re', 'Os', 'Ir', 'Pt',
+  'Au', 'Hg', 'Tl', 'Pb', 'Bi', 'Po', 'At', 'Rn',
+  'Fr', 'Ra', 'Ac', 'Th', 'Pa', 'U', 'Np', 'Pu', 'Am', 'Cm', 'Bk', 'Cf',
+  'Es', 'Fm', 'Md', 'No', 'Lr', 'Rf', 'Db', 'Sg', 'Bh', 'Hs', 'Mt', 'Ds',
+  'Rg', 'Cn', 'Nh', 'Fl', 'Mc', 'Lv', 'Ts', 'Og',
+];
+
+const codeLinks = [
+  {
+    fn: 'period(Z)',
+    meaning: 'recovers the period from L(k) = 2 ceil(k/2)^2',
+    file: 'PT_PROJECTS/PTC/ptc/periodic.py:13',
+  },
+  {
+    fn: 'l_of(Z)',
+    meaning: 'assigns the s, p, d, or f block from the position in the period',
+    file: 'PT_PROJECTS/PTC/ptc/periodic.py:31',
+  },
+  {
+    fn: 'capacity(Z)',
+    meaning: 'returns 2, 6, 10, or 14 from 2(2ℓ+1)',
+    file: 'PT_PROJECTS/PTC/ptc/periodic.py:115',
+  },
+  {
+    fn: 'n_fill(Z)',
+    meaning: 'adds the d5/d10 informational promotions',
+    file: 'PT_PROJECTS/PTC/ptc/periodic.py:75',
+  },
+];
+
+const periodicSourcePath = 'public/scripts-source/ptc/periodic.py';
+const periodicSource = readFileSync(
+  new URL('../../../public/scripts-source/ptc/periodic.py', import.meta.url),
+  'utf-8'
+);
+const periodicLineCount = periodicSource.trimEnd().split('\n').length;
+---
+
+<BaseLayout
+  title="The periodic table derived by PT"
+  description="A rigorous and accessible PT derivation of the periodic table: s/p/d/f blocks, period lengths, no g shell, and configuration anomalies."
+>
+  <section class="border-b border-stone-200 bg-white">
+    <div class="max-w-6xl mx-auto px-4 py-12 md:py-16">
+      <div class="grid lg:grid-cols-[1fr_1.05fr] gap-10 items-center">
+        <div>
+          <p class="font-sans text-sm font-semibold uppercase tracking-wider text-derorange mb-3">
+            PT chemistry / executable derivation
+          </p>
+          <p class="pt-tag pt-tag-id mb-4">First robust demonstration</p>
+          <h1 class="text-4xl md:text-5xl font-bold text-thmblue leading-tight mb-5">
+            Why does the periodic table have this shape?
+          </h1>
+          <p class="text-lg md:text-xl text-stone-700 leading-relaxed">
+            In PT, the table of elements is not an empirical catalogue:
+            its shape follows from a short chain. Spin gives the factor 2,
+            orientations give 1, 3, 5, 7, and capacities become
+            2, 6, 10, 14. From there, the blocks, periods, and several
+            configuration anomalies fall into place together.
+          </p>
+          <div class="mt-6 flex flex-wrap gap-2 font-sans text-xs">
+            <span class="pt-tag pt-tag-thm">THM</span>
+            <span class="pt-tag pt-tag-der">DER</span>
+            <span class="pt-tag pt-tag-val">PTC code</span>
+            <span class="pt-tag pt-tag-pred">No g-shell</span>
+          </div>
+        </div>
+
+        <div class="overflow-hidden rounded-lg border border-stone-200 bg-stone-50">
+          <div class="grid grid-cols-4 min-h-[260px]">
+            {blocks.map((block) => (
+              <div class={`periodic-block periodic-block-${block.name}`}>
+                <div class="font-sans text-xs uppercase tracking-wider text-stone-500">
+                  block
+                </div>
+                <div class="text-5xl md:text-6xl font-bold text-stone-900 mt-1">
+                  {block.name}
+                </div>
+                <div class="mt-4 orbital-sketch" aria-hidden="true">
+                  {Array.from({ length: block.orientations }).map((_, index) => (
+                    <span style={`--i:${index}; --n:${block.orientations}`}></span>
+                  ))}
+                </div>
+                <div class="mt-4 font-sans text-sm text-stone-700">
+                  <strong>{block.orientations}</strong> orientations
+                </div>
+                <div class="font-sans text-sm text-stone-700">
+                  capacity <strong>{block.capacity}</strong>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="max-w-6xl mx-auto px-4 py-12">
+    <div class="grid md:grid-cols-4 gap-4">
+      {derivationSteps.map((step, index) => (
+        <article class="pt-card">
+          <div class="flex items-center justify-between gap-3 mb-4">
+            <span class="pt-tag pt-tag-thm">{step.tag}</span>
+            <span class="font-sans text-sm text-stone-400">0{index + 1}</span>
+          </div>
+          <h2 class="font-sans text-xl font-bold text-thmblue mb-3">{step.title}</h2>
+          <p data-max-depth="L1" class="text-stone-700 leading-relaxed">{step.plain}</p>
+          <p data-min-depth="L2" class="text-stone-700 leading-relaxed">{step.technical}</p>
+        </article>
+      ))}
+    </div>
+
+    <div class="mt-10 grid lg:grid-cols-[0.78fr_1.22fr] gap-8 items-start">
+      <div>
+        <h2 class="text-3xl font-bold text-thmblue mb-4">
+          Why this is a good first demonstration
+        </h2>
+        <p class="text-stone-700 leading-relaxed mb-4">
+          The periodic table is familiar, visual, and highly constrained.
+          That is exactly what a theory needs for an early test: PT cannot
+          freely choose the blocks, capacities, or period lengths.
+        </p>
+        <p class="text-stone-700 leading-relaxed">
+          The strength of this page is therefore rigidity: the numbers
+          <code> 2, 6, 10, 14</code> come from
+          <code> 2(2ℓ+1)</code>, the periods
+          <code> 2, 8, 8, 18, 18, 32, 32</code> come from
+          <code> L(k)=2⌈k/2⌉²</code>, and then
+          <code> d5/d10</code> anomalies and the absence of a
+          <code> g</code> block become secondary tests.
+        </p>
+      </div>
+      <div class="bg-white border border-stone-200 rounded-lg overflow-hidden">
+        <table>
+          <thead class="font-sans bg-stone-50">
+            <tr>
+              <th>Step</th>
+              <th>What is forced</th>
+              <th>Chemical result</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Orientations</td>
+              <td><code>2ℓ+1 = 1,3,5,7</code></td>
+              <td>s, p, d, f blocks</td>
+            </tr>
+            <tr>
+              <td>Spin</td>
+              <td><code>2(2ℓ+1)</code></td>
+              <td>capacities 2, 6, 10, 14</td>
+            </tr>
+            <tr>
+              <td>Depth</td>
+              <td><code>s → p → d → f</code></td>
+              <td>periods 2, 8, 18, 32</td>
+            </tr>
+            <tr>
+              <td>Stabilities</td>
+              <td><code>d5</code> and <code>d10</code></td>
+              <td>Cr, Cu, Pd, Ag, Au...</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="max-w-6xl mx-auto px-4 pb-12">
+    <div class="grid lg:grid-cols-[0.8fr_1.2fr] gap-8 items-start">
+      <div>
+        <h2 class="text-3xl font-bold text-thmblue mb-4">
+          From known rules to structural causes
+        </h2>
+        <p class="text-stone-700 leading-relaxed">
+          This page does not introduce a new nomenclature to memorize.
+          It starts from the usual objects of quantum chemistry and shows
+          how PT turns empirical rules into structural consequences.
+        </p>
+      </div>
+
+      <div class="overflow-x-auto border border-stone-200 rounded-lg bg-white">
+        <table>
+          <thead class="font-sans bg-stone-50">
+            <tr>
+              <th>Chemical object</th>
+              <th>Usual formulation</th>
+              <th>PT reading</th>
+            </tr>
+          </thead>
+          <tbody>
+            {comparisonRows.map((row) => (
+              <tr>
+                <td class="font-sans font-semibold text-stone-900">{row.topic}</td>
+                <td>{row.standard}</td>
+                <td>{row.pt}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="max-w-6xl mx-auto px-4 pb-12">
+    <div class="grid lg:grid-cols-[0.52fr_1.48fr] gap-8 items-start">
+      <div>
+        <h2 class="text-3xl font-bold text-thmblue mb-4">
+          Seeing channels as polygons
+        </h2>
+        <p class="text-stone-700 leading-relaxed">
+          The drawing is not a picture of an orbital in space. It is a
+          discrete map of the PT channel: the circle marks the channel,
+          each vertex represents an available orientation, and spin doubles
+          each vertex.
+        </p>
+        <p data-min-depth="L3" class="mt-4 font-sans text-sm text-stone-600 leading-relaxed">
+          Technical reading: the channels live on the circles
+          <code>Z/(2P_l)Z</code>. The active primes
+          <code>3, 5, 7</code> give the triangle, pentagon, and
+          heptagon; the <code>s</code> case is the minimal channel,
+          one orientation doubled by spin.
+        </p>
+      </div>
+
+      <div class="polygon-grid">
+        {blocks.map((block) => {
+          const vertices = polygonVertices(block.orientations);
+          const isPolygon = block.orientations > 2;
+          return (
+            <article class={`polygon-card polygon-card-${block.name}`}>
+              <svg viewBox="0 0 160 160" role="img" aria-label={`Channel ${block.name}: ${block.orientations} orientations, capacity ${block.capacity}`}>
+                <circle class="orbital-ring" cx="80" cy="80" r="52" />
+                {isPolygon && <polygon class="polygon-face" points={polygonPoints(block.orientations)} />}
+                {block.orientations === 1 && (
+                  <>
+                    <line class="polygon-axis" x1="28" y1="80" x2="132" y2="80" />
+                    <circle class="polygon-node" cx="28" cy="80" r="10" />
+                    <circle class="polygon-node" cx="132" cy="80" r="10" />
+                    <circle class="spin-dot spin-dot-b" cx="28" cy="80" r="4.2" />
+                    <circle class="spin-dot spin-dot-a" cx="132" cy="80" r="4.2" />
+                  </>
+                )}
+                {block.orientations > 1 && vertices.map((point) => {
+                  const spins = spinPair(point);
+                  return (
+                    <g>
+                      <circle class="polygon-node" cx={point.x} cy={point.y} r="10" />
+                      <circle class="spin-dot spin-dot-b" cx={spins.inner.x} cy={spins.inner.y} r="3.4" />
+                      <circle class="spin-dot spin-dot-a" cx={spins.outer.x} cy={spins.outer.y} r="3.4" />
+                    </g>
+                  );
+                })}
+              </svg>
+              <div>
+                <h3>block {block.name}</h3>
+                <p>
+                  {block.orientations} orientation{block.orientations > 1 ? 's' : ''}
+                  {' '}x 2 spins = <strong>{block.capacity}</strong>
+                </p>
+              </div>
+            </article>
+          );
+        })}
+      </div>
+    </div>
+
+    <div data-min-depth="L3" class="polygon-stability">
+      <div>
+        <h3>Why the pentagon explains d anomalies</h3>
+        <p>
+          In the <code>d</code> channel, five orientations form the
+          <code>Z/10Z</code> pentagon after spin doubling. The
+          <code>d5</code> and <code>d10</code> configurations then become
+          two special positions: half filling and closure. That is why
+          Cr, Cu, Mo, Pd, Ag, or Au are not merely exceptions to memorize.
+        </p>
+      </div>
+      <div class="pentagon-states" aria-label="Half filling and closure of the d channel">
+        {[
+          { label: 'd5', filled: 5 },
+          { label: 'd10', filled: 10 },
+        ].map((state) => {
+          const vertices = polygonVertices(5, 42, 62);
+          return (
+            <figure>
+              <svg viewBox="0 0 124 124" role="img" aria-label={`State ${state.label}`}>
+                <circle class="orbital-ring" cx="62" cy="62" r="42" />
+                <polygon class="polygon-face" points={vertices.map((point) => `${point.x.toFixed(1)},${point.y.toFixed(1)}`).join(' ')} />
+                {vertices.map((point) => {
+                  const spins = spinPair(point, 4, 62);
+                  return (
+                    <g>
+                      <circle class="polygon-node" cx={point.x} cy={point.y} r="9" />
+                      <circle class={state.filled >= 5 ? 'spin-dot spin-dot-filled' : 'spin-dot'} cx={spins.inner.x} cy={spins.inner.y} r="3.2" />
+                      <circle class={state.label === 'd10' ? 'spin-dot spin-dot-filled' : 'spin-dot'} cx={spins.outer.x} cy={spins.outer.y} r="3.2" />
+                    </g>
+                  );
+                })}
+              </svg>
+              <figcaption>{state.label}</figcaption>
+            </figure>
+          );
+        })}
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-stone-100 border-y border-stone-200">
+    <div class="max-w-6xl mx-auto px-4 py-12">
+      <div class="grid lg:grid-cols-[0.75fr_1.25fr] gap-8 items-start">
+        <div>
+          <h2 class="text-3xl font-bold text-thmblue mb-4">
+            The formula that makes periods
+          </h2>
+          <p class="text-stone-700 leading-relaxed">
+            The length of period number $k$ is given by
+            $L(k) = 2\lceil k/2\rceil^2$. It directly produces
+            the observed sequence up to 118 elements.
+          </p>
+          <div data-min-depth="L3" class="mt-5 bg-white border border-stone-200 rounded-lg p-4 font-sans text-sm text-stone-700">
+            Monograph source: <code>chapters_fr/ch22_chemistry.tex</code>,
+            period-length section. PTC implements it in
+            <code>period(Z)</code> as <code>cap = 2 * k * k</code> with
+            <code>k = per // 2 + 1</code>.
+          </div>
+        </div>
+
+        <div class="space-y-3">
+          {periods.map((period) => (
+            <div class="period-row">
+              <div class="w-16 font-sans text-sm font-semibold text-stone-700">
+                k={period.k}
+              </div>
+              <div class="period-track" style={`--cells:${period.length}`}>
+                {periodCells(period).map((type) => (
+                  <span class={`period-cell period-cell-${type}`}></span>
+                ))}
+              </div>
+              <div class="w-28 text-right font-sans text-sm text-stone-600">
+                {period.length} / {period.range}
+              </div>
+            </div>
+          ))}
+          <div class="period-legend" aria-label="Block color key">
+            <span class="period-legend-item">
+              <span class="period-legend-swatch period-cell-s"></span>
+              s block
+            </span>
+            <span class="period-legend-item">
+              <span class="period-legend-swatch period-cell-d"></span>
+              d block
+            </span>
+            <span class="period-legend-item">
+              <span class="period-legend-swatch period-cell-f"></span>
+              f block
+            </span>
+            <span class="period-legend-item">
+              <span class="period-legend-swatch period-cell-p"></span>
+              p block
+            </span>
+          </div>
+          <p class="font-sans text-xs text-stone-500 leading-relaxed">
+            Blue marks the s opening of each period; green marks the p
+            closure; orange and violet mark the internal d and f channels
+            once the period becomes deep enough.
+          </p>
+          <div data-min-depth="L3" class="period-shell-note">
+            <h3>PT reading of internal channels</h3>
+            <p>
+              Periods 2-3 only have the <code>s -> p</code> pattern.
+              In periods 4-5, depth permits the pentagonal
+              <code>d</code> channel: capacity <code>2 x 5 = 10</code>, with
+              <code>d5</code> and <code>d10</code> stabilities driving the
+              Madelung promotions. In periods 6-7, the heptagonal
+              <code>f</code> channel is inserted before the return to
+              <code>d</code>: <code>s -> f -> d -> p</code>, namely
+              <code>2 + 14 + 10 + 6 = 32</code>.
+            </p>
+            <p>
+              This buried internal layer is precisely what makes lanthanides
+              and actinides structurally natural in PT: they are not an
+              appendix to the table, but the opening of the last active prime
+              <code>P3 = 7</code>. The next step would require a
+              <code>g</code> channel, but <code>2ℓ+1 = 9</code> is composite
+              and <code>p = 11</code> remains an echo prime
+              (<code>gamma_11 &lt; 1/2</code>).
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="max-w-6xl mx-auto px-4 py-12">
+    <div class="grid lg:grid-cols-[0.75fr_1.25fr] gap-8 items-start">
+      <div>
+        <h2 class="text-3xl font-bold text-thmblue mb-4">
+          The shell ladder
+        </h2>
+        <p class="text-stone-700 leading-relaxed">
+          The same derivation can be read as a succession of closure
+          configurations: <code>s2</code>, then
+          <code>s2 p6</code>, then <code>s2 d10 p6</code>, then
+          <code>s2 f14 d10 p6</code>.
+        </p>
+      </div>
+
+      <div class="shell-ladder">
+        {shellFamilies.map((family) => (
+          <article class="shell-row">
+            <div class="shell-period">periods {family.periods}</div>
+            <div class="shell-sequence">
+              {family.sequence.map((item) => {
+                const block = item[0];
+                return <span class={`shell-token shell-token-${block}`}>{item}</span>;
+              })}
+            </div>
+            <div class="shell-length">{family.length} elements</div>
+            <p>{family.interpretation}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="max-w-6xl mx-auto px-4 py-12">
+    <div class="grid lg:grid-cols-2 gap-8 items-start">
+      <div>
+        <h2 class="text-3xl font-bold text-thmblue mb-4">
+          The compact demonstration
+        </h2>
+        <div class="space-y-4">
+          {blocks.map((block) => (
+            <article class="border border-stone-200 rounded-lg bg-white p-5">
+              <div class="flex flex-wrap items-baseline justify-between gap-3">
+                <h3 class="font-sans text-2xl font-bold text-stone-900">
+                  block {block.name}
+                </h3>
+                <span class="font-mono text-sm text-stone-600">
+                  ℓ={block.ell} -> 2ℓ+1={block.orientations}
+                </span>
+              </div>
+              <p data-max-depth="L1" class="mt-3 text-stone-700">{block.explanation}</p>
+              <p data-min-depth="L2" class="mt-3 text-stone-700">
+                {block.pt}. The capacity is therefore
+                <span class="font-mono"> 2 x {block.orientations} = {block.capacity}</span>.
+              </p>
+            </article>
+          ))}
+        </div>
+      </div>
+
+      <aside class="border border-stone-300 rounded-lg bg-stone-50 p-6">
+        <h2 class="font-sans text-2xl font-bold text-thmblue mb-4">
+          Why no g block?
+        </h2>
+        <p class="text-stone-700 leading-relaxed mb-4">
+          The next block would require $ℓ=4$, hence $2ℓ+1 = 9$. But 9 is
+          not a new prime: it is $3^2$. The new orientation is already
+          caught by the first spatial filter.
+        </p>
+        <p class="text-stone-700 leading-relaxed">
+          The other route reaches the same verdict: the next prime candidate,
+          $p=11$, remains in echo in PT because $\gamma&#123;11&#125; \simeq 0.426 &lt; 1/2$.
+          Therefore there is no active $\mathbb&#123;Z&#125;/22\mathbb&#123;Z&#125;$ circle able
+          to carry a g shell.
+        </p>
+        <div data-min-depth="L3" class="mt-5 border-t border-stone-200 pt-4 font-sans text-sm text-stone-600">
+          Status: the monograph marks this point as an arithmetic necessity
+          in <code>sec:chem_beyond118</code>. On the PTC side,
+          <code>_BLOCK_MAP</code> and <code>_CAP_MAP</code> stop at
+          <code>{`{s,p,d,f}`}</code> and <code>{`{2,6,10,14}`}</code>.
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <section class="bg-white border-y border-stone-200">
+    <div class="max-w-6xl mx-auto px-4 py-12">
+      <div class="grid lg:grid-cols-[0.85fr_1.15fr] gap-8">
+        <div>
+          <h2 class="text-3xl font-bold text-thmblue mb-4">
+            Anomalies are no longer exceptions
+          </h2>
+          <p class="text-stone-700 leading-relaxed">
+            The $s \to d$ promotions appear at the stability points of
+            the pentagon: half filling $d^5$ and closure $d^{10}$.
+            PTC keeps two readings separate: radial Aufbau filling for
+            shielding, and informational Madelung filling for fine structure.
+          </p>
+          <div data-min-depth="L3" class="mt-5 bg-stone-50 border border-stone-200 rounded-lg p-4 font-sans text-sm text-stone-700">
+            In <code>ptc/periodic.py</code>, <code>_n_fill_aufbau()</code>
+            remains radial, while <code>n_fill()</code> applies
+            <code>_MADELUNG_PROMOTIONS</code>. This separation matters:
+            it prevents spatial geometry and informational stability from
+            being conflated.
+          </div>
+        </div>
+
+        <div class="overflow-x-auto border border-stone-200 rounded-lg">
+          <table class="bg-white">
+            <thead class="font-sans bg-stone-50">
+              <tr>
+                <th>Element</th>
+                <th>Aufbau</th>
+                <th>PT / Madelung</th>
+                <th>Cause</th>
+              </tr>
+            </thead>
+            <tbody>
+              {promotions.map((row) => (
+                <tr>
+                  <td class="font-sans font-semibold">{row.symbol} <span class="text-stone-500">Z={row.z}</span></td>
+                  <td><code>{row.aufbau}</code></td>
+                  <td><code>{row.pt}</code></td>
+                  <td>{row.reason}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="max-w-6xl mx-auto px-4 py-12">
+    <div class="grid lg:grid-cols-[0.75fr_1.25fr] gap-8 items-start">
+      <div>
+        <h2 class="text-3xl font-bold text-thmblue mb-4">
+          Query an element
+        </h2>
+        <p class="text-stone-700 leading-relaxed">
+          The calculator follows the logic of <code>periodic.py</code>:
+          it converts an atomic number into period, block, capacity,
+          radial Aufbau filling, and PT/Madelung filling.
+        </p>
+        <p data-min-depth="L3" class="mt-4 font-sans text-sm text-stone-600">
+          Useful example: enter <code>Z=79</code>. Gold moves from
+          <code>d9s2</code> to <code>d10s1</code> because closure of the
+          d channel compensates the cost of the s -> d promotion.
+        </p>
+      </div>
+
+      <div class="periodic-calculator" data-periodic-calculator>
+        <div class="calculator-controls">
+          <label for="pt-z-input">Atomic number Z</label>
+          <input id="pt-z-input" type="number" min="1" max="118" value="79" inputmode="numeric" />
+          <div class="calculator-presets">
+            {[6, 24, 29, 46, 58, 79, 118].map((z) => (
+              <button type="button" data-z-preset={z}>{z}</button>
+            ))}
+          </div>
+        </div>
+
+        <div class="calculator-output" aria-live="polite">
+          <div class="element-tile">
+            <div class="element-symbol" data-field="symbol">Au</div>
+            <div class="element-z" data-field="z">Z=79</div>
+          </div>
+          <dl>
+            <div>
+              <dt>Period</dt>
+              <dd data-field="period">6</dd>
+            </div>
+            <div>
+              <dt>Block</dt>
+              <dd data-field="block">d</dd>
+            </div>
+            <div>
+              <dt>Capacity</dt>
+              <dd data-field="capacity">10</dd>
+            </div>
+            <div>
+              <dt>Radial Aufbau</dt>
+              <dd data-field="aufbau">d9s2</dd>
+            </div>
+            <div>
+              <dt>PT / Madelung</dt>
+              <dd data-field="madelung">d10s1</dd>
+            </div>
+            <div>
+              <dt>Reading</dt>
+              <dd data-field="reading">closure</dd>
+            </div>
+          </dl>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="max-w-6xl mx-auto px-4 py-12">
+    <h2 class="text-3xl font-bold text-thmblue mb-6">
+      What the PTC code verifies
+    </h2>
+    <div class="grid md:grid-cols-2 gap-4">
+      {codeLinks.map((item) => (
+        <article class="pt-card">
+          <h3 class="font-mono text-lg text-stone-900 mb-2">{item.fn}</h3>
+          <p class="text-stone-700 leading-relaxed">{item.meaning}</p>
+          <p class="mt-3 font-sans text-xs text-stone-500">{item.file}</p>
+        </article>
+      ))}
+    </div>
+
+    <div data-min-depth="L3" class="mt-8 rounded-lg border border-stone-300 bg-stone-50 p-5">
+      <h3 class="font-sans text-xl font-bold text-thmblue mb-3">
+        Minimal reproducible test
+      </h3>
+      <pre class="text-sm bg-stone-900 text-stone-100"><code>cd PT_PROJECTS/PTC
+PYTHONPATH=. python -m pytest ptc/tests/test_periodic.py -v</code></pre>
+      <p class="mt-4 text-stone-700 leading-relaxed">
+        The assertions cover period boundaries, s/p/d/f blocks,
+        capacities 2/6/10/14, Aufbau fillings, and the Cr, Cu, Mo,
+        Pd, Ag, and Au promotions.
+      </p>
+    </div>
+
+    <div data-min-depth="L3" class="mt-8 rounded-lg border border-stone-300 bg-white p-5">
+      <div class="flex flex-wrap items-start justify-between gap-3 mb-4">
+        <div>
+          <h3 class="font-sans text-xl font-bold text-thmblue">
+            Executable source: <code>periodic.py</code>
+          </h3>
+          <p class="mt-2 text-sm text-stone-600 font-sans">
+            {periodicSourcePath} · {periodicLineCount} lines · copy bundled with the site and embedded into the HTML at build time.
+          </p>
+        </div>
+        <span class="pt-tag pt-tag-val">PTC</span>
+      </div>
+      <p class="text-stone-700 leading-relaxed mb-4">
+        This file is the operational translation of the derivation:
+        periods by <code>2k²</code>, <code>s/p/d/f</code> blocks,
+        capacities <code>2, 6, 10, 14</code>, and an explicit separation
+        between radial Aufbau filling and informational Madelung promotions.
+        The raw copy is also served as a static file at
+        <code>/scripts-source/ptc/periodic.py</code>.
+      </p>
+      <details class="source-details">
+        <summary>Show the full code</summary>
+        <pre class="source-code"><code>{periodicSource}</code></pre>
+      </details>
+    </div>
+  </section>
+
+  <section class="border-t border-stone-200 bg-stone-100">
+    <div class="max-w-6xl mx-auto px-4 py-12">
+      <h2 class="text-3xl font-bold text-thmblue mb-6">
+        Epistemic status
+      </h2>
+      <div class="grid md:grid-cols-4 gap-4">
+        <article class="bg-white border border-stone-200 rounded-lg p-5">
+          <span class="pt-tag pt-tag-thm">THM</span>
+          <p class="mt-3 text-stone-700">Exclusion, subshell capacities, four blocks, and absence of a g shell.</p>
+        </article>
+        <article class="bg-white border border-stone-200 rounded-lg p-5">
+          <span class="pt-tag pt-tag-der">DER</span>
+          <p class="mt-3 text-stone-700">Period lengths and Aufbau order from the master function.</p>
+        </article>
+        <article class="bg-white border border-stone-200 rounded-lg p-5">
+          <span class="pt-tag pt-tag-val">VAL</span>
+          <p class="mt-3 text-stone-700">PTC implementation and unit tests for the periodic functions.</p>
+        </article>
+        <article class="bg-white border border-stone-200 rounded-lg p-5">
+          <span class="pt-tag pt-tag-pred">PRED</span>
+          <p class="mt-3 text-stone-700">Structure beyond Z=118 without a g block, to be checked against future data.</p>
+        </article>
+      </div>
+
+      <div class="mt-8 overflow-x-auto border border-stone-200 rounded-lg bg-white">
+        <table>
+          <thead class="font-sans bg-stone-50">
+            <tr>
+              <th>Level</th>
+              <th>Claim</th>
+              <th>Remaining checks</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="pt-tag pt-tag-thm">derived</span></td>
+              <td>s/p/d/f blocks, capacities 2/6/10/14, lengths 2/8/8/18/18/32/32.</td>
+              <td>Recheck the C1/table proof and no-g status in the monograph.</td>
+            </tr>
+            <tr>
+              <td><span class="pt-tag pt-tag-val">code</span></td>
+              <td>PTC implementation in <code>periodic.py</code> and associated unit tests.</td>
+              <td>Keep the public copy synchronized with the PTC engine.</td>
+            </tr>
+            <tr>
+              <td><span class="pt-tag pt-tag-der">chemistry</span></td>
+              <td>d5/d10 promotions as informational stabilities of the d channel.</td>
+              <td>Quantify promotion costs and relativistic effects element by element.</td>
+            </tr>
+            <tr>
+              <td><span class="pt-tag pt-tag-pred">frontier</span></td>
+              <td>No active g block: 9 is composite and p=11 remains in echo.</td>
+              <td>Compare with superheavy models and future data beyond 118.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p class="mt-8 font-sans text-sm text-stone-500">
+        Local sources: <code>PT_MONOGRAPHY/chapters_fr/ch22_chemistry.tex</code>,
+        <code>PT_PROJECTS/PTC/ptc/periodic.py</code>,
+        <code>PT_PROJECTS/PTC/ptc/tests/test_periodic.py</code>.
+      </p>
+    </div>
+  </section>
+</BaseLayout>
+
+<script is:inline define:vars={{ symbols: elementSymbols, promotionsData: promotions }}>
+  (function () {
+    const root = document.querySelector('[data-periodic-calculator]');
+    if (!root) return;
+
+    const P1 = 3;
+    const P2 = 5;
+    const P3 = 7;
+    const blockMap = ['s', 'p', 'd', 'f'];
+    const capMap = [2, 2 * P1, 2 * P2, 2 * P3];
+    const promotionMap = new Map(promotionsData.map((row) => [row.z, row]));
+
+    const input = root.querySelector('#pt-z-input');
+    const fields = {};
+    root.querySelectorAll('[data-field]').forEach((node) => {
+      fields[node.getAttribute('data-field')] = node;
+    });
+
+    function period(Z) {
+      let cumul = 0;
+      let per = 1;
+      while (true) {
+        const k = Math.floor(per / 2) + 1;
+        const cap = 2 * k * k;
+        if (Z <= cumul + cap) return per;
+        cumul += cap;
+        per += 1;
+      }
+    }
+
+    function periodStart(per) {
+      let z0 = 1;
+      for (let p = 1; p < per; p += 1) {
+        const k = Math.floor(p / 2) + 1;
+        z0 += 2 * k * k;
+      }
+      return z0;
+    }
+
+    function lOf(Z) {
+      const per = period(Z);
+      const z0 = periodStart(per);
+      const pos = Z - z0;
+      if (pos < 2) return 0;
+      if (per <= 3) return 1;
+      if (per <= 5) return pos < 12 ? 2 : 1;
+      if (pos === 2) return 2;
+      if (pos < 16) return 3;
+      if (pos < 26) return 2;
+      return 1;
+    }
+
+    function nFillAufbau(Z) {
+      const per = period(Z);
+      const z0 = periodStart(per);
+      const pos = Z - z0;
+      const l = lOf(Z);
+      if (l === 0) return Math.min(pos + 1, 2);
+      const cap = 2 * (Math.floor(per / 2) + 1) ** 2;
+      if (l === 1) return Z - (z0 + cap - 6) + 1;
+      if (l === 2) {
+        let nd = Math.max(0, pos + 1 - 2);
+        if (per >= 6) nd = Math.max(0, nd - 14);
+        return Math.min(nd, 2 * P2);
+      }
+      if (l === 3) return Math.min(Math.max(0, pos + 1 - 2), 2 * P3);
+      return 1;
+    }
+
+    function nFill(Z) {
+      const promotion = promotionMap.get(Z);
+      if (promotion && lOf(Z) === 2) {
+        const match = promotion.pt.match(/d(\d+)/);
+        return match ? Number(match[1]) : nFillAufbau(Z);
+      }
+      return nFillAufbau(Z);
+    }
+
+    function nsConfig(Z, madelung) {
+      const promotion = madelung ? promotionMap.get(Z) : null;
+      if (promotion && lOf(Z) === 2) {
+        const match = promotion.pt.match(/s(\d+)/);
+        return match ? Number(match[1]) : 2;
+      }
+      const l = lOf(Z);
+      if (l === 0) return Math.min(nFillAufbau(Z), 2);
+      return 2;
+    }
+
+    function configText(l, fill, ns) {
+      if (l === 0) return `s${fill}`;
+      if (l === 1) return `s${ns}p${fill}`;
+      if (l === 2) return `d${fill}s${ns}`;
+      return `f${fill}s${ns}`;
+    }
+
+    function reading(block, fill, promotion) {
+      if (promotion) return promotion.reason;
+      if (block === 's') return 's opening';
+      if (block === 'p' && fill === 6) return 'p closure';
+      if (block === 'p') return 'p filling';
+      if (block === 'd' && fill === 5) return 'd half filling';
+      if (block === 'd' && fill === 10) return 'd closure';
+      if (block === 'f') return 'buried f channel';
+      return 'regular configuration';
+    }
+
+    function render() {
+      const Z = Math.max(1, Math.min(118, Number(input.value || 1)));
+      input.value = String(Z);
+      const l = lOf(Z);
+      const per = period(Z);
+      const block = blockMap[l];
+      const fillA = nFillAufbau(Z);
+      const fillM = nFill(Z);
+      const promotion = promotionMap.get(Z);
+      fields.symbol.textContent = symbols[Z] || '?';
+      fields.z.textContent = `Z=${Z}`;
+      fields.period.textContent = String(per);
+      fields.block.textContent = block;
+      fields.capacity.textContent = String(capMap[l]);
+      fields.aufbau.textContent = configText(l, fillA, nsConfig(Z, false));
+      fields.madelung.textContent = configText(l, fillM, nsConfig(Z, true));
+      fields.reading.textContent = reading(block, fillM, promotion);
+      root.setAttribute('data-current-block', block);
+    }
+
+    input.addEventListener('input', render);
+    root.querySelectorAll('[data-z-preset]').forEach((button) => {
+      button.addEventListener('click', () => {
+        input.value = button.getAttribute('data-z-preset');
+        render();
+      });
+    });
+    render();
+  })();
+</script>
+
+<style>
+  .periodic-block {
+    min-height: 260px;
+    padding: 1.25rem 0.75rem;
+    border-right: 1px solid rgb(231 229 228);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .periodic-block:last-child {
+    border-right: 0;
+  }
+
+  .periodic-block-s {
+    background: #f8fafc;
+  }
+
+  .periodic-block-p {
+    background: #f5f7ed;
+  }
+
+  .periodic-block-d {
+    background: #fff7ed;
+  }
+
+  .periodic-block-f {
+    background: #f7f3ff;
+  }
+
+  .orbital-sketch {
+    position: relative;
+    width: 76px;
+    height: 76px;
+    border: 1px solid rgb(214 211 209);
+    border-radius: 999px;
+    background: white;
+  }
+
+  .orbital-sketch span {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border-radius: 999px;
+    background: #1f4e79;
+    left: calc(50% - 5px);
+    top: calc(50% - 5px);
+    transform:
+      rotate(calc((360deg / var(--n)) * var(--i)))
+      translateY(-27px);
+  }
+
+  .polygon-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+  }
+
+  .polygon-card {
+    border: 1px solid rgb(231 229 228);
+    border-radius: 0.5rem;
+    background: white;
+    padding: 1.2rem;
+    display: grid;
+    grid-template-columns: minmax(12.5rem, 1.12fr) minmax(0, 0.88fr);
+    gap: 1rem;
+    align-items: center;
+  }
+
+  .polygon-card svg {
+    width: 100%;
+    max-width: 15.25rem;
+    aspect-ratio: 1;
+    display: block;
+    justify-self: center;
+  }
+
+  .polygon-card h3 {
+    margin: 0 0 0.35rem;
+    font-family: ui-sans-serif, system-ui, -apple-system, sans-serif;
+    font-size: 1.12rem;
+    font-weight: 800;
+    color: rgb(28 25 23);
+  }
+
+  .polygon-card p {
+    margin: 0;
+    font-family: ui-sans-serif, system-ui, -apple-system, sans-serif;
+    font-size: 0.92rem;
+    line-height: 1.35;
+    color: rgb(87 83 78);
+  }
+
+  .polygon-face {
+    fill: rgba(31, 78, 121, 0.08);
+    stroke: rgb(168 162 158);
+    stroke-width: 2;
+  }
+
+  .orbital-ring {
+    fill: none;
+    stroke: rgb(214 211 209);
+    stroke-width: 1.6;
+    stroke-dasharray: 4 5;
+  }
+
+  .polygon-axis {
+    stroke: rgb(168 162 158);
+    stroke-width: 2;
+    stroke-linecap: round;
+  }
+
+  .polygon-node {
+    fill: white;
+    stroke: #1f4e79;
+    stroke-width: 2.5;
+  }
+
+  .polygon-card-p .polygon-node,
+  .polygon-card-p .spin-dot-filled {
+    stroke: #2d7a3a;
+  }
+
+  .polygon-card-d .polygon-node,
+  .polygon-card-d .spin-dot-filled {
+    stroke: #d6791e;
+  }
+
+  .polygon-card-f .polygon-node,
+  .polygon-card-f .spin-dot-filled {
+    stroke: #6b4ca0;
+  }
+
+  .spin-dot {
+    fill: white;
+    stroke: currentColor;
+    stroke-width: 1.5;
+    color: rgb(120 113 108);
+  }
+
+  .spin-dot-a {
+    fill: rgb(250 250 249);
+  }
+
+  .spin-dot-b,
+  .spin-dot-filled {
+    fill: currentColor;
+  }
+
+  .polygon-card-s {
+    border-color: rgba(31, 78, 121, 0.28);
+  }
+
+  .polygon-card-p {
+    border-color: rgba(45, 122, 58, 0.28);
+  }
+
+  .polygon-card-d {
+    border-color: rgba(214, 121, 30, 0.32);
+  }
+
+  .polygon-card-f {
+    border-color: rgba(107, 76, 160, 0.32);
+  }
+
+  .polygon-card-s svg {
+    color: #1f4e79;
+  }
+
+  .polygon-card-p svg {
+    color: #2d7a3a;
+  }
+
+  .polygon-card-d svg {
+    color: #d6791e;
+  }
+
+  .polygon-card-f svg {
+    color: #6b4ca0;
+  }
+
+  .polygon-stability {
+    margin-top: 1rem;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 30rem;
+    gap: 1.5rem;
+    align-items: center;
+    border: 1px solid rgb(214 211 209);
+    border-radius: 0.5rem;
+    background: rgb(250 250 249);
+    padding: 1rem;
+  }
+
+  .polygon-stability h3 {
+    margin: 0 0 0.5rem;
+    font-family: ui-sans-serif, system-ui, -apple-system, sans-serif;
+    font-size: 1.05rem;
+    font-weight: 800;
+    color: #1f4e79;
+  }
+
+  .polygon-stability p {
+    margin: 0;
+    font-family: ui-sans-serif, system-ui, -apple-system, sans-serif;
+    font-size: 0.9rem;
+    line-height: 1.55;
+    color: rgb(68 64 60);
+  }
+
+  .pentagon-states {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.75rem;
+  }
+
+  .pentagon-states figure {
+    margin: 0;
+    border: 1px solid rgb(231 229 228);
+    border-radius: 0.45rem;
+    background: white;
+    padding: 1rem;
+    text-align: center;
+  }
+
+  .pentagon-states svg {
+    width: 100%;
+    max-width: 13.5rem;
+    display: block;
+    margin: 0 auto;
+    color: #d6791e;
+  }
+
+  .pentagon-states figcaption {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-weight: 800;
+    color: rgb(28 25 23);
+  }
+
+  .period-row {
+    display: grid;
+    grid-template-columns: 4rem minmax(0, 1fr) 7rem;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .period-track {
+    display: grid;
+    grid-template-columns: repeat(var(--cells), minmax(4px, 1fr));
+    gap: 2px;
+    min-height: 28px;
+  }
+
+  .period-cell {
+    min-width: 4px;
+    border-radius: 2px;
+  }
+
+  .period-cell-s {
+    background: #1f4e79;
+  }
+
+  .period-cell-d {
+    background: #d6791e;
+  }
+
+  .period-cell-f {
+    background: #6b4ca0;
+  }
+
+  .period-cell-p {
+    background: #2d7a3a;
+  }
+
+  .period-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem 1rem;
+    padding-top: 0.75rem;
+    font-family: ui-sans-serif, system-ui, -apple-system, sans-serif;
+    font-size: 0.8125rem;
+    color: rgb(87 83 78);
+  }
+
+  .period-legend-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    white-space: nowrap;
+  }
+
+  .period-legend-swatch {
+    width: 0.95rem;
+    height: 0.95rem;
+    border-radius: 3px;
+    border: 1px solid rgb(214 211 209);
+  }
+
+  .period-shell-note {
+    margin-top: 1rem;
+    border: 1px solid rgb(214 211 209);
+    border-radius: 0.5rem;
+    background: white;
+    padding: 1rem;
+    font-family: ui-sans-serif, system-ui, -apple-system, sans-serif;
+    font-size: 0.875rem;
+    line-height: 1.55;
+    color: rgb(68 64 60);
+  }
+
+  .period-shell-note h3 {
+    margin: 0 0 0.5rem;
+    color: #1f4e79;
+    font-weight: 700;
+    font-size: 1rem;
+  }
+
+  .period-shell-note p {
+    margin: 0.65rem 0 0;
+  }
+
+  .period-shell-note p:first-of-type {
+    margin-top: 0;
+  }
+
+  .shell-ladder {
+    display: grid;
+    gap: 0.85rem;
+  }
+
+  .shell-row {
+    display: grid;
+    grid-template-columns: 6.5rem minmax(0, 1fr) 6.5rem;
+    gap: 0.75rem;
+    align-items: center;
+    border: 1px solid rgb(231 229 228);
+    border-radius: 0.5rem;
+    background: white;
+    padding: 1rem;
+  }
+
+  .shell-row p {
+    grid-column: 2 / 4;
+    margin: 0;
+    font-family: ui-sans-serif, system-ui, -apple-system, sans-serif;
+    font-size: 0.85rem;
+    color: rgb(87 83 78);
+    line-height: 1.45;
+  }
+
+  .shell-period,
+  .shell-length {
+    font-family: ui-sans-serif, system-ui, -apple-system, sans-serif;
+    font-size: 0.85rem;
+    color: rgb(87 83 78);
+  }
+
+  .shell-length {
+    text-align: right;
+  }
+
+  .shell-sequence {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.45rem;
+  }
+
+  .shell-token {
+    display: inline-flex;
+    min-width: 3.25rem;
+    justify-content: center;
+    border-radius: 0.35rem;
+    padding: 0.35rem 0.55rem;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: white;
+  }
+
+  .shell-token-s {
+    background: #1f4e79;
+  }
+
+  .shell-token-p {
+    background: #2d7a3a;
+  }
+
+  .shell-token-d {
+    background: #d6791e;
+  }
+
+  .shell-token-f {
+    background: #6b4ca0;
+  }
+
+  .periodic-calculator {
+    border: 1px solid rgb(214 211 209);
+    border-radius: 0.5rem;
+    background: white;
+    padding: 1.25rem;
+    display: grid;
+    gap: 1.25rem;
+  }
+
+  .calculator-controls {
+    display: grid;
+    gap: 0.65rem;
+    font-family: ui-sans-serif, system-ui, -apple-system, sans-serif;
+  }
+
+  .calculator-controls label {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #1f4e79;
+  }
+
+  .calculator-controls input {
+    width: min(12rem, 100%);
+    border: 1px solid rgb(168 162 158);
+    border-radius: 0.35rem;
+    padding: 0.55rem 0.7rem;
+    font-size: 1rem;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+
+  .calculator-presets {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .calculator-presets button {
+    border: 1px solid rgb(214 211 209);
+    border-radius: 0.35rem;
+    background: rgb(250 250 249);
+    padding: 0.35rem 0.55rem;
+    font-size: 0.8rem;
+    color: rgb(68 64 60);
+  }
+
+  .calculator-presets button:hover {
+    border-color: #1f4e79;
+    color: #1f4e79;
+  }
+
+  .calculator-output {
+    display: grid;
+    grid-template-columns: 8rem minmax(0, 1fr);
+    gap: 1rem;
+    align-items: stretch;
+  }
+
+  .element-tile {
+    border-radius: 0.5rem;
+    background: #1f4e79;
+    color: white;
+    padding: 1rem;
+    min-height: 8rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .periodic-calculator[data-current-block="p"] .element-tile {
+    background: #2d7a3a;
+  }
+
+  .periodic-calculator[data-current-block="d"] .element-tile {
+    background: #d6791e;
+  }
+
+  .periodic-calculator[data-current-block="f"] .element-tile {
+    background: #6b4ca0;
+  }
+
+  .element-symbol {
+    font-family: ui-sans-serif, system-ui, -apple-system, sans-serif;
+    font-size: 3rem;
+    font-weight: 800;
+    line-height: 1;
+  }
+
+  .element-z {
+    margin-top: 0.4rem;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.9rem;
+    opacity: 0.85;
+  }
+
+  .calculator-output dl {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.6rem;
+    margin: 0;
+  }
+
+  .calculator-output dl div {
+    border: 1px solid rgb(231 229 228);
+    border-radius: 0.4rem;
+    padding: 0.65rem;
+    background: rgb(250 250 249);
+  }
+
+  .calculator-output dt {
+    font-family: ui-sans-serif, system-ui, -apple-system, sans-serif;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: rgb(120 113 108);
+  }
+
+  .calculator-output dd {
+    margin: 0.2rem 0 0;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 1rem;
+    font-weight: 700;
+    color: rgb(28 25 23);
+  }
+
+  .source-details {
+    border: 1px solid rgb(231 229 228);
+    border-radius: 0.5rem;
+    background: rgb(250 250 249);
+    overflow: hidden;
+  }
+
+  .source-details summary {
+    cursor: pointer;
+    padding: 0.85rem 1rem;
+    font-family: ui-sans-serif, system-ui, -apple-system, sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #1f4e79;
+    user-select: none;
+  }
+
+  .source-details summary:hover {
+    background: rgb(245 245 244);
+  }
+
+  .source-code {
+    margin: 0;
+    border-radius: 0;
+    max-height: 42rem;
+    overflow: auto;
+    background: rgb(28 25 23);
+    color: rgb(245 245 244);
+    font-size: 0.78rem;
+    line-height: 1.55;
+    tab-size: 2;
+  }
+
+  @media (max-width: 720px) {
+    .periodic-block {
+      min-height: 210px;
+      padding: 1rem 0.35rem;
+    }
+
+    .orbital-sketch {
+      width: 58px;
+      height: 58px;
+    }
+
+    .orbital-sketch span {
+      transform:
+        rotate(calc((360deg / var(--n)) * var(--i)))
+        translateY(-20px);
+    }
+
+    .period-row {
+      grid-template-columns: 3rem minmax(0, 1fr);
+    }
+
+    .period-row > :last-child {
+      grid-column: 2;
+      text-align: left;
+    }
+
+    .polygon-grid,
+    .polygon-stability {
+      grid-template-columns: 1fr;
+    }
+
+    .polygon-card {
+      grid-template-columns: 10.5rem minmax(0, 1fr);
+      gap: 0.75rem;
+      align-items: center;
+    }
+
+    .polygon-card h3 {
+      margin-top: 0;
+    }
+
+    .pentagon-states {
+      max-width: 20rem;
+    }
+
+    .shell-row,
+    .calculator-output {
+      grid-template-columns: 1fr;
+    }
+
+    .shell-row p {
+      grid-column: 1;
+    }
+
+    .shell-length {
+      text-align: left;
+    }
+
+    .calculator-output dl {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -1,0 +1,101 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import ResearchTopic from '@components/ResearchTopic.astro';
+
+const features = [
+  { title: 'Fisher becomes spacetime', body: 'The Fisher metric of the sieve is identified with the spacetime metric by informational uniqueness.', status: 'THM' },
+  { title: 'Signature and SO(3,1)', body: 'Lorentzian signature and SO(3,1) are reconstructed from Fisher-Bianchi geometry.', status: 'THM' },
+  { title: 'Einstein equations', body: 'The Einstein tensor appears as a cumulant identity for a Hessian metric.', status: 'DER' },
+];
+
+const sections = [
+  {
+    eyebrow: 'L1',
+    title: 'Einstein from an information map',
+    paragraphs: [
+      'General relativity starts with a spacetime metric and writes its dynamics. PT reads the metric itself from a probability distribution of the sieve.',
+      'In plain terms: PT does not ask “which space does the sieve live in?”. It asks “which notion of distance is forced by what the sieve can distinguish?”. That natural distance is the Fisher metric.',
+      'Imagine a city whose map is unknown, but whose most stable routes between districts are known. By comparing those routes, one reconstructs the map. PT does something similar: it reconstructs geometry from the persistent distinctions of the sieve.',
+      'The message is simple: spacetime is not a primitive container. It is the continuous geometric reading of persistence mechanics; arithmetic structures mark its remarkable points. Einstein is not pasted on afterward; it appears as the geometric grammar of that map.',
+    ],
+    visual: {
+      kind: 'fisher-bianchi',
+      title: 'From Fisher to Bianchi I',
+      caption: 'The Fisher metric measures persistent distinctions; restricted to the three active primes, it becomes an anisotropic geometry with three spatial directions and one time direction.',
+      labels: ['Fisher metric', 'three active primes', 'Lorentzian signature'],
+    },
+    demo: {
+      kind: 'anisotropy',
+      title: 'Directional reading',
+      caption: 'The slider illustrates the mean-reading idea: one method may sample an effective direction, while isotropic cosmology reads an average.',
+      labels: ['effective direction'],
+    },
+  },
+  {
+    eyebrow: 'L2',
+    title: 'Physical architecture: Fisher, Bianchi, Einstein',
+    paragraphs: [
+      'The monograph gives the chain: $s=1/2 \\to \\sin^2\\theta_p,\\gamma_p \\to g^{F}_{\\mu\\nu} \\to$ Bianchi I $\\to$ SO(3,1) $\\to G_{\\mu\\nu}$.',
+      'The Fisher metric is unique under transformations that do not create information. Decomposed on the active primes $3,5,7$, it takes a Bianchi I form with three spatial directions and one time direction.',
+      'The three active primes are decisive: they provide three spatial scale factors. The time term comes from curvature along the $\\mu$ direction. The $3+1$ structure is therefore not placed as an initial backdrop.',
+      'PT relativity is therefore not merely “compatible with Einstein”. It claims to explain why Lorentzian geometry and Einstein-type equations are the right structures when persistent information is read as distance, curvature, and energy.',
+    ],
+    items: [
+      'Lorentzian signature: $g_{00}<0$ after the geometric threshold.',
+      'SO(3,1): symmetry of the Fisher-Bianchi metric.',
+      'Einstein equations: cumulant/Hessian route and Lovelock route.',
+      'Gravitational constant: $G \\simeq 2\\pi\\alpha_{EM}$ in PT units.',
+    ],
+  },
+  {
+    eyebrow: 'L3',
+    title: 'Technical demonstration: Fisher, Einstein and Lovelock routes',
+    depth: 'L3',
+    paragraphs: [
+      'Chapter 13 reports 38/38 Einstein components validated, Lorentzian signature as an algebraic theorem, SO(3,1) through structural tests, and R50 continuum limit as dissolved.',
+      'The sensitive step is the bridge “Fisher metric = spacetime metric”. The monograph ties it to Lemma F, Cencov uniqueness, and the argument that any other metric would violate informational monotonicity.',
+      'Two routes overlap. The Hessian route reads $g_{ab}=\\partial_a\\partial_b\\ln Z$ and turns Einstein equations into a cumulant identity. The Lovelock route says that in $3+1$ dimensions, with covariant conservation, the admissible tensor is essentially the Einstein tensor.',
+      'The PT Bianchi I metric has scale factors $a_p=\\gamma_p/\\mu$ for $p\\in\\{3,5,7\\}$ and a time term driven by $S^{\\prime\\prime}(\\mu)$. This links PT anomalous dimensions to directional Hubble rates.',
+    ],
+    items: [
+      'Inputs: Fisher, holonomy $\\sin^2\\theta_p$, fixed point $\\mu^*=15$, $N_c=3$.',
+      'Outputs: Lorentzian signature, SO(3,1), $G_{\\mu\\nu}$, $G\\simeq2\\pi\\alpha_{EM}$, $H_0$.',
+      'Status: mixed THM/DER/VAL by step; not one single pure theorem.',
+      'Conceptual point: the continuum is the native geometric mechanics of the distribution; discreteness marks persistent points, not a mesh to refine.',
+    ],
+    proof: {
+      title: 'L3 demonstration',
+      steps: [
+        'The sieve defines a probability family over residue classes. By Cencov, the Riemannian monotone geometry naturally associated with this family is $g^F$, the Fisher metric.',
+        'CRT factorization separates prime factors. Restricted to the three active primes $3,5,7$, the metric becomes diagonal and anisotropic: this is the Bianchi I form.',
+        'Scale factors are $a_p=\\gamma_p/\\mu$, where $\\gamma_p$ is the PT anomalous dimension. The three active factors provide the three spatial directions.',
+        'The $\\mu$ direction carries $g_{00}$; chapter 13 proves $g_{00}<0$ in the physical regime. The signature is therefore Lorentzian.',
+        'The isometry algebra of the Fisher-Bianchi metric restricted to the active sector gives SO(3,1), the local symmetry of special relativity.',
+        'For the Bianchi I metric $ds^2=-N^2d\\mu^2+\\sum_p a_p^2dx_p^2$, directional Hubble parameters are $H_p=\\dot a_p/a_p$. Standard computation of the Einstein tensor gives in particular $G_{00}=H_3H_5+H_3H_7+H_5H_7$.',
+        'The Hessian route reinforces the computation: if $g_{ab}=\\partial_a\\partial_b\\ln Z$, then $G_{ab}$ and $T_{ab}$ are contractions of the same cumulant potential; the contracted Bianchi identity gives dynamical compatibility.',
+        'The Lovelock route locks the form: in $3+1$ dimensions, under covariance and conservation, the admissible tensor is the Einstein tensor, up to inactive topological/higher-curvature corrections.',
+      ],
+      conclusion: 'PT relativity follows the chain Fisher → Bianchi I → Lorentzian signature → SO(3,1) → Einstein tensor. The steps do not all carry the same epistemic status, but together they form a coherent reconstruction of relativistic geometry from the sieve.',
+    },
+  },
+];
+
+const sources = [
+  'Monograph ch. 13: General Relativity from Fisher Geometry.',
+  'ch. 9: metric reconstruction, Lemma F.',
+  'ch. 24: scope, limits, and quantum-gravity status.',
+  'Glossary: Cencov, Lovelock, Fisher information.',
+];
+---
+
+<BaseLayout title="Relativity in PT" description="How Persistence Theory reconstructs general relativity from the Fisher metric of the sieve.">
+  <ResearchTopic
+    eyebrow="Relativity"
+    title="Relativity as Fisher geometry of the sieve"
+    description="PT does not paste Einstein onto the sieve: it attempts to show that the spacetime metric is the natural information geometry of the sieve."
+    lead="Relativity becomes the geometric reading of persistence: once the Fisher metric is forced, signature, directions, Einstein equations, and the gravitational constant are no longer independent ingredients."
+    features={features}
+    sections={sections}
+    sources={sources}
+  />
+</BaseLayout>

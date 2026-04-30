@@ -1,0 +1,173 @@
+---
+id: T6
+name: 'T6 — Holonomy'
+short: '$\sin^2 \theta_p = \delta_p (2 - \delta_p)$ — trigonometry emerges from the sieve.'
+statement: 'For $\delta_p = (1 - q^p)/p$ and $\cos \theta_p = 1 - \delta_p$, the identity $\sin^2 \theta_p = \delta_p (2 - \delta_p)$ is tautological. Consequence: trigonometry is forced by the $\mathbb{Z}/p\mathbb{Z}$ structure, with $\pi$ emerging via $\zeta(2) = \pi^2/6$.'
+status: THM
+monograph_chapter: chap:holonomy
+order: 8
+lang: en
+---
+
+import Tag from '@components/Tag.astro';
+
+## Statement
+
+For any prime $p$ and branch parameter $q$ with $0 < \delta_p < 1$, define the cyclic phase angle $\theta_p$ by:
+
+$$
+\cos\theta_p = 1 - \delta_p(q),
+\quad\text{where}\quad
+\delta_p(q) = \frac{1 - q^p}{p}.
+$$
+
+The algebraic identity follows:
+
+$$
+\boxed{\sin^2\theta_p = \delta_p(q)\cdot(2 - \delta_p(q))}
+$$
+
+<Tag level="THM" />
+
+<div data-max-depth="L1" className="bg-amber-50 border-l-4 border-amber-300 px-4 py-3 my-6">
+**Plain reading.** When you walk around a circle of $p$ points by always jumping the
+same number of steps, you eventually come back to the starting point after some
+revolutions. The theorem says: the angle covered at each jump is exactly given by the
+formula above, no approximation. Consequence: trigonometry (sin, cos, $\pi$) is not
+invented by PT — it **emerges naturally** from the prime sieve.
+</div>
+
+## Why it matters
+
+T6 is the link that takes the sieve (purely arithmetic) to geometry (angles,
+rotations, $\pi$). Without T6, PT would be stuck at the level of mod-$p$
+classes; with T6, the full trigonometric apparatus is available, and so are
+holonomies, Lie groups, and physical observables (BA5: $\alpha_{\mathrm{EM}} = \prod \sin^2\theta_p$).
+
+Epistemic status: **theorem/derivation** in the monograph. The reduction
+$\sin^2\theta_p=\delta_p(2-\delta_p)$ is algebraic once
+$\cos\theta_p=1-\delta_p$ is set; the non-trivial content is that this angle
+definition is forced by the sieve geometry.
+
+## Proof — outline
+
+The proof is a direct derivation in four moves:
+
+1. **Define** $\cos\theta_p = 1 - \delta_p$ (forced by the restricted transfer
+   matrix on non-zero residues — see Route 1 below).
+2. **Apply Pythagoras**: $\sin^2\theta_p + \cos^2\theta_p = 1$.
+3. **Substitute**: $\sin^2\theta_p = 1 - (1-\delta_p)^2 = 2\delta_p - \delta_p^2$.
+4. **Factor**: $\sin^2\theta_p = \delta_p(2 - \delta_p)$.
+
+The substantive work consists in showing that the definition of $\cos\theta_p$
+is not arbitrary — it is forced by the geometry of the sieve, and three
+mathematically disjoint routes lead to it.
+
+<div data-min-depth="L3" className="bg-stone-50 border border-stone-300 rounded-lg p-4 my-8">
+
+### Detailed proof (L3 mode)
+
+#### Route 1 — Geometric (restricted transfer matrix)
+
+After T1 forces the main diagonal of the transition kernel to zero on the
+non-zero residue classes, the matrix $T_p$ restricted to the two surviving
+classes $\{r_1, r_2\}$ reads:
+
+$$
+T_p|_\text{reduced} = \begin{pmatrix} 1-\delta_p & * \\ * & 1-\delta_p \end{pmatrix}
+$$
+
+where the diagonal is the fraction that stays in the same class. By
+probability conservation (rows sum to 1):
+
+$$
+\text{(off-diagonal)} = 1 - (1 - \delta_p) = \delta_p.
+$$
+
+The squared transition amplitude, summed over the two off-diagonal entries,
+gives the total probability of changing class:
+
+$$
+1 - (1 - \delta_p)^2 = 2\delta_p - \delta_p^2 = \delta_p(2 - \delta_p).
+$$
+
+This is the **stochastic route**: $\cos\theta_p$ is the fraction of mass
+that stays in the same class, $\sin^2\theta_p$ is the fraction that switches.
+
+#### Route 2 — Spectral (Fourier transform on $\mathbb{Z}/p\mathbb{Z}$)
+
+Let $\omega = e^{2\pi i/p}$ and $\chi_j(r) = \omega^{jr}$ be the additive
+characters of $\mathbb{Z}/p\mathbb{Z}$. The Fourier transform of the kernel
+$T_p$, restricted to surviving residues $\{1, \ldots, p-1\}$, has the
+fundamental-mode eigenvalue:
+
+$$
+\widehat{T}_p(\chi_1) = \sum_{r=1}^{p-1} T_p(0, r)\,\omega^r = 1 - \delta_p = \cos\theta_p.
+$$
+
+The contraction of the first non-trivial Fourier mode is therefore:
+
+$$
+1 - |\widehat{T}_p(\chi_1)|^2 = 1 - (1 - \delta_p)^2 = \delta_p(2 - \delta_p) = \sin^2\theta_p.
+$$
+
+This route identifies $\sin^2\theta_p$ as **the spectral weight lost by the
+fundamental character** at each sieve step — an object of harmonic analysis
+on $\mathbb{Z}/p\mathbb{Z}$, independent of any geometric interpretation.
+
+Numerical check: `proof_holonomy.py`, Part 1, confirms the contraction
+$|\hat{P}(1)|^2$ at $p = 3$.
+
+#### Route 3 — Information-geometric (Fisher component)
+
+The per-prime Fisher information component
+
+$$
+F_p(\mu) = \sum_r P_r^{-1}\left(\frac{\partial P_r}{\partial \mu}\right)^2
+$$
+
+(see §9.5 of the monograph) satisfies $F_p \propto \sin^2\theta_p$ at the
+sieve fixed point. Specifically, the double integration
+
+$$
+\ln\alpha = -\iint g_{00}\,d\mu^2
+$$
+
+reproduces the product $\prod \sin^2\theta_p$ because the Fisher metric is
+additively separable over CRT factors. This route gives $\sin^2\theta_p$ as
+a **curvature component** of the statistical manifold, with no reference to
+rotation angles.
+
+#### Consistency of the three routes
+
+The exact agreement of the three routes — geometric, spectral,
+information-geometric — is a non-trivial consistency check. They use
+disjoint mathematical machineries: finite probability, discrete Fourier
+analysis, information geometry. The identity
+$\sin^2\theta_p = \delta_p(2-\delta_p)$ appears in each.
+
+#### Emergence of $\pi$
+
+The appearance of $\pi$ in PT is a direct consequence of T6, via the Basel
+identity:
+
+$$
+\zeta(2) = \sum_{n \geq 1} \frac{1}{n^2} = \frac{\pi^2}{6}.
+$$
+
+The sum over active primes $\{3, 5, 7\}$ of $\sin^2\theta_p$ weighted by
+multiplicities, in the continuous limit, gives an integral containing
+$\zeta(2)$ and hence $\pi^2$.
+
+For the complete derivation, see [chapter 6 of the monograph](/en/monograph)
+(statement p. 95, motivation p. 110, three routes p. 158, numerical check p. 230).
+</div>
+
+## See also
+
+- [Calculator 2 — sin²(θ_p) on both branches](/en/calculator) — computes the
+  identity live for $p \in \{2, 3, 5, 7, 11, ...\}$
+- [Essay — Where does α_EM = 1/137 come from?](/en/essays/where-alpha-comes-from) —
+  direct application of T6
+- [Theorem T5 (fixed point)](/en/theorems/T5) — uses T6 to close the sieve
+- [All theorems](/en/theorems)

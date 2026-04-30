@@ -1,0 +1,133 @@
+---
+id: G
+name: 'Lemma G — Hilbert reconstruction'
+short: 'The reconstructed QFT''s Hilbert space is $\mathcal{H}_\infty = \varinjlim \bigotimes_{p \mid m_K} \mathcal{H}_p$.'
+statement: 'The Hilbert space of the QFT reconstructed by Osterwalder–Schrader is $\mathcal{H}_\infty = \varinjlim \bigotimes_{p \mid m_K} \mathcal{H}_p$, the inductive limit of the per-prime CRT tensor products.'
+status: THM
+monograph_chapter: chap:bridge
+order: 17
+tier: secondary
+lang: en
+---
+
+import Tag from '@components/Tag.astro';
+
+## Statement
+
+The **Hilbert space** of the QFT reconstructed (by Osterwalder–Schrader, cf. Lemmas E and F) is:
+
+$$
+\boxed{\mathcal{H}_\infty = \varinjlim_{K \to \infty} \bigotimes_{p \,\mid\, m_K} \mathcal{H}_p,}
+$$
+
+the **inductive limit** of the per-CRT-factor tensor products, where each $\mathcal{H}_p$ is the finite-dimensional Hilbert space associated with the mod-$p$ sieve.
+
+<Tag level="THM" />
+
+<div data-max-depth="L1" className="bg-amber-50 border-l-4 border-amber-300 px-4 py-3 my-6">
+**Plain reading.** The state space of quantum mechanics (the "Hilbert space") is
+not arbitrarily posited in PT. It is **constructed** as a particular combination
+of small spaces, one per active prime, assembled by tensor product. No hidden
+representation choice.
+</div>
+
+## Why it matters
+
+Lemma G completes the **(E, F, G)** reconstruction triad:
+- **E** gives the coupling,
+- **F** gives the spacetime metric,
+- **G** gives the quantum state space.
+
+With these three lemmas, the QFT reconstructed from the sieve is **completely
+characterised**: observable algebra ($\mathcal{A}$), metric (by F), Hilbert
+space (by G), and coupling (by E). No external element added.
+
+This justifies saying PT "reconstructs physics" rather than "identifies the
+sieve with physics".
+
+## Proof — outline
+
+1. **Step G.1**: for each prime $p$, the space $\mathcal{H}_p$ is the
+   finite-dim Hilbert space associated with the transfer $T_p$.
+2. **Step G.2**: the CRT decomposition gives $\mathcal{H}_m = \bigotimes_{p \mid m} \mathcal{H}_p$
+   for every modulus $m$.
+3. **Step G.3**: the inductive limit $\varinjlim$ exists and is well-defined
+   by OS compatibility.
+
+<div data-min-depth="L3" className="bg-stone-50 border border-stone-300 rounded-lg p-4 my-8">
+
+### Detailed proof (L3 mode)
+
+#### Step G.1 — Per-prime Hilbert space
+
+For each prime $p$, the Hilbert space $\mathcal{H}_p$ associated with the
+transfer $T_p$ has dimension $p - 1$ (number of non-zero residue classes mod
+$p$ after eliminating 0). Finite-dimensional, equipped with the inner product
+defined by $T_p$'s stationary measure.
+
+For active primes $\{3, 5, 7\}$: $\dim \mathcal{H}_3 = 2$,
+$\dim \mathcal{H}_5 = 4$, $\dim \mathcal{H}_7 = 6$.
+
+#### Step G.2 — Tensor CRT decomposition
+
+By CRT, for $m = p_1 p_2 \cdots p_k$ a product of distinct primes:
+
+$$
+\mathcal{H}_m = \bigotimes_{p \mid m} \mathcal{H}_p.
+$$
+
+This is the isomorphism between the Hilbert space on $\mathbb{Z}/m\mathbb{Z}$
+and the tensor product over prime factors. Consistent with the tensor
+factorisation of the transfer matrix $T_m = \bigotimes_p T_p$.
+
+For the arithmetic torus $\mathbb{T}^3 = \mathbb{Z}/105\mathbb{Z}$ (with
+$105 = 3 \cdot 5 \cdot 7$):
+
+$$
+\mathcal{H}_{105} = \mathcal{H}_3 \otimes \mathcal{H}_5 \otimes \mathcal{H}_7,
+$$
+
+of dimension $2 \cdot 4 \cdot 6 = 48$.
+
+#### Step G.3 — Inductive limit
+
+The family $\{m_K\}_{K \geq 1}$ with $m_{K+1} = m_K \cdot p_{K+1}$ (adding a
+new prime at each step) generates an increasing chain of spaces
+$\mathcal{H}_{m_1} \hookrightarrow \mathcal{H}_{m_2} \hookrightarrow \cdots$.
+
+The inductive limit:
+
+$$
+\mathcal{H}_\infty = \varinjlim_{K \to \infty} \mathcal{H}_{m_K}
+$$
+
+exists in the sense of pre-Hilbert spaces. The completion gives a separable
+infinite-dimensional Hilbert space, which is exactly the OS-reconstructed QFT
+state space.
+
+#### Compatibility with OS axioms
+
+The inclusions $\mathcal{H}_{m_K} \hookrightarrow \mathcal{H}_{m_{K+1}}$ are
+**isometric** (preserve inner product) because the transfers $T_p$ are
+stochastic. This ensures the limit is well-defined and the observable algebra
+$\mathcal{A}$ extends continuously.
+
+#### Structural implications
+
+- **Per-prime finite dimensionality**: each factor remains finite-dimensional,
+  making explicit computations possible.
+- **Separable limit**: $\mathcal{H}_\infty$ has a countable basis, consistent
+  with standard quantum mechanics axioms.
+- **CRT-factorisable**: any operator on $\mathcal{H}_\infty$ decomposes over
+  prime factors — the technical foundation of Pontryagin (BA5).
+
+For the complete derivation, see [chapter 9 of the monograph](/en/monograph),
+section *Hilbert Reconstruction (Lemma G)*.
+</div>
+
+## See also
+
+- [Lemma E — Coupling reconstruction](/en/theorems/E) — QFT coupling
+- [Lemma F — Metric reconstruction](/en/theorems/F) — spacetime metric
+- [BA5 — Pontryagin product](/en/theorems/BA5) — product over CRT factors
+- [All theorems](/en/theorems)

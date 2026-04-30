@@ -1,0 +1,107 @@
+---
+id: N4
+name: 'N4 — Premier niveau de cascade'
+short: 'Dans l’ordre canonique du crible, $p = 3$ est le premier niveau dynamique. $p = 2$ joue un rôle structurellement distinct (info / anti-info).'
+statement: 'Dans l’ordre canonique du crible, le premier $p = 3$ est le premier niveau **dynamique** : il produit la première matrice de transfert non triviale et la symétrie $s = 1/2$. Le premier $p = 2$ a un rôle structurellement distinct — opérateur info / anti-info de la partition GFT.'
+status: THM
+monograph_chapter: chap:uniqueness
+order: 13
+tier: secondary
+lang: fr
+---
+
+import Tag from '@components/Tag.astro';
+
+## Énoncé
+
+Dans le crible d’Ératosthène ordonné canoniquement, le premier $p = 3$ est le **premier niveau de cascade dynamique** : il produit la première matrice de transfert non triviale et impose la symétrie fondamentale $s = 1/2$.
+
+Le premier $p = 2$ a un rôle **structurellement distinct** : c’est l’opérateur **info / anti-info** qui crée la partition GFT $\log_2 m = D_{\rm KL} + H$. Il est *cinématique*, pas *dynamique*.
+
+<Tag level="THM" />
+
+<div data-max-depth="L1" className="bg-amber-50 border-l-4 border-amber-300 px-4 py-3 my-6">
+**Lecture vulgarisée.** Pourquoi la PT commence-t-elle à $p = 3$ et pas à $p = 2$ ?
+Parce que le 2 ne « bouge » pas — il sépare juste le pair de l’impair, c’est binaire.
+La vraie dynamique commence avec le 3, qui crée la première règle non triviale
+(les transitions interdites mod 3, T1).
+</div>
+
+## Pourquoi ça compte
+
+N4 justifie le **rôle particulier de $p = 2$** dans toute la cascade PT.
+Sans cette distinction, on essaierait d’inclure $p = 2$ dans le calcul de
+$\alpha_{\rm EM}$ (BA5) — et on obtiendrait des nombres faux. Le facteur $p = 2$
+sort autrement : par la fuite informationnelle $F(2) \approx 0{,}758$ qui
+habille $\alpha_{\rm bare}$ pour donner $\alpha_{\rm EM} = 1/137{,}036$.
+
+C’est aussi N4 qui justifie U4 (l’exclusion de $p = 2$ comme premier dynamique)
+dans T0.
+
+## Démonstration — schéma
+
+1. **$p = 2$ est cinématique.** La partition pair / impair est une projection
+   booléenne, sans dynamique.
+2. **$p = 3$ est dynamique.** La matrice de transfert $T_3$ a deux états
+   distincts (classes $\{1, 2\} \pmod 3$) avec règle d’élimination non triviale.
+3. **Symétrie forcée.** $T_3 = \mathrm{antidiag}(1,1)$ a une distribution
+   stationnaire $(1/2, 1/2)$, d’où $s = 1/2$.
+
+<div data-min-depth="L3" className="bg-stone-50 border border-stone-300 rounded-lg p-4 my-8">
+
+### Démonstration détaillée (mode L3)
+
+#### Partie 1 — $p = 2$ est cinématique
+
+Le crible mod 2 partitionne $\mathbb{N}$ en pairs $\{2, 4, 6, \ldots\}$ et
+impairs $\{1, 3, 5, 7, \ldots\}$. Cette partition est :
+- **Booléenne** : un entier est pair ou impair, sans état intermédiaire.
+- **Sans transition** : la classe d’un entier est déterminée trivialement par
+  son dernier bit.
+
+La matrice de transfert mod 2 sur les survivants (impairs) est triviale : tous
+les survivants sont dans la même classe (1 mod 2). Pas de dynamique entre
+classes — pas d’analogue de T1.
+
+C’est ce qui fait dire à la PT que $p = 2$ est **l’opérateur de partition**
+plutôt qu'**un acteur de la cascade**. Son rôle apparaît dans GFT :
+$\log_2 m = D_{\rm KL} + H$, où le facteur 2 sépare la persistance de l’entropie.
+
+#### Partie 2 — $p = 3$ est le premier dynamique
+
+Le crible mod 3 sur les survivants 6-rough (entiers ni multiples de 2 ni de 3)
+donne deux classes non triviales : $\{1, 2\} \pmod 3$. La matrice de transfert
+$T_3$ (théorème T1) a une règle d’élimination explicite :
+$T_3 = \mathrm{antidiag}(1, 1)$.
+
+C’est la **première matrice de transfert non triviale** du crible — la
+distinction entre $T_2$ (cinématique) et $T_3$ (dynamique) est structurelle.
+
+#### Partie 3 — La symétrie $s = 1/2$
+
+La distribution stationnaire de $T_3$ se calcule par diagonalisation :
+valeurs propres $\pm 1$, vecteur propre stationnaire $(1, 1)/\sqrt{2}$.
+Donc poids $1/2$ sur chaque classe — c’est la valeur de $s$.
+
+Cette symétrie ne pourrait pas émerger à $p = 2$ (qui n’a qu’un état non
+trivial). Elle émerge à $p = 3$ pour la première fois, et reste constante
+pour tous les premiers actifs ultérieurs (par CRT).
+
+#### Conséquence : exclusion U4 dans T0
+
+T0 (clôture BA0) inclut la condition U4 : exclusion de $p = 2$ comme premier
+dynamique. N4 justifie cette condition à un niveau structurel.
+
+Cette exclusion n’est pas perdue : $p = 2$ revient à un autre niveau via
+l’habillage $F(2)$ de $\alpha_{\rm EM}$ (canal binaire). Mais sa contribution
+dynamique est filtrée hors de la cascade principale.
+
+Pour la dérivation complète, voir [chapitre 2 de la monographie](/monograph).
+</div>
+
+## Voir aussi
+
+- [T0 — Clôture BA0](/theorems/T0) — utilise U4 (exclusion de $p = 2$)
+- [T1 — Transitions interdites mod 3](/theorems/T1) — premier exemple de dynamique
+- [GFT](/theorems/GFT) — où $p = 2$ apparaît comme partition info/anti-info
+- [Tous les théorèmes](/theorems)

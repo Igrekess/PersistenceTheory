@@ -1,0 +1,147 @@
+---
+id: BA5
+name: 'BA5 — Pontryagin product'
+short: 'At the fixed point $\mu^* = 15$, the sieve coupling is the product $\prod_{p \in \{3,5,7\}} \sin^2\theta_p(q_+)$.'
+statement: 'Under bridge axioms BA0–BA4, the multiplicative functional on the CRT-decomposed sieve algebra has product form $\alpha_{\rm sieve} = \prod_{p \in \{3,5,7\}} \sin^2\theta_p(q_+)$ at the fixed point $\mu^* = 15$. The product structure is forced by Pontryagin duality on $\mathbb{Z}/3 \oplus \mathbb{Z}/5 \oplus \mathbb{Z}/7$.'
+status: THM
+monograph_chapter: chap:bridge
+order: 14
+tier: secondary
+lang: en
+---
+
+import Tag from '@components/Tag.astro';
+
+## Statement
+
+Under bridge axioms **BA0–BA4**, the multiplicative functional on the CRT-decomposed sieve algebra at the fixed point $\mu^* = 15$ has product form:
+
+$$
+\boxed{\alpha_{\rm sieve} = \prod_{p \in \{3, 5, 7\}} \sin^2\theta_p(q_+),}
+$$
+
+evaluated on the **vertex** branch ($q_+ = 13/15$). The **product** structure is forced by **Pontryagin duality** on the additive direct sum
+
+$$
+\mathbb{Z}/3\mathbb{Z} \oplus \mathbb{Z}/5\mathbb{Z} \oplus \mathbb{Z}/7\mathbb{Z}.
+$$
+
+<Tag level="THM" />
+
+<div data-max-depth="L1" className="bg-amber-50 border-l-4 border-amber-300 px-4 py-3 my-6">
+**Plain reading.** Why is $\alpha_{\rm EM}$ a **product** of three numbers, not a sum
+or an integral? Because the three channels $p \in \{3, 5, 7\}$ are **independent**
+(orthogonal in the torus $\mathbb{T}^3$). When independent channels combine, their
+amplitudes multiply — that is Pontryagin duality applied to the sieve. Not an
+aesthetic choice, a mathematical necessity.
+</div>
+
+## Why it matters
+
+BA5 is the **essential bridge** between sieve arithmetic and the value of the
+fine-structure constant. It was historically stated as an axiom (hence the
+"bridge axiom" name), but its **structural part** is promoted to **theorem** in
+the monograph: the product form follows from BA0–BA4 + Pontryagin duality +
+T5 + T6.
+
+The distinction matters: the arithmetic identity
+$\alpha_{\rm sieve}=\prod \sin^2\theta_p$ is **THM**-level; the physical
+identification with the measured electromagnetic coupling and its radiative
+dressing is a later reconstruction/physical-derivation step.
+
+Without BA5, the computation $\alpha_{\rm EM} = 1/136.28$ (then $1/137.036$
+after dressing) would have no structural justification. With BA5, it has one
+that leaves no choice.
+
+## Proof — outline
+
+1. **CRT (Chinese Remainder Theorem)**: $\mathbb{Z}/(3 \cdot 5 \cdot 7)\mathbb{Z} \cong \mathbb{Z}/3 \oplus \mathbb{Z}/5 \oplus \mathbb{Z}/7$.
+2. **Additive characters**: on each factor, the Pontryagin dual group is cyclic.
+3. **Multiplicative functional**: on the direct sum, any multiplicative
+   functional factors into a product over factors.
+4. **Identification**: the relevant per-factor functional is $\sin^2\theta_p$
+   (by T6).
+5. **Evaluation at the fixed point**: at $\mu^* = 15$, $q_+$ branch, the product
+   gives $1/136.28$.
+
+<div data-min-depth="L3" className="bg-stone-50 border border-stone-300 rounded-lg p-4 my-8">
+
+### Detailed proof (L3 mode)
+
+#### Step 1 — CRT decomposition
+
+The Chinese Remainder Theorem gives, for distinct primes:
+
+$$
+\mathbb{Z}/(p_1 p_2 p_3)\mathbb{Z} \cong \mathbb{Z}/p_1\mathbb{Z} \oplus \mathbb{Z}/p_2\mathbb{Z} \oplus \mathbb{Z}/p_3\mathbb{Z}.
+$$
+
+For $\{p_1, p_2, p_3\} = \{3, 5, 7\}$, the arithmetic torus $\mathbb{T}^3 = \mathbb{Z}/105\mathbb{Z}$ factors into three independent components.
+
+#### Step 2 — Additive characters and Pontryagin duality
+
+For each factor $\mathbb{Z}/p\mathbb{Z}$, the Pontryagin dual group is the set
+of characters $\chi_k : r \mapsto e^{2\pi i k r/p}$ for $k = 0, 1, \ldots, p-1$.
+This dual is itself cyclic of order $p$ (self-duality of finite cyclic groups).
+
+On the direct sum $\bigoplus_p \mathbb{Z}/p\mathbb{Z}$, the Pontryagin dual is
+the direct sum of duals. Any multiplicative functional
+$f : \bigoplus_p \mathbb{Z}/p\mathbb{Z} \to \mathbb{C}$ therefore necessarily
+factors:
+
+$$
+f(r_3, r_5, r_7) = f_3(r_3) \cdot f_5(r_5) \cdot f_7(r_7).
+$$
+
+#### Step 3 — Functional identification
+
+The relevant per-factor functional, by BA3 (holonomy axiom) and T6, is the
+squared transition amplitude:
+
+$$
+f_p \equiv \sin^2\theta_p.
+$$
+
+Justification: $\sin^2\theta_p$ is the orthogonality measure of the
+fundamental character $\chi_1$ relative to the stationary measure
+(cf. T6, route 2: $1 - |\widehat{T}_p(\chi_1)|^2 = \sin^2\theta_p$).
+
+#### Step 4 — Product over active primes
+
+At the fixed point $\mu^* = 15$, by T5, active primes are $\{3, 5, 7\}$.
+The global multiplicative functional therefore evaluates to:
+
+$$
+\alpha_{\rm sieve} = \prod_{p \in \{3,5,7\}} \sin^2\theta_p(q_+).
+$$
+
+#### Step 5 — Numerical value
+
+At $q_+ = 13/15$:
+- $\sin^2\theta_3 = 0.21916$
+- $\sin^2\theta_5 = 0.19397$
+- $\sin^2\theta_7 = 0.17261$
+
+Product: $\alpha_{\rm sieve} = 1/136.28$.
+
+This value is then dressed by the binary channel $F(2)$ (cf. observable
+[1/α_EM](/en/observables/1)) to give the observed value $1/137.036$; this
+part is a physical derivation, not the pure BA5 identity.
+
+#### Why not a sum
+
+Pontryagin duality **forbids** the additive form: on an abelian group,
+multiplicative functionals are necessarily multiplicative in the strict
+mathematical sense (homomorphisms to $\mathbb{C}^*$). The product form is
+**unique**, by duality.
+
+For the complete derivation, see [chapter 9 of the monograph](/en/monograph).
+</div>
+
+## See also
+
+- [T6 — Holonomy](/en/theorems/T6) — gives $\sin^2\theta_p$
+- [T5 — Fixed point μ*](/en/theorems/T5) — selects the active primes
+- [Observable 1/α_EM](/en/observables/1) — direct application of BA5
+- [Calculator 3 — α_EM](/en/calculator) — BA5 product computed live
+- [All theorems](/en/theorems)

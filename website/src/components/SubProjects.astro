@@ -1,0 +1,88 @@
+---
+interface Props {
+  lang?: 'fr' | 'en';
+}
+const { lang = 'fr' } = Astro.props;
+
+const projects = [
+  {
+    id: 'PT_MATHEMATICS',
+    repo: 'https://github.com/Igrekess/PT_MATHEMATICS',
+    fr: {
+      title: 'PT Mathematics (PTM)',
+      tag: 'Mathématiques',
+      summary: 'Cinq articles autonomes (M1–M5) sur les fondations mathématiques de la PT — du crible d\'Ératosthène à la reconstruction de la physique.',
+      stats: 'Chaque article = un théorème + scripts compagnons qui vérifient chaque énoncé.',
+    },
+    en: {
+      title: 'PT Mathematics (PTM)',
+      tag: 'Mathematics',
+      summary: 'Five self-contained articles (M1–M5) on the mathematical foundations of PT — from the sieve of Eratosthenes to the reconstruction of physics.',
+      stats: 'Each article = one theorem + companion scripts that verify every statement numerically.',
+    },
+  },
+  {
+    id: 'PT_PHYSICS',
+    repo: 'https://github.com/Igrekess/PT_PHYSICS',
+    fr: {
+      title: 'PT Physics (PTP)',
+      tag: 'Physique',
+      summary: 'Preuve computationnelle que la PT fonctionne : 43 observables du Modèle Standard reproduites depuis la symétrie dérivée s = 1/2.',
+      stats: 'Tableau de bord HTML local + scripts compagnons reproductibles, suivis par l’annexe F.',
+    },
+    en: {
+      title: 'PT Physics (PTP)',
+      tag: 'Physics',
+      summary: 'Computational proof that PT works: 43 Standard Model observables reproduced from the derived symmetry s = 1/2.',
+      stats: 'Local HTML dashboard + reproducible companion scripts tracked by Appendix F.',
+    },
+  },
+  {
+    id: 'PT_CHEMISTRY',
+    repo: 'https://github.com/Igrekess/PT_CHEMISTRY',
+    fr: {
+      title: 'PT Chemistry (PTC)',
+      tag: 'Chimie',
+      summary: 'Moteur de chimie computationnelle dérivé entièrement de la PT. 0 paramètre ajusté ; les constantes descendent de la symétrie s = 1/2 et de la structure du crible.',
+      stats: 'Énergies de dissociation, MAE ≈ 2 % (200+ molécules) — aromaticité, σ-bonds, NICS.',
+    },
+    en: {
+      title: 'PT Chemistry (PTC)',
+      tag: 'Chemistry',
+      summary: 'Computational chemistry engine derived entirely from PT. 0 adjustable parameters; constants descend from the symmetry s = 1/2 and the sieve structure.',
+      stats: 'Dissociation energies, MAE ≈ 2% (200+ molecules) — aromaticity, σ-bonds, NICS.',
+    },
+  },
+];
+
+const labels = lang === 'fr'
+  ? { heading: 'Sous-projets PT', sub: 'Trois dépôts publics qui appliquent la PT à des domaines spécifiques.', cta: 'Code et documentation', see: 'Voir sur GitHub' }
+  : { heading: 'PT sub-projects', sub: 'Three public repos applying PT to specific domains.', cta: 'Code and documentation', see: 'See on GitHub' };
+---
+
+<section class="my-12">
+  <h2 class="text-2xl font-sans font-semibold text-thmblue mb-2">{labels.heading}</h2>
+  <p class="text-stone-700 mb-6">{labels.sub}</p>
+
+  <div class="grid md:grid-cols-2 gap-4">
+    {projects.map(p => {
+      const data = (p as any)[lang];
+      return (
+        <a
+          href={p.repo}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="pt-card block group"
+        >
+          <div class="flex items-start justify-between gap-3 mb-2">
+            <span class="text-xs font-sans text-stone-500 uppercase tracking-wider">{data.tag}</span>
+            <span class="text-xs font-sans text-stone-400">↗ {labels.see}</span>
+          </div>
+          <h3 class="font-sans font-semibold text-base text-thmblue group-hover:underline mb-2">{data.title}</h3>
+          <p class="text-sm text-stone-700 mb-2">{data.summary}</p>
+          <p class="text-xs text-stone-500 italic">{data.stats}</p>
+        </a>
+      );
+    })}
+  </div>
+</section>

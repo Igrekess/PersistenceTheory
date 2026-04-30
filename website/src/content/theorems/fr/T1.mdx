@@ -1,0 +1,158 @@
+---
+id: T1
+name: 'T1 — Transitions interdites mod 3'
+short: 'Le crible interdit deux résidus consécutifs identiques mod 3.'
+statement: 'Pour la matrice de transfert $T_3$ du crible mod 3, on a $T_{11} = T_{22} = 0$ : trois survivants consécutifs ne peuvent appartenir tous à la même classe non-nulle modulo 3.'
+status: THM
+monograph_chapter: chap:sieve
+order: 3
+lang: fr
+---
+
+import Tag from '@components/Tag.astro';
+import SieveAnimation from '@components/SieveAnimation.astro';
+
+## Énoncé
+
+Soit $T_3$ la matrice de transfert du crible des entiers 6-rough (entiers
+non divisibles par 2 ni par 3) sur les classes de résidus modulo 3. On a :
+
+$$
+\boxed{T_3[1, 1] = T_3[2, 2] = 0.}
+$$
+
+Autrement dit : si trois entiers consécutifs survivants sont
+$n_1 < n_2 < n_3$, ils ne peuvent **pas** tous appartenir à la même classe
+$\{1, 2\} \pmod 3$.
+
+<Tag level="THM" />
+
+<div data-max-depth="L1" className="bg-amber-50 border-l-4 border-amber-300 px-4 py-3 my-6">
+**Lecture vulgarisée.** Liste les nombres qui ne sont divisibles ni par 2 ni par 3 :
+1, 5, 7, 11, 13, 17, 19, 23, 25, 29, 31, 35, … Regarde leur reste quand on les divise
+par 3 : 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, … Ça alterne **toujours**. Trois en ligne
+avec le même reste, c’est arithmétiquement impossible. Voilà T1.
+</div>
+
+<SieveAnimation lang="fr" />
+
+## Pourquoi ça compte
+
+T1 est la **première contrainte exacte** sur la dynamique du crible. C’est elle
+qui force $s = 1/2$ (théorème de la diagonale nulle) et qui ouvre la voie à
+T3 (la matrice $T_3$ est purement antidiagonale), T6 (l’holonomie sin²θ_p
+émerge de matrices restreintes après T1), et T2 (conservation spectrale).
+
+Sans T1, la matrice de transfert aurait un terme diagonal positif et la
+symétrie $s = 1/2$ ne serait pas forcée — il faudrait l’imposer comme un
+postulat.
+
+T1 est **au niveau du crible**, pas au niveau des premiers eux-mêmes : les
+premiers jumeaux comme $(61, 67)$ peuvent partager une même classe mod 3,
+mais la dynamique déterminante de la PT est la dynamique cribline, pas la
+dynamique premerale (cf. Cor. T1-primes, ch. 1).
+
+## Démonstration — schéma
+
+1. **Caractériser** les entiers 6-rough comme une suite arithmétique mod 6.
+2. **Lister les survivants** mod 6 : $\{1, 5\} \pmod 6$.
+3. **Réduire mod 3** : $1 \to 1$, $5 \to 2$.
+4. **Observer** que la suite $\{1, 5, 7, 11, 13, 17, \ldots\} \pmod 3$ alterne
+   strictement entre 1 et 2.
+5. **Conclure** : la matrice de transfert sur $\{1, 2\}$ a pour seules entrées
+   non nulles les positions hors-diagonale.
+
+<div data-min-depth="L3" className="bg-stone-50 border border-stone-300 rounded-lg p-4 my-8">
+
+### Démonstration détaillée (mode L3)
+
+#### Étape 1 — Caractérisation des entiers 6-rough
+
+Un entier $n$ est 6-rough si $\gcd(n, 6) = 1$. Cela équivaut à :
+
+$$
+n \equiv 1 \pmod 6 \quad\text{ou}\quad n \equiv 5 \pmod 6.
+$$
+
+Les entiers 6-rough forment donc deux progressions arithmétiques mod 6 :
+$\{1, 7, 13, 19, 25, \ldots\}$ et $\{5, 11, 17, 23, 29, \ldots\}$.
+
+#### Étape 2 — Réduction mod 3
+
+Réduisons les deux progressions modulo 3 :
+- $1, 7, 13, 19, 25, \ldots \equiv 1, 1, 1, 1, 1, \ldots \pmod 3$,
+- $5, 11, 17, 23, 29, \ldots \equiv 2, 2, 2, 2, 2, \ldots \pmod 3$.
+
+#### Étape 3 — Alternance forcée
+
+Mais en triant l’union dans l’ordre croissant, on obtient :
+
+$$
+1, 5, 7, 11, 13, 17, 19, 23, 25, 29, 31, 35, \ldots
+$$
+
+dont les classes mod 3 sont :
+
+$$
+1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, \ldots
+$$
+
+L’alternance est rigoureuse : entre deux 6-rough consécutifs, la classe mod 3
+**doit** changer.
+
+**Démonstration formelle** : si $n$ et $n + g$ sont deux 6-rough consécutifs
+(avec $g \in \{2, 4\}$ — les gaps possibles entre 6-rough adjacents), alors :
+- $g = 2$ envoie $1 \pmod 3 \to 0 \pmod 3$ ou $2 \pmod 3 \to 1 \pmod 3$ : la
+  première option contredit « 6-rough » (multiple de 3), donc $g = 2$ donne
+  $2 \to 1$.
+- $g = 4$ donne $1 \to 2$ ou $2 \to 0$ : la seconde option contredit
+  « 6-rough », donc $g = 4$ donne $1 \to 2$.
+
+Dans les deux cas, la classe change. CQFD.
+
+#### Étape 4 — Matrice de transfert
+
+La matrice de transfert $T_3$ sur les états $\{1, 2\}$ (les classes mod 3
+non nulles) capture la probabilité de passer d’une classe à l’autre en un pas
+du crible :
+
+$$
+T_3 = \begin{pmatrix} P(1 \to 1) & P(1 \to 2) \\ P(2 \to 1) & P(2 \to 2) \end{pmatrix}
+   = \begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix}.
+$$
+
+C’est précisément l’énoncé de T1 (les coefficients diagonaux sont nuls). On
+en déduit T3 : $T_3$ est antidiagonale.
+
+#### Étape 5 — Conséquence : $s = 1/2$
+
+La matrice antidiagonale $T_3 = \mathrm{antidiag}(1, 1)$ a pour valeurs
+propres $\pm 1$. La distribution stationnaire est uniforme sur $\{1, 2\}$
+avec poids $1/2$ chacun. Cette stationarité, combinée à la symétrie d’échange
+de Dirichlet, force la valeur fondamentale $s = 1/2$.
+
+C’est ainsi que la « symétrie fondamentale du crible » n’est pas un postulat
+mais une conséquence de T1.
+
+#### Distinction crible / premiers
+
+Au niveau **du crible** (entiers 6-rough), T1 est exact : aucune transition
+mod 3 ne se répète. Au niveau **des premiers** (sous-suite des 6-rough qui
+sont premiers), T1 n’est qu’approximatif : des paires comme $(61, 67)$ ou
+$(151, 157)$ partagent leur classe mod 3 (les deux sont $\equiv 1$). Mais
+ces violations sont d’ordre $O(1/\ln N)$ — elles disparaissent à la limite
+asymptotique.
+
+Toutes les dérivations PT ultérieures utilisent la matrice de **niveau crible**,
+pas la matrice empirique au niveau premier (cf. Remark T0_scope, ch. 1).
+
+Pour la dérivation complète et la discussion crible vs premiers, voir
+[chapitre 1 de la monographie](/monograph).
+</div>
+
+## Voir aussi
+
+- [T0 — Clôture BA0](/theorems/T0) — fixe le champ dynamique
+- [T3 — Transfert antidiagonal](/theorems/T3) — conséquence directe de T1
+- [T2 — Conservation spectrale](/theorems/T2) — utilise $T_3$ pour propager
+- [Tous les théorèmes](/theorems)

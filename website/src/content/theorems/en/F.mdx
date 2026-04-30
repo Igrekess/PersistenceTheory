@@ -1,0 +1,127 @@
+---
+id: F
+name: 'Lemma F — Metric reconstruction'
+short: 'The reconstructed QFT''s spacetime metric is the sieve''s Fisher metric evaluated at $\mu^* = 15$.'
+statement: 'The spacetime metric of the QFT reconstructed by Osterwalder–Schrader is the Fisher information metric $g^F_{ab}$ of the sieve transfer system, evaluated at the fixed point $\mu^* = 15$.'
+status: THM
+monograph_chapter: chap:bridge
+order: 16
+tier: secondary
+lang: en
+---
+
+import Tag from '@components/Tag.astro';
+
+## Statement
+
+The **spacetime metric** of the quantum field theory reconstructed (by Osterwalder–Schrader, cf. Lemma E) is the **Fisher information metric** $g^F_{ab}$ of the sieve transfer system, evaluated at the fixed point $\mu^* = 15$.
+
+$$
+\boxed{g_{\rm spacetime} = g^F_{\rm sieve}\big|_{\mu^* = 15}.}
+$$
+
+<Tag level="THM" />
+
+<div data-max-depth="L1" className="bg-amber-50 border-l-4 border-amber-300 px-4 py-3 my-6">
+**Plain reading.** Spacetime itself is not postulated in PT. It **emerges** from
+the statistical geometry of the sieve. Specifically: the Fisher metric (which
+measures the "distance" between probability distributions) coincides, at the
+fixed point, with the Riemannian spacetime metric of the reconstructed theory.
+</div>
+
+## Why it matters
+
+Lemma F is the bridge from **arithmetic** to **gravity**. The cascade T0 → T6 +
+T5 + Lemma E gives the coupling $\alpha_{\rm EM}$ (electromagnetic interaction).
+Lemma F gives the **structure of space** itself.
+
+This is what justifies the derived identity
+$G_{\rm SCU} / \alpha_{\rm EM} = 2\pi$ (observable #42): gravity is not a
+separate fundamental force, it is the geometric envelope of the same cascade.
+
+## Proof — outline
+
+1. **Step F.1**: Fisher metric = Hessian of the log-partition function.
+2. **Step F.2**: the partition function is a spectral invariant (by Lemma E.2,
+   spectrum rigidity).
+3. **Step F.3**: the metric decomposes additively over CRT factors.
+4. **Step F.4**: Čencov (G3) gives **uniqueness** of the metric on the
+   probability simplex.
+5. **Conclusion**: the metric identity spacetime ↔ Fisher is forced.
+
+<div data-min-depth="L3" className="bg-stone-50 border border-stone-300 rounded-lg p-4 my-8">
+
+### Detailed proof (L3 mode)
+
+#### Step F.1 — Fisher = Hessian of log-partition
+
+For an exponential family $p(x; \theta) = e^{\theta \cdot T(x) - A(\theta)}$,
+the Fisher metric is:
+
+$$
+g^F_{ab}(\theta) = \frac{\partial^2 A(\theta)}{\partial \theta^a \, \partial \theta^b},
+$$
+
+where $A(\theta)$ is the log-partition. Standard result of information geometry.
+
+For the sieve transfer system, $A = \ln Z$ with $Z = \mathrm{Tr}(T^N)$ the
+Ruelle partition function, and $\theta = \mu$ the scale parameter.
+
+#### Step F.2 — Log-partition is a spectral invariant
+
+By step E.2 of Lemma E, the spectrum of $\{T_m\}$ is rigid:
+- T1 fixes the zero pattern,
+- T5 fixes the active primes,
+- T6 fixes the sin² themselves.
+
+So $Z_N = \sum_i \lambda_i^N$ and its Hessian are entirely determined with
+zero free parameters.
+
+#### Step F.3 — CRT separability
+
+The Fisher metric decomposes additively over CRT factors:
+
+$$
+g_{00} = \sum_p g_{00}^{(p)},
+$$
+
+because $T_m = \bigotimes_p T_p$ implies $\ln Z = \sum_p \ln Z_p$, and the
+Hessian of a sum is the sum of Hessians.
+
+This allows computing the metric factor by factor: three independent
+contributions for the three active primes $\{3, 5, 7\}$.
+
+#### Step F.4 — Čencov uniqueness (G3)
+
+Čencov’s theorem ensures that $F_{\mu\mu}$ is the **unique monotone Riemannian
+metric** on the probability simplex (up to a constant). "Monotone" means it
+decreases under Markov morphisms — that is the projection-invariance axiom.
+
+Physical invariance of spacetime under information-non-creating transformations
+imposes the same condition. So the spacetime metric must be the Čencov–Fisher
+metric.
+
+#### Step F.5 — Bianchi I decomposition
+
+The reconstructed metric has Bianchi I structure (anisotropic, three
+independent axes), direct consequence of the CRT decomposition into three
+factors:
+
+$$
+ds^2 = -dt^2 + a_3(t)^2 dx_3^2 + a_5(t)^2 dx_5^2 + a_7(t)^2 dx_7^2,
+$$
+
+with each $a_p(t)$ driven by $\gamma_p$. PT’s geometric signature
+(cf. essay [Why three dimensions?](/en/essays/why-3-dimensions)).
+
+For the complete derivation, see [chapter 9 of the monograph](/en/monograph),
+section *Metric Reconstruction (Lemma F)*.
+</div>
+
+## See also
+
+- [Lemma E — Coupling reconstruction](/en/theorems/E) — counterpart for $\alpha_{\rm EM}$
+- [Lemma G — Hilbert reconstruction](/en/theorems/G) — counterpart for state space
+- [Observable G_SCU/α_EM = 2π](/en/observables/42) — direct application
+- [Essay — Why three dimensions?](/en/essays/why-3-dimensions)
+- [All theorems](/en/theorems)

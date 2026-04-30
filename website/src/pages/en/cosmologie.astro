@@ -1,0 +1,108 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import ResearchTopic from '@components/ResearchTopic.astro';
+
+const features = [
+  { title: 'Emergent time', body: 'Cosmological chronology is an internal reading of the sieve, not an outside clock.', status: 'BRIDGE' },
+  { title: 'Dark sector', body: 'The dark fraction and its internal split are tied to inactive primes and Clausius enthalpy.', status: 'DER' },
+  { title: 'Open predictions', body: 'DESI, Euclid, CMB-S4, JUNO and DUNE are key tests of cosmological and neutrino sectors.', status: 'PRED' },
+];
+
+const sections = [
+  {
+    eyebrow: 'L1',
+    title: 'The universe as a reading of a structure',
+    paragraphs: [
+      'In the standard story, the universe begins, evolves, cools, and forms structure. PT does not deny this observational chronology, but reads it as a projection of an already-given arithmetic structure.',
+      'Thus “before the Big Bang” is not necessarily a well-formed physical question: it asks for a before relative to a clock that, in PT, emerges after the structure.',
+      'Plainly: cosmology describes the movie we observe; PT looks for the mathematical script that makes the movie possible. The Big Bang remains an observational boundary, but not necessarily a “start button” pressed in an external time.',
+      'The metaphor therefore changes. If the universe is pictured as a fire, it begins by burning and ends by exhausting itself. If it is read as persistence mechanics, it begins with sorting: fire consumes, sorting structures.',
+      'Another image: expansion looks like the progressive opening of a map whose internal coordinates become readable. What we call cosmic history is the ordered reading of that map from the inside.',
+      'In the cosmological budget, “visible” means baryonic matter coupled to light: atoms, stars, gas, dust, galaxies, in short what leaves a direct or indirect electromagnetic trace.',
+      '“Informational matter” means the non-luminous gravitational share that PT ties to inactive primes: it weighs, curves, and organizes structure, but it is not first understood as a new family of visible particles.',
+      '“Dark energy” means the smooth part of the dark sector that acts as cosmological pressure and accelerates expansion; in PT it comes from the thermodynamic split of the inactive sector, not from a free constant inserted by hand.',
+    ],
+    visual: {
+      kind: 'cosmic-budget',
+      title: 'PT cosmological budget',
+      caption: 'Visible means luminous or traceable baryonic matter; informational matter means the non-luminous gravitational component; dark energy means the smooth component driving cosmic acceleration.',
+      labels: ['informational matter', 'dark energy', 'visible', 'cosmic budget'],
+    },
+    demo: {
+      kind: 'dark-budget',
+      title: 'Dark-sector split',
+      caption: 'The bar gives a visual reading of the budget cited in the PT prediction registry.',
+      labels: ['The proportions are a pedagogical marker connecting the dark sector to the echo of inactive primes.'],
+    },
+  },
+  {
+    eyebrow: 'L2',
+    title: 'Physical architecture: expansion, dark sector, anisotropy',
+    paragraphs: [
+      'The relativity chapter gives $H_0$, the total dark sector, and a reading of the Hubble tension through Bianchi I anisotropy. The cosmology chapters then deploy dark matter, dark energy, and the third neutrino mass.',
+      'The dark fraction is tied to the echo of inactive primes. The split between informational matter and dark energy is tied to a Clausius-type thermodynamic transition.',
+      'The word “matter” in informational matter therefore means “component that gravitates and structures”, not necessarily “ordinary massive particle”. The word “energy” in dark energy means “background pressure component”, not simply energy stored in a localizable object.',
+      'The Hubble tension is then reframed: if the native metric is Bianchi I before being averaged isotropically, two observational methods may not sample exactly the same geometric object.',
+      'PT cosmology therefore connects three things often treated separately: expansion geometry, the dark sector, and neutrino physics. It does so with distinct statuses: some steps are derived inside PT relativity, others remain predictions exposed to future measurements.',
+    ],
+    items: [
+      '$F_{inactive}$: cosmological echo fraction of inactive primes.',
+      '$\\Omega_{info}$: non-luminous gravitational component of the dark sector.',
+      '$\\Omega_\\Lambda$: smooth/background-pressure component associated with acceleration.',
+      '$\\Omega_b$: visible or baryonic component, coupled to electromagnetism.',
+      '$H_0$: average and Bianchi I directional anisotropy.',
+      '$m_{\\nu_3}$: prediction tied to cosmology and oscillations.',
+    ],
+  },
+  {
+    eyebrow: 'L3',
+    title: 'Technical demonstration: Hubble, dark sector, predictions',
+    depth: 'L3',
+    paragraphs: [
+      'The how-to-read classifies cosmology as a layer of falsifiable predictions, with PRED, PRED-candidate and COND statuses depending on the route. The sector therefore does not all sit at the same level as the arithmetic theorems.',
+      'PT gives strong, testable cosmological outputs, while late-time regimes, DESI/Euclid/CMB-S4, and some Einstein-Boltzmann integrations remain an active programme.',
+      'In chapter 13, $H_0$ is read as an average of three directional rates $H_3,H_5,H_7$ from the Bianchi I metric. The total dark sector is tied to $F_{inactive}=1-2/(e^\\gamma\\ln N)$, while the $\\Omega_{info}/\\Omega_\\Lambda$ split depends on PT thermodynamics.',
+      'Cosmological background numbers are not read as a table of fits. They are consequences of a geometry-information dictionary, with some routes still candidate and testable by DESI, Euclid, CMB-S4, JUNO, and DUNE.',
+      'Technically, visible maps to $\\Omega_b$, informational matter to $\\Omega_{info}$, and dark energy to $\\Omega_\\Lambda$. The important relation is that $\\Omega_{info}+\\Omega_\\Lambda$ reconstructs the dark sector coming from $F_{inactive}$, while $\\Omega_b$ remains the active baryonic share.',
+    ],
+    items: [
+      '$H_0$: Bianchi I directional average rather than primitive scalar.',
+      '$F_{inactive}$: cosmological echo of inactive primes.',
+      '$w(z)$: prediction/candidate depending on derivation route.',
+      '$m_{\\nu_3}$: neutrino-cosmology bridge, testable by oscillations and cosmological constraints.',
+    ],
+    proof: {
+      title: 'L3 demonstration',
+      steps: [
+        'Start from the Fisher-Bianchi metric derived in chapter 13: three active directions $p=3,5,7$ with scale factors $a_p=\\gamma_p/\\mu$.',
+        'For each direction define $H_p=\\dot a_p/a_p$ in proper time. The isotropic Hubble constant is the directional mean $H_0=(H_3+H_5+H_7)/3$.',
+        'The Hubble tension is then reframed: an observer or method sampling an effective direction $\\hat n$ reads $H(\\hat n)$, while isotropic cosmology reads the mean. The difference is not an added fit but the underlying Bianchi I anisotropy.',
+        'The total dark sector comes from the echo fraction of inactive primes. The form cited in the monograph is $F_{inactive}(N)=1-2/(e^\\gamma\\ln N)$, read at the relevant cosmological scale.',
+        'The internal dark-sector split uses PT thermodynamics: informational matter and dark energy are separated by a Clausius-type enthalpy, not by two free parameters.',
+        'The third-neutrino mass $m_{\\nu_3}$ and $w(z)$ observables connect this sector to testable predictions: oscillations, CMB, DESI, Euclid, CMB-S4.',
+        'Cosmological routes do not all carry the same status: some are derived/validated inside PT relativity, others are PRED or PRED-candidate in the cosmological layer.',
+      ],
+      conclusion: 'PT cosmology combines Fisher-Bianchi projection, inactive-prime echo, and persistence thermodynamics. Late-time observables remain testable predictions: they extend the derived chain without being confused with already fully validated results.',
+    },
+  },
+];
+
+const sources = [
+  'How to Read: Part VII, cosmological predictions.',
+  'ch. 13: Hubble, dark sector, Bianchi I.',
+  'ch. 20: dark sector, dark energy, neutrino mass.',
+  'ch. 21: predictions and 2027-2035 tests.',
+];
+---
+
+<BaseLayout title="Cosmology in PT" description="PT cosmological reading: time, Big Bang, dark sector, Hubble, and predictions.">
+  <ResearchTopic
+    eyebrow="Cosmology"
+    title="Cosmology as a reading of the sieve"
+    description="PT does not only tell the universe inside time; it asks how time, expansion and the dark sector are read from persistence structure."
+    lead="Cosmology is where PT becomes most vertiginous, but also where status precision matters most: some outputs are derived, others are predictions currently being tested."
+    features={features}
+    sections={sections}
+    sources={sources}
+  />
+</BaseLayout>

@@ -1,0 +1,88 @@
+---
+id: N1
+name: 'N1 — Algebraic uniqueness of primes'
+short: 'The primes are the unique atoms of the multiplicative monoid $(\mathbb{N}_{\geq 1}, \times)$.'
+statement: 'The prime numbers $\mathbb{P}$ are the unique atoms of the multiplicative monoid $(\mathbb{N}_{\geq 1}, \times)$. The Eratosthenes sieve is the unique constructive procedure identifying these atoms by successive elimination.'
+status: THM
+monograph_chapter: chap:uniqueness
+order: 10
+tier: secondary
+lang: en
+---
+
+import Tag from '@components/Tag.astro';
+
+## Statement
+
+The prime numbers $\mathbb{P} = \{2, 3, 5, 7, 11, \ldots\}$ are the **unique atoms** of the multiplicative monoid $(\mathbb{N}_{\geq 1}, \times)$. The Eratosthenes sieve is the **unique constructive procedure** that identifies them by successive elimination of multiples.
+
+<Tag level="THM" />
+
+<div data-max-depth="L1" className="bg-amber-50 border-l-4 border-amber-300 px-4 py-3 my-6">
+**Plain reading.** If you look for the "fundamental bricks" of multiplication on
+$\mathbb{N}$, only one family is possible: the primes. Any other candidate reduces
+to them. And the only constructive way to find them is the sieve. This is what
+makes PT’s starting point non-arbitrary.
+</div>
+
+## Why it matters
+
+N1 establishes the **non-arbitrariness of PT’s starting point**. If another family
+of "bricks" could play the role of the primes, the sieve would be one choice among
+many. N1 closes that door: no hidden degree of freedom at the root.
+
+It is also N1 that closes the philosophical coherence of the programme: PT does
+not postulate exotic objects — it uses the bricks arithmetic itself imposes.
+
+## Proof — outline
+
+1. **Atoms**: by the Fundamental Theorem of Arithmetic, every integer $n \geq 2$
+   factors uniquely as a product of primes (up to order).
+2. **Uniqueness**: no other family of multiplicative generators admits unique
+   factorisation on $\mathbb{N}$.
+3. **Constructivity**: the sieve eliminates multiples by increasing order;
+   no other constructive procedure with the same axioms gives the same result.
+
+<div data-min-depth="L3" className="bg-stone-50 border border-stone-300 rounded-lg p-4 my-8">
+
+### Detailed proof (L3 mode)
+
+#### Part 1 — Primes are atoms
+
+An atom of $(\mathbb{N}_{\geq 1}, \times)$ is an element $a \neq 1$ such that
+$a = bc \Rightarrow b = 1$ or $c = 1$. That is exactly the definition of a prime.
+The Fundamental Theorem of Arithmetic (existence + uniqueness of factorisation)
+shows that primes multiplicatively generate $\mathbb{N}$ and that no other
+element has the atomicity property.
+
+#### Part 2 — Uniqueness of the family
+
+Suppose an alternative family $\mathcal{A} \subset \mathbb{N}$ such that every
+$n$ factors uniquely as a product of elements of $\mathcal{A}$. By
+prime-by-prime factorisation uniqueness, each $a \in \mathcal{A}$ must itself
+be a product of primes. If $a$ is a non-trivial product (not a single prime),
+then $a$ has an internal factorisation, contradicting atomicity in
+$\mathcal{A}$. So $\mathcal{A} \subseteq \mathbb{P}$. Conversely, missing a
+prime $p \in \mathcal{A}$ would make $p$ non-factorisable, contradiction. So
+$\mathcal{A} = \mathbb{P}$.
+
+#### Part 3 — Uniqueness of the sieve
+
+Every constructive procedure identifying primes must decide, for each $n$,
+whether $n$ is prime. The minimal method tests divisibility by all primes
+$p \leq \sqrt{n}$ previously identified. That is exactly the Eratosthenes sieve.
+
+Any variation (elimination in a different order, by other relations) either
+fails to terminate, produces the same result (if it respects divisibility),
+or produces an incorrect result. The Eratosthenes sieve is therefore the
+unique correct and finite constructive procedure.
+
+For the complete derivation, see [chapter 2 of the monograph](/en/monograph).
+</div>
+
+## See also
+
+- [N2 — Self-consistency](/en/theorems/N2) — sieve is the unique self-consistent multiplicative sieve
+- [N3 — Structural minimality](/en/theorems/N3) — ℕ is the minimal monoid
+- [T0 — BA0 Closure](/en/theorems/T0) — uses N1 to fix the dynamical field
+- [All theorems](/en/theorems)

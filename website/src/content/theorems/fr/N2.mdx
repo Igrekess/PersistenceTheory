@@ -1,0 +1,96 @@
+---
+id: N2
+name: 'N2 — Auto-cohérence du crible'
+short: 'Le crible d’Ératosthène est l’unique crible multiplicatif auto-cohérent sur $\mathbb{N}_{\geq 2}$.'
+statement: '$\mathbb{P}$ est l’unique crible multiplicatif auto-cohérent sur $\mathbb{N}_{\geq 2}$ : un entier $n$ survit si et seulement si aucun premier $p < n$ ne le divise.'
+status: THM
+monograph_chapter: chap:uniqueness
+order: 11
+tier: secondary
+lang: fr
+---
+
+import Tag from '@components/Tag.astro';
+
+## Énoncé
+
+L’ensemble des nombres premiers $\mathbb{P}$ est l’**unique crible multiplicatif auto-cohérent** sur $\mathbb{N}_{\geq 2}$. Auto-cohérent signifie que $n \in \mathcal{S}(\mathbb{P})$ (i.e. $n$ survit) si et seulement si aucun premier $p < n$ ne divise $n$.
+
+<Tag level="THM" />
+
+<div data-max-depth="L1" className="bg-amber-50 border-l-4 border-amber-300 px-4 py-3 my-6">
+**Lecture vulgarisée.** Le crible d’Ératosthène a une propriété : ce qu’il garde
+correspond exactement à ce qu’il était censé garder. Aucun autre algorithme
+d’élimination par multiplication ne possède cette cohérence. Le crible se
+définit lui-même.
+</div>
+
+## Pourquoi ça compte
+
+N2 ferme une question subtile : la cohérence interne du crible. On pourrait
+imaginer un autre crible (éliminant par d’autres règles, gardant des restes
+différents) qui retournerait son propre résultat. N2 montre que l’unique
+crible dont la sortie est cohérente avec sa règle d’entrée est celui
+d’Ératosthène.
+
+C’est cette auto-cohérence qui rend la cascade T0 → T6 fermable
+sans introduire de paramètre externe.
+
+## Démonstration — schéma
+
+1. **Existence** : montrer que $\mathbb{P}$ est auto-cohérent (un composé
+   $n = ab$ avec $a \leq \sqrt{n}$ a un facteur premier $p \leq a < n$, donc
+   $n$ est éliminé).
+2. **Unicité** : supposer un crible $\mathcal{C}$ auto-cohérent et différent
+   de $\mathbb{P}$. Tirer une contradiction.
+
+<div data-min-depth="L3" className="bg-stone-50 border border-stone-300 rounded-lg p-4 my-8">
+
+### Démonstration détaillée (mode L3)
+
+#### Partie 1 — Existence : $\mathbb{P}$ est auto-cohérent
+
+Soit $n \in \mathbb{N}_{\geq 2}$. Si $n$ est premier, alors par définition aucun
+premier $p < n$ ne divise $n$, et $n$ est gardé par le crible.
+
+Si $n$ est composé, écrivons $n = ab$ avec $a \leq \sqrt{n}$. Alors $a$ a un
+facteur premier $p \leq a < n$, et donc $p$ divise $n$. Le crible
+d’Ératosthène élimine $n$ comme multiple de $p$. Auto-cohérence vérifiée.
+
+#### Partie 2 — Unicité
+
+Supposons qu’un autre crible multiplicatif $\mathcal{C}$ soit auto-cohérent.
+Soit $\mathcal{C}_{\rm out} = $ ensemble des entiers gardés.
+
+Si $\mathcal{C}_{\rm out} \neq \mathbb{P}$, soit $n$ le plus petit entier qui
+diffère entre les deux : $n \in \mathcal{C}_{\rm out}$ mais $n \notin \mathbb{P}$,
+ou réciproquement.
+
+**Cas 1** : $n \in \mathcal{C}_{\rm out}$, $n$ composé. Alors $n$ a un facteur
+premier $p < n$. Si $p \in \mathcal{C}_{\rm out}$ (c’est-à-dire que $p$ est
+gardé par $\mathcal{C}$), alors par auto-cohérence $\mathcal{C}$ doit aussi
+garder $n$ (puisque $\mathcal{C}$ utilise des règles multiplicatives). Mais
+alors $\mathcal{C}$ garde un composé — par construction d’un crible
+multiplicatif strict, contradiction.
+
+**Cas 2** : $n \in \mathbb{P}$ mais $n \notin \mathcal{C}_{\rm out}$. Alors un
+diviseur multiplicatif a éliminé $n$. Mais $n$ premier n’a que 1 et $n$ comme
+diviseurs. Aucun n’est strictement dans $\{2, \ldots, n-1\}$ — contradiction.
+
+Dans les deux cas, contradiction. Donc $\mathcal{C}_{\rm out} = \mathbb{P}$.
+
+#### Lien avec la PT
+
+L’auto-cohérence est la propriété qui permet à la dynamique du crible de
+**fermer sur elle-même**. C’est ce qui donne au point fixe $\mu^* = 15$ son
+unicité (T5) : il est l’unique solution auto-cohérente de l’équation
+de cascade.
+
+Pour la dérivation complète, voir [chapitre 2 de la monographie](/monograph).
+</div>
+
+## Voir aussi
+
+- [N1 — Unicité algébrique](/theorems/N1) — les premiers comme atomes
+- [T5 — Point fixe μ* = 15](/theorems/T5) — l’auto-cohérence de la cascade
+- [Tous les théorèmes](/theorems)

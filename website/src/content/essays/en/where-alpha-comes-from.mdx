@@ -1,0 +1,76 @@
+---
+slug: where-alpha-comes-from
+title: 'Where does $\alpha_{\mathrm{EM}} = 1/137$ come from?'
+summary: 'The fine-structure constant is not measured in PT, it is computed. Three sines squared, one product, one dressing. Here are the three steps.'
+level: L1
+reading_minutes: 7
+related_theorems: ['T6', 'T5']
+lang: en
+order: 4
+---
+
+## The old mystery
+
+$\alpha_{\mathrm{EM}} \approx 1/137.036$ controls the strength of the electromagnetic coupling. It is one of the best-measured constants in physics, and one of the worst-explained. Feynman wrote: *"It’s one of the greatest damn mysteries of physics: a magic number that comes to us with no understanding by man."*
+
+PT proposes a computable answer. Not a heuristic, not numerology: an explicit three-factor product.
+
+## Step 1 — the bare product
+
+At scale $\mu^* = 15$, three holonomy angles are computed on the $q_+ = 1 - 2/\mu^*$ branch:
+
+$$
+\sin^2\theta_3 \approx 0.2192, \qquad
+\sin^2\theta_5 \approx 0.1940, \qquad
+\sin^2\theta_7 \approx 0.1726.
+$$
+
+(These come from $\sin^2\theta_p = \delta_p (2 - \delta_p)$, theorem T6.)
+
+Their product:
+
+$$
+\alpha_{\mathrm{bare}} = \sin^2\theta_3 \cdot \sin^2\theta_5 \cdot \sin^2\theta_7 \approx \frac{1}{136.28}.
+$$
+
+This is bridge axiom **BA5** (which is in fact a derived theorem). We are already within 0.5% of the experimental value. Without any fit.
+
+## Step 2 — the dressing
+
+$1/136.28$ is not $1/137.036$. The difference comes from the **inactive** primes $\{11, 13\}$: they do not contribute dynamically as primaries, but they leave an echo polarization that dresses the coupling at very short distance.
+
+The dressing is a cascade of three corrections (R51, monograph chapter 10):
+
+$$
+\alpha_{\mathrm{dressed}}^{-1} = \alpha_{\mathrm{bare}}^{-1} + \Delta_1 + \Delta_2 + \Delta_3 + \Delta_{\mathrm{echo}}.
+$$
+
+The $\Delta_i$ are loop-order corrections (1, 2, 3) computable from $\gamma_p$ and $\sin^2\theta_p$. We obtain:
+
+$$
+\alpha_{\mathrm{dressed}}^{-1} \approx 137.036.
+$$
+
+Final precision: better than $10^{-4}$ relative to the CODATA value. No parameter fitted at any step.
+
+## Why a product, not a sum?
+
+This product structure is not aesthetic. It comes from the **Chinese remainder theorem** applied to the three circles $\mathbb{Z}/3\mathbb{Z}$, $\mathbb{Z}/5\mathbb{Z}$, $\mathbb{Z}/7\mathbb{Z}$.
+
+These three circles are orthogonal in the cube $\mathbb{T}^3 = \mathbb{Z}/(3 \cdot 5 \cdot 7)\mathbb{Z}$. The total transition amplitude between two states of the cube factorizes into a product of per-circle amplitudes. And $\sin^2\theta_p$ is precisely the transition amplitude around circle $p$.
+
+So $\prod_p \sin^2\theta_p$ is not a heuristic formula: it is the direct application of the Pontryagin principle on the torus $\mathbb{T}^3$. It is forced by the structure.
+
+## What about the $q_-$ branch?
+
+$\alpha_{\mathrm{EM}}$ lives on the $q_+$ branch (couplings). If we computed the same product on the $q_- = e^{-1/\mu^*}$ branch (geometry), we would not get $\alpha_{\mathrm{EM}}$ — we would get geometric observables (Newton’s constant, quark masses, CKM mixing). This bifurcation is what separates the lepton/vertex sector from the quark/propagator sector.
+
+## What is not in the calculation
+
+- **No standard QED vacuum polarization**. PT replaces loop diagrams with sieve corrections $\Delta_i$.
+- **No GUT unification**: no large broken gauge symmetry needed. Couplings $\alpha_s$, $\alpha_{\mathrm{EM}}$, $\sin^2\theta_W$ come independently from the same cascade, on the same active primes.
+- **No QFT running**: scale dependence is arithmetic (changing $\mu$), not dynamical.
+
+It is a minimal frame producing a maximal number. If the measured $\alpha_{\mathrm{EM}}$ shifted significantly at a different $\mu$, we would know the PT identification has a flaw. As of now, at $\mu^* = 15$, the count is right to $10^{-4}$.
+
+That is the value of the number 137: a product, a dressing, and zero parameter.

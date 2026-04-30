@@ -1,0 +1,62 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+
+const steps = [
+  ['1', 'Comprendre l’idée', '/essays/idea-5min', 'La persistance est ce qui traverse une contrainte sans perdre son identité structurelle.'],
+  ['2', 'Poser le principe', '/premier-principe', 'GFT fixe le budget : distinction totale = persistance + entropie.'],
+  ['3', 'Voir une démonstration', '/tableau-periodique', 'Le tableau périodique donne une première dérivation robuste, visuelle et chimique.'],
+  ['4', 'Comparer aux mesures', '/resultats', 'Les résultats numériques sont regroupés par domaine, statut et niveau de validation.'],
+  ['5', 'Regarder les limites', '/limites', 'Une théorie crédible doit dire où elle est démontrée, dérivée, validée ou encore ouverte.'],
+];
+---
+
+<BaseLayout
+  title="Commencer ici"
+  description="Parcours guidé pour lire la Théorie de la Persistance dans le bon ordre."
+>
+  <section class="max-w-6xl mx-auto px-4 py-12">
+    <p class="pt-tag pt-tag-bridge mb-4">Parcours guidé</p>
+    <h1 class="text-4xl md:text-5xl font-bold text-thmblue mb-5">Commencer ici</h1>
+    <p class="text-lg text-slate-700 leading-relaxed max-w-3xl mb-10">
+      Le site contient beaucoup d’entrées. Cette page donne l’ordre de lecture
+      conseillé : d’abord le principe, puis une démonstration lisible, puis les
+      résultats, les statuts et les limites.
+    </p>
+
+    <div class="grid md:grid-cols-5 gap-3 mb-12">
+      {steps.map(([num, title, href, text]) => (
+        <a href={href} class="pt-card block group">
+          <span class="text-sm font-mono text-derorange">{num}</span>
+          <h2 class="font-sans font-semibold text-thmblue text-xl mt-2 mb-2 group-hover:underline">{title}</h2>
+          <p class="text-sm text-slate-700">{text}</p>
+        </a>
+      ))}
+    </div>
+
+    <div class="grid lg:grid-cols-[0.85fr_1.15fr] gap-8 items-start">
+      <div>
+        <h2 class="text-2xl font-bold text-thmblue mb-3">Le fil directeur</h2>
+        <p class="text-slate-700 leading-relaxed mb-4">
+          La PT ne commence pas par une constante à ajuster. Elle commence par
+          une contrainte de conservation : un système possède un budget total
+          de distinctions. Ce budget peut se lire comme structure persistante
+          ou comme dispersion entropique, mais le bilan est exact.
+        </p>
+        <p class="text-slate-700 leading-relaxed">
+          Ensuite vient la question scientifique : cette conservation force-t-elle
+          des structures que l’on reconnaît dans le monde ? La première vitrine
+          robuste est chimique : périodes, canaux, couches, puis EI et EA.
+        </p>
+      </div>
+      <div class="bg-white border border-slate-200 rounded-lg p-5">
+        <h2 class="font-sans font-semibold text-thmblue text-xl mb-3">Lecture recommandée en 20 minutes</h2>
+        <ol class="space-y-3 text-slate-700">
+          <li><strong>5 min.</strong> Lire “L’idée en 5 minutes”.</li>
+          <li><strong>5 min.</strong> Lire “Principe fondamental” en niveau L1.</li>
+          <li><strong>7 min.</strong> Lire la démonstration par le tableau périodique.</li>
+          <li><strong>3 min.</strong> Ouvrir le dashboard des résultats et la page des limites.</li>
+        </ol>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

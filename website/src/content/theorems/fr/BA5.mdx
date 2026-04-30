@@ -1,0 +1,147 @@
+---
+id: BA5
+name: 'BA5 — Produit de Pontryagin'
+short: 'Au point fixe $\mu^* = 15$, le couplage du crible est le produit $\prod_{p \in \{3,5,7\}} \sin^2\theta_p(q_+)$.'
+statement: 'Sous les axiomes de pont BA0–BA4, la fonctionnelle multiplicative sur l’algèbre de crible CRT-décomposée prend la forme produit $\alpha_{\rm sieve} = \prod_{p \in \{3,5,7\}} \sin^2\theta_p(q_+)$ au point fixe $\mu^* = 15$. La structure produit est forcée par dualité de Pontryagin sur $\mathbb{Z}/3 \oplus \mathbb{Z}/5 \oplus \mathbb{Z}/7$.'
+status: THM
+monograph_chapter: chap:bridge
+order: 14
+tier: secondary
+lang: fr
+---
+
+import Tag from '@components/Tag.astro';
+
+## Énoncé
+
+Sous les axiomes de pont **BA0–BA4**, la fonctionnelle multiplicative sur l’algèbre de crible CRT-décomposée au point fixe $\mu^* = 15$ a la forme produit :
+
+$$
+\boxed{\alpha_{\rm sieve} = \prod_{p \in \{3, 5, 7\}} \sin^2\theta_p(q_+),}
+$$
+
+évaluée sur la branche **vertex** ($q_+ = 13/15$). La structure **produit** est forcée par la **dualité de Pontryagin** sur la somme directe additive
+
+$$
+\mathbb{Z}/3\mathbb{Z} \oplus \mathbb{Z}/5\mathbb{Z} \oplus \mathbb{Z}/7\mathbb{Z}.
+$$
+
+<Tag level="THM" />
+
+<div data-max-depth="L1" className="bg-amber-50 border-l-4 border-amber-300 px-4 py-3 my-6">
+**Lecture vulgarisée.** Pourquoi $\alpha_{\rm EM}$ est-il un **produit** de trois nombres
+et pas une somme, ni une intégrale ? Parce que les trois canaux $p \in \{3, 5, 7\}$
+sont **indépendants** (orthogonaux dans le tore $\mathbb{T}^3$). Quand des canaux
+indépendants se combinent, leurs amplitudes se multiplient — c’est la dualité de
+Pontryagin appliquée au crible. Pas un choix esthétique, une nécessité mathématique.
+</div>
+
+## Pourquoi ça compte
+
+BA5 est le **pont essentiel** entre l’arithmétique du crible et la valeur de la
+constante de structure fine. C’était historiquement formulé comme un axiome
+(d’où le nom « bridge axiom »), mais sa **partie structurelle** est promue en
+**théorème** dans la monographie : la forme produit dérive de BA0–BA4 +
+dualité de Pontryagin + T5 + T6.
+
+La nuance est importante : l’identité arithmétique
+$\alpha_{\rm sieve}=\prod \sin^2\theta_p$ est au niveau **THM** ; l’identification
+physique avec le couplage électromagnétique mesuré et son habillage radiatif
+relèvent ensuite d’une reconstruction/dérivation physique.
+
+Sans BA5, le calcul de $\alpha_{\rm EM} = 1/136{,}28$ (puis 1/137,036 après
+habillage) n’aurait pas de justification structurelle. Avec BA5, il en a une
+qui ne laisse aucun choix.
+
+## Démonstration — schéma
+
+1. **CRT (chinese remainder theorem)** : $\mathbb{Z}/(3 \cdot 5 \cdot 7)\mathbb{Z} \cong \mathbb{Z}/3 \oplus \mathbb{Z}/5 \oplus \mathbb{Z}/7$.
+2. **Caractères additifs** : sur chaque facteur, le groupe dual de Pontryagin
+   est cyclique.
+3. **Fonctionnelle multiplicative** : sur la somme directe, toute fonctionnelle
+   multiplicative se factorise en produit sur les facteurs.
+4. **Identification** : la fonctionnelle pertinente sur chaque facteur est
+   $\sin^2\theta_p$ (par T6).
+5. **Évaluation au point fixe** : à $\mu^* = 15$, branche $q_+$, le produit
+   donne $1/136{,}28$.
+
+<div data-min-depth="L3" className="bg-stone-50 border border-stone-300 rounded-lg p-4 my-8">
+
+### Démonstration détaillée (mode L3)
+
+#### Étape 1 — Décomposition CRT
+
+Le théorème des restes chinois donne, pour des premiers distincts :
+
+$$
+\mathbb{Z}/(p_1 p_2 p_3)\mathbb{Z} \cong \mathbb{Z}/p_1\mathbb{Z} \oplus \mathbb{Z}/p_2\mathbb{Z} \oplus \mathbb{Z}/p_3\mathbb{Z}.
+$$
+
+Pour $\{p_1, p_2, p_3\} = \{3, 5, 7\}$, le tore arithmétique $\mathbb{T}^3 = \mathbb{Z}/105\mathbb{Z}$ se factorise en trois facteurs indépendants.
+
+#### Étape 2 — Caractères additifs et dualité de Pontryagin
+
+Pour chaque facteur $\mathbb{Z}/p\mathbb{Z}$, le groupe dual au sens de Pontryagin
+est l’ensemble des caractères $\chi_k : r \mapsto e^{2\pi i k r/p}$ pour $k = 0, 1, \ldots, p-1$.
+Ce dual est lui-même cyclique d’ordre $p$ (auto-dualité des groupes cycliques finis).
+
+Sur la somme directe $\bigoplus_p \mathbb{Z}/p\mathbb{Z}$, le dual de Pontryagin est
+la somme directe des duaux. Toute fonctionnelle multiplicative $f : \bigoplus_p \mathbb{Z}/p\mathbb{Z} \to \mathbb{C}$
+se factorise donc nécessairement :
+
+$$
+f(r_3, r_5, r_7) = f_3(r_3) \cdot f_5(r_5) \cdot f_7(r_7).
+$$
+
+#### Étape 3 — Identification de la fonctionnelle
+
+La fonctionnelle pertinente sur chaque facteur, par BA3 (axiome d’holonomie) et T6,
+est l’amplitude de transition au carré :
+
+$$
+f_p \equiv \sin^2\theta_p.
+$$
+
+Justification : $\sin^2\theta_p$ est la mesure d’orthogonalité du caractère
+fondamental $\chi_1$ par rapport à la mesure stationnaire (cf. T6, route 2 :
+$1 - |\widehat{T}_p(\chi_1)|^2 = \sin^2\theta_p$).
+
+#### Étape 4 — Produit sur les premiers actifs
+
+Au point fixe $\mu^* = 15$, par T5, les premiers actifs sont $\{3, 5, 7\}$.
+Donc la fonctionnelle multiplicative globale s’évalue à :
+
+$$
+\alpha_{\rm sieve} = \prod_{p \in \{3,5,7\}} \sin^2\theta_p(q_+).
+$$
+
+#### Étape 5 — Valeur numérique
+
+À $q_+ = 13/15$ :
+- $\sin^2\theta_3 = 0{,}21916$
+- $\sin^2\theta_5 = 0{,}19397$
+- $\sin^2\theta_7 = 0{,}17261$
+
+Produit : $\alpha_{\rm sieve} = 1/136{,}28$.
+
+Cette valeur est ensuite habillée par le canal binaire $F(2)$ (cf. observable
+[1/α_EM](/observables/1)) pour donner la valeur observée $1/137{,}036$ ; cette
+partie est une dérivation physique, pas la pure identité BA5.
+
+#### Pourquoi ça n’est pas une somme
+
+La dualité de Pontryagin **interdit** la forme additive : sur un groupe abélien,
+les fonctionnelles multiplicatives sont nécessairement multiplicatives au sens
+mathématique strict (homomorphismes vers $\mathbb{C}^*$). La forme produit est
+**unique**, par dualité.
+
+Pour la dérivation complète, voir [chapitre 9 de la monographie](/monograph).
+</div>
+
+## Voir aussi
+
+- [T6 — Holonomie](/theorems/T6) — donne $\sin^2\theta_p$
+- [T5 — Point fixe μ*](/theorems/T5) — sélectionne les premiers actifs
+- [Observable 1/α_EM](/observables/1) — application directe de BA5
+- [Calculatrice 3 — α_EM](/calculator) — produit BA5 calculé live
+- [Tous les théorèmes](/theorems)

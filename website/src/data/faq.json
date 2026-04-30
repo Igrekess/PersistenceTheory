@@ -1,0 +1,303 @@
+{
+  "categories": [
+    {
+      "id": "status",
+      "fr": "Statut épistémique",
+      "en": "Epistemic status",
+      "entries": [
+        {
+          "fr": {
+            "q": "La PT prétend-elle remplacer la mécanique quantique ?",
+            "a": "Non. La PT reconstruit certains paramètres du Modèle Standard (les ~20 nombres ajustés à la main : masses, angles, couplages) à partir de la symétrie dérivée s = 1/2 et de la structure du crible. Elle ne remplace ni la mécanique quantique ni la QFT — elle dérive leurs constantes."
+          },
+          "en": {
+            "q": "Does PT claim to replace quantum mechanics?",
+            "a": "No. PT reconstructs some Standard Model parameters (the ~20 hand-tuned numbers: masses, angles, couplings) from the derived symmetry s = 1/2 and the sieve structure. It replaces neither quantum mechanics nor QFT — it derives their constants."
+          }
+        },
+        {
+          "fr": {
+            "q": "Pourquoi parler de « théorie » sans peer review ?",
+            "a": "La monographie est une préimpression. Le terme « théorie » ici décrit le cadre formel (axiomes, théorèmes, dérivations) au sens mathématique — pas un statut sociologique. La revue par les pairs est explicitement souhaitée par l’auteur ; toute critique scrupuleuse est bienvenue."
+          },
+          "en": {
+            "q": "Why call it a 'theory' without peer review?",
+            "a": "The monograph is a preprint. The word 'theory' here describes the formal framework (axioms, theorems, derivations) in the mathematical sense — not a sociological status. Peer review is explicitly welcomed by the author; rigorous critique is invited."
+          }
+        },
+        {
+          "fr": {
+            "q": "Que signifie exactement « 0 paramètre ajusté » ?",
+            "a": "Aucune constante adimensionnelle n’est ajustée pour matcher l’expérience. Une seule calibration dimensionnelle est faite : 1 SCU ≡ 1 MeV (convention d’unité au sens de Buckingham π). Tout le reste est dérivé de l’arithmétique du crible et de la symétrie s = 1/2."
+          },
+          "en": {
+            "q": "What exactly does 'zero fitted parameters' mean?",
+            "a": "No dimensionless constant is fitted to match experiment. A single dimensional calibration is performed: 1 SCU ≡ 1 MeV (a unit convention in Buckingham π sense). Everything else is derived from the sieve arithmetic and the symmetry s = 1/2."
+          }
+        },
+        {
+          "fr": {
+            "q": "La PT est-elle vérifiable ?",
+            "a": "Oui. L’annexe F de la monographie recense 56 scripts compagnons et 2 695 contrôles : 2 694 PASS et 1 échec connu, indépendant des ajouts récents. Cinq scripts emblématiques sont exécutables directement dans le navigateur via Pyodide depuis la page Scripts. Les 43 observables se comparent aux mesures CODATA / PDG publiées."
+          },
+          "en": {
+            "q": "Is PT verifiable?",
+            "a": "Yes. Appendix F of the monograph lists 56 companion scripts and 2,695 checks: 2,694 PASS and 1 known failure independent of recent additions. Five flagship scripts run directly in the browser via Pyodide from the Scripts page. The 43 observables are compared to published CODATA / PDG measurements."
+          }
+        }
+      ]
+    },
+    {
+      "id": "reading",
+      "fr": "Lire le formalisme",
+      "en": "Reading the formalism",
+      "entries": [
+        {
+          "fr": {
+            "q": "Comment lire les tags [DER], [THM], [ID], [PRED] ?",
+            "a": "[ID] = identité algébrique vraie sans hypothèse physique (ex. GFT). [THM] = théorème prouvé inconditionnellement depuis T0 et le crible. [DER] = dérivation testable empiriquement, plus faible que [THM]. [PRED] = prédiction falsifiable non vérifiée à ce jour. Voir Glossaire pour le détail."
+          },
+          "en": {
+            "q": "How to read the [DER], [THM], [ID], [PRED] tags?",
+            "a": "[ID] = algebraic identity true without physical assumption (e.g. GFT). [THM] = theorem proved unconditionally from T0 and the sieve. [DER] = empirically testable derivation, weaker than [THM]. [PRED] = falsifiable prediction not yet verified. See Glossary for details."
+          }
+        },
+        {
+          "fr": {
+            "q": "Le calcul de α_EM est-il un fit caché ?",
+            "a": "Non. Le théorème BA5 (Pontryagin) impose la structure produit α_bare = ∏ sin²θ_p sur {3, 5, 7}. La valeur 1/136,28 sort de cette identité algébrique — pas d’un fit. L’habillage F(2) ≈ 0,7583 est une formule fermée à 99,96 % rationnelle, pas un paramètre libre."
+          },
+          "en": {
+            "q": "Is the α_EM computation a hidden fit?",
+            "a": "No. Theorem BA5 (Pontryagin) imposes the product structure α_bare = ∏ sin²θ_p over {3, 5, 7}. The 1/136.28 value comes from that algebraic identity — not a fit. The dressing F(2) ≈ 0.7583 is a 99.96% rational closed-form, not a free parameter."
+          }
+        },
+        {
+          "fr": {
+            "q": "La calibration SCU ≡ 1 MeV est-elle un paramètre libre ?",
+            "a": "Non, c’est une convention d’unité au sens de Buckingham π. La PT donne tous les rapports adimensionnels (m_e/m_µ, α_EM, sin²θ_W…) à zéro paramètre. Le choix d’une unité d’énergie (MeV plutôt que GeV ou eV) ne change rien à la physique — il est dissous dans App. P §C1."
+          },
+          "en": {
+            "q": "Is the SCU ≡ 1 MeV calibration a free parameter?",
+            "a": "No, it is a unit convention in the Buckingham π sense. PT gives all dimensionless ratios (m_e/m_µ, α_EM, sin²θ_W…) at zero parameters. Choosing an energy unit (MeV vs. GeV or eV) does not change the physics — dissolved in App. P §C1."
+          }
+        }
+      ]
+    },
+    {
+      "id": "sm",
+      "fr": "Rapport au Modèle Standard",
+      "en": "Relation to the Standard Model",
+      "entries": [
+        {
+          "fr": {
+            "q": "Comment la PT obtient-elle 43 observables sans QFT explicite ?",
+            "a": "La PT reconstruit la structure de la QFT depuis le crible : holonomies (T6) jouent le rôle des couplages, T³ = Z/(3·5·7)Z porte les amplitudes (CRT), GFT pose la conservation informationnelle. Les diagrammes de Feynman sont remplacés par des cascades arithmétiques sur premiers actifs."
+          },
+          "en": {
+            "q": "How does PT obtain 43 observables without explicit QFT?",
+            "a": "PT reconstructs QFT structure from the sieve: holonomies (T6) play the role of couplings, T³ = Z/(3·5·7)Z carries amplitudes (CRT), GFT enforces informational conservation. Feynman diagrams are replaced by arithmetic cascades over active primes."
+          }
+        },
+        {
+          "fr": {
+            "q": "La PT contredit-elle le Modèle Standard ?",
+            "a": "Non, elle le complète. La PT prédit les valeurs des paramètres que le MS prend en entrée. Tous les résultats du MS testés expérimentalement restent valables. La PT y ajoute des contraintes (δ_CP, hiérarchie, absence de SUSY basse échelle) qui restreignent ce que le MS pouvait accommoder."
+          },
+          "en": {
+            "q": "Does PT contradict the Standard Model?",
+            "a": "No, it completes it. PT predicts the values of parameters that the SM takes as input. All experimentally tested SM results remain valid. PT adds constraints (δ_CP, hierarchy, no low-scale SUSY) that restrict what the SM could otherwise accommodate."
+          }
+        },
+        {
+          "fr": {
+            "q": "Pourquoi les masses des fermions sortent-elles automatiquement ?",
+            "a": "La bifurcation à μ* = 15 sépare leptons (q⁺) et quarks (q⁻). Les rapports de masses sortent des sin²(θ_p) sur la branche correspondante, modulés par γ_p. L’identité de Koide pour les leptons est dérivée à 0,04 ppm sans aucun ajustement."
+          },
+          "en": {
+            "q": "Why do fermion masses come out automatically?",
+            "a": "The bifurcation at μ* = 15 separates leptons (q⁺) and quarks (q⁻). Mass ratios emerge from sin²(θ_p) on the corresponding branch, modulated by γ_p. The Koide identity for leptons is derived to 0.04 ppm with no fitting."
+          }
+        },
+        {
+          "fr": {
+            "q": "La PT prédit-elle de nouvelles particules ?",
+            "a": "Non — elle prédit l’absence de nouvelles particules dans des fenêtres précises : pas de WIMPs, pas d’axion QCD, pas de SUSY < 100 TeV, pas de 4e génération de leptons légers, pas de désintégration du proton. Toute observation contraire falsifierait la PT."
+          },
+          "en": {
+            "q": "Does PT predict new particles?",
+            "a": "No — it predicts the absence of new particles in precise windows: no WIMPs, no QCD axion, no SUSY < 100 TeV, no fourth light-lepton generation, no proton decay. Any contrary observation would falsify PT."
+          }
+        },
+        {
+          "fr": {
+            "q": "Que devient la supersymétrie dans la PT ?",
+            "a": "La PT n’a pas besoin de SUSY pour stabiliser la hiérarchie de masses : la stabilisation provient de la cascade γ_p. Une SUSY partielle est tolérée (Class C dans la taxonomie BSM), mais une SUSY complète à basse échelle (LHC) est exclue. P11 dans la liste des prédictions falsifiables."
+          },
+          "en": {
+            "q": "What about supersymmetry in PT?",
+            "a": "PT does not need SUSY to stabilize the mass hierarchy: stabilization comes from the γ_p cascade. Partial SUSY is tolerated (Class C in the BSM taxonomy), but full SUSY at low scale (LHC) is excluded. P11 in the falsifiable predictions list."
+          }
+        }
+      ]
+    },
+    {
+      "id": "numerology",
+      "fr": "Numérologie et coïncidences",
+      "en": "Numerology and coincidences",
+      "entries": [
+        {
+          "fr": {
+            "q": "N’est-ce pas de la numérologie ?",
+            "a": "Numérologie = chercher après coup des combinaisons de constantes qui donnent une valeur observée. La PT fait l’inverse : elle pose une structure (le crible, s = 1/2) et en déduit les valeurs avant comparaison. La précision (0,3 % moyen, 10⁻⁴ pour α_EM) est obtenue sans aucun retour en arrière."
+          },
+          "en": {
+            "q": "Is this not numerology?",
+            "a": "Numerology = searching after the fact for combinations of constants that match observed values. PT does the opposite: it posits a structure (the sieve, s = 1/2) and deduces values before comparison. The precision (0.3% mean, 10⁻⁴ for α_EM) is obtained with no back-fitting."
+          }
+        },
+        {
+          "fr": {
+            "q": "Pourquoi {3, 5, 7} et pas {2, 3, 5} ou autre ?",
+            "a": "La condition d’activité γ_p > s = 1/2 est numériquement vérifiée : γ_3 = 0,808, γ_5 = 0,696, γ_7 = 0,595, γ_11 = 0,426 (en-dessous du seuil). Le crible exclut p = 2 par U4 (transitions interdites mod 3). C’est arithmétique, pas un choix."
+          },
+          "en": {
+            "q": "Why {3, 5, 7} and not {2, 3, 5} or other?",
+            "a": "The activity condition γ_p > s = 1/2 is numerically checked: γ_3 = 0.808, γ_5 = 0.696, γ_7 = 0.595, γ_11 = 0.426 (below threshold). The sieve excludes p = 2 via U4 (forbidden mod-3 transitions). It is arithmetic, not a choice."
+          }
+        },
+        {
+          "fr": {
+            "q": "Pourquoi μ* = 15 et pas 12 ou 24 ?",
+            "a": "Théorème T5 (preuve exhaustive par arithmétique rationnelle exacte) : aucun autre sous-ensemble fini de premiers ne ferme l’équation Σ p_actif = μ avec γ_p(μ) > s. {3, 5, 7} → μ* = 15 est la seule solution."
+          },
+          "en": {
+            "q": "Why μ* = 15 and not 12 or 24?",
+            "a": "Theorem T5 (exhaustive proof by exact rational arithmetic): no other finite prime subset closes Σ p_active = μ with γ_p(μ) > s. {3, 5, 7} → μ* = 15 is the only solution."
+          }
+        },
+        {
+          "fr": {
+            "q": "La précision 0,3 % moyenne est-elle suspecte ?",
+            "a": "Elle est ce qu’elle est, sur 43 observables indépendantes. Médiane 0,06 %, meilleur cas 0,004 ppb (α_EM). La distribution n’est pas piquée — elle s’étale logiquement. L’enjeu est la falsifiabilité : si DUNE mesure δ_CP hors [170°, 224°], la PT tombe."
+          },
+          "en": {
+            "q": "Is the 0.3% mean precision suspicious?",
+            "a": "It is what it is, across 43 independent observables. Median 0.06%, best 0.004 ppb (α_EM). The distribution is not peaked — it spreads logically. The point is falsifiability: if DUNE measures δ_CP outside [170°, 224°], PT falls."
+          }
+        }
+      ]
+    },
+    {
+      "id": "falsif",
+      "fr": "Falsifiabilité",
+      "en": "Falsifiability",
+      "entries": [
+        {
+          "fr": {
+            "q": "Quelles prédictions PT pourraient être falsifiées dans les 10 ans ?",
+            "a": "P1 : neutrinos Dirac (LEGEND ~2035, 0νββ > 0 invalide). P2 : hiérarchie normale (JUNO ~2027, inversée > 5σ invalide). P4 : δ_CP(PMNS) = 197,4° (DUNE ~2032). P12 : N_gen = 3 exact. Voir page Observables pour les 15 prédictions complètes."
+          },
+          "en": {
+            "q": "Which PT predictions could be falsified in the next 10 years?",
+            "a": "P1: Dirac neutrinos (LEGEND ~2035, 0νββ > 0 invalidates). P2: normal hierarchy (JUNO ~2027, inverted > 5σ invalidates). P4: δ_CP(PMNS) = 197.4° (DUNE ~2032). P12: N_gen = 3 exact. See Observables page for the 15 full predictions."
+          }
+        },
+        {
+          "fr": {
+            "q": "Que se passe-t-il si DUNE mesure δ_CP hors fenêtre ?",
+            "a": "La PT tombe. δ_CP = 197,4° est dérivé sans fit ; tolérance pratique [170°, 224°] à 5σ. Une mesure DUNE en-dehors de cette fenêtre invalide soit BA3 (holonomie), soit T5 (point fixe), soit la dérivation des phases CKM/PMNS. Pas de mécanisme de rattrapage."
+          },
+          "en": {
+            "q": "What if DUNE measures δ_CP outside the window?",
+            "a": "PT falls. δ_CP = 197.4° is derived without fitting; practical tolerance [170°, 224°] at 5σ. A DUNE measurement outside this window invalidates either BA3 (holonomy), T5 (fixed point), or the CKM/PMNS phase derivation. No fallback mechanism."
+          }
+        },
+        {
+          "fr": {
+            "q": "Que se passe-t-il si on découvre une 4e génération de fermions ?",
+            "a": "La PT tombe. N_gen = 3 = |{premiers actifs}| est forcé par T5. Aucun ajustement ne peut accommoder un quatrième neutrino léger ou un quatrième lepton chargé. C’est P12 dans les prédictions falsifiables — déjà testé à mieux qu’un pourcent par LEP."
+          },
+          "en": {
+            "q": "What if a fourth fermion generation were discovered?",
+            "a": "PT falls. N_gen = 3 = |{active primes}| is forced by T5. No adjustment can accommodate a fourth light neutrino or charged lepton. This is P12 in the falsifiable predictions — already tested to better than a percent at LEP."
+          }
+        },
+        {
+          "fr": {
+            "q": "Y a-t-il des observations actuelles qui pourraient déjà invalider la PT ?",
+            "a": "Non, à notre connaissance. Toutes les mesures CODATA / PDG comparées tombent dans la fenêtre prédite. Tension P'_5 (B → K*µµ) à ±0,80 couvre 80 % via super-écho hadronique. Le test décisif reste DUNE 2032. L’auteur est très preneur de toute critique de précision."
+          },
+          "en": {
+            "q": "Are there current observations that could already invalidate PT?",
+            "a": "Not to our knowledge. All compared CODATA / PDG measurements fall within the predicted window. The B → K*µµ P'_5 tension at ±0.80 covers 80% via hadronic super-echo. The decisive test remains DUNE 2032. The author very much welcomes precision-level critique."
+          }
+        }
+      ]
+    },
+    {
+      "id": "limits",
+      "fr": "Ce que la théorie ne dit pas",
+      "en": "What the theory does not say",
+      "entries": [
+        {
+          "fr": {
+            "q": "La PT explique-t-elle pourquoi les mathématiques existent ?",
+            "a": "Une réponse partielle, plutôt qu’une explication finale. Le « rien absolu » — l’absence de toute catégorie ou distinction — est logiquement impossible : prétendre qu’il existe le catégorise déjà (« ce qui n’est rien » devient une catégorie), ce qui contredit son absoluité. Une distinction minimale est donc inéluctable, et avec elle l’unité 1. Une fois 1 posé, deux états deviennent disponibles (présent / absent, 0 / 1) : c’est le binaire, et de là dérive toute l’arithmétique discrète. Dans cette lecture, les mathématiques ne sont pas « créées » : elles sont ce qui reste quand on ne peut pas avoir moins. La PT prend ce niveau comme point de départ (ℕ = monoïde commutatif minimal à factorisation unique, théorème N3) et en déduit la physique."
+          },
+          "en": {
+            "q": "Does PT explain why mathematics exists?",
+            "a": "A partial answer rather than a final explanation. 'Absolute nothing' — the absence of any category or distinction — is logically impossible: claiming it exists already categorises it ('that which is nothing' becomes a category), contradicting its absoluteness. A minimal distinction is therefore inescapable, and with it, the unit 1. Once 1 is posited, two states become available (present / absent, 0 / 1): that is the binary, and from it follows all discrete arithmetic. In this reading, mathematics is not 'created' — it is what remains when one cannot have less. PT takes this level as its starting point (ℕ as minimal commutative monoid with unique factorisation, theorem N3) and derives physics from it."
+          }
+        },
+        {
+          "fr": {
+            "q": "La PT dit-elle quelque chose sur la conscience ou le sens ?",
+            "a": "Non. La PT décrit la structure mathématique du monde physique observable. Conscience, sens, morale, esthétique sont en-dehors de son périmètre. Toute extrapolation à ces sujets relève de la spéculation, pas de la théorie."
+          },
+          "en": {
+            "q": "Does PT say anything about consciousness or meaning?",
+            "a": "No. PT describes the mathematical structure of the observable physical world. Consciousness, meaning, ethics, aesthetics are outside its scope. Any extrapolation to those topics is speculation, not theory."
+          }
+        }
+      ]
+    },
+    {
+      "id": "author",
+      "fr": "Auteur, contributions, contact",
+      "en": "Author, contributions, contact",
+      "entries": [
+        {
+          "fr": {
+            "q": "Qui est l’auteur ?",
+            "a": "Yan Senez. Travail mené hors institution académique. Voir la page À propos."
+          },
+          "en": {
+            "q": "Who is the author?",
+            "a": "Yan Senez. Work conducted outside academic institutions. See the About page."
+          }
+        },
+        {
+          "fr": {
+            "q": "La PT a-t-elle des financements ou des affiliations ?",
+            "a": "Aucun financement, aucune affiliation institutionnelle. Travail indépendant. Le code (MIT) et le contenu (CC BY 4.0) sont publics. Aucun conflit d’intérêt à déclarer."
+          },
+          "en": {
+            "q": "Does PT have funding or affiliations?",
+            "a": "No funding, no institutional affiliation. Independent work. The code (MIT) and content (CC BY 4.0) are public. No conflict of interest to declare."
+          }
+        },
+        {
+          "fr": {
+            "q": "Comment contribuer ou critiquer ?",
+            "a": "Le dépôt GitHub (github.com/Igrekess/PersistenceTheory) accepte issues et pull requests. Pour critique substantielle de fond ou collaboration, contacter yan.senez@protonmail.com. Toute revue technique sérieuse est précieuse, y compris (surtout) les contre-arguments rigoureux."
+          },
+          "en": {
+            "q": "How to contribute or critique?",
+            "a": "The GitHub repo (github.com/Igrekess/PersistenceTheory) accepts issues and pull requests. For substantive technical critique or collaboration, contact yan.senez@protonmail.com. Any serious technical review is valuable, especially rigorous counter-arguments."
+          }
+        }
+      ]
+    }
+  ]
+}

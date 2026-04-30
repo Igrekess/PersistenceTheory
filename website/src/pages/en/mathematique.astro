@@ -1,0 +1,73 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import MathVisual from '@components/MathVisual.astro';
+import { mathPages, statusLabels } from '@/data/mathPages';
+---
+
+<BaseLayout
+  title="Mathematical atlas"
+  description="An atlas of the mathematical pages of the Theory of Persistence: survivors, GFT, CRT, anomalous dimensions, Riemann, compression, and cryptography."
+>
+  <section class="border-b border-slate-200 bg-white">
+    <div class="max-w-6xl mx-auto px-4 py-12 md:py-16">
+      <p class="font-sans text-sm font-semibold uppercase tracking-wider text-derorange mb-3">
+        PT mathematics
+      </p>
+      <h1 class="text-4xl md:text-5xl font-bold text-thmblue leading-tight mb-5">
+        Mathematical atlas of persistence
+      </h1>
+      <p class="text-lg text-slate-700 leading-relaxed max-w-3xl">
+        These pages show the mathematical mechanics of PT: the constrained
+        continuum, persistence points, the sieve, GFT, prime cycles,
+        thresholds, and informational applications.
+      </p>
+      <p class="text-lg text-slate-700 leading-relaxed max-w-3xl mt-4">
+        We often picture the numbers as a straight line unfolding forward. PT
+        reads them differently: as soon as residues modulo prime numbers are
+        taken seriously, that line closes into cycles. At increasing depth,
+        the bare line gives way to phase mechanics: discrete points are the
+        remarkable, stable, readable traces of that continuum under constraint.
+      </p>
+    </div>
+  </section>
+
+  <section class="max-w-6xl mx-auto px-4 py-12">
+    <div class="grid lg:grid-cols-[0.92fr_1.08fr] gap-8 items-center mb-12">
+      <div>
+        <span class="pt-tag pt-tag-id">map</span>
+        <h2 class="text-3xl font-bold text-thmblue mt-4 mb-4">
+          From principle to demonstrators
+        </h2>
+        <p class="text-slate-700 leading-relaxed mb-4">
+          The proposed order starts from the general mechanics of survivors,
+          moves through GFT and prime channels, then opens toward visualizations
+          and mathematical/informational applications.
+        </p>
+        <p class="text-slate-700 leading-relaxed">
+          Each page keeps its status visible: identity, theorem, derivation,
+          exploration, or tool. This is deliberate: the site must be clear
+          about what is proved and what is still a research path.
+        </p>
+      </div>
+      <MathVisual type="theorem-atlas" lang="en" />
+    </div>
+
+    <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-4">
+      {mathPages.map((page, index) => (
+        <a href={`/en/mathematique/${page.slug}`} class="pt-card block hover:no-underline">
+          <div class="flex items-start justify-between gap-3 mb-3">
+            <span class="pt-tag pt-tag-thm">{String(index + 1).padStart(2, '0')}</span>
+            <span class={`pt-tag ${
+              page.en.status === 'identity' ? 'pt-tag-id' :
+              page.en.status === 'theorem' ? 'pt-tag-thm' :
+              page.en.status === 'derivation' ? 'pt-tag-der' :
+              page.en.status === 'tool' ? 'pt-tag-val' : 'pt-tag-cond'
+            }`}>{statusLabels.en[page.en.status]}</span>
+          </div>
+          <h3 class="font-sans font-semibold text-thmblue text-xl mb-2">{page.en.title}</h3>
+          <p class="text-sm text-slate-700 leading-relaxed">{page.en.description}</p>
+        </a>
+      ))}
+    </div>
+  </section>
+</BaseLayout>

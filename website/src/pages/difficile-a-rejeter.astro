@@ -1,0 +1,66 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+
+const reasons = [
+  ['Zéro paramètre continu ajusté', 'Les valeurs ne sont pas obtenues par régression observable par observable. Les choix restants doivent être discrets, nommés et justifiés.'],
+  ['Même logique dans plusieurs domaines', 'Gaps, observables, périodes chimiques, EI, EA, temps et géométrie sont présentés comme lectures d’un même principe de persistance.'],
+  ['Statuts explicites', 'Le site distingue identité, théorème, dérivation, pont, validation, prédiction et problème ouvert.'],
+  ['Scripts reproductibles', 'Les résultats numériques importants sont reliés à des scripts compagnons ou à des pages calculables.'],
+  ['Prédictions falsifiables', 'La théorie expose des fenêtres de validation et des points de rupture, au lieu de rester interprétative.'],
+];
+---
+
+<BaseLayout
+  title="Pourquoi c’est difficile à rejeter"
+  description="Les critères qui rendent la PT auditable : zéro fit continu, statuts, scripts et prédictions."
+>
+  <section class="max-w-6xl mx-auto px-4 py-12">
+    <p class="pt-tag pt-tag-val mb-4">Rigueur et falsifiabilité</p>
+    <h1 class="text-4xl md:text-5xl font-bold text-thmblue mb-5">Pourquoi c’est difficile à rejeter</h1>
+    <p class="text-lg text-slate-700 leading-relaxed max-w-3xl mb-10">
+      Une théorie nouvelle ne doit pas seulement raconter une belle histoire.
+      Elle doit réduire la liberté d’ajustement, exposer ses hypothèses, donner
+      des tests et dire où elle pourrait échouer.
+    </p>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-5 gap-3 mb-12">
+      {reasons.map(([title, body]) => (
+        <div class="pt-card">
+          <h2 class="font-sans font-semibold text-thmblue text-lg mb-2">{title}</h2>
+          <p class="text-sm text-slate-700">{body}</p>
+        </div>
+      ))}
+    </div>
+
+    <div class="grid lg:grid-cols-2 gap-8">
+      <div class="bg-white border border-slate-200 rounded-lg p-5">
+        <h2 class="text-2xl font-bold text-thmblue mb-3">Ce qui renforce le dossier</h2>
+        <p class="text-slate-700 leading-relaxed mb-4">
+          La force actuelle de la PT vient du fait qu’elle ne repose pas sur un
+          seul succès isolé. Elle propose une contrainte générale, puis montre
+          des retombées dans des registres très différents. Plus les mêmes
+          mécanismes reviennent sans paramètres libres, plus la coïncidence
+          devient coûteuse.
+        </p>
+        <p class="text-slate-700 leading-relaxed">
+          La bonne posture n’est pas “croire” la PT, mais regarder si les
+          engagements discrets, les dérivations et les mesures continuent de
+          tenir ensemble quand on augmente la précision.
+        </p>
+      </div>
+      <div class="bg-white border border-slate-200 rounded-lg p-5">
+        <h2 class="text-2xl font-bold text-thmblue mb-3">Ce qui la rend testable</h2>
+        <p class="text-slate-700 leading-relaxed mb-4">
+          Une théorie trop souple peut toujours s’adapter. La PT doit rester
+          rigide : chaque correction doit avoir une origine géométrique,
+          arithmétique ou informationnelle identifiable.
+        </p>
+        <p class="text-slate-700 leading-relaxed">
+          C’est pourquoi la page des limites et la table des statuts sont aussi
+          importantes que les pages de résultats. Elles empêchent de confondre
+          démonstration, validation et hypothèse de travail.
+        </p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

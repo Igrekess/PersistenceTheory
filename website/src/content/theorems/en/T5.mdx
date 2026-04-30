@@ -1,0 +1,160 @@
+---
+id: T5
+name: 'T5 — Unique fixed point μ* = 15'
+short: 'The sieve admits a unique stable fixed point at $\mu^* = 3+5+7 = 15$.'
+statement: 'The self-consistency $\mu^* = \sum_{p : \gamma_p(\mu^*) > 1/2} p$ admits a unique stable solution, $\mu^* = 15$, with active set $\{3, 5, 7\}$. Verified by exhaustive scan over $\mu \in [3, 100]$.'
+status: THM
+monograph_chapter: chap:fixed_point
+order: 7
+lang: en
+---
+
+import Tag from '@components/Tag.astro';
+
+## Statement
+
+The sieve self-consistency equation
+
+$$
+\mu^* = \sum_{p\,:\,\gamma_p(\mu^*) > s} p, \qquad s = 1/2,
+$$
+
+admits a **unique** stable solution, namely:
+
+$$
+\boxed{\mu^* = 3 + 5 + 7 = 15, \qquad \text{active set} = \{3, 5, 7\}.}
+$$
+
+The proof combines an exact rational exhaustive scan over $\mu \in [3, 100]$
+with an analytic monotonicity bound for $p \geq 7$, excluding any fixed
+point outside the active primorial $\{3, 5, 7\}$.
+
+<Tag level="THM" />
+
+<div data-max-depth="L1" className="bg-amber-50 border-l-4 border-amber-300 px-4 py-3 my-6">
+**Plain reading.** We have a self-referential equation: "$\mu$ must equal the sum
+of primes active at $\mu$". How many solutions are there? T5 says: exactly one.
+It’s $\mu = 15$ with active primes $\{3, 5, 7\}$. No other choice of primes
+closes the equation. This uniqueness is what makes PT "zero-parameter": if
+several solutions existed, you’d have to choose, and that choice would be a parameter.
+</div>
+
+## Why it matters
+
+T5 is the **summit** of the chain of theorems. All preceding ones (T0–T6,
+GFT, L0) are needed to formulate T5, and T5 closes the sieve: from
+$\mu^* = 15$, the bifurcation $q_+/q_-$ begins and the 43 physical
+observables are derived.
+
+Three fixed points exist in fact:
+- $\mu = 10$, set $\{2, 3, 5\}$ — kinematic sector (binary),
+- $\mu = 17$, set $\{2, 3, 5, 7\}$ — transitional sector,
+- $\mu^* = 15$, set $\{3, 5, 7\}$ — **information sector**, that of our physics.
+
+It is $\mu^* = 15$ that drives PT physics, after $p = 2$ has "crystallised"
+into the binary infrastructure.
+
+## Proof — outline
+
+1. **Define** $\gamma_p(\mu) = -d\ln(\sin^2\theta_p)/d\ln\mu$ (anomalous dimension).
+2. **Compute** $\gamma_p$ via exact rational arithmetic at $\mu = 15$:
+   $\gamma_3, \gamma_5, \gamma_7 > 1/2$, $\gamma_{11}, \gamma_{13} < 1/2$.
+3. **Verify** $3 + 5 + 7 = 15$ — consistency reached.
+4. **Analytic bound**: $\gamma_p$ strictly decreasing in $p$ for $p \geq 7$,
+   so no prime $\geq 11$ is active at any reasonable $\mu$.
+5. **Exhaustive scan** of finite subsets of $\{3, 5, 7, 11, 13, ...\}$ to
+   confirm uniqueness.
+
+<div data-min-depth="L3" className="bg-stone-50 border border-stone-300 rounded-lg p-4 my-8">
+
+### Detailed proof (L3 mode)
+
+#### Step 1 — Exact rational computation of $\gamma_p$ at $\mu = 15$
+
+At $q = 13/15$, every quantity is an exact rational number
+(`fractions.Fraction`, zero floating-point error). Values are:
+
+| $p$ | $\gamma_p$ (exact fraction) | $\gamma_p$ (decimal) | $> 1/2$? |
+|---|---|---|---|
+| 3 | $4\,536\,129 / 5\,616\,704$ | 0.80761... | ✓ |
+| 5 | $486\,792\,684\,365 / 699\,097\,512\,194$ | 0.69632... | ✓ |
+| 7 | $2\,827\,519\,972\,576\,117 / 4\,748\,396\,022\,746\,468$ | 0.59547... | ✓ |
+| 11 | (exact rational, omitted) | 0.42573... | ✗ |
+| 13 | (exact rational, omitted) | 0.35624... | ✗ |
+
+Differences $\gamma_3 - \gamma_5$, $\gamma_5 - \gamma_7$, $\gamma_7 - \gamma_{11}$
+are strictly positive (verified by exact fraction subtraction).
+
+#### Step 2 — Numerical consistency
+
+The set $\{3, 5, 7\}$ is active at $\mu = 15$. Its sum:
+
+$$
+3 + 5 + 7 = 15 = \mu.
+$$
+
+The self-consistency equation is satisfied. This is a fixed point.
+
+#### Step 3 — Analytic monotonicity for $p \geq 7$
+
+$\gamma_p$ factors as $\gamma_p = F(p) \cdot G(p)$ with:
+- $F(p) = 4 q^{p-1}/\mu$ — exponentially decreasing,
+- $G(p) = (1 - \delta_p)/(\delta_p (2 - \delta_p))$ — sign analysis.
+
+The gap fraction $\delta_p = (1 - q^p)/p$ is **strictly decreasing** in
+$p$ (real-variable analysis $x \mapsto (1 - e^{-Lx})/x$ with
+$L = \ln(15/13) > 0$).
+
+Consequence: for every $p \geq 7$, $\gamma_p < \gamma_7 \approx 0.595$.
+Adding a prime $p \geq 11$ to the active set is therefore **impossible**:
+$\gamma_p < 1/2$ would violate activity.
+
+#### Step 4 — Exhaustive scan of finite candidates
+
+Enumerate all finite subsets $S \subset \{3, 5, 7, 11, 13, 17, 19, 23, ...\}$,
+compute $\mu_S = \sum_{p \in S} p$, and test the consistency
+$\gamma_p(\mu_S) > 1/2$ for $p \in S$.
+
+Exhaustive scan results (cf. proof_T5_fixed_point.py, 33 PASS):
+- $S = \{3, 5, 7\}$: $\mu = 15$, **consistent** ✓
+- $S = \{3, 5\}$: $\mu = 8$, but $\gamma_3(8), \gamma_5(8), \gamma_7(8) > 1/2$
+  imply 7 should be included — contradiction.
+- $S = \{3, 5, 7, 11\}$: $\mu = 26$, but $\gamma_{11}(26) < 1/2$ — inconsistent.
+- $S = \{2, 3, 5\}$: $\mu = 10$, kinematic sector (distinct fixed point,
+  $p = 2$ included).
+- $S = \{2, 3, 5, 7\}$: $\mu = 17$, transitional sector.
+
+No other subset closes the equation in the information sector (without
+$p = 2$). $\mu^* = 15$ is unique for the info sector.
+
+#### Step 5 — Linear stability
+
+Stability of the fixed point is checked by computing the Jacobian:
+
+$$
+J_{ij} = \frac{\partial \gamma_{p_j}}{\partial \mu_i} \bigg|_{\mu = \mu^*}.
+$$
+
+The spectral radius $|\lambda_\max(J)| < 1$ confirms $\mu^* = 15$ is an
+attractor (cf. ch. 8, Stability Theorem).
+
+#### J1–J6: six independent justifications
+
+The monograph lists six independent justifications of $\mu^* = 15$:
+1. Exhaustive scan (step 4).
+2. Linear stability (step 5).
+3. $N_c = 3$: unique solution of $(N_c + 1)! / (N_c + 3) = 2^{N_s - 1}$ with $N_s = 3$.
+4. Prime 7 = integer oracle of $e^2$: drift $A_p = \ln p / \sqrt{p}$ is maximal at $p = 7$.
+5. Echo product identity: $\prod_{p \in \{3,5,7\}} q_-^p = 1/e$ exactly.
+6. Cosmogony: the sequence $\mu = 10 \to 17 \to 15$ gives the evolutionary scenario.
+
+For the complete derivation, see [chapter 8 of the monograph](/en/monograph).
+</div>
+
+## See also
+
+- [T6 — Holonomy](/en/theorems/T6) — gives $\sin^2\theta_p$ and $\gamma_p$
+- [Calculator 1 — γ_p(μ)](/en/calculator) — computes $\gamma_p$ and activity live
+- [Essay — Why three dimensions?](/en/essays/why-3-dimensions) — direct application of T5
+- [Essay — Why three generations?](/en/essays/why-3-generations) — $N_\text{gen} = |\{3,5,7\}| = 3$
+- [All theorems](/en/theorems)

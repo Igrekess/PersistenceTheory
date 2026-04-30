@@ -1,0 +1,65 @@
+---
+slug: why-3-generations
+title: 'Pourquoi trois générations de fermions ?'
+summary: 'On observe trois familles de quarks et de leptons, pas deux, pas quatre. Le Modèle Standard prend ce 3 comme donné. La PT le dérive.'
+level: L1
+reading_minutes: 5
+related_theorems: ['T5']
+lang: fr
+order: 7
+---
+
+## L’observation
+
+Le Modèle Standard contient trois générations de fermions :
+
+| Génération | Quarks  | Leptons        |
+|-----------:|:--------|:---------------|
+| 1          | u, d    | e, $\nu_e$     |
+| 2          | c, s    | $\mu$, $\nu_\mu$ |
+| 3          | t, b    | $\tau$, $\nu_\tau$ |
+
+La symétrie est exacte : chaque génération a la même structure de jauge, la même charge, le même contenu. Seules les masses changent.
+
+Pourquoi trois ? Pas deux ni quatre ? Les expériences LEP au CERN ont mesuré la largeur de désintégration du $Z^0$ et trouvé un nombre de neutrinos légers compatible avec **3,000 ± 0,008**. Pas 2, pas 4. Précisément 3.
+
+Le Modèle Standard prend ce nombre comme donné et n’en dit rien.
+
+## La réponse PT
+
+Le nombre de générations est égal au **nombre de premiers actifs** au point fixe $\mu^* = 15$. Ce nombre est 3, et **uniquement** 3 :
+
+$$
+N_{\mathrm{gen}} = |\{p \text{ actif}\}| = |\{3, 5, 7\}| = 3.
+$$
+
+L’argument est court :
+
+1. Un premier $p$ est actif si $\gamma_p > s = 1/2$ (critère BA4).
+2. Au point fixe $\mu^* = 15$, on calcule $\gamma_3 = 0{,}808$, $\gamma_5 = 0{,}696$, $\gamma_7 = 0{,}595$, $\gamma_{11} = 0{,}478$, ...
+3. Trois sont au-dessus du seuil. Le quatrième (et tous les suivants) sont en-dessous.
+4. La cascade s’arrête à $p = 7$. Pas de quatrième génération possible.
+
+C’est aussi ça qu’on appelle dans la monographie le « théorème de finitude » : le nombre de premiers actifs est borné par la décroissance monotone de $\gamma_p$ en $p$.
+
+## La même structure pour $N_c$
+
+La même logique donne **trois couleurs de quark** : $N_c = 3$. Trois premiers actifs, trois directions dans l’espace de couleur SU(3). C’est pourquoi $N_{\mathrm{gen}} = N_c = 3$ dans la PT — ils sont la même quantité, comptée selon l’axe lepton ou couleur.
+
+Cette coïncidence n’est pas accidentelle dans le Modèle Standard non plus : c’est elle qui rend la théorie anomaly-free (les anomalies de jauge des leptons et des quarks se compensent exactement quand $N_{\mathrm{gen}} = N_c$). Mais le Modèle Standard ne dit pas pourquoi ce nombre commun vaut 3.
+
+La PT donne la cause : ce nombre est $|\{3, 5, 7\}|$.
+
+## Une prédiction simple
+
+Si on découvrait une quatrième génération de leptons légers (un nouveau neutrino $\nu_x$ avec $m_{\nu_x} < m_Z/2$), la PT serait fausse. La cascade ne pourrait pas reprendre à $p = 11$ sans casser la condition d’auto-cohérence du point fixe.
+
+C’est P12 dans la liste des prédictions falsifiables : **$N_{\mathrm{gen}} = 3$ exactement**. Aucun mécanisme de la PT ne peut accommoder un quatrième neutrino léger.
+
+L’expérience tranchée : LEP, Planck (via $N_{\mathrm{eff}}^\nu$), DUNE (oscillations de précision). Le nombre tient à mieux qu’un pourcent. Tant qu’il tient, la PT survit.
+
+## Pourquoi c’est important
+
+Ce 3 est probablement le résultat PT le plus accessible. On peut le tester sans précision extrême : une quatrième famille de fermions chargés serait visible directement. Cinquante ans d’expériences disent qu’elle n’existe pas.
+
+Le Modèle Standard accommode ce fait. La PT le **dérive**. C’est la différence entre décrire le monde et le comprendre : dans un cas le 3 est un input, dans l’autre c’est une conséquence du crible d’Ératosthène.

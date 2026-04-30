@@ -1,0 +1,91 @@
+---
+id: N2
+name: 'N2 — Sieve self-consistency'
+short: 'The Eratosthenes sieve is the unique self-consistent multiplicative sieve on $\mathbb{N}_{\geq 2}$.'
+statement: '$\mathbb{P}$ is the unique self-consistent multiplicative sieve on $\mathbb{N}_{\geq 2}$: an integer $n$ survives if and only if no prime $p < n$ divides it.'
+status: THM
+monograph_chapter: chap:uniqueness
+order: 11
+tier: secondary
+lang: en
+---
+
+import Tag from '@components/Tag.astro';
+
+## Statement
+
+The set of primes $\mathbb{P}$ is the **unique self-consistent multiplicative sieve** on $\mathbb{N}_{\geq 2}$. Self-consistent means $n \in \mathcal{S}(\mathbb{P})$ (i.e. $n$ survives) iff no prime $p < n$ divides $n$.
+
+<Tag level="THM" />
+
+<div data-max-depth="L1" className="bg-amber-50 border-l-4 border-amber-300 px-4 py-3 my-6">
+**Plain reading.** The Eratosthenes sieve has a special property: what it keeps
+matches exactly what it was supposed to keep. No other multiplicative elimination
+algorithm has this consistency. The sieve defines itself.
+</div>
+
+## Why it matters
+
+N2 closes a subtle question: the internal consistency of the sieve. One might
+imagine another sieve (eliminating by other rules, keeping different residues)
+that would return its own result. N2 shows that the unique sieve whose output
+is consistent with its input rule is Eratosthenes'.
+
+This self-consistency is what allows the cascade T0 → T6 to close
+without introducing an external parameter.
+
+## Proof — outline
+
+1. **Existence**: show $\mathbb{P}$ is self-consistent (a composite $n = ab$
+   with $a \leq \sqrt{n}$ has a prime factor $p \leq a < n$, hence $n$ is eliminated).
+2. **Uniqueness**: assume a sieve $\mathcal{C}$ self-consistent and different
+   from $\mathbb{P}$. Derive a contradiction.
+
+<div data-min-depth="L3" className="bg-stone-50 border border-stone-300 rounded-lg p-4 my-8">
+
+### Detailed proof (L3 mode)
+
+#### Part 1 — Existence: $\mathbb{P}$ is self-consistent
+
+Let $n \in \mathbb{N}_{\geq 2}$. If $n$ is prime, by definition no prime
+$p < n$ divides $n$, and $n$ is kept by the sieve.
+
+If $n$ is composite, write $n = ab$ with $a \leq \sqrt{n}$. Then $a$ has a
+prime factor $p \leq a < n$, hence $p$ divides $n$. The Eratosthenes sieve
+eliminates $n$ as a multiple of $p$. Self-consistency holds.
+
+#### Part 2 — Uniqueness
+
+Suppose another multiplicative sieve $\mathcal{C}$ is self-consistent. Let
+$\mathcal{C}_{\rm out}$ be the set of kept integers.
+
+If $\mathcal{C}_{\rm out} \neq \mathbb{P}$, let $n$ be the smallest integer
+where the two differ: $n \in \mathcal{C}_{\rm out}$ but $n \notin \mathbb{P}$,
+or vice versa.
+
+**Case 1**: $n \in \mathcal{C}_{\rm out}$, $n$ composite. Then $n$ has a prime
+factor $p < n$. If $p \in \mathcal{C}_{\rm out}$ ($p$ kept by $\mathcal{C}$),
+then by self-consistency $\mathcal{C}$ must also keep $n$ (since $\mathcal{C}$
+uses multiplicative rules). But then $\mathcal{C}$ keeps a composite — by
+construction of a strict multiplicative sieve, contradiction.
+
+**Case 2**: $n \in \mathbb{P}$ but $n \notin \mathcal{C}_{\rm out}$. Then a
+multiplicative divisor eliminated $n$. But $n$ prime has only 1 and $n$ as
+divisors. None is strictly in $\{2, \ldots, n-1\}$ — contradiction.
+
+In both cases, contradiction. So $\mathcal{C}_{\rm out} = \mathbb{P}$.
+
+#### Link to PT
+
+Self-consistency is the property that lets the sieve dynamics **close on
+itself**. It gives the fixed point $\mu^* = 15$ its uniqueness (T5): it is the
+unique self-consistent solution of the cascade equation.
+
+For the complete derivation, see [chapter 2 of the monograph](/en/monograph).
+</div>
+
+## See also
+
+- [N1 — Algebraic uniqueness](/en/theorems/N1) — primes as atoms
+- [T5 — Fixed point μ* = 15](/en/theorems/T5) — cascade self-consistency
+- [All theorems](/en/theorems)

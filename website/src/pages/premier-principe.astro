@@ -1,0 +1,230 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+
+const mainFormula = String.raw`\log_2 m = D_{\mathrm{KL}}(P\|U_m)+H(P)`;
+const samples = [
+  { m: 2, cap: 1.0, dkl: 1.0, h: 0.0 },
+  { m: 6, cap: 2.585, dkl: 1.585, h: 1.0 },
+  { m: 30, cap: 4.907, dkl: 3.252, h: 1.655 },
+  { m: 210, cap: 7.714, dkl: 4.916, h: 2.798 },
+];
+const maxCap = 8;
+const chart = { left: 58, right: 720, top: 32, bottom: 300 };
+const barWidth = 66;
+const y = (value: number) => chart.bottom - (value / maxCap) * (chart.bottom - chart.top);
+const barX = (index: number) => 105 + index * 155;
+const principles = [
+  {
+    tag: 'capacité',
+    title: 'La capacité totale est fixée',
+    body: 'Pour $m$ possibilités, il existe un budget total de distinctions. En langage technique, ce budget vaut $\\log_2 m$ bits.',
+  },
+  {
+    tag: 'persistance',
+    title: 'La structure est une distance à l’uniforme',
+    body: '$D_{\\mathrm{KL}}$ mesure ce qui distingue la distribution réelle de l’état maximalement indifférencié.',
+  },
+  {
+    tag: 'entropie',
+    title: 'Le reste demeure bruit ou incertitude',
+    body: '$H(P)$ mesure ce qui reste dispersé, non cristallisé, non sélectionné comme structure persistante.',
+  },
+];
+---
+
+<BaseLayout
+  title="Le principe fondamental de la persistance"
+  description="Page mathématique sur GFT, l’identité log2(m)=DKL+H et son rôle de principe fondamental de la Théorie de la Persistance."
+>
+  <section class="border-b border-slate-200 bg-white">
+    <div class="max-w-6xl mx-auto px-4 py-12 md:py-16">
+      <p class="font-sans text-sm font-semibold uppercase tracking-wider text-derorange mb-3">
+        Mathématique PT / identité maîtresse
+      </p>
+      <h1 class="text-4xl md:text-5xl font-bold text-thmblue leading-tight mb-5">
+        Le principe fondamental de la persistance
+      </h1>
+      <p class="text-lg text-slate-700 leading-relaxed max-w-3xl" data-max-depth="L1">
+        La PT part d’une idée presque enfantine : lorsqu’un système possède un
+        nombre fixé de possibilités, son budget de distinctions est fixé. Une
+        partie de ce budget peut devenir structure, une autre peut rester
+        incertitude, mais le total ne disparaît pas.
+      </p>
+      <p class="text-lg text-slate-700 leading-relaxed max-w-3xl" data-min-depth="L2">
+        GFT est l’identité qui formalise ce budget. Pour toute distribution
+        {String.raw`$P$`} sur {String.raw`$m$`} états, la capacité totale
+        {String.raw`$\log_2 m$`} se décompose exactement en information
+        persistante et entropie résiduelle.
+      </p>
+      <div class="mt-7 max-w-3xl bg-slate-50 border border-slate-200 rounded-lg px-4 py-4 font-mono text-slate-900 overflow-x-auto">
+        {`$${mainFormula}$`}
+      </div>
+    </div>
+  </section>
+
+  <section class="max-w-6xl mx-auto px-4 py-12">
+    <div class="grid lg:grid-cols-[0.88fr_1.12fr] gap-8 items-center mb-12">
+      <div>
+        <span class="pt-tag pt-tag-bridge">L1 · intuition</span>
+        <h2 class="text-3xl font-bold text-thmblue mt-4 mb-4">
+          Un budget, deux manières de l’habiter
+        </h2>
+        <p class="text-slate-700 leading-relaxed mb-4">
+          Imagine un jeu avec plusieurs cases possibles. Plus il y a de cases,
+          plus il faut de distinctions pour dire précisément où l’on se trouve.
+          Ce nombre total de distinctions est le budget du système.
+        </p>
+        <p class="text-slate-700 leading-relaxed mb-4">
+          En mathématiques, on note ce budget {String.raw`$\log_2(m)$`} parce
+          qu’on le compte en questions oui/non, donc en bits. Mais l’idée
+          derrière est simplement celle-ci : le système possède une quantité
+          totale de distinction disponible.
+        </p>
+        <p class="text-slate-700 leading-relaxed mb-4">
+          Une partie devient une forme : elle distingue, contraint, sélectionne.
+          C’est la persistance. L’autre partie reste ouverte, dispersée,
+          indécise. C’est l’entropie.
+        </p>
+        <p class="text-slate-700 leading-relaxed">
+          Le principe fondamental dit que ces deux parts se compensent exactement.
+          Quand une structure gagne un bit, l’entropie disponible perd un bit,
+          et inversement. La PT met cette conservation au centre de tout le
+          reste.
+        </p>
+      </div>
+
+      <div class="bg-white border border-slate-200 rounded-lg p-5">
+        <h3 class="font-sans font-semibold text-thmblue mb-3">Budget d’information du crible</h3>
+        <div class="mb-2 flex justify-end gap-4 text-sm font-sans text-slate-800">
+          <span class="flex items-center gap-2"><span class="w-4 h-4 rounded bg-thmblue inline-block"></span>persistance</span>
+          <span class="flex items-center gap-2"><span class="w-4 h-4 rounded bg-derorange inline-block"></span>entropie</span>
+        </div>
+        <svg viewBox="0 0 760 360" class="w-full h-auto" role="img" aria-label="Budget GFT aux niveaux primoriels">
+          <rect x="0" y="0" width="760" height="360" rx="8" fill="#ffffff" />
+          {[0,2,4,6,8].map((tick) => (
+            <g>
+              <line x1={chart.left} x2={chart.right} y1={y(tick)} y2={y(tick)} stroke="#e2e8f0" />
+              <text x="24" y={y(tick) + 4} font-size="12" fill="#5f6f80" font-family="ui-sans-serif, system-ui">{tick}</text>
+            </g>
+          ))}
+          <text x="24" y="24" font-size="12" fill="#5f6f80" font-family="ui-sans-serif, system-ui">bits</text>
+          {samples.map((sample, index) => {
+            const x0 = barX(index);
+            const dklTop = y(sample.dkl);
+            const capTop = y(sample.cap);
+            return (
+              <g>
+                <rect x={x0} y={dklTop} width={barWidth} height={chart.bottom - dklTop} fill="#14566b" rx="4" />
+                <rect x={x0} y={capTop} width={barWidth} height={dklTop - capTop} fill="#c96f24" rx="4" />
+                <text x={x0 + barWidth / 2} y={chart.bottom + 26} text-anchor="middle" font-size="13" fill="#17202a" font-weight="700" font-family="ui-sans-serif, system-ui">m={sample.m}</text>
+                <text x={x0 + barWidth / 2} y={capTop - 8} text-anchor="middle" font-size="12" fill="#5f6f80" font-family="ui-sans-serif, system-ui">{sample.cap.toFixed(2)}</text>
+              </g>
+            );
+          })}
+          <text x="390" y="344" text-anchor="middle" font-size="13" fill="#5f6f80" font-family="ui-sans-serif, system-ui">
+            chaque barre montre le même budget total : persistance + entropie
+          </text>
+        </svg>
+      </div>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-4 mb-12">
+      {principles.map((item) => (
+        <div class="pt-card">
+          <span class="pt-tag pt-tag-der">{item.tag}</span>
+          <h3 class="font-sans font-semibold text-thmblue text-xl mt-3 mb-2">{item.title}</h3>
+          <p class="text-sm text-slate-700">{item.body}</p>
+        </div>
+      ))}
+    </div>
+
+    <div data-min-depth="L2" class="mb-12">
+      <span class="pt-tag pt-tag-id">L2 · standard</span>
+      <h2 class="text-3xl font-bold text-thmblue mt-4 mb-4">
+        Pourquoi c’est un principe fondamental
+      </h2>
+      <div class="grid lg:grid-cols-[1fr_0.9fr] gap-6 items-start">
+        <div class="text-slate-700 leading-relaxed">
+          <p class="mb-4">
+            L’identité est une tautologie algébrique : elle est vraie pour
+            n’importe quelle distribution. Sa force ne vient donc pas d’une
+            difficulté technique, mais du fait qu’elle donne le langage de
+            conservation dans lequel la PT lit le crible.
+          </p>
+          <p class="mb-4">
+            Dans le crible, {String.raw`$D_{\mathrm{KL}}$`} devient la part
+            structurée : ce qui a été sélectionné, contraint, rendu distinct.
+            {String.raw`$H(P)$`} devient la part encore dispersée. Leur somme
+            reste le même cap informationnel.
+          </p>
+          <div class="bg-slate-50 border border-slate-200 rounded-lg p-4 font-mono text-sm text-slate-900 overflow-x-auto">
+            {String.raw`$dD_{\mathrm{KL}}+dH=0,\quad \frac{dH}{dD_{\mathrm{KL}}}=-1$`}
+          </div>
+        </div>
+        <div class="bg-white border border-slate-200 rounded-lg p-5">
+          <h3 class="font-sans font-semibold text-thmblue mb-3">Statut exact</h3>
+          <ul class="space-y-3 text-sm text-slate-700">
+            <li><strong>GFT-ID.</strong> Identité algébrique exacte.</li>
+            <li><strong>Flèche.</strong> Identité à {String.raw`$m$`} fixé : les variations se compensent.</li>
+            <li><strong>Bekenstein.</strong> Théorème immédiat : {String.raw`$D_{\mathrm{KL}}\le\log_2 m$`}.</li>
+            <li><strong>Lecture physique.</strong> Pont interprétatif traité ailleurs dans la monographie.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div data-min-depth="L3">
+      <span class="pt-tag pt-tag-id">L3 · démonstration</span>
+      <h2 class="text-3xl font-bold text-thmblue mt-4 mb-4">
+        Démonstration complète
+      </h2>
+      <div class="bg-white border border-slate-200 rounded-lg p-6">
+        <p class="text-slate-700 leading-relaxed mb-4">
+          Soit {String.raw`$P=(p_0,\ldots,p_{m-1})$`} une distribution de
+          probabilité et {String.raw`$U_m=(1/m,\ldots,1/m)$`} la distribution
+          uniforme. Par définition :
+        </p>
+        <div class="bg-slate-50 border border-slate-200 rounded-lg p-4 font-mono text-sm text-slate-900 overflow-x-auto mb-4">
+          {String.raw`$D_{\mathrm{KL}}(P\|U_m)=\sum_r p_r\log_2\frac{p_r}{1/m}$`}
+        </div>
+        <p class="text-slate-700 leading-relaxed mb-4">
+          On distribue le logarithme, puis on utilise
+          {String.raw`$\sum_r p_r=1$`} :
+        </p>
+        <div class="bg-slate-50 border border-slate-200 rounded-lg p-4 font-mono text-sm text-slate-900 overflow-x-auto mb-4">
+          {String.raw`$D_{\mathrm{KL}}=\sum_r p_r(\log_2 p_r+\log_2 m)=\log_2 m+\sum_r p_r\log_2 p_r$`}
+        </div>
+        <p class="text-slate-700 leading-relaxed mb-4">
+          Or {String.raw`$H(P)=-\sum_r p_r\log_2 p_r$`}. Donc :
+        </p>
+        <div class="bg-slate-50 border border-slate-200 rounded-lg p-4 font-mono text-sm text-slate-900 overflow-x-auto">
+          {String.raw`$D_{\mathrm{KL}}=\log_2 m-H(P)\quad\Longleftrightarrow\quad \log_2 m=D_{\mathrm{KL}}+H(P)$`}
+        </div>
+      </div>
+
+      <div class="mt-8 grid md:grid-cols-2 gap-4">
+        <div class="pt-card">
+          <h3 class="font-sans font-semibold text-thmblue mb-2">Ce que la page affirme</h3>
+          <p class="text-sm text-slate-700">
+            GFT est une identité universelle, puis un principe de lecture PT
+            lorsqu’on applique ses deux termes au crible et aux distributions
+            de résidus.
+          </p>
+        </div>
+        <div class="pt-card">
+          <h3 class="font-sans font-semibold text-thmblue mb-2">Ce qu’elle n’affirme pas</h3>
+          <p class="text-sm text-slate-700">
+            L’identité seule ne prouve pas une nouvelle loi sur les premiers.
+            La profondeur vient de son rôle dans la chaîne PT, pas de l’algèbre.
+          </p>
+        </div>
+      </div>
+
+      <div class="mt-8 flex flex-wrap gap-3 text-sm font-sans">
+        <a href="/theorems/GFT" class="rounded-md border border-slate-300 px-3 py-2 text-thmblue hover:bg-slate-50">Fiche GFT</a>
+        <a href="/theorems/T2" class="rounded-md border border-slate-300 px-3 py-2 text-thmblue hover:bg-slate-50">T2 · conservation spectrale</a>
+        <a href="/gaps-premiers" class="rounded-md border border-slate-300 px-3 py-2 text-thmblue hover:bg-slate-50">Gaps premiers</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,91 @@
+---
+id: N1
+name: 'N1 — Unicité algébrique des premiers'
+short: 'Les nombres premiers sont les uniques atomes du monoïde multiplicatif $(\mathbb{N}_{\geq 1}, \times)$.'
+statement: 'Les nombres premiers $\mathbb{P}$ sont les uniques atomes du monoïde multiplicatif $(\mathbb{N}_{\geq 1}, \times)$. Le crible d’Ératosthène est l’unique procédure constructive identifiant ces atomes par élimination successive.'
+status: THM
+monograph_chapter: chap:uniqueness
+order: 10
+tier: secondary
+lang: fr
+---
+
+import Tag from '@components/Tag.astro';
+
+## Énoncé
+
+Les nombres premiers $\mathbb{P} = \{2, 3, 5, 7, 11, \ldots\}$ sont les **uniques atomes** du monoïde multiplicatif $(\mathbb{N}_{\geq 1}, \times)$. Le crible d’Ératosthène est l’**unique procédure constructive** qui les identifie par élimination successive des multiples.
+
+<Tag level="THM" />
+
+<div data-max-depth="L1" className="bg-amber-50 border-l-4 border-amber-300 px-4 py-3 my-6">
+**Lecture vulgarisée.** Si on cherche les « briques fondamentales » de la multiplication
+sur $\mathbb{N}$, il n’y en a qu’une famille possible : les nombres premiers. Toute autre
+candidate se ramène à eux. Et la seule manière constructive de les trouver est le
+crible. C’est ce qui rend la PT non-arbitraire dans son point de départ.
+</div>
+
+## Pourquoi ça compte
+
+N1 établit la **non-arbitrarité du point de départ** de la PT. Si une autre famille
+de « briques » avait pu jouer le rôle des premiers, le crible aurait été un choix
+parmi d’autres. N1 ferme cette porte : pas de degré de liberté caché à la racine.
+
+C’est aussi N1 qui ferme la cohérence philosophique du programme : la PT ne
+postule pas l’existence d’objets exotiques, elle utilise les briques que
+l’arithmétique elle-même impose.
+
+## Démonstration — schéma
+
+1. **Atomes** : par le théorème fondamental de l’arithmétique, tout entier $n \geq 2$
+   se factorise de manière unique en produit de premiers (à l’ordre près).
+2. **Unicité** : aucune autre famille de générateurs multiplicatifs n’admet
+   factorisation unique sur $\mathbb{N}$.
+3. **Constructivité** : le crible élimine les multiples par ordre croissant ;
+   aucune autre procédure constructive avec les mêmes axiomes ne donne le même
+   résultat.
+
+<div data-min-depth="L3" className="bg-stone-50 border border-stone-300 rounded-lg p-4 my-8">
+
+### Démonstration détaillée (mode L3)
+
+#### Partie 1 — Les premiers sont atomes
+
+Un atome de $(\mathbb{N}_{\geq 1}, \times)$ est un élément $a \neq 1$ tel que
+$a = bc \Rightarrow b = 1$ ou $c = 1$. C’est exactement la définition d’un nombre
+premier. Le théorème fondamental de l’arithmétique (existence + unicité de la
+factorisation) montre que les premiers engendrent multiplicativement $\mathbb{N}$
+et qu’aucun autre élément n’a la propriété d’atomicité.
+
+#### Partie 2 — Unicité de la famille
+
+Supposons une famille alternative $\mathcal{A} \subset \mathbb{N}$ tels que tout
+$n$ se factorise uniquement en produit d’éléments de $\mathcal{A}$. Par
+unicité de la factorisation premier-par-premier, chaque $a \in \mathcal{A}$
+doit être lui-même un produit de premiers. Si $a$ est un produit non trivial
+(c’est-à-dire pas un premier seul), alors $a$ admet une factorisation interne,
+contradiction avec son atomicité dans $\mathcal{A}$. Donc $\mathcal{A} \subseteq \mathbb{P}$.
+Réciproquement, l’absence d’un premier $p \in \mathcal{A}$ rendrait $p$
+non factorisable, contradiction. Donc $\mathcal{A} = \mathbb{P}$.
+
+#### Partie 3 — Unicité du crible
+
+Toute procédure constructive identifiant les premiers doit décider, pour
+chaque $n$, si $n$ est premier. La méthode minimale est de tester la
+divisibilité par tous les premiers $p \leq \sqrt{n}$ identifiés
+précédemment. C’est exactement le crible d’Ératosthène.
+
+Toute variation (élimination dans un autre ordre, par d’autres relations) soit
+ne termine pas (test exhaustif infini), soit produit le même résultat (si elle
+respecte la divisibilité), soit produit un résultat erroné. Le crible
+d’Ératosthène est donc l’unique procédure constructive correcte et finie.
+
+Pour la dérivation complète, voir [chapitre 2 de la monographie](/monograph).
+</div>
+
+## Voir aussi
+
+- [N2 — Auto-cohérence](/theorems/N2) — le crible est l’unique crible auto-cohérent
+- [N3 — Minimalité structurelle](/theorems/N3) — ℕ est le monoïde minimal
+- [T0 — Clôture BA0](/theorems/T0) — utilise N1 pour fixer le champ dynamique
+- [Tous les théorèmes](/theorems)

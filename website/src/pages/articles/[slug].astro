@@ -1,0 +1,30 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Tag from '@components/Tag.astro';
+
+export async function getStaticPaths() {
+  const VISIBLE_SLUGS = new Set(['PT_LAMBDA']);
+  const all = await getCollection('articles', ({ data }) =>
+    data.lang === 'fr' && VISIBLE_SLUGS.has(data.slug));
+  return all.map(art => ({
+    params: { slug: art.data.slug },
+    props: { art },
+  }));
+}
+
+const { art } = Astro.props;
+const { Content } = await render(art);
+---
+
+<BaseLayout title={art.data.title}>
+  <article class="max-w-3xl mx-auto px-4 py-12 prose prose-stone">
+    <header class="not-prose mb-6">
+      <Tag level={art.data.status} />
+      <h1 class="text-3xl md:text-4xl font-bold text-thmblue mt-3 mb-2">{art.data.title}</h1>
+      <p class="text-stone-700 italic">{art.data.abstract}</p>
+    </header>
+
+    <Content />
+  </article>
+</BaseLayout>

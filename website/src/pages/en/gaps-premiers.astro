@@ -1,0 +1,238 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+
+const survivors = [1, 7, 11, 13, 17, 19, 23, 29];
+const gaps = survivors.map((value, index) => {
+  const next = survivors[(index + 1) % survivors.length] + (index === survivors.length - 1 ? 30 : 0);
+  return next - value;
+});
+const x = (n: number) => 48 + ((n - 1) / 28) * 704;
+const gapMid = (a: number, b: number) => (x(a) + x(b)) / 2;
+const propositions = [
+  {
+    tag: 'exact',
+    title: 'Finite-torus density',
+    formula: String.raw`\varphi(M_A)=M_A\prod_{p\in A}(1-1/p)`,
+    text: 'Over a full sieve period, each active prime removes exactly its local collapse direction.',
+  },
+  {
+    tag: 'exact',
+    title: 'Square-root window',
+    formula: String.raw`S(x;\lfloor\sqrt{x}\rfloor)=1+\pi(x)-\pi(\lfloor\sqrt{x}\rfloor)`,
+    text: 'At this depth, to survive means to be 1 or prime: every composite already has a visible divisor.',
+  },
+  {
+    tag: 'exact',
+    title: 'Survivor transport',
+    formula: String.raw`\Phi(x,a)=\Phi(x,a-1)-\Phi(\lfloor x/p_a\rfloor,a-1)`,
+    text: 'Adding a prime does not merely multiply a density: it transports the problem to a contracted window.',
+  },
+  {
+    tag: 'candidate',
+    title: 'PT-Buchstab kernel',
+    formula: String.raw`K_{PT}(u)=e^\gamma\,\omega(u),\quad u=\log x/\log y`,
+    text: 'Natural candidate for the universal rough-survivor law, with the square-root endpoint $K_{PT}(2)=e^\\gamma/2$.',
+  },
+];
+---
+
+<BaseLayout
+  title="PT mechanics of prime gaps"
+  description="A mathematics page on PT survivor-gap mechanics, the exact reduction to primes, and the status of the prime-gap law."
+>
+  <section class="border-b border-slate-200 bg-white">
+    <div class="max-w-6xl mx-auto px-4 py-12 md:py-16">
+      <p class="font-sans text-sm font-semibold uppercase tracking-wider text-derorange mb-3">
+        PT mathematics / sieve and primes
+      </p>
+      <h1 class="text-4xl md:text-5xl font-bold text-thmblue leading-tight mb-5">
+        PT mechanics of gaps: from the sieve to prime numbers
+      </h1>
+      <p class="text-lg text-slate-700 leading-relaxed max-w-3xl" data-max-depth="L1">
+        The idea is simple: let a sieve act, some numbers survive, and the
+        distances between survivors form a mechanics. At the right depth, those
+        survivors become exactly the prime numbers.
+      </p>
+      <p class="text-lg text-slate-700 leading-relaxed max-w-3xl" data-min-depth="L2">
+        PT does not treat prime gaps as a mysterious sequence handed in from
+        outside. It starts from a survival dynamics: points persistent under
+        sieve constraints form gaps, and the window
+        {String.raw`$y=\lfloor\sqrt{x}\rfloor$`} reduces those survivors exactly to primes.
+      </p>
+    </div>
+  </section>
+
+  <section class="max-w-6xl mx-auto px-4 py-12">
+    <div class="grid lg:grid-cols-[0.88fr_1.12fr] gap-8 items-center mb-12">
+      <div>
+        <span class="pt-tag pt-tag-bridge">L1 · picture</span>
+        <h2 class="text-3xl font-bold text-thmblue mt-4 mb-4">
+          A gap first means a distance between survivors
+        </h2>
+        <p class="text-slate-700 leading-relaxed mb-4">
+          Remove the multiples of 2, 3, and 5. The positions still alive modulo
+          30 are 1, 7, 11, 13, 17, 19, 23, and 29. The gaps
+          6, 4, 2, 4, 2, 4, 6, 2 are not added by hand: they are the shape left
+          by the sieve.
+        </p>
+        <p class="text-slate-700 leading-relaxed">
+          This is what PT generalizes: the discrete layer is not arbitrary
+          input, but the set of points that persist through a mechanics of
+          constraints.
+        </p>
+      </div>
+
+      <div class="bg-white border border-slate-200 rounded-lg p-5">
+        <h3 class="font-sans font-semibold text-thmblue mb-3">Survivors modulo 30</h3>
+        <svg viewBox="0 0 800 260" class="w-full h-auto" role="img" aria-label="Gaps between sieve survivors modulo 30">
+          <line x1="48" y1="112" x2="752" y2="112" stroke="#d7e1ea" stroke-width="5" stroke-linecap="round" />
+          {[1,5,10,15,20,25,30].map((tick) => (
+            <g>
+              <line x1={x(tick)} x2={x(tick)} y1="102" y2="122" stroke="#94a3b8" />
+              <text x={x(tick)} y="152" text-anchor="middle" font-size="14" fill="#5f6f80" font-family="ui-sans-serif, system-ui">{tick}</text>
+            </g>
+          ))}
+          {survivors.map((n) => (
+            <g>
+              <circle cx={x(n)} cy="112" r="15" fill="#e8f5ee" stroke="#198754" stroke-width="4" />
+              <text x={x(n)} y="84" text-anchor="middle" font-size="14" fill="#14566b" font-weight="700" font-family="ui-sans-serif, system-ui">{n}</text>
+            </g>
+          ))}
+          {survivors.slice(0, -1).map((n, i) => {
+            const next = survivors[i + 1];
+            return (
+              <g>
+                <path d={`M ${x(n)} 188 C ${x(n)} 214, ${x(next)} 214, ${x(next)} 188`} fill="none" stroke="#c96f24" stroke-width="3" />
+                <text x={gapMid(n, next)} y="230" text-anchor="middle" font-size="15" fill="#9a4f13" font-weight="700" font-family="ui-sans-serif, system-ui">{gaps[i]}</text>
+              </g>
+            );
+          })}
+          <path d={`M ${x(29)} 42 C ${x(29)} 18, ${x(1)} 18, ${x(1)} 42`} fill="none" stroke="#c96f24" stroke-width="3" />
+          <text x="400" y="26" text-anchor="middle" font-size="15" fill="#9a4f13" font-weight="700" font-family="ui-sans-serif, system-ui">2</text>
+          <text x="400" y="252" text-anchor="middle" font-size="13" fill="#5f6f80" font-family="ui-sans-serif, system-ui">
+            gaps are produced by persistent positions
+          </text>
+        </svg>
+      </div>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-4 mb-12">
+      <div class="pt-card">
+        <span class="pt-tag pt-tag-thm">exact</span>
+        <h3 class="font-sans font-semibold text-thmblue text-xl mt-3 mb-2">Sieve gaps</h3>
+        <p class="text-sm text-slate-700">
+          The coprime residues of a primorial give a circular sequence of
+          survivors; their differences give the sieve gaps.
+        </p>
+      </div>
+      <div class="pt-card">
+        <span class="pt-tag pt-tag-thm">exact</span>
+        <h3 class="font-sans font-semibold text-thmblue text-xl mt-3 mb-2">Reduction to primes</h3>
+        <p class="text-sm text-slate-700">
+          At the {String.raw`$\sqrt{x}$`} window, every composite has already been removed.
+          The remaining survivors are therefore {String.raw`$1$`} and the primes.
+        </p>
+      </div>
+      <div class="pt-card">
+        <span class="pt-tag pt-tag-cond">open</span>
+        <h3 class="font-sans font-semibold text-thmblue text-xl mt-3 mb-2">Exact prime gap</h3>
+        <p class="text-sm text-slate-700">
+          This is not yet a closed law producing every {String.raw`$p_{n+1}-p_n$`} without
+          already knowing the primes. It is a mechanics of reduction and
+          transport.
+        </p>
+      </div>
+    </div>
+
+    <div data-min-depth="L2" class="mb-12">
+      <span class="pt-tag pt-tag-der">L2 · standard</span>
+      <h2 class="text-3xl font-bold text-thmblue mt-4 mb-4">
+        The key point: the square-root window
+      </h2>
+      <div class="grid lg:grid-cols-[1fr_0.9fr] gap-6 items-start">
+        <div class="text-slate-700 leading-relaxed">
+          <p class="mb-4">
+            Let {String.raw`$S(x;y)$`} count integers {String.raw`$n\le x$`} divisible by no prime
+            {String.raw`$\le y$`}. If {String.raw`$y=\lfloor\sqrt{x}\rfloor$`}, then no composite can
+            survive: it necessarily has a prime divisor
+            {String.raw`$\le\sqrt{n}\le\sqrt{x}$`}.
+          </p>
+          <p class="mb-4">
+            The survivors are exactly {String.raw`$1$`} and the primes in
+            {String.raw`$(\sqrt{x},x]`}. Hence:
+          </p>
+          <div class="bg-slate-50 border border-slate-200 rounded-lg p-4 font-mono text-sm text-slate-900 overflow-x-auto">
+            {String.raw`$\pi(x)=S(x;\lfloor\sqrt{x}\rfloor)+\pi(\lfloor\sqrt{x}\rfloor)-1$`}
+          </div>
+          <p class="mt-4">
+            This changes the problem: understanding prime distribution becomes
+            understanding a finite-window survival law.
+          </p>
+        </div>
+        <div class="bg-slate-50 border border-slate-200 rounded-lg p-5">
+          <h3 class="font-sans font-semibold text-thmblue mb-3">What PT shifts</h3>
+          <ol class="space-y-3 text-sm text-slate-700">
+            <li><strong>1.</strong> First build the sieve survivors.</li>
+            <li><strong>2.</strong> Read their gaps as persistence gaps.</li>
+            <li><strong>3.</strong> Move to the {String.raw`$\sqrt{x}$`} window.</li>
+            <li><strong>4.</strong> Recover primes as ultimate survivors.</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+
+    <div data-min-depth="L3">
+      <span class="pt-tag pt-tag-val">L3 · technical</span>
+      <h2 class="text-3xl font-bold text-thmblue mt-4 mb-4">
+        Formulas of the mechanics
+      </h2>
+      <div class="grid md:grid-cols-2 gap-4">
+        {propositions.map((item) => (
+          <div class="bg-white border border-slate-200 rounded-lg p-5">
+            <div class="flex items-center justify-between gap-3 mb-3">
+              <h3 class="font-sans font-semibold text-thmblue">{item.title}</h3>
+              <span class={`pt-tag ${item.tag === 'exact' ? 'pt-tag-thm' : 'pt-tag-cond'}`}>{item.tag}</span>
+            </div>
+            <div class="bg-slate-50 border border-slate-200 rounded-md px-3 py-3 font-mono text-sm text-slate-900 overflow-x-auto">
+              {`$${item.formula}$`}
+            </div>
+            <p class="mt-3 text-sm text-slate-700">{item.text}</p>
+          </div>
+        ))}
+      </div>
+
+      <div class="mt-8 bg-white border border-slate-200 rounded-lg p-6">
+        <h3 class="font-sans font-semibold text-thmblue text-xl mb-3">
+          The cubic threshold
+        </h3>
+        <p class="text-slate-700 leading-relaxed mb-4">
+          In the exact transport equation, the contracted window
+          {String.raw`$\lfloor x/p_a\rfloor$`} has its own native depth. Once {String.raw`$p_a^3>x$`},
+          this window is already sieved beyond its native square-root
+          threshold. The transported term then becomes essentially a
+          prime-boundary term.
+        </p>
+        <div class="bg-slate-50 border border-slate-200 rounded-lg p-4 font-mono text-sm text-slate-900 overflow-x-auto">
+          {String.raw`$x^{1/3}<p\le x^{1/2}$`}: natural window/boundary distortion band.
+        </div>
+      </div>
+
+      <div class="mt-8 grid md:grid-cols-2 gap-4">
+        <div class="pt-card">
+          <h3 class="font-sans font-semibold text-thmblue mb-2">What is closed</h3>
+          <p class="text-sm text-slate-700">
+            Finite-torus density, reconstruction identity for {String.raw`$\pi(x)$`}, exact
+            survivor transport, cubic oversieve threshold.
+          </p>
+        </div>
+        <div class="pt-card">
+          <h3 class="font-sans font-semibold text-thmblue mb-2">What remains open</h3>
+          <p class="text-sm text-slate-700">
+            Close the window law independently, control correction channels,
+            and only then target a complete generative law for prime gaps.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

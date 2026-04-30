@@ -1,0 +1,76 @@
+---
+slug: where-alpha-comes-from
+title: 'D’où vient $\alpha_{\mathrm{EM}} = 1/137$ ?'
+summary: 'La constante de structure fine n’est pas mesurée dans la PT, elle est calculée. Trois sinus carrés, un produit, un habillage. Voici les trois étapes.'
+level: L1
+reading_minutes: 7
+related_theorems: ['T6', 'T5']
+lang: fr
+order: 4
+---
+
+## Le mystère ancien
+
+$\alpha_{\mathrm{EM}} \approx 1/137{,}036$ contrôle la force du couplage électromagnétique. C’est une des constantes les mieux mesurées de la physique, et une des plus mal expliquées. Feynman écrivait : *« C’est un des plus grands mystères de la physique : un nombre magique qui nous est donné sans qu’on le comprenne. »*
+
+La PT propose une réponse calculable. Pas une heuristique, pas une numérologie : un produit explicite à trois facteurs.
+
+## L’étape 1 — le produit nu
+
+À l’échelle $\mu^* = 15$, on calcule trois angles d’holonomie sur la branche $q_+ = 1 - 2/\mu^*$ :
+
+$$
+\sin^2\theta_3 \approx 0{,}2192, \qquad
+\sin^2\theta_5 \approx 0{,}1940, \qquad
+\sin^2\theta_7 \approx 0{,}1726.
+$$
+
+(Ces valeurs sortent de la formule $\sin^2\theta_p = \delta_p (2 - \delta_p)$, théorème T6.)
+
+Le produit donne :
+
+$$
+\alpha_{\mathrm{bare}} = \sin^2\theta_3 \cdot \sin^2\theta_5 \cdot \sin^2\theta_7 \approx \frac{1}{136{,}28}.
+$$
+
+C’est l’axiome de pont **BA5** (qui est en fait un théorème dérivé). On est déjà à 0,5 % de la valeur expérimentale. Sans aucun fit.
+
+## L’étape 2 — l’habillage
+
+$1/136{,}28$ n’est pas $1/137{,}036$. La différence vient des premiers **inactifs** $\{11, 13\}$ : eux non plus ne contribuent pas dynamiquement comme primaires, mais ils laissent une polarisation d’écho qui habille le couplage à très courte distance.
+
+L’habillage est une cascade de trois corrections (R51, chapitre 10 de la monographie) :
+
+$$
+\alpha_{\mathrm{dressed}}^{-1} = \alpha_{\mathrm{bare}}^{-1} + \Delta_1 + \Delta_2 + \Delta_3 + \Delta_{\mathrm{echo}}.
+$$
+
+Les $\Delta_i$ sont des corrections d’ordre de boucle (1, 2, 3) calculables à partir de $\gamma_p$ et $\sin^2\theta_p$. On obtient :
+
+$$
+\alpha_{\mathrm{dressed}}^{-1} \approx 137{,}036.
+$$
+
+Précision finale : meilleure que $10^{-4}$ relatif à la valeur CODATA. Aucun paramètre ajusté à aucune étape.
+
+## Pourquoi un produit, pas une somme ?
+
+Cette structure produit n’est pas un choix esthétique. Elle vient du **théorème de restes chinois** appliqué aux trois cercles $\mathbb{Z}/3\mathbb{Z}$, $\mathbb{Z}/5\mathbb{Z}$, $\mathbb{Z}/7\mathbb{Z}$.
+
+Ces trois cercles sont orthogonaux dans le cube $\mathbb{T}^3 = \mathbb{Z}/(3 \cdot 5 \cdot 7)\mathbb{Z}$. L’amplitude de transition totale entre deux états du cube se factorise en un produit d’amplitudes par cercle. Et $\sin^2\theta_p$ est précisément l’amplitude de transition au tour du cercle $p$.
+
+Donc le produit $\prod_p \sin^2\theta_p$ n’est pas une formule heuristique : c’est l’application directe du principe de Pontryagin sur le tore $\mathbb{T}^3$. C’est forcé par la structure.
+
+## Et la branche $q_-$ ?
+
+$\alpha_{\mathrm{EM}}$ vit sur la branche $q_+$ (couplages). Si on calculait le même produit sur la branche $q_- = e^{-1/\mu^*}$ (géométrie), on n’obtiendrait pas $\alpha_{\mathrm{EM}}$ — on obtiendrait des observables géométriques (constante de Newton, masses des quarks, mélange CKM). Cette bifurcation est ce qui sépare le secteur leptons / vertex du secteur quarks / propagateur.
+
+## Ce qui n’est pas dans le calcul
+
+- **Pas de polarisation du vide standard** au sens QED. La PT remplace les diagrammes de boucle par les corrections cribles $\Delta_i$.
+- **Pas d’unification GUT** : on n’a pas besoin d’une grande symétrie de jauge cassée. Les couplages $\alpha_s$, $\alpha_{\mathrm{EM}}$, $\sin^2\theta_W$ sortent indépendamment de la même cascade, sur les mêmes premiers actifs.
+- **Pas de running QFT** : la dépendance d’échelle est arithmétique (changement de $\mu$), pas dynamique.
+
+C’est un cadre minimal qui produit un nombre maximal. Si la mesure de $\alpha_{\mathrm{EM}}$ se déplaçait significativement à un autre $\mu$, on saurait que l’identification PT a un défaut. Pour l’instant, à $\mu^* = 15$, le compte est bon à $10^{-4}$ près.
+
+C’est ça, la valeur du nombre 137 : un produit, un habillage, et zéro paramètre.

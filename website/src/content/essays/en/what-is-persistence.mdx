@@ -1,0 +1,87 @@
+---
+slug: what-is-persistence
+title: 'What is persistence?'
+summary: 'The word "persistence" has a precise technical meaning in PT: it is the structured part of information, in bits, that resists mixing. Here is how it is defined and why it is conserved.'
+level: L1
+reading_minutes: 6
+related_theorems: ['GFT', 'T2']
+lang: en
+order: 6
+---
+
+## The question
+
+When a signal goes through a noisy channel, part gets through and part is lost. When a physical system evolves, some structures persist, others dilute. When you shuffle a deck, the initial order fades, but our knowledge of it is more subtle.
+
+In all three situations, we have an intuition of "what persists". PT gives it an operational definition.
+
+## The definition
+
+In plain words, persistence is the part of a system that remains readable after
+mixing, noise, or constraint. If everything becomes perfectly random, there is
+no persistence left. If a form remains recognizable, then part of the
+information has persisted.
+
+A very ordinary image helps: a pebble. The sea does not add its shape from the
+outside; it removes what does not hold. What remains is not just any residue,
+but the stable trace of a long filtering. In PT, the discrete layer often has
+this role: it marks the remarkable positions where a continuous mechanics under
+constraint becomes stable and readable.
+
+The technical formula says the same thing with three terms:
+
+- the total budget: the number of possible distinctions in the system;
+- persistence: the structured part of that budget;
+- entropy: the still dispersed or unpredictable part.
+
+The persistence of a distribution $P$ on $m$ states is:
+
+$$
+D_{KL}(P \,\|\, U_m) = \log_2 m - H(P),
+$$
+
+where $H(P)$ is Shannon entropy and $U_m$ the uniform distribution on $m$ states. Here, $m$ is only the number of possibilities, and $\log_2(m)$ counts the total budget in bits: in other words, how many binary distinctions it would take to identify a state. The more $P$ deviates from chance, the larger $D_{KL}$ becomes.
+
+A uniform distribution has $D_{KL} = 0$ — no persistence, pure noise. A distribution concentrated on a single state has $D_{KL} = \log_2 m$ — the entire informational capacity is structured.
+
+That is the **Gap Fundamental Theorem** (GFT):
+
+$$
+\log_2 m \;=\; D_{KL}(P \,\|\, U_m) \;+\; H(P).
+$$
+
+This identity is exact, not approximate. For any distribution, on any number of states. It is the **fundamental principle of persistence**: the total budget of distinctions is conserved, partitioned between persistence and entropy.
+
+## Why it is central
+
+The conservation $\log_2 m = D_{KL} + H$ is an **algebraic identity**, not a physical law. But it has a strong physical consequence: knowing two of the three quantities ($\log_2 m$, $D_{KL}$, $H$) determines the third. No double counting possible.
+
+That is precisely what prevents cheating in PT by adding an extra parameter to compensate for an error. Any correction to $D_{KL}$ must mirror in $H$. Any redefinition of $H$ must shift $D_{KL}$ by the same amount. The balance is exactly conserved.
+
+In the language of binary codes: $\log_2 m$ is the optimal description length of a state. $D_{KL}$ is what we save on that description thanks to the structure of $P$. $H$ is what we still must spend because $P$ is not concentrated.
+
+## Physical persistence
+
+When $P$ is identified with the distribution of gaps between consecutive primes, $D_{KL}$ becomes a **physical quantity**:
+
+- it counts the bits by which the gap sequence deviates from chance;
+- it is conserved along the cascade T0 → L0 → T6 (each step transfers its structure to the next);
+- it caps per CRT channel at 1 bit ($\sin^2\theta_p \le 1$, theorem T6).
+
+This last bound is the **Shannon cap of PT**: no prime can carry more than one bit. Three active primes, three bits — exactly the informational content of a Standard Model particle with its gauge quantum numbers.
+
+## An analogy
+
+Take a text. Its **bit length** is $\log_2 m$ — the raw capacity. Its **entropy** $H$ measures how unpredictable the words are. Its **persistence** $D_{KL}$ measures what is structured: grammar, redundancies, patterns.
+
+A random text has $D_{KL} = 0$, $H = \log_2 m$: useless and unreadable.
+
+A hyper-structured text ("aaaaaa...") has $D_{KL} = \log_2 m$, $H = 0$: predictable, no new information.
+
+An interesting text lives in between, with a partition between the two. PT says physics also lives in between, and that partition follows the arithmetic cascade of the sieve.
+
+## And conservation?
+
+One last way to put it: the **GFT** is the PT equivalent of energy conservation, but written directly in the language of persistence. Informational capacity is neither created nor destroyed — it is transformed. That is why the identity holds at every scale, for every distribution.
+
+This is what makes persistence usable as a biomarker (medical imaging, IST/IEE), a linguistic measure (language evolvability), or an internal consistency check in a physical derivation. The same object, everywhere.

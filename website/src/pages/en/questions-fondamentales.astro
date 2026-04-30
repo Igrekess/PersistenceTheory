@@ -1,0 +1,438 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+
+const statusClass = (type: string) => {
+  if (type === 'THM') return 'pt-tag-thm';
+  if (type === 'ID') return 'pt-tag-id';
+  if (type === 'PRED') return 'pt-tag-pred';
+  if (type === 'VAL') return 'pt-tag-val';
+  if (type === 'BRIDGE') return 'pt-tag-bridge';
+  if (type === 'OPEN' || type === 'COND') return 'pt-tag-cond';
+  return 'pt-tag-der';
+};
+
+const groups = [
+  {
+    title: 'Foundations',
+    items: [
+      {
+        q: 'Why is there a fundamental conservation law?',
+        answer: 'PT formulates the fundamental principle of persistence: a total budget of distinctions is split between persistent structure and entropic dispersion.',
+        details: [
+          'If a system offers $m$ possibilities, it takes a certain number of yes/no distinctions to identify one of them. That total budget is technically written $\\log_2(m)$, but the plain idea is: the system cannot carry more distinctions than its space of possibilities allows.',
+          'This budget is split exactly between persistent structure, measured by $D_{KL}$, and entropic dispersion, measured by $H(P)$. The compact notation is $\\log_2(m) = D_{KL}(P\\Vert U_m) + H(P)$.',
+          'Conservation is therefore not added from outside. It expresses the fact that a distinction cannot produce more capacity than it carries.',
+        ],
+        type: 'ID',
+        mode: 'Fundamental principle',
+        source: 'GFT, preface, arithmetic chapters',
+      },
+      {
+        q: 'Why do the discrete and the continuous both look fundamental?',
+        answer: 'PT dissolves the opposition by starting from a continuous wave mechanics whose points of persistence appear as discreteness.',
+        details: [
+          'PT equations do not manufacture the continuum from the discrete. They describe a continuous dynamics of phases, waves, Fisher metric, and holonomies; the sieve marks the positions that persist.',
+          'Discreteness is therefore the observable crystallization of that continuous mechanics: active channels, closures, periods, magic numbers. These are the points where the persistence wave becomes arithmetically stable and readable.',
+        ],
+        type: 'DER',
+        mode: 'Dissolved',
+        source: 'ch. 5, ch. 13, ch. 24, R50',
+      },
+      {
+        q: 'Why is there something rather than nothing?',
+        answer: 'The monograph gives an interpretive answer: absolute nothingness is not stable once any distinction is admitted.',
+        details: [
+          'PT does not claim a physical theorem proving existence itself. It says that if any distinction is possible, then a minimal arithmetic is already forced.',
+          'The question moves back one level: not “why these constants?”, but “why is there logical structure rather than nothing?”.',
+        ],
+        type: 'BRIDGE',
+        mode: 'Interpretive',
+        source: 'ch. 24, ch. 26',
+      },
+      {
+        q: 'Why no continuously fitted parameters?',
+        answer: 'Dimensionless constants descend from the fixed point $\\mu^* = 15$ and discrete structural choices.',
+        details: [
+          'The PT engine does not tune a real number to improve agreement with experiment. It starts from $s=1/2$, the active primes $3,5,7$, the fixed point $\\mu^*=15$, then applies status-tagged rules.',
+          'That does not mean zero assumptions. It means the remaining assumptions are discrete, named, auditable, and cannot be adjusted observable by observable.',
+        ],
+        type: 'DER',
+        mode: 'Constrained',
+        source: 'preface, ch. 23, C1-C10 commitments',
+      },
+      {
+        q: 'Why the sieve rather than another object?',
+        answer: 'The monograph reduces the question to a chain: distinction, exclusion, factorization, invariance, and gauge.',
+        details: [
+          'The Eratosthenes sieve is the minimal system combining multiplication, divisibility, residue classes, and irreversible elimination of composites.',
+          'That combination carries discrete dynamics, Fisher geometry, cyclic holonomy, and dimensionless constants. The remaining question becomes: why is physics gauge-theoretic?',
+        ],
+        type: 'DER',
+        mode: 'Reduced',
+        source: 'ch. 1, ch. 9, App. Q',
+      },
+    ],
+  },
+  {
+    title: 'Standard Model',
+    items: [
+      {
+        q: 'Why three fermion generations?',
+        answer: 'The three generations correspond to the three active primes $3,5,7$ at the fixed point $\\mu^* = 15$.',
+        details: [
+          'A generation is not an arbitrary copy. It corresponds to an active channel whose sensitivity exponent remains above the $1/2$ threshold.',
+          'The active primes $3,5,7$ survive; $11$ falls below threshold. This explains both the three families and the expected absence of a fourth generation.',
+        ],
+        type: 'THM',
+        mode: 'Derived',
+        source: 'T5, ch. 15, essays',
+      },
+      {
+        q: 'Why three colours?',
+        answer: '$N_c = 3$ is treated as a derived integer value in the reconstruction chain.',
+        details: [
+          'The same rank-three structure that selects the active primes gives colour multiplicity. In physics, this rank organizes quarks and Casimir factors.',
+          'The strength of the point is that this $3$ is not isolated: it reappears in the hadronic, nuclear, and spacetime sectors.',
+        ],
+        type: 'THM',
+        mode: 'Derived',
+        source: 'ch. 13, ch. 15, ch. 22d',
+      },
+      {
+        q: 'Why do the coupling constants have these values?',
+        answer: 'Couplings are read from cyclic phases, anomalous dimensions, and inter-channel transitions.',
+        details: [
+          'A coupling is not a raw constant inserted into the Lagrangian. It measures the geometric cost of transport around a cyclic channel of the sieve.',
+          'Fine corrections then come from inactive primes, channel changes, and polarization effects, with coefficients drawn from already present PT quantities.',
+        ],
+        type: 'DER',
+        mode: 'Explained and validated',
+        source: 'ch. 10-12, observables',
+      },
+      {
+        q: 'Why are masses and mixings hierarchical?',
+        answer: 'The hierarchy comes from channel cascades, curvature ratios, and structural exponents.',
+        details: [
+          'PT replaces free Yukawa values with a cascade picture. A mass or mixing angle depends on depth, curvature, phase, and communication between channels.',
+          'Small values become projection, attenuation, or echo effects. The 43 Standard Model observables are compared with measurements with a stated mean error around 0.30%.',
+        ],
+        type: 'VAL',
+        mode: 'Validated',
+        source: 'ch. 15, ch. 23',
+      },
+      {
+        q: 'What about the muon $g-2$ anomaly?',
+        answer: 'It is read as a vacuum-polarization echo rather than as direct evidence for a new particle.',
+        details: [
+          'The muon, being deeper than the electron, sees some channel corrections more strongly. The shift becomes a precision target of the PT engine.',
+          'Its status remains predictive and comparative against new averages and hadronic calculations, not an arithmetic theorem.',
+        ],
+        type: 'PRED',
+        mode: 'Dissolved/predicted',
+        source: 'ch. 20, ch. 21',
+      },
+      {
+        q: 'Why no axion, no light SUSY, no unstable proton?',
+        answer: 'PT treats these as negative predictions: some extensions are not natural in the sieve.',
+        details: [
+          'If $\\theta_{QCD}=0$ is structural, the axion is not needed. If $s=1/2$ closes the fixed point, light supersymmetry is not expected. If baryon number is conserved by the sieve structure, proton decay is not expected.',
+          'These points expose PT to experimental risk: it cannot always add a new sector to absorb an anomaly.',
+        ],
+        type: 'PRED',
+        mode: 'Negative predictions',
+        source: 'ch. 21, ch. 26',
+      },
+    ],
+  },
+  {
+    title: 'Spacetime and Gravity',
+    items: [
+      {
+        q: 'Why general relativity?',
+        answer: 'The spacetime metric is identified with the Fisher metric of the sieve.',
+        details: [
+          'A distribution over sieve classes has an informational geometry. Restricted to active directions and the scale coordinate, that geometry takes a Lorentzian signature.',
+          'General relativity is therefore not imported as a continuous backdrop: it is the form persistent information takes when it becomes measurable geometry.',
+        ],
+        type: 'THM',
+        mode: 'Derived',
+        source: 'ch. 13, Lemma F',
+      },
+      {
+        q: 'Why time?',
+        answer: 'Time appears when scale-reading becomes a metric direction with temporal sign.',
+        details: [
+          'Sieve layers are logical levels, not instants. The coordinate $\\mu$ orders that hierarchy, but it becomes physical time only when the metric gives it the sign opposite to spatial directions.',
+          'That is the role of $g_{00}<0$: logical depth becomes measurable proper duration, $\\tau=\\int\\sqrt{|g_{00}|}\\,d\\mu$.',
+        ],
+        type: 'THM',
+        mode: 'Reframed',
+        source: 'ch. 13, Time Rigidity',
+      },
+      {
+        q: 'Why the speed of light?',
+        answer: 'In PT, $c$ is a conversion constant in sieve canonical units: $\\hbar=c=1$.',
+        details: [
+          'The number $299\\,792\\,458\\,\\mathrm{m/s}$ translates our human choices of metre and second. It is fixed by metrological convention, just as the MeV translates our chosen energy unit.',
+          'The physical point to explain is not that SI number, but the existence of a shared limiting speed. It comes from the Lorentzian Fisher signature and natural units where light cones have unit slope.',
+        ],
+        type: 'DER',
+        mode: 'Units + geometry',
+        source: 'R51, ch. 10, ch. 13',
+      },
+      {
+        q: 'Why three space dimensions and one time dimension?',
+        answer: 'The three active primes give three spatial directions; depth $\\mu$ becomes the temporal direction.',
+        details: [
+          'The result ties the three stable directions to active primes $3,5,7$, then shows that the scale coordinate has temporal sign in the Lorentzian regime.',
+          'The anomalous dimension measures channel sensitivity to depth. It explains why some channels become active while others remain echoes or inactive.',
+        ],
+        type: 'DER',
+        mode: 'Derived',
+        source: 'ch. 6, ch. 13, essays',
+      },
+      {
+        q: 'Why is gravity so weak?',
+        answer: 'The apparent weakness depends on the unit system and on the measured channel.',
+        details: [
+          'In usual units, gravity looks extremely weak because it is compared with microscopic interactions using units inherited from electromagnetism.',
+          'In PT units, $G$ is related to Fisher geometry, $S^1$ topology, and $G\\simeq 2\\pi\\alpha_{EM}$. Weakness becomes a projection effect between channels and units.',
+        ],
+        type: 'DER',
+        mode: 'Explained',
+        source: 'ch. 13, R39',
+      },
+      {
+        q: 'Is quantum gravity solved?',
+        answer: 'The monograph closes the minimal QG sector, while keeping fine observational validation open.',
+        details: [
+          'The QG core links the Wheeler-DeWitt constraint, boundary amplitudes, Dirac algebra, topological foams, Fourier/RG corrections, and Kerr sector in one persistence chain.',
+          'What remains open is not the minimal logical skeleton, but precision calibration of the dissipative $d\\tau$ channel in real black-hole ringdown posteriors.',
+        ],
+        type: 'OPEN',
+        mode: 'Minimal closed, validation open',
+        source: 'ch. 13, ch. 24, appendices F/S',
+      },
+    ],
+  },
+  {
+    title: 'Cosmology',
+    items: [
+      {
+        q: 'What does “before the Big Bang” mean?',
+        answer: 'PT dissolves the strict question: cosmological chronology is an internal reading of the sieve.',
+        details: [
+          'Asking what came “before” already assumes a clock outside the world. In PT, physical time appears with the metric; it is not the prior container in which the sieve starts running.',
+          'The Big Bang becomes a boundary of reading of the structure, not an event triggered by a more fundamental clock.',
+        ],
+        type: 'BRIDGE',
+        mode: 'Dissolved',
+        source: 'preface, ch. 13',
+      },
+      {
+        q: 'Why a dark sector?',
+        answer: 'The dark fraction is read as the cosmological effect of inactive sieve channels.',
+        details: [
+          'The active primes $3,5,7$ carry directly visible directions. Inactive primes, starting at $11$, contribute as a non-luminous geometric fraction via $F_{inactive}(N)=1-2/(e^\\gamma\\ln N)$.',
+          'The monograph then splits this fraction into dark-matter-like and dark-energy-like components through a Clausius thermodynamic reading.',
+        ],
+        type: 'DER',
+        mode: 'Derived and tested',
+        source: 'ch. 13, ch. 14, ch. 20',
+      },
+      {
+        q: 'Why no dark-matter particle?',
+        answer: 'PT predicts that dominant dark matter is geometric, not particulate.',
+        details: [
+          'The PT point is stronger than “there is a dark sector”: the gravitational effect attributed to dark matter comes from the inactive fraction of the sieve, not from a dominant WIMP added to the spectrum.',
+          'This is testable: direct WIMP searches should keep failing to find a dominant particle, while cosmological signatures should follow the same inactive function as dark energy.',
+        ],
+        type: 'PRED',
+        mode: 'Negative prediction',
+        source: 'P14, ch. 20f, ch. 21, ch. 26',
+      },
+      {
+        q: 'Why a Hubble tension?',
+        answer: 'PT reframes it through the Bianchi I anisotropy of the sieve.',
+        details: [
+          'A local rate measured along lines of sight and a rate extracted from an isotropized cosmological background do not probe exactly the same informational projection.',
+          'The qualitative prediction is that wide-baseline surveys should reduce the apparent tension by averaging anisotropic directions more completely.',
+        ],
+        type: 'PRED',
+        mode: 'Reframed',
+        source: 'ch. 13, ch. 20f',
+      },
+      {
+        q: 'Why does dark energy look like a cosmological constant?',
+        answer: 'It is read as informational pressure from an inactive sector that is almost constant at large scale.',
+        details: [
+          'Dark energy is not a freely tuned vacuum energy. It comes from a thermodynamic split in the inactive fraction: one part appears as gravitational information, the other as cosmological pressure.',
+          'The near-constancy comes from the slow logarithmic drift of the inactive fraction. Possible deviations from $w=-1$ become drift tests rather than arbitrary parameters.',
+        ],
+        type: 'DER',
+        mode: 'Explained/testable',
+        source: 'ch. 14, ch. 20f',
+      },
+      {
+        q: 'Which cosmological predictions remain decisive?',
+        answer: 'The third neutrino mass, dark equation of state, and DESI/Euclid/CMB-S4 signatures remain decisive.',
+        details: [
+          'These predictions are not independent: they depend on the same active/inactive reading.',
+          'A sharp break in one sub-chain would constrain the whole cosmological block. That is what makes the PT dark sector genuinely falsifiable.',
+        ],
+        type: 'PRED',
+        mode: 'Predicted/open',
+        source: 'ch. 21, how-to-read',
+      },
+    ],
+  },
+  {
+    title: 'Chemistry and Nuclear Physics',
+    items: [
+      {
+        q: 'Why the periods of the periodic table?',
+        answer: 'The sequence $2,8,8,18,18,32,32$ comes from $s,p,d,f$ channels, spin doubling, and radial depth.',
+        details: [
+          'The periodic table is not merely memorized: blocks become polygonal channels with $2\\ell+1$ orientations, doubled by spin involution.',
+          'Long periods appear when internal $d$ and $f$ channels become accessible. Apparent irregularity becomes a reading of depth, not a list of exceptions.',
+        ],
+        type: 'DER',
+        mode: 'Derived',
+        source: 'ch. 22, PTC',
+      },
+      {
+        q: 'Why ionization-energy peaks?',
+        answer: 'Peaks come from closures, half-fillings, radial penetration, and CPR corrections.',
+        details: [
+          'Ionization energy measures the cost of removing an electron from a channel. It rises when the channel is closed, symmetric, or contracted toward the core, and falls when the electron is more exposed at the boundary.',
+          'The continuous CPR correction formalizes contraction, penetration, and inter-channel resonance without an arbitrary discrete gate.',
+        ],
+        type: 'VAL',
+        mode: 'Validated',
+        source: 'ch. 22, IE page',
+      },
+      {
+        q: 'Why do electron affinities vary so much?',
+        answer: 'EA is a boundary observable: it sees the receiving channel, vacancy, and radial contact.',
+        details: [
+          'Adding an electron does not depend only on the next slot. The atom presents a capture boundary: a vacancy, vacancy pressure, radial depth, and possible stabilization by neighbouring electrons.',
+          'That is why a halogen such as chlorine captures strongly, while a transition metal such as titanium does not present the same stabilizing boundary.',
+        ],
+        type: 'VAL',
+        mode: 'Validated',
+        source: 'ch. 22, EA page',
+      },
+      {
+        q: 'Why magic numbers and nuclear binding energies?',
+        answer: 'Nuclear physics is reconstructed through the cascade $s=1/2 \\to N_c \\to \\alpha_s \\to V_{NN} \\to E_{bind}$.',
+        details: [
+          'Magic numbers come from nuclear shell closures amplified by strong spin-orbit coupling.',
+          'Binding energies then follow from an effective potential and shell corrections. The status is broad validation, with explicit limits on deformed nuclei, the deuteron, and dense regimes.',
+        ],
+        type: 'VAL',
+        mode: 'Validated with limits',
+        source: 'ch. 22d, PTC scores',
+      },
+      {
+        q: 'Why is chemistry regular despite so many exceptions?',
+        answer: 'Exceptions become boundary, half-filling, resonance, and depth effects.',
+        details: [
+          'PT does not deny chemical anomalies. It classifies them: closure, half-closure, radial penetration, or competition between nearby channels.',
+          'That lets the same engine speak about the periodic table, ionization energies, electron affinities, bonds, and transition blocks.',
+        ],
+        type: 'VAL',
+        mode: 'Unified',
+        source: 'PTC, ch. 22-22c',
+      },
+    ],
+  },
+  {
+    title: 'Dissolutions and Limits',
+    items: [
+      {
+        q: 'Why does the UV not need a separate completion?',
+        answer: 'In PT, the sieve is the fundamental theory and QFT is an infrared limit.',
+        details: [
+          'UV divergences arise in a perturbative continuous description. The sieve already has a bounded structure of channels, phases, and transitions.',
+          'The question “which UV completion should be added?” is therefore dissolved: the task is to show how QFT emerges as a low-energy approximation of the sieve.',
+        ],
+        type: 'DER',
+        mode: 'Dissolved',
+        source: 'R49, ch. 24, ch. 26',
+      },
+      {
+        q: 'Why is discreteness not separate from the continuum?',
+        answer: 'Because discreteness is not a competitor to the continuum: it is the persistent marking of its wave.',
+        details: [
+          'A naive discrete theory tries to manufacture a continuum by a limit; that is not the PT logic. PT starts from a continuous field of phase and sensitivity whose specific positions become remarkable because they close, resonate, or persist.',
+          'The right question is therefore not “how does the continuum emerge from the discrete?”, but “why does this continuous mechanics mark precisely these points of persistence?”. That is where the sieve becomes essential.',
+        ],
+        type: 'DER',
+        mode: 'Dissolved',
+        source: 'R50, ch. 5, ch. 24',
+      },
+      {
+        q: 'What does PT not yet claim to close?',
+        answer: 'It explicitly distinguishes theorems, identities, bridges, validations, predictions, and open programmes.',
+        details: [
+          'Chemical, nuclear, and cosmological validations should not be presented as pure theorems. Their strength comes from coherence, numerical scores, absence of continuous fit, and risky predictions.',
+          'Open points include some late-time cosmological regimes, deformed nuclei, observational QG refinements, and exact links to some deep mathematical programmes.',
+        ],
+        type: 'OPEN',
+        mode: 'Clarified',
+        source: 'how-to-read, ch. 23, ch. 26',
+      },
+    ],
+  },
+];
+---
+
+<BaseLayout
+  title="Fundamental Questions"
+  description="Map of the questions Persistence Theory answers, reframes, or dissolves, with epistemic status."
+>
+  <section class="max-w-6xl mx-auto px-4 py-14">
+    <p class="text-sm font-sans font-semibold uppercase tracking-wider text-derorange mb-3">Epistemic map</p>
+    <h1 class="text-4xl md:text-5xl font-bold text-thmblue mb-5">Questions PT Answers</h1>
+    <p class="text-xl text-slate-700 leading-relaxed max-w-4xl mb-8">
+      This page does not put every claim at the same level. Some answers are theorems or identities, others are physical bridges, numerical validations, predictions, or conceptual dissolutions.
+    </p>
+
+    <div class="bg-amber-50 border-l-4 border-amber-300 px-5 py-4 mb-10 text-slate-800 leading-relaxed">
+      <strong>Reading rule:</strong> “answering” does not always mean “solving with a formula”. In PT, a question may be derived, explained, validated, predicted, or dissolved when the frame that produced it no longer applies.
+    </div>
+
+    <div class="space-y-10">
+      {groups.map((group) => (
+        <section>
+          <h2 class="text-2xl font-bold text-thmblue mb-4">{group.title}</h2>
+          <div class="grid md:grid-cols-2 gap-4">
+            {group.items.map((item) => (
+              <article class="pt-card">
+                <div class="flex items-start justify-between gap-3 mb-3">
+                  <span class={`pt-tag ${statusClass(item.type)}`}>{item.type}</span>
+                  <span class="text-xs text-slate-500 font-sans">{item.mode}</span>
+                </div>
+                <h3 class="font-sans font-semibold text-lg text-thmblue mb-2">{item.q}</h3>
+                <p class="text-sm text-slate-700 leading-relaxed mb-3">{item.answer}</p>
+                <div class="space-y-2 mb-3">
+                  {item.details.map((paragraph) => (
+                    <p class="text-sm text-slate-600 leading-relaxed">{paragraph}</p>
+                  ))}
+                </div>
+                <p class="text-xs text-slate-500 font-sans">{item.source}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+      ))}
+    </div>
+
+    <div class="mt-12 bg-white border border-slate-200 rounded-lg p-6">
+      <h2 class="text-2xl font-bold text-thmblue mb-3">What Remains Explicitly Open</h2>
+      <p class="text-slate-700 leading-relaxed">
+        The monograph does not claim everything is closed: fine ringdown validation of the dissipative Kerr channel, some late-time cosmological regimes, the exact Riemann-programme connection, deformed nuclei, and some nuclear limits remain research programmes. PT’s strength here is also to say where it asserts, where it predicts, and where it is still working.
+      </p>
+    </div>
+  </section>
+</BaseLayout>

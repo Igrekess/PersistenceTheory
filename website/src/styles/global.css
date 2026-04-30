@@ -1,0 +1,154 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --pt-bg: #f6f8fb;
+    --pt-surface: #ffffff;
+    --pt-surface-soft: #eef3f7;
+    --pt-border: #d7e1ea;
+    --pt-ink: #17202a;
+    --pt-muted: #5f6f80;
+    --pt-blue: #14566b;
+    --pt-cyan: #1b7f95;
+    --pt-orange: #c96f24;
+  }
+
+  /* Smooth scroll for in-page anchors */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Body baseline */
+  body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    color: var(--pt-ink);
+    background:
+      radial-gradient(circle at top left, rgba(27, 127, 149, 0.08), transparent 30rem),
+      linear-gradient(180deg, #fbfdff 0%, var(--pt-bg) 28rem);
+    font-feature-settings: "ss01" 1, "cv05" 1;
+  }
+
+  /* Math display blocks: better spacing in prose flow */
+  .katex-display {
+    @apply my-6 overflow-x-auto;
+  }
+
+  /* Headings inside prose blocks (theorem, essay, article pages) */
+  .prose h1 {
+    @apply font-bold text-3xl md:text-4xl text-thmblue mt-0 mb-4;
+    letter-spacing: 0;
+  }
+  .prose h2 {
+    @apply font-sans font-bold text-2xl text-thmblue mt-10 mb-3;
+  }
+  .prose h3 {
+    @apply font-sans font-semibold text-xl text-thmblue mt-8 mb-2;
+  }
+  .prose h4 {
+    @apply font-sans font-semibold text-lg text-thmblue mt-6 mb-2;
+  }
+  .prose p { @apply my-3 leading-relaxed text-slate-700; }
+  .prose ul { @apply list-disc pl-6 my-3; }
+  .prose ol { @apply list-decimal pl-6 my-3; }
+  .prose li { @apply my-1; }
+  .prose strong { @apply font-bold; }
+  .prose em { @apply italic; }
+  .prose a { @apply text-thmblue underline hover:text-thmblue/80; }
+  .prose code {
+    @apply bg-slate-100 text-slate-800 px-1 py-0.5 rounded text-[0.92em];
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+  .prose blockquote {
+    @apply border-l-4 border-slate-300 pl-4 italic my-4 text-slate-700;
+  }
+  .prose hr { @apply my-8 border-slate-200; }
+
+  /* Code blocks */
+  pre {
+    @apply rounded-lg p-4 overflow-x-auto;
+  }
+
+  /* Table baseline */
+  table {
+    @apply w-full text-sm;
+  }
+  th {
+    @apply text-left font-semibold border-b border-slate-300 py-2 px-3;
+  }
+  td {
+    @apply border-b border-slate-200 py-2 px-3;
+  }
+}
+
+@layer base {
+  /* Depth toggle (L1 vulgarized / L2 standard / L3 technical).
+   * Each marked element carries data-min-depth and/or data-max-depth.
+   * The <html> element carries data-depth="L1|L2|L3" set by the toggle in
+   * BaseLayout. Default is L2 (no html attribute => element shows if its
+   * range covers L2).
+   */
+  /* When depth=L1, hide elements whose min-depth is L2 or L3 */
+  html[data-depth="L1"] [data-min-depth="L2"],
+  html[data-depth="L1"] [data-min-depth="L3"] { display: none; }
+
+  /* When depth=L2 (default, also no attribute), hide elements that are L3-only */
+  html[data-depth="L2"] [data-min-depth="L3"],
+  :root:not([data-depth]) [data-min-depth="L3"] { display: none; }
+
+  /* When depth=L1, also hide elements explicitly marked max-depth=L1 only when they
+   * exclude L1 -- the natural reverse: elements with data-max-depth="L1" only
+   * appear at L1. So at L2 and L3 we hide those L1-only blocks. */
+  html[data-depth="L2"] [data-max-depth="L1"],
+  html[data-depth="L3"] [data-max-depth="L1"],
+  :root:not([data-depth]) [data-max-depth="L1"] { display: none; }
+
+  /* L2-only blocks: hidden at L1 and L3 */
+  html[data-depth="L1"] [data-max-depth="L2"][data-min-depth="L2"],
+  html[data-depth="L3"] [data-max-depth="L2"][data-min-depth="L2"] { display: none; }
+}
+
+@layer components {
+  /* Epistemic tag pill — used everywhere a status badge appears */
+  .pt-tag {
+    @apply inline-block text-xs font-sans font-bold uppercase tracking-wider
+           px-2 py-0.5 rounded-md;
+  }
+  .pt-tag-thm { @apply bg-thmblue/10 text-thmblue; }
+  .pt-tag-id  { @apply bg-idgreen/10 text-idgreen; }
+  .pt-tag-der { @apply bg-derorange/10 text-derorange; }
+  .pt-tag-cond { @apply bg-condorange/10 text-condorange; }
+  .pt-tag-val { @apply bg-valgray/10 text-valgray; }
+  .pt-tag-pred { @apply bg-predred/10 text-predred; }
+  .pt-tag-bridge { @apply bg-bridgepurple/10 text-bridgepurple; }
+
+  /* Hero / feature card baseline */
+  .pt-card {
+    @apply bg-white border border-slate-200 rounded-lg p-6 shadow-sm
+           shadow-slate-900/5 hover:shadow-md hover:shadow-slate-900/10
+           transition-shadow;
+  }
+}
+
+/* Global visual refresh for older pages still using stone utilities. */
+.bg-stone-50 {
+  background-color: var(--pt-bg) !important;
+}
+
+.border-stone-200 {
+  border-color: var(--pt-border) !important;
+}
+
+.text-stone-700 {
+  color: var(--pt-muted) !important;
+}
+
+.text-stone-900 {
+  color: var(--pt-ink) !important;
+}
+
+.bg-white {
+  background-color: var(--pt-surface) !important;
+}

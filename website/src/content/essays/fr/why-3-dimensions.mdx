@@ -1,0 +1,95 @@
+---
+slug: why-3-dimensions
+title: 'Pourquoi trois dimensions ?'
+summary: 'L’espace n’a pas trois dimensions par hasard. La PT donne une raison arithmétique : il y a exactement trois nombres premiers actifs au point fixe — $\{3, 5, 7\}$ — et chacun ouvre une direction.'
+level: L1
+reading_minutes: 6
+related_theorems: ['T5', 'T6']
+lang: fr
+order: 3
+---
+
+## La question naïve
+
+Pourquoi vit-on dans un espace à trois dimensions et pas deux, quatre, ou onze ? La physique standard prend ce 3 comme donné. Les théories alternatives (cordes, Kaluza-Klein) postulent plus de dimensions et inventent des mécanismes pour les cacher.
+
+La PT propose une autre réponse : trois dimensions parce que le crible n’en autorise que trois.
+
+## L’argument court
+
+Dans le cadre PT, un nombre premier $p$ contribue à la dynamique si sa **dimension anomale** $\gamma_p$ est plus grande que la symétrie fondamentale $s = 1/2$. C’est la condition d’activité (BA4).
+
+Ici, « dimension anomale » ne veut pas dire une dimension spatiale supplémentaire. C’est un exposant de sensibilité : $\gamma_p$ mesure à quelle vitesse le canal associé au premier $p$ change quand on fait varier la profondeur du crible $\mu$. Formellement, la monographie le définit par
+
+$$
+\gamma_p = -\frac{d\ln(\sin^2\theta_p)}{d\ln\mu}.
+$$
+
+Pourquoi une dérivée logarithmique ? Parce que la PT ne mesure pas une pente
+brute, elle mesure une **sensibilité relative**. Si la profondeur $\mu$ augmente
+de 1 %, $\gamma_p$ indique approximativement de combien varie l’amplitude
+persistante du canal $p$, ici $A_p(\mu)=\sin^2\theta_p$. Le signe moins inverse
+la convention : une amplitude qui décroît quand le crible se raffine donne une
+intensité positive. C’est exactement la logique d’un exposant d’échelle : si
+$A_p(\mu) \sim \mu^{-\gamma}$, alors
+
+$$
+\gamma = -\frac{d\ln A_p}{d\ln\mu}.
+$$
+
+La dimension anomale est donc le nombre qui dit si un canal résiste vraiment
+au raffinement du crible, ou s’il se dilue dans l’entropie. Le seuil $1/2$
+n’est pas ajouté à la main ici : c’est la valeur de symétrie forcée par T1,
+la frontière entre persistance et entropie dans la partition PT.
+
+Si $\gamma_p > 1/2$, le canal garde assez de persistance pour devenir actif. Si $\gamma_p < 1/2$, il tombe du côté entropique : il ne disparaît pas absolument, mais il ne porte plus une direction primaire et ne peut apparaître que comme écho.
+
+Quand on calcule $\gamma_p$ au point fixe $\mu^* = 15$, on trouve :
+
+| $p$ | $\gamma_p$ | actif ? |
+|-----|-----------|---------|
+| 3   | 0,808     | oui     |
+| 5   | 0,696     | oui     |
+| 7   | 0,595     | oui     |
+| 11  | 0,426     | **non** |
+| 13  | 0,356     | **non** |
+
+Trois premiers passent le seuil. Pas un de plus, pas un de moins. À partir de $p = 11$, $\gamma_p$ chute sous $1/2$ et reste sous le seuil pour tout $p$ plus grand. La cascade s’arrête.
+
+C’est ces trois premiers actifs $\{3, 5, 7\}$ qui ouvrent les trois directions spatiales. Chacun engendre un canal indépendant via le théorème de restes chinois (CRT) : les cercles $\mathbb{Z}/3\mathbb{Z}$, $\mathbb{Z}/5\mathbb{Z}$, $\mathbb{Z}/7\mathbb{Z}$ sont orthogonaux. Trois cercles orthogonaux, trois directions, un espace 3D.
+
+## La dynamique
+
+Le point fixe $\mu^* = 15$ n’est pas un choix : c’est le **seul** sous-ensemble de premiers qui satisfait la condition d’auto-cohérence
+
+$$
+\mu^* = \sum_{p \text{ actif}} p, \qquad \gamma_p(\mu^*) > s.
+$$
+
+Le théorème **T5** vérifie exhaustivement qu’aucun autre sous-ensemble fini de premiers ne ferme cette équation. La somme $3 + 5 + 7 = 15$ est unique.
+
+Pourquoi cette dimension émerge-t-elle géométriquement ? L’identité d’holonomie (théorème **T6**) donne, pour chaque premier actif, un angle :
+
+$$
+\sin^2\theta_p = \delta_p (2 - \delta_p), \qquad \delta_p = \frac{1 - q^p}{p}.
+$$
+
+Trois angles, trois rotations indépendantes, trois axes. La structure de Bianchi I (cosmologie anisotrope, trois facteurs d’échelle) tombe naturellement.
+
+## Le pendant cosmologique
+
+Une conséquence inattendue : si on tente une cosmologie « PT pure », on retrouve la métrique Bianchi I avec exactement trois directions actives, sans postuler la dimension de l’espace. Le facteur d’échelle de chaque direction est piloté par $\gamma_3$, $\gamma_5$, $\gamma_7$ respectivement. Les écarts mesurés (anisotropies CMB, dispersions Hubble) restent dans la marge prédite.
+
+À $N \sim 10^{10}$ pas du crible, une transition $3+1$D se produit (analyse Fisher) : la dimension PCA effective converge vers 3. Avant, on est en régime « tous les premiers se mélangent » ; après, seuls $\{3, 5, 7\}$ subsistent. C’est cette transition qui sélectionne la dimensionalité observée de l’univers.
+
+## Ce qui en sort de testable
+
+Si la PT a raison, on doit voir :
+
+- Aucune signature de dimension supplémentaire dans LHC ou dans la gravité à courte distance — déjà observé jusqu’à présent ;
+- Anisotropies CMB compatibles avec Bianchi I à trois axes — compatible avec Planck 2018 ;
+- Pas de KK modes, pas de gravitons « lourds », pas de SUSY à basse échelle — toujours absents.
+
+C’est de l’absence prédite, donc faiblement contraignant. Mais si l’un de ces effets apparaissait clairement, la PT ne saurait pas l’accommoder sans casser le compteur de premiers actifs.
+
+Trois dimensions, trois premiers, une seule cascade. Pas un mystère, une conséquence.

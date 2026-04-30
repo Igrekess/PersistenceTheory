@@ -1,0 +1,124 @@
+---
+id: E
+name: 'Lemma E — Coupling reconstruction'
+short: 'The reconstructed QFT''s coupling is $g^2 = \prod_{p \in \{3,5,7\}} \sin^2\theta_p(q_+)$ — a spectral invariant, not an identification.'
+statement: 'Let $(\mathcal{A}, \Omega)$ be the $C^*$-algebra and vacuum state obtained by Osterwalder–Schrader reconstruction from the inductive limit of the sieve transfer system. Then the reconstructed QFT''s coupling is $g^2 = \prod_{p \in \{3,5,7\}} \sin^2\theta_p(q_+)$, the unique value compatible with OS axioms and spectral rigidity.'
+status: THM
+monograph_chapter: chap:bridge
+order: 15
+tier: secondary
+lang: en
+---
+
+import Tag from '@components/Tag.astro';
+
+## Statement
+
+Let $(\mathcal{A}, \Omega)$ be the $C^*$-algebra and vacuum state obtained by **Osterwalder–Schrader reconstruction** from the inductive limit of the sieve transfer system $\{(H_{m_K}, T_{m_K}, \Omega_{m_K})\}_{K \geq 1}$.
+
+Then the coupling of the **reconstructed quantum field theory** is
+
+$$
+\boxed{g^2 = \prod_{p \in \{3, 5, 7\}} \sin^2\theta_p(q_+),}
+$$
+
+and this is the **unique value** compatible with (i) the OS axioms and (ii) spectral rigidity of the transfer system.
+
+<Tag level="THM" />
+
+<div data-max-depth="L1" className="bg-amber-50 border-l-4 border-amber-300 px-4 py-3 my-6">
+**Plain reading.** Lemma E is the bridge that says: "the number $\alpha_{\rm EM}$ is
+not an arbitrary identification between sieve and physics, it is an **intrinsic
+property** of the QFT reconstructed from the sieve." No interpretive gesture —
+the value emerges necessarily.
+</div>
+
+## Why it matters
+
+Lemma E **eliminates the ontological step** of PT. Without E, one would say:
+"the sieve gives these numbers, and we **identify** them with the
+electromagnetic coupling." That identification would be an external postulate.
+
+With E, one says: "the reconstructed QFT *has* this coupling." Not an
+identification, an intrinsic computation.
+
+This is what makes BA5 (Pontryagin) a **theorem** rather than a bridge axiom.
+
+## Proof — outline
+
+1. **OS reconstruction**: from $\{T_m\}$, build the inductive limit $\mathcal{A}$
+   and vacuum $\Omega$.
+2. **Spectral rigidity**: T1 fixes the zero pattern, T5 fixes the active primes,
+   T6 fixes the amplitudes.
+3. **Ruelle partition function**: $Z_N = \sum_i \lambda_i^N$ is uniquely
+   determined.
+4. **Spectral coupling**: the coupling is the invariant $\prod \sin^2\theta_p$
+   forced by Pontryagin (BA5) and T6.
+
+<div data-min-depth="L3" className="bg-stone-50 border border-stone-300 rounded-lg p-4 my-8">
+
+### Detailed proof (L3 mode)
+
+#### Step E.1 — OS reconstruction
+
+The inductive-limit theorem (cf. ch. 9 monograph, thm:inductive_limit)
+constructs algebra $\mathcal{A}$ and vacuum $\Omega$ from the system
+$\{(H_{m_K}, T_{m_K}, \Omega_{m_K})\}_{K \geq 1}$ by Osterwalder–Schrader
+reconstruction. The OS axioms (reflection positivity, Euclidean invariance,
+correlation decay) are uniformly verified.
+
+#### Step E.2 — Spectrum rigidity
+
+The spectrum $\sigma(T_m)$ is **rigid** in the following sense: it is entirely
+determined by three independent structural theorems:
+- **T1** fixes the zero pattern of the matrix (mod-3 forbidden transitions).
+- **T5** fixes the active primes $\{3, 5, 7\}$ by fixed-point self-consistency.
+- **T6** fixes the sin² values by algebraic identity on each factor.
+
+No residual degree of freedom. The Ruelle partition function:
+
+$$
+Z_N = \mathrm{Tr}(T_m^N) = \sum_i \lambda_i^N
+$$
+
+is entirely determined by this rigid spectrum.
+
+#### Step E.3 — Coupling as a spectral invariant
+
+The coupling $g$ of the reconstructed QFT is defined as the long-distance limit
+of 4-point correlation functions (Feynman vertex in asymptotic). By OS theorems,
+this coupling is a **spectral invariant** — it depends only on the spectrum
+$\sigma(T)$, not on a particular representation.
+
+#### Step E.4 — Identification with the product
+
+On the $q_+ = 1 - 2/\mu^*$ branch, T6 gives $\sin^2\theta_p$ for each active
+prime. By BA5 (Pontryagin product), the relevant spectral invariant is:
+
+$$
+g^2 = \prod_{p \in \{3,5,7\}} \sin^2\theta_p(q_+) = \alpha_{\rm bare}.
+$$
+
+#### Uniqueness
+
+Uniqueness comes from four combined external theorems:
+- **G1** (uniqueness of $D_{\rm KL}$, autonomous CRT Shore–Johnson) — ch. 5.
+- **G3** (Fisher metric uniqueness, Čencov) — ch. 5.
+- **T5** (uniqueness of $\mu^*$) — ch. 8.
+- **T6** (holonomy identity) — ch. 6.
+
+These four uniqueness results determine the active primes $\{3, 5, 7\}$, the
+angles $\sin^2\theta_p$, and the branch $q_+$. By Pontryagin, the coupling is
+their product. No other value is compatible.
+
+For the complete derivation, see [chapter 9 of the monograph](/en/monograph),
+section *Coupling Reconstruction (Lemma E)*.
+</div>
+
+## See also
+
+- [BA5 — Pontryagin product](/en/theorems/BA5) — provides the product form
+- [Lemma F — Metric reconstruction](/en/theorems/F) — Fisher metric reconstructed
+- [Lemma G — Hilbert reconstruction](/en/theorems/G) — state space
+- [Observable 1/α_EM](/en/observables/1) — direct application
+- [All theorems](/en/theorems)

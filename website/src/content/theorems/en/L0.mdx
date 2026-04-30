@@ -1,0 +1,149 @@
+---
+id: L0
+name: 'L0 — Unique geometric distribution'
+short: 'The unique memoryless maximum-entropy distribution on even gaps.'
+statement: 'Any distribution on $\{2,4,6,\ldots\}$ that is memoryless, with fixed mean and maximum entropy, is necessarily geometric: $P(X=2k) = (1-q)q^{k-1}$ with $q = 1 - 2/\mu$.'
+status: THM
+monograph_chapter: chap:conservation
+order: 2
+lang: en
+---
+
+import Tag from '@components/Tag.astro';
+
+## Statement
+
+Let $X$ be a random variable on the even gaps $\{2, 4, 6, \ldots\}$ satisfying:
+
+- **(a)** memorylessness: $P(X > a + b \mid X > a) = P(X > b)$,
+- **(b)** fixed mean: $\mathbb{E}[X] = \mu$,
+- **(c)** maximum (Shannon) entropy among distributions satisfying (a) and (b).
+
+Then $X$ necessarily follows a **geometric law**:
+
+$$
+\boxed{P(X = 2k) = (1 - q)\, q^{k-1}, \qquad q = 1 - 2/\mu, \qquad k \geq 1.}
+$$
+
+<Tag level="THM" />
+
+<div data-max-depth="L1" className="bg-amber-50 border-l-4 border-amber-300 px-4 py-3 my-6">
+**Plain reading.** If we look for the "simplest" probability law to describe gaps
+between primes — one that invents no hidden structure — there’s no choice: it’s
+the geometric law. Like flipping a coin to decide when the next prime arrives,
+except the bias is fixed by the mean $\mu$.
+</div>
+
+## Why it matters
+
+L0 is the **second link** of the chain (after T0). Once T0 has identified
+$\{g_n\}$ as the dynamical field, L0 fixes its statistical law without any
+arbitrary choice. This is what makes PT **parameter-free**: no alternative
+distribution can be inserted in place of the geometric law without violating
+one of the three conditions (a)(b)(c).
+
+Direct consequence: everything that follows (T1, T2, T6, etc.) inherits the
+parametrisation $q = 1 - 2/\mu$, and $q$ becomes the unique free variable of
+the system — fixed itself at the fixed point by T5.
+
+## Proof — outline
+
+1. **Reformulate**: "memorylessness" on $\mathbb{N}$ implies $\log P(X = 2k)$
+   is affine in $k$.
+2. **Lagrange multipliers**: max entropy under $\mathbb{E}[X] = \mu$ gives an
+   exponential family.
+3. **Identify** the law: geometric with parameter $q$.
+4. **Compute** $q$ from $\mu$: the relation $\mu = 2/(1-q)$ inverts to
+   $q = 1 - 2/\mu$.
+
+<div data-min-depth="L3" className="bg-stone-50 border border-stone-300 rounded-lg p-4 my-8">
+
+### Detailed proof (L3 mode)
+
+#### Step 1 — Consequence of memorylessness
+
+Memorylessness $P(X > a + b \mid X > a) = P(X > b)$ on the discrete support
+$\{2, 4, 6, \ldots\}$ implies:
+
+$$
+P(X > 2(k+1)) = P(X > 2) \cdot P(X > 2k).
+$$
+
+By induction: $P(X > 2k) = q^k$ with $q = P(X > 2) \in (0, 1)$. And so:
+
+$$
+P(X = 2k) = P(X > 2(k-1)) - P(X > 2k) = q^{k-1}(1 - q).
+$$
+
+This is already the geometric form. Uniqueness among memoryless laws is
+immediate.
+
+#### Step 2 — Entropy maximisation
+
+Without condition (a), the class of distributions on $\{2, 4, 6, \ldots\}$
+with $\sum_k 2k \cdot p_k = \mu$ and $\sum_k p_k = 1$ is broader. By
+Lagrange multipliers:
+
+$$
+\mathcal{L} = -\sum_k p_k \log p_k - \alpha\!\left(\sum_k 2k\, p_k - \mu\right) - \beta\!\left(\sum_k p_k - 1\right).
+$$
+
+The condition $\partial \mathcal{L} / \partial p_k = 0$ gives
+$\log p_k = -1 - 2 \alpha k - \beta$, so $p_k \propto e^{-2 \alpha k}$. We
+recover a geometric family with $q = e^{-2\alpha}$.
+
+Argmax uniqueness (entropy is strictly concave) ensures only one solution
+in this family at fixed $\mu$.
+
+#### Step 3 — Conjunction (a) + (c)
+
+Step 1 shows: (a) alone ⇒ geometric.
+Step 2 shows: (b) + (c) alone ⇒ geometric.
+
+Theorem L0 asserts: (a) ∧ (b) ∧ (c) determine **the same** geometric
+distribution with forced consistency: the value of $q$ is fixed both by
+(a) (free parameter of the exponential model) and by (b) (relation to
+$\mu$). Compatibility between the two is guaranteed by the property
+$\mathbb{E}[X] = \frac{2}{1 - q}$ for $X$ geometric on the evens.
+
+#### Step 4 — Computing $q$
+
+For $X$ geometric on $\{2, 4, 6, \ldots\}$ with parameter $q$:
+
+$$
+\mathbb{E}[X] = \sum_{k \geq 1} 2k \cdot (1 - q) q^{k-1}
+= 2(1 - q) \cdot \frac{1}{(1 - q)^2}
+= \frac{2}{1 - q}.
+$$
+
+Imposing $\mathbb{E}[X] = \mu$ inverts to:
+
+$$
+q = 1 - \frac{2}{\mu}.
+$$
+
+This is the $q_+$ branch of PT. The branch $q_- = e^{-1/\mu}$ appears in
+the **continuous** version (high-energy limit) and gives geometry / quarks
+rather than couplings / leptons.
+
+#### Why no other law?
+
+The only other distributions on $\mathbb{N}$ with maximum entropy at fixed
+mean are:
+- the exponential law (on $\mathbb{R}_+$) — excluded because $\{g_n\}$ is discrete,
+- the Poisson law — excluded because it does not satisfy memorylessness (a)
+  on the evens.
+
+Geometric is the unique candidate on $\{2, 4, 6, \ldots\}$ satisfying all
+three conditions simultaneously.
+
+For the complete derivation, see [chapter 3 of the monograph](/en/monograph)
+(L0 proved in section "Maximum entropy under mean constraint").
+</div>
+
+## See also
+
+- [T0 — BA0 Closure](/en/theorems/T0) — fixes the dynamical field $\{g_n\}$
+- [T6 — Holonomy](/en/theorems/T6) — uses $q$ to compute $\delta_p$ and $\sin^2\theta_p$
+- [Calculator 2 — sin²(θ_p)](/en/calculator) — play with both branches $q_+ / q_-$
+- [All theorems](/en/theorems)

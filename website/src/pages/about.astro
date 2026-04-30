@@ -1,0 +1,53 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="À propos">
+  <section class="max-w-3xl mx-auto px-4 py-12">
+    <h1 class="text-3xl md:text-4xl font-bold text-thmblue mb-6">À propos</h1>
+
+    <h2 class="text-xl font-semibold text-thmblue mt-8 mb-3 font-sans">Auteur</h2>
+    <p class="text-stone-800 leading-relaxed mb-3">
+      <strong>yan senez</strong> — chercheur indépendant sans affiliation
+      académique. La Théorie de la Persistance est née d’un fil d’analyse
+      du signal sur les écarts entre nombres premiers en 2025 et a évolué en une
+      monographie de 880 pages. Les détails de la genèse sont dans la
+      <a href="/monograph" class="underline text-thmblue">préface</a>.
+    </p>
+
+    <h2 class="text-xl font-semibold text-thmblue mt-8 mb-3 font-sans">Contact</h2>
+    <p class="text-stone-800 leading-relaxed">
+      Email : <a href="mailto:yan.senez@protonmail.com" class="underline text-thmblue">yan.senez@protonmail.com</a><br />
+      Repos GitHub : <a href="https://github.com/Igrekess" class="underline text-thmblue">github.com/Igrekess</a>
+    </p>
+
+    <h2 class="text-xl font-semibold text-thmblue mt-8 mb-3 font-sans">Statut éditorial</h2>
+    <p class="text-stone-800 leading-relaxed mb-3">
+      Préimpression. <strong>Non révisée par les pairs.</strong> L’auteur accueille la
+      critique scrupuleuse et la vérification indépendante. Les scripts de
+      vérification computationnelle recensés en annexe F sont publics et reproductibles.
+    </p>
+
+    <h2 class="text-xl font-semibold text-thmblue mt-8 mb-3 font-sans">Licences</h2>
+    <table>
+      <thead>
+        <tr><th>Élément</th><th>Licence</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Code du site (Astro, JS, configs)</td><td>MIT</td></tr>
+        <tr><td>Contenu rédactionnel du site</td><td>CC BY 4.0</td></tr>
+        <tr><td>Monographie (PDF EN + FR)</td><td>CC BY 4.0</td></tr>
+        <tr><td>Articles thématiques (PDFs)</td><td>CC BY 4.0</td></tr>
+        <tr><td>Scripts Python de vérification</td><td>MIT</td></tr>
+      </tbody>
+    </table>
+
+    <h2 class="text-xl font-semibold text-thmblue mt-8 mb-3 font-sans">Mentions</h2>
+    <p class="text-stone-800 leading-relaxed text-sm">
+      Site construit avec <a href="https://astro.build" class="underline">Astro</a>,
+      <a href="https://tailwindcss.com" class="underline">Tailwind CSS</a>,
+      <a href="https://katex.org" class="underline">KaTeX</a>.
+      Hébergement : GitHub Pages. Domaine : <code>persistencetheory.org</code>.
+    </p>
+  </section>
+</BaseLayout>

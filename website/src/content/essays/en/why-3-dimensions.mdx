@@ -1,0 +1,95 @@
+---
+slug: why-3-dimensions
+title: 'Why three dimensions?'
+summary: 'Space does not have three dimensions by accident. PT gives an arithmetic reason: there are exactly three active primes at the fixed point — $\{3, 5, 7\}$ — and each opens one direction.'
+level: L1
+reading_minutes: 6
+related_theorems: ['T5', 'T6']
+lang: en
+order: 3
+---
+
+## The naive question
+
+Why do we live in three spatial dimensions and not two, four, or eleven? Standard physics takes that 3 as given. Alternative theories (strings, Kaluza-Klein) postulate more dimensions and invent mechanisms to hide them.
+
+PT proposes another answer: three dimensions because the sieve only allows three.
+
+## The short argument
+
+In the PT framework, a prime $p$ contributes to the dynamics if its **anomalous dimension** $\gamma_p$ is greater than the fundamental symmetry $s = 1/2$. That is the activity condition (BA4).
+
+Here, "anomalous dimension" does not mean an extra spatial dimension. It is a sensitivity exponent: $\gamma_p$ measures how fast the channel attached to prime $p$ changes when the sieve depth $\mu$ varies. In the monograph it is defined by
+
+$$
+\gamma_p = -\frac{d\ln(\sin^2\theta_p)}{d\ln\mu}.
+$$
+
+Why a logarithmic derivative? Because PT is not measuring a raw slope; it is
+measuring **relative sensitivity**. If the sieve depth $\mu$ increases by 1%,
+$\gamma_p$ tells approximately how much the persistent amplitude of channel $p$
+changes, with $A_p(\mu)=\sin^2\theta_p$. The minus sign fixes the convention: an
+amplitude that decreases as the sieve is refined gives a positive intensity.
+This is exactly the logic of a scaling exponent: if
+$A_p(\mu) \sim \mu^{-\gamma}$, then
+
+$$
+\gamma = -\frac{d\ln A_p}{d\ln\mu}.
+$$
+
+So the anomalous dimension is the number that says whether a channel truly
+resists sieve refinement, or whether it dissolves into entropy. The threshold
+$1/2$ is not added by hand here: it is the symmetry value forced by T1, the
+boundary between persistence and entropy in the PT partition.
+
+If $\gamma_p > 1/2$, the channel keeps enough persistence to become active. If $\gamma_p < 1/2$, it falls on the entropic side: it does not absolutely vanish, but it no longer carries a primary direction and can only appear as an echo.
+
+Computing $\gamma_p$ at the fixed point $\mu^* = 15$:
+
+| $p$ | $\gamma_p$ | active? |
+|-----|-----------|---------|
+| 3   | 0.808     | yes     |
+| 5   | 0.696     | yes     |
+| 7   | 0.595     | yes     |
+| 11  | 0.426     | **no**  |
+| 13  | 0.356     | **no**  |
+
+Three primes pass the threshold. Not one more, not one less. Starting at $p = 11$, $\gamma_p$ drops below $1/2$ and stays under the threshold for every larger $p$. The cascade stops.
+
+These three active primes $\{3, 5, 7\}$ open the three spatial directions. Each generates an independent channel via the Chinese remainder theorem (CRT): the circles $\mathbb{Z}/3\mathbb{Z}$, $\mathbb{Z}/5\mathbb{Z}$, $\mathbb{Z}/7\mathbb{Z}$ are orthogonal. Three orthogonal circles, three directions, a 3D space.
+
+## The dynamics
+
+The fixed point $\mu^* = 15$ is not a choice: it is the **only** subset of primes that satisfies the self-consistency condition
+
+$$
+\mu^* = \sum_{p \text{ active}} p, \qquad \gamma_p(\mu^*) > s.
+$$
+
+Theorem **T5** exhaustively verifies that no other finite subset of primes closes this equation. The sum $3 + 5 + 7 = 15$ is unique.
+
+Why does this dimension emerge geometrically? The holonomy identity (theorem **T6**) gives, for each active prime, an angle:
+
+$$
+\sin^2\theta_p = \delta_p (2 - \delta_p), \qquad \delta_p = \frac{1 - q^p}{p}.
+$$
+
+Three angles, three independent rotations, three axes. The Bianchi I structure (anisotropic cosmology, three scale factors) follows naturally.
+
+## The cosmological side
+
+An unexpected consequence: if one attempts a "pure PT" cosmology, one recovers the Bianchi I metric with exactly three active directions, without postulating the dimension of space. The scale factor of each direction is driven by $\gamma_3$, $\gamma_5$, $\gamma_7$ respectively. Measured deviations (CMB anisotropies, Hubble dispersions) stay within the predicted margin.
+
+At $N \sim 10^{10}$ sieve steps, a $3+1$D transition occurs (Fisher analysis): the effective PCA dimension converges to 3. Before, all primes mix; after, only $\{3, 5, 7\}$ survive. That is the transition selecting the observed dimensionality of the universe.
+
+## What is testable
+
+If PT is right, one should see:
+
+- No signature of extra dimensions at LHC or in short-range gravity — observed so far;
+- CMB anisotropies compatible with Bianchi I with three axes — compatible with Planck 2018;
+- No KK modes, no "heavy" gravitons, no low-scale SUSY — still absent.
+
+This is predicted absence, so weakly constraining. But if any of these effects appeared cleanly, PT could not accommodate it without breaking the active-prime count.
+
+Three dimensions, three primes, one cascade. Not a mystery, a consequence.

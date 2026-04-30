@@ -1,0 +1,49 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Tag from '@components/Tag.astro';
+
+const VISIBLE_SLUGS = new Set(['PT_LAMBDA']);
+const items = (await getCollection('articles', ({ data }) =>
+    data.lang === 'fr' && VISIBLE_SLUGS.has(data.slug)))
+  .sort((a, b) => a.data.order - b.data.order);
+
+const domainLabel: Record<string, string> = {
+  math: 'Mathématiques',
+  physics: 'Physique',
+  chemistry: 'Chimie',
+  biology: 'Biologie',
+  cosmology: 'Cosmologie',
+  geophysics: 'Géophysique',
+};
+---
+
+<BaseLayout title="Articles thématiques">
+  <section class="max-w-5xl mx-auto px-4 py-12">
+    <h1 class="text-3xl md:text-4xl font-bold text-thmblue mb-3">
+      Articles thématiques
+    </h1>
+    <p class="text-stone-700 mb-8 max-w-3xl">
+      Sélection d’articles de recherche issus du programme PT.
+      Chacun applique le cadre PT à un domaine spécifique avec validation
+      empirique ou prédiction falsifiable.
+    </p>
+
+    <div class="grid md:grid-cols-2 gap-4">
+      {items.map(art => (
+        <a href={`/articles/${art.data.slug}`} class="pt-card block group">
+          <div class="flex items-start justify-between gap-3 mb-2">
+            <div class="text-xs font-sans text-stone-500 uppercase tracking-wider">
+              {domainLabel[art.data.domain]}
+            </div>
+            <Tag level={art.data.status} />
+          </div>
+          <h2 class="font-sans font-semibold text-base text-thmblue group-hover:underline mb-2">
+            {art.data.title}
+          </h2>
+          <p class="text-sm text-stone-700">{art.data.abstract}</p>
+        </a>
+      ))}
+    </div>
+  </section>
+</BaseLayout>

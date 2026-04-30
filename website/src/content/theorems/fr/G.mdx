@@ -1,0 +1,135 @@
+---
+id: G
+name: 'Lemme G — Reconstruction Hilbert'
+short: 'L’espace de Hilbert de la QFT reconstruite est $\mathcal{H}_\infty = \varinjlim \bigotimes_{p \mid m_K} \mathcal{H}_p$.'
+statement: 'L’espace de Hilbert de la QFT reconstruite par Osterwalder–Schrader est $\mathcal{H}_\infty = \varinjlim \bigotimes_{p \mid m_K} \mathcal{H}_p$, la limite inductive des produits tensoriels CRT par premier.'
+status: THM
+monograph_chapter: chap:bridge
+order: 17
+tier: secondary
+lang: fr
+---
+
+import Tag from '@components/Tag.astro';
+
+## Énoncé
+
+L’**espace de Hilbert** de la théorie quantique des champs reconstruite (par Osterwalder–Schrader, cf. Lemmes E et F) est :
+
+$$
+\boxed{\mathcal{H}_\infty = \varinjlim_{K \to \infty} \bigotimes_{p \,\mid\, m_K} \mathcal{H}_p,}
+$$
+
+la **limite inductive** des produits tensoriels par facteur CRT, où chaque $\mathcal{H}_p$ est l’espace de Hilbert finie-dimensionnel associé au crible mod $p$.
+
+<Tag level="THM" />
+
+<div data-max-depth="L1" className="bg-amber-50 border-l-4 border-amber-300 px-4 py-3 my-6">
+**Lecture vulgarisée.** L’espace d’états de la mécanique quantique (l'« espace
+de Hilbert ») n’est pas posé arbitrairement en PT. Il est **construit** comme
+une combinaison particulière de petits espaces, un par premier actif, assemblés
+par produit tensoriel. Aucun choix de représentation cachée.
+</div>
+
+## Pourquoi ça compte
+
+Le lemme G complète la triade **(E, F, G)** des reconstructions :
+- **E** donne le couplage,
+- **F** donne la métrique d’espace-temps,
+- **G** donne l’espace d’états quantiques.
+
+Avec ces trois lemmes, la QFT reconstruite à partir du crible est **complètement
+caractérisée** : algèbre d’observables ($\mathcal{A}$), métrique (par F),
+espace de Hilbert (par G), et couplage (par E). Aucun élément externe
+n’est ajouté.
+
+C’est ce qui justifie de dire que la PT « reconstruit la physique » plutôt
+que « identifie le crible à la physique ».
+
+## Démonstration — schéma
+
+1. **Étape G.1** : pour chaque premier $p$, l’espace $\mathcal{H}_p$ est
+   l’espace de Hilbert finie-dim associé au transfert $T_p$.
+2. **Étape G.2** : la décomposition CRT donne $\mathcal{H}_{m} = \bigotimes_{p \mid m} \mathcal{H}_p$
+   pour tout module $m$.
+3. **Étape G.3** : la limite inductive $\varinjlim$ existe et est bien définie
+   par compatibilité OS.
+
+<div data-min-depth="L3" className="bg-stone-50 border border-stone-300 rounded-lg p-4 my-8">
+
+### Démonstration détaillée (mode L3)
+
+#### Étape G.1 — Espace de Hilbert par premier
+
+Pour chaque premier $p$, l’espace de Hilbert $\mathcal{H}_p$ associé au transfert
+$T_p$ est de dimension $p - 1$ (le nombre de classes de résidus non nulles
+mod $p$ après élimination de 0). C’est un espace de dimension finie, équipé
+d’un produit scalaire défini par la mesure stationnaire de $T_p$.
+
+Pour les primaires actifs $\{3, 5, 7\}$ : $\dim \mathcal{H}_3 = 2$,
+$\dim \mathcal{H}_5 = 4$, $\dim \mathcal{H}_7 = 6$.
+
+#### Étape G.2 — Décomposition CRT du tenseur
+
+Par CRT, pour $m = p_1 p_2 \cdots p_k$ produit de premiers distincts :
+
+$$
+\mathcal{H}_m = \bigotimes_{p \mid m} \mathcal{H}_p.
+$$
+
+C’est l’isomorphisme entre l’espace de Hilbert sur $\mathbb{Z}/m\mathbb{Z}$ et
+le produit tensoriel des espaces sur les facteurs premiers. Cohérent avec la
+factorisation tensorielle de la matrice de transfert
+$T_m = \bigotimes_p T_p$.
+
+Pour le tore arithmétique $\mathbb{T}^3 = \mathbb{Z}/105\mathbb{Z}$ (avec
+$105 = 3 \cdot 5 \cdot 7$), on a :
+
+$$
+\mathcal{H}_{105} = \mathcal{H}_3 \otimes \mathcal{H}_5 \otimes \mathcal{H}_7,
+$$
+
+de dimension $2 \cdot 4 \cdot 6 = 48$.
+
+#### Étape G.3 — Limite inductive
+
+La famille $\{m_K\}_{K \geq 1}$ avec $m_{K+1} = m_K \cdot p_{K+1}$ (ajout d’un
+nouveau premier à chaque étape) génère une suite d’espaces croissante
+$\mathcal{H}_{m_1} \hookrightarrow \mathcal{H}_{m_2} \hookrightarrow \cdots$.
+
+La limite inductive :
+
+$$
+\mathcal{H}_\infty = \varinjlim_{K \to \infty} \mathcal{H}_{m_K}
+$$
+
+existe au sens des espaces pré-Hilbertiens. Le complété donne un espace de
+Hilbert séparable, infini-dimensionnel, qui est exactement l’espace d’états
+de la QFT reconstruite par OS.
+
+#### Compatibilité avec les axiomes OS
+
+Les inclusions $\mathcal{H}_{m_K} \hookrightarrow \mathcal{H}_{m_{K+1}}$ sont
+**isométriques** (préservent le produit scalaire) parce que les transferts
+$T_p$ sont stochastiques. Ceci garantit que la limite est bien définie et
+que l’algèbre d’observables $\mathcal{A}$ s’étend continuellement.
+
+#### Implications structurelles
+
+- **Dimensionalité finie par premier** : chaque facteur reste de dimension
+  finie, ce qui rend les calculs explicites possibles.
+- **Limite séparable** : $\mathcal{H}_\infty$ a une base dénombrable, conforme
+  aux axiomes standards de la mécanique quantique.
+- **CRT-factorisable** : tout opérateur sur $\mathcal{H}_\infty$ se décompose
+  sur les facteurs premiers — c’est la base technique de Pontryagin (BA5).
+
+Pour la dérivation complète, voir [chapitre 9 de la monographie](/monograph),
+section *Hilbert Reconstruction (Lemma G)*.
+</div>
+
+## Voir aussi
+
+- [Lemme E — Reconstruction du couplage](/theorems/E) — couplage de la QFT
+- [Lemme F — Reconstruction métrique](/theorems/F) — métrique d’espace-temps
+- [BA5 — Produit de Pontryagin](/theorems/BA5) — produit sur les facteurs CRT
+- [Tous les théorèmes](/theorems)

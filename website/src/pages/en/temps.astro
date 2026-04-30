@@ -1,0 +1,103 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import ResearchTopic from '@components/ResearchTopic.astro';
+
+const features = [
+  { title: 'Not an outside metronome', body: 'The sieve does not unfold under an already-existing clock: the clock appears when sieve geometry has a timelike direction.', status: 'THM' },
+  { title: 'A depth reading', body: '$\\mu$ behaves like a depth of reading; when $g_{00}<0$, that depth becomes a measurable timelike direction.', status: 'DER' },
+  { title: 'Proper time resists', body: 'One may change the reading scale, but not proper durations $\\tau$ or the observables that depend on them.', status: 'THM' },
+];
+
+const sections = [
+  {
+    eyebrow: 'L1',
+    title: 'A clock that has already finished ticking',
+    paragraphs: [
+      'The most faithful image is the one used in the monograph: the sieve is like a clock that has already finished ticking. Primes are not produced one after another; the whole arithmetic hierarchy is there at once.',
+      'Still, we can read it layer by layer: parity, then $p=3$, then $p=5$, then $p=7$, and so on. That succession is not physical time yet. It is a logical order of dependence, like pages in a book that is already written: they exist together, even if we read them one after another.',
+      'Time appears when this hierarchy receives a geometry. The Fisher metric of the sieve selects an internal coordinate, $\\mu$, and when its component $g_{00}$ becomes negative, that coordinate becomes timelike in the relativistic sense.',
+      'Why? Because a metric classifies directions. The three spatial directions of the sieve contribute like ordinary distances, with a positive sign. If the $\\mu$ direction contributes with the opposite sign, it is no longer one more spatial distance: it becomes the direction that separates states by proper duration. That is exactly the difference between geometry of space and geometry of spacetime.',
+      'In plain language: the sieve does not unfold in time; our reading of the sieve, made metric by Fisher geometry, becomes time. The measurable duration is not bare $\\mu$, but proper time $d\\tau=\\sqrt{|g_{00}|}\\,d\\mu$.',
+      'So “before time” is not a chronological before. Asking what came before this reading is like asking what lies north of the North Pole: the question uses a coordinate beyond the domain where that coordinate has meaning.',
+    ],
+    visual: {
+      kind: 'time-slope-map',
+      title: 'From logical hierarchy to proper time',
+      caption: 'The sieve layers are not instants. The orange arrow is only the reading order. Physical time begins when Fisher geometry makes that reading timelike, then measurable as $\\tau$.',
+      labels: ['The whole sieve is given at once', 'layers are logical, not instants', 'reading', 'order', 'Fisher: g00 < 0', 'opposite sign to spatial directions', 'reading becomes proper duration', 'PT: the timeline is the internal reading of an already-given hierarchy.', 'internal read'],
+    },
+    demo: {
+      kind: 'time-slope-clock',
+      title: 'Why $\\mu$ alone is not a clock',
+      caption: 'The slider keeps $d\\mu=1$ and changes only $|g_{00}|$. Proper duration changes: in PT, the physical object is $d\\tau$, not bare depth.',
+      labels: ['metric weight |g00|'],
+    },
+  },
+  {
+    eyebrow: 'L2',
+    title: 'Physical architecture: from depth to proper time',
+    paragraphs: [
+      'The monograph identifies the spacetime metric with the Fisher metric of the sieve. In that metric, the component $g_{00}$ becomes negative beyond a threshold: this is the appearance of Lorentzian signature $(-,+,+,+)$.',
+      'The decisive point is the relative sign. The Fisher blocks associated with the active primes $3,5,7$ give three positive spatial contributions. The curvature of the $\\mu$ direction gives $g_{00}=-|g_{00}|$. The interval then becomes $ds^2=-|g_{00}|d\\mu^2+\\sum_p a_p^2dx_p^2$: displacements in $\\mu$ no longer add as spatial length, they define proper duration.',
+      'Physical time is therefore not postulated. It is defined as proper time: $\\tau = \\int\\sqrt{|g_{00}|}\\,d\\mu$. The variable $\\mu$ gives a coordinate, but observables depend on $\\tau$, not on the chosen coordinate name.',
+      '$\\mu$ is a sieve-depth coordinate; $\\tau$ is what a physical clock measures. PT is not merely saying “call $\\mu$ time”; it says the metric forces a direction in which proper durations become defined.',
+      'The arrow of time then receives an informational reading. It is not a mysterious flow added to the world; it is the stable orientation along which persistence structure becomes readable, measurable, and irreversible for internal observables.',
+    ],
+    items: [
+      '$\\mu$ measures sieve depth/scale.',
+      '$g_{00}<0$ selects a timelike direction.',
+      '$\\tau$ is invariant: it carries the physical content.',
+      'The arrow comes from monotone growth of information structure.',
+    ],
+  },
+  {
+    eyebrow: 'L3',
+    title: 'Technical demonstration: signature, proper time, rigidity',
+    depth: 'L3',
+    paragraphs: [
+      'The relativity chapter treats $\\mu \\leftrightarrow \\tau$ structurally: the spacetime metric is a spectral invariant of the transfer matrices $\\{T_m\\}$, and $\\mu$ is the unique coordinate producing the time component.',
+      'Time Rigidity then shows that $\\tilde\\mu=f(\\mu)$, for any smooth strictly monotone reparametrization, preserves signature, proper time, and the observables $H_0$, $\\Omega_\\Lambda$, $q_0$, and $G_{\\mu\\nu}$.',
+      'Technically, the persistence potential $S(\\mu)=-\\ln\\alpha_{EM}(\\mu)$ gives a metric of the form $ds^2=-|S^{\\prime\\prime}|d\\mu^2+\\sum_p(S^{\\prime}_p)^2dx_p^2$. The negative sign on the $d\\mu^2$ term is not decorative: it turns a persistence scale into a Lorentzian time coordinate.',
+      'The physical content is therefore invariant under time-gauge changes. One may rename the coordinate, but not the proper durations, directional Hubble rates, or Einstein equations derived from it.',
+    ],
+    items: [
+      'Threshold: $g_{00}<0$ for $\\mu>\\mu_c$ in chapter 13.',
+      'Proper time: $d\\tau=\\sqrt{|g_{00}|}\\,d\\mu$.',
+      'Rigidity: $\\tilde\\mu=f(\\mu)$ does not change observables.',
+      'Arrow: the physical direction is fixed by growth of persistence/entropy in the PT dictionary.',
+    ],
+    proof: {
+      title: 'L3 demonstration',
+      steps: [
+        'Start from the statistical family of the sieve. By Cencov uniqueness, the monotone metric compatible with information-non-creating transformations is the Fisher metric $g^F$.',
+        'On the active sector $p\\in\\{3,5,7\\}$, CRT decomposition diagonalizes the contributions: spatial scale factors are read as $a_p=\\gamma_p/\\mu$. A scale coordinate $\\mu$ remains.',
+        'The persistence potential $S(\\mu)=-\\ln\\alpha_{EM}(\\mu)$ gives the time component by curvature: $g_{00}=S^{\\prime\\prime}(\\mu)$, with line element $ds^2=-|S^{\\prime\\prime}|d\\mu^2+\\sum_p(S^{\\prime}_p)^2dx_p^2$ in the Lorentzian regime.',
+        'Chapter 13 establishes the sign change algebraically: for $\\mu>\\mu_c$, $g_{00}<0$. A coordinate becomes timelike not by naming, but because the metric has signature $(-,+,+,+)$.',
+        'The measurable time is then the proper-line scalar: $d\\tau=\\sqrt{|g_{00}|}\\,d\\mu$, hence $\\tau=\\int\\sqrt{|g_{00}|}\\,d\\mu$.',
+        'For any strictly monotone reparametrization $\\tilde\\mu=f(\\mu)$, the metric transforms as $g_{00}\\mapsto g_{00}/(f^{\\prime})^2$ and $d\\tilde\\mu=f^{\\prime}d\\mu$. The product $\\sqrt{|g_{00}|}\\,d\\mu$ is unchanged.',
+        'Observables written in terms of $\\tau$ — $H_p=d\\ln a_p/d\\tau$, $H_0$, $q_0$, $\\Omega_\\Lambda$, $G_{\\mu\\nu}$ — are therefore invariant under the coordinate change.',
+      ],
+      conclusion: 'In PT, physical time is not postulated. It is the metric direction forced by Fisher geometry when sieve curvature becomes Lorentzian; its observable content is proper time $\\tau$, not the bare parameter $\\mu$.',
+    },
+  },
+];
+
+const sources = [
+  'Preface: “The sieve does not unfold in time; time unfolds from the sieve.”',
+  'Monograph ch. 13: General Relativity from Fisher Geometry.',
+  'ch. 13: Time Rigidity proposition.',
+  'ch. 24: continuum-limit dissolution and quantum-gravity scope.',
+];
+---
+
+<BaseLayout title="Time in PT" description="PT reading of time: persistence slope, Lorentzian signature, proper time, and rigidity.">
+  <ResearchTopic
+    eyebrow="PT Physics"
+    title="Time is not the engine: it is read from the slope of persistence"
+    description="PT proposes a radical reading of time: temporal order is not added to the fundamental structure, it is read from the information geometry carried by that structure."
+    lead="If PT is correct, time is not what the universe computes in. It is the physical coordinate read when persistence mechanics carries a Fisher metric of Lorentzian signature."
+    features={features}
+    sections={sections}
+    sources={sources}
+  />
+</BaseLayout>

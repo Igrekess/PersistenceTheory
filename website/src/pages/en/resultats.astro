@@ -1,0 +1,62 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+
+const cards = [
+  ['Mathematics', 'GFT + T0–T6 + L0', 'Fundamental principle, arithmetic chain, closure at mu* = 15.', '/en/theorems'],
+  ['Physics', '43 observables', 'Announced mean error 0.30%, median 0.06%, under explicit bridges.', '/en/observables'],
+  ['Chemistry', 'Periodic table', 's/p/d/f blocks and periods 2, 8, 8, 18, 18, 32, 32.', '/en/tableau-periodique'],
+  ['Chemistry', 'IE', 'Ionization energies: peaks, closures, residuals, and CPR correction.', '/en/energies-ionisation'],
+  ['Chemistry', 'EA', 'Electron affinities: boundary capture, vacancy, halogen/metal cases.', '/en/affinites-electroniques'],
+  ['Cosmology', 'Dark sector', 'Visible, dark energy, and informational matter reading.', '/en/cosmologie'],
+  ['QG', 'Fisher → GR → Kerr', 'Geometric chain, covariant amplitude, QNM, and observational limits.', '/en/gravite-quantique'],
+  ['Falsifiability', 'Predictions', 'Experimental windows and breaking points.', '/en/predictions'],
+];
+---
+
+<BaseLayout
+  title="Results dashboard"
+  description="Synthetic view of major PT results, validations, and proof pages."
+>
+  <section class="max-w-6xl mx-auto px-4 py-12">
+    <p class="pt-tag pt-tag-val mb-4">Synthesis</p>
+    <h1 class="text-4xl md:text-5xl font-bold text-thmblue mb-5">Results dashboard</h1>
+    <p class="text-lg text-slate-700 leading-relaxed max-w-3xl mb-10">
+      This page is a quick map: where the results are, what they mean, and how
+      to check them inside the site.
+    </p>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4 mb-12">
+      {cards.map(([domain, title, body, href]) => (
+        <a href={href} class="pt-card block group">
+          <span class="pt-tag pt-tag-der">{domain}</span>
+          <h2 class="font-sans font-semibold text-thmblue text-xl mt-3 mb-2 group-hover:underline">{title}</h2>
+          <p class="text-sm text-slate-700">{body}</p>
+        </a>
+      ))}
+    </div>
+
+    <section class="grid lg:grid-cols-3 gap-5">
+      <div class="bg-white border border-slate-200 rounded-lg p-5">
+        <h2 class="text-xl font-bold text-thmblue mb-3">The hard core</h2>
+        <p class="text-slate-700">
+          GFT and the T0–T6/L0 chain form the skeleton. Without that skeleton,
+          the physical and chemical results lose their PT-derivation status.
+        </p>
+      </div>
+      <div class="bg-white border border-slate-200 rounded-lg p-5">
+        <h2 class="text-xl font-bold text-thmblue mb-3">The robust showcase</h2>
+        <p class="text-slate-700">
+          Chemistry gives the best first contact: it connects channel geometry,
+          periods, IE, and EA in a language scientists can inspect.
+        </p>
+      </div>
+      <div class="bg-white border border-slate-200 rounded-lg p-5">
+        <h2 class="text-xl font-bold text-thmblue mb-3">Open edges</h2>
+        <p class="text-slate-700">
+          QG, cosmology, and predictions must stay very clear about what is
+          derived, validated, expected, or still to be calibrated.
+        </p>
+      </div>
+    </section>
+  </section>
+</BaseLayout>

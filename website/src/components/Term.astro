@@ -1,0 +1,30 @@
+---
+import glossary from '@/data/glossary.json';
+
+interface Props {
+  k: string;       // glossary key (e.g. "mu_star")
+  lang?: 'fr' | 'en';
+  children?: any;  // optional override label
+}
+
+const { k, lang = 'fr' } = Astro.props;
+const entry = glossary.terms.find(t => t.key === k);
+const data = entry?.[lang];
+const label = data?.term ?? k;
+const definition = data?.definition ?? '';
+
+const slot = await Astro.slots.render('default');
+const display = slot && slot.trim().length > 0 ? slot : label;
+---
+
+{entry ? (
+  <span
+    class="pt-term underline decoration-dotted decoration-thmblue/50 underline-offset-2 cursor-help"
+    tabindex="0"
+    data-pt-term-def={definition}
+    data-pt-term-label={label}
+    set:html={display}
+  />
+) : (
+  <span set:html={display} />
+)}

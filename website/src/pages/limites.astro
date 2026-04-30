@@ -1,0 +1,75 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+
+const limits = [
+  ['Pairs et ponts physiques', 'Les ponts BA restent des engagements structurants. Même quand ils sont très motivés, ils doivent rester distingués des identités algébriques.'],
+  ['QG observationnelle', 'La chaîne géométrique est avancée, mais l’identification observationnelle fine des modes Kerr/QNM reste un bord de test.'],
+  ['Corrections chimiques', 'IE/EA sont très prometteuses, mais chaque correction canonique doit rester dérivée par fonctions continues PT et non par coefficient libre.'],
+  ['Cosmologie', 'La lecture du secteur sombre doit séparer clairement dérivation, interprétation et prédiction observationnelle.'],
+  ['Relecture externe', 'Le site présente un programme scientifique en construction. Il lui faut encore confrontation indépendante, revue critique et reproduction externe.'],
+];
+---
+
+<BaseLayout
+  title="Limites et points ouverts"
+  description="Ce que la PT affirme, ce qu’elle ne prétend pas encore, et ce qui reste à verrouiller."
+>
+  <section class="max-w-6xl mx-auto px-4 py-12">
+    <p class="pt-tag pt-tag-cond mb-4">Rigueur</p>
+    <h1 class="text-4xl md:text-5xl font-bold text-thmblue mb-5">Limites et points ouverts</h1>
+    <p class="text-lg text-slate-700 leading-relaxed max-w-3xl mb-10">
+      Une bonne vitrine scientifique ne doit pas seulement montrer les succès.
+      Elle doit dire ce qui est fermé, ce qui est conditionnel, ce qui est
+      validé numériquement et ce qui attend encore une vérification externe.
+    </p>
+
+    <div class="space-y-4 mb-12">
+      {limits.map(([title, body]) => (
+        <div class="bg-white border border-slate-200 rounded-lg p-5">
+          <h2 class="font-sans font-semibold text-thmblue text-xl mb-2">{title}</h2>
+          <p class="text-slate-700">{body}</p>
+        </div>
+      ))}
+    </div>
+
+    <div class="bg-white border border-slate-200 rounded-lg p-6 mb-12">
+      <h2 class="text-2xl font-bold text-thmblue mb-3">Usage de l’IA</h2>
+      <p class="text-slate-700 leading-relaxed mb-4">
+        La Théorie de la Persistance est avant tout le produit d’une pensée
+        humaine : ses intuitions, ses choix de principe, ses engagements
+        théoriques et sa direction générale ont été portés par son auteur.
+        Les grands modèles de langage, notamment Claude et ChatGPT, ont
+        toutefois joué un rôle d’outil substantiel dans le développement du
+        programme.
+      </p>
+      <p class="text-slate-700 leading-relaxed mb-4">
+        Ils ont permis d’accélérer l’écriture de scripts de calcul et de
+        vérification, de suggérer des outils mathématiques parfois inconnus de
+        l’auteur, d’en expliquer l’usage, et d’aider à structurer ou rédiger
+        certains textes, pages et articles. Cet usage est assumé : il fait
+        partie des moyens contemporains de recherche, au même titre qu’un
+        environnement de calcul, une bibliothèque scientifique ou un assistant
+        de rédaction.
+      </p>
+      <p class="text-slate-700 leading-relaxed">
+        Cela ne signifie pas que ces modèles comprennent la théorie dans son
+        ensemble. Entraînés sur les cadres établis, notamment le Modèle
+        Standard et les formalismes usuels, ils peuvent aider localement,
+        vérifier, coder, reformuler ou proposer des analogies ; mais la cohérence
+        globale, l’interprétation des résultats et la responsabilité des
+        affirmations restent humaines.
+      </p>
+    </div>
+
+    <div class="bg-slate-900 text-white rounded-lg p-6">
+      <h2 class="text-2xl font-bold mb-3">Une ambition vérifiable</h2>
+      <p class="leading-relaxed text-slate-100">
+        La PT propose une ambition forte : expliquer beaucoup avec très peu.
+        Cette ambition ne vaut que si elle reste vérifiable. Sa force vient de
+        la rigidité de ses contraintes, de la convergence de ses résultats et
+        de sa capacité à exposer clairement les endroits où l’expérience ou le
+        calcul peuvent encore la mettre à l’épreuve.
+      </p>
+    </div>
+  </section>
+</BaseLayout>

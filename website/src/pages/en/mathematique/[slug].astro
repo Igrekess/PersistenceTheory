@@ -1,0 +1,327 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import MathVisual from '@components/MathVisual.astro';
+import { mathPages, statusLabels } from '@/data/mathPages';
+
+export function getStaticPaths() {
+  return mathPages.map((page) => ({
+    params: { slug: page.slug },
+    props: { page },
+  }));
+}
+
+const { page } = Astro.props;
+const c = page.en;
+const statusClass =
+  c.status === 'identity' ? 'pt-tag-id' :
+  c.status === 'theorem' ? 'pt-tag-thm' :
+  c.status === 'derivation' ? 'pt-tag-der' :
+  c.status === 'tool' ? 'pt-tag-val' : 'pt-tag-cond';
+---
+
+<BaseLayout title={c.title} description={c.description}>
+  <section class="border-b border-slate-200 bg-white">
+    <div class="max-w-6xl mx-auto px-4 py-12 md:py-16">
+      <a href="/en/mathematique" class="text-sm text-thmblue underline">Mathematical atlas</a>
+      <p class="font-sans text-sm font-semibold uppercase tracking-wider text-derorange mt-4 mb-3">
+        {c.kicker}
+      </p>
+      <div class="flex flex-wrap items-center gap-3 mb-4">
+        <span class={`pt-tag ${statusClass}`}>{statusLabels.en[c.status]}</span>
+      </div>
+      <h1 class="text-4xl md:text-5xl font-bold text-thmblue leading-tight mb-5">
+        {c.title}
+      </h1>
+      <p class="text-lg text-slate-700 leading-relaxed max-w-3xl">
+        {c.description}
+      </p>
+    </div>
+  </section>
+
+  <section class="max-w-6xl mx-auto px-4 py-12">
+    <div class="grid lg:grid-cols-[0.95fr_1.05fr] gap-8 items-center mb-12">
+      <div>
+        <span class="pt-tag pt-tag-bridge">L1 · plain</span>
+        <h2 class="text-3xl font-bold text-thmblue mt-4 mb-4">The idea</h2>
+        {c.l1.map((p) => (
+          <p class="text-slate-700 leading-relaxed mb-4">{p}</p>
+        ))}
+      </div>
+      <MathVisual type={page.visual} lang="en" />
+    </div>
+
+    <div data-min-depth="L2" class="grid lg:grid-cols-[1fr_0.9fr] gap-6 mb-12">
+      <div class="bg-white border border-slate-200 rounded-lg p-6">
+        <span class="pt-tag pt-tag-der">L2 · standard</span>
+        <h2 class="text-3xl font-bold text-thmblue mt-4 mb-4">Standard reading</h2>
+        {c.l2.map((p) => (
+          <p class="text-slate-700 leading-relaxed mb-4">{p}</p>
+        ))}
+      </div>
+      <div class="bg-slate-50 border border-slate-200 rounded-lg p-6">
+        <h3 class="font-sans font-semibold text-thmblue text-xl mb-4">Takeaways</h3>
+        <ul class="space-y-3 text-sm text-slate-700">
+          {c.takeaways.map((item) => <li>{item}</li>)}
+        </ul>
+      </div>
+    </div>
+
+    <div data-min-depth="L3" class="mb-12">
+      <span class="pt-tag pt-tag-val">L3 · technical</span>
+      <h2 class="text-3xl font-bold text-thmblue mt-4 mb-4">Technical formulation</h2>
+      <div class="grid lg:grid-cols-[1fr_0.9fr] gap-6">
+        <div class="bg-white border border-slate-200 rounded-lg p-6">
+          {c.l3.map((p) => (
+            <p class="text-slate-700 leading-relaxed mb-4">{p}</p>
+          ))}
+          <p class="text-sm text-slate-500 mt-6">{c.source}</p>
+        </div>
+        <div class="bg-white border border-slate-200 rounded-lg p-6">
+          <h3 class="font-sans font-semibold text-thmblue text-xl mb-4">Formulas</h3>
+          <div class="space-y-3">
+            {c.formulas.map((formula) => (
+              <div class="bg-slate-50 border border-slate-200 rounded-md px-3 py-3 font-mono text-sm text-slate-900 overflow-x-auto">
+                {`$${formula}$`}
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {(page.repositories?.length || page.scripts?.length) && (
+      <section class="bg-white border border-slate-200 rounded-lg p-6 mb-12">
+        <div class="flex flex-wrap items-start justify-between gap-4 mb-6">
+          <div>
+            <span class="pt-tag pt-tag-val">public code</span>
+            <h2 class="text-3xl font-bold text-thmblue mt-4 mb-2">Code and scripts</h2>
+            <p class="text-slate-700">
+              The links below point to public resources or planned GitHub
+              repositories. No local working path is exposed to the reader.
+            </p>
+          </div>
+        </div>
+
+        {page.repositories?.length && (
+          <div class="grid md:grid-cols-2 gap-3 mb-6">
+            {page.repositories.map((repo) => (
+              <div class="bg-slate-50 border border-slate-200 rounded-lg p-4">
+                <div class="text-xs uppercase tracking-wide text-slate-500 font-semibold mb-1">GitHub</div>
+                {repo.url ? (
+                  <a href={repo.url} target="_blank" rel="noopener" class="font-sans font-semibold text-thmblue underline">
+                    {repo.name}
+                  </a>
+                ) : (
+                  <div class="font-sans font-semibold text-slate-700">{repo.name}</div>
+                )}
+                <p class="text-sm text-slate-600 mt-2">
+                  {repo.url ? 'Public downloadable repository.' : 'GitHub repository to publish before this can become a download link.'}
+                </p>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {page.scripts?.length && (
+          <div>
+            <div id="math-pyodide-status" class="mb-4 px-4 py-2 rounded font-sans text-sm bg-slate-100 text-slate-600 hidden">
+              <span id="math-pyodide-status-text">Pyodide not loaded.</span>
+            </div>
+            <div class="space-y-5">
+              {page.scripts.map((script) => (
+                <article class="border border-slate-200 rounded-lg p-5 bg-slate-50">
+                  <div class="mb-3">
+                    <h3 class="font-sans font-semibold text-thmblue">{script.titleEn ?? script.title}</h3>
+                    <p class="text-sm text-slate-700 mt-1">{script.summaryEn ?? script.summary}</p>
+                    {(script.expectedEn ?? script.expected) && <p class="text-xs text-slate-500 mt-2">Expected: {script.expectedEn ?? script.expected}</p>}
+                  </div>
+                  <div class="flex flex-wrap items-center gap-3 mb-3">
+                    <button
+                      class="math-run-btn px-3 py-1.5 bg-thmblue text-white text-sm font-sans rounded hover:bg-thmblue/90 disabled:bg-slate-300 disabled:cursor-not-allowed"
+                      data-script-file={script.fileEn ?? script.file.replace(/\.py$/, '_en.py')}
+                    >
+                      Run
+                    </button>
+                    <a href={`/scripts-source/math/${script.fileEn ?? script.file.replace(/\.py$/, '_en.py')}`} target="_blank" rel="noopener" class="text-sm text-thmblue underline">
+                      View script
+                    </a>
+                    <span class="math-status-badge text-xs font-sans text-slate-500">idle</span>
+                  </div>
+                  <pre class="math-output-pane hidden w-full bg-slate-900 text-slate-100 text-sm leading-relaxed font-mono p-5 rounded min-h-72 max-h-[44rem] overflow-auto whitespace-pre-wrap"></pre>
+                </article>
+              ))}
+            </div>
+          </div>
+        )}
+      </section>
+    )}
+
+    {page.slug === 'calculateur-persistance' && (
+      <section class="bg-white border border-slate-200 rounded-lg p-6 mb-12" id="gft-calculator">
+        <div class="flex flex-wrap items-start justify-between gap-4 mb-6">
+          <div>
+            <span class="pt-tag pt-tag-id">tool</span>
+            <h2 class="text-3xl font-bold text-thmblue mt-4 mb-2">Manipulate GFT</h2>
+            <p class="text-slate-700">Move the sliders: the sum stays equal to the total budget.</p>
+          </div>
+          <button id="pt-reset" class="px-4 py-2 rounded-md border border-slate-300 hover:bg-slate-50 font-sans">
+            Reset
+          </button>
+        </div>
+        <div class="grid lg:grid-cols-[0.9fr_1.1fr] gap-8">
+          <div class="space-y-4" id="pt-sliders">
+            {[0,1,2,3].map((i) => (
+              <label class="block">
+                <span class="block text-sm font-semibold text-slate-700 mb-1">p{i + 1}</span>
+                <input class="w-full" type="range" min="1" max="100" value={[40, 30, 20, 10][i]} data-pt-prob />
+              </label>
+            ))}
+          </div>
+          <div>
+            <div class="grid sm:grid-cols-3 gap-3 mb-5">
+              <div class="bg-slate-50 border border-slate-200 rounded-lg p-4">
+                <div class="text-xs uppercase tracking-wide text-slate-500 font-semibold">log₂(m)</div>
+                <div id="pt-total" class="text-2xl font-bold text-thmblue tabular-nums">2.000</div>
+              </div>
+              <div class="bg-slate-50 border border-slate-200 rounded-lg p-4">
+                <div class="text-xs uppercase tracking-wide text-slate-500 font-semibold">D_KL</div>
+                <div id="pt-kl" class="text-2xl font-bold text-thmblue tabular-nums">0.000</div>
+              </div>
+              <div class="bg-slate-50 border border-slate-200 rounded-lg p-4">
+                <div class="text-xs uppercase tracking-wide text-slate-500 font-semibold">H</div>
+                <div id="pt-h" class="text-2xl font-bold text-derorange tabular-nums">2.000</div>
+              </div>
+            </div>
+            <div class="h-16 rounded-lg overflow-hidden border border-slate-200 flex" aria-label="GFT partition">
+              <div id="pt-kl-bar" class="bg-thmblue h-full" style="width: 0%"></div>
+              <div id="pt-h-bar" class="bg-derorange h-full" style="width: 100%"></div>
+            </div>
+            <p id="pt-values" class="text-sm text-slate-600 mt-4 font-mono"></p>
+          </div>
+        </div>
+      </section>
+    )}
+  </section>
+
+  {page.slug === 'calculateur-persistance' && (
+    <script is:inline>
+      (function () {
+        const sliders = Array.from(document.querySelectorAll('[data-pt-prob]'));
+        const totalEl = document.getElementById('pt-total');
+        const klEl = document.getElementById('pt-kl');
+        const hEl = document.getElementById('pt-h');
+        const klBar = document.getElementById('pt-kl-bar');
+        const hBar = document.getElementById('pt-h-bar');
+        const valuesEl = document.getElementById('pt-values');
+        const reset = document.getElementById('pt-reset');
+        const defaults = [40, 30, 20, 10];
+        const log2 = (x) => Math.log(x) / Math.log(2);
+        function update() {
+          const raw = sliders.map((s) => Number(s.value));
+          const sum = raw.reduce((a, b) => a + b, 0);
+          const p = raw.map((v) => v / sum);
+          const m = p.length;
+          const total = log2(m);
+          const h = -p.reduce((acc, v) => acc + (v > 0 ? v * log2(v) : 0), 0);
+          const kl = p.reduce((acc, v) => acc + (v > 0 ? v * log2(m * v) : 0), 0);
+          totalEl.textContent = total.toFixed(3);
+          klEl.textContent = kl.toFixed(3);
+          hEl.textContent = h.toFixed(3);
+          klBar.style.width = `${(kl / total) * 100}%`;
+          hBar.style.width = `${(h / total) * 100}%`;
+          valuesEl.textContent = `P = [${p.map((v) => v.toFixed(3)).join(', ')}]`;
+        }
+        sliders.forEach((s) => s.addEventListener('input', update));
+        reset.addEventListener('click', () => {
+          sliders.forEach((s, i) => { s.value = defaults[i]; });
+          update();
+        });
+        update();
+      })();
+    </script>
+  )}
+
+  {page.scripts?.length && (
+    <script src="https://cdn.jsdelivr.net/pyodide/v0.27.0/full/pyodide.js" is:inline></script>
+  )}
+
+  {page.scripts?.length && (
+    <script is:inline>
+      (function () {
+        const statusBar = document.getElementById('math-pyodide-status');
+        const statusText = document.getElementById('math-pyodide-status-text');
+        let pyodide = null;
+        let pyodideReady = null;
+
+        function setStatus(message, kind) {
+          statusBar.classList.remove('hidden', 'bg-slate-100', 'bg-amber-50', 'bg-emerald-50', 'bg-red-50');
+          statusBar.classList.add({
+            loading: 'bg-amber-50',
+            ready: 'bg-emerald-50',
+            error: 'bg-red-50',
+          }[kind] || 'bg-slate-100');
+          statusText.textContent = message;
+        }
+
+        async function ensurePyodide() {
+          if (!pyodideReady) {
+            pyodideReady = (async () => {
+              setStatus('Loading Pyodide (~10 MB)…', 'loading');
+              pyodide = await loadPyodide({
+                indexURL: 'https://cdn.jsdelivr.net/pyodide/v0.27.0/full/',
+              });
+              setStatus('Pyodide ready.', 'ready');
+            })();
+          }
+          await pyodideReady;
+        }
+
+        async function runScript(file, outputPane, statusBadge, button) {
+          outputPane.classList.remove('hidden');
+          outputPane.textContent = '';
+          button.disabled = true;
+          statusBadge.textContent = 'preparing…';
+          try {
+            await ensurePyodide();
+            statusBadge.textContent = 'fetching…';
+            const res = await fetch(`/scripts-source/math/${file}`);
+            if (!res.ok) throw new Error(`script not found: ${file}`);
+            const code = await res.text();
+            const append = (text) => {
+              outputPane.textContent += text;
+              outputPane.scrollTop = outputPane.scrollHeight;
+            };
+            pyodide.setStdout({ batched: append });
+            pyodide.setStderr({ batched: append });
+            statusBadge.textContent = 'running…';
+            const t0 = performance.now();
+            await pyodide.runPythonAsync(code);
+            const elapsed = ((performance.now() - t0) / 1000).toFixed(2);
+            const passCount = (outputPane.textContent.match(/\[PASS\]/g) || []).length;
+            statusBadge.textContent = passCount ? `${passCount} PASS · ${elapsed} s` : `done · ${elapsed} s`;
+            statusBadge.className = 'math-status-badge text-xs font-sans text-emerald-700 font-medium';
+          } catch (e) {
+            statusBadge.textContent = 'error';
+            statusBadge.className = 'math-status-badge text-xs font-sans text-red-600';
+            outputPane.textContent += `\n[runner] ${e.message || e}\n`;
+            setStatus(`Error: ${e.message || e}`, 'error');
+          } finally {
+            button.disabled = false;
+          }
+        }
+
+        document.querySelectorAll('.math-run-btn').forEach((button) => {
+          button.addEventListener('click', () => {
+            const card = button.closest('article');
+            runScript(
+              button.getAttribute('data-script-file'),
+              card.querySelector('.math-output-pane'),
+              card.querySelector('.math-status-badge'),
+              button
+            );
+          });
+        });
+      })();
+    </script>
+  )}
+</BaseLayout>

@@ -1,0 +1,154 @@
+{
+  "terms": [
+    {
+      "key": "s",
+      "fr": { "term": "s = 1/2", "definition": "Symétrie fondamentale dérivée du crible. Toute autre constante sans dimension en descend avec la structure arithmétique. Elle est forcée par les transitions interdites mod 3 (T1), plutôt que choisie comme paramètre libre." },
+      "en": { "term": "s = 1/2", "definition": "Derived fundamental symmetry of the sieve. Every other dimensionless constant descends from it together with the arithmetic structure. It is forced by mod-3 forbidden transitions (T1), rather than chosen as a free parameter." }
+    },
+    {
+      "key": "mu_star",
+      "fr": { "term": "μ*", "definition": "Point fixe unique du crible : μ* = 3 + 5 + 7 = 15. Somme des trois premiers actifs (T5). Aucun autre sous-ensemble fini de premiers ne ferme l’équation d’auto-cohérence." },
+      "en": { "term": "μ*", "definition": "Unique sieve fixed point: μ* = 3 + 5 + 7 = 15. Sum of the three active primes (T5). No other finite prime subset closes the self-consistency equation." }
+    },
+    {
+      "key": "qplus",
+      "fr": { "term": "q⁺", "definition": "Branche couplages : q⁺ = 1 − 2/μ. Donne sin²(θ_p, q⁺) → vertex, leptons, α_EM. Bifurque depuis μ* = 15." },
+      "en": { "term": "q⁺", "definition": "Coupling branch: q⁺ = 1 − 2/μ. Gives sin²(θ_p, q⁺) → vertex, leptons, α_EM. Bifurcates from μ* = 15." }
+    },
+    {
+      "key": "qminus",
+      "fr": { "term": "q⁻", "definition": "Branche géométrie : q⁻ = e^(−1/μ). Donne sin²(θ_p, q⁻) → propagateur, métrique, masses quarks, CKM." },
+      "en": { "term": "q⁻", "definition": "Geometry branch: q⁻ = e^(−1/μ). Gives sin²(θ_p, q⁻) → propagator, metric, quark masses, CKM." }
+    },
+    {
+      "key": "delta_p",
+      "fr": { "term": "δ_p", "definition": "Fraction de gap pour le premier p : δ_p = (1 − qᵖ) / p. Brique élémentaire de l’holonomie (T6)." },
+      "en": { "term": "δ_p", "definition": "Gap fraction for prime p: δ_p = (1 − qᵖ) / p. Elementary building block of holonomy (T6)." }
+    },
+    {
+      "key": "sin2theta",
+      "fr": { "term": "sin²(θ_p)", "definition": "Identité algébrique d’holonomie (T6) : sin²(θ_p) = δ_p (2 − δ_p). La trigonométrie émerge naturellement du transport autour du cercle Z/pZ." },
+      "en": { "term": "sin²(θ_p)", "definition": "Algebraic holonomy identity (T6): sin²(θ_p) = δ_p (2 − δ_p). Trigonometry emerges naturally from transport around the circle Z/pZ." }
+    },
+    {
+      "key": "holonomy",
+      "fr": { "term": "holonomie", "definition": "Nom mathématique du transport de phase sur le cercle Z/pZ. Dans la nomenclature de la monographie, le terme PT usuel est « phase cyclique » : l’identité de phase cyclique définit θ_p par cos θ_p = 1 − δ_p, donc sin²(θ_p) = δ_p(2 − δ_p)." },
+      "en": { "term": "holonomy", "definition": "Mathematical name for phase transport on the circle Z/pZ. In the monograph nomenclature, the usual PT term is “cyclic phase”: the Cyclic Phase Identity defines θ_p by cos θ_p = 1 − δ_p, hence sin²(θ_p) = δ_p(2 − δ_p)." }
+    },
+    {
+      "key": "anomalous_dimension",
+      "fr": { "term": "dimension anomale", "definition": "Exposant de sensibilité logarithmique γ_p = −d ln(sin²θ_p)/d ln μ. Il mesure la vitesse à laquelle la phase cyclique d’un premier p change quand le niveau de crible μ varie. Le critère γ_p > s sélectionne les premiers actifs." },
+      "en": { "term": "anomalous dimension", "definition": "Logarithmic sensitivity exponent γ_p = −d ln(sin²θ_p)/d ln μ. It measures how fast the cyclic phase of a prime p changes as the sieve level μ varies. The criterion γ_p > s selects active primes." }
+    },
+    {
+      "key": "gamma_p",
+      "fr": { "term": "γ_p", "definition": "Dimension anomale du premier p au point fixe : γ_p = −d ln(sin²θ_p) / d ln μ. Un premier est actif si γ_p > s = 1/2. Au μ* = 15 : γ_3 = 0,808, γ_5 = 0,696, γ_7 = 0,595, γ_11 = 0,426 (inactif)." },
+      "en": { "term": "γ_p", "definition": "Anomalous dimension of prime p at the fixed point: γ_p = −d ln(sin²θ_p) / d ln μ. A prime is active if γ_p > s = 1/2. At μ* = 15: γ_3 = 0.808, γ_5 = 0.696, γ_7 = 0.595, γ_11 = 0.426 (inactive)." }
+    },
+    {
+      "key": "T0",
+      "fr": { "term": "T0", "definition": "Théorème du champ dynamique. Sous les conditions U1–U4, la suite des écarts {g_n} est l’unique champ dynamique admissible du crible ; BA0 devient alors un choix forcé." },
+      "en": { "term": "T0", "definition": "Dynamical Field Theorem. Under conditions U1–U4, the gap sequence {g_n} is the unique admissible dynamical field of the sieve; BA0 is therefore forced." }
+    },
+    {
+      "key": "T1",
+      "fr": { "term": "T1", "definition": "Théorème des transitions interdites. Au niveau du crible mod 3, les transitions 1→1 et 2→2 sont interdites ; cette diagonale nulle force la symétrie s = 1/2." },
+      "en": { "term": "T1", "definition": "Forbidden Transitions theorem. At mod-3 sieve level, transitions 1→1 and 2→2 are forbidden; this zero diagonal forces the symmetry s = 1/2." }
+    },
+    {
+      "key": "T5",
+      "fr": { "term": "T5", "definition": "Théorème du point fixe. μ* = 15 est l’unique solution finie de Σ p_actif = μ avec γ_p(μ) > s. Vérifié exhaustivement par arithmétique rationnelle exacte." },
+      "en": { "term": "T5", "definition": "Fixed point theorem. μ* = 15 is the unique finite solution of Σ p_active = μ with γ_p(μ) > s. Verified exhaustively by exact rational arithmetic." }
+    },
+    {
+      "key": "T6",
+      "fr": { "term": "T6", "definition": "Théorème d’holonomie. sin²(θ_p) = δ_p(2 − δ_p) est exact (pas approché). Identifié à 3,5 × 10⁻⁷ bits près à la mesure de Gibbs sur tous modules testés." },
+      "en": { "term": "T6", "definition": "Holonomy theorem. sin²(θ_p) = δ_p(2 − δ_p) is exact (not approximate). Identified to 3.5 × 10⁻⁷ bits with the Gibbs measure on all tested moduli." }
+    },
+    {
+      "key": "GFT",
+      "fr": { "term": "GFT", "definition": "Théorème fondamental des écarts. Identité algébrique log₂(m) = D_KL(P ‖ U_m) + H(P). C’est le principe fondamental de la persistance : la capacité informationnelle se conserve et se décompose exactement en persistance et entropie." },
+      "en": { "term": "GFT", "definition": "Gap Fundamental Theorem. Algebraic identity log₂(m) = D_KL(P ‖ U_m) + H(P). It is the fundamental principle of persistence: informational capacity is conserved and decomposes exactly into persistence and entropy." }
+    },
+    {
+      "key": "L0",
+      "fr": { "term": "L0", "definition": "Lemme de l’entropie maximale. La distribution géométrique est l’unique distribution sans mémoire à entropie max sur ℕ. Pas de choix : forcée." },
+      "en": { "term": "L0", "definition": "Maximum entropy lemma. The geometric distribution is the unique memoryless max-entropy distribution on ℕ. No choice: forced." }
+    },
+    {
+      "key": "D_KL",
+      "fr": { "term": "D_KL", "definition": "Divergence de Kullback–Leibler. En PT, mesure la persistance d’une distribution P par rapport à l’uniforme U_m. Mesurée en bits. C’est ce qui « persiste » au sens propre." },
+      "en": { "term": "D_KL", "definition": "Kullback–Leibler divergence. In PT, measures the persistence of a distribution P relative to uniform U_m. Measured in bits. This is what literally persists." }
+    },
+    {
+      "key": "alpha_EM",
+      "fr": { "term": "α_EM", "definition": "Constante de structure fine. En PT : α_EM = ∏ sin²(θ_p, q⁺) sur {3, 5, 7} = 1/136,28, puis habillée par F(2) à 1/137,036 (CODATA). Zéro paramètre ajusté." },
+      "en": { "term": "α_EM", "definition": "Fine-structure constant. In PT: α_EM = ∏ sin²(θ_p, q⁺) over {3, 5, 7} = 1/136.28, dressed by F(2) to 1/137.036 (CODATA). Zero fitted parameters." }
+    },
+    {
+      "key": "BA5",
+      "fr": { "term": "BA5", "definition": "Cinquième axiome de pont. Théorème dérivé : α_EM est le produit de Pontryagin des sin²(θ_p) sur les premiers actifs. Pas un postulat — une conséquence." },
+      "en": { "term": "BA5", "definition": "Fifth bridge axiom. Derived theorem: α_EM is the Pontryagin product of sin²(θ_p) over active primes. Not a postulate — a consequence." }
+    },
+    {
+      "key": "CRT",
+      "fr": { "term": "CRT", "definition": "Théorème de restes chinois. Z/(p·q·r)Z ≅ Z/pZ × Z/qZ × Z/rZ pour premiers distincts. Source de l’orthogonalité des trois cercles {3, 5, 7} et de la dimensionalité 3D." },
+      "en": { "term": "CRT", "definition": "Chinese Remainder Theorem. Z/(p·q·r)Z ≅ Z/pZ × Z/qZ × Z/rZ for distinct primes. Source of the orthogonality of the three circles {3, 5, 7} and 3D dimensionality." }
+    },
+    {
+      "key": "T3",
+      "fr": { "term": "T³", "definition": "Tore arithmétique T³ = Z/(3·5·7)Z = Z/105Z. Espace de jauge unifiée des trois canaux actifs. Les amplitudes physiques s’y factorisent par CRT." },
+      "en": { "term": "T³", "definition": "Arithmetic torus T³ = Z/(3·5·7)Z = Z/105Z. Unified gauge space of the three active channels. Physical amplitudes factor on it via CRT." }
+    },
+    {
+      "key": "active_prime",
+      "fr": { "term": "premier actif", "definition": "Premier p tel que γ_p > s = 1/2 au point fixe μ*. Trois primaires actifs : {3, 5, 7}. Tous les premiers ≥ 11 sont inactifs, mais peuvent apparaître comme échos. Détermine N_gen = N_c = 3." },
+      "en": { "term": "active prime", "definition": "Prime p with γ_p > s = 1/2 at the fixed point μ*. Three active primes: {3, 5, 7}. All primes ≥ 11 are inactive, but may appear as echoes. Determines N_gen = N_c = 3." }
+    },
+    {
+      "key": "echo_prime",
+      "fr": { "term": "premier d’écho", "definition": "Premier inactif (γ_p < s). Il ne contribue pas comme primaire dynamique, mais peut laisser une polarisation d’écho qui habille les couplages. {11, 13} sont les primaires d’écho dominants." },
+      "en": { "term": "echo prime", "definition": "Inactive prime (γ_p < s). It does not contribute as a dynamical primary, but may leave an echo polarization that dresses couplings. {11, 13} are the dominant echo primes." }
+    },
+    {
+      "key": "F2",
+      "fr": { "term": "F(2)", "definition": "Fuite informationnelle binaire. F(2) ≈ 0,7583. Habille α_bare = 1/136,28 en α_EM = 1/137,036 (premier ordre). Provient du canal p = 2 (frontière info/anti-info)." },
+      "en": { "term": "F(2)", "definition": "Binary informational leakage. F(2) ≈ 0.7583. Dresses α_bare = 1/136.28 to α_EM = 1/137.036 (leading order). Originates from the p = 2 channel (info/anti-info boundary)." }
+    },
+    {
+      "key": "persistence",
+      "fr": { "term": "persistance", "definition": "Part structurée d’une distribution, mesurée en bits par D_KL. Conservée le long de la cascade PT. Cap par canal = 1 bit (sin²θ_p ≤ 1)." },
+      "en": { "term": "persistence", "definition": "Structured part of a distribution, measured in bits by D_KL. Conserved along the PT cascade. Per-channel cap = 1 bit (sin²θ_p ≤ 1)." }
+    },
+    {
+      "key": "bifurcation",
+      "fr": { "term": "bifurcation", "definition": "À μ* = 15, le système se sépare en deux secteurs : q⁺ (couplages) et q⁻ (géométrie). Sépare leptons/vertex de quarks/propagateur, PMNS de CKM." },
+      "en": { "term": "bifurcation", "definition": "At μ* = 15, the system splits into two sectors: q⁺ (couplings) and q⁻ (geometry). Separates leptons/vertex from quarks/propagator, PMNS from CKM." }
+    },
+    {
+      "key": "Ngen",
+      "fr": { "term": "N_gen", "definition": "Nombre de générations de fermions. En PT : N_gen = |{premiers actifs}| = |{3, 5, 7}| = 3. Égal à N_c (couleurs quark) — non-coïncidence." },
+      "en": { "term": "N_gen", "definition": "Number of fermion generations. In PT: N_gen = |{active primes}| = |{3, 5, 7}| = 3. Equal to N_c (quark colors) — not a coincidence." }
+    },
+    {
+      "key": "DER",
+      "fr": { "term": "[DER]", "definition": "Tag épistémique : dérivation. Résultat dérivé depuis la chaîne PT, testable contre l’expérience. Plus fort que [PRED], plus faible que [THM]." },
+      "en": { "term": "[DER]", "definition": "Epistemic tag: derivation. Result derived from the PT chain, testable against experiment. Stronger than [PRED], weaker than [THM]." }
+    },
+    {
+      "key": "THM",
+      "fr": { "term": "[THM]", "definition": "Tag épistémique : théorème PT. Résultat prouvé inconditionnellement dans le cadre mathématique de la PT. Le plus haut niveau de force épistémique en PT." },
+      "en": { "term": "[THM]", "definition": "Epistemic tag: PT theorem. Result proved unconditionally inside the mathematical PT framework. Highest epistemic level in PT." }
+    },
+    {
+      "key": "ID",
+      "fr": { "term": "[ID]", "definition": "Tag épistémique : identité algébrique. Vraie sans hypothèse physique (ex. GFT : log m = D_KL + H). Force épistémique maximale, équivalente à [THM]." },
+      "en": { "term": "[ID]", "definition": "Epistemic tag: algebraic identity. True with no physical assumption (e.g. GFT: log m = D_KL + H). Maximum epistemic strength, equivalent to [THM]." }
+    },
+    {
+      "key": "PRED",
+      "fr": { "term": "[PRED]", "definition": "Tag épistémique : prédiction falsifiable. Énoncé numérique non vérifié à ce jour mais que la PT impose. Ex. δ_CP(PMNS) = 197,4° (DUNE ~2032)." },
+      "en": { "term": "[PRED]", "definition": "Epistemic tag: falsifiable prediction. Numerical statement not yet verified but imposed by PT. E.g. δ_CP(PMNS) = 197.4° (DUNE ~2032)." }
+    }
+  ]
+}

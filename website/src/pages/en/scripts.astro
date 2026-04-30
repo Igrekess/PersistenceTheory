@@ -1,0 +1,264 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+
+const scripts = [
+  {
+    id: 'fixed_point',
+    chapter: 'ch08',
+    file: 'proof_T5_fixed_point.py',
+    title: 'T5 — fixed point μ* = 15',
+    summary: 'Exhaustive verification by exact rational arithmetic that μ* = 3 + 5 + 7 = 15 is the unique fixed point of the sieve.',
+    expectedPass: 33,
+    weight: 'light',
+    needsScipy: false,
+  },
+  {
+    id: 'holonomy',
+    chapter: 'ch06',
+    file: 'proof_holonomy.py',
+    title: 'T6 — holonomy identity',
+    summary: 'Verifies the algebraic identity sin²(θ_p) = δ_p(2 − δ_p) on all active and inactive primes up to p = 23.',
+    expectedPass: 24,
+    weight: 'light',
+    needsScipy: false,
+  },
+  {
+    id: 'alpha',
+    chapter: 'ch10',
+    file: 'proof_alpha_EM.py',
+    title: 'α_EM — BA5 product + dressing',
+    summary: 'Reproduces α_EM = 1/137.036 from the bare product over {3, 5, 7} and the R51 dressing cascade, 0.004 ppb from CODATA.',
+    expectedPass: 17,
+    weight: 'medium',
+    needsScipy: true,
+  },
+  {
+    id: 'bridge',
+    chapter: 'ch09',
+    file: 'proof_bridge_axioms.py',
+    title: 'Lemmas E, F, G — arithmetic → physics bridge',
+    summary: 'Verifies 113 conditions of the three uniqueness lemmas (spectral rigidity E, metric reconstruction F, Hilbert space G).',
+    expectedPass: 113,
+    weight: 'medium',
+    needsScipy: true,
+  },
+  {
+    id: 'math_tools',
+    chapter: 'ch_math_structures',
+    file: 'test_math_tools.py',
+    title: 'Mathematical structures — toolkit',
+    summary: 'Battery of tests for mathematical tools (algebra, group theory, spectral geometry). Largest file (2859 lines).',
+    expectedPass: null,
+    weight: 'heavy (~30 s)',
+    needsScipy: false,
+  },
+];
+---
+
+<BaseLayout
+  title="Verification scripts"
+  description="Run the PT proofs directly in your browser via Pyodide. Five emblematic scripts: T5 fixed point, T6 holonomy, α_EM, lemmas E/F/G, math tools."
+>
+  <section class="max-w-5xl mx-auto px-4 py-12">
+    <h1 class="text-3xl md:text-4xl font-bold text-thmblue mb-3">
+      Verification scripts
+    </h1>
+    <p class="text-stone-700 mb-3 max-w-3xl">
+      Five emblematic scripts from the PT monograph, runnable directly in
+      your browser via <a class="underline" href="https://pyodide.org" target="_blank" rel="noopener">Pyodide</a>
+      (Python 3.13 compiled to WebAssembly). No server round-trip; everything
+      runs locally.
+    </p>
+    <p class="text-sm text-stone-600 mb-6 max-w-3xl">
+      <strong>First "Run" click</strong>: download Pyodide (~10 MB) + numpy +
+      scipy (~35 MB total). Allow 20 to 40 s the first time, a few seconds
+      after that (browser cache).
+    </p>
+
+    <div id="pyodide-status" class="mb-6 px-4 py-2 rounded font-sans text-sm bg-stone-100 text-stone-600 hidden">
+      <span id="pyodide-status-text">Pyodide not loaded.</span>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-4">
+      {scripts.map(s => (
+        <article class="pt-card flex flex-col" data-script-id={s.id}>
+          <header class="mb-3">
+            <div class="text-xs font-sans text-stone-500 uppercase tracking-wider mb-1">
+              {s.chapter} · {s.weight}{s.needsScipy ? ' · scipy' : ''}
+            </div>
+            <h2 class="font-sans font-semibold text-base text-thmblue mb-2">
+              {s.title}
+            </h2>
+            <p class="text-sm text-stone-700">{s.summary}</p>
+          </header>
+
+          <div class="flex items-center gap-3 mb-3">
+            <button
+              class="run-btn px-3 py-1.5 bg-thmblue text-white text-sm font-sans rounded hover:bg-thmblue/90 disabled:bg-stone-300 disabled:cursor-not-allowed"
+              data-script-file={s.file}
+              data-needs-scipy={s.needsScipy ? '1' : '0'}
+            >
+              Run
+            </button>
+            <span class="status-badge text-xs font-sans text-stone-500">idle</span>
+            {s.expectedPass && (
+              <span class="text-xs font-sans text-stone-400 ml-auto">
+                expected: {s.expectedPass} PASS
+              </span>
+            )}
+          </div>
+
+          <pre class="output-pane hidden bg-stone-900 text-stone-100 text-xs font-mono p-3 rounded max-h-96 overflow-auto whitespace-pre-wrap"></pre>
+        </article>
+      ))}
+    </div>
+
+    <p class="text-xs text-stone-500 mt-6 italic">
+      Source code for the five scripts: see
+      <a href="https://github.com/Igrekess/PersistenceTheory" class="underline hover:text-thmblue" target="_blank" rel="noopener">github.com/Igrekess/PersistenceTheory</a>.
+      Scripts served here are copied from the repo’s <code>scripts/</code> folder.
+    </p>
+  </section>
+
+  <script src="https://cdn.jsdelivr.net/pyodide/v0.27.0/full/pyodide.js" is:inline></script>
+
+  <script is:inline define:vars={{ scriptList: scripts.map(s => ({ id: s.id, file: s.file, needsScipy: s.needsScipy })) }}>
+    (function () {
+      const STATUS_BAR = document.getElementById('pyodide-status');
+      const STATUS_TEXT = document.getElementById('pyodide-status-text');
+
+      let pyodide = null;
+      let pyodideReady = null;
+      let supportFilesWritten = false;
+
+      function setStatus(msg, kind) {
+        STATUS_BAR.classList.remove('hidden', 'bg-stone-100', 'bg-amber-50', 'bg-emerald-50', 'bg-red-50');
+        const cls = {
+          info: 'bg-stone-100',
+          loading: 'bg-amber-50',
+          ready: 'bg-emerald-50',
+          error: 'bg-red-50',
+        }[kind] || 'bg-stone-100';
+        STATUS_BAR.classList.add(cls);
+        STATUS_TEXT.textContent = msg;
+      }
+
+      async function fetchText(url) {
+        const res = await fetch(url);
+        if (!res.ok) throw new Error(`fetch failed: ${url} (${res.status})`);
+        return res.text();
+      }
+
+      async function ensurePyodide() {
+        if (!pyodideReady) {
+          pyodideReady = (async () => {
+            setStatus('Loading Pyodide (~10 MB)…', 'loading');
+            // eslint-disable-next-line no-undef
+            pyodide = await loadPyodide({
+              indexURL: 'https://cdn.jsdelivr.net/pyodide/v0.27.0/full/',
+            });
+            setStatus('Loading numpy + scipy (~35 MB)…', 'loading');
+            await pyodide.loadPackage(['numpy', 'scipy']);
+          })();
+        }
+        await pyodideReady;
+
+        if (!supportFilesWritten) {
+          setStatus('Preparing PT modules…', 'loading');
+          const [ptCheck, primes, libInit, ptConstants] = await Promise.all([
+            fetchText('/scripts-source/lib/pt_check.py'),
+            fetchText('/scripts-source/lib/_primes.py'),
+            fetchText('/scripts-source/lib/__init__.py'),
+            fetchText('/scripts-source/pt_constants.py'),
+          ]);
+          pyodide.FS.mkdirTree('/home/pyodide/lib');
+          pyodide.FS.writeFile('/home/pyodide/lib/__init__.py', libInit);
+          pyodide.FS.writeFile('/home/pyodide/lib/_primes.py', primes);
+          pyodide.FS.writeFile('/home/pyodide/lib/pt_check.py', ptCheck);
+          pyodide.FS.writeFile('/home/pyodide/pt_constants.py', ptConstants);
+          await pyodide.runPythonAsync(`
+import sys
+if '/home/pyodide' not in sys.path:
+    sys.path.insert(0, '/home/pyodide')
+`);
+          supportFilesWritten = true;
+        }
+        setStatus('Pyodide ready.', 'ready');
+      }
+
+      async function runScript(file, outputPane, statusBadge, btn) {
+        outputPane.classList.remove('hidden');
+        outputPane.textContent = '';
+        statusBadge.textContent = 'preparing…';
+        btn.disabled = true;
+        try {
+          await ensurePyodide();
+          statusBadge.textContent = 'fetching script…';
+          const code = await fetchText(`/scripts-source/proofs/${file}`);
+
+          statusBadge.textContent = 'running…';
+          const append = (text) => {
+            outputPane.textContent += text;
+            outputPane.scrollTop = outputPane.scrollHeight;
+          };
+          // eslint-disable-next-line no-undef
+          pyodide.setStdout({ batched: append });
+          // eslint-disable-next-line no-undef
+          pyodide.setStderr({ batched: append });
+
+          const t0 = performance.now();
+          const wrapper = `
+import sys, os
+sys.exit = lambda code=0: None
+os.chdir('/home/pyodide')
+__name__ = '__main__'
+__file__ = '/home/pyodide/${file}'
+` + code;
+          let err = null;
+          try {
+            await pyodide.runPythonAsync(wrapper);
+          } catch (e) {
+            err = e;
+          }
+          const elapsed = ((performance.now() - t0) / 1000).toFixed(2);
+
+          const text = outputPane.textContent;
+          const passCount = (text.match(/\[PASS\]/g) || []).length;
+          const failCount = (text.match(/\[FAIL\]/g) || []).length;
+          const total = passCount + failCount;
+
+          if (err) {
+            statusBadge.textContent = `error (${elapsed} s)`;
+            statusBadge.className = 'status-badge text-xs font-sans text-red-600';
+            append(`\n\n[runner] JS exception: ${err.message || err}\n`);
+          } else if (failCount === 0 && passCount > 0) {
+            statusBadge.textContent = `${passCount}/${total} PASS · ${elapsed} s`;
+            statusBadge.className = 'status-badge text-xs font-sans text-emerald-700 font-medium';
+          } else if (failCount > 0) {
+            statusBadge.textContent = `${passCount}/${total} PASS, ${failCount} FAIL · ${elapsed} s`;
+            statusBadge.className = 'status-badge text-xs font-sans text-amber-700';
+          } else {
+            statusBadge.textContent = `done · ${elapsed} s`;
+            statusBadge.className = 'status-badge text-xs font-sans text-stone-700';
+          }
+        } catch (e) {
+          statusBadge.textContent = 'error';
+          statusBadge.className = 'status-badge text-xs font-sans text-red-600';
+          outputPane.textContent += `\n[runner] ${e.message || e}\n`;
+          setStatus(`Error: ${e.message || e}`, 'error');
+        } finally {
+          btn.disabled = false;
+        }
+      }
+
+      document.querySelectorAll('.run-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const card = btn.closest('article');
+          const outputPane = card.querySelector('.output-pane');
+          const statusBadge = card.querySelector('.status-badge');
+          runScript(btn.dataset.scriptFile, outputPane, statusBadge, btn);
+        });
+      });
+    })();
+  </script>
+</BaseLayout>

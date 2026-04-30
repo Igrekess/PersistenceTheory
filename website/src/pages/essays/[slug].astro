@@ -1,0 +1,45 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '@layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+  const all = await getCollection('essays_fr');
+  return all.map(es => ({
+    params: { slug: es.id },
+    props: { es },
+  }));
+}
+
+const { es } = Astro.props;
+const { Content } = await render(es);
+---
+
+<BaseLayout title={es.data.title}>
+  <article class="max-w-3xl mx-auto px-4 py-12 prose prose-stone">
+    <header class="not-prose mb-6">
+      <div class="text-xs font-sans text-stone-500 uppercase tracking-wider mb-2">
+        Essai · niveau {es.data.level} · {es.data.reading_minutes} min
+      </div>
+      <h1 class="text-3xl md:text-4xl font-bold text-thmblue mb-2">{es.data.title}</h1>
+      <p class="text-stone-700 italic">{es.data.summary}</p>
+      {es.data.related_theorems.length > 0 && (
+        <p class="text-sm text-stone-500 mt-2 not-italic">
+          Pour aller plus loin :
+          {es.data.related_theorems.map((t, i) => (
+            <>
+              {i > 0 && ', '}
+              <a href={`/theorems/${t}`} class="underline hover:text-thmblue">{t}</a>
+            </>
+          ))}
+        </p>
+      )}
+    </header>
+
+    <Content />
+
+    <hr class="my-10 border-stone-200" />
+    <p class="text-sm text-stone-500">
+      <a href="/essays" class="underline hover:text-thmblue">← Tous les essais</a>
+    </p>
+  </article>
+</BaseLayout>

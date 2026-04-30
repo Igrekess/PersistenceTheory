@@ -1,0 +1,644 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { electronAffinityMetrics, electronAffinityRows } from '../data/electronAffinity';
+
+const simpleStages = [
+  ['1', 'Choisir la couche', 'La couche active donne le nombre de places disponibles.'],
+  ['2', 'Lire le bord', 'L’électron ajouté arrive sur la prochaine position du canal.'],
+  ['3', 'Corriger la capture', 'La profondeur et les fermetures ajustent l’énergie libérée.'],
+];
+
+const stageCards = [
+  ['EA_geo', '1,367 %', 'lecture polygonale capture/éjection', 'le canal actif fixe la capacité N = 2(2ℓ+1)'],
+  ['CPR surface', '1,332 %', 'transmission de surface', 'le bord de capture est pondéré par exp[-ℓ(ℓ−1)]'],
+  ['seuil + cœur', '1,248 %', 'fermetures p et polarisation d', 'les premiers résidus de seuil deviennent des champs fixes'],
+  ['canal continu', '1,125 %', 'harmoniques de canal', 'd, f et p se lisent sur x = (n+1)/N'],
+  ['contact-profondeur', '0,984 %', 'hiérarchie radiale', 'τ = période − 4 remplace les portes discrètes du bloc d'],
+];
+
+const constants = [
+  ['p seuil', '−δ₃δ₅', 'fermeture fine p', 'bords p4/p5'],
+  ['d cœur', 'sδ₅', 'polarisation compacte d', 'pondérée par Z²α²'],
+  ['d continu', '−δ₅²', 'harmonique du pentagone', 'sin(2πx)'],
+  ['f fuite', '−CROSS₃₇', 'entrée/fermeture f', 'bord entrant moins bord sortant'],
+  ['p centre', '+CROSS₅₇', 'pression centrale p', 'avant double fermeture d'],
+  ['d profondeur', 'S₃δ₃, S₃δ₅, δ₅², CROSS₅₇', 'noyau radial Kd', 'base L₀..L₃ sur τ'],
+];
+
+const highlighted = ['H', 'C', 'O', 'Cl', 'Mo', 'Au', 'Pb', 'Yb']
+  .map((symbol) => electronAffinityRows.find((row) => row.s === symbol))
+  .filter(Boolean);
+
+const bestRows = [...electronAffinityRows]
+  .sort((a, b) => Math.abs(a.pct) - Math.abs(b.pct))
+  .slice(0, 6);
+
+const residualRows = [...electronAffinityRows]
+  .sort((a, b) => Math.abs(b.pct) - Math.abs(a.pct))
+  .slice(0, 6);
+
+type Point = { x: number; y: number };
+const clCase = electronAffinityRows.find((row) => row.s === 'Cl') ?? electronAffinityRows[0];
+const tiCase = electronAffinityRows.find((row) => row.s === 'Ti') ?? electronAffinityRows[0];
+const polygonPoints = (count: number, radius = 86, cx = 180, cy = 122): Point[] =>
+  Array.from({ length: count }, (_, index) => {
+    const angle = -Math.PI / 2 + index * (2 * Math.PI / count);
+    return {
+      x: cx + radius * Math.cos(angle),
+      y: cy + radius * Math.sin(angle),
+    };
+  });
+const pCapturePoints = polygonPoints(6);
+const dCapturePoints = polygonPoints(10);
+const polygonPath = (points: Point[]) =>
+  points.map((point, index) => `${index === 0 ? 'M' : 'L'} ${point.x.toFixed(1)} ${point.y.toFixed(1)}`).join(' ') + ' Z';
+const edgeLine = (points: Point[], from: number, to: number) =>
+  `M ${points[from].x.toFixed(1)} ${points[from].y.toFixed(1)} L ${points[to].x.toFixed(1)} ${points[to].y.toFixed(1)}`;
+
+const blockColor: Record<string, string> = {
+  s: '#1f4e79',
+  p: '#2d7d3f',
+  d: '#df7f1a',
+  f: '#6f579f',
+};
+---
+
+<BaseLayout
+  title="Affinités électroniques dérivées par la PT"
+  description="Démonstration du calcul PT des affinités électroniques atomiques, organisée en trois profondeurs de lecture : vulgarisée, standard et technique."
+>
+  <section class="border-b border-stone-200 bg-white">
+    <div class="max-w-6xl mx-auto px-4 py-12 md:py-16">
+      <p class="font-sans text-sm font-semibold uppercase tracking-wider text-derorange mb-3">
+        Chimie PT / bord de capture
+      </p>
+      <div class="grid lg:grid-cols-[1fr_0.9fr] gap-8 items-start">
+        <div>
+          <h1 class="text-4xl md:text-5xl font-bold text-thmblue leading-tight mb-5">
+            Comment la PT calcule une affinité électronique
+          </h1>
+          <p class="text-lg text-stone-700 leading-relaxed mb-5">
+            L’affinité électronique EA est l’énergie libérée quand un atome neutre
+            capture un électron. En PT, cette capture est lue comme une entrée au
+            bord d’un canal discret.
+          </p>
+          <p class="text-stone-700 leading-relaxed" data-max-depth="L1">
+            La version courte : la PT ne demande pas seulement « reste-t-il une
+            place ? ». Elle demande où se trouve la prochaine place et dans quelle
+            géométrie elle s’ouvre.
+          </p>
+          <p class="text-stone-700 leading-relaxed" data-min-depth="L2">
+            La couche active possède une capacité $N = 2(2\ell+1)$ et contient
+            $n$ électrons. L’électron ajouté est lu sur le bord receveur
+            $x=(n+1)/N$, puis les champs PT de seuil, de cœur, de canal et de
+            contact-profondeur corrigent l’énergie de capture.
+          </p>
+        </div>
+
+        <div class="pt-card">
+          <div class="text-xs font-sans text-stone-500 uppercase tracking-wider mb-2">Score canonique</div>
+          <div class="text-5xl font-bold text-thmblue">{electronAffinityMetrics.maePercent.toFixed(3).replace('.', ',')} %</div>
+          <p class="text-stone-700 mt-3">
+            MAE sur {electronAffinityMetrics.count} affinités électroniques atomiques positives.
+          </p>
+          <p class="text-sm text-stone-600 mt-3">
+            Le score compare la valeur PT à la référence expérimentale, en
+            moyenne relative. La table exclut les EA nulles ou négatives, qui
+            relèvent d’un test de classification séparé.
+          </p>
+          <div class="grid grid-cols-3 gap-3 mt-5 text-sm">
+            <div>
+              <div class="font-mono text-thmblue">{(electronAffinityMetrics.maeEV * 1000).toFixed(2).replace('.', ',')} meV</div>
+              <div class="text-stone-500">MAE absolue</div>
+            </div>
+            <div>
+              <div class="font-mono text-thmblue">{electronAffinityMetrics.maxPercent.toFixed(3).replace('.', ',')} %</div>
+              <div class="text-stone-500">résidu max</div>
+            </div>
+            <div>
+              <div class="font-mono text-thmblue">0</div>
+              <div class="text-stone-500">coefficients libres</div>
+            </div>
+          </div>
+          <p class="mt-5 text-sm text-stone-600" data-min-depth="L3">
+            Statut : dérivation physique + validation numérique. L’identification
+            « EA lit le bord de capture » reste un pont physique, pas un théorème
+            mathématique inconditionnel.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="max-w-6xl mx-auto px-4 py-12">
+    <div data-max-depth="L1">
+      <div class="mb-8">
+        <span class="pt-tag pt-tag-bridge">L1 · vulgarisé</span>
+        <h2 class="mt-3 text-3xl font-bold text-thmblue">Comprendre l’idée sans formule lourde</h2>
+        <p class="mt-3 text-stone-700 leading-relaxed max-w-3xl">
+          Une EA dit si un atome accueille facilement un électron. La PT propose
+          une image simple : l’électron ajouté doit trouver une entrée stable sur
+          le bord de la couche. Les halogènes sont bons à ce jeu ; certains métaux
+          ont une entrée beaucoup plus fragile.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-4 mb-10">
+        {simpleStages.map(([num, title, text]) => (
+          <article class="pt-card">
+            <div class="text-3xl font-bold text-derorange">{num}</div>
+            <h3 class="mt-2 font-sans font-semibold text-thmblue">{title}</h3>
+            <p class="mt-2 text-sm text-stone-700">{text}</p>
+          </article>
+        ))}
+      </div>
+
+      <div class="grid lg:grid-cols-[0.9fr_1.1fr] gap-8 items-center mb-12">
+        <div>
+          <h2 class="text-2xl font-bold text-thmblue mb-3">L’image du bord</h2>
+          <p class="text-stone-700 leading-relaxed">
+            Dans ce dessin, les positions déjà occupées sont en vert. Le trait
+            orange relie la dernière position occupée à la prochaine position de
+            capture. C’est cette position de bord que le moteur PT transforme en
+            énergie. Plus le bord ferme naturellement le canal, plus la capture
+            tend à être forte.
+          </p>
+        </div>
+        <figure class="rounded-lg border border-stone-200 bg-white p-4">
+          <svg viewBox="0 0 360 230" class="w-full h-auto" role="img" aria-label="Canal p simplifié">
+            <circle cx="180" cy="108" r="78" fill="#f7fbf8" stroke="#2d7d3f" stroke-width="2" />
+            <path d="M180 30 L248 69 L248 147 L180 186 L112 147 L112 69 Z" fill="none" stroke="#8a8a8a" stroke-width="3" />
+            {Array.from({ length: 6 }).map((_, i) => {
+              const angle = -Math.PI / 2 + i * Math.PI / 3;
+              const x = 180 + 78 * Math.cos(angle);
+              const y = 108 + 78 * Math.sin(angle);
+              const filled = i < 4;
+              return (
+                <g>
+                  {i === 4 && <circle cx={x} cy={y} r="21" fill="none" stroke="#df7f1a" stroke-width="3" />}
+                  <circle cx={x} cy={y} r="16" fill={filled ? '#2d7d3f' : '#ffffff'} stroke="#174c2a" stroke-width="3" />
+                </g>
+              );
+            })}
+            <path d="M180 186 L112 147" fill="none" stroke="#df7f1a" stroke-width="5" stroke-linecap="round" />
+            <text x="180" y="218" text-anchor="middle" class="font-sans text-sm fill-stone-700">4/6 occupées : la prochaine place est le bord receveur</text>
+          </svg>
+        </figure>
+      </div>
+
+      <div class="grid lg:grid-cols-2 gap-8">
+        <div class="pt-card">
+          <h2 class="text-2xl font-bold text-thmblue mb-3">Pourquoi c’est important en chimie</h2>
+          <p class="text-stone-700 leading-relaxed">
+            Les affinités électroniques commandent la formation d’anions, la
+            force des halogènes, certains transferts de charge et la réactivité
+            de nombreuses familles. Le fait qu’une même lecture géométrique suive
+            les métaux, les blocs p et les blocs d/f est donc un test fort.
+          </p>
+        </div>
+        <div class="bg-white border border-stone-200 rounded-lg overflow-hidden">
+          <div class="px-4 py-3 border-b border-stone-200 font-sans font-semibold text-thmblue">Quelques repères</div>
+          <table class="w-full text-sm">
+            <thead class="bg-stone-50 text-left font-sans text-stone-600">
+              <tr><th class="p-3">Élément</th><th class="p-3">EA PT</th><th class="p-3">Réf.</th><th class="p-3">Erreur</th></tr>
+            </thead>
+            <tbody>
+              {highlighted.slice(0, 5).map((row) => row && (
+                <tr class="border-t border-stone-100">
+                  <td class="p-3 font-sans font-semibold text-thmblue">{row.s}</td>
+                  <td class="p-3 font-mono">{row.calc.toFixed(3)}</td>
+                  <td class="p-3 font-mono">{row.ref.toFixed(3)}</td>
+                  <td class="p-3 font-mono">{row.err >= 0 ? '+' : ''}{(row.err * 1000).toFixed(2)} meV</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div data-min-depth="L2">
+      <div class="mb-8" data-min-depth="L2" data-max-depth="L2">
+        <span class="pt-tag pt-tag-der">L2 · standard</span>
+        <h2 class="mt-3 text-3xl font-bold text-thmblue">Méthode, calculateur et table complète</h2>
+        <p class="mt-3 text-stone-700 leading-relaxed max-w-3xl">
+          Ici on garde le vocabulaire de chimie et les grandeurs numériques :
+          valeur PT, référence expérimentale, erreur signée et position de canal.
+          Les pourcentages ci-dessous montrent la MAE après chaque couche du
+          modèle, depuis la lecture géométrique jusqu’au contact-profondeur.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-5 gap-4 mb-12">
+        {stageCards.map(([name, score, text, detail]) => (
+          <article class="pt-card">
+            <div class="font-sans text-xs uppercase tracking-wide text-stone-500">{name}</div>
+            <div class="mt-2 text-3xl font-bold text-thmblue">{score}</div>
+            <p class="mt-2 text-sm text-stone-800">{text}</p>
+            <p class="mt-2 text-xs text-stone-500" data-min-depth="L3">{detail}</p>
+          </article>
+        ))}
+      </div>
+
+      <section class="rounded-lg border border-stone-300 bg-white p-5 mb-12">
+        <div class="grid lg:grid-cols-[0.8fr_1.2fr] gap-6 items-start">
+          <div>
+            <h2 class="text-3xl font-bold text-thmblue mb-3">Calculateur EA PT</h2>
+            <p class="text-stone-700 leading-relaxed mb-4">
+              Choisis une référence positive. Le calculateur affiche la valeur
+              canonique, l’écart expérimental et la lecture de canal.
+            </p>
+            <label for="ea-select" class="block font-sans text-sm font-semibold text-stone-700 mb-2">Élément</label>
+            <select id="ea-select" class="w-full rounded-md border border-stone-300 bg-white px-3 py-2 font-sans text-stone-900">
+              {electronAffinityRows.map((row) => (
+                <option value={row.z} selected={row.s === 'Cl'}>{row.z} — {row.s}</option>
+              ))}
+            </select>
+          </div>
+
+          <div class="grid md:grid-cols-2 gap-4">
+            <div class="rounded-lg border border-stone-200 bg-stone-50 p-4">
+              <div class="flex items-center justify-between gap-3">
+                <div>
+                  <div id="ea-symbol" class="text-4xl font-bold text-thmblue">Cl</div>
+                  <div id="ea-meta" class="font-sans text-sm text-stone-600">Z = 17 · bloc p · période 3</div>
+                </div>
+                <div id="ea-block-badge" class="rounded px-3 py-1 text-white font-sans text-sm" style="background:#2d7d3f">p</div>
+              </div>
+              <div class="grid grid-cols-2 gap-3 mt-5 text-sm">
+                <div><div class="text-stone-500">EA PT</div><div id="ea-calc" class="font-mono text-lg text-stone-900">3,617 eV</div></div>
+                <div><div class="text-stone-500">Référence</div><div id="ea-ref" class="font-mono text-lg text-stone-900">3,613 eV</div></div>
+                <div><div class="text-stone-500">Erreur</div><div id="ea-err" class="font-mono text-lg text-stone-900">+4,25 meV</div></div>
+                <div><div class="text-stone-500">Erreur relative</div><div id="ea-pct" class="font-mono text-lg text-stone-900">+0,118 %</div></div>
+              </div>
+            </div>
+
+            <div class="rounded-lg border border-stone-200 bg-white p-4">
+              <div class="font-sans text-sm font-semibold text-thmblue mb-3">Lecture de canal</div>
+              <p class="text-sm text-stone-600 mb-4">
+                n est l’occupation déjà présente, N la capacité du canal actif,
+                et x=(n+1)/N la position atteinte après capture.
+              </p>
+              <div class="grid grid-cols-3 gap-3 text-sm mb-4">
+                <div><span class="text-stone-500">n</span><div id="ea-n" class="font-mono">5</div></div>
+                <div><span class="text-stone-500">N</span><div id="ea-cap" class="font-mono">6</div></div>
+                <div><span class="text-stone-500">x</span><div id="ea-x" class="font-mono">1,000</div></div>
+              </div>
+              <div class="h-3 rounded-full bg-stone-100 overflow-hidden">
+                <div id="ea-xbar" class="h-full bg-derorange" style="width:100%"></div>
+              </div>
+              <div data-min-depth="L3">
+                <div class="font-sans text-sm font-semibold text-thmblue mt-5 mb-2">Étapes finales</div>
+                <div id="ea-stages" class="space-y-2 text-sm"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="bg-white border border-stone-200 rounded-lg overflow-hidden">
+        <div class="px-4 py-3 border-b border-stone-200 flex flex-wrap items-center justify-between gap-3">
+          <div>
+            <h2 class="font-sans font-semibold text-thmblue">Table complète : 73 affinités positives</h2>
+            <p class="text-sm text-stone-600">
+              Valeurs en eV ; erreur signée PT − référence. Les EA nulles ou
+              négatives ne sont pas listées ici.
+            </p>
+          </div>
+          <input id="ea-filter" type="search" placeholder="Filtrer : Cl, d, 79..." class="rounded-md border border-stone-300 px-3 py-2 text-sm" />
+        </div>
+        <div class="overflow-x-auto max-h-[560px]">
+          <table class="w-full text-sm">
+            <thead class="sticky top-0 bg-stone-50 text-stone-600 font-sans">
+              <tr>
+                <th class="text-left p-3">Z</th>
+                <th class="text-left p-3">Élément</th>
+                <th class="text-left p-3">Bloc</th>
+                <th class="text-right p-3">n/N</th>
+                <th class="text-right p-3">EA PT</th>
+                <th class="text-right p-3">Référence</th>
+                <th class="text-right p-3">Erreur meV</th>
+                <th class="text-right p-3">Erreur %</th>
+              </tr>
+            </thead>
+            <tbody id="ea-table-body">
+              {electronAffinityRows.map((row) => (
+                <tr class="border-t border-stone-100" data-ea-row={`${row.z} ${row.s} ${row.b}`}>
+                  <td class="p-3 font-mono">{row.z}</td>
+                  <td class="p-3 font-sans font-semibold text-thmblue">{row.s}</td>
+                  <td class="p-3"><span class="px-2 py-0.5 rounded text-white text-xs font-sans" style={`background:${blockColor[row.b]}`}>{row.b}</span></td>
+                  <td class="p-3 text-right font-mono">{row.n}/{row.c}</td>
+                  <td class="p-3 text-right font-mono">{row.calc.toFixed(3)}</td>
+                  <td class="p-3 text-right font-mono">{row.ref.toFixed(3)}</td>
+                  <td class="p-3 text-right font-mono">{row.err >= 0 ? '+' : ''}{(row.err * 1000).toFixed(2)}</td>
+                  <td class="p-3 text-right font-mono">{row.pct >= 0 ? '+' : ''}{row.pct.toFixed(3)}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+
+    <div data-min-depth="L3" class="mt-12">
+      <div class="mb-8">
+        <span class="pt-tag pt-tag-val">L3 · technique</span>
+        <h2 class="mt-3 text-3xl font-bold text-thmblue">Mécanisme canonique et résidus</h2>
+        <p class="mt-3 text-stone-700 leading-relaxed max-w-3xl">
+          Le niveau technique montre la formule d’action, les constantes, les
+          harmoniques et les résidus restants. Le résultat relève d’une
+          validation physique de pont, avec son domaine de validité explicite.
+        </p>
+      </div>
+
+      <div class="grid lg:grid-cols-[0.9fr_1.1fr] gap-8 items-start mb-12">
+        <div>
+          <h2 class="text-2xl font-bold text-thmblue mb-3">Formule opérationnelle</h2>
+          <p class="text-stone-700 leading-relaxed mb-4">
+            Le calcul commence par une valeur géométrique {'$EA_{\\rm geo}$'}, puis
+            la valeur est multipliée par une exponentielle de correction :
+          </p>
+          <div class="rounded-md border border-stone-200 bg-stone-50 p-4 font-mono text-sm text-stone-800 overflow-x-auto">
+            EA_PT(Z) = EA_CPR(Z) exp(Λ_threshold + Λ_core + Λ_cont + Λ_contact)
+          </div>
+          <p class="text-stone-700 leading-relaxed mt-4">
+            Les termes utilisent des constantes PT fixes ; ils ne sont pas
+            ajustés sur le benchmark EA.
+          </p>
+          <p class="text-stone-700 leading-relaxed mt-3">
+            Point important : le tableau fournit des échantillons discrets
+            (élément, bloc, période), mais le calcul n’est pas une liste de cas.
+            Une fois le canal sélectionné, les corrections sont évaluées par des
+            fonctions continues de la position de capture x, de la profondeur τ
+            et de l’échelle relativiste Zα.
+          </p>
+        </div>
+        <div class="bg-white border border-stone-200 rounded-lg overflow-hidden">
+          <table class="w-full text-sm">
+            <thead class="bg-stone-50 text-left font-sans text-stone-600">
+              <tr><th class="p-3">Couche</th><th class="p-3">Amplitude</th><th class="p-3">Rôle</th><th class="p-3">Support</th></tr>
+            </thead>
+            <tbody>
+              {constants.map((row) => (
+                <tr class="border-t border-stone-100">
+                  {row.map((cell) => <td class="p-3">{cell}</td>)}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="grid lg:grid-cols-[0.9fr_1.1fr] gap-8 items-start mb-12">
+        <div>
+          <h2 class="text-2xl font-bold text-thmblue mb-3">Canal et profondeur radiale</h2>
+          <p class="text-stone-700 leading-relaxed mb-4">
+            Le canal décrit la forme occupée par l’électron capturé : s, p, d ou
+            f. La profondeur radiale décrit le même canal quand il réapparaît
+            plus bas dans le tableau. Un électron d de période 4 et un électron d
+            de période 6 vivent donc dans le même type de polygone, mais pas à la
+            même profondeur.
+          </p>
+          <div class="space-y-3 text-sm text-stone-700">
+            <div class="rounded-md border border-stone-200 bg-white p-3">
+              <span class="font-sans font-semibold text-thmblue">1. Même canal</span>
+              <p class="mt-1">Sc, Ti, Zr ou Hf relèvent tous du canal d : capacité 10, même logique polygonale.</p>
+            </div>
+            <div class="rounded-md border border-stone-200 bg-white p-3">
+              <span class="font-sans font-semibold text-thmblue">2. Profondeur différente</span>
+              <p class="mt-1">La période indique à quelle distance radiale le canal est réalisé : 4d, 5d, 6d, 7d.</p>
+            </div>
+            <div class="rounded-md border border-stone-200 bg-white p-3">
+              <span class="font-sans font-semibold text-thmblue">3. Une coordonnée continue</span>
+              <p class="mt-1">La PT écrit cette profondeur comme τ = période − 4. Les anciens effets de période deviennent des points d’une même courbe, pas des exceptions séparées.</p>
+            </div>
+          </div>
+          <p class="mt-4 text-stone-700 leading-relaxed">
+            La base L₀..L₃ sert alors de règle de lecture : à chaque profondeur
+            réalisée, elle sélectionne le bon échantillon du noyau continu. C’est
+            ce passage discret/continu qui évite de transformer chaque période en
+            coefficient ad hoc.
+          </p>
+        </div>
+        <figure class="rounded-lg border border-stone-200 bg-white p-4">
+          <svg viewBox="0 0 360 230" class="w-full h-auto" role="img" aria-label="Hiérarchie radiale du bloc d">
+            <line x1="52" y1="176" x2="308" y2="176" stroke="#a8a29e" stroke-width="2" />
+            {[
+              ['4d', 0, 52, 142],
+              ['5d', 1, 138, 118],
+              ['6d', 2, 222, 88],
+              ['7d', 3, 308, 62],
+            ].map(([label, tau, x, y]) => (
+              <g>
+                <line x1={Number(x)} y1="176" x2={Number(x)} y2={Number(y)} stroke="#df7f1a" stroke-width="3" />
+                <circle cx={Number(x)} cy={Number(y)} r="15" fill="#fff7ed" stroke="#df7f1a" stroke-width="3" />
+                <text x={Number(x)} y={Number(y) + 5} text-anchor="middle" class="font-mono text-xs fill-stone-800">{tau}</text>
+                <text x={Number(x)} y="202" text-anchor="middle" class="font-sans text-sm fill-stone-700">{label}</text>
+              </g>
+            ))}
+            <path d="M52 142 C130 142 190 94 308 62" fill="none" stroke="#1f4e79" stroke-width="3" />
+            <text x="180" y="24" text-anchor="middle" class="font-sans text-sm fill-stone-700">τ = période − 4</text>
+          </svg>
+        </figure>
+      </div>
+
+      <div class="grid lg:grid-cols-2 gap-8 mb-12">
+        <div class="bg-white border border-stone-200 rounded-lg overflow-hidden">
+          <div class="px-4 py-3 border-b border-stone-200 font-sans font-semibold text-thmblue">Meilleurs verrouillages</div>
+          <table class="w-full text-sm">
+            <tbody>
+              {bestRows.map((row) => (
+                <tr class="border-t border-stone-100">
+                  <td class="p-3 font-sans font-semibold text-thmblue">{row.s}</td>
+                  <td class="p-3 font-mono">{row.calc.toFixed(6)} eV</td>
+                  <td class="p-3 font-mono text-right">{row.pct >= 0 ? '+' : ''}{row.pct.toFixed(4)} %</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <div class="bg-white border border-stone-200 rounded-lg overflow-hidden">
+          <div class="px-4 py-3 border-b border-stone-200 font-sans font-semibold text-thmblue">Plus grands résidus restants</div>
+          <table class="w-full text-sm">
+            <tbody>
+              {residualRows.map((row) => (
+                <tr class="border-t border-stone-100">
+                  <td class="p-3 font-sans font-semibold text-thmblue">{row.s}</td>
+                  <td class="p-3"><span class="px-2 py-0.5 rounded text-white text-xs font-sans" style={`background:${blockColor[row.b]}`}>{row.b}</span></td>
+                  <td class="p-3 font-mono text-right">{row.pct >= 0 ? '+' : ''}{row.pct.toFixed(3)} %</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="rounded-lg border border-stone-300 bg-stone-900 p-5 text-stone-100">
+        <h2 class="font-sans text-xl font-semibold">Sources jointes</h2>
+        <p class="mt-2 text-sm text-stone-300">
+          La page reprend le moteur canonique PTC et la note de dérivation
+          contact-profondeur. Les fichiers servis ici sont des copies consultables
+          du code source.
+        </p>
+        <div class="mt-4 flex flex-wrap gap-3 text-sm">
+          <a href="/scripts-source/ptc/ea_residual_fields.py" class="rounded border border-stone-600 px-3 py-2 text-amber-200 hover:bg-stone-800">ea_residual_fields.py</a>
+          <a href="/scripts-source/ptc/ea_cpr_capture.py" class="rounded border border-stone-600 px-3 py-2 text-amber-200 hover:bg-stone-800">ea_cpr_capture.py</a>
+          <a href="/scripts-source/ptc/PT_EA_CONTACT_DEPTH_OPERATOR.md" class="rounded border border-stone-600 px-3 py-2 text-amber-200 hover:bg-stone-800">preuve contact-profondeur</a>
+        </div>
+      </div>
+    </div>
+
+    <section class="mt-12 border-t border-stone-200 pt-12">
+      <div class="max-w-3xl mb-6">
+        <h2 class="text-3xl font-bold text-thmblue">Halogène et métal : deux cas en polygones</h2>
+        <p class="mt-3 text-stone-700 leading-relaxed">
+          Ces dessins ne sont pas des orbitales dans l’espace : ce sont des cartes
+          discrètes de canaux. Les positions occupées sont en vert, la prochaine
+          position de capture reste blanche, et le trait orange marque le bord
+          qui transforme l’entrée de l’électron en énergie d’affinité.
+          La géométrie donne la lecture de base ; les couches CPR, seuil, canal
+          et contact-profondeur corrigent ensuite l’amplitude.
+        </p>
+      </div>
+
+      <div class="grid lg:grid-cols-2 gap-6">
+        <figure class="rounded-lg border border-stone-200 bg-white p-5">
+          <div class="flex flex-wrap items-start justify-between gap-3 mb-4">
+            <div>
+              <h3 class="font-sans font-semibold text-thmblue">Chlore : fermeture du canal p</h3>
+              <p class="text-sm text-stone-600">5 positions occupées sur 6 ; l’électron ajouté ferme le bord p.</p>
+            </div>
+            <span class="rounded px-3 py-1 text-white font-sans text-sm" style="background:#2d7d3f">p5 → p6</span>
+          </div>
+          <svg viewBox="0 0 360 280" class="w-full h-auto" role="img" aria-label="Capture polygonale du chlore">
+            <circle cx="180" cy="122" r="96" fill="#f7fbf8" stroke="#2d7d3f" stroke-width="2" />
+            <path d={polygonPath(pCapturePoints)} fill="none" stroke="#8a8a8a" stroke-width="4" />
+            <path d={edgeLine(pCapturePoints, 4, 5)} fill="none" stroke="#df7f1a" stroke-width="7" stroke-linecap="round" />
+            <path d={edgeLine(pCapturePoints, 5, 0)} fill="none" stroke="#df7f1a" stroke-width="7" stroke-linecap="round" />
+            {pCapturePoints.map((point, index) => {
+              const occupied = index < 5;
+              const receiver = index === 5;
+              return (
+                <g>
+                  {receiver && <circle cx={point.x} cy={point.y} r="24" fill="none" stroke="#df7f1a" stroke-width="4" />}
+                  <circle cx={point.x} cy={point.y} r="19" fill={occupied ? '#2d7d3f' : '#ffffff'} stroke="#174c2a" stroke-width="4" />
+                </g>
+              );
+            })}
+            <text x="180" y="245" text-anchor="middle" class="font-sans text-sm fill-stone-700">
+              x = (5 + 1) / 6 = 1 : la capture tombe sur une fermeture
+            </text>
+          </svg>
+          <p class="border-t border-stone-200 pt-4 mb-4 text-sm text-stone-700 leading-relaxed">
+            Concrètement, l’électron ne fait pas qu’entrer dans une place libre :
+            il complète le canal p. Cette fermeture stabilise fortement l’anion,
+            d’où une EA élevée et une tendance chimique nette à former Cl⁻. En
+            lecture PT, la place capturée est prise entre deux voisins déjà
+            occupés : elle reçoit donc une pince locale des deux côtés, ce qui
+            renforce encore le verrouillage.
+          </p>
+          <div class="grid grid-cols-3 gap-3 text-sm">
+            <div><div class="text-stone-500">EA PT</div><div class="font-mono">{clCase.calc.toFixed(3).replace('.', ',')} eV</div></div>
+            <div><div class="text-stone-500">réf.</div><div class="font-mono">{clCase.ref.toFixed(3).replace('.', ',')} eV</div></div>
+            <div><div class="text-stone-500">écart</div><div class="font-mono">{clCase.err >= 0 ? '+' : ''}{(clCase.err * 1000).toFixed(2).replace('.', ',')} meV</div></div>
+          </div>
+        </figure>
+
+        <figure class="rounded-lg border border-stone-200 bg-white p-5">
+          <div class="flex flex-wrap items-start justify-between gap-3 mb-4">
+            <div>
+              <h3 class="font-sans font-semibold text-thmblue">Titane : bord d encore ouvert</h3>
+              <p class="text-sm text-stone-600">2 positions occupées sur 10 ; la capture entre dans un canal d peu refermé.</p>
+            </div>
+            <span class="rounded px-3 py-1 text-white font-sans text-sm" style="background:#df7f1a">d2 → d3</span>
+          </div>
+          <svg viewBox="0 0 360 280" class="w-full h-auto" role="img" aria-label="Capture polygonale du titane">
+            <circle cx="180" cy="122" r="96" fill="#fffaf4" stroke="#df7f1a" stroke-width="2" />
+            <path d={polygonPath(dCapturePoints)} fill="none" stroke="#8a8a8a" stroke-width="4" />
+            <path d={edgeLine(dCapturePoints, 1, 2)} fill="none" stroke="#df7f1a" stroke-width="7" stroke-linecap="round" />
+            {dCapturePoints.map((point, index) => {
+              const occupied = index < 2;
+              const receiver = index === 2;
+              return (
+                <g>
+                  {receiver && <circle cx={point.x} cy={point.y} r="24" fill="none" stroke="#df7f1a" stroke-width="4" />}
+                  <circle cx={point.x} cy={point.y} r="17" fill={occupied ? '#2d7d3f' : '#ffffff'} stroke="#174c2a" stroke-width="4" />
+                </g>
+              );
+            })}
+            <text x="180" y="245" text-anchor="middle" class="font-sans text-sm fill-stone-700">
+              x = (2 + 1) / 10 = 0,3 : le bord reste largement ouvert
+            </text>
+          </svg>
+          <p class="border-t border-stone-200 pt-4 mb-4 text-sm text-stone-700 leading-relaxed">
+            Ici, l’électron ajouté ne ferme rien : il prolonge un canal d encore
+            très ouvert. Il n’est pas pris entre deux voisins occupés comme dans
+            le chlore : il n’a qu’un appui local et un espace de canal encore
+            disponible. La capture isolée libère donc peu d’énergie ; le titane
+            tire surtout sa chimie de réorganisations d, de liaisons et de
+            coordination, plutôt que d’un simple verrouillage atomique Ti⁻.
+          </p>
+          <div class="grid grid-cols-3 gap-3 text-sm">
+            <div><div class="text-stone-500">EA PT</div><div class="font-mono">{tiCase.calc.toFixed(3).replace('.', ',')} eV</div></div>
+            <div><div class="text-stone-500">réf.</div><div class="font-mono">{tiCase.ref.toFixed(3).replace('.', ',')} eV</div></div>
+            <div><div class="text-stone-500">écart</div><div class="font-mono">{tiCase.err >= 0 ? '+' : ''}{(tiCase.err * 1000).toFixed(2).replace('.', ',')} meV</div></div>
+          </div>
+        </figure>
+      </div>
+
+      <p class="mt-6 max-w-4xl text-stone-700 leading-relaxed">
+        La différence PT est donc qualitative : le chlore capture par
+        <strong>fermeture</strong>, le titane par <strong>extension d’un bord
+        ouvert</strong>. Dans le premier cas, l’atome gagne une configuration
+        très stable ; dans le second, l’électron supplémentaire reste une
+        possibilité de canal, mais pas une fermeture fortement énergisante.
+      </p>
+    </section>
+  </section>
+
+  <script is:inline define:vars={{ eaRows: electronAffinityRows }}>
+    const colors = { s: '#1f4e79', p: '#2d7d3f', d: '#df7f1a', f: '#6f579f' };
+    const fmt = (value, digits = 3) => value.toLocaleString('fr-FR', {
+      minimumFractionDigits: digits,
+      maximumFractionDigits: digits,
+    });
+    const select = document.getElementById('ea-select');
+    const stageLabels = ['seuil + cœur', 'canal continu', 'contact-profondeur'];
+    function renderEA(z) {
+      const row = eaRows.find((item) => item.z === Number(z)) || eaRows[0];
+      document.getElementById('ea-symbol').textContent = row.s;
+      document.getElementById('ea-meta').textContent = `Z = ${row.z} · bloc ${row.b} · période ${row.p}`;
+      const badge = document.getElementById('ea-block-badge');
+      badge.textContent = row.b;
+      badge.style.background = colors[row.b];
+      document.getElementById('ea-calc').textContent = `${fmt(row.calc)} eV`;
+      document.getElementById('ea-ref').textContent = `${fmt(row.ref)} eV`;
+      document.getElementById('ea-err').textContent = `${row.err >= 0 ? '+' : ''}${fmt(row.err * 1000, 2)} meV`;
+      document.getElementById('ea-pct').textContent = `${row.pct >= 0 ? '+' : ''}${fmt(row.pct, 3)} %`;
+      document.getElementById('ea-n').textContent = row.n;
+      document.getElementById('ea-cap').textContent = row.c;
+      document.getElementById('ea-x').textContent = fmt(row.x, 3);
+      document.getElementById('ea-xbar').style.width = `${Math.max(4, Math.min(100, row.x * 100))}%`;
+      const stages = document.getElementById('ea-stages');
+      if (stages) {
+        stages.innerHTML = row.stage.map((value, i) => `
+          <div class="flex items-center justify-between gap-3 rounded border border-stone-200 bg-stone-50 px-3 py-2">
+            <span>${stageLabels[i]}</span>
+            <span class="font-mono">${fmt(value)} eV</span>
+          </div>
+        `).join('');
+      }
+    }
+    select?.addEventListener('change', (event) => renderEA(event.target.value));
+    renderEA(select?.value || 17);
+
+    const filter = document.getElementById('ea-filter');
+    const tableRows = Array.from(document.querySelectorAll('[data-ea-row]'));
+    filter?.addEventListener('input', () => {
+      const q = filter.value.trim().toLowerCase();
+      tableRows.forEach((row) => {
+        row.style.display = row.dataset.eaRow.toLowerCase().includes(q) ? '' : 'none';
+      });
+    });
+  </script>
+</BaseLayout>

@@ -1,0 +1,327 @@
+---
+interface Props {
+  lang?: 'fr' | 'en';
+}
+const { lang = 'fr' } = Astro.props;
+
+const labels = lang === 'fr'
+  ? {
+      title: 'Le crible et la règle interdite',
+      caption: 'Les nombres premiers émergent du crible. Les écarts entre survivants du crible ne se distribuent pas n\'importe comment dans les classes mod 3 — c\'est la règle T1.',
+      phase1: '1 — Le crible : on raye les multiples',
+      phase2: '2 — Les premiers survivent',
+      phase3: '3 — Les écarts mod 3 alternent',
+      phase4: '4 — Aucune transition mod 3 → même classe',
+      btnPlay: 'Rejouer',
+      btnPause: 'Pause',
+      btnNext: 'Étape suivante',
+      legendPrime: 'premier',
+      legendStruck: 'multiple éliminé',
+      legendCurrent: 'premier courant',
+      legendGap1: 'gap ≡ 1 mod 3',
+      legendGap2: 'gap ≡ 2 mod 3',
+      legendForbidden: 'transition interdite (jamais observée)',
+      forbiddenNote: 'Sur les 49 transitions ici, la classe ne se répète jamais. C\'est exact, pas statistique — théorème T1.',
+    }
+  : {
+      title: 'The sieve and the forbidden rule',
+      caption: 'Primes emerge from the sieve. The gaps between sieve survivors do not distribute arbitrarily across residue classes mod 3 — that is rule T1.',
+      phase1: '1 — The sieve: cross out multiples',
+      phase2: '2 — Primes survive',
+      phase3: '3 — Gap residues mod 3 alternate',
+      phase4: '4 — No mod-3 transition repeats a class',
+      btnPlay: 'Replay',
+      btnPause: 'Pause',
+      btnNext: 'Next step',
+      legendPrime: 'prime',
+      legendStruck: 'multiple eliminated',
+      legendCurrent: 'current prime',
+      legendGap1: 'gap ≡ 1 mod 3',
+      legendGap2: 'gap ≡ 2 mod 3',
+      legendForbidden: 'forbidden transition (never observed)',
+      forbiddenNote: 'Across 49 transitions here, the class never repeats. Exact, not statistical — theorem T1.',
+    };
+---
+
+<figure class="my-12">
+  <div class="bg-white border border-stone-200 rounded-lg p-4 md:p-6">
+    <h2 class="font-sans font-semibold text-thmblue text-lg mb-1">{labels.title}</h2>
+    <p class="text-sm text-stone-700 mb-4">{labels.caption}</p>
+
+    <div id="sieve-svg-wrap" class="overflow-x-auto">
+      <svg id="sieve-svg" viewBox="0 0 1100 240" class="w-full min-w-[720px]" aria-label="Sieve animation"></svg>
+    </div>
+
+    <div class="flex flex-wrap items-center gap-3 mt-3">
+      <button id="sieve-toggle" class="px-3 py-1.5 bg-thmblue text-white text-sm font-sans rounded hover:bg-thmblue/90">{labels.btnPause}</button>
+      <button id="sieve-step" class="px-3 py-1.5 bg-white border border-stone-300 text-stone-700 text-sm font-sans rounded hover:bg-stone-50">{labels.btnNext}</button>
+      <span id="sieve-phase" class="text-sm font-sans text-thmblue font-medium ml-1"></span>
+    </div>
+
+    <div class="flex flex-wrap gap-x-4 gap-y-1 mt-4 text-xs font-sans text-stone-600">
+      <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded bg-thmblue inline-block"></span>{labels.legendPrime}</span>
+      <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded bg-stone-300 inline-block"></span>{labels.legendStruck}</span>
+      <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded bg-derorange inline-block"></span>{labels.legendCurrent}</span>
+      <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded bg-emerald-500 inline-block"></span>{labels.legendGap1}</span>
+      <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded bg-amber-500 inline-block"></span>{labels.legendGap2}</span>
+    </div>
+
+    <p id="sieve-final-note" class="text-sm text-stone-700 italic mt-3 hidden">{labels.forbiddenNote}</p>
+  </div>
+
+  <script is:inline define:vars={{ labels }}>
+    (function () {
+      const svg = document.getElementById('sieve-svg');
+      const phaseLabel = document.getElementById('sieve-phase');
+      const finalNote = document.getElementById('sieve-final-note');
+      const toggleBtn = document.getElementById('sieve-toggle');
+      const stepBtn = document.getElementById('sieve-step');
+
+      const NUMBERS = [];
+      for (let n = 2; n <= 50; n++) NUMBERS.push(n);
+      const cellW = 21, cellH = 24, originX = 12, originY = 30;
+      // Layout: integers 2..50, 49 cells
+      const cellX = (i) => originX + i * cellW;
+
+      // Compute primes via classical sieve
+      const isPrime = new Array(51).fill(true);
+      isPrime[0] = isPrime[1] = false;
+      for (let p = 2; p <= 50; p++) {
+        if (isPrime[p]) {
+          for (let m = p * p; m <= 50; m += p) isPrime[m] = false;
+        }
+      }
+      const primes = NUMBERS.filter(n => isPrime[n]);
+
+      // Build phases: each phase strikes one prime’s multiples
+      const passes = [
+        { p: 2, struck: [] },
+        { p: 3, struck: [] },
+        { p: 5, struck: [] },
+        { p: 7, struck: [] },
+      ];
+      const struckBefore = new Set();
+      for (const pass of passes) {
+        for (let n = pass.p * 2; n <= 50; n += pass.p) {
+          if (!struckBefore.has(n)) {
+            pass.struck.push(n);
+            struckBefore.add(n);
+          }
+        }
+      }
+
+      // ---------- Initial DOM ----------
+      const cellGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+      cellGroup.setAttribute('id', 'cells');
+      const cellEls = {};
+      for (let i = 0; i < NUMBERS.length; i++) {
+        const n = NUMBERS[i];
+        const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+        g.setAttribute('transform', `translate(${cellX(i)},${originY})`);
+        const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+        rect.setAttribute('width', cellW - 2);
+        rect.setAttribute('height', cellH);
+        rect.setAttribute('rx', 3);
+        rect.setAttribute('fill', 'white');
+        rect.setAttribute('stroke', '#d6d3d1');
+        const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+        text.setAttribute('x', (cellW - 2) / 2);
+        text.setAttribute('y', cellH / 2 + 4);
+        text.setAttribute('text-anchor', 'middle');
+        text.setAttribute('font-size', '11');
+        text.setAttribute('font-family', 'ui-monospace, monospace');
+        text.setAttribute('fill', '#1c1917');
+        text.textContent = n;
+        g.appendChild(rect);
+        g.appendChild(text);
+        cellGroup.appendChild(g);
+        cellEls[n] = { rect, text };
+      }
+      svg.appendChild(cellGroup);
+
+      // Gap arc layer
+      const arcGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+      arcGroup.setAttribute('id', 'arcs');
+      svg.appendChild(arcGroup);
+
+      // Forbidden marker layer
+      const fbGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+      fbGroup.setAttribute('id', 'forbidden');
+      svg.appendChild(fbGroup);
+
+      function colorPrime(n) {
+        cellEls[n].rect.setAttribute('fill', '#1d4ed8');
+        cellEls[n].text.setAttribute('fill', 'white');
+        cellEls[n].text.setAttribute('font-weight', 'bold');
+      }
+      function colorStruck(n) {
+        cellEls[n].rect.setAttribute('fill', '#e7e5e4');
+        cellEls[n].rect.setAttribute('stroke', '#d6d3d1');
+        cellEls[n].text.setAttribute('fill', '#a8a29e');
+        cellEls[n].text.setAttribute('text-decoration', 'line-through');
+      }
+      function colorCurrent(n) {
+        cellEls[n].rect.setAttribute('fill', '#ea580c');
+        cellEls[n].text.setAttribute('fill', 'white');
+        cellEls[n].text.setAttribute('font-weight', 'bold');
+      }
+      function resetCell(n) {
+        cellEls[n].rect.setAttribute('fill', 'white');
+        cellEls[n].rect.setAttribute('stroke', '#d6d3d1');
+        cellEls[n].text.setAttribute('fill', '#1c1917');
+        cellEls[n].text.setAttribute('font-weight', 'normal');
+        cellEls[n].text.removeAttribute('text-decoration');
+      }
+      function clearAll() {
+        for (const n of NUMBERS) resetCell(n);
+        arcGroup.innerHTML = '';
+        fbGroup.innerHTML = '';
+        finalNote.classList.add('hidden');
+      }
+
+      // ---------- Phases ----------
+      let timer = null;
+      let phase = 0;
+      let playing = true;
+      const phaseLabels = [labels.phase1, labels.phase1, labels.phase1, labels.phase1, labels.phase2, labels.phase3, labels.phase4];
+
+      function setPhaseLabel(text) { phaseLabel.textContent = text; }
+
+      function indexOf(n) {
+        return NUMBERS.indexOf(n);
+      }
+
+      function drawGapArc(p1, p2, color) {
+        const x1 = cellX(indexOf(p1)) + (cellW - 2) / 2;
+        const x2 = cellX(indexOf(p2)) + (cellW - 2) / 2;
+        const y0 = originY + cellH + 8;
+        const cx = (x1 + x2) / 2;
+        const cy = y0 + 50;
+        const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        // Arc from x1 going down then up to x2 (Bezier apex at y0 + 25)
+        path.setAttribute('d', `M ${x1} ${y0} Q ${cx} ${cy} ${x2} ${y0}`);
+        path.setAttribute('fill', 'none');
+        path.setAttribute('stroke', color);
+        path.setAttribute('stroke-width', '2');
+        path.setAttribute('stroke-linecap', 'round');
+        arcGroup.appendChild(path);
+        // gap label below the curve apex (curve max depth is y0 + 25)
+        const labelY = y0 + 42;
+        const labelText = String(p2 - p1);
+        // White background rect to keep label readable even if it overlaps
+        const w = labelText.length * 7 + 4;
+        const bg = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+        bg.setAttribute('x', cx - w / 2);
+        bg.setAttribute('y', labelY - 9);
+        bg.setAttribute('width', w);
+        bg.setAttribute('height', 12);
+        bg.setAttribute('fill', 'white');
+        bg.setAttribute('rx', '2');
+        arcGroup.appendChild(bg);
+        const lbl = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+        lbl.setAttribute('x', cx);
+        lbl.setAttribute('y', labelY);
+        lbl.setAttribute('text-anchor', 'middle');
+        lbl.setAttribute('font-size', '10');
+        lbl.setAttribute('font-family', 'ui-monospace, monospace');
+        lbl.setAttribute('fill', color);
+        lbl.setAttribute('font-weight', 'bold');
+        lbl.textContent = labelText;
+        arcGroup.appendChild(lbl);
+      }
+
+      function runPhase(idx) {
+        clearAll();
+        if (idx <= 3) {
+          // Sieve passes 0..3 (primes 2,3,5,7)
+          const cumulativeStruck = new Set();
+          for (let k = 0; k <= idx; k++) {
+            for (const n of passes[k].struck) cumulativeStruck.add(n);
+          }
+          for (const n of NUMBERS) {
+            if (cumulativeStruck.has(n)) colorStruck(n);
+          }
+          colorCurrent(passes[idx].p);
+          setPhaseLabel(`${labels.phase1} (p = ${passes[idx].p})`);
+        } else if (idx === 4) {
+          // All primes shown
+          for (const n of NUMBERS) {
+            if (isPrime[n]) colorPrime(n);
+            else colorStruck(n);
+          }
+          setPhaseLabel(labels.phase2);
+        } else if (idx === 5) {
+          // Show gaps with mod-3 residues
+          for (const n of NUMBERS) {
+            if (isPrime[n]) colorPrime(n);
+            else colorStruck(n);
+          }
+          for (let k = 0; k < primes.length - 1; k++) {
+            const p1 = primes[k], p2 = primes[k + 1];
+            const gap = p2 - p1;
+            const r = gap % 3;
+            const color = r === 1 ? '#10b981' : r === 2 ? '#f59e0b' : '#a8a29e';
+            drawGapArc(p1, p2, color);
+          }
+          setPhaseLabel(labels.phase3);
+        } else if (idx === 6) {
+          // Highlight forbidden transitions: same residue twice in a row would be forbidden
+          for (const n of NUMBERS) {
+            if (isPrime[n]) colorPrime(n);
+            else colorStruck(n);
+          }
+          for (let k = 0; k < primes.length - 1; k++) {
+            const p1 = primes[k], p2 = primes[k + 1];
+            const gap = p2 - p1;
+            const r = gap % 3;
+            const color = r === 1 ? '#10b981' : r === 2 ? '#f59e0b' : '#a8a29e';
+            drawGapArc(p1, p2, color);
+          }
+          // Compute residue list, mark transitions
+          const residues = [];
+          for (let k = 0; k < primes.length - 1; k++) {
+            residues.push((primes[k + 1] - primes[k]) % 3);
+          }
+          // Iterate consecutive pairs of residues and mark them at the gap-junction column
+          for (let i = 0; i < residues.length - 1; i++) {
+            const x = cellX(indexOf(primes[i + 1])) + (cellW - 2) / 2;
+            const y = originY + cellH + 90;
+            const same = residues[i] === residues[i + 1];
+            const dot = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+            dot.setAttribute('cx', x);
+            dot.setAttribute('cy', y);
+            dot.setAttribute('r', '5');
+            dot.setAttribute('fill', same ? '#dc2626' : '#1d4ed8');
+            dot.setAttribute('opacity', same ? '0.9' : '0.4');
+            fbGroup.appendChild(dot);
+          }
+          finalNote.classList.remove('hidden');
+          setPhaseLabel(labels.phase4);
+        }
+      }
+
+      function advance() {
+        runPhase(phase);
+        phase = (phase + 1) % 7;
+      }
+
+      function start() {
+        playing = true;
+        toggleBtn.textContent = labels.btnPause;
+        if (timer) clearInterval(timer);
+        timer = setInterval(advance, 2200);
+      }
+      function stop() {
+        playing = false;
+        toggleBtn.textContent = labels.btnPlay;
+        if (timer) { clearInterval(timer); timer = null; }
+      }
+
+      toggleBtn.addEventListener('click', () => playing ? stop() : start());
+      stepBtn.addEventListener('click', () => { stop(); advance(); });
+
+      advance();   // immediately render phase 0
+      start();     // and begin auto-advancing
+    })();
+  </script>
+</figure>

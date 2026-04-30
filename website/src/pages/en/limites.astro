@@ -1,0 +1,72 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+
+const limits = [
+  ['Physical bridges', 'BA bridges remain structuring commitments. Even when strongly motivated, they must stay distinct from algebraic identities.'],
+  ['Observational QG', 'The geometric chain is advanced, but fine observational identification of Kerr/QNM modes remains a testing edge.'],
+  ['Chemical corrections', 'IE/EA are promising, but every canonical correction must remain derived by continuous PT functions, not free coefficients.'],
+  ['Cosmology', 'The dark-sector reading must clearly separate derivation, interpretation, and observational prediction.'],
+  ['External review', 'The site presents a scientific program under construction. It still needs independent confrontation, critical review, and external reproduction.'],
+];
+---
+
+<BaseLayout
+  title="Limits and open points"
+  description="What PT claims, what it does not claim yet, and what remains to be locked."
+>
+  <section class="max-w-6xl mx-auto px-4 py-12">
+    <p class="pt-tag pt-tag-cond mb-4">Rigor</p>
+    <h1 class="text-4xl md:text-5xl font-bold text-thmblue mb-5">Limits and open points</h1>
+    <p class="text-lg text-slate-700 leading-relaxed max-w-3xl mb-10">
+      A good scientific showcase should not only display successes. It must
+      say what is closed, what is conditional, what is numerically validated,
+      and what still awaits external verification.
+    </p>
+
+    <div class="space-y-4 mb-12">
+      {limits.map(([title, body]) => (
+        <div class="bg-white border border-slate-200 rounded-lg p-5">
+          <h2 class="font-sans font-semibold text-thmblue text-xl mb-2">{title}</h2>
+          <p class="text-slate-700">{body}</p>
+        </div>
+      ))}
+    </div>
+
+    <div class="bg-white border border-slate-200 rounded-lg p-6 mb-12">
+      <h2 class="text-2xl font-bold text-thmblue mb-3">Use of AI</h2>
+      <p class="text-slate-700 leading-relaxed mb-4">
+        The Theory of Persistence is first and foremost the product of human
+        thought: its intuitions, principles, theoretical commitments, and
+        overall direction were carried by its author. Large language models,
+        especially Claude and ChatGPT, nevertheless played a substantial tool
+        role in the development of the program.
+      </p>
+      <p class="text-slate-700 leading-relaxed mb-4">
+        They helped accelerate the writing of calculation and verification
+        scripts, suggested mathematical tools the author did not always know,
+        explained how to use them, and helped structure or draft some texts,
+        pages, and articles. This use is explicit: it is part of contemporary
+        research tooling, alongside computing environments, scientific
+        libraries, and writing assistants.
+      </p>
+      <p class="text-slate-700 leading-relaxed">
+        This does not mean that these models understand the theory as a whole.
+        Trained on established frameworks, including the Standard Model and
+        conventional formalisms, they can help locally by checking, coding,
+        reformulating, or suggesting analogies; but global coherence,
+        interpretation of results, and responsibility for claims remain human.
+      </p>
+    </div>
+
+    <div class="bg-slate-900 text-white rounded-lg p-6">
+      <h2 class="text-2xl font-bold mb-3">A verifiable ambition</h2>
+      <p class="leading-relaxed text-slate-100">
+        PT makes a strong claim: explaining a great deal with very little. That
+        claim only matters if it remains testable. Its strength comes from the
+        rigidity of its constraints, the convergence of its results, and its
+        willingness to show where experiment or computation can still put it
+        under pressure.
+      </p>
+    </div>
+  </section>
+</BaseLayout>
