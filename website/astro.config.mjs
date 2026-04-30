@@ -8,7 +8,7 @@ import rehypeKatex from 'rehype-katex';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://persistencetheory.org',
+  site: 'https://www.persistencetheory.org',
   // i18n: French as default (root), English under /en/
   i18n: {
     defaultLocale: 'fr',

@@ -3,7 +3,7 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '@layouts/BaseLayout.astro';
 import Tag from '@components/Tag.astro';
 
-const VISIBLE_SLUGS = new Set(['PT_LAMBDA']);
+const VISIBLE_SLUGS = new Set<string>();
 const items = (await getCollection('articles', ({ data }) =>
     data.lang === 'en' && VISIBLE_SLUGS.has(data.slug)))
   .sort((a, b) => a.data.order - b.data.order);
