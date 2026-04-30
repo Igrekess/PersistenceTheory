@@ -61,7 +61,7 @@ What it does not do:
   *structural* bridge from sieve math to Standard Model physics is
   stronger: BA5 (Pontryagin product), Lemmas E/F/G (coupling, metric,
   Hilbert reconstruction), the γ-to-observable assignment
-  (`thm:DIC_from_ordering`), and the PT↔QED ghost dictionary are
+  (`thm:DIC_from_ordering`), and the PT↔QED echo-sector dictionary are
   theorems within the framework, not mere identifications.
 - Replace quantum field theory. It reconstructs QFT-like objects from
   sieve data and uses QFT language for predictions.
