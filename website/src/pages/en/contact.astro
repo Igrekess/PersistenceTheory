@@ -4,14 +4,8 @@ import { REPO_ISSUES, REPO_URL } from '@/lib/repo';
 
 const email = 'yan.senez@protonmail.com';
 
-// Formspree placeholder. Replace YOUR_FORM_ID with the ID from
-// https://formspree.io/ (free tier, ~2 min setup) to enable the form.
-// Until then, the form falls back to a mailto: link, which always works.
-const formspreeId = 'YOUR_FORM_ID';
-const formAction = formspreeId === 'YOUR_FORM_ID'
-  ? `mailto:${email}`
-  : `https://formspree.io/f/${formspreeId}`;
-const formMethod = formspreeId === 'YOUR_FORM_ID' ? 'GET' : 'POST';
+const formspreeId = 'xpqbzbvl';
+const formAction = `https://formspree.io/f/${formspreeId}`;
 ---
 
 <BaseLayout title="Contact">
@@ -61,18 +55,11 @@ const formMethod = formspreeId === 'YOUR_FORM_ID' ? 'GET' : 'POST';
     <h2 class="text-xl font-semibold text-thmblue mt-10 mb-3 font-sans">Form</h2>
     <p class="text-sm text-stone-700 mb-4">
       If you prefer a form, fill in the fields below.
-      {formspreeId === 'YOUR_FORM_ID' && (
-        <span class="text-stone-500 italic">
-          (The form opens your mail client. For direct delivery, a service
-          like Formspree can be wired in later.)
-        </span>
-      )}
     </p>
 
     <form
       action={formAction}
-      method={formMethod}
-      enctype={formspreeId === 'YOUR_FORM_ID' ? 'text/plain' : 'application/x-www-form-urlencoded'}
+      method="POST"
       class="space-y-4 bg-white border border-stone-200 rounded-lg p-6"
     >
       <div>
