@@ -12,13 +12,19 @@ export async function getStaticPaths() {
 
 const { es } = Astro.props;
 const { Content } = await render(es);
+
+const levelLabel: Record<string, string> = {
+  L1: 'Vulgarisé',
+  L2: 'Standard',
+  L3: 'Technique',
+};
 ---
 
 <BaseLayout title={es.data.title}>
   <article class="max-w-3xl mx-auto px-4 py-12 prose prose-stone">
     <header class="not-prose mb-6">
       <div class="text-xs font-sans text-stone-500 uppercase tracking-wider mb-2">
-        Essai · niveau {es.data.level} · {es.data.reading_minutes} min
+        Essai · {levelLabel[es.data.level] ?? es.data.level} · {es.data.reading_minutes} min
       </div>
       <h1 class="text-3xl md:text-4xl font-bold text-thmblue mb-2">{es.data.title}</h1>
       <p class="text-stone-700 italic">{es.data.summary}</p>

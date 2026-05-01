@@ -738,7 +738,7 @@ export const mathPages: MathPage[] = [
       ],
       l2: [
         'Une spirale ne prouve pas une loi. Elle transforme une suite arithmétique en image et révèle des corrélations que l’œil saisit vite.',
-        'Pour la section mathématique du site, c’est un excellent pont L1 : on voit avant de calculer pourquoi les survivants ont une géométrie.',
+        'Pour la section mathématique du site, c’est un excellent pont vulgarisé : on voit avant de calculer pourquoi les survivants ont une géométrie.',
       ],
       l3: [
         'Le projet PT_SPIRALS peut fournir des figures comparant Ulam, Sacks et Archimède, avec contrôles par classes modulaires.',
@@ -767,7 +767,7 @@ export const mathPages: MathPage[] = [
       ],
       l2: [
         'A spiral does not prove a law. It turns an arithmetic sequence into an image and reveals correlations the eye grasps quickly.',
-        'For the mathematics section, it is an excellent L1 bridge: one sees before calculating why survivors have geometry.',
+        'For the mathematics section, it is an excellent plain-language bridge: one sees before calculating why survivors have geometry.',
       ],
       l3: [
         'The PT_SPIRALS project can provide figures comparing Ulam, Sacks, and Archimedean spirals, with checks by modular classes.',

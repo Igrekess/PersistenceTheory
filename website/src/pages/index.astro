@@ -21,24 +21,25 @@ import Citation from '@components/Citation.astro';
     </p>
 
     <p class="text-lg text-stone-800 leading-relaxed mb-6">
-      La théorie part d’une conservation informationnelle très simple à dire :
-      quand un système offre un certain nombre de possibilités, il possède un
-      budget total de distinctions. Ce budget se partage exactement entre deux
-      choses : la part qui reste structurée, donc persistante, et la part qui
-      se disperse, donc entropique. En notation compacte, cela devient
-      <span class="font-mono">log₂(m) = D_KL + H</span>. Le crible
-      d’Ératosthène intervient ensuite comme laboratoire minimal : il applique
-      des contraintes simples, élimine ce qui ne survit pas, et révèle les
-      points de persistance où la structure devient calculable.
+      L’idée de fond est simple. Tout système peut prendre plusieurs formes.
+      Certaines résistent aux contraintes qu’il subit ; d’autres se dispersent.
+      Ce qui résiste — la structure qui survit aux contraintes — est ce que la
+      PT appelle <em>persistance</em>. Ce qui se disperse devient
+      <em>entropie</em>. À toute échelle, ce partage est exact : rien ne
+      disparaît, tout se distribue entre ces deux faces. Les observables
+      physiques mesurent cette distribution.
     </p>
 
     <p class="text-lg text-stone-800 leading-relaxed mb-8">
-      La PT teste ensuite ce principe dans trois grands registres : les
-      mathématiques, où la persistance se lit dans les survivants et les gaps ;
-      la physique, où elle contraint constantes, masses, géométrie et temps ;
-      la chimie, où elle explique périodes, couches, énergies d’ionisation et
-      affinités électroniques. Les détails techniques restent disponibles en
-      mode L3, mais l’entrée naturelle est l’idée : comprendre d’abord ce que
+      La PT teste ensuite ce principe dans trois grands registres.
+      <strong>En mathématiques</strong>, la persistance se lit dans le crible
+      d’Ératosthène : les nombres premiers et les écarts entre eux sont les
+      survivants minimaux d’une contrainte élémentaire.
+      <strong>En physique</strong>, elle fixe constantes, masses, géométrie et
+      temps. <strong>En chimie</strong>, elle explique périodes, couches,
+      énergies d’ionisation et affinités électroniques. Les détails techniques
+      restent disponibles via le sélecteur de profondeur (en bas à droite),
+      mais l’entrée naturelle est l’idée : comprendre d’abord ce que
       “persister” veut dire.
     </p>
 
@@ -220,13 +221,13 @@ import Citation from '@components/Citation.astro';
         </h2>
         <p class="text-stone-700">
           L’EA devient une énergie de capture au bord du canal, avec calculateur
-          PT, table complète et lecture L1/L2/L3.
+          PT, table complète et lecture à trois niveaux de profondeur.
         </p>
       </a>
     </div>
 
     <div data-min-depth="L3" class="bg-stone-50 border border-stone-300 rounded-lg p-4 my-6 text-sm">
-      <p class="text-xs font-sans text-stone-500 uppercase tracking-wider mb-2">Note technique (mode L3)</p>
+      <p class="text-xs font-sans text-stone-500 uppercase tracking-wider mb-2">Note technique</p>
       <p class="text-stone-700">
         Le cadre formel comprend des ponts de base (BA0–BA2) qui identifient
         le champ dynamique aux écarts entre premiers consécutifs, puis des ponts dérivés

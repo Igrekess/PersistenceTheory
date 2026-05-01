@@ -10,7 +10,7 @@ const features = [
 
 const sections = [
   {
-    eyebrow: 'L1',
+    eyebrow: 'Vulgarisé',
     title: 'Ne pas quantifier le décor, lire le décor depuis le quantique',
     paragraphs: [
       'Le conflit habituel vient d’une fausse question : on demande si le continu doit être quantifié ou si le discret doit fabriquer le continu. La lecture PT dit autre chose : il existe une mécanique ondulatoire continue, et le crible en marque les points de persistance.',
@@ -19,7 +19,7 @@ const sections = [
     ],
   },
   {
-    eyebrow: 'L2',
+    eyebrow: 'Standard',
     title: 'Architecture physique : continu, points remarquables, covariance',
     paragraphs: [
       'Le secteur classique sort de la géométrie informationnelle : la famille de distributions du crible porte une métrique de Fisher $g^F$, puis la restriction active donne la géométrie Fisher-Bianchi, la signature lorentzienne et les équations d’Einstein.',
@@ -35,11 +35,11 @@ const sections = [
     ],
   },
   {
-    eyebrow: 'L3',
+    eyebrow: 'Technique',
     title: 'Démonstration technique complète',
     depth: 'L3',
     paragraphs: [
-      'Le niveau L3 déroule la chaîne sans raccourci : mécanique continue Fisher/holonomie, sélection des points persistants par le crible, espace de Hilbert CRT, secteur GR, contraintes, amplitudes covariantes, foams, puis observables Kerr. Chaque étape doit préserver la même logique PT : exclusion des auto-recopies, involution de spin, covariance de bord et persistance des canaux admissibles.',
+      'Le niveau technique déroule la chaîne sans raccourci : mécanique continue Fisher/holonomie, sélection des points persistants par le crible, espace de Hilbert CRT, secteur GR, contraintes, amplitudes covariantes, foams, puis observables Kerr. Chaque étape doit préserver la même logique PT : exclusion des auto-recopies, involution de spin, covariance de bord et persistance des canaux admissibles.',
       'Le support continu est $g^F$ avec les phases et holonomies associées. Il est défini sur la famille de distributions et donne directement la géométrie informationnelle : c’est le support ondulatoire sur lequel les canaux se lisent.',
       'La sélection discrète est portée par $T_m$. Par CRT, elle marque les points remarquables de cette mécanique continue, se factorise en premiers et fournit une structure tensorielle. La limite inductive $\\mathcal H_\\infty=\\varinjlim\\bigotimes_p\\mathcal H_p$ garde ces sélections persistantes sans postuler un espace-temps continu primitif.',
       'La covariance impose que l’amplitude ne dépende pas d’un découpage arbitraire de l’histoire. Les amplitudes à frontière arbitraire se recollent, l’algèbre de Dirac finie se relève cylindriquement, et les changements de topologie restent des foams physiques s’ils respectent les canaux admissibles.',
@@ -58,7 +58,7 @@ const sections = [
       labels: ['spin Kerr a'],
     },
     proof: {
-      title: 'Chaîne démonstrative L3',
+      title: 'Chaîne démonstrative technique',
       steps: [
         'Mécanique informationnelle : sur la famille de distributions, la métrique de Fisher $g^F$ mesure la sensibilité des états persistants. Avec les phases et holonomies, elle fournit le support continu de la dynamique PT.',
         'Sélection discrète : le crible donne une matrice de transfert $T_m$ dont les transitions interdites éliminent les auto-recopies. Les survivants sont les points remarquables de cette mécanique continue.',
@@ -95,7 +95,7 @@ const sources = [
     eyebrow="Gravité quantique"
     title="La gravité quantique en PT : du crible au ringdown"
     description="La PT ne cherche pas seulement à quantifier Einstein. Elle propose que la géométrie d’Einstein soit la lecture gravitationnelle d’une mécanique ondulatoire continue dont le crible sélectionne les points persistants."
-    lead="Le cœur de l’idée est puissant : si la mécanique Fisher/holonomie sélectionne les mêmes points remarquables que le crible, alors la gravité classique est une projection géométrique d’un objet plus fondamental. La page se lit en trois profondeurs : intuition L1, architecture physique L2, démonstration technique L3."
+    lead="Le cœur de l’idée est puissant : si la mécanique Fisher/holonomie sélectionne les mêmes points remarquables que le crible, alors la gravité classique est une projection géométrique d’un objet plus fondamental. La page se lit en trois profondeurs : intuition vulgarisée, architecture physique standard, démonstration technique."
     features={features}
     sections={sections}
     sources={sources}

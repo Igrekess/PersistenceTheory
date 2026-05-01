@@ -237,7 +237,7 @@ const currentPath = Astro.url.pathname;
         const KEY = 'pt-depth';
         const valid = ['L1', 'L2', 'L3'];
         let current = localStorage.getItem(KEY);
-        if (!valid.includes(current)) current = 'L2';
+        if (!valid.includes(current)) current = 'L1';
         function apply(d) {
           document.documentElement.setAttribute('data-depth', d);
           localStorage.setItem(KEY, d);
