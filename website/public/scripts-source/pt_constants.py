@@ -23,7 +23,7 @@ Perturbative corrections:
     (conservation Σ = 0; integer assignments with structural basis)
   - 1-loop quarks (DOWN sector): superseded.
     Legacy values eta_DOWN={0,+4.603,-2.125} are *deprecated* and are
-    NOT used in production v7. They appear only in historical scripts
+    NOT used in the canonical production path. They appear only in historical scripts
     (scripts/ch16_perturbative/pt_perturbative.py). Production code
     derives DOWN-sector masses via the Fisher geometry of T^3
     (sec:ch15_quark_fisher, implemented in pt_constants.py L341-507).

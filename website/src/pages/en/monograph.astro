@@ -1,5 +1,7 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
+import Citation from '@components/Citation.astro';
+import { REPO_URL, MONOGRAPH_PDF_EN, MONOGRAPH_PDF_FR } from '@/lib/repo';
 ---
 
 <BaseLayout title="Monograph">
@@ -13,19 +15,19 @@ import BaseLayout from '@layouts/BaseLayout.astro';
 
     <div class="flex flex-wrap gap-3 mb-8">
       <a
-        href="https://github.com/Igrekess/PersistenceTheory/raw/main/TheTheoryOfPersistence.pdf"
+        href={MONOGRAPH_PDF_EN}
         class="px-5 py-3 bg-thmblue text-white font-sans font-semibold rounded hover:bg-thmblue/90"
       >
         Download English edition
       </a>
       <a
-        href="https://github.com/Igrekess/PersistenceTheory/raw/main/TheorieDeLaPersistance_FR.pdf"
+        href={MONOGRAPH_PDF_FR}
         class="px-5 py-3 bg-thmblue text-white font-sans font-semibold rounded hover:bg-thmblue/90"
       >
         Download French edition
       </a>
       <a
-        href="https://github.com/Igrekess/PersistenceTheory"
+        href={REPO_URL}
         class="px-5 py-3 bg-white border border-stone-300 text-stone-800 font-sans font-semibold rounded hover:bg-stone-50"
       >
         GitHub repo
@@ -40,7 +42,7 @@ import BaseLayout from '@layouts/BaseLayout.astro';
 
     <div class="border border-stone-300 rounded overflow-hidden bg-stone-100" style="height: 80vh;">
       <iframe
-        src="https://github.com/Igrekess/PersistenceTheory/raw/main/TheTheoryOfPersistence.pdf"
+        src={MONOGRAPH_PDF_EN}
         title="The Theory of Persistence — English edition"
         class="w-full h-full"
         loading="lazy"
@@ -51,17 +53,10 @@ import BaseLayout from '@layouts/BaseLayout.astro';
     <ul class="list-disc list-inside text-stone-700 space-y-1 marker:text-thmblue">
       <li>Preprint — not peer-reviewed</li>
       <li>French and English editions on par (FR/EN drift = 0 on ~4,400 labels)</li>
-      <li>Canonical registry: 56 companion Python scripts, 2,694/2,695 passing checks, 1 known failure independent of recent additions</li>
+      <li>Canonical registry: 45 companion Python script entries, 2,522/2,523 passing checks, 1 known failure</li>
       <li>LaTeX sources publicly available (monograph repo)</li>
     </ul>
 
-    <h2 class="text-xl font-semibold text-thmblue mt-12 mb-3 font-sans">Citation</h2>
-    <pre class="text-xs"><code>@book&#123;senez2026persistence,
-  author    = &#123;Senez, Yan&#125;,
-  title     = &#123;The Theory of Persistence: From the Sieve to the Standard Model&#125;,
-  year      = &#123;2026&#125;,
-  publisher = &#123;Self-published preprint&#125;,
-  url       = &#123;https://www.persistencetheory.org&#125;
-&#125;</code></pre>
+    <Citation lang="en" />
   </section>
 </BaseLayout>

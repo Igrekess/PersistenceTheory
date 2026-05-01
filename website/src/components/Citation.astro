@@ -1,0 +1,85 @@
+---
+import type { Lang } from '@/i18n/strings';
+
+interface Props {
+  lang: Lang;
+  /** Heading level: 'h2' (default) or 'h3'. */
+  level?: 'h2' | 'h3';
+}
+
+const { lang, level = 'h2' } = Astro.props;
+
+const labels = {
+  fr: {
+    title: 'Citer ce travail',
+    intro: 'Si vous citez la PT dans un article, un mémoire ou un billet, voici l’entrée BibTeX recommandée.',
+    copy: 'Copier',
+    copied: 'Copié',
+  },
+  en: {
+    title: 'Cite this work',
+    intro: 'If you cite PT in a paper, thesis, or post, the recommended BibTeX entry is below.',
+    copy: 'Copy',
+    copied: 'Copied',
+  },
+}[lang];
+
+const bibtex = `@book{senez2026persistence,
+  author    = {Senez, Yan},
+  title     = {The Theory of Persistence: From the Sieve to the Standard Model},
+  year      = {2026},
+  publisher = {Self-published preprint},
+  url       = {https://www.persistencetheory.org}
+}`;
+
+const headingClass =
+  level === 'h2'
+    ? 'text-xl font-semibold text-thmblue mb-3 font-sans'
+    : 'text-lg font-semibold text-thmblue mb-3 font-sans';
+---
+
+<section class="my-8" data-pt-citation>
+  {level === 'h2' ? (
+    <h2 class={headingClass}>{labels.title}</h2>
+  ) : (
+    <h3 class={headingClass}>{labels.title}</h3>
+  )}
+  <p class="text-sm text-stone-700 mb-3">{labels.intro}</p>
+  <div class="relative">
+    <pre class="text-xs bg-stone-50 border border-stone-200 rounded p-4 overflow-x-auto"><code data-pt-bibtex>{bibtex}</code></pre>
+    <button
+      type="button"
+      data-pt-copy
+      data-label-copy={labels.copy}
+      data-label-copied={labels.copied}
+      class="absolute top-2 right-2 text-xs px-2 py-1 bg-white border border-stone-300 rounded hover:bg-stone-100 font-sans"
+    >
+      {labels.copy}
+    </button>
+  </div>
+</section>
+
+<script is:inline>
+  (function () {
+    document.querySelectorAll('[data-pt-citation]').forEach((root) => {
+      const btn = root.querySelector('[data-pt-copy]');
+      const code = root.querySelector('[data-pt-bibtex]');
+      if (!btn || !code) return;
+      const labelCopy = btn.getAttribute('data-label-copy') || 'Copy';
+      const labelCopied = btn.getAttribute('data-label-copied') || 'Copied';
+      btn.addEventListener('click', async () => {
+        try {
+          await navigator.clipboard.writeText(code.textContent || '');
+          btn.textContent = labelCopied;
+          setTimeout(() => { btn.textContent = labelCopy; }, 1600);
+        } catch (_) {
+          // Fallback: select the text so user can Ctrl+C
+          const range = document.createRange();
+          range.selectNode(code);
+          const sel = window.getSelection();
+          if (sel) { sel.removeAllRanges(); sel.addRange(range); }
+        }
+      });
+    });
+  })();
+</script>

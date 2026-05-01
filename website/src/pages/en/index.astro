@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
 import SubProjects from '@components/SubProjects.astro';
+import Citation from '@components/Citation.astro';
 ---
 
 <BaseLayout>
@@ -8,11 +9,8 @@ import SubProjects from '@components/SubProjects.astro';
     <h1 class="text-4xl md:text-5xl font-bold text-thmblue mb-4">
       The Theory of Persistence
     </h1>
-    <p class="text-2xl md:text-3xl font-sans font-semibold text-derorange mb-3">
-      What persists is what remains.
-    </p>
-    <p class="text-xl text-stone-700 mb-8">
-      What persists under constraint.
+    <p class="text-2xl md:text-3xl font-sans font-semibold text-derorange mb-8">
+      What persists is what remains under constraint.
     </p>
 
     <p data-max-depth="L1" class="text-lg text-stone-800 leading-relaxed mb-6 bg-amber-50 border-l-4 border-amber-300 px-4 py-3">
@@ -256,12 +254,14 @@ import SubProjects from '@components/SubProjects.astro';
       <div class="pt-card">
         <span class="pt-tag pt-tag-val">Verification</span>
         <p class="mt-2 text-stone-700">
-          Canonical registry: 56 companion scripts, 2,694/2,695 passing checks — flagship scripts runnable in the browser.
+          Canonical registry: 45 companion script entries, 2,522/2,523 passing checks — flagship scripts runnable in the browser.
         </p>
       </div>
     </div>
 
     <SubProjects lang="en" />
+
+    <Citation lang="en" />
 
     <p class="mt-12 text-sm text-stone-500 italic font-sans">
       Preprint — not peer-reviewed. Critical scrutiny is welcomed.

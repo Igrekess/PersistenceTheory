@@ -38,11 +38,11 @@
         {
           "fr": {
             "q": "La PT est-elle vérifiable ?",
-            "a": "Oui. L’annexe F de la monographie recense 56 scripts compagnons et 2 695 contrôles : 2 694 PASS et 1 échec connu, indépendant des ajouts récents. Cinq scripts emblématiques sont exécutables directement dans le navigateur via Pyodide depuis la page Scripts. Les 43 observables se comparent aux mesures CODATA / PDG publiées."
+            "a": "Oui. L’annexe F de la monographie recense 45 entrées de scripts compagnons et 2 523 contrôles : 2 522 PASS et 1 échec connu. Cinq scripts emblématiques sont exécutables directement dans le navigateur via Pyodide depuis la page Scripts. Les 43 observables se comparent aux mesures CODATA / PDG publiées."
           },
           "en": {
             "q": "Is PT verifiable?",
-            "a": "Yes. Appendix F of the monograph lists 56 companion scripts and 2,695 checks: 2,694 PASS and 1 known failure independent of recent additions. Five flagship scripts run directly in the browser via Pyodide from the Scripts page. The 43 observables are compared to published CODATA / PDG measurements."
+            "a": "Yes. Appendix F of the monograph lists 45 companion script entries and 2,523 checks: 2,522 PASS and 1 known failure. Five flagship scripts run directly in the browser via Pyodide from the Scripts page. The 43 observables are compared to published CODATA / PDG measurements."
           }
         }
       ]

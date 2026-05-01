@@ -1,6 +1,7 @@
 ---
 import '@/styles/global.css';
 import { type Lang, useTranslations, getLangFromUrl, alternateLangPath } from '@/i18n/strings';
+import { REPO_ISSUES } from '@/lib/repo';
 import Search from '@components/Search.astro';
 
 interface Props {
@@ -64,6 +65,7 @@ const moreItems = [
   { href: path('/faq', '/en/faq'), label: t('nav.faq') },
   { href: path('/glossary', '/en/glossary'), label: t('nav.glossary') },
   { href: path('/about', '/en/about'), label: t('nav.about') },
+  { href: path('/contact', '/en/contact'), label: t('nav.contact') },
 ];
 
 // hreflang alternate links for SEO
@@ -145,7 +147,6 @@ const currentPath = Astro.url.pathname;
               </div>
             </details>
           ))}
-          <a href={lang === 'fr' ? '/articles' : '/en/articles'} class="hover:underline whitespace-nowrap">{t('nav.articles')}</a>
 
           <!-- "Plus" dropdown -->
           <details id="more-menu" data-nav-menu class="relative">
@@ -187,7 +188,6 @@ const currentPath = Astro.url.pathname;
                 ))}
               </div>
             ))}
-            <a href={lang === 'fr' ? '/articles' : '/en/articles'} class="block px-4 py-2 hover:bg-stone-50">{t('nav.articles')}</a>
             {moreItems.map((item) => (
               <a href={item.href} class="block px-4 py-2 hover:bg-stone-50">{item.label}</a>
             ))}
@@ -328,6 +328,14 @@ const currentPath = Astro.url.pathname;
           <span>{t('footer.code_license')}</span>
           <span class="mx-2">·</span>
           <span>{t('footer.content_license')}</span>
+          <span class="mx-2">·</span>
+          <a href={path('/contact', '/en/contact')} class="hover:underline">
+            {t('nav.contact')}
+          </a>
+          <span class="mx-2">·</span>
+          <a href={REPO_ISSUES} class="hover:underline" rel="noopener">
+            {t('footer.report_issue')}
+          </a>
         </div>
         <div class="text-stone-500 italic md:text-right">
           {t('footer.preprint_notice')}

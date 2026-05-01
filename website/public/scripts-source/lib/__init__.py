@@ -1,1 +1,1 @@
-# Persistence Theory v7 — shared library modules
+# Persistence Theory — shared library modules

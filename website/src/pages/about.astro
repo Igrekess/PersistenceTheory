@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
+import Citation from '@components/Citation.astro';
 ---
 
 <BaseLayout title="À propos">
@@ -18,8 +19,11 @@ import BaseLayout from '@layouts/BaseLayout.astro';
     <h2 class="text-xl font-semibold text-thmblue mt-8 mb-3 font-sans">Contact</h2>
     <p class="text-stone-800 leading-relaxed">
       Email : <a href="mailto:yan.senez@protonmail.com" class="underline text-thmblue">yan.senez@protonmail.com</a><br />
-      Repos GitHub : <a href="https://github.com/Igrekess" class="underline text-thmblue">github.com/Igrekess</a>
+      Repos GitHub : <a href="https://github.com/Igrekess" class="underline text-thmblue">github.com/Igrekess</a><br />
+      Page dédiée : <a href="/contact" class="underline text-thmblue">formulaire et autres canaux</a>
     </p>
+
+    <Citation lang="fr" />
 
     <h2 class="text-xl font-semibold text-thmblue mt-8 mb-3 font-sans">Statut éditorial</h2>
     <p class="text-stone-800 leading-relaxed mb-3">

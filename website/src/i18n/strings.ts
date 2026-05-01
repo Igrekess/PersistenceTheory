@@ -50,6 +50,7 @@ export const ui = {
     'nav.faq': 'FAQ',
     'nav.glossary': 'Glossaire',
     'nav.about': 'À propos',
+    'nav.contact': 'Contact',
     // Site meta
     'site.title': 'Théorie de la Persistance',
     'site.tagline': 'Du crible au Modèle Standard.',
@@ -69,6 +70,7 @@ export const ui = {
       'Préimpression — non révisée par les pairs.',
     'footer.dev_notice':
       'Site en cours de développement : des erreurs, incohérences ou pages incomplètes peuvent subsister.',
+    'footer.report_issue': 'Signaler une erreur',
     'depth.label': 'Profondeur',
     'depth.L1': 'Vulgarisé',
     'depth.L2': 'Standard',
@@ -110,6 +112,7 @@ export const ui = {
     'nav.faq': 'FAQ',
     'nav.glossary': 'Glossary',
     'nav.about': 'About',
+    'nav.contact': 'Contact',
     'site.title': 'The Theory of Persistence',
     'site.tagline': 'From the sieve to the Standard Model.',
     'site.description':
@@ -126,6 +129,7 @@ export const ui = {
       'Preprint — not peer-reviewed.',
     'footer.dev_notice':
       'This website is under active development: errors, inconsistencies, or incomplete pages may remain.',
+    'footer.report_issue': 'Report an issue',
     'depth.label': 'Depth',
     'depth.L1': 'Plain',
     'depth.L2': 'Standard',

@@ -255,7 +255,7 @@ class Checker:
         sys.exit(0 if self.n_fail == 0 else 1)
 
     def _write_report(self, duration):
-        """Write structured JSON report to scripts_v7/reports/<chapter>/."""
+        """Write structured JSON report to the companion reports directory."""
         report = {
             "script": self.name,
             "chapter": self.chapter,
@@ -266,7 +266,7 @@ class Checker:
             "n_total": self.n_pass + self.n_fail,
             "success": self.n_fail == 0,
             "results": self.results,
-            "pt_version": "v7",
+            "pt_framework": "persistence-theory",
             "zero_fitted_parameters": True,
         }
 
