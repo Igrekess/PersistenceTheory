@@ -53,8 +53,8 @@ C’est un test de cohérence interne de la PT.
 ## Démonstration — schéma
 
 1. **Factoriser** $T_{30}$ par CRT : $\mathbb{Z}/30 \cong \mathbb{Z}/2 \times \mathbb{Z}/3 \times \mathbb{Z}/5$.
-2. **Réduire** au sous-bloc dynamique : après exclusion de $p = 2$ (cinématique),
-   $T_{30}|_\text{dyn} = T_3 \otimes T_5$.
+2. **Réduire** au sous-bloc de cascade : après exclusion du facteur
+   spin/parité $p = 2$, $T_{30}|_\text{dyn} = T_3 \otimes T_5$.
 3. **Calculer** les valeurs propres de $T_3$ et $T_5$ sur les classes survivantes :
    $|\lambda_2(\tilde{T}_3)| = |\lambda_2(\tilde{T}_5)| = 1/2 = s$.
 4. **Multiplier** : $\lambda_2(\tilde{T}_3 \otimes \tilde{T}_5) = (1/2) \cdot (1/2) = 1/4$.
@@ -78,12 +78,12 @@ $$
 T_{30} = T_2 \otimes T_3 \otimes T_5.
 $$
 
-#### Étape 2 — Exclusion du facteur cinématique $T_2$
+#### Étape 2 — Exclusion du facteur spin/parité $T_2$
 
-Par U4 (cf. T0), le facteur $T_2$ est cinématique et n’entre pas dans la
-dynamique principale. Il fixe simplement la parité (les survivants sont
-impairs), ce qui restreint l’espace d’état mais ne contribue pas au spectre
-dynamique. La matrice dynamique pertinente est donc :
+Par U4 (cf. T0), le facteur $T_2$ porte l’infrastructure spin/parité et
+n’entre pas dans le spectre de cascade. Il fixe la parité (les survivants
+sont impairs), ce qui restreint l’espace d’état sans ajouter de transition
+non triviale. La matrice dynamique pertinente est donc :
 
 $$
 T_{30}|_\text{dyn} = T_3 \otimes T_5.

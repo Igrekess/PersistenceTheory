@@ -16,15 +16,15 @@ import Tag from '@components/Tag.astro';
 
 Dans le crible d’Ératosthène ordonné canoniquement, le premier $p = 3$ est le **premier niveau de cascade dynamique** : il produit la première matrice de transfert non triviale et impose la symétrie fondamentale $s = 1/2$.
 
-Le premier $p = 2$ a un rôle **structurellement distinct** : c’est l’opérateur **info / anti-info** qui crée la partition GFT $\log_2 m = D_{\rm KL} + H$. Il est *cinématique*, pas *dynamique*.
+Le premier $p = 2$ a un rôle **structurellement distinct** : c’est l’opérateur **info / anti-info** qui crée la partition GFT $\log_2 m = D_{\rm KL} + H$. Il est actif au sens brut et porte la dynamique spin/parité, mais il n’est pas une face dynamique de cascade : $T_2$ est $1 \times 1$.
 
 <Tag level="THM" />
 
 <div data-max-depth="L1" className="bg-amber-50 border-l-4 border-amber-300 px-4 py-3 my-6">
-**Lecture vulgarisée.** Pourquoi la PT commence-t-elle à $p = 3$ et pas à $p = 2$ ?
-Parce que le 2 ne « bouge » pas — il sépare juste le pair de l’impair, c’est binaire.
-La vraie dynamique commence avec le 3, qui crée la première règle non triviale
-(les transitions interdites mod 3, T1).
+**Lecture vulgarisée.** Pourquoi la cascade commence-t-elle à $p = 3$ et pas à $p = 2$ ?
+Parce que le 2 fournit d’abord la parité : deux canaux, pair/impair, info/anti-info.
+La première dynamique de transition commence avec le 3, qui crée la première règle
+non triviale (les transitions interdites mod 3, T1).
 </div>
 
 ## Pourquoi ça compte
@@ -40,8 +40,9 @@ dans T0.
 
 ## Démonstration — schéma
 
-1. **$p = 2$ est cinématique.** La partition pair / impair est une projection
-   booléenne, sans dynamique.
+1. **$p = 2$ est infrastructure.** La partition pair / impair est une projection
+   booléenne ; elle fournit la proto-bifurcation, mais pas une matrice de cascade
+   non triviale.
 2. **$p = 3$ est dynamique.** La matrice de transfert $T_3$ a deux états
    distincts (classes $\{1, 2\} \pmod 3$) avec règle d’élimination non triviale.
 3. **Symétrie forcée.** $T_3 = \mathrm{antidiag}(1,1)$ a une distribution
@@ -51,13 +52,13 @@ dans T0.
 
 ### Démonstration détaillée
 
-#### Partie 1 — $p = 2$ est cinématique
+#### Partie 1 — $p = 2$ est infrastructure de spin
 
 Le crible mod 2 partitionne $\mathbb{N}$ en pairs $\{2, 4, 6, \ldots\}$ et
 impairs $\{1, 3, 5, 7, \ldots\}$. Cette partition est :
 - **Booléenne** : un entier est pair ou impair, sans état intermédiaire.
-- **Sans transition** : la classe d’un entier est déterminée trivialement par
-  son dernier bit.
+- **Sans transition interne de cascade** : la classe d’un entier est déterminée
+  trivialement par son dernier bit.
 
 La matrice de transfert mod 2 sur les survivants (impairs) est triviale : tous
 les survivants sont dans la même classe (1 mod 2). Pas de dynamique entre
@@ -75,7 +76,7 @@ $T_3$ (théorème T1) a une règle d’élimination explicite :
 $T_3 = \mathrm{antidiag}(1, 1)$.
 
 C’est la **première matrice de transfert non triviale** du crible — la
-distinction entre $T_2$ (cinématique) et $T_3$ (dynamique) est structurelle.
+distinction entre $T_2$ (spin/infrastructure) et $T_3$ (cascade) est structurelle.
 
 #### Partie 3 — La symétrie $s = 1/2$
 

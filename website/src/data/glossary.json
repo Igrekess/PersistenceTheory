@@ -122,8 +122,8 @@
     },
     {
       "key": "bifurcation",
-      "fr": { "term": "bifurcation", "definition": "À μ* = 15, le système se sépare en deux secteurs : q⁺ (couplages) et q⁻ (géométrie). Sépare leptons/vertex de quarks/propagateur, PMNS de CKM." },
-      "en": { "term": "bifurcation", "definition": "At μ* = 15, the system splits into two sectors: q⁺ (couplings) and q⁻ (geometry). Separates leptons/vertex from quarks/propagator, PMNS from CKM." }
+      "fr": { "term": "bifurcation", "definition": "Scission primitive engendrée par p = 2 (parité/involution), puis figée à μ* = 15 comme q⁺ (couplages) et q⁻ (géométrie). Sépare leptons/vertex de quarks/propagateur, PMNS de CKM." },
+      "en": { "term": "bifurcation", "definition": "Primitive split seeded by p = 2 (parity/involution), then frozen at μ* = 15 as q⁺ (couplings) and q⁻ (geometry). Separates leptons/vertex from quarks/propagator, PMNS from CKM." }
     },
     {
       "key": "Ngen",

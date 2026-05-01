@@ -112,11 +112,11 @@
         {
           "fr": {
             "q": "Pourquoi les masses des fermions sortent-elles automatiquement ?",
-            "a": "La bifurcation à μ* = 15 sépare leptons (q⁺) et quarks (q⁻). Les rapports de masses sortent des sin²(θ_p) sur la branche correspondante, modulés par γ_p. L’identité de Koide pour les leptons est dérivée à 0,04 ppm sans aucun ajustement."
+            "a": "La bifurcation est amorcée par p = 2 (parité/involution) puis figée à μ* = 15 en deux branches : leptons (q⁺) et quarks (q⁻). Les rapports de masses sortent des sin²(θ_p) sur la branche correspondante, modulés par γ_p. L’identité de Koide pour les leptons est dérivée à 0,04 ppm sans aucun ajustement."
           },
           "en": {
             "q": "Why do fermion masses come out automatically?",
-            "a": "The bifurcation at μ* = 15 separates leptons (q⁺) and quarks (q⁻). Mass ratios emerge from sin²(θ_p) on the corresponding branch, modulated by γ_p. The Koide identity for leptons is derived to 0.04 ppm with no fitting."
+            "a": "The bifurcation is seeded by p = 2 (parity/involution) and then frozen at μ* = 15 into two branches: leptons (q⁺) and quarks (q⁻). Mass ratios emerge from sin²(θ_p) on the corresponding branch, modulated by γ_p. The Koide identity for leptons is derived to 0.04 ppm with no fitting."
           }
         },
         {

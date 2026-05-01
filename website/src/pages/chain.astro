@@ -6,23 +6,24 @@ const tBase = '/theorems';
 const nodes = [
   { id: 'T0', label: 'T0', sub: 'champ dynamique', x: 60, y: 90, kind: 'thm', href: `${tBase}/T0`, tooltip: 'BA0 se ferme : la suite des écarts {g_n} est l’unique champ dynamique admissible.' },
   { id: 'L0', label: 'L0', sub: 'distribution unique', x: 190, y: 90, kind: 'thm', href: `${tBase}/L0`, tooltip: 'Géométrique = unique distribution sans mémoire à entropie max.' },
-  { id: 'T1', label: 'T1', sub: 'transitions interdites', x: 320, y: 90, kind: 'thm', href: `${tBase}/T1`, tooltip: 'Les transitions 1→1 et 2→2 mod 3 sont interdites. Cette diagonale nulle force s = 1/2.' },
-  { id: 's', label: 's = 1/2', sub: 'symétrie dérivée', x: 450, y: 90, kind: 'thm', href: `${tBase}/T1`, tooltip: 'Symétrie dérivée par T1/T4, pas paramètre numérique choisi.' },
-  { id: 'T2', label: 'T2', sub: 'conservation α = s²', x: 580, y: 90, kind: 'thm', href: `${tBase}/T2`, tooltip: 'Conservation spectrale : |λ₂(T₃₀)| = 1/4 = s².' },
-  { id: 'GFT', label: 'GFT', sub: 'log m = D_KL + H', x: 710, y: 90, kind: 'thm', href: `${tBase}/GFT`, tooltip: 'Principe fondamental de la persistance : capacité = persistance + entropie.' },
-  { id: 'T3', label: 'T3', sub: 'transfert antidiagonal', x: 840, y: 90, kind: 'thm', href: `${tBase}/T3`, tooltip: 'Le noyau mod 3 devient purement antidiagonal après T1.' },
+  { id: 'T1', label: 'T1', sub: 'transitions interdites', x: 310, y: 90, kind: 'thm', href: `${tBase}/T1`, tooltip: 'Les transitions 1→1 et 2→2 mod 3 sont interdites. Cette diagonale nulle force s = 1/2.' },
+  { id: 'P2', label: 'p = 2', sub: 'dynamique spin', x: 430, y: 90, kind: 'bridge', href: `${tBase}/N4`, tooltip: 'p=2 porte la dynamique spin/parité : deux canaux ±, dont s=1/2 est la moyenne.' },
+  { id: 's', label: 's = 1/2', sub: 'moyenne de parité', x: 560, y: 90, kind: 'thm', href: `${tBase}/T1`, tooltip: 'Symétrie dérivée par T1/T4 : invariant moyen du doublet de parité, pas paramètre choisi.' },
+  { id: 'T2', label: 'T2', sub: 'conservation α = s²', x: 690, y: 90, kind: 'thm', href: `${tBase}/T2`, tooltip: 'Conservation spectrale : |λ₂(T₃₀)| = 1/4 = s².' },
+  { id: 'GFT', label: 'GFT', sub: 'log m = D_KL + H', x: 820, y: 90, kind: 'thm', href: `${tBase}/GFT`, tooltip: 'Principe fondamental de la persistance : capacité = persistance + entropie.' },
+  { id: 'T3', label: 'T3', sub: 'transfert antidiagonal', x: 950, y: 90, kind: 'thm', href: `${tBase}/T3`, tooltip: 'Le noyau mod 3 devient purement antidiagonal après T1.' },
   { id: 'T4', label: 'T4', sub: 'convergence αₖ → ½', x: 220, y: 220, kind: 'thm', href: `${tBase}/T4`, tooltip: 'Mertens + Gordin + CRT : le crible finit le travail.' },
   { id: 'T6', label: 'T6', sub: 'holonomie sin²θ_p', x: 360, y: 220, kind: 'thm', href: `${tBase}/T6`, tooltip: 'sin²θ_p = δ_p(2 − δ_p). La trigonométrie émerge.' },
   { id: 'T5', label: 'T5', sub: 'μ* = 3 + 5 + 7 = 15', x: 540, y: 220, kind: 'thm', href: `${tBase}/T5`, tooltip: 'L\'unique point fixe stable du crible.' },
-  { id: 'BIF', label: 'Bifurcation', sub: 'q⁺ / q⁻', x: 760, y: 220, kind: 'bridge', href: null, tooltip: 'q⁺ = 1 − 2/μ (couplages) ; q⁻ = e^(−1/μ) (géométrie).' },
+  { id: 'BIF', label: 'Bifurcation', sub: 'q⁺ / q⁻', x: 760, y: 220, kind: 'bridge', href: null, tooltip: 'Engendrée par p=2, puis figée à μ* = 15 : q⁺ = 1 − 2/μ ; q⁻ = e^(−1/μ).' },
   { id: 'qplus', label: 'q⁺', sub: 'couplages, leptons, α_EM', x: 600, y: 360, kind: 'der', href: '/observables', tooltip: 'Vertex, α_EM = 1/137, masses leptons, PMNS.' },
   { id: 'qminus', label: 'q⁻', sub: 'géométrie, quarks, CKM', x: 920, y: 360, kind: 'der', href: '/observables', tooltip: 'Propagateur, métrique, masses quarks, CKM.' },
   { id: 'OBS', label: '43 observables', sub: 'erreur moy. 0,30 %', x: 760, y: 470, kind: 'val', href: '/observables', tooltip: 'Modèle Standard reproduit, 0 paramètre ajusté.' },
 ];
 
 const edges = [
-  ['T0', 'L0'], ['L0', 'T1'], ['T1', 's'], ['s', 'T2'], ['T2', 'GFT'], ['GFT', 'T3'],
-  ['T3', 'T4'], ['T4', 'T6'], ['T6', 'T5'], ['T5', 'BIF'],
+  ['T0', 'L0'], ['L0', 'T1'], ['T1', 'P2'], ['P2', 's'], ['s', 'T2'], ['T2', 'GFT'], ['GFT', 'T3'],
+  ['T3', 'T4'], ['T4', 'T6'], ['T6', 'T5'], ['P2', 'BIF'], ['T5', 'BIF'],
   ['BIF', 'qplus'], ['BIF', 'qminus'],
   ['qplus', 'OBS'], ['qminus', 'OBS'],
 ];
@@ -100,18 +101,20 @@ const W = 1080, H = 540;
         <h3 class="font-sans font-semibold text-thmblue mb-2">Le chemin critique</h3>
         <p class="text-stone-700">
           La chaîne part du champ dynamique fermé par T0, puis L0 fixe la loi
-          de gaps et T1 impose la diagonale nulle qui force <span class="font-mono">s = 1/2</span>.
-          L0 fixe la distribution, T2 et GFT expriment la conservation, T6 fait
+          de gaps et T1 impose la diagonale nulle. Le canal <span class="font-mono">p = 2</span>
+          porte la dynamique spin/parité, dont <span class="font-mono">s = 1/2</span>
+          est l’invariant moyen. T2 et GFT expriment la conservation, T6 fait
           émerger la trigonométrie, puis T5 ferme le point fixe.
         </p>
       </div>
       <div class="pt-card">
         <h3 class="font-sans font-semibold text-thmblue mb-2">La bifurcation</h3>
         <p class="text-stone-700">
-          À <span class="font-mono">μ* = 15</span>, le système se sépare en deux branches.
-          La branche <span class="font-mono">q⁺</span> donne les couplages (vertex, leptons,
-          <span class="font-mono">α_EM</span>) ; la branche <span class="font-mono">q⁻</span>
-          donne la géométrie (propagateur, quarks, CKM).
+          La scission vient d’abord de <span class="font-mono">p = 2</span> :
+          parité, deux canaux <span class="font-mono">±</span>. À
+          <span class="font-mono">μ* = 15</span>, cette scission est figée comme
+          <span class="font-mono">q⁺/q⁻</span>. La branche <span class="font-mono">q⁺</span>
+          donne les couplages ; <span class="font-mono">q⁻</span> donne la géométrie.
         </p>
       </div>
     </div>

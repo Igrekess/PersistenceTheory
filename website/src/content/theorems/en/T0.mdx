@@ -18,7 +18,8 @@ Let the sieve of Eratosthenes operate on $\mathbb{N}$. Under the four closure co
 - **U1** — invariance under sieve automorphisms
 - **U2** — finiteness of the prime base at every step
 - **U3** — genericity (no accidental arithmetic coincidences)
-- **U4** — exclusion of $p = 2$ as a dynamical prime (its contribution is kinematic)
+- **U4** — exclusion of $p = 2$ as a cascade-dynamical prime
+  (its contribution is the spin/parity infrastructure)
 
 the sequence $\{g_n\}_{n \geq 1}$ of gaps $g_n = p_{n+1} - p_n$ between consecutive primes is the **unique** dynamical field of the sieve — any other construction is either isomorphic to $\{g_n\}$ or excluded by U1–U4.
 
@@ -48,8 +49,9 @@ Without T0, BA0 loses its uniqueness.
 2. **Restrict by finiteness** (U2): at each depth $k$, only finitely many survivors exist.
 3. **Eliminate redundancies** via U3 (genericity): no non-trivial arithmetic
    relation constrains the sequence.
-4. **Exclude $p = 2$** (U4): its contribution is kinematic (info / anti-info
-   boundary), not dynamical.
+4. **Exclude $p = 2$ from the cascade** (U4): its contribution is the
+   spin/parity infrastructure (info / anti-info boundary), not a
+   dynamical cascade face.
 5. **Identify** the surviving candidate: $\{g_n\} = \{p_{n+1} - p_n\}$.
 
 <div data-min-depth="L3" className="bg-stone-50 border border-stone-300 rounded-lg p-4 my-8">
@@ -93,12 +95,13 @@ sieve filtration.
 
 #### Step 4 — Exclusion of $p = 2$ (U4)
 
-The prime $p = 2$ plays a special role: it separates evens from odds, but
-this separation is **kinematic** (binary) and not dynamical in the sieve
-sense. Passing to $p = 2$ treats elimination of multiples as a Boolean
-projection without cascade. U4 isolates this contribution in the binary
-infrastructure (cf. the $p = 2$ channel in the $\alpha_{\mathrm{EM}}$
-dressing, ch. 10) rather than in the main dynamical field.
+The prime $p = 2$ plays a special role: it separates evens from odds and
+carries the spin/parity dynamics. But this is not cascade dynamics in the
+$T_p$ sense: passing to $p = 2$ treats elimination of multiples as a Boolean
+projection with no non-trivial transition matrix. U4 isolates this contribution
+in the binary infrastructure (cf. the $p = 2$ channel in the
+$\alpha_{\mathrm{EM}}$ dressing, ch. 10) rather than in the main dynamical
+field.
 
 #### Step 5 — Uniqueness
 

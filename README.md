@@ -10,7 +10,7 @@ scripted, and the physical interpretation is presented as a hypothesis exposed
 to future tests.
 
 - English monograph: [TheTheoryOfPersistence.pdf](TheTheoryOfPersistence.pdf)
-  (885 pages)
+  (883 pages)
 - French monograph: [TheorieDeLaPersistance_FR.pdf](TheorieDeLaPersistance_FR.pdf)
   (913 pages)
 - Website source: [`website/`](website)

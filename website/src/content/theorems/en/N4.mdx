@@ -16,15 +16,15 @@ import Tag from '@components/Tag.astro';
 
 In the canonically-ordered Eratosthenes sieve, the prime $p = 3$ is the **first dynamical cascade level**: it produces the first non-trivial transfer matrix and imposes the fundamental symmetry $s = 1/2$.
 
-The prime $p = 2$ has a **structurally distinct role**: it is the **info / anti-info** operator creating the GFT partition $\log_2 m = D_{\rm KL} + H$. It is *kinematic*, not *dynamical*.
+The prime $p = 2$ has a **structurally distinct role**: it is the **info / anti-info** operator creating the GFT partition $\log_2 m = D_{\rm KL} + H$. It is active in the raw sense and carries the spin/parity dynamics, but it is not a dynamical cascade face: $T_2$ is $1 \times 1$.
 
 <Tag level="THM" />
 
 <div data-max-depth="L1" className="bg-amber-50 border-l-4 border-amber-300 px-4 py-3 my-6">
-**Plain reading.** Why does PT start at $p = 3$ and not $p = 2$? Because 2 does
-not "move" — it just separates evens from odds, that’s binary. Real dynamics
-begins at 3, which creates the first non-trivial rule (forbidden mod-3
-transitions, T1).
+**Plain reading.** Why does the cascade start at $p = 3$ and not $p = 2$?
+Because 2 first supplies parity: two channels, even/odd, info/anti-info.
+The first transition dynamics begins at 3, which creates the first non-trivial
+rule (forbidden mod-3 transitions, T1).
 </div>
 
 ## Why it matters
@@ -39,8 +39,8 @@ It is also N4 that justifies U4 (excluding $p = 2$ as a dynamical prime) in T0.
 
 ## Proof — outline
 
-1. **$p = 2$ is kinematic.** The even/odd partition is a Boolean projection,
-   without dynamics.
+1. **$p = 2$ is infrastructure.** The even/odd partition is a Boolean projection;
+   it supplies the proto-bifurcation, but not a non-trivial cascade matrix.
 2. **$p = 3$ is dynamical.** The transfer matrix $T_3$ has two distinct states
    ($\{1, 2\} \pmod 3$) with a non-trivial elimination rule.
 3. **Forced symmetry.** $T_3 = \mathrm{antidiag}(1,1)$ has stationary
@@ -50,13 +50,13 @@ It is also N4 that justifies U4 (excluding $p = 2$ as a dynamical prime) in T0.
 
 ### Detailed proof
 
-#### Part 1 — $p = 2$ is kinematic
+#### Part 1 — $p = 2$ is spin infrastructure
 
 The mod-2 sieve partitions $\mathbb{N}$ into evens $\{2, 4, 6, \ldots\}$ and
 odds $\{1, 3, 5, 7, \ldots\}$. This partition is:
 - **Boolean**: an integer is even or odd, no intermediate state.
-- **Without transitions**: an integer’s class is trivially determined by its
-  last bit.
+- **Without internal cascade transitions**: an integer’s class is trivially
+  determined by its last bit.
 
 The mod-2 transfer matrix on survivors (odds) is trivial: all survivors are
 in the same class (1 mod 2). No inter-class dynamics — no analogue of T1.
@@ -73,7 +73,7 @@ gives two non-trivial classes: $\{1, 2\} \pmod 3$. The transfer matrix $T_3$
 $T_3 = \mathrm{antidiag}(1, 1)$.
 
 This is the **first non-trivial transfer matrix** of the sieve — the
-distinction between $T_2$ (kinematic) and $T_3$ (dynamical) is structural.
+distinction between $T_2$ (spin/infrastructure) and $T_3$ (cascade) is structural.
 
 #### Part 3 — The symmetry $s = 1/2$
 

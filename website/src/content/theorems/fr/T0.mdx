@@ -18,7 +18,8 @@ Soit le crible d’Ératosthène opérant sur $\mathbb{N}$. Sous les quatre cond
 - **U1** — invariance par automorphismes du crible
 - **U2** — finitude de la base de premiers à chaque étape
 - **U3** — généricité (pas de coïncidences arithmétiques accidentelles)
-- **U4** — exclusion de $p = 2$ comme premier dynamique (sa contribution est cinématique)
+- **U4** — exclusion de $p = 2$ comme premier dynamique de cascade
+  (sa contribution est l’infrastructure spin/parité)
 
 la suite $\{g_n\}_{n \geq 1}$ des écarts $g_n = p_{n+1} - p_n$ entre premiers consécutifs est l’**unique** champ dynamique du crible — toute autre construction est, soit isomorphe à $\{g_n\}$, soit exclue par U1–U4.
 
@@ -50,8 +51,9 @@ BA0 perdrait son unicité.
    fini de survivants existe.
 3. **Éliminer les redondances** par U3 (généricité) : aucune relation
    arithmétique non triviale ne contraint la suite.
-4. **Exclure $p = 2$** (U4) : sa contribution est cinématique (frontière info /
-   anti-info), pas dynamique.
+4. **Exclure $p = 2$ de la cascade** (U4) : sa contribution est
+   l’infrastructure spin/parité (frontière info / anti-info), pas une
+   face dynamique de cascade.
 5. **Identifier** le seul candidat survivant : $\{g_n\} = \{p_{n+1} - p_n\}$.
 
 <div data-min-depth="L3" className="bg-stone-50 border border-stone-300 rounded-lg p-4 my-8">
@@ -96,12 +98,13 @@ filtration du crible.
 
 #### Étape 4 — Exclusion de $p = 2$ (U4)
 
-Le premier $p = 2$ joue un rôle particulier : il sépare les pairs des impairs,
-mais cette séparation est **cinématique** (binaire) et non dynamique au sens du
-crible. Le passage à $p = 2$ traite l’élimination des multiples comme une
-projection booléenne, sans cascade. U4 isole cette contribution dans
-l’infrastructure binaire (cf. canal $p = 2$ dans l’habillage de $\alpha_{\mathrm{EM}}$,
-ch. 10) plutôt que dans le champ dynamique principal.
+Le premier $p = 2$ joue un rôle particulier : il sépare les pairs des impairs
+et porte la dynamique spin/parité. Mais cette dynamique n’est pas une dynamique
+de cascade au sens de $T_p$ : le passage à $p = 2$ traite l’élimination des
+multiples comme une projection booléenne, sans matrice de transition non
+triviale. U4 isole cette contribution dans l’infrastructure binaire
+(cf. canal $p = 2$ dans l’habillage de $\alpha_{\mathrm{EM}}$, ch. 10) plutôt
+que dans le champ dynamique principal.
 
 #### Étape 5 — Unicité
 
