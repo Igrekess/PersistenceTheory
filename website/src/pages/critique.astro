@@ -23,13 +23,13 @@ const objections = [
   {
     cat: 'Mathématique',
     title: 'L’unicité de μ* = 15 dépend du seuil γ_p > 1/2.',
-    answer: 'Vrai, et ce seuil 1/2 est admis comme postulat (pas dérivé des axiomes du crible). Mais sa **robustesse** est forte : tout seuil dans [0,43, 0,60] donne le même point fixe {3, 5, 7}. Le gap γ_7 - γ_11 = 0,169 assure une stabilité structurelle indépendante de la valeur exacte. Voir T5.',
+    answer: 'Vrai, mais le seuil 1/2 n’est pas un postulat libre : la symétrie s = 1/2 est dérivée dans la chaîne du crible, puis utilisée comme seuil d’activation dans le cadre GFT/BA4. La critique pertinente porte donc sur cette promotion du seuil arithmétique en critère d’activité physique. Sa robustesse reste forte : tout seuil dans [0,43, 0,60] sélectionne le même secteur actif {3, 5, 7}. Le gap γ_7 - γ_11 ≈ 0,170 assure une stabilité structurelle indépendante d’un réglage fin. Voir T1 et T5.',
     severity: 'moyenne',
   },
   {
     cat: 'Physique',
     title: 'Pourquoi {3, 5, 7} et pas {2, 3, 5} ou {5, 7, 11} ?',
-    answer: 'Recherche exhaustive (T5) : aucun autre sous-ensemble fini de premiers ne ferme l’équation d’auto-cohérence γ_p > 1/2 ET μ = somme. {2} est cinématique (pas dynamique, T_2 trivial). {3, 5, 7} est l’unique solution. Permuter dégrade les 43 observables d’un facteur 106 en moyenne (test d’ablation).',
+    answer: 'Recherche exhaustive (T5) : dans le secteur informationnel réduit, aucun autre sous-ensemble fini de premiers ne ferme simultanément l’équation γ_p > 1/2 et μ = somme. {2,3,5} et {2,3,5,7} existent comme régimes avec p=2 inclus ; après cristallisation, p=2 devient infrastructure binaire plutôt que premier actif du secteur physique. Le secteur {3,5,7} est alors l’attracteur réduit. Permuter les actifs dégrade les 43 observables d’un facteur 106 en moyenne (test d’ablation).',
     severity: 'moyenne',
   },
   {
@@ -89,7 +89,9 @@ const severityClasses: Record<string, string> = {
         </p>
         <p class="text-lg text-slate-700 leading-relaxed mb-5" data-max-depth="L1">
           Une théorie qui prétend reproduire 43 observables sans paramètre
-          mérite des objections. Cette page rassemble les plus fortes et
+          mérite des objections. Plus précisément, PT revendique zéro
+          paramètre continu ajusté, avec une convention dimensionnelle SCU
+          et des engagements structurels discrets explicités. Cette page rassemble les plus fortes et
           y répond directement. Aucune n’est écartée comme « malentendu » :
           si la critique tient, la théorie doit être révisée — et on a déjà
           eu l’occasion de le faire (P20 rétrogradée en avril 2026).

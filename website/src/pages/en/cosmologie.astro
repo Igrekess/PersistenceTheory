@@ -3,24 +3,24 @@ import BaseLayout from '@layouts/BaseLayout.astro';
 import ResearchTopic from '@components/ResearchTopic.astro';
 
 const features = [
-  { title: 'Emergent time', body: 'Cosmological chronology is an internal reading of the sieve, not an outside clock.', status: 'BRIDGE' },
-  { title: 'Dark sector', body: 'The dark fraction and its internal split are tied to inactive primes and Clausius enthalpy.', status: 'DER' },
-  { title: 'Open predictions', body: 'DESI, Euclid, CMB-S4, JUNO and DUNE are key tests of cosmological and neutrino sectors.', status: 'PRED' },
+  { title: 'From cosmogony', body: 'This page takes the primordial cascade as boundary condition and studies what becomes observable afterwards.', status: 'BRIDGE', href: '/en/big-bang' },
+  { title: 'Late geometry', body: 'The active directions 3, 5, 7 become a Fisher-Bianchi metric whose H₀ is a directional average.', status: 'DER' },
+  { title: 'Separate statuses', body: 'The dark budget, H₀, neutrinos and late dark energy do not all carry the same validation level.', status: 'PRED' },
 ];
 
 const sections = [
   {
-    eyebrow: 'L1',
-    title: 'The universe as a reading of a structure',
+    eyebrow: 'Plain',
+    title: 'What cosmology adds to cosmogony',
     paragraphs: [
-      'In the standard story, the universe begins, evolves, cools, and forms structure. PT does not deny this observational chronology, but reads it as a projection of an already-given arithmetic structure.',
-      'Thus “before the Big Bang” is not necessarily a well-formed physical question: it asks for a before relative to a clock that, in PT, emerges after the structure.',
-      'Plainly: cosmology describes the movie we observe; PT looks for the mathematical script that makes the movie possible. The Big Bang remains an observational boundary, but not necessarily a “start button” pressed in an external time.',
-      'The metaphor therefore changes. If the universe is pictured as a fire, it begins by burning and ends by exhausting itself. If it is read as persistence mechanics, it begins with sorting: fire consumes, sorting structures.',
-      'Another image: expansion looks like the progressive opening of a map whose internal coordinates become readable. What we call cosmic history is the ordered reading of that map from the inside.',
-      'In the cosmological budget, “visible” means baryonic matter coupled to light: atoms, stars, gas, dust, galaxies, in short what leaves a direct or indirect electromagnetic trace.',
-      '“Informational matter” means the non-luminous gravitational share that PT ties to inactive primes: it weighs, curves, and organizes structure, but it is not first understood as a new family of visible particles.',
-      '“Dark energy” means the smooth part of the dark sector that acts as cosmological pressure and accelerates expansion; in PT it comes from the thermodynamic split of the inactive sector, not from a free constant inserted by hand.',
+      'The Cosmogony page explains how the primordial cascade opens persistence thresholds and stabilises around the reduced attractor μ* = 15. The Cosmology page begins after that move: it asks how this structure is read, from the inside, as a measurable universe.',
+      'In other words, PT cosmology is not a second Big Bang story. It is the observable translation of cosmogony: proper time, expansion, spatial directions, visible matter, dark components, and observational tests.',
+      'In the standard story, the universe begins, evolves, cools, and forms structure. PT does not deny that observational movie; it proposes that the movie is the late reading of a deeper organisation already constrained by the sieve.',
+      'This changes the status of “what came before?”. The question assumes an external clock. In PT, measurable time is itself a product of the cascade: it appears when the structure becomes oriented and a temporal signature can be read.',
+      'The useful image is therefore not only an explosion, but a map becoming readable. Cosmogony draws the coordinates; cosmology observes how those coordinates manifest as expansion, curvature, matter-energy budget, and measurement tensions.',
+      'Visible matter means baryonic matter coupled to light: atoms, stars, gas, dust, galaxies, in short what leaves a direct or indirect electromagnetic trace.',
+      'Informational matter means the non-luminous gravitational component: it structures and curves without first being introduced as a new visible matter. Dark energy means the smooth component of the dark sector, read as background pressure and cosmic acceleration.',
+      'The key pedagogical point is this: PT does not put everything in the same box. H₀, the dark budget, neutrino mass, and late dark-energy dynamics are connected by one chain, but they do not all have the same status.',
     ],
     visual: {
       kind: 'cosmic-budget',
@@ -36,14 +36,16 @@ const sections = [
     },
   },
   {
-    eyebrow: 'L2',
-    title: 'Physical architecture: expansion, dark sector, anisotropy',
+    eyebrow: 'Standard',
+    title: 'From the sieve to cosmological parameters',
+    depth: 'L2',
     paragraphs: [
-      'The relativity chapter gives $H_0$, the total dark sector, and a reading of the Hubble tension through Bianchi I anisotropy. The cosmology chapters then deploy dark matter, dark energy, and the third neutrino mass.',
-      'The dark fraction is tied to the echo of inactive primes. The split between informational matter and dark energy is tied to a Clausius-type thermodynamic transition.',
-      'The word “matter” in informational matter therefore means “component that gravitates and structures”, not necessarily “ordinary massive particle”. The word “energy” in dark energy means “background pressure component”, not simply energy stored in a localizable object.',
-      'The Hubble tension is then reframed: if the native metric is Bianchi I before being averaged isotropically, two observational methods may not sample exactly the same geometric object.',
-      'PT cosmology therefore connects three things often treated separately: expansion geometry, the dark sector, and neutrino physics. It does so with distinct statuses: some steps are derived inside PT relativity, others remain predictions exposed to future measurements.',
+      'Once the cascade has stabilised, the three active primes 3, 5 and 7 are no longer only thresholds in the frieze: they become the three active directions of geometry. PT relativity reads them as a Fisher-Bianchi I metric, hence as a geometry that is naturally anisotropic before isotropic averaging.',
+      'In this frame, H₀ is not introduced as a primitive scalar. It is read as the average of three directional rates H₃, H₅ and H₇. The isotropic value corresponds to the sky average; local or partial measurements can sample a different effective direction.',
+      'This makes the Hubble tension more intelligible: it is not merely a disagreement between instruments or a correction added to ΛCDM. In the PT reading, it can be understood as the observable effect of an underlying Bianchi I geometry that progressively averages out.',
+      'The dark sector comes from another part of the chain. Inactive primes do not create new spatial directions, but they leave an echo trace. This echo fraction gives the total dark sector; the internal split between informational matter and dark energy then uses the q⁺/q⁻ bifurcation and a Clausius-type thermodynamic reading.',
+      'The words must stay at the right level. “Informational matter” means a component that gravitates, organises, and weighs in the geometry; it is not automatically an ordinary massive particle. “Dark energy” means a smooth component or background pressure; it is not local energy stored in an object.',
+      'PT cosmology therefore connects three domains often treated separately: expansion geometry, dark budget, and neutrino physics. That is powerful, but it is precisely why the page must distinguish derivation, physical bridge, numerical validation, and open programme.',
     ],
     items: [
       '$F_{inactive}$: cosmological echo fraction of inactive primes.',
@@ -55,15 +57,15 @@ const sections = [
     ],
   },
   {
-    eyebrow: 'L3',
-    title: 'Technical demonstration: Hubble, dark sector, predictions',
+    eyebrow: 'Technical',
+    title: 'What is derived, what remains open',
     depth: 'L3',
     paragraphs: [
-      'The how-to-read classifies cosmology as a layer of falsifiable predictions, with PRED, PRED-candidate and COND statuses depending on the route. The sector therefore does not all sit at the same level as the arithmetic theorems.',
-      'PT gives strong, testable cosmological outputs, while late-time regimes, DESI/Euclid/CMB-S4, and some Einstein-Boltzmann integrations remain an active programme.',
-      'In chapter 13, $H_0$ is read as an average of three directional rates $H_3,H_5,H_7$ from the Bianchi I metric. The total dark sector is tied to $F_{inactive}=1-2/(e^\\gamma\\ln N)$, while the $\\Omega_{info}/\\Omega_\\Lambda$ split depends on PT thermodynamics.',
-      'Cosmological background numbers are not read as a table of fits. They are consequences of a geometry-information dictionary, with some routes still candidate and testable by DESI, Euclid, CMB-S4, JUNO, and DUNE.',
-      'Technically, visible maps to $\\Omega_b$, informational matter to $\\Omega_{info}$, and dark energy to $\\Omega_\\Lambda$. The important relation is that $\\Omega_{info}+\\Omega_\\Lambda$ reconstructs the dark sector coming from $F_{inactive}$, while $\\Omega_b$ remains the active baryonic share.',
+      'The monograph classifies cosmology as a deployment layer and a layer of falsifiable predictions. It is not at the same status as the arithmetic sieve theorems: some relations are derived inside the PT dictionary, some are physical bridges, some are numerical validations, and some remain open.',
+      'In chapter 13, H₀ is presented as a Fisher-Bianchi reading: H₀ = (H₃ + H₅ + H₇)/3 = 67.41 km/s/Mpc. The Hubble tension is then reframed by directional anisotropy, with a prediction of convergence toward the mean as sky coverage becomes more isotropic.',
+      'The total dark sector is tied to the inactive fraction F_inactive(N) = 1 - 2/(e^γ ln N). The Ω_info / Ω_Λ split is given by the q⁺/q⁻ transition and the Clausius reading, but the monograph explicitly marks this as DER inside the PT dictionary, not an unconditional THM.',
+      'The most delicate point is late dark energy, especially w(z). The monograph keeps it as an open research programme: the Mertens-drift estimator is useful, but it does not carry the Tier-1 status of the most rigid PT predictions.',
+      'This nuance protects the page’s coherence. H₀, the dark budget, and neutrino tests can be presented as strong falsifiable outputs, while late dark-energy dynamics remains an active frontier of the theory.',
     ],
     items: [
       '$H_0$: Bianchi I directional average rather than primitive scalar.',
@@ -74,15 +76,15 @@ const sections = [
     proof: {
       title: 'Technical demonstration',
       steps: [
-        'Start from the Fisher-Bianchi metric derived in chapter 13: three active directions $p=3,5,7$ with scale factors $a_p=\\gamma_p/\\mu$.',
-        'For each direction define $H_p=\\dot a_p/a_p$ in proper time. The isotropic Hubble constant is the directional mean $H_0=(H_3+H_5+H_7)/3$.',
-        'The Hubble tension is then reframed: an observer or method sampling an effective direction $\\hat n$ reads $H(\\hat n)$, while isotropic cosmology reads the mean. The difference is not an added fit but the underlying Bianchi I anisotropy.',
-        'The total dark sector comes from the echo fraction of inactive primes. The form cited in the monograph is $F_{inactive}(N)=1-2/(e^\\gamma\\ln N)$, read at the relevant cosmological scale.',
-        'The internal dark-sector split uses PT thermodynamics: informational matter and dark energy are separated by a Clausius-type enthalpy, not by two free parameters.',
-        'The third-neutrino mass $m_{\\nu_3}$ and $w(z)$ observables connect this sector to testable predictions: oscillations, CMB, DESI, Euclid, CMB-S4.',
-        'Cosmological routes do not all carry the same status: some are derived/validated inside PT relativity, others are PRED or PRED-candidate in the cosmological layer.',
+        'Boundary condition: cosmogony supplies the stabilised cascade and the active directions 3, 5, 7; cosmology does not re-prove that step, it projects it into late observables.',
+        'Geometry: the Fisher-Bianchi metric of chapter 13 assigns scale factors $a_p=\\gamma_p/\\mu$ and rates $H_p=\\dot a_p/a_p$ to the active directions.',
+        'Hubble: the isotropic constant is the mean $H_0=(H_3+H_5+H_7)/3$, while a directional measurement reads $H(\\hat n)=\\sum H_p n_p^2$.',
+        'Hubble tension: Planck reads the sky average; local measurements may oversample a fast direction. The qualitative prediction is convergence with larger angular-coverage surveys.',
+        'Dark sector: inactive primes produce an echo fraction $F_{inactive}(N)=1-2/(e^\\gamma\\ln N)$; the visible sector remains the baryonic complement.',
+        'Internal split: $\\Omega_{info}$ and $\\Omega_\\Lambda$ come from the q⁺/q⁻ transition and Clausius enthalpy. The monograph tags this step DER/BRIDGE, not pure THM.',
+        'Open programme: late dynamics $w(z)$ and DESI/Euclid/CMB-S4 extensions remain exposed to data and must not be confused with Tier-1 predictions.',
       ],
-      conclusion: 'PT cosmology combines Fisher-Bianchi projection, inactive-prime echo, and persistence thermodynamics. Late-time observables remain testable predictions: they extend the derived chain without being confused with already fully validated results.',
+      conclusion: 'PT cosmology extends cosmogony rather than repeating it: it translates the stabilised cascade into geometry, dark budget, and observational predictions, with an explicit separation between derivation, physical bridge, validation, and open programme.',
     },
   },
 ];
@@ -95,12 +97,12 @@ const sources = [
 ];
 ---
 
-<BaseLayout title="Cosmology in PT" description="PT cosmological reading: time, Big Bang, dark sector, Hubble, and predictions.">
+<BaseLayout title="Cosmology" description="From cosmogony to the observable universe: expansion, dark sector, Hubble, neutrinos, and predictions.">
   <ResearchTopic
     eyebrow="Cosmology"
-    title="Cosmology as a reading of the sieve"
-    description="PT does not only tell the universe inside time; it asks how time, expansion and the dark sector are read from persistence structure."
-    lead="Cosmology is where PT becomes most vertiginous, but also where status precision matters most: some outputs are derived, others are predictions currently being tested."
+    title="From the cascade to the observable universe"
+    description="This page takes cosmogony as a boundary condition and studies what becomes measurable in the late universe: expansion, dark sector, H₀, neutrinos, and tests."
+    lead="Cosmogony explains how structure opens; cosmology explains how that structure is measured. This is where PT is most exposed to data, so the statuses must stay clean."
     features={features}
     sections={sections}
     sources={sources}

@@ -23,13 +23,13 @@ const objections = [
   {
     cat: 'Mathematical',
     title: 'The uniqueness of μ* = 15 depends on the threshold γ_p > 1/2.',
-    answer: 'True, and that 1/2 threshold is a postulate (not derived from sieve axioms). But its **robustness** is strong: any threshold in [0.43, 0.60] yields the same fixed point {3, 5, 7}. The gap γ_7 - γ_11 = 0.169 ensures structural stability independent of the exact value. See T5.',
+    answer: 'True, but the 1/2 threshold is not a free postulate: the symmetry s = 1/2 is derived in the sieve chain, then used as the activation threshold in the GFT/BA4 framework. The relevant critique is therefore the promotion from arithmetic threshold to physical activity criterion. Its robustness is still strong: any threshold in [0.43, 0.60] selects the same active sector {3, 5, 7}. The gap γ_7 - γ_11 ≈ 0.170 ensures structural stability without fine tuning. See T1 and T5.',
     severity: 'medium',
   },
   {
     cat: 'Physics',
     title: 'Why {3, 5, 7} and not {2, 3, 5} or {5, 7, 11}?',
-    answer: 'Exhaustive search (T5): no other finite prime subset closes the self-consistency equation γ_p > 1/2 AND μ = sum. {2} is kinematic (not dynamic, T_2 trivial). {3, 5, 7} is the unique solution. Permuting degrades the 43 observables by a factor 106 on average (ablation test).',
+    answer: 'Exhaustive search (T5): in the reduced information sector, no other finite prime subset closes both γ_p > 1/2 and μ = sum. {2,3,5} and {2,3,5,7} exist as regimes with p=2 included; after crystallisation, p=2 becomes binary infrastructure rather than an active prime of the physical sector. The {3,5,7} sector is then the reduced attractor. Permuting the active primes degrades the 43 observables by a factor 106 on average (ablation test).',
     severity: 'medium',
   },
   {
@@ -88,7 +88,9 @@ const severityClasses: Record<string, string> = {
         </p>
         <p class="text-lg text-slate-700 leading-relaxed mb-5" data-max-depth="L1">
           A theory claiming 43 observables with no parameter deserves
-          objections. This page collects the strongest ones and answers
+          objections. More precisely, PT claims zero continuously fitted
+          parameters, with an SCU dimensional convention and explicit discrete
+          structural commitments. This page collects the strongest ones and answers
           them directly. None is dismissed as "misunderstanding": if the
           critique holds, the theory must be revised — and we already had
           the chance (P20 downgraded in April 2026).

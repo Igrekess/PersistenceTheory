@@ -1,16 +1,28 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
 import ObservablesTable from '@components/ObservablesTable.astro';
+import observables from '@/data/observables.json';
 
-// Histogramme de distribution des erreurs (43 observables)
-// Buckets : <0,01% / 0,01-0,1% / 0,1-0,5% / 0,5-1% / 1-2% / >2%
+const errors = observables.map((o) => o.error_pct);
+const nonStructural = observables.filter((o) => !o.sc && !o.exact);
+const nonStructuralErrors = nonStructural.map((o) => o.error_pct);
+const mean = (values: number[]) => values.reduce((sum, value) => sum + value, 0) / values.length;
+const median = (values: number[]) => {
+  const sorted = [...values].sort((a, b) => a - b);
+  const mid = Math.floor(sorted.length / 2);
+  return sorted.length % 2 ? sorted[mid] : (sorted[mid - 1] + sorted[mid]) / 2;
+};
+const pctFr = (value: number, digits = 3) => value.toFixed(digits).replace('.', ',');
+const maxObservable = observables.reduce((max, o) => (o.error_pct > max.error_pct ? o : max), observables[0]);
+const under05 = observables.filter((o) => o.error_pct < 0.5).length;
+
 const errBuckets = [
-  { label: '< 0,01 %', count: 12, color: '#1e6f47' },
-  { label: '0,01–0,1 %', count: 14, color: '#2c8959' },
-  { label: '0,1–0,5 %', count: 10, color: '#7da64a' },
-  { label: '0,5–1 %', count: 4, color: '#c9a64a' },
-  { label: '1–2 %', count: 2, color: '#c96f24' },
-  { label: '> 2 %', count: 1, color: '#a83232' },
+  { label: '< 0,01 %', count: observables.filter((o) => o.error_pct < 0.01).length, color: '#1e6f47' },
+  { label: '0,01–0,1 %', count: observables.filter((o) => o.error_pct >= 0.01 && o.error_pct < 0.1).length, color: '#2c8959' },
+  { label: '0,1–0,5 %', count: observables.filter((o) => o.error_pct >= 0.1 && o.error_pct < 0.5).length, color: '#7da64a' },
+  { label: '0,5–1 %', count: observables.filter((o) => o.error_pct >= 0.5 && o.error_pct < 1).length, color: '#c9a64a' },
+  { label: '1–2 %', count: observables.filter((o) => o.error_pct >= 1 && o.error_pct < 2).length, color: '#c96f24' },
+  { label: '> 2 %', count: observables.filter((o) => o.error_pct >= 2).length, color: '#a83232' },
 ];
 const maxCount = Math.max(...errBuckets.map((b) => b.count));
 
@@ -28,12 +40,12 @@ const sectors = [
 ];
 
 const benchmarks = [
-  { label: 'Erreur moyenne', value: '0,30 %', tone: 'thmblue' },
-  { label: 'Erreur médiane', value: '0,059 %', tone: 'derorange' },
-  { label: 'Observables sous 0,5 %', value: '36 / 43', tone: 'emerald' },
-  { label: 'Paramètres ajustés', value: '0', tone: 'rose' },
-  { label: 'Entrées externes', value: '0', tone: 'amber' },
-  { label: 'Profondeurs de dérivation', value: 'd = 0 à 6', tone: 'sky' },
+  { label: 'Erreur moyenne', value: `${pctFr(mean(errors), 3)} %`, tone: 'thmblue' },
+  { label: 'Erreur médiane', value: `${pctFr(median(errors), 3)} %`, tone: 'derorange' },
+  { label: 'Observables sous 0,5 %', value: `${under05} / ${observables.length}`, tone: 'emerald' },
+  { label: 'Paramètres continus ajustés', value: '0', tone: 'rose' },
+  { label: 'Convention dimensionnelle', value: 'SCU', tone: 'amber' },
+  { label: 'Agrégat conservateur', value: `${nonStructural.length} obs.`, tone: 'sky' },
 ];
 
 const toneClasses: Record<string, string> = {
@@ -54,35 +66,40 @@ const barY = (count: number) => chart.bottom - (count / maxCount) * (chart.botto
 
 <BaseLayout
   title="43 observables"
-  description="Les 43 observables du Modèle Standard dérivés depuis s = 1/2 et μ* = 15. Erreur moyenne 0,30 %, médiane 0,06 %, zéro paramètre ajusté."
+  description={`Les 43 observables du Modèle Standard dérivés depuis s = 1/2 et μ* = 15. Erreur moyenne ${pctFr(mean(errors), 3)} %, médiane ${pctFr(median(errors), 3)} %, zéro paramètre continu ajusté.`}
 >
   <main class="max-w-6xl mx-auto px-4 py-10 md:py-14">
 
     <!-- HERO -->
     <section class="mb-12">
       <div class="rounded-lg border border-slate-200 bg-white p-6 md:p-8 shadow-sm">
-        <p class="pt-tag pt-tag-val mb-5">Validation quantitative</p>
+        <p class="pt-tag pt-tag-val mb-5">Vulgarisé · validation quantitative</p>
         <h1 class="text-4xl md:text-5xl font-bold text-thmblue leading-tight mb-4">
-          43 observables, 0 paramètre ajusté
+          43 observables, 0 paramètre continu ajusté
         </h1>
         <p class="text-lg text-slate-700 leading-relaxed mb-5" data-max-depth="L1">
           Toutes les valeurs sont dérivées de la symétrie <span class="font-mono">s = 1/2</span>
-          (théorème T1), au point fixe attractif <span class="font-mono">μ* = 15</span> (T5).
-          Aucun paramètre ajusté, aucune entrée externe : <span class="font-mono">m_e = s = 1/2</span>
-          en unités SCU est dérivé, et la traduction MeV ↔ SCU est une convention dimensionnelle
-          (analogue à <span class="font-mono">c</span> en SI), pas un paramètre.
+          (théorème T1), à l’attracteur physique du secteur réduit
+          <span class="font-mono">μ* = 15</span> (T5).
+          Aucun paramètre continu n’est ajusté. La comparaison aux masses en MeV
+          utilise la convention dimensionnelle SCU : elle fixe l’unité de lecture,
+          comme <span class="font-mono">c</span> en SI, sans introduire un fit.
         </p>
         <p class="text-base text-slate-700 leading-relaxed" data-min-depth="L2">
           Sur 43 observables comparés au PDG (Particle Data Group), l’erreur moyenne
-          est de 0,30 %, la médiane de 0,06 %. 36 observables sont sous 0,5 % d’écart.
-          La plus grande erreur (R_b à 1,3 %) reste compatible 1σ.
+          est de {pctFr(mean(errors), 3)} %, la médiane de {pctFr(median(errors), 3)} %.
+          {under05} observables sont sous 0,5 % d’écart. L’agrégat conservateur
+          hors auto-cohérences et entiers exacts contient {nonStructural.length} entrées
+          réelles indépendantes ; sa moyenne est {pctFr(mean(nonStructuralErrors), 3)} %
+          et sa médiane {pctFr(median(nonStructuralErrors), 3)} %. Le plus grand écart
+          actuel est {maxObservable.name} à {pctFr(maxObservable.error_pct, 1)} %.
         </p>
       </div>
     </section>
 
     <!-- METRIQUES CLES -->
     <section class="mb-12">
-      <p class="pt-tag pt-tag-thm mb-3">Repères</p>
+      <p class="pt-tag pt-tag-thm mb-3">Vulgarisé</p>
       <h2 class="text-3xl font-bold text-thmblue mb-6">Six chiffres à retenir</h2>
       <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
         {benchmarks.map((b) => (
@@ -95,8 +112,8 @@ const barY = (count: number) => chart.bottom - (count / maxCount) * (chart.botto
     </section>
 
     <!-- HISTOGRAMME ERREURS -->
-    <section class="mb-12">
-      <p class="pt-tag pt-tag-id mb-3">Distribution</p>
+    <section class="mb-12" data-min-depth="L2">
+      <p class="pt-tag pt-tag-id mb-3">Standard</p>
       <h2 class="text-3xl font-bold text-thmblue mb-6">Comment se répartissent les 43 erreurs ?</h2>
       <div class="rounded-lg border border-slate-200 bg-white p-6 shadow-sm">
         <p class="text-sm text-stone-600 mb-4 font-sans">
@@ -123,15 +140,15 @@ const barY = (count: number) => chart.bottom - (count / maxCount) * (chart.botto
             );
           })}
           <text x="380" y="265" text-anchor="middle" font-size="12" fill="#5f6f80" font-family="ui-sans-serif, system-ui">
-            36 observables sur 43 (84 %) sous 0,5 % d’erreur
+            {under05} observables sur {observables.length} sous 0,5 % d’erreur
           </text>
         </svg>
       </div>
     </section>
 
     <!-- COMPOSITION PAR SECTEUR -->
-    <section class="mb-12">
-      <p class="pt-tag pt-tag-der mb-3">Couverture sectorielle</p>
+    <section class="mb-12" data-min-depth="L2">
+      <p class="pt-tag pt-tag-der mb-3">Standard</p>
       <h2 class="text-3xl font-bold text-thmblue mb-6">Quels secteurs du Modèle Standard sont couverts ?</h2>
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
         {sectors.map((sec) => (
@@ -148,8 +165,8 @@ const barY = (count: number) => chart.bottom - (count / maxCount) * (chart.botto
     </section>
 
     <!-- TABLE COMPLETE FILTRABLE -->
-    <section class="mb-12">
-      <p class="pt-tag pt-tag-val mb-3">Table complète</p>
+    <section class="mb-12" data-min-depth="L2">
+      <p class="pt-tag pt-tag-val mb-3">Standard</p>
       <h2 class="text-3xl font-bold text-thmblue mb-3">Les 43 observables, filtrables</h2>
       <p class="text-slate-700 mb-6 max-w-3xl">
         Filtrez par secteur, recherchez par nom. Cliquez sur une ligne pour
@@ -160,8 +177,8 @@ const barY = (count: number) => chart.bottom - (count / maxCount) * (chart.botto
     </section>
 
     <!-- STATUT EPISTEMIQUE -->
-    <section class="mb-12">
-      <p class="pt-tag pt-tag-thm mb-3">Statut épistémique</p>
+    <section class="mb-12" data-min-depth="L2">
+      <p class="pt-tag pt-tag-thm mb-3">Standard · statut épistémique</p>
       <h2 class="text-3xl font-bold text-thmblue mb-6">Une distinction importante</h2>
       <div class="grid md:grid-cols-3 gap-4">
         <div class="rounded-lg border border-emerald-300 bg-emerald-50 p-5">
@@ -180,11 +197,43 @@ const barY = (count: number) => chart.bottom - (count / maxCount) * (chart.botto
           </p>
         </div>
         <div class="rounded-lg border border-orange-300 bg-orange-50 p-5">
-          <h3 class="font-sans font-semibold text-orange-800 text-lg mb-2">37 prédictions indépendantes</h3>
+          <h3 class="font-sans font-semibold text-orange-800 text-lg mb-2">{nonStructural.length} entrées indépendantes</h3>
           <p class="text-sm text-orange-900 leading-relaxed">
-            <strong>Erreur moyenne 0,082 %, médiane 0,06 %.</strong> Chacune
-            est dérivable de manière indépendante depuis {`{s, μ*}`}, sans
-            paramètre libre — donc falsifiable par la mesure.
+            <strong>Erreur moyenne {pctFr(mean(nonStructuralErrors), 3)} %, médiane {pctFr(median(nonStructuralErrors), 3)} %.</strong>
+            Ce bloc exclut les auto-cohérences SC et les entiers exacts. Les entrées
+            restent dérivées sans paramètre continu ajusté, puis confrontées à la mesure.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- LECTURE TECHNIQUE -->
+    <section class="mb-12" data-min-depth="L3">
+      <p class="pt-tag pt-tag-val mb-3">Technique</p>
+      <h2 class="text-3xl font-bold text-thmblue mb-6">Comment lire les agrégats</h2>
+      <div class="grid md:grid-cols-3 gap-4">
+        <div class="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
+          <h3 class="font-sans font-semibold text-thmblue text-lg mb-2">Erreur moyenne</h3>
+          <p class="text-sm text-slate-700 leading-relaxed">
+            La moyenne est calculée sur les écarts relatifs absolus
+            <span class="font-mono">|PT − exp| / exp</span>. Elle est sensible
+            aux quelques observables les plus éloignées.
+          </p>
+        </div>
+        <div class="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
+          <h3 class="font-sans font-semibold text-thmblue text-lg mb-2">Médiane</h3>
+          <p class="text-sm text-slate-700 leading-relaxed">
+            La médiane donne le cas typique : la moitié des observables est
+            plus proche, l’autre moitié plus éloignée. Elle résiste mieux aux
+            valeurs extrêmes.
+          </p>
+        </div>
+        <div class="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
+          <h3 class="font-sans font-semibold text-thmblue text-lg mb-2">Agrégat conservateur</h3>
+          <p class="text-sm text-slate-700 leading-relaxed">
+            Les auto-cohérences SC et les entiers exacts sont séparés des
+            entrées réelles indépendantes afin de ne pas gonfler artificiellement
+            le score global.
           </p>
         </div>
       </div>

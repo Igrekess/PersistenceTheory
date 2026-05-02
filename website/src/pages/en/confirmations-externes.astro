@@ -319,7 +319,7 @@ const confirmations: Confirmation[] = [
     field: 'Metrology',
     year: '2025',
     role: '$1/\\alpha_{\\rm EM} = 137.035\\,999\\,084$ with uncertainty $1.5 \\times 10^{-10}$.',
-    why: 'PT gives $137.035\\,999\\,083\\,4$ with 0 fitted parameters. Discrepancy $\\sim 4$ ppt (compatible 1σ). Non-trivial: PT could have given a remote number.',
+    why: 'PT gives $137.035\\,999\\,083\\,4$ with no continuously fitted parameter. Discrepancy $\\sim 4$ ppt (compatible 1σ). Non-trivial: PT could have given a remote number.',
     status: 'experimental',
     statusLabel: 'Reference measurement — J. Phys. Chem. Ref. Data',
     links: {
@@ -332,7 +332,7 @@ const confirmations: Confirmation[] = [
     field: 'Metrology',
     year: '2024',
     role: 'Canonical source for the 43 compared observables.',
-    why: 'All PT vs PDG values are listed in the observables table. 36/43 below 0.5 % discrepancy. Not a single fit.',
+    why: 'All PT vs PDG values are listed in the observables table. 41/43 below 0.5 % discrepancy in the full set; no continuously fitted parameter.',
     status: 'experimental',
     statusLabel: 'Experimental compilation — Phys. Rev. D',
     links: {
@@ -439,7 +439,7 @@ const featured = confirmations.filter((c) => c.status === 'published');
     <!-- HERO -->
     <section class="mb-12">
       <div class="rounded-lg border border-slate-200 bg-white p-6 md:p-8 shadow-sm">
-        <p class="pt-tag pt-tag-val mb-5">External validation</p>
+        <p class="pt-tag pt-tag-val mb-5">Plain · external validation</p>
         <h1 class="text-4xl md:text-5xl font-bold text-thmblue leading-tight mb-4">
           {totalCount} independent confirmations
         </h1>
@@ -464,6 +464,8 @@ const featured = confirmations.filter((c) => c.status === 'published');
 
     <!-- STATUS LEGEND -->
     <section class="mb-10">
+      <p class="pt-tag pt-tag-id mb-3">Plain</p>
+      <h2 class="text-3xl font-bold text-thmblue mb-6">Read the statuses at a glance</h2>
       <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
         <div class="rounded-lg border-2 border-emerald-500 bg-emerald-50 p-4">
           <p class="font-mono text-2xl mb-1">★</p>
@@ -494,8 +496,8 @@ const featured = confirmations.filter((c) => c.status === 'published');
 
     <!-- FEATURED PEER-REVIEWED -->
     {featured.length > 0 && (
-      <section class="mb-12">
-        <p class="pt-tag pt-tag-val mb-3">Highlights</p>
+      <section class="mb-12" data-min-depth="L2">
+        <p class="pt-tag pt-tag-val mb-3">Standard</p>
         <h2 class="text-3xl font-bold text-thmblue mb-4">Recent peer-reviewed publications</h2>
         <p class="text-base text-slate-700 leading-relaxed mb-6" data-min-depth="L2">
           Independent convergences published in peer-reviewed journals between
@@ -533,7 +535,7 @@ const featured = confirmations.filter((c) => c.status === 'published');
 
     <!-- DOMAINS -->
     <section class="mb-12">
-      <p class="pt-tag pt-tag-id mb-3">Coverage</p>
+      <p class="pt-tag pt-tag-id mb-3">Plain</p>
       <h2 class="text-3xl font-bold text-thmblue mb-6">Seven independent domains</h2>
       <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
         {fields.map((f) => (
@@ -547,8 +549,8 @@ const featured = confirmations.filter((c) => c.status === 'published');
     </section>
 
     <!-- FULL TABLE -->
-    <section class="mb-12">
-      <p class="pt-tag pt-tag-val mb-3">Detailed list</p>
+    <section class="mb-12" data-min-depth="L2">
+      <p class="pt-tag pt-tag-val mb-3">Standard</p>
       <h2 class="text-3xl font-bold text-thmblue mb-6">All {totalCount}, by domain</h2>
       <div class="space-y-4">
         {fields.map((field) => {
@@ -611,8 +613,8 @@ const featured = confirmations.filter((c) => c.status === 'published');
     </section>
 
     <!-- METHODOLOGY -->
-    <section class="mb-12">
-      <p class="pt-tag pt-tag-thm mb-3">Methodology</p>
+    <section class="mb-12" data-min-depth="L3">
+      <p class="pt-tag pt-tag-thm mb-3">Technical · methodology</p>
       <h2 class="text-3xl font-bold text-thmblue mb-6">What each confirmation means</h2>
       <div class="grid md:grid-cols-2 gap-4">
         <div class="rounded-lg border-2 border-emerald-300 bg-emerald-50 p-5">
@@ -660,7 +662,7 @@ const featured = confirmations.filter((c) => c.status === 'published');
         <a href="/en/observables" class="pt-card block group">
           <span class="pt-tag pt-tag-val">Validation</span>
           <h3 class="font-sans font-semibold text-thmblue text-lg mt-3 mb-2 group-hover:underline">43 observables vs PDG</h3>
-          <p class="text-sm text-slate-700">Massive retrodiction: 36/43 below 0.5 % error, 0 parameter.</p>
+          <p class="text-sm text-slate-700">Massive retrodiction: 41/43 below 0.5 % error, no continuously fitted parameter.</p>
         </a>
         <a href="/en/predictions" class="pt-card block group">
           <span class="pt-tag pt-tag-thm">Predictions</span>

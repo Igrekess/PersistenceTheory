@@ -13,11 +13,11 @@ const misconceptions = [
   },
   {
     wrong: 'μ* = 15 was chosen to reproduce physics.',
-    right: 'μ* = 15 is the unique attractive fixed point of the iteration γ_p > 1/2. The basin of attraction is [12, 17]; outside it, divergence or collapse. The value 15 was not adjusted.',
+    right: 'μ* = 15 is the physical attractor of the reduced sector of the γ_p > 1/2 iteration, after p=2 crystallises. The basin of attraction is [12, 17]; outside it, divergence or collapse. The value 15 was not adjusted.',
   },
   {
     wrong: 'PT replaces the ΛCDM Big Bang model.',
-    right: 'PT reconstructs late-time ΛCDM (H₀, F_echo, n_s) within 0.1 %, with 0 fit parameters. The pre-recombination phase is derived as informational order, not as a primitive temporal event.',
+    right: 'PT gives a cosmogonic boundary condition and some strong late-time outputs (H₀, dark sector, n_s), but late cosmology keeps distinct statuses: derivation, physical bridge, validation, or open programme depending on the case.',
   },
 ];
 
@@ -39,7 +39,17 @@ const numerics = [
 
   <main class="max-w-6xl mx-auto px-4 pb-14">
 
-    <section class="mb-12 mt-8">
+    <section class="mb-12 mt-8 rounded-lg border border-thmblue/20 bg-thmblue/5 p-5 md:p-6">
+      <p class="pt-tag pt-tag-bridge mb-3">Scope of this page</p>
+      <p class="text-slate-800 leading-relaxed max-w-4xl">
+        This page stops at the transition from the primordial cascade to the
+        reduced attractor μ* = 15. Observable parameters of the late universe —
+        expansion, dark sector, H₀, neutrinos and observational tests — are handled
+        on the <a href="/en/cosmologie" class="text-thmblue font-semibold underline decoration-thmblue/30 hover:decoration-thmblue">Cosmology</a> page.
+      </p>
+    </section>
+
+    <section class="mb-12">
       <p class="pt-tag pt-tag-id mb-3">Common misreadings</p>
       <h2 class="text-3xl font-bold text-thmblue mb-6">Four misconceptions to avoid</h2>
       <p class="text-slate-700 leading-relaxed mb-6 max-w-3xl">
@@ -62,11 +72,11 @@ const numerics = [
       <p class="pt-tag pt-tag-val mb-3">Numerical landmarks</p>
       <h2 class="text-3xl font-bold text-thmblue mb-6">The basin of attraction is narrow</h2>
       <p class="text-slate-700 leading-relaxed mb-6 max-w-3xl">
-        The uniqueness of μ* = 15 does not rest on a fit. It rests on the
+        The stability of μ* = 15 does not rest on a fit. It rests on the
         geometry of the basin of attraction of the iteration
         {`$\\mu_{k+1} = \\sum \\{p : \\gamma_p(\\mu_k) > 1/2\\}$`}. Any perturbation
         outside [12, 17] leaves the stable phase. Here are the exact
-        margins ensuring uniqueness.
+        margins ensuring attraction of the reduced sector.
       </p>
       <div class="overflow-x-auto rounded-lg border border-slate-200 bg-white shadow-sm">
         <table class="w-full text-sm">
@@ -102,20 +112,20 @@ const numerics = [
         <a href="/en/cosmologie" class="pt-card block group">
           <span class="pt-tag pt-tag-val">Late cosmology</span>
           <h3 class="font-sans font-semibold text-thmblue text-lg mt-3 mb-2 group-hover:underline">H₀, dark sector, n_s</h3>
-          <p class="text-sm text-slate-700">How the cascade freezes into ΛCDM observables with 0 fit parameters.</p>
+          <p class="text-sm text-slate-700">How the cascade freezes into ΛCDM observables with no continuously fitted parameter.</p>
         </a>
         <a href="/en/theorems/T5" class="pt-card block group">
           <span class="pt-tag pt-tag-thm">Theorem T5</span>
-          <h3 class="font-sans font-semibold text-thmblue text-lg mt-3 mb-2 group-hover:underline">Uniqueness of fixed point μ* = 15</h3>
-          <p class="text-sm text-slate-700">Rigorous proof: 6 independent justifications (J1–J6).</p>
+          <h3 class="font-sans font-semibold text-thmblue text-lg mt-3 mb-2 group-hover:underline">Reduced attractor μ* = 15</h3>
+          <p class="text-sm text-slate-700">Rigorous proof: closure of the {`{3,5,7}`} sector after crystallisation of 2.</p>
         </a>
         <a href="/en/essays/bifurcation-q-plus-q-minus" class="pt-card block group">
-          <span class="pt-tag pt-tag-id">Essay L1</span>
+          <span class="pt-tag pt-tag-id">Plain essay</span>
           <h3 class="font-sans font-semibold text-thmblue text-lg mt-3 mb-2 group-hover:underline">The q⁺/q⁻ bifurcation</h3>
           <p class="text-sm text-slate-700">Why the sieve splits into two branches after μ* = 15.</p>
         </a>
         <a href="/en/essays/echo-primes" class="pt-card block group">
-          <span class="pt-tag pt-tag-id">Essay L1</span>
+          <span class="pt-tag pt-tag-id">Plain essay</span>
           <h3 class="font-sans font-semibold text-thmblue text-lg mt-3 mb-2 group-hover:underline">Echo primes</h3>
           <p class="text-sm text-slate-700">What do {`{11, 13}`} do once they are no longer active? They dress α_EM.</p>
         </a>

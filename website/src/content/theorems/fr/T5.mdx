@@ -1,8 +1,8 @@
 ---
 id: T5
-name: 'T5 — Point fixe attractif unique μ* = 15'
-short: 'Le crible admet un unique point fixe stable et attractif à $\mu^* = 3+5+7 = 15$.'
-statement: 'L’auto-cohérence $\mu^* = \sum_{p : \gamma_p(\mu^*) > 1/2} p$ admet une unique solution stable et attractive, $\mu^* = 15$, avec ensemble actif $\{3, 5, 7\}$. Vérifié par scan exhaustif sur $\mu \in [3, 100]$.'
+name: 'T5 — Attracteur informationnel μ* = 15'
+short: 'Après cristallisation de p = 2, le secteur réduit du crible admet un unique attracteur physique : $\mu^* = 3+5+7 = 15$.'
+statement: 'Dans le secteur informationnel réduit, l’auto-cohérence $\mu^* = \sum_{p : \gamma_p(\mu^*) > 1/2} p$ admet une unique solution stable et attractive, $\mu^* = 15$, avec ensemble actif $\{3, 5, 7\}$. Les régimes avec $p=2$ inclus sont distingués comme secteurs binaire/transitoire. Vérifié par scan exhaustif sur $\mu \in [3, 100]$.'
 status: THM
 monograph_chapter: chap:fixed_point
 order: 7
@@ -19,7 +19,7 @@ $$
 \mu^* = \sum_{p\,:\,\gamma_p(\mu^*) > s} p, \qquad s = 1/2,
 $$
 
-admet une **unique** solution stable, à savoir :
+admet une **unique solution stable dans le secteur informationnel réduit**, à savoir :
 
 $$
 \boxed{\mu^* = 3 + 5 + 7 = 15, \qquad \text{ensemble actif} = \{3, 5, 7\}.}
@@ -27,19 +27,18 @@ $$
 
 La preuve combine un scan exhaustif rationnel exact sur $\mu \in [3, 100]$
 avec une borne analytique de monotonie pour $p \geq 7$, qui exclut tout point
-fixe en dehors du primorial actif $\{3, 5, 7\}$.
+fixe supplémentaire dans le secteur réduit $\{3, 5, 7\}$.
 
 <Tag level="THM" />
 
 <div data-max-depth="L1" className="bg-amber-50 border-l-4 border-amber-300 px-4 py-3 my-6">
 **Lecture vulgarisée.** On a une équation auto-référente : « $\mu$ doit être la somme
-des premiers actifs à $\mu$ ». Combien y a-t-il de solutions ? T5 dit : exactement
-une. C’est $\mu = 15$ avec les premiers actifs $\{3, 5, 7\}$. Aucun autre choix de
-premiers ne ferme l’équation. Cette unicité est ce qui fait dire à la PT « zéro
-paramètre libre » : si plusieurs solutions existaient, il faudrait choisir, et ce
-choix serait un paramètre. La nuance importante est que ce point fixe n’est
-pas seulement une égalité statique : sa stabilité en fait l’attracteur du
-secteur réduit.
+des premiers actifs à $\mu$ ». Dans le secteur physique où $p=2$ a cristallisé
+en infrastructure binaire, T5 dit : il n’y a qu’une fermeture stable. C’est
+$\mu = 15$ avec les premiers actifs $\{3, 5, 7\}$. Aucun autre choix de premiers
+ne ferme l’équation dans ce secteur réduit. C’est pourquoi il vaut mieux parler
+d’**attracteur informationnel** : $\mu^* = 15$ n’est pas seulement une égalité
+statique, c’est la fermeture stable vers laquelle glisse la cascade admissible.
 </div>
 
 ## Pourquoi ça compte
@@ -66,7 +65,7 @@ C’est $\mu^* = 15$ qui pilote la PT physique, après que $p = 2$ ait
 4. **Borne analytique** : $\gamma_p$ strictement décroissante en $p$ pour $p \geq 7$,
    donc aucun premier $\geq 11$ n’est actif à aucun $\mu$ raisonnable.
 5. **Scan exhaustif** des sous-ensembles finis de $\{3, 5, 7, 11, 13, ...\}$ pour
-   confirmer l’unicité.
+   confirmer l’unicité dans le secteur réduit.
 
 <div data-min-depth="L3" className="bg-stone-50 border border-stone-300 rounded-lg p-4 my-8">
 
@@ -145,7 +144,7 @@ cristallisation de $p=2$, tandis que $18$ déclenche la cascade divergente.
 
 #### J1–J6 : six justifications indépendantes
 
-La monographie liste six justifications indépendantes du point fixe attractif $\mu^* = 15$ :
+La monographie liste six justifications indépendantes de l’attracteur réduit $\mu^* = 15$ :
 1. Scan exhaustif (étape 4).
 2. Stabilité linéaire (étape 5).
 3. $N_c = 3$ : seule solution de $(N_c + 1)! / (N_c + 3) = 2^{N_s - 1}$ avec $N_s = 3$.

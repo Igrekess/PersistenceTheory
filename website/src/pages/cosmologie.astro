@@ -3,24 +3,24 @@ import BaseLayout from '@layouts/BaseLayout.astro';
 import ResearchTopic from '@components/ResearchTopic.astro';
 
 const features = [
-  { title: 'Temps émergent', body: 'La chronologie cosmologique est une lecture interne du crible, pas une horloge extérieure.', status: 'BRIDGE' },
-  { title: 'Secteur sombre', body: 'La fraction sombre et sa séparation interne sont reliées aux premiers inactifs et à l’enthalpie de Clausius.', status: 'DER' },
-  { title: 'Prédictions ouvertes', body: 'DESI, Euclid, CMB-S4, JUNO et DUNE sont des tests clés des secteurs cosmologiques et neutrinos.', status: 'PRED' },
+  { title: 'Depuis la cosmogonie', body: 'Cette page prend la cascade primordiale comme condition de bord et traite ce qui devient observable ensuite.', status: 'BRIDGE', href: '/big-bang' },
+  { title: 'Géométrie tardive', body: 'Les trois directions actives 3, 5, 7 deviennent une métrique Fisher-Bianchi dont H₀ est une moyenne directionnelle.', status: 'DER' },
+  { title: 'Statuts séparés', body: 'Le budget sombre, H₀, les neutrinos et l’énergie sombre tardive ne portent pas tous le même niveau de validation.', status: 'PRED' },
 ];
 
 const sections = [
   {
-    eyebrow: 'L1',
-    title: 'L’univers comme lecture d’une structure',
+    eyebrow: 'Vulgarisé',
+    title: 'Ce que la cosmologie ajoute à la cosmogonie',
     paragraphs: [
-      'Dans le récit standard, l’univers commence, évolue, refroidit, forme des structures. La PT ne nie pas cette chronologie observationnelle, mais elle la lit comme une projection d’une structure arithmétique déjà donnée.',
-      'Ainsi, “avant le Big Bang” n’est plus forcément une question physique bien formée : elle demande un avant à une horloge qui, dans la PT, émerge après la structure.',
-      'Vulgarisé : la cosmologie décrit le film que nous observons ; la PT cherche le scénario mathématique qui rend ce film possible. Le Big Bang reste une frontière observationnelle, mais il n’est plus nécessairement un “démarrage” au sens d’un bouton pressé dans un temps extérieur.',
-      'La métaphore change donc. Si l’univers est pensé comme un feu, il commence par brûler et finit par s’épuiser. Si on le lit comme une mécanique de persistance, il commence par un tri : un feu consomme, un tri structure.',
-      'Une autre image : l’expansion ressemble à l’ouverture progressive d’une carte dont les coordonnées internes deviennent lisibles. Ce que nous appelons histoire cosmique est la lecture ordonnée de cette carte depuis l’intérieur.',
-      'Dans le budget cosmologique, “visible” désigne la matière baryonique couplée à la lumière : atomes, étoiles, gaz, poussières, galaxies, bref ce qui laisse une trace électromagnétique directe ou indirecte.',
-      'La “matière informationnelle” désigne la part gravitationnelle non lumineuse que la PT relie aux inactifs : elle pèse, courbe et organise les structures, mais elle n’est pas d’abord pensée comme une nouvelle famille de particules visibles.',
-      'L’“énergie sombre” désigne la part lisse du secteur sombre qui agit comme pression cosmologique et accélère l’expansion ; en PT, elle vient de la séparation thermodynamique du secteur inactif, pas d’une constante libre posée à la main.',
+      'La page Cosmogonie explique comment la cascade primordiale ouvre les seuils de persistance et se stabilise autour de l’attracteur réduit μ* = 15. La page Cosmologie commence après ce geste : elle demande comment cette structure se lit, depuis l’intérieur, comme un univers mesurable.',
+      'Autrement dit, la cosmologie PT n’est pas un second récit du Big Bang. Elle est la traduction observable de la cosmogonie : temps propre, expansion, directions spatiales, matière visible, composantes sombres et tests observationnels.',
+      'Dans le récit standard, l’univers commence, évolue, refroidit, puis forme des structures. La PT ne nie pas ce film observationnel ; elle propose que le film soit la lecture tardive d’une organisation plus profonde, déjà contrainte par le crible.',
+      'C’est pourquoi la question “qu’y avait-il avant ?” change de statut. Elle suppose une horloge extérieure. Or, dans la lecture PT, le temps mesurable est lui-même un produit de la cascade : il apparaît quand la structure devient orientée et qu’une signature temporelle peut être lue.',
+      'La métaphore utile n’est donc pas seulement celle d’une explosion, mais celle d’une carte qui devient lisible. La cosmogonie trace les coordonnées ; la cosmologie observe comment ces coordonnées se manifestent sous forme d’expansion, de courbure, de budget matière-énergie et de tensions de mesure.',
+      'Le visible désigne alors la matière baryonique couplée à la lumière : atomes, étoiles, gaz, poussières, galaxies, bref ce qui laisse une trace électromagnétique directe ou indirecte.',
+      'La matière informationnelle désigne la composante gravitationnelle non lumineuse : elle structure et courbe sans être d’abord introduite comme une nouvelle matière visible. L’énergie sombre désigne la composante lisse du secteur sombre, celle qui se lit comme pression de fond et accélération cosmique.',
+      'Le point pédagogique essentiel est celui-ci : PT ne met pas tout dans une même case. H₀, le budget sombre, la masse des neutrinos et la dynamique tardive de l’énergie sombre sont liés par une même chaîne, mais leurs statuts ne sont pas identiques.',
     ],
     visual: {
       kind: 'cosmic-budget',
@@ -36,14 +36,16 @@ const sections = [
     },
   },
   {
-    eyebrow: 'L2',
-    title: 'Architecture physique : expansion, sombre, anisotropie',
+    eyebrow: 'Standard',
+    title: 'Du crible aux paramètres cosmologiques',
+    depth: 'L2',
     paragraphs: [
-      'Le chapitre de relativité donne $H_0$, le secteur sombre total et une lecture de la tension de Hubble par anisotropie Bianchi I. Les chapitres cosmologiques déploient ensuite la matière noire, l’énergie sombre et la masse du troisième neutrino.',
-      'La fraction sombre est reliée à l’écho des premiers inactifs. La séparation entre matière informationnelle et énergie sombre est rattachée à une transition thermodynamique de type Clausius.',
-      'Le mot “matière” dans matière informationnelle signifie donc “composante qui gravite et structure”, pas nécessairement “particule massive ordinaire”. Le mot “énergie” dans énergie sombre signifie “composante de pression de fond”, pas simple énergie stockée dans un objet localisable.',
-      'La tension de Hubble est alors reformulée : si la métrique native est Bianchi I avant d’être moyennée en lecture isotrope, deux méthodes observationnelles peuvent ne pas échantillonner exactement le même objet géométrique.',
-      'La cosmologie PT relie donc trois choses souvent traitées séparément : la géométrie de l’expansion, le secteur sombre et la physique des neutrinos. Elle le fait avec des statuts distincts : certaines étapes sont dérivées dans la relativité PT, d’autres sont des prédictions encore exposées aux futures mesures.',
+      'Une fois la cascade stabilisée, les trois premiers actifs 3, 5 et 7 ne sont plus seulement des seuils de la frise : ils deviennent les trois directions actives de la géométrie. La relativité PT les lit comme une métrique Fisher-Bianchi I, donc comme une géométrie naturellement anisotrope avant moyenne isotrope.',
+      'Dans ce cadre, H₀ n’est pas posé comme un scalaire primitif. Il est lu comme la moyenne de trois taux directionnels H₃, H₅ et H₇. La valeur isotrope correspond au ciel moyen ; des mesures locales ou partielles peuvent échantillonner une direction effective différente.',
+      'C’est là que la tension de Hubble devient plus parlante : elle n’est pas seulement un désaccord entre instruments ou une correction ajoutée au modèle ΛCDM. Dans la lecture PT, elle peut être comprise comme l’effet observable d’une géométrie Bianchi I sous-jacente qui se moyenne progressivement.',
+      'Le secteur sombre vient d’une autre partie de la chaîne. Les premiers inactifs ne créent pas de nouvelles directions spatiales, mais ils laissent une trace d’écho. Cette fraction d’écho donne le secteur sombre total ; la séparation interne entre matière informationnelle et énergie sombre utilise ensuite la bifurcation q⁺/q⁻ et une lecture thermodynamique de type Clausius.',
+      'Il faut garder les mots au bon niveau. “Matière informationnelle” signifie composante qui gravite, organise et pèse dans la géométrie ; ce n’est pas automatiquement une particule massive ordinaire. “Énergie sombre” signifie composante lisse ou pression de fond ; ce n’est pas une énergie locale stockée dans un objet.',
+      'La cosmologie PT relie donc trois domaines que le modèle standard traite souvent séparément : la géométrie de l’expansion, le budget sombre et la physique des neutrinos. C’est puissant, mais c’est précisément pour cela que la page doit distinguer dérivation, pont physique, validation numérique et programme ouvert.',
     ],
     items: [
       '$F_{inactive}$ : fraction d’écho cosmologique des premiers inactifs.',
@@ -55,15 +57,15 @@ const sections = [
     ],
   },
   {
-    eyebrow: 'L3',
-    title: 'Démonstration technique : Hubble, secteur sombre, prédictions',
+    eyebrow: 'Technique',
+    title: 'Ce qui est dérivé, ce qui reste ouvert',
     depth: 'L3',
     paragraphs: [
-      'Le how-to-read classe la cosmologie comme une couche de prédictions falsifiables, avec statuts PRED, PRED-candidate et COND selon les routes. Le secteur ne se situe donc pas tout entier au même niveau que les théorèmes arithmétiques.',
-      'La PT donne des sorties cosmologiques fortes et testables, tandis que les régimes tardifs, DESI/Euclid/CMB-S4 et certaines intégrations Einstein-Boltzmann restent un programme actif.',
-      'Dans le chapitre 13, $H_0$ est lu comme moyenne de trois taux directionnels $H_3,H_5,H_7$ issus de la métrique Bianchi I. Le secteur sombre total est rapproché de $F_{inactive}=1-2/(e^\\gamma\\ln N)$, tandis que la séparation $\\Omega_{info}/\\Omega_\\Lambda$ dépend de la thermodynamique PT.',
-      'Les nombres de fond cosmologique ne sont pas lus comme une simple table de fit. Ils sont des conséquences d’un dictionnaire géométrie-information, avec certaines routes encore candidates et testables par DESI, Euclid, CMB-S4, JUNO et DUNE.',
-      'Techniquement, le visible correspond à $\\Omega_b$, la matière informationnelle à $\\Omega_{info}$, et l’énergie sombre à $\\Omega_\\Lambda$. La relation importante est que $\\Omega_{info}+\\Omega_\\Lambda$ reconstruit le secteur sombre issu de $F_{inactive}$, tandis que $\\Omega_b$ reste la part active baryonique.',
+      'La monographie classe la cosmologie comme une couche de déploiement et de prédictions falsifiables. Ce n’est pas le même statut que les théorèmes arithmétiques du crible : certaines relations sont dérivées dans le dictionnaire PT, certaines sont des ponts physiques, certaines sont des validations numériques, et certaines restent ouvertes.',
+      'Dans le chapitre 13, H₀ est présenté comme une lecture Fisher-Bianchi : H₀ = (H₃ + H₅ + H₇)/3 = 67,41 km/s/Mpc. La tension de Hubble est alors reformulée par anisotropie directionnelle, avec une prédiction de convergence vers la moyenne quand la couverture du ciel devient plus isotrope.',
+      'Le secteur sombre total est rattaché à la fraction inactive F_inactive(N) = 1 - 2/(e^γ ln N). La séparation Ω_info / Ω_Λ est donnée par la transition q⁺/q⁻ et la lecture de Clausius, mais la monographie précise que ce statut est DER dans le dictionnaire PT, pas THM inconditionnel.',
+      'Le point le plus délicat concerne l’énergie sombre tardive, en particulier w(z). La monographie la conserve comme programme de recherche ouvert : l’estimateur de dérive de Mertens est utile, mais il n’a pas le niveau Tier-1 des prédictions les plus rigides.',
+      'Cette nuance protège la cohérence de la page. On peut présenter H₀, le budget sombre et les tests neutrinos comme des sorties fortes et falsifiables, tout en disant clairement que la dynamique tardive de l’énergie sombre reste une frontière active de la théorie.',
     ],
     items: [
       '$H_0$ : moyenne directionnelle Bianchi I plutôt que scalaire primitif.',
@@ -74,15 +76,15 @@ const sections = [
     proof: {
       title: 'Démonstration technique',
       steps: [
-        'On part de la métrique Fisher-Bianchi dérivée dans le chapitre 13 : trois directions actives $p=3,5,7$ avec facteurs d’échelle $a_p=\\gamma_p/\\mu$.',
-        'Pour chaque direction, on définit un taux $H_p=\\dot a_p/a_p$ en temps propre. La constante de Hubble isotrope est la moyenne directionnelle $H_0=(H_3+H_5+H_7)/3$.',
-        'La tension de Hubble est alors reformulée : un observateur ou une méthode qui échantillonne une direction effective $\\hat n$ lit $H(\\hat n)$, tandis que la cosmologie isotrope lit la moyenne. La différence n’est pas un fit ajouté, mais l’anisotropie Bianchi I sous-jacente.',
-        'Le secteur sombre total vient de la fraction d’écho des premiers inactifs. La forme citée dans la monographie est $F_{inactive}(N)=1-2/(e^\\gamma\\ln N)$, lue à l’échelle cosmologique pertinente.',
-        'La séparation interne du secteur sombre utilise la thermodynamique PT : la partie informationnelle et la partie énergie noire sont séparées par une enthalpie de type Clausius, pas par deux paramètres libres.',
-        'La masse du troisième neutrino $m_{\\nu_3}$ et les observables $w(z)$ relient ce secteur aux prédictions testables : oscillations, CMB, DESI, Euclid, CMB-S4.',
-        'Les routes cosmologiques n’ont pas toutes le même statut : certaines sont dérivées/validées dans la relativité PT, d’autres sont PRED ou PRED-candidate dans la couche cosmologique.',
+        'Condition de bord : la cosmogonie fournit la cascade stabilisée et les directions actives 3, 5, 7 ; la cosmologie ne redémontre pas cette étape, elle la projette dans les observables tardifs.',
+        'Géométrie : la métrique Fisher-Bianchi du chapitre 13 associe aux directions actives des facteurs d’échelle $a_p=\\gamma_p/\\mu$ et des taux $H_p=\\dot a_p/a_p$.',
+        'Hubble : la constante isotrope est la moyenne $H_0=(H_3+H_5+H_7)/3$, tandis qu’une mesure directionnelle lit $H(\\hat n)=\\sum H_p n_p^2$.',
+        'Tension de Hubble : Planck lit la moyenne du ciel ; des mesures locales peuvent sur-échantillonner une direction rapide. La prédiction qualitative est une convergence avec les relevés à grande couverture angulaire.',
+        'Secteur sombre : les premiers inactifs produisent une fraction d’écho $F_{inactive}(N)=1-2/(e^\\gamma\\ln N)$ ; le visible reste le complément baryonique.',
+        'Séparation interne : $\\Omega_{info}$ et $\\Omega_\\Lambda$ viennent de la transition q⁺/q⁻ et de l’enthalpie de Clausius. La monographie tague cette étape DER/BRIDGE, pas THM pur.',
+        'Programme ouvert : la dynamique tardive $w(z)$ et les extensions de type DESI/Euclid/CMB-S4 restent exposées aux données et ne doivent pas être confondues avec les prédictions Tier-1.',
       ],
-      conclusion: 'La cosmologie PT combine projection Fisher-Bianchi, écho des inactifs et thermodynamique de persistance. Les observables tardifs restent des prédictions testables : ils prolongent la chaîne dérivée sans être confondus avec des résultats déjà définitivement validés.',
+      conclusion: 'La cosmologie PT prolonge la cosmogonie au lieu de la répéter : elle traduit la cascade stabilisée en géométrie, budget sombre et prédictions observationnelles, avec une séparation explicite entre dérivation, pont physique, validation et programme ouvert.',
     },
   },
 ];
@@ -96,14 +98,14 @@ const sources = [
 ---
 
 <BaseLayout
-  title="Cosmologie en PT"
-  description="Lecture cosmologique de la PT : temps, Big Bang, secteur sombre, Hubble et prédictions."
+  title="Cosmologie"
+  description="Depuis la cosmogonie vers l’univers observable : expansion, secteur sombre, Hubble, neutrinos et prédictions."
 >
   <ResearchTopic
     eyebrow="Cosmologie"
-    title="La cosmologie comme lecture du crible"
-    description="La PT ne raconte pas seulement l’univers dans le temps ; elle demande comment le temps, l’expansion et le secteur sombre sont lus depuis la structure de persistance."
-    lead="La cosmologie est l’endroit où la PT devient la plus vertigineuse, mais aussi l’un des endroits où il faut être le plus précis sur les statuts : certaines sorties sont dérivées, d’autres sont des prédictions en cours de test."
+    title="De la cascade à l’univers observable"
+    description="Cette page part de la cosmogonie comme condition de bord et traite ce qui devient mesurable dans l’univers tardif : expansion, secteur sombre, H₀, neutrinos et tests."
+    lead="La cosmogonie explique comment la structure s’ouvre ; la cosmologie explique comment cette structure se mesure. C’est ici que PT devient la plus exposée aux données, donc aussi l’endroit où les statuts doivent rester nets."
     features={features}
     sections={sections}
     sources={sources}

@@ -36,8 +36,8 @@ const history = [
   {
     year: '2026',
     name: 'SCS (Sieve Colour Space)',
-    summary: 'Space derived from the PT sieve. Three opponent channels forced by the 3 active primes {3, 5, 7}, γ_p weights exactly computable. Pythagoras = CRT orthogonality.',
-    limit: 'Status: young approach (2026). Experimental compatibility validated at 3.2% deviation on the L-M weight — but not yet industrially beaten in every use case.',
+    summary: 'Space derived from the PT sieve. Three opponent channels forced by the 3 active primes {3, 5, 7}, γ_p weights exactly computable. Saturation and luminance are related by a controlled norm.',
+    limit: 'Status: young approach (2026). Experimental compatibility validated at 3.2% deviation on the L-M weight — but the saturation-luminance relation still needs large-scale industrial testing.',
     highlight: true,
   },
 ];
@@ -68,12 +68,17 @@ const currentLimits = [
     detail: 'A colourist thinks "warmer / cooler", "more saturated" — not in Lab coordinates. The translation happens in their head.',
     impact: 'Grading tools multiply redundant controls (lift-gamma-gain, RGB curves, vector scope, HSL qualifiers, etc.).',
   },
+  {
+    label: 'Unformalised saturation-luminance relation',
+    detail: 'In common tools, increasing saturation often changes perceived luminance, and changing luminance changes apparent saturation. The relation is known in practice, but handled through corrections, curves, and retouching.',
+    impact: 'Colourists naturally compensate by eye, but the computational space does not provide a simple law relating saturation, luminance, and stable hue.',
+  },
 ];
 
 const scsFeatures = [
   {
     title: 'Three structural channels (no more, no less)',
-    why: 'PT theorem T5 imposes exactly three active primes at the fixed point μ* = 15: {3, 5, 7}. SCS predicts three **structural** channels — that is, three informationally independent axes that open the space. Tetrachromatic species (birds, some fish) do have a fourth cone, but that cone does not open a fourth informational dimension: it brings precision, discrimination or detection speed within the three existing axes. SCS remains compatible.',
+    why: 'PT theorem T5 selects exactly three active primes at the reduced attractor μ* = 15: {3, 5, 7}. SCS predicts three **structural** channels — that is, three informationally independent axes that open the space. Tetrachromatic species (birds, some fish) do have a fourth cone, but that cone does not open a fourth informational dimension: it brings precision, discrimination or detection speed within the three existing axes. SCS remains compatible.',
   },
   {
     title: 'γ_p weights computable without fitting',
@@ -86,6 +91,10 @@ const scsFeatures = [
   {
     title: 'Hue stable by construction',
     why: 'A "pure luminance" displacement does not affect the L-M and S-LM channels. Hue does not drift — a structural property, not an empirical patch.',
+  },
+  {
+    title: 'Saturation-luminance finally formalised',
+    why: 'SCS reads saturation as the norm of the opponent channels, and luminance as the achromatic channel. Their relation becomes geometric: one can increase chroma at controlled luminance, or move luminance without changing chromatic direction. What colourists naturally do by eye becomes a formal operation.',
   },
   {
     title: 'Gamut mapping as rotation',
@@ -112,10 +121,10 @@ const colorist = [
       'Set the luminance (L+M channel, independent)',
       'Set the L-M balance (red ↔ green)',
       'Set the S-LM balance (blue ↔ yellow)',
-      'Saturate = increase the norm of the opponent channels',
+      'Saturate = increase the norm of the opponent channels at controlled luminance',
       'No qualifier needed: skin has a unique SCS signature',
     ],
-    issue: 'Three independent controls aligned with perception. No coupling: setting luminance does not change hue.',
+    issue: 'Three independent controls aligned with perception. The saturation-luminance link becomes explicit: setting luminance does not change hue, and saturating does not accidentally move perceived lightness.',
   },
 ];
 
@@ -213,14 +222,14 @@ for name, dEs in results.items():
 
 <BaseLayout
   title="SCS — Sieve Colour Space"
-  description="SCS (Sieve Colour Space): a colour space derived from the PT sieve. 3 opponent channels forced by {3, 5, 7}, γ_p weights computable without fitting, Pythagorean metric via CRT. Public code under MIT licence. Answer to Lab's perceptual non-uniformity and to the empirical fits of Oklab/ICtCp."
+  description="SCS (Sieve Colour Space): a colour space derived from the PT sieve. 3 opponent channels forced by {3, 5, 7}, γ_p weights computable without fitting, Pythagorean metric via CRT, formalised saturation-luminance relation. Public code under MIT licence."
 >
   <main class="max-w-6xl mx-auto px-4 py-10 md:py-14">
 
     <!-- ============= HERO L1 ============= -->
     <section class="mb-12">
       <div class="rounded-lg border border-slate-200 bg-white p-6 md:p-8 shadow-sm">
-        <p class="pt-tag pt-tag-val mb-5">SCS — Sieve Colour Space</p>
+        <p class="pt-tag pt-tag-val mb-5">Plain · SCS</p>
         <h1 class="text-4xl md:text-5xl font-bold text-thmblue leading-tight mb-4">
           Colour, from the sieve
         </h1>
@@ -241,9 +250,13 @@ for name, dEs in results.items():
         <p class="text-base text-slate-700 leading-relaxed mb-5" data-min-depth="L2">
           The result is a three-channel opponent space where the relative
           weights come directly from the anomalous dimensions γ_p of the
-          PT cascade at the fixed point μ* = 15. No tuning. The test:
+          PT cascade at the reduced attractor μ* = 15. No tuning. The test:
           the L-M channel weight (red-green) predicted by PT is 0.385;
           neurophysiological measurement on 118 subjects: 0.373. 3.2% deviation.
+          More importantly, SCS formalises a relation that had remained
+          practical but poorly captured: saturation and luminance become two
+          coordinated readings of one geometry, instead of two sliders that
+          contaminate each other.
         </p>
         <div class="rounded-lg border-l-4 border-emerald-500 bg-emerald-50 px-4 py-3">
           <p class="text-sm text-emerald-900 leading-relaxed">
@@ -257,7 +270,7 @@ for name, dEs in results.items():
 
     <!-- ============= WHY A NEW COLOUR SPACE ============= -->
     <section class="mb-12">
-      <p class="pt-tag pt-tag-id mb-3">Context</p>
+      <p class="pt-tag pt-tag-id mb-3">Plain</p>
       <h2 class="text-3xl font-bold text-thmblue mb-4">Why a new colour space?</h2>
       <p class="text-slate-700 leading-relaxed mb-6 max-w-3xl">
         Before explaining SCS, one has to understand where existing
@@ -286,8 +299,8 @@ for name, dEs in results.items():
 
     <!-- ============= LIMITS OF CURRENT SPACES L2 ============= -->
     <section class="mb-12" data-min-depth="L2">
-      <p class="pt-tag pt-tag-id mb-3">Diagnosis</p>
-      <h2 class="text-3xl font-bold text-thmblue mb-4">Five structural limits of current spaces</h2>
+      <p class="pt-tag pt-tag-id mb-3">Standard</p>
+      <h2 class="text-3xl font-bold text-thmblue mb-4">Six structural limits of current spaces</h2>
       <p class="text-slate-700 leading-relaxed mb-6 max-w-3xl">
         The best current spaces (Oklab, ICtCp) solve perceptual uniformity
         <em>on average</em>, but with fitted coefficients.
@@ -307,7 +320,7 @@ for name, dEs in results.items():
 
     <!-- ============= HOW SCS WAS CONCEIVED ============= -->
     <section class="mb-12">
-      <p class="pt-tag pt-tag-thm mb-3">Genesis of SCS</p>
+      <p class="pt-tag pt-tag-thm mb-3">Plain</p>
       <h2 class="text-3xl font-bold text-thmblue mb-4">The central idea in one sentence</h2>
       <div class="rounded-lg border border-thmblue/30 bg-blue-50 p-6 mb-6">
         <p class="text-lg font-sans font-semibold text-thmblue leading-relaxed">
@@ -350,7 +363,7 @@ for name, dEs in results.items():
 
     <!-- ============= SCS ARCHITECTURE L2 ============= -->
     <section class="mb-12" data-min-depth="L2">
-      <p class="pt-tag pt-tag-thm mb-3">Architecture</p>
+      <p class="pt-tag pt-tag-thm mb-3">Standard</p>
       <h2 class="text-3xl font-bold text-thmblue mb-4">SCS in four layers</h2>
       <ol class="space-y-4">
         <li class="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
@@ -376,7 +389,7 @@ for name, dEs in results.items():
             <span class="flex-shrink-0 w-10 h-10 rounded-full bg-thmblue text-white font-mono font-bold flex items-center justify-center">3</span>
             <div>
               <h4 class="font-sans font-semibold text-thmblue mb-1">Pythagorean metric</h4>
-              <p class="text-sm text-slate-700 leading-relaxed">ΔE_SCS = √[(ΔL-M)² + (ΔS-LM)² + (ΔLum)²]. Justified by CRT (orthogonality of the cycles ℤ/3ℤ × ℤ/5ℤ × ℤ/7ℤ), not by fitting.</p>
+              <p class="text-sm text-slate-700 leading-relaxed">ΔE_SCS = √[(ΔL-M)² + (ΔS-LM)² + (ΔLum)²]. Justified by CRT (orthogonality of the cycles ℤ/3ℤ × ℤ/5ℤ × ℤ/7ℤ), not by fitting. Saturation is the norm of the opponent plane; luminance is the achromatic channel. Their coupling is therefore computable.</p>
             </div>
           </div>
         </li>
@@ -393,8 +406,8 @@ for name, dEs in results.items():
     </section>
 
     <!-- ============= WHY SCS SOLVES THE PROBLEMS ============= -->
-    <section class="mb-12">
-      <p class="pt-tag pt-tag-val mb-3">Answer to the limits</p>
+    <section class="mb-12" data-min-depth="L2">
+      <p class="pt-tag pt-tag-val mb-3">Standard</p>
       <h2 class="text-3xl font-bold text-thmblue mb-4">Why SCS addresses current issues</h2>
       <div class="space-y-3">
         {scsFeatures.map((f) => (
@@ -408,7 +421,7 @@ for name, dEs in results.items():
 
     <!-- ============= COLOURIST LOGIC L1-L2 ============= -->
     <section class="mb-12">
-      <p class="pt-tag pt-tag-bridge mb-3">Practice</p>
+      <p class="pt-tag pt-tag-bridge mb-3">Plain · practice</p>
       <h2 class="text-3xl font-bold text-thmblue mb-4">How SCS changes a colourist's logic</h2>
       <p class="text-slate-700 leading-relaxed mb-6 max-w-3xl">
         For a video colourist or colour grader, the issue is not
@@ -434,14 +447,17 @@ for name, dEs in results.items():
           <strong>Practical consequence.</strong> In SCS, a colourist thinks
           in <em>perceptual</em> terms, not in RGB or in Lab. The mental
           translation between "what I want" and "how I get it" is
-          reduced. Fewer controls → fewer errors → fewer round trips.
+          reduced. The saturation-luminance relation becomes natural:
+          pushing saturation means expanding a chromatic norm, not
+          accidentally breaking the light of the image. Fewer controls →
+          fewer errors → fewer round trips.
         </p>
       </div>
     </section>
 
     <!-- ============= INDUSTRIAL APPLICATIONS ============= -->
-    <section class="mb-12">
-      <p class="pt-tag pt-tag-val mb-3">Applications</p>
+    <section class="mb-12" data-min-depth="L2">
+      <p class="pt-tag pt-tag-val mb-3">Standard</p>
       <h2 class="text-3xl font-bold text-thmblue mb-4">Six industrial sectors concerned</h2>
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
         {industrial.map((i) => (
@@ -455,7 +471,7 @@ for name, dEs in results.items():
 
     <!-- ============= FIRST RESULTS L2-L3 ============= -->
     <section class="mb-12" data-min-depth="L2">
-      <p class="pt-tag pt-tag-val mb-3">Validation</p>
+      <p class="pt-tag pt-tag-val mb-3">Standard</p>
       <h2 class="text-3xl font-bold text-thmblue mb-4">First experimental results</h2>
       <div class="grid md:grid-cols-3 gap-4 mb-6">
         <div class="rounded-lg border-2 border-violet-400 bg-violet-50 p-5 text-center">
@@ -486,7 +502,7 @@ for name, dEs in results.items():
 
     <!-- ============= REPRODUCTION SCRIPTS L3 ============= -->
     <section class="mb-12" data-min-depth="L3">
-      <p class="pt-tag pt-tag-val mb-3">Reproducibility</p>
+      <p class="pt-tag pt-tag-val mb-3">Technical</p>
       <h2 class="text-3xl font-bold text-thmblue mb-3">Three scripts to verify yourself</h2>
       <p class="text-slate-700 leading-relaxed mb-6 max-w-3xl">
         SCS code is public — you can verify everything. To run, clone
@@ -522,8 +538,8 @@ for name, dEs in results.items():
     </section>
 
     <!-- ============= TETRACHROMATES = NOT A FALSIFICATION ============= -->
-    <section class="mb-12">
-      <p class="pt-tag pt-tag-id mb-3">Important clarification</p>
+    <section class="mb-12" data-min-depth="L2">
+      <p class="pt-tag pt-tag-id mb-3">Standard · clarification</p>
       <h2 class="text-3xl font-bold text-thmblue mb-4">What about tetrachromatic birds?</h2>
       <p class="text-slate-700 leading-relaxed mb-4 max-w-3xl">
         A natural objection: "if SCS predicts three opponent channels,
@@ -554,8 +570,8 @@ for name, dEs in results.items():
     </section>
 
     <!-- ============= FALSIFIABILITY ============= -->
-    <section class="mb-12">
-      <p class="pt-tag pt-tag-thm mb-3">Falsifiability</p>
+    <section class="mb-12" data-min-depth="L3">
+      <p class="pt-tag pt-tag-thm mb-3">Technical · falsifiability</p>
       <h2 class="text-3xl font-bold text-thmblue mb-4">What would destroy SCS (and therefore PT)</h2>
       <div class="rounded-lg border-2 border-rose-300 bg-rose-50 p-6">
         <ul class="space-y-3 text-rose-900 text-sm leading-relaxed">
@@ -578,7 +594,7 @@ for name, dEs in results.items():
           <p class="text-sm text-slate-700">MIT repo. Clone, test, modify, contribute.</p>
         </a>
         <a href="/en/essays/why-3-dimensions" class="pt-card block group">
-          <span class="pt-tag pt-tag-id">L1 essay</span>
+          <span class="pt-tag pt-tag-id">Plain essay</span>
           <h3 class="font-sans font-semibold text-thmblue text-lg mt-3 mb-2 group-hover:underline">Why three dimensions?</h3>
           <p class="text-sm text-slate-700">The same {`{3, 5, 7}`} argument that gives SCS also gives the three spatial dimensions.</p>
         </a>

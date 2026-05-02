@@ -10,7 +10,7 @@ const features = [
 
 const sections = [
   {
-    eyebrow: 'L1',
+    eyebrow: 'Plain',
     title: 'The nucleus is a deeper chemistry',
     paragraphs: [
       'One can enter nuclear physics without starting from equations. An atom has two layers of organization: outside, electrons make ordinary chemistry; at the centre, protons and neutrons make a much more compact, deeper chemistry, where the strong force replaces electromagnetism as the dominant channel.',
@@ -27,8 +27,9 @@ const sections = [
     ],
   },
   {
-    eyebrow: 'L2',
+    eyebrow: 'Standard',
     title: 'How PT computes the nuclear sector',
+    depth: 'L2',
     paragraphs: [
       'The monograph organizes the sector into eight families: equations, nucleon-nucleon potential, binding energies, magic numbers, radioactivity, reactions, NLO phases, and ab initio calculations.',
       'The computation starts from constants already present in the theory: $s=1/2$, $N_c=3$, $C_F=4/3$ and the effective strong coupling. From there, PT reconstructs a nuclear potential, then the binding terms: volume, surface, Coulomb, asymmetry, pairing and closure corrections.',
@@ -42,8 +43,9 @@ const sections = [
     ],
   },
   {
-    eyebrow: 'Magic numbers',
+    eyebrow: 'Standard',
     title: 'Where do magic numbers come from?',
+    depth: 'L2',
     paragraphs: [
       'In the usual nuclear shell model, magic numbers are often presented as the result of a mean potential plus strong spin-orbit coupling. The PT reading keeps that structure, but gives it a reason: nuclear depth amplifies spin-orbit because the strong channel replaces the electromagnetic scale.',
       'At the discrete level, sieve depth $D=2$ gives four quantum numbers $(n,l,m_l,m_s)$. Without spin-orbit, the first closures 2, 8 and 20 are recovered, but the large nuclear closures are not forced.',
@@ -58,7 +60,7 @@ const sections = [
     },
   },
   {
-    eyebrow: 'L3',
+    eyebrow: 'Technical',
     title: 'Technical demonstration: cascade, magic numbers, limits',
     depth: 'L3',
     paragraphs: [

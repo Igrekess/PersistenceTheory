@@ -27,19 +27,34 @@ const readingPath = [
     step: '03',
     title: 'Attracteur',
     href: '/big-bang',
-    text: 'La cascade stabilise μ* = 15 et donne son statut à la bifurcation issue de 2.',
+    text: 'Après cristallisation de 2, la cascade glisse vers l’attracteur réduit μ* = 15.',
   },
   {
     step: '04',
     title: 'Dérivations',
     href: '/observables',
-    text: 'Les observables physiques et chimiques sont dérivées sans paramètre continu ajusté.',
+    text: 'Les observables physiques et chimiques sont dérivées sans paramètre continu ajusté, avec statuts explicites.',
   },
   {
     step: '05',
     title: 'Validation',
     href: '/statuts-resultats',
     text: 'Chaque résultat reçoit un statut : théorème, pont, dérivation, validation ou prédiction.',
+  },
+];
+
+const plainScenes = [
+  {
+    title: 'Une contrainte agit',
+    text: 'La théorie commence avec une situation minimale : quelque chose est soumis à une contrainte, et cette contrainte force une séparation.',
+  },
+  {
+    title: 'Des survivants apparaissent',
+    text: 'Ce qui ne traverse pas la contrainte se disperse ; ce qui la traverse conserve une identité lisible.',
+  },
+  {
+    title: 'La mesure devient possible',
+    text: 'Les observables ne sont plus des paramètres à régler : elles mesurent la part persistante, la part dispersée et leurs modes de couplage.',
   },
 ];
 
@@ -71,6 +86,24 @@ const domainCards = [
     tagClass: 'pt-tag-id',
     title: 'La persistance des couches',
     text: 'La suite 2, 8, 8, 18, 18, 32, 32 devient une conséquence des canaux, spins et couches internes.',
+  },
+];
+
+const auditCards = [
+  {
+    tag: 'L0 / GFT',
+    title: 'Principe de conservation',
+    text: 'La capacité informationnelle totale se répartit entre divergence KL et entropie : Hmax = DKL + H.',
+  },
+  {
+    tag: 'T0 → T6',
+    title: 'Chaîne démonstrative',
+    text: 'Chaque étape doit être suivie comme un passage de statut : théorème, pont, dérivation, validation ou prédiction.',
+  },
+  {
+    tag: 'Scripts',
+    title: 'Reproductibilité',
+    text: 'Les scripts compagnons vérifient les calculs emblématiques et exposent les points encore dépendants d’un pont.',
   },
 ];
 
@@ -117,18 +150,32 @@ const groupedLinks = [
   <main class="max-w-6xl mx-auto px-4 py-10 md:py-14">
     <section class="mb-12">
       <div class="rounded-lg border border-slate-200 bg-white p-6 md:p-8 shadow-sm">
-        <p class="pt-tag pt-tag-bridge mb-5">Préimpression ouverte</p>
+        <p class="pt-tag pt-tag-bridge mb-5">Vulgarisé · préimpression ouverte</p>
         <h1 class="text-4xl md:text-5xl font-bold text-thmblue leading-tight mb-4">
           La Théorie de la Persistance
         </h1>
         <p class="text-2xl md:text-3xl font-sans font-semibold text-derorange leading-snug mb-6">
           Ce qui persiste est ce qui reste sous contrainte.
         </p>
-        <p class="text-lg text-stone-800 leading-relaxed mb-5">
+        <p class="text-lg text-stone-800 leading-relaxed mb-5" data-max-depth="L1">
           La PT part d’une idée simple : quand une contrainte agit, tout ne
           disparaît pas. Une part se disperse en entropie ; une autre traverse
           la contrainte et devient structure. Les observables mesurent cette
           distribution.
+        </p>
+        <p class="text-lg text-stone-800 leading-relaxed mb-5" data-min-depth="L2">
+          La PT part d’une idée simple : sous contrainte, une part se disperse
+          en entropie et une autre persiste comme structure. Cette idée se
+          déploie en chaîne : principe de conservation informationnelle,
+          dynamique du crible, cristallisation de 2, glissement vers
+          l’attracteur réduit μ* = 15, puis dérivation des observables avec
+          statut épistémique explicite.
+        </p>
+        <p class="text-base text-slate-700 leading-relaxed rounded-lg bg-slate-50 border border-slate-200 px-4 py-3 mb-5" data-min-depth="L3">
+          <strong>Lecture technique :</strong> ne pas lire cette page comme une
+          preuve globale, mais comme une carte d’audit. Les théorèmes, ponts,
+          dérivations physiques, validations et prédictions ne portent pas le
+          même statut.
         </p>
         <p data-max-depth="L1" class="text-base text-slate-700 leading-relaxed rounded-lg bg-amber-50 border border-amber-200 px-4 py-3 mb-6">
           <strong>En une phrase :</strong> persister, ce n’est pas rester par
@@ -154,8 +201,24 @@ const groupedLinks = [
     </section>
 
     <section class="mb-12">
+      <p class="pt-tag pt-tag-id mb-3">Vulgarisé</p>
+      <h2 class="text-3xl md:text-4xl font-bold text-thmblue mb-6">
+        L’idée en trois scènes
+      </h2>
+      <div class="grid md:grid-cols-3 gap-4">
+        {plainScenes.map((scene, index) => (
+          <div class="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
+            <span class="font-mono text-sm text-derorange">0{index + 1}</span>
+            <h3 class="mt-2 mb-2 font-sans text-xl font-bold text-thmblue">{scene.title}</h3>
+            <p class="text-sm text-slate-700 leading-relaxed">{scene.text}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section class="mb-12" data-min-depth="L2">
       <div class="max-w-3xl mb-6">
-        <p class="pt-tag pt-tag-thm mb-3">Parcours conseillé</p>
+        <p class="pt-tag pt-tag-thm mb-3">Standard</p>
         <h2 class="text-3xl md:text-4xl font-bold text-thmblue mb-3">
           Lire la théorie comme une chaîne, pas comme un catalogue
         </h2>
@@ -179,17 +242,19 @@ const groupedLinks = [
       </div>
     </section>
 
-    <section class="grid lg:grid-cols-[0.92fr_1.08fr] gap-8 items-start mb-12">
+    <section class="grid lg:grid-cols-[0.92fr_1.08fr] gap-8 items-start mb-12" data-min-depth="L2">
       <div>
-        <p class="pt-tag pt-tag-id mb-3">Ce que PT teste</p>
+        <p class="pt-tag pt-tag-id mb-3">Standard</p>
         <h2 class="text-3xl font-bold text-thmblue mb-4">
           Une même contrainte, plusieurs registres
         </h2>
         <p class="text-slate-700 leading-relaxed mb-4">
           En mathématiques, la persistance se lit dans le crible
           d’Ératosthène : les nombres premiers sont les survivants
-          irréductibles de la contrainte multiplicative, et les écarts entre
-          premiers forment la trace dynamique de ces survivants.
+          irréductibles du couplage additif-multiplicatif, où la contrainte
+          multiplicative élimine les composés tandis que la progression additive
+          révèle la trace dynamique des survivants à travers les écarts entre
+          premiers.
         </p>
         <p class="text-slate-700 leading-relaxed mb-4">
           En PT, un premier est aussi un point discret de résonance du crible :
@@ -218,23 +283,41 @@ const groupedLinks = [
       </div>
     </section>
 
-    <section data-min-depth="L3" class="bg-stone-50 border border-stone-300 rounded-lg p-5 my-8 text-sm">
-      <p class="text-xs font-sans text-stone-500 uppercase tracking-wider mb-2">Note technique</p>
-      <p class="text-stone-700 leading-relaxed">
-        Le cadre formel comprend des ponts de base (BA0–BA2) qui identifient
-        le champ dynamique aux écarts entre premiers consécutifs, puis des ponts dérivés
-        (BA3–BA5) promus ou contraints dans la chaîne, une cascade de
-        sept théorèmes (T0 → T6) qui dérivent les angles d’holonomie
-        sin²(θ_p) = δ_p(2 − δ_p) et les dimensions anomales γ_p, et le théorème
-        T5 qui ferme le point fixe attractif μ* = 15 par exhaustion rationnelle exacte.
-        L’identité log₂(m) = D_KL(P‖U_m) + H(P) (GFT) est le
-        <strong>principe fondamental de la persistance</strong> : la capacité
-        informationnelle totale se conserve et se répartit exactement entre
-        persistance et entropie.
+    <section data-min-depth="L3" class="mb-12">
+      <p class="pt-tag pt-tag-val mb-3">Technique</p>
+      <h2 class="text-3xl font-bold text-thmblue mb-4">Premières prises d’audit</h2>
+      <p class="text-slate-700 leading-relaxed mb-5 max-w-3xl">
+        Le niveau technique de l’index expose les objets à contrôler avant de
+        juger la théorie : conservation informationnelle, chaîne T0 → T6,
+        statut des ponts et reproductibilité numérique.
       </p>
+      <div class="grid md:grid-cols-3 gap-4 mb-5">
+        {auditCards.map((card) => (
+          <div class="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
+            <span class="pt-tag pt-tag-val">{card.tag}</span>
+            <h3 class="font-sans font-semibold text-thmblue text-lg mt-3 mb-2">{card.title}</h3>
+            <p class="text-sm text-slate-700 leading-relaxed">{card.text}</p>
+          </div>
+        ))}
+      </div>
+      <div class="bg-stone-50 border border-stone-300 rounded-lg p-5 text-sm">
+        <p class="text-xs font-sans text-stone-500 uppercase tracking-wider mb-2">Note technique</p>
+        <p class="text-stone-700 leading-relaxed">
+          Le cadre formel comprend des ponts de base (BA0–BA2) qui identifient
+          le champ dynamique aux écarts entre premiers consécutifs, puis des ponts dérivés
+          (BA3–BA5) promus ou contraints dans la chaîne, une cascade de
+          sept théorèmes (T0 → T6) qui dérivent les angles d’holonomie
+          sin²(θ_p) = δ_p(2 − δ_p) et les dimensions anomales γ_p, et le théorème
+          T5 qui établit l’attracteur réduit μ* = 15 par exhaustion rationnelle exacte.
+          L’identité log₂(m) = D_KL(P‖U_m) + H(P) (GFT) est le
+          <strong>principe fondamental de la persistance</strong> : la capacité
+          informationnelle totale se conserve et se répartit exactement entre
+          persistance et entropie.
+        </p>
+      </div>
     </section>
 
-    <section class="grid md:grid-cols-4 gap-4 mb-12">
+    <section class="grid md:grid-cols-4 gap-4 mb-12" data-min-depth="L2">
       {groupedLinks.map((group) => (
         <div class="rounded-lg border border-slate-200 bg-white p-4 shadow-sm">
           <h2 class="font-sans font-bold text-thmblue mb-3">{group.title}</h2>
@@ -249,7 +332,7 @@ const groupedLinks = [
       ))}
     </section>
 
-    <div class="grid md:grid-cols-3 gap-4 text-sm mb-10">
+    <div class="grid md:grid-cols-3 gap-4 text-sm mb-10" data-min-depth="L2">
       <div class="pt-card">
         <span class="pt-tag pt-tag-thm">Théorèmes</span>
         <p class="mt-2 text-stone-700">

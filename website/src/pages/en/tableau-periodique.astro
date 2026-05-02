@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
+import PeriodicPTExplorer from '@components/PeriodicPTExplorer.astro';
 import { readFileSync } from 'node:fs';
 
 type PeriodSegment = {
@@ -103,26 +104,53 @@ const derivationSteps = [
   {
     tag: 'T1',
     title: 'Exclusion',
-    plain: 'Two electrons cannot occupy exactly the same state.',
+    plain: 'Inside an atom, electrons do not all pile into the same place. Two electrons can share one place only if they carry opposite spin states.',
     technical: 'T1 forbids self-transitions mod 3: a state cannot copy itself onto itself. The only allowed doubling is the spin involution, hence the factor 2.',
   },
   {
     tag: 'C1',
     title: 'Orientations',
-    plain: 'Each orbital family has a determined number of directions.',
+    plain: 'Electron places are not all of the same kind. Some are simple, while others split into 3, 5, or 7 possible directions.',
     technical: 'For an orbital index ℓ, magnetic values run from -ℓ to +ℓ. This gives 2ℓ+1 discrete positions: 1, 3, 5, 7 for s, p, d, f.',
   },
   {
     tag: 'DER',
     title: 'Capacities',
-    plain: 'Directions are multiplied by the two spin states.',
+    plain: 'Each direction can host two electrons, one for each spin. This is why the s, p, d, and f families hold 2, 6, 10, and 14 electrons.',
     technical: 'Each position can host two opposite spins. The capacity is therefore Cap(ℓ)=2(2ℓ+1), directly producing 2, 6, 10, 14.',
   },
   {
     tag: 'THM',
     title: 'Four blocks',
-    plain: 'The table stops at s, p, d, f for an arithmetic reason.',
+    plain: 'The periodic table can then be read as a filling map: rows are shells, and the large blocks show which family of places is being filled.',
     technical: 'Depth D=2 gives four orbital types, the V4 group. The next step would require 9 or p=11, but 9 is composite and p=11 remains in echo.',
+  },
+];
+
+const beginnerConcepts = [
+  {
+    title: 'An atom',
+    text: 'An atom contains a positively charged nucleus and electrons around it. Chemistry mostly comes from how those electrons are distributed.',
+  },
+  {
+    title: 'A shell',
+    text: 'A shell is an energy level. When a new row of the periodic table begins, a new shell starts receiving electrons.',
+  },
+  {
+    title: 'An orbital',
+    text: 'An orbital is not a tiny planetary orbit. It is an allowed shape of electron presence around the nucleus.',
+  },
+  {
+    title: 's, p, d, f',
+    text: 'These letters name four orbital families. When full, they contain respectively 2, 6, 10, and 14 electrons.',
+  },
+  {
+    title: 'Spin',
+    text: 'Spin acts like an internal polarity. The same place can host two electrons only if their spin states are opposite.',
+  },
+  {
+    title: 'The PT reading',
+    text: 'PT does not replace the basic chemical map. It asks why that map has exactly these blocks, sizes, and exceptions.',
   },
 ];
 
@@ -200,21 +228,6 @@ const promotions = [
   { z: 111, symbol: 'Rg', aufbau: 'd9s2', pt: 'd10s1', reason: 'relativistic closure' },
 ];
 
-const elementSymbols = [
-  '', 'H', 'He', 'Li', 'Be', 'B', 'C', 'N', 'O', 'F', 'Ne',
-  'Na', 'Mg', 'Al', 'Si', 'P', 'S', 'Cl', 'Ar',
-  'K', 'Ca', 'Sc', 'Ti', 'V', 'Cr', 'Mn', 'Fe', 'Co', 'Ni', 'Cu', 'Zn',
-  'Ga', 'Ge', 'As', 'Se', 'Br', 'Kr',
-  'Rb', 'Sr', 'Y', 'Zr', 'Nb', 'Mo', 'Tc', 'Ru', 'Rh', 'Pd', 'Ag', 'Cd',
-  'In', 'Sn', 'Sb', 'Te', 'I', 'Xe',
-  'Cs', 'Ba', 'La', 'Ce', 'Pr', 'Nd', 'Pm', 'Sm', 'Eu', 'Gd', 'Tb', 'Dy',
-  'Ho', 'Er', 'Tm', 'Yb', 'Lu', 'Hf', 'Ta', 'W', 'Re', 'Os', 'Ir', 'Pt',
-  'Au', 'Hg', 'Tl', 'Pb', 'Bi', 'Po', 'At', 'Rn',
-  'Fr', 'Ra', 'Ac', 'Th', 'Pa', 'U', 'Np', 'Pu', 'Am', 'Cm', 'Bk', 'Cf',
-  'Es', 'Fm', 'Md', 'No', 'Lr', 'Rf', 'Db', 'Sg', 'Bh', 'Hs', 'Mt', 'Ds',
-  'Rg', 'Cn', 'Nh', 'Fl', 'Mc', 'Lv', 'Ts', 'Og',
-];
-
 const codeLinks = [
   {
     fn: 'period(Z)',
@@ -261,7 +274,15 @@ const periodicLineCount = periodicSource.trimEnd().split('\n').length;
           <h1 class="text-4xl md:text-5xl font-bold text-thmblue leading-tight mb-5">
             Why does the periodic table have this shape?
           </h1>
-          <p class="text-lg md:text-xl text-stone-700 leading-relaxed">
+          <p data-max-depth="L1" class="text-lg md:text-xl text-stone-700 leading-relaxed">
+            The periodic table arranges atoms according to how their electrons
+            fill places around the nucleus. At the plain-language level, the
+            key idea is simple: electrons do not sit anywhere at random. They
+            fill shells, then families of places called <code>s</code>,
+            <code>p</code>, <code>d</code>, and <code>f</code>. PT proposes a
+            structural reason for that organization.
+          </p>
+          <p data-min-depth="L2" class="text-lg md:text-xl text-stone-700 leading-relaxed">
             In PT, the table of elements is not an empirical catalogue:
             its shape follows from a short chain. Spin gives the factor 2,
             orientations give 1, 3, 5, 7, and capacities become
@@ -301,6 +322,39 @@ const periodicLineCount = periodicSource.trimEnd().split('\n').length;
             ))}
           </div>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <section data-max-depth="L1" class="max-w-6xl mx-auto px-4 py-12">
+    <div class="grid lg:grid-cols-[0.72fr_1.28fr] gap-8 items-start">
+      <div>
+        <p class="font-sans text-sm font-semibold uppercase tracking-wider text-derorange mb-3">
+          Plain language
+        </p>
+        <h2 class="text-3xl font-bold text-thmblue mb-4">
+          Before reading the table
+        </h2>
+        <p class="text-stone-700 leading-relaxed">
+          If you know no chemistry, start here. The periodic table is not just
+          a list of symbols: it is a map of electron filling. Each element adds
+          one more electron, and that electron must find an allowed place.
+        </p>
+        <p class="mt-4 text-stone-700 leading-relaxed">
+          What PT tries to explain is not merely that this map exists, but why
+          it repeats the same sizes: <code>2</code>, <code>6</code>,
+          <code>10</code>, <code>14</code>, then the long rows
+          <code>2</code>, <code>8</code>, <code>18</code>, <code>32</code>.
+        </p>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {beginnerConcepts.map((concept) => (
+          <article class="pt-card">
+            <h3 class="font-sans text-lg font-bold text-thmblue mb-2">{concept.title}</h3>
+            <p class="text-stone-700 leading-relaxed">{concept.text}</p>
+          </article>
+        ))}
       </div>
     </div>
   </section>
@@ -734,70 +788,7 @@ const periodicLineCount = periodicSource.trimEnd().split('\n').length;
     </div>
   </section>
 
-  <section class="max-w-6xl mx-auto px-4 py-12">
-    <div class="grid lg:grid-cols-[0.75fr_1.25fr] gap-8 items-start">
-      <div>
-        <h2 class="text-3xl font-bold text-thmblue mb-4">
-          Query an element
-        </h2>
-        <p class="text-stone-700 leading-relaxed">
-          The calculator follows the logic of <code>periodic.py</code>:
-          it converts an atomic number into period, block, capacity,
-          radial Aufbau filling, and PT/Madelung filling.
-        </p>
-        <p data-min-depth="L3" class="mt-4 font-sans text-sm text-stone-600">
-          Useful example: enter <code>Z=79</code>. Gold moves from
-          <code>d9s2</code> to <code>d10s1</code> because closure of the
-          d channel compensates the cost of the s -> d promotion.
-        </p>
-      </div>
-
-      <div class="periodic-calculator" data-periodic-calculator>
-        <div class="calculator-controls">
-          <label for="pt-z-input">Atomic number Z</label>
-          <input id="pt-z-input" type="number" min="1" max="118" value="79" inputmode="numeric" />
-          <div class="calculator-presets">
-            {[6, 24, 29, 46, 58, 79, 118].map((z) => (
-              <button type="button" data-z-preset={z}>{z}</button>
-            ))}
-          </div>
-        </div>
-
-        <div class="calculator-output" aria-live="polite">
-          <div class="element-tile">
-            <div class="element-symbol" data-field="symbol">Au</div>
-            <div class="element-z" data-field="z">Z=79</div>
-          </div>
-          <dl>
-            <div>
-              <dt>Period</dt>
-              <dd data-field="period">6</dd>
-            </div>
-            <div>
-              <dt>Block</dt>
-              <dd data-field="block">d</dd>
-            </div>
-            <div>
-              <dt>Capacity</dt>
-              <dd data-field="capacity">10</dd>
-            </div>
-            <div>
-              <dt>Radial Aufbau</dt>
-              <dd data-field="aufbau">d9s2</dd>
-            </div>
-            <div>
-              <dt>PT / Madelung</dt>
-              <dd data-field="madelung">d10s1</dd>
-            </div>
-            <div>
-              <dt>Reading</dt>
-              <dd data-field="reading">closure</dd>
-            </div>
-          </dl>
-        </div>
-      </div>
-    </div>
-  </section>
+  <PeriodicPTExplorer lang="en" />
 
   <section class="max-w-6xl mx-auto px-4 py-12">
     <h2 class="text-3xl font-bold text-thmblue mb-6">
@@ -919,144 +910,6 @@ PYTHONPATH=. python -m pytest ptc/tests/test_periodic.py -v</code></pre>
     </div>
   </section>
 </BaseLayout>
-
-<script is:inline define:vars={{ symbols: elementSymbols, promotionsData: promotions }}>
-  (function () {
-    const root = document.querySelector('[data-periodic-calculator]');
-    if (!root) return;
-
-    const P1 = 3;
-    const P2 = 5;
-    const P3 = 7;
-    const blockMap = ['s', 'p', 'd', 'f'];
-    const capMap = [2, 2 * P1, 2 * P2, 2 * P3];
-    const promotionMap = new Map(promotionsData.map((row) => [row.z, row]));
-
-    const input = root.querySelector('#pt-z-input');
-    const fields = {};
-    root.querySelectorAll('[data-field]').forEach((node) => {
-      fields[node.getAttribute('data-field')] = node;
-    });
-
-    function period(Z) {
-      let cumul = 0;
-      let per = 1;
-      while (true) {
-        const k = Math.floor(per / 2) + 1;
-        const cap = 2 * k * k;
-        if (Z <= cumul + cap) return per;
-        cumul += cap;
-        per += 1;
-      }
-    }
-
-    function periodStart(per) {
-      let z0 = 1;
-      for (let p = 1; p < per; p += 1) {
-        const k = Math.floor(p / 2) + 1;
-        z0 += 2 * k * k;
-      }
-      return z0;
-    }
-
-    function lOf(Z) {
-      const per = period(Z);
-      const z0 = periodStart(per);
-      const pos = Z - z0;
-      if (pos < 2) return 0;
-      if (per <= 3) return 1;
-      if (per <= 5) return pos < 12 ? 2 : 1;
-      if (pos === 2) return 2;
-      if (pos < 16) return 3;
-      if (pos < 26) return 2;
-      return 1;
-    }
-
-    function nFillAufbau(Z) {
-      const per = period(Z);
-      const z0 = periodStart(per);
-      const pos = Z - z0;
-      const l = lOf(Z);
-      if (l === 0) return Math.min(pos + 1, 2);
-      const cap = 2 * (Math.floor(per / 2) + 1) ** 2;
-      if (l === 1) return Z - (z0 + cap - 6) + 1;
-      if (l === 2) {
-        let nd = Math.max(0, pos + 1 - 2);
-        if (per >= 6) nd = Math.max(0, nd - 14);
-        return Math.min(nd, 2 * P2);
-      }
-      if (l === 3) return Math.min(Math.max(0, pos + 1 - 2), 2 * P3);
-      return 1;
-    }
-
-    function nFill(Z) {
-      const promotion = promotionMap.get(Z);
-      if (promotion && lOf(Z) === 2) {
-        const match = promotion.pt.match(/d(\d+)/);
-        return match ? Number(match[1]) : nFillAufbau(Z);
-      }
-      return nFillAufbau(Z);
-    }
-
-    function nsConfig(Z, madelung) {
-      const promotion = madelung ? promotionMap.get(Z) : null;
-      if (promotion && lOf(Z) === 2) {
-        const match = promotion.pt.match(/s(\d+)/);
-        return match ? Number(match[1]) : 2;
-      }
-      const l = lOf(Z);
-      if (l === 0) return Math.min(nFillAufbau(Z), 2);
-      return 2;
-    }
-
-    function configText(l, fill, ns) {
-      if (l === 0) return `s${fill}`;
-      if (l === 1) return `s${ns}p${fill}`;
-      if (l === 2) return `d${fill}s${ns}`;
-      return `f${fill}s${ns}`;
-    }
-
-    function reading(block, fill, promotion) {
-      if (promotion) return promotion.reason;
-      if (block === 's') return 's opening';
-      if (block === 'p' && fill === 6) return 'p closure';
-      if (block === 'p') return 'p filling';
-      if (block === 'd' && fill === 5) return 'd half filling';
-      if (block === 'd' && fill === 10) return 'd closure';
-      if (block === 'f') return 'buried f channel';
-      return 'regular configuration';
-    }
-
-    function render() {
-      const Z = Math.max(1, Math.min(118, Number(input.value || 1)));
-      input.value = String(Z);
-      const l = lOf(Z);
-      const per = period(Z);
-      const block = blockMap[l];
-      const fillA = nFillAufbau(Z);
-      const fillM = nFill(Z);
-      const promotion = promotionMap.get(Z);
-      fields.symbol.textContent = symbols[Z] || '?';
-      fields.z.textContent = `Z=${Z}`;
-      fields.period.textContent = String(per);
-      fields.block.textContent = block;
-      fields.capacity.textContent = String(capMap[l]);
-      fields.aufbau.textContent = configText(l, fillA, nsConfig(Z, false));
-      fields.madelung.textContent = configText(l, fillM, nsConfig(Z, true));
-      fields.reading.textContent = reading(block, fillM, promotion);
-      root.setAttribute('data-current-block', block);
-    }
-
-    input.addEventListener('input', render);
-    root.querySelectorAll('[data-z-preset]').forEach((button) => {
-      button.addEventListener('click', () => {
-        input.value = button.getAttribute('data-z-preset');
-        render();
-      });
-    });
-    render();
-  })();
-</script>
 
 <style>
   .periodic-block {
@@ -1455,131 +1308,6 @@ PYTHONPATH=. python -m pytest ptc/tests/test_periodic.py -v</code></pre>
     background: #6b4ca0;
   }
 
-  .periodic-calculator {
-    border: 1px solid rgb(214 211 209);
-    border-radius: 0.5rem;
-    background: white;
-    padding: 1.25rem;
-    display: grid;
-    gap: 1.25rem;
-  }
-
-  .calculator-controls {
-    display: grid;
-    gap: 0.65rem;
-    font-family: ui-sans-serif, system-ui, -apple-system, sans-serif;
-  }
-
-  .calculator-controls label {
-    font-size: 0.85rem;
-    font-weight: 700;
-    color: #1f4e79;
-  }
-
-  .calculator-controls input {
-    width: min(12rem, 100%);
-    border: 1px solid rgb(168 162 158);
-    border-radius: 0.35rem;
-    padding: 0.55rem 0.7rem;
-    font-size: 1rem;
-    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-  }
-
-  .calculator-presets {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.4rem;
-  }
-
-  .calculator-presets button {
-    border: 1px solid rgb(214 211 209);
-    border-radius: 0.35rem;
-    background: rgb(250 250 249);
-    padding: 0.35rem 0.55rem;
-    font-size: 0.8rem;
-    color: rgb(68 64 60);
-  }
-
-  .calculator-presets button:hover {
-    border-color: #1f4e79;
-    color: #1f4e79;
-  }
-
-  .calculator-output {
-    display: grid;
-    grid-template-columns: 8rem minmax(0, 1fr);
-    gap: 1rem;
-    align-items: stretch;
-  }
-
-  .element-tile {
-    border-radius: 0.5rem;
-    background: #1f4e79;
-    color: white;
-    padding: 1rem;
-    min-height: 8rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    text-align: center;
-  }
-
-  .periodic-calculator[data-current-block="p"] .element-tile {
-    background: #2d7a3a;
-  }
-
-  .periodic-calculator[data-current-block="d"] .element-tile {
-    background: #d6791e;
-  }
-
-  .periodic-calculator[data-current-block="f"] .element-tile {
-    background: #6b4ca0;
-  }
-
-  .element-symbol {
-    font-family: ui-sans-serif, system-ui, -apple-system, sans-serif;
-    font-size: 3rem;
-    font-weight: 800;
-    line-height: 1;
-  }
-
-  .element-z {
-    margin-top: 0.4rem;
-    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-    font-size: 0.9rem;
-    opacity: 0.85;
-  }
-
-  .calculator-output dl {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 0.6rem;
-    margin: 0;
-  }
-
-  .calculator-output dl div {
-    border: 1px solid rgb(231 229 228);
-    border-radius: 0.4rem;
-    padding: 0.65rem;
-    background: rgb(250 250 249);
-  }
-
-  .calculator-output dt {
-    font-family: ui-sans-serif, system-ui, -apple-system, sans-serif;
-    font-size: 0.72rem;
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-    color: rgb(120 113 108);
-  }
-
-  .calculator-output dd {
-    margin: 0.2rem 0 0;
-    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-    font-size: 1rem;
-    font-weight: 700;
-    color: rgb(28 25 23);
-  }
-
   .source-details {
     border: 1px solid rgb(231 229 228);
     border-radius: 0.5rem;
@@ -1658,8 +1386,7 @@ PYTHONPATH=. python -m pytest ptc/tests/test_periodic.py -v</code></pre>
       max-width: 20rem;
     }
 
-    .shell-row,
-    .calculator-output {
+    .shell-row {
       grid-template-columns: 1fr;
     }
 
@@ -1671,8 +1398,5 @@ PYTHONPATH=. python -m pytest ptc/tests/test_periodic.py -v</code></pre>
       text-align: left;
     }
 
-    .calculator-output dl {
-      grid-template-columns: 1fr;
-    }
   }
 </style>

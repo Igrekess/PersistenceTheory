@@ -51,7 +51,7 @@ const groups = [
       },
       {
         q: 'Pourquoi zéro paramètre continu ajustable ?',
-        answer: 'Les constantes sans dimension descendent du point fixe attractif $\\mu^* = 15$ et de choix structurels discrets.',
+        answer: 'Les constantes sans dimension descendent de l’attracteur réduit $\\mu^* = 15$ et de choix structurels discrets.',
         details: [
           'Le moteur PT ne règle pas une valeur réelle pour améliorer un accord expérimental. Il part de $s=1/2$, des actifs $3,5,7$, du point fixe arithmétique attractif $\\mu^*=15$, puis applique des règles classées par statut.',
           'Cela ne veut pas dire zéro hypothèse. Cela veut dire que les hypothèses restantes sont discrètes, nommées, auditables, et qu’elles ne peuvent pas être ajustées observable par observable.',
@@ -78,7 +78,7 @@ const groups = [
     items: [
       {
         q: 'Pourquoi trois générations de fermions ?',
-        answer: 'Les trois générations correspondent aux trois actifs $3,5,7$ au point fixe attractif $\\mu^* = 15$.',
+        answer: 'Les trois générations correspondent aux trois actifs $3,5,7$ sélectionnés par l’attracteur réduit $\\mu^* = 15$.',
         details: [
           'Une génération n’est pas une copie arbitraire. Elle correspond à un canal actif dont l’exposant de sensibilité reste au-dessus du seuil $1/2$.',
           'Les actifs $3,5,7$ survivent ; $11$ tombe sous le seuil. Cela explique simultanément les trois familles et l’absence attendue de quatrième génération.',
@@ -135,7 +135,7 @@ const groups = [
         q: 'Pourquoi pas d’axion, pas de SUSY légère, pas de proton instable ?',
         answer: 'PT les traite comme prédictions négatives : certaines extensions ne sont pas naturelles dans le crible.',
         details: [
-          'Si $\\theta_{QCD}=0$ est structurel, l’axion n’est pas nécessaire. Si $s=1/2$ ferme le point fixe attractif, une supersymétrie légère n’est pas attendue. Si le nombre baryonique est conservé par la structure du crible, la désintégration du proton n’est pas attendue.',
+          'Si $\\theta_{QCD}=0$ est structurel, l’axion n’est pas nécessaire. Si $s=1/2$ ferme l’attracteur réduit, une supersymétrie légère n’est pas attendue. Si le nombre baryonique est conservé par la structure du crible, la désintégration du proton n’est pas attendue.',
           'Ces points exposent la PT au risque expérimental : elle ne peut pas toujours ajouter un nouveau secteur pour absorber une anomalie.',
         ],
         type: 'PRED',
@@ -343,6 +343,46 @@ const groups = [
         type: 'VAL',
         mode: 'Unifié',
         source: 'PTC, ch. 22-22c',
+      },
+    ],
+  },
+  {
+    title: 'Lumière, vivant et perception',
+    items: [
+      {
+        q: 'Pourquoi l’œil humain possède-t-il trois cônes hiérarchisés ?',
+        answer: 'La réponse biologique standard est évolutive ; la lecture PT y voit une projection sensorielle de trois canaux persistants dans une fenêtre lumineuse filtrée.',
+        details: [
+          'L’œil humain ne possède pas trois cônes parce que la lumière serait “rouge, verte et bleue” en soi. Il possède trois familles d’opsines, sensibles à des bandes larges et recouvrantes, dont les pics approximatifs sont dans le bleu, le vert et le jaune-rouge.',
+          'La lecture PT proposée ici est prudente : trois cônes hiérarchisés peuvent être lus comme une adaptation biologique à trois canaux de persistance actifs dans le flux disponible. Ce n’est pas encore une dérivation PT stricte du système visuel ; c’est un pont biologie-perception à tester.',
+        ],
+        type: 'BRIDGE',
+        mode: 'Lecture biologique',
+        source: 'pages Biologie/SCS, programme vivant',
+      },
+      {
+        q: 'Pourquoi voyons-nous justement ces longueurs d’onde ?',
+        answer: 'Parce que le visible correspond au recouvrement entre flux solaire, fenêtre atmosphérique et adaptation des récepteurs.',
+        details: [
+          'Les raies de Balmer de l’hydrogène tombent bien dans le visible et donnent un repère spectral profond : elles montrent que cette bande n’est pas arbitraire dans la physique atomique. Mais la lumière disponible à la surface de la Terre vient surtout du spectre solaire continu, après traversée de l’atmosphère.',
+          'Cette atmosphère transmet efficacement une fenêtre optique, tout en coupant une grande partie de l’ultraviolet et en absorbant fortement dans plusieurs bandes infrarouges. L’œil ne s’est donc pas adapté à un spectre abstrait : il s’est accordé à la lumière qui arrive réellement au sol.',
+          'En langage PT, le visible n’est pas seulement “ce qui existe” dans les équations. C’est ce qui persiste après une chaîne de filtres : source stellaire, milieu atmosphérique, puis récepteurs biologiques. La couleur commence comme une fenêtre de persistance physique avant de devenir une expérience perceptive.',
+        ],
+        type: 'BRIDGE',
+        mode: 'Filtrage + adaptation',
+        source: 'lecture PT, optique atmosphérique, SCS',
+      },
+      {
+        q: 'Pourquoi la chlorophylle est-elle verte ?',
+        answer: 'La chlorophylle absorbe surtout dans le bleu et le rouge ; elle laisse davantage revenir le vert, que l’œil humain détecte très bien.',
+        details: [
+          'La couleur verte des feuilles n’est pas une “émission verte” principale. Elle vient d’un filtrage : les pigments chlorophylliens capturent efficacement des photons bleus et rouges pour la photosynthèse, tandis qu’une partie plus importante du vert est réfléchie ou transmise.',
+          'Le recoupement avec l’œil humain est pédagogique : notre sensibilité photopique est maximale autour du vert-jaune. Une feuille qui renvoie du vert apparaît donc très visible pour nous, même si ce vert correspond plutôt à une bande moins utilisée par la chlorophylle.',
+          'En lecture PT, chlorophylle et vision humaine ne prouvent pas la théorie, mais illustrent bien la même logique : source lumineuse, filtre atmosphérique, filtre pigmentaire, filtre rétinien. Ce qui devient “couleur” est ce qui persiste à travers toute la chaîne.',
+        ],
+        type: 'BRIDGE',
+        mode: 'Exemple didactique',
+        source: 'biologie, SCS, photosynthèse',
       },
     ],
   },

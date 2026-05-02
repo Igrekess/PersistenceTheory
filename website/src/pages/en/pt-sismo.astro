@@ -138,7 +138,7 @@ const limits = [
     <!-- ============= HERO L1 ============= -->
     <section class="mb-12">
       <div class="rounded-lg border border-slate-200 bg-white p-6 md:p-8 shadow-sm">
-        <p class="pt-tag pt-tag-val mb-5">PT_SISMO — prospective research</p>
+        <p class="pt-tag pt-tag-val mb-5">Plain · prospective research</p>
         <h1 class="text-4xl md:text-5xl font-bold text-thmblue leading-tight mb-4">
           Seismic prediction by persistence cascade
         </h1>
@@ -190,7 +190,7 @@ const limits = [
 
     <!-- ============= WHY SEISMIC PREDICTION IS HARD L1 ============= -->
     <section class="mb-12">
-      <p class="pt-tag pt-tag-id mb-3">Context</p>
+      <p class="pt-tag pt-tag-id mb-3">Plain</p>
       <h2 class="text-3xl font-bold text-thmblue mb-4">Why seismic prediction is notoriously difficult</h2>
       <p class="text-slate-700 leading-relaxed mb-6 max-w-3xl">
         Before presenting what PT_SISMO does, one has to understand why
@@ -209,7 +209,7 @@ const limits = [
 
     <!-- ============= HOW PT_SISMO RESPONDS L2 ============= -->
     <section class="mb-12" data-min-depth="L2">
-      <p class="pt-tag pt-tag-thm mb-3">PT_SISMO approach</p>
+      <p class="pt-tag pt-tag-thm mb-3">Standard</p>
       <h2 class="text-3xl font-bold text-thmblue mb-4">Four design choices that distinguish PT_SISMO</h2>
       <p class="text-slate-700 leading-relaxed mb-6 max-w-3xl">
         PT_SISMO is not yet another statistical fit. It is a transposition
@@ -228,7 +228,7 @@ const limits = [
 
     <!-- ============= PROTOCOL ARCHITECTURE L2 ============= -->
     <section class="mb-12" data-min-depth="L2">
-      <p class="pt-tag pt-tag-thm mb-3">Protocol architecture</p>
+      <p class="pt-tag pt-tag-thm mb-3">Standard</p>
       <h2 class="text-3xl font-bold text-thmblue mb-4">Three markers, one composite signal</h2>
       <p class="text-slate-700 leading-relaxed mb-6 max-w-3xl">
         PT_SISMO combines three markers derived from the PT cascade. A
@@ -266,7 +266,7 @@ const limits = [
 
     <!-- ============= WEBAPP / PLACEHOLDER ============= -->
     <section class="mb-12">
-      <p class="pt-tag pt-tag-val mb-3">PT_SISMO webapp</p>
+      <p class="pt-tag pt-tag-val mb-3">Plain · tool</p>
       <h2 class="text-3xl font-bold text-thmblue mb-4">Real-time dashboard</h2>
       {webappPublic ? (
         <div class="rounded-lg border border-slate-200 bg-white p-1 shadow-sm overflow-hidden">
@@ -296,8 +296,8 @@ const limits = [
     </section>
 
     <!-- ============= METRICS ============= -->
-    <section class="mb-12">
-      <p class="pt-tag pt-tag-val mb-3">Validation metrics</p>
+    <section class="mb-12" data-min-depth="L2">
+      <p class="pt-tag pt-tag-val mb-3">Standard</p>
       <h2 class="text-3xl font-bold text-thmblue mb-4">Backtest and prospective hits</h2>
       <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
         {metrics.map((m) => (
@@ -311,8 +311,8 @@ const limits = [
     </section>
 
     <!-- ============= 5 PROSPECTIVE VALIDATIONS ============= -->
-    <section class="mb-12">
-      <p class="pt-tag pt-tag-thm mb-3">Recent detections</p>
+    <section class="mb-12" data-min-depth="L2">
+      <p class="pt-tag pt-tag-thm mb-3">Standard</p>
       <h2 class="text-3xl font-bold text-thmblue mb-6">5 prospective validations + 1 non-scorable case</h2>
       <p class="text-sm text-stone-700 mb-5 max-w-3xl leading-relaxed">
         All the predictions below were recorded in the system
@@ -339,7 +339,7 @@ const limits = [
 
     <!-- ============= LIMITS L2-L3 ============= -->
     <section class="mb-12" data-min-depth="L2">
-      <p class="pt-tag pt-tag-id mb-3">Acknowledged limits</p>
+      <p class="pt-tag pt-tag-id mb-3">Standard · limits</p>
       <h2 class="text-3xl font-bold text-thmblue mb-4">Four limits to keep in mind</h2>
       <div class="grid md:grid-cols-2 gap-4">
         {limits.map((l) => (
@@ -348,6 +348,20 @@ const limits = [
             <p class="text-sm text-rose-900 leading-relaxed">{l.detail}</p>
           </div>
         ))}
+      </div>
+    </section>
+
+    <!-- ============= TECHNICAL AUDIT ============= -->
+    <section class="mb-12" data-min-depth="L3">
+      <p class="pt-tag pt-tag-val mb-3">Technical</p>
+      <h2 class="text-3xl font-bold text-thmblue mb-4">How to audit a PT_SISMO prediction</h2>
+      <div class="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
+        <ol class="list-decimal pl-5 space-y-3 text-sm text-slate-700 leading-relaxed">
+          <li>Each predictive window is written as a canonical snapshot: region, issue date, threshold, active markers and validation horizon.</li>
+          <li>The snapshot is serialised then hashed in SHA-256; the current hash includes the previous hash to prevent local rewriting of an older entry.</li>
+          <li>Validation compares the observed event with the already chained snapshot: a later entry cannot retroactively produce the earlier signal without breaking the chain.</li>
+          <li>The theoretical audit remains distinct from the cryptographic audit: the chain proves anteriority of the announcements, not yet strict derived status of the geophysical bridge.</li>
+        </ol>
       </div>
     </section>
 

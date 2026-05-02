@@ -27,19 +27,34 @@ const readingPath = [
     step: '03',
     title: 'Attractor',
     href: '/en/big-bang',
-    text: 'The cascade stabilises μ* = 15 and assigns its role to the bifurcation seeded by 2.',
+    text: 'After 2 crystallises, the cascade slides toward the reduced attractor μ* = 15.',
   },
   {
     step: '04',
     title: 'Derivations',
     href: '/en/observables',
-    text: 'Physical and chemical observables are derived without continuously fitted parameters.',
+    text: 'Physical and chemical observables are derived without continuously fitted parameters, with explicit statuses.',
   },
   {
     step: '05',
     title: 'Validation',
     href: '/en/statuts-resultats',
     text: 'Each result receives a status: theorem, bridge, derivation, validation, or prediction.',
+  },
+];
+
+const plainScenes = [
+  {
+    title: 'A constraint acts',
+    text: 'The theory starts from a minimal situation: something is placed under constraint, and that constraint forces a separation.',
+  },
+  {
+    title: 'Survivors appear',
+    text: 'What does not cross the constraint disperses; what does cross it keeps a readable identity.',
+  },
+  {
+    title: 'Measurement becomes possible',
+    text: 'Observables are no longer fitted knobs: they measure the persistent part, the dispersed part, and their modes of coupling.',
   },
 ];
 
@@ -71,6 +86,24 @@ const domainCards = [
     tagClass: 'pt-tag-id',
     title: 'Shell persistence',
     text: 'The sequence 2, 8, 8, 18, 18, 32, 32 follows from channels, spin doubling, and internal shells.',
+  },
+];
+
+const auditCards = [
+  {
+    tag: 'L0 / GFT',
+    title: 'Conservation principle',
+    text: 'Total informational capacity partitions into KL divergence and entropy: Hmax = DKL + H.',
+  },
+  {
+    tag: 'T0 → T6',
+    title: 'Demonstrative chain',
+    text: 'Each step must be followed as a status transition: theorem, bridge, derivation, validation, or prediction.',
+  },
+  {
+    tag: 'Scripts',
+    title: 'Reproducibility',
+    text: 'The companion scripts check the flagship calculations and expose points still dependent on a bridge.',
   },
 ];
 
@@ -117,18 +150,30 @@ const groupedLinks = [
   <main class="max-w-6xl mx-auto px-4 py-10 md:py-14">
     <section class="mb-12">
       <div class="rounded-lg border border-slate-200 bg-white p-6 md:p-8 shadow-sm">
-        <p class="pt-tag pt-tag-bridge mb-5">Open preprint</p>
+        <p class="pt-tag pt-tag-bridge mb-5">Plain · open preprint</p>
         <h1 class="text-4xl md:text-5xl font-bold text-thmblue leading-tight mb-4">
           The Theory of Persistence
         </h1>
         <p class="text-2xl md:text-3xl font-sans font-semibold text-derorange leading-snug mb-6">
           What persists is what remains under constraint.
         </p>
-        <p class="text-lg text-stone-800 leading-relaxed mb-5">
+        <p class="text-lg text-stone-800 leading-relaxed mb-5" data-max-depth="L1">
           PT starts from a simple idea: when a constraint acts, not everything
           disappears. One part disperses as entropy; another crosses the
           constraint and becomes structure. Observables measure that
           distribution.
+        </p>
+        <p class="text-lg text-stone-800 leading-relaxed mb-5" data-min-depth="L2">
+          PT starts from a simple idea: under constraint, one part disperses as
+          entropy while another persists as structure. That idea unfolds as a
+          chain: informational conservation principle, sieve dynamics,
+          crystallisation of 2, slide toward the reduced attractor μ* = 15,
+          then derivation of observables with explicit epistemic status.
+        </p>
+        <p class="text-base text-slate-700 leading-relaxed rounded-lg bg-slate-50 border border-slate-200 px-4 py-3 mb-5" data-min-depth="L3">
+          <strong>Technical reading:</strong> do not read this page as one
+          global proof, but as an audit map. Theorems, bridges, physical
+          derivations, validations, and predictions do not carry the same status.
         </p>
         <p data-max-depth="L1" class="text-base text-slate-700 leading-relaxed rounded-lg bg-amber-50 border border-amber-200 px-4 py-3 mb-6">
           <strong>In one sentence:</strong> persisting does not mean remaining
@@ -154,8 +199,24 @@ const groupedLinks = [
     </section>
 
     <section class="mb-12">
+      <p class="pt-tag pt-tag-id mb-3">Plain</p>
+      <h2 class="text-3xl md:text-4xl font-bold text-thmblue mb-6">
+        The idea in three scenes
+      </h2>
+      <div class="grid md:grid-cols-3 gap-4">
+        {plainScenes.map((scene, index) => (
+          <div class="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
+            <span class="font-mono text-sm text-derorange">0{index + 1}</span>
+            <h3 class="mt-2 mb-2 font-sans text-xl font-bold text-thmblue">{scene.title}</h3>
+            <p class="text-sm text-slate-700 leading-relaxed">{scene.text}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section class="mb-12" data-min-depth="L2">
       <div class="max-w-3xl mb-6">
-        <p class="pt-tag pt-tag-thm mb-3">Recommended route</p>
+        <p class="pt-tag pt-tag-thm mb-3">Standard</p>
         <h2 class="text-3xl md:text-4xl font-bold text-thmblue mb-3">
           Read the theory as a chain, not as a catalogue
         </h2>
@@ -178,17 +239,18 @@ const groupedLinks = [
       </div>
     </section>
 
-    <section class="grid lg:grid-cols-[0.92fr_1.08fr] gap-8 items-start mb-12">
+    <section class="grid lg:grid-cols-[0.92fr_1.08fr] gap-8 items-start mb-12" data-min-depth="L2">
       <div>
-        <p class="pt-tag pt-tag-id mb-3">What PT tests</p>
+        <p class="pt-tag pt-tag-id mb-3">Standard</p>
         <h2 class="text-3xl font-bold text-thmblue mb-4">
           One constraint, several registers
         </h2>
         <p class="text-slate-700 leading-relaxed mb-4">
           In mathematics, persistence appears in the sieve of Eratosthenes:
-          primes are the irreducible survivors of the multiplicative
-          constraint, and prime gaps form the dynamical trace of those
-          survivors.
+          primes are the irreducible survivors of the additive-multiplicative
+          coupling, where the multiplicative constraint eliminates composites
+          while additive progression reveals the dynamical trace of the
+          survivors through prime gaps.
         </p>
         <p class="text-slate-700 leading-relaxed mb-4">
           In PT, a prime is also a discrete resonance point of the sieve: it
@@ -217,23 +279,41 @@ const groupedLinks = [
       </div>
     </section>
 
-    <section data-min-depth="L3" class="bg-stone-50 border border-stone-300 rounded-lg p-5 my-8 text-sm">
-      <p class="text-xs font-sans text-stone-500 uppercase tracking-wider mb-2">Technical note</p>
-      <p class="text-stone-700 leading-relaxed">
-        The formal framework comprises base bridge axioms (BA0–BA2) that
-        identify the dynamical field with the gaps between consecutive primes,
-        then derived bridges (BA3–BA5) promoted or constrained in the chain,
-        and a cascade of seven theorems (T0 → T6) deriving the holonomy angles
-        sin²(θ_p) = δ_p(2 − δ_p) and the anomalous dimensions γ_p, and theorem
-        T5 closing the attractive fixed point μ* = 15 by exact rational exhaustion. The
-        identity log₂(m) = D_KL(P‖U_m) + H(P) (GFT) is the
-        <strong>fundamental principle of persistence</strong>: total informational
-        capacity is conserved and partitions exactly into persistence and
-        entropy.
+    <section data-min-depth="L3" class="mb-12">
+      <p class="pt-tag pt-tag-val mb-3">Technical</p>
+      <h2 class="text-3xl font-bold text-thmblue mb-4">First audit handles</h2>
+      <p class="text-slate-700 leading-relaxed mb-5 max-w-3xl">
+        The technical depth of the index exposes what should be checked before
+        judging the theory: informational conservation, the T0 → T6 chain,
+        bridge status, and numerical reproducibility.
       </p>
+      <div class="grid md:grid-cols-3 gap-4 mb-5">
+        {auditCards.map((card) => (
+          <div class="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
+            <span class="pt-tag pt-tag-val">{card.tag}</span>
+            <h3 class="font-sans font-semibold text-thmblue text-lg mt-3 mb-2">{card.title}</h3>
+            <p class="text-sm text-slate-700 leading-relaxed">{card.text}</p>
+          </div>
+        ))}
+      </div>
+      <div class="bg-stone-50 border border-stone-300 rounded-lg p-5 text-sm">
+        <p class="text-xs font-sans text-stone-500 uppercase tracking-wider mb-2">Technical note</p>
+        <p class="text-stone-700 leading-relaxed">
+          The formal framework comprises base bridge axioms (BA0–BA2) that
+          identify the dynamical field with the gaps between consecutive primes,
+          then derived bridges (BA3–BA5) promoted or constrained in the chain,
+          and a cascade of seven theorems (T0 → T6) deriving the holonomy angles
+          sin²(θ_p) = δ_p(2 − δ_p) and the anomalous dimensions γ_p, and theorem
+          T5 establishing the reduced attractor μ* = 15 by exact rational exhaustion. The
+          identity log₂(m) = D_KL(P‖U_m) + H(P) (GFT) is the
+          <strong>fundamental principle of persistence</strong>: total informational
+          capacity is conserved and partitions exactly into persistence and
+          entropy.
+        </p>
+      </div>
     </section>
 
-    <section class="grid md:grid-cols-4 gap-4 mb-12">
+    <section class="grid md:grid-cols-4 gap-4 mb-12" data-min-depth="L2">
       {groupedLinks.map((group) => (
         <div class="rounded-lg border border-slate-200 bg-white p-4 shadow-sm">
           <h2 class="font-sans font-bold text-thmblue mb-3">{group.title}</h2>
@@ -248,7 +328,7 @@ const groupedLinks = [
       ))}
     </section>
 
-    <div class="grid md:grid-cols-3 gap-4 text-sm mb-10">
+    <div class="grid md:grid-cols-3 gap-4 text-sm mb-10" data-min-depth="L2">
       <div class="pt-card">
         <span class="pt-tag pt-tag-thm">Theorems</span>
         <p class="mt-2 text-stone-700">

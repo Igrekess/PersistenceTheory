@@ -1,0 +1,879 @@
+---
+import { ionizationRows } from '@/data/ionization';
+import { electronAffinityRows } from '@/data/electronAffinity';
+
+interface Props {
+  lang?: 'fr' | 'en';
+}
+
+type Block = 's' | 'p' | 'd' | 'f';
+
+const { lang = 'fr' } = Astro.props;
+const isFr = lang === 'fr';
+
+const symbols = [
+  '', 'H', 'He', 'Li', 'Be', 'B', 'C', 'N', 'O', 'F', 'Ne',
+  'Na', 'Mg', 'Al', 'Si', 'P', 'S', 'Cl', 'Ar',
+  'K', 'Ca', 'Sc', 'Ti', 'V', 'Cr', 'Mn', 'Fe', 'Co', 'Ni', 'Cu', 'Zn',
+  'Ga', 'Ge', 'As', 'Se', 'Br', 'Kr',
+  'Rb', 'Sr', 'Y', 'Zr', 'Nb', 'Mo', 'Tc', 'Ru', 'Rh', 'Pd', 'Ag', 'Cd',
+  'In', 'Sn', 'Sb', 'Te', 'I', 'Xe',
+  'Cs', 'Ba', 'La', 'Ce', 'Pr', 'Nd', 'Pm', 'Sm', 'Eu', 'Gd', 'Tb', 'Dy',
+  'Ho', 'Er', 'Tm', 'Yb', 'Lu', 'Hf', 'Ta', 'W', 'Re', 'Os', 'Ir', 'Pt',
+  'Au', 'Hg', 'Tl', 'Pb', 'Bi', 'Po', 'At', 'Rn',
+  'Fr', 'Ra', 'Ac', 'Th', 'Pa', 'U', 'Np', 'Pu', 'Am', 'Cm', 'Bk', 'Cf',
+  'Es', 'Fm', 'Md', 'No', 'Lr', 'Rf', 'Db', 'Sg', 'Bh', 'Hs', 'Mt', 'Ds',
+  'Rg', 'Cn', 'Nh', 'Fl', 'Mc', 'Lv', 'Ts', 'Og',
+];
+
+const namesFr = [''];
+namesFr.push('Hydrogène', 'Hélium', 'Lithium', 'Béryllium', 'Bore', 'Carbone', 'Azote', 'Oxygène', 'Fluor', 'Néon');
+namesFr.push('Sodium', 'Magnésium', 'Aluminium', 'Silicium', 'Phosphore', 'Soufre', 'Chlore', 'Argon');
+namesFr.push('Potassium', 'Calcium', 'Scandium', 'Titane', 'Vanadium', 'Chrome', 'Manganèse', 'Fer', 'Cobalt', 'Nickel', 'Cuivre', 'Zinc');
+namesFr.push('Gallium', 'Germanium', 'Arsenic', 'Sélénium', 'Brome', 'Krypton');
+namesFr.push('Rubidium', 'Strontium', 'Yttrium', 'Zirconium', 'Niobium', 'Molybdène', 'Technétium', 'Ruthénium', 'Rhodium', 'Palladium', 'Argent', 'Cadmium');
+namesFr.push('Indium', 'Étain', 'Antimoine', 'Tellure', 'Iode', 'Xénon');
+namesFr.push('Césium', 'Baryum', 'Lanthane', 'Cérium', 'Praséodyme', 'Néodyme', 'Prométhium', 'Samarium', 'Europium', 'Gadolinium', 'Terbium', 'Dysprosium', 'Holmium', 'Erbium', 'Thulium', 'Ytterbium', 'Lutécium');
+namesFr.push('Hafnium', 'Tantale', 'Tungstène', 'Rhénium', 'Osmium', 'Iridium', 'Platine', 'Or', 'Mercure', 'Thallium', 'Plomb', 'Bismuth', 'Polonium', 'Astate', 'Radon');
+namesFr.push('Francium', 'Radium', 'Actinium', 'Thorium', 'Protactinium', 'Uranium', 'Neptunium', 'Plutonium', 'Américium', 'Curium', 'Berkélium', 'Californium', 'Einsteinium', 'Fermium', 'Mendélévium', 'Nobélium', 'Lawrencium');
+namesFr.push('Rutherfordium', 'Dubnium', 'Seaborgium', 'Bohrium', 'Hassium', 'Meitnérium', 'Darmstadtium', 'Roentgenium', 'Copernicium', 'Nihonium', 'Flérovium', 'Moscovium', 'Livermorium', 'Tennesse', 'Oganesson');
+
+const namesEn = [''];
+namesEn.push('Hydrogen', 'Helium', 'Lithium', 'Beryllium', 'Boron', 'Carbon', 'Nitrogen', 'Oxygen', 'Fluorine', 'Neon');
+namesEn.push('Sodium', 'Magnesium', 'Aluminium', 'Silicon', 'Phosphorus', 'Sulfur', 'Chlorine', 'Argon');
+namesEn.push('Potassium', 'Calcium', 'Scandium', 'Titanium', 'Vanadium', 'Chromium', 'Manganese', 'Iron', 'Cobalt', 'Nickel', 'Copper', 'Zinc');
+namesEn.push('Gallium', 'Germanium', 'Arsenic', 'Selenium', 'Bromine', 'Krypton');
+namesEn.push('Rubidium', 'Strontium', 'Yttrium', 'Zirconium', 'Niobium', 'Molybdenum', 'Technetium', 'Ruthenium', 'Rhodium', 'Palladium', 'Silver', 'Cadmium');
+namesEn.push('Indium', 'Tin', 'Antimony', 'Tellurium', 'Iodine', 'Xenon');
+namesEn.push('Caesium', 'Barium', 'Lanthanum', 'Cerium', 'Praseodymium', 'Neodymium', 'Promethium', 'Samarium', 'Europium', 'Gadolinium', 'Terbium', 'Dysprosium', 'Holmium', 'Erbium', 'Thulium', 'Ytterbium', 'Lutetium');
+namesEn.push('Hafnium', 'Tantalum', 'Tungsten', 'Rhenium', 'Osmium', 'Iridium', 'Platinum', 'Gold', 'Mercury', 'Thallium', 'Lead', 'Bismuth', 'Polonium', 'Astatine', 'Radon');
+namesEn.push('Francium', 'Radium', 'Actinium', 'Thorium', 'Protactinium', 'Uranium', 'Neptunium', 'Plutonium', 'Americium', 'Curium', 'Berkelium', 'Californium', 'Einsteinium', 'Fermium', 'Mendelevium', 'Nobelium', 'Lawrencium');
+namesEn.push('Rutherfordium', 'Dubnium', 'Seaborgium', 'Bohrium', 'Hassium', 'Meitnerium', 'Darmstadtium', 'Roentgenium', 'Copernicium', 'Nihonium', 'Flerovium', 'Moscovium', 'Livermorium', 'Tennessine', 'Oganesson');
+
+const promotions = new Map<number, { aufbau: string; pt: string; reasonFr: string; reasonEn: string }>([
+  [24, { aufbau: 'd4s2', pt: 'd5s1', reasonFr: 'demi-remplissage d', reasonEn: 'd half filling' }],
+  [29, { aufbau: 'd9s2', pt: 'd10s1', reasonFr: 'fermeture d', reasonEn: 'd closure' }],
+  [41, { aufbau: 'd3s2', pt: 'd4s1', reasonFr: 'quasi-demi-remplissage', reasonEn: 'near half filling' }],
+  [42, { aufbau: 'd4s2', pt: 'd5s1', reasonFr: 'demi-remplissage d', reasonEn: 'd half filling' }],
+  [44, { aufbau: 'd6s2', pt: 'd7s1', reasonFr: 'post-demi-remplissage', reasonEn: 'post half filling' }],
+  [45, { aufbau: 'd7s2', pt: 'd8s1', reasonFr: 'post-demi-remplissage', reasonEn: 'post half filling' }],
+  [46, { aufbau: 'd8s2', pt: 'd10s0', reasonFr: 'double fermeture', reasonEn: 'double closure' }],
+  [47, { aufbau: 'd9s2', pt: 'd10s1', reasonFr: 'fermeture d', reasonEn: 'd closure' }],
+  [78, { aufbau: 'd8s2', pt: 'd9s1', reasonFr: 'quasi-fermeture', reasonEn: 'near closure' }],
+  [79, { aufbau: 'd9s2', pt: 'd10s1', reasonFr: 'fermeture d', reasonEn: 'd closure' }],
+  [111, { aufbau: 'd9s2', pt: 'd10s1', reasonFr: 'fermeture relativiste', reasonEn: 'relativistic closure' }],
+]);
+
+const blockMap: Block[] = ['s', 'p', 'd', 'f'];
+const capacityMap = [2, 6, 10, 14];
+
+const period = (Z: number) => {
+  let cumul = 0;
+  let per = 1;
+  while (true) {
+    const k = Math.floor(per / 2) + 1;
+    const cap = 2 * k * k;
+    if (Z <= cumul + cap) return per;
+    cumul += cap;
+    per += 1;
+  }
+};
+
+const periodStart = (per: number) => {
+  let z0 = 1;
+  for (let p = 1; p < per; p += 1) {
+    const k = Math.floor(p / 2) + 1;
+    z0 += 2 * k * k;
+  }
+  return z0;
+};
+
+const lOf = (Z: number) => {
+  const per = period(Z);
+  const z0 = periodStart(per);
+  const pos = Z - z0;
+  if (pos < 2) return 0;
+  if (per <= 3) return 1;
+  if (per <= 5) return pos < 12 ? 2 : 1;
+  if (pos === 2) return 2;
+  if (pos < 16) return 3;
+  if (pos < 26) return 2;
+  return 1;
+};
+
+const nFillAufbau = (Z: number) => {
+  const per = period(Z);
+  const z0 = periodStart(per);
+  const pos = Z - z0;
+  const ell = lOf(Z);
+  if (ell === 0) return Math.min(pos + 1, 2);
+  const cap = 2 * (Math.floor(per / 2) + 1) ** 2;
+  if (ell === 1) return Z - (z0 + cap - 6) + 1;
+  if (ell === 2) {
+    let nd = Math.max(0, pos + 1 - 2);
+    if (per >= 6) nd = Math.max(0, nd - 14);
+    return Math.min(nd, 10);
+  }
+  if (ell === 3) return Math.min(Math.max(0, pos + 1 - 2), 14);
+  return 1;
+};
+
+const nFill = (Z: number) => {
+  const promotion = promotions.get(Z);
+  if (promotion && lOf(Z) === 2) {
+    const match = promotion.pt.match(/d(\d+)/);
+    return match ? Number(match[1]) : nFillAufbau(Z);
+  }
+  return nFillAufbau(Z);
+};
+
+const nsConfig = (Z: number, madelung: boolean) => {
+  const promotion = madelung ? promotions.get(Z) : null;
+  if (promotion && lOf(Z) === 2) {
+    const match = promotion.pt.match(/s(\d+)/);
+    return match ? Number(match[1]) : 2;
+  }
+  const ell = lOf(Z);
+  if (ell === 0) return Math.min(nFillAufbau(Z), 2);
+  return 2;
+};
+
+const configText = (ell: number, fill: number, ns: number) => {
+  if (ell === 0) return `s${fill}`;
+  if (ell === 1) return `s${ns}p${fill}`;
+  if (ell === 2) return `d${fill}s${ns}`;
+  return `f${fill}s${ns}`;
+};
+
+const statusFor = (Z: number, block: Block, fill: number, capacity: number) => {
+  const promotion = promotions.get(Z);
+  if (promotion) return isFr ? promotion.reasonFr : promotion.reasonEn;
+  if (fill === capacity) return isFr ? 'fermeture' : 'closure';
+  if (fill === capacity / 2) return isFr ? 'demi-remplissage' : 'half filling';
+  if (block === 'f') return isFr ? 'canal f enfoui' : 'buried f channel';
+  if (fill === 1) return isFr ? 'ouverture' : 'opening';
+  if (capacity - fill <= 2) return isFr ? 'bord de capture' : 'capture edge';
+  return isFr ? 'remplissage régulier' : 'regular filling';
+};
+
+const readingFor = (Z: number, block: Block, fill: number, capacity: number) => {
+  const promotion = promotions.get(Z);
+  if (promotion) {
+    return isFr
+      ? `PTC lit ${symbols[Z]} comme une promotion informationnelle ${promotion.aufbau} -> ${promotion.pt}. Le remplissage radial sert encore l'écrantage, mais la structure fine suit la stabilité ${promotion.reasonFr}.`
+      : `PTC reads ${symbols[Z]} as an informational promotion ${promotion.aufbau} -> ${promotion.pt}. The radial filling still serves screening, but the fine structure follows ${promotion.reasonEn} stability.`;
+  }
+  if (fill === capacity) {
+    return isFr
+      ? `Le canal ${block} est fermé : la capacité ${capacity} est saturée.`
+      : `The ${block} channel is closed: capacity ${capacity} is saturated.`;
+  }
+  if (fill === capacity / 2) {
+    return isFr
+      ? `Le canal ${block} atteint son demi-remplissage, une position de symétrie dans la lecture PT.`
+      : `The ${block} channel reaches half filling, a symmetry position in the PT reading.`;
+  }
+  return isFr
+    ? `L'élément occupe le canal ${block} avec ${fill} place(s) actives sur ${capacity}.`
+    : `The element occupies the ${block} channel with ${fill} active seat(s) out of ${capacity}.`;
+};
+
+const fmt = (value: number | undefined, digits = 3) =>
+  typeof value === 'number' && Number.isFinite(value) ? value.toFixed(digits) : '—';
+
+const ionizationByZ = new Map(ionizationRows.map((row) => [row.z, row]));
+const affinityByZ = new Map(electronAffinityRows.map((row) => [row.z, row]));
+
+const elements = Array.from({ length: 118 }, (_, index) => {
+  const Z = index + 1;
+  const per = period(Z);
+  const ell = lOf(Z);
+  const block = blockMap[ell];
+  const capacity = capacityMap[ell];
+  const fillA = nFillAufbau(Z);
+  const fillM = nFill(Z);
+  const vacancy = capacity - fillM;
+  const ion = ionizationByZ.get(Z);
+  const ea = affinityByZ.get(Z);
+  return {
+    z: Z,
+    symbol: symbols[Z],
+    name: (isFr ? namesFr : namesEn)[Z],
+    period: per,
+    position: Z - periodStart(per) + 1,
+    ell,
+    block,
+    capacity,
+    fill: fillM,
+    fillAufbau: fillA,
+    vacancy,
+    aufbau: configText(ell, fillA, nsConfig(Z, false)),
+    madelung: configText(ell, fillM, nsConfig(Z, true)),
+    promoted: promotions.has(Z),
+    status: statusFor(Z, block, fillM, capacity),
+    reading: readingFor(Z, block, fillM, capacity),
+    ionPt: ion?.pt,
+    ionRef: ion?.ref,
+    ionErr: ion?.err,
+    eaPt: ea?.calc,
+    eaRef: ea?.ref,
+    eaPct: ea?.pct,
+  };
+});
+
+const standardPosition = (Z: number) => {
+  if (Z === 1) return { row: 1, col: 1 };
+  if (Z === 2) return { row: 1, col: 18 };
+  if (Z >= 3 && Z <= 4) return { row: 2, col: Z - 2 };
+  if (Z >= 5 && Z <= 10) return { row: 2, col: Z + 8 };
+  if (Z >= 11 && Z <= 12) return { row: 3, col: Z - 10 };
+  if (Z >= 13 && Z <= 18) return { row: 3, col: Z };
+  if (Z >= 19 && Z <= 36) return { row: 4, col: Z - 18 };
+  if (Z >= 37 && Z <= 54) return { row: 5, col: Z - 36 };
+  if (Z >= 55 && Z <= 56) return { row: 6, col: Z - 54 };
+  if (Z >= 72 && Z <= 86) return { row: 6, col: Z - 68 };
+  if (Z >= 87 && Z <= 88) return { row: 7, col: Z - 86 };
+  if (Z >= 104 && Z <= 118) return { row: 7, col: Z - 100 };
+  return null;
+};
+
+const mainElements = elements
+  .map((element) => ({ ...element, grid: standardPosition(element.z) }))
+  .filter((element) => element.grid);
+
+const lanthanides = elements.filter((element) => element.z >= 57 && element.z <= 71);
+const actinides = elements.filter((element) => element.z >= 89 && element.z <= 103);
+
+const labels = isFr
+  ? {
+      eyebrow: 'Outil interactif PTC',
+      title: 'Interroger un élément dans le tableau PT',
+      intro: 'Chaque vignette reprend les règles de PTC : période par 2k², bloc s/p/d/f, capacité 2(2ℓ+1), remplissage radial Aufbau et remplissage informationnel PT/Madelung. Clique un élément pour voir sa lecture calculée.',
+      hint: 'La grille reprend la structure périodique classique. La lecture PT reste portée par les couleurs de blocs, les remplissages et le panneau de détail.',
+      all: 'Tous',
+      promos: 'Promotions',
+      closures: 'Fermetures',
+      half: 'Demi-remplissages',
+      period: 'Période',
+      name: 'Nom',
+      block: 'Bloc',
+      capacity: 'Capacité',
+      fill: 'Remplissage PT',
+      vacancy: 'Vacance',
+      aufbau: 'Aufbau radial',
+      madelung: 'PT / Madelung',
+      status: 'Statut',
+      ion: 'Ionisation PT',
+      aff: 'Affinité e- PT',
+      ref: 'réf.',
+      err: 'écart',
+      noData: 'non disponible',
+      source: 'Source : fonctions PTC period(Z), l_of(Z), capacity(Z), n_fill(Z), enrichies par les tables EI/EA du site.',
+      l1: 'Vulgarisé',
+      l2: 'Standard',
+      l3: 'Technique',
+    }
+  : {
+      eyebrow: 'Interactive PTC tool',
+      title: 'Query an element in the PT table',
+      intro: 'Each tile follows the PTC rules: period from 2k², s/p/d/f block, capacity 2(2ℓ+1), radial Aufbau filling, and PT/Madelung informational filling. Click an element to see its computed reading.',
+      hint: 'The grid uses the classical periodic-table structure. The PT reading is carried by block colors, fillings, and the detail panel.',
+      all: 'All',
+      promos: 'Promotions',
+      closures: 'Closures',
+      half: 'Half fillings',
+      period: 'Period',
+      name: 'Name',
+      block: 'Block',
+      capacity: 'Capacity',
+      fill: 'PT filling',
+      vacancy: 'Vacancy',
+      aufbau: 'Radial Aufbau',
+      madelung: 'PT / Madelung',
+      status: 'Status',
+      ion: 'PT ionization',
+      aff: 'PT electron affinity',
+      ref: 'ref.',
+      err: 'error',
+      noData: 'not available',
+      source: 'Source: PTC functions period(Z), l_of(Z), capacity(Z), n_fill(Z), enriched by the site IE/EA tables.',
+      l1: 'Plain',
+      l2: 'Standard',
+      l3: 'Technical',
+    };
+
+const initialElement = elements.find((element) => element.z === 79) ?? elements[0];
+const explorerId = `pt-periodic-explorer-${lang}`;
+---
+
+<section id="tableau-pt-interactif" class="max-w-6xl mx-auto px-4 py-12" data-min-depth="L2">
+  <div class="mb-7 max-w-4xl">
+    <p class="font-sans text-sm font-semibold uppercase tracking-wider text-derorange mb-3">
+      {labels.eyebrow}
+    </p>
+    <h2 class="text-3xl md:text-4xl font-bold text-thmblue mb-4">{labels.title}</h2>
+    <p class="text-stone-700 leading-relaxed text-lg">{labels.intro}</p>
+  </div>
+
+  <div id={explorerId} class="pt-periodic-explorer" data-pt-periodic-explorer>
+    <div class="pt-periodic-toolbar" aria-label="Filtres du tableau PT">
+      <button type="button" data-pt-filter="all" class="is-active">{labels.all}</button>
+      <button type="button" data-pt-filter="s">s</button>
+      <button type="button" data-pt-filter="p">p</button>
+      <button type="button" data-pt-filter="d">d</button>
+      <button type="button" data-pt-filter="f">f</button>
+      <button type="button" data-pt-filter="promoted">{labels.promos}</button>
+      <button type="button" data-pt-filter="closure">{labels.closures}</button>
+      <button type="button" data-pt-filter="half">{labels.half}</button>
+    </div>
+
+    <div class="pt-periodic-layout">
+      <aside class="pt-element-panel" aria-live="polite">
+        <div class={`pt-element-panel-head pt-element-${initialElement.block}`} data-detail-block-shell>
+          <div>
+            <span data-detail="z">Z={initialElement.z}</span>
+            <strong data-detail="symbol">{initialElement.symbol}</strong>
+          </div>
+          <h3 data-detail="name">{initialElement.name}</h3>
+          <p data-detail="status">{initialElement.status}</p>
+        </div>
+
+        <div class="pt-element-panel-grid">
+          <div><dt>{labels.period}</dt><dd data-detail="period">{initialElement.period}</dd></div>
+          <div><dt>{labels.block}</dt><dd data-detail="block">{initialElement.block}</dd></div>
+          <div><dt>{labels.capacity}</dt><dd data-detail="capacity">{initialElement.capacity}</dd></div>
+          <div><dt>{labels.fill}</dt><dd data-detail="fill">{initialElement.fill}</dd></div>
+          <div><dt>{labels.vacancy}</dt><dd data-detail="vacancy">{initialElement.vacancy}</dd></div>
+          <div><dt>ℓ</dt><dd data-detail="ell">{initialElement.ell}</dd></div>
+        </div>
+
+        <div class="pt-element-configs">
+          <div>
+            <span>{labels.aufbau}</span>
+            <code data-detail="aufbau">{initialElement.aufbau}</code>
+          </div>
+          <div>
+            <span>{labels.madelung}</span>
+            <code data-detail="madelung">{initialElement.madelung}</code>
+          </div>
+        </div>
+
+        <p class="pt-element-reading" data-detail="reading">{initialElement.reading}</p>
+
+        <div class="pt-observable-mini">
+          <div>
+            <span>{labels.ion}</span>
+            <strong data-detail="ionPt">{fmt(initialElement.ionPt)}</strong>
+            <small><span>{labels.ref}</span> <span data-detail="ionRef">{fmt(initialElement.ionRef)}</span> · <span>{labels.err}</span> <span data-detail="ionErr">{fmt(initialElement.ionErr)}</span>%</small>
+          </div>
+          <div>
+            <span>{labels.aff}</span>
+            <strong data-detail="eaPt">{fmt(initialElement.eaPt)}</strong>
+            <small><span>{labels.ref}</span> <span data-detail="eaRef">{fmt(initialElement.eaRef)}</span> · <span>{labels.err}</span> <span data-detail="eaPct">{fmt(initialElement.eaPct)}</span>%</small>
+          </div>
+        </div>
+
+        <div class="pt-depth-notes">
+          <p data-max-depth="L1"><strong>{labels.l1}.</strong> {isFr ? 'Chaque case montre où l’élément persiste dans la géométrie du crible.' : 'Each tile shows where the element persists in the sieve geometry.'}</p>
+          <p data-min-depth="L2"><strong>{labels.l2}.</strong> {isFr ? 'Le détail sépare remplissage radial et remplissage informationnel, ce qui rend visibles les promotions.' : 'The detail separates radial filling from informational filling, making promotions visible.'}</p>
+          <p data-min-depth="L3"><strong>{labels.l3}.</strong> {labels.source}</p>
+        </div>
+      </aside>
+
+      <div class="pt-periodic-map" aria-label="Tableau périodique PT interactif">
+        <div class="pt-standard-grid">
+          {Array.from({ length: 18 }, (_, index) => (
+            <span class="pt-group-label" style={`grid-column:${index + 1}; grid-row:1;`}>{index + 1}</span>
+          ))}
+          {mainElements.map((element) => (
+            <button
+              type="button"
+              class={`pt-element-tile pt-element-${element.block}${element.z === initialElement.z ? ' is-selected' : ''}${element.promoted ? ' is-promoted' : ''}`}
+              style={`grid-column:${element.grid?.col}; grid-row:${(element.grid?.row ?? 0) + 1};`}
+              data-z={element.z}
+              data-block={element.block}
+              data-promoted={element.promoted ? 'true' : 'false'}
+              data-closure={element.fill === element.capacity ? 'true' : 'false'}
+              data-half={element.fill === element.capacity / 2 ? 'true' : 'false'}
+              aria-label={`${element.name}, ${element.symbol}, Z=${element.z}, bloc ${element.block}`}
+            >
+              <span class="pt-element-z">{element.z}</span>
+              <strong>{element.symbol}</strong>
+              <span class="pt-element-name">{element.name}</span>
+              <span class="pt-element-fill">{element.block}{element.fill}/{element.capacity}</span>
+            </button>
+          ))}
+          <div class="pt-series-placeholder" style="grid-column:3; grid-row:7;">
+            <span>57-71</span>
+          </div>
+          <div class="pt-series-placeholder" style="grid-column:3; grid-row:8;">
+            <span>89-103</span>
+          </div>
+        </div>
+
+        <div class="pt-series-grid" aria-label="Lanthanides et actinides">
+          <span class="pt-series-label" style="grid-column:1; grid-row:1;">{isFr ? 'Lanthanides' : 'Lanthanides'}</span>
+          {lanthanides.map((element, index) => (
+            <button
+              type="button"
+              class={`pt-element-tile pt-element-${element.block}${element.z === initialElement.z ? ' is-selected' : ''}${element.promoted ? ' is-promoted' : ''}`}
+              style={`grid-column:${index + 2}; grid-row:1;`}
+              data-z={element.z}
+              data-block={element.block}
+              data-promoted={element.promoted ? 'true' : 'false'}
+              data-closure={element.fill === element.capacity ? 'true' : 'false'}
+              data-half={element.fill === element.capacity / 2 ? 'true' : 'false'}
+              aria-label={`${element.name}, ${element.symbol}, Z=${element.z}, bloc ${element.block}`}
+            >
+              <span class="pt-element-z">{element.z}</span>
+              <strong>{element.symbol}</strong>
+              <span class="pt-element-name">{element.name}</span>
+              <span class="pt-element-fill">{element.block}{element.fill}/{element.capacity}</span>
+            </button>
+          ))}
+
+          <span class="pt-series-label" style="grid-column:1; grid-row:2;">{isFr ? 'Actinides' : 'Actinides'}</span>
+          {actinides.map((element, index) => (
+            <button
+              type="button"
+              class={`pt-element-tile pt-element-${element.block}${element.z === initialElement.z ? ' is-selected' : ''}${element.promoted ? ' is-promoted' : ''}`}
+              style={`grid-column:${index + 2}; grid-row:2;`}
+              data-z={element.z}
+              data-block={element.block}
+              data-promoted={element.promoted ? 'true' : 'false'}
+              data-closure={element.fill === element.capacity ? 'true' : 'false'}
+              data-half={element.fill === element.capacity / 2 ? 'true' : 'false'}
+              aria-label={`${element.name}, ${element.symbol}, Z=${element.z}, bloc ${element.block}`}
+            >
+              <span class="pt-element-z">{element.z}</span>
+              <strong>{element.symbol}</strong>
+              <span class="pt-element-name">{element.name}</span>
+              <span class="pt-element-fill">{element.block}{element.fill}/{element.capacity}</span>
+            </button>
+          ))}
+        </div>
+
+        <p class="pt-periodic-hint">{labels.hint}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script is:inline define:vars={{ explorerId, elements, labels }}>
+  (function () {
+    const root = document.getElementById(explorerId);
+    if (!root) return;
+
+    const byZ = new Map(elements.map((element) => [String(element.z), element]));
+    const tiles = Array.from(root.querySelectorAll('[data-z]'));
+    const fields = {};
+    root.querySelectorAll('[data-detail]').forEach((node) => {
+      fields[node.getAttribute('data-detail')] = node;
+    });
+    const shell = root.querySelector('[data-detail-block-shell]');
+
+    const fmt = (value, digits = 3) =>
+      typeof value === 'number' && Number.isFinite(value) ? value.toFixed(digits) : labels.noData;
+
+    function setText(name, value) {
+      if (fields[name]) fields[name].textContent = value;
+    }
+
+    function selectElement(z) {
+      const element = byZ.get(String(z));
+      if (!element) return;
+      tiles.forEach((tile) => tile.classList.toggle('is-selected', tile.dataset.z === String(z)));
+      if (shell) {
+        shell.className = `pt-element-panel-head pt-element-${element.block}`;
+      }
+      setText('z', `Z=${element.z}`);
+      setText('symbol', element.symbol);
+      setText('name', element.name);
+      setText('status', element.status);
+      setText('period', element.period);
+      setText('block', element.block);
+      setText('capacity', element.capacity);
+      setText('fill', element.fill);
+      setText('vacancy', element.vacancy);
+      setText('ell', element.ell);
+      setText('aufbau', element.aufbau);
+      setText('madelung', element.madelung);
+      setText('reading', element.reading);
+      setText('ionPt', fmt(element.ionPt));
+      setText('ionRef', fmt(element.ionRef));
+      setText('ionErr', fmt(element.ionErr));
+      setText('eaPt', fmt(element.eaPt));
+      setText('eaRef', fmt(element.eaRef));
+      setText('eaPct', fmt(element.eaPct));
+    }
+
+    function matchesFilter(tile, filter) {
+      if (filter === 'all') return true;
+      if (['s', 'p', 'd', 'f'].includes(filter)) return tile.dataset.block === filter;
+      if (filter === 'promoted') return tile.dataset.promoted === 'true';
+      if (filter === 'closure') return tile.dataset.closure === 'true';
+      if (filter === 'half') return tile.dataset.half === 'true';
+      return true;
+    }
+
+    root.querySelectorAll('[data-pt-filter]').forEach((button) => {
+      button.addEventListener('click', () => {
+        const filter = button.getAttribute('data-pt-filter');
+        root.querySelectorAll('[data-pt-filter]').forEach((item) => item.classList.toggle('is-active', item === button));
+        tiles.forEach((tile) => tile.classList.toggle('is-muted', !matchesFilter(tile, filter)));
+      });
+    });
+
+    tiles.forEach((tile) => {
+      tile.addEventListener('click', () => selectElement(tile.dataset.z));
+    });
+  })();
+</script>
+
+<style>
+  .pt-periodic-explorer {
+    border: 1px solid rgb(214 224 235);
+    border-radius: 8px;
+    background: linear-gradient(180deg, #ffffff 0%, #f8fbfd 100%);
+    box-shadow: 0 18px 50px rgba(18, 50, 74, 0.08);
+    padding: 1rem;
+  }
+
+  .pt-periodic-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    margin-bottom: 1rem;
+    font-family: ui-sans-serif, system-ui, sans-serif;
+  }
+
+  .pt-periodic-toolbar button {
+    border: 1px solid rgb(188 203 219);
+    border-radius: 999px;
+    background: #ffffff;
+    color: #28445e;
+    font-size: 0.78rem;
+    font-weight: 700;
+    padding: 0.45rem 0.75rem;
+  }
+
+  .pt-periodic-toolbar button.is-active {
+    border-color: #12324a;
+    background: #12324a;
+    color: #ffffff;
+  }
+
+  .pt-periodic-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .pt-periodic-map {
+    width: 100%;
+    overflow: visible;
+    padding-bottom: 0.5rem;
+  }
+
+  .pt-standard-grid,
+  .pt-series-grid {
+    display: grid;
+    grid-template-columns: repeat(18, minmax(0, 1fr));
+    gap: clamp(0.12rem, 0.35vw, 0.28rem);
+    overflow: visible;
+  }
+
+  .pt-standard-grid {
+    grid-template-rows: 1.05rem repeat(7, minmax(3.05rem, 1fr));
+  }
+
+  .pt-series-grid {
+    grid-template-columns: 5rem repeat(15, minmax(0, 1fr)) 1fr 1fr;
+    margin-top: 0.45rem;
+  }
+
+  .pt-group-label,
+  .pt-series-label,
+  .pt-series-placeholder {
+    display: grid;
+    place-items: center;
+    font-family: ui-sans-serif, system-ui, sans-serif;
+    color: #64748b;
+  }
+
+  .pt-group-label {
+    font-size: clamp(0.5rem, 0.85vw, 0.72rem);
+    font-weight: 800;
+  }
+
+  .pt-series-label,
+  .pt-series-placeholder {
+    border: 1px solid rgb(214 224 235);
+    border-radius: 6px;
+    background: #eef5f8;
+    min-height: 3.05rem;
+    font-size: clamp(0.52rem, 0.9vw, 0.72rem);
+    font-weight: 800;
+    text-align: center;
+  }
+
+  .pt-element-tile {
+    position: relative;
+    z-index: 1;
+    min-width: 0;
+    min-height: clamp(2.75rem, 5.2vw, 4.1rem);
+    border: 1px solid rgba(15, 23, 42, 0.14);
+    border-radius: 6px;
+    background: #ffffff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.06rem;
+    color: #0f172a;
+    transform-origin: center;
+    transition: transform 120ms ease, box-shadow 120ms ease, opacity 120ms ease, border-color 120ms ease;
+  }
+
+  .pt-element-tile:hover {
+    z-index: 20;
+    transform: scale(1.22);
+    box-shadow: 0 12px 28px rgba(18, 50, 74, 0.24);
+  }
+
+  .pt-element-tile.is-selected {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 18px rgba(18, 50, 74, 0.16);
+  }
+
+  .pt-element-tile.is-selected:hover {
+    transform: scale(1.22);
+  }
+
+  .pt-element-tile.is-selected {
+    outline: 2px solid #12324a;
+    outline-offset: 1px;
+  }
+
+  .pt-element-tile.is-muted {
+    opacity: 0.28;
+  }
+
+  .pt-element-tile.is-promoted {
+    border-style: dashed;
+    border-width: 2px;
+  }
+
+  .pt-element-z,
+  .pt-element-fill,
+  .pt-element-name {
+    font-family: ui-sans-serif, system-ui, sans-serif;
+    font-size: clamp(0.42rem, 0.76vw, 0.62rem);
+    color: #64748b;
+    line-height: 1;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .pt-element-tile strong {
+    font-family: ui-sans-serif, system-ui, sans-serif;
+    font-size: clamp(0.82rem, 1.7vw, 1.08rem);
+    line-height: 1.05;
+  }
+
+  .pt-element-s { border-color: #93c5fd; background: #eff6ff; }
+  .pt-element-p { border-color: #86efac; background: #f0fdf4; }
+  .pt-element-d { border-color: #fdba74; background: #fff7ed; }
+  .pt-element-f { border-color: #c4b5fd; background: #f5f3ff; }
+
+  .pt-periodic-hint {
+    margin-top: 0.75rem;
+    font-family: ui-sans-serif, system-ui, sans-serif;
+    font-size: 0.78rem;
+    color: #64748b;
+  }
+
+  .pt-element-panel {
+    border: 1px solid rgb(214 224 235);
+    border-radius: 8px;
+    background: #ffffff;
+    overflow: hidden;
+  }
+
+  .pt-element-panel-head {
+    padding: 0.75rem 1rem;
+    color: #0f172a;
+    border-bottom: 1px solid rgb(226 232 240);
+  }
+
+  .pt-element-panel-head > div {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .pt-element-panel-head span,
+  .pt-element-panel-head h3,
+  .pt-element-panel-head p,
+  .pt-element-panel-grid dt,
+  .pt-element-configs span,
+  .pt-observable-mini span,
+  .pt-observable-mini small,
+  .pt-depth-notes {
+    font-family: ui-sans-serif, system-ui, sans-serif;
+  }
+
+  .pt-element-panel-head strong {
+    font-family: ui-sans-serif, system-ui, sans-serif;
+    font-size: 2.45rem;
+    line-height: 1;
+  }
+
+  .pt-element-panel-head h3 {
+    margin: 0.1rem 0 0;
+    font-size: 1.05rem;
+    font-weight: 900;
+    color: #12324a;
+  }
+
+  .pt-element-panel-head p {
+    margin-top: 0.25rem;
+    font-size: 0.76rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .pt-element-panel-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 1px;
+    background: rgb(226 232 240);
+  }
+
+  .pt-element-panel-grid > div {
+    background: #ffffff;
+    padding: 0.5rem 0.7rem;
+  }
+
+  .pt-element-panel-grid dt {
+    font-size: 0.68rem;
+    color: #64748b;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  .pt-element-panel-grid dd {
+    margin: 0.1rem 0 0;
+    font-family: ui-sans-serif, system-ui, sans-serif;
+    font-size: 1.05rem;
+    font-weight: 800;
+    color: #12324a;
+  }
+
+  .pt-element-configs,
+  .pt-observable-mini,
+  .pt-depth-notes {
+    padding: 0.65rem 1rem;
+    border-top: 1px solid rgb(226 232 240);
+  }
+
+  .pt-element-configs {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.65rem;
+  }
+
+  .pt-element-configs div,
+  .pt-observable-mini div {
+    border: 1px solid rgb(226 232 240);
+    border-radius: 6px;
+    padding: 0.55rem 0.65rem;
+    background: #f8fafc;
+  }
+
+  .pt-element-configs span,
+  .pt-observable-mini span {
+    display: block;
+    font-size: 0.72rem;
+    color: #64748b;
+    font-weight: 800;
+    text-transform: uppercase;
+  }
+
+  .pt-element-configs code {
+    display: block;
+    margin-top: 0.12rem;
+    color: #12324a;
+    font-size: 0.95rem;
+    font-weight: 800;
+  }
+
+  .pt-element-reading {
+    margin: 0;
+    padding: 0.75rem 1rem;
+    color: #334155;
+    line-height: 1.4;
+  }
+
+  .pt-observable-mini {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.65rem;
+  }
+
+  .pt-observable-mini strong {
+    display: inline-block;
+    margin-top: 0.12rem;
+    font-family: ui-sans-serif, system-ui, sans-serif;
+    font-size: 1.05rem;
+    color: #12324a;
+  }
+
+  .pt-observable-mini small {
+    display: inline-block;
+    margin-left: 0.75rem;
+    margin-top: 0.12rem;
+    color: #64748b;
+    font-size: 0.68rem;
+  }
+
+  .pt-observable-mini small span {
+    display: inline;
+  }
+
+  .pt-depth-notes {
+    font-size: 0.78rem;
+    color: #475569;
+  }
+
+  .pt-depth-notes p + p {
+    margin-top: 0.55rem;
+  }
+
+  .pt-element-panel-head.pt-element-s { background: #dbeafe; }
+  .pt-element-panel-head.pt-element-p { background: #dcfce7; }
+  .pt-element-panel-head.pt-element-d { background: #ffedd5; }
+  .pt-element-panel-head.pt-element-f { background: #ede9fe; }
+
+  @media (max-width: 980px) {
+    .pt-element-panel-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  @media (max-width: 640px) {
+    .pt-periodic-explorer {
+      padding: 0.75rem;
+    }
+
+    .pt-element-panel-grid,
+    .pt-element-configs,
+    .pt-observable-mini {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -7,8 +7,8 @@
     },
     {
       "key": "mu_star",
-      "fr": { "term": "μ*", "definition": "Point fixe unique du crible : μ* = 3 + 5 + 7 = 15. Somme des trois premiers actifs (T5). Aucun autre sous-ensemble fini de premiers ne ferme l’équation d’auto-cohérence." },
-      "en": { "term": "μ*", "definition": "Unique sieve fixed point: μ* = 3 + 5 + 7 = 15. Sum of the three active primes (T5). No other finite prime subset closes the self-consistency equation." }
+      "fr": { "term": "μ*", "definition": "Attracteur physique du secteur informationnel réduit : μ* = 3 + 5 + 7 = 15. Après cristallisation de p=2 en infrastructure binaire, aucun autre sous-ensemble fini de premiers ne ferme l’équation d’auto-cohérence du secteur réduit." },
+      "en": { "term": "μ*", "definition": "Physical attractor of the reduced information sector: μ* = 3 + 5 + 7 = 15. After p=2 crystallises into binary infrastructure, no other finite prime subset closes the reduced-sector self-consistency equation." }
     },
     {
       "key": "qplus",
@@ -57,8 +57,8 @@
     },
     {
       "key": "T5",
-      "fr": { "term": "T5", "definition": "Théorème du point fixe. μ* = 15 est l’unique solution finie de Σ p_actif = μ avec γ_p(μ) > s. Vérifié exhaustivement par arithmétique rationnelle exacte." },
-      "en": { "term": "T5", "definition": "Fixed point theorem. μ* = 15 is the unique finite solution of Σ p_active = μ with γ_p(μ) > s. Verified exhaustively by exact rational arithmetic." }
+      "fr": { "term": "T5", "definition": "Théorème de l’attracteur informationnel. μ* = 15 est l’unique fermeture stable de Σ p_actif = μ avec γ_p(μ) > s dans le secteur réduit sans p=2 dynamique. Vérifié exhaustivement par arithmétique rationnelle exacte." },
+      "en": { "term": "T5", "definition": "Informational attractor theorem. μ* = 15 is the unique stable closure of Σ p_active = μ with γ_p(μ) > s in the reduced sector without dynamical p=2. Verified exhaustively by exact rational arithmetic." }
     },
     {
       "key": "T6",

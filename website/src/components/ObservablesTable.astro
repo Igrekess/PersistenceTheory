@@ -26,7 +26,6 @@ const labels = {
     },
     note_sc: 'auto-cohérence',
     note_exact: 'exact',
-    summary: '43 observables · écart moyen 0,30 % · médiane 0,06 %',
   },
   en: {
     filter: 'Filter by sector:',
@@ -47,11 +46,16 @@ const labels = {
     },
     note_sc: 'self-consistent',
     note_exact: 'exact',
-    summary: '43 observables · mean error 0.30% · median 0.06%',
   },
 }[lang];
 
 const sectors = Array.from(new Set(data.map(o => o.sector)));
+const errors = data.map(o => o.error_pct);
+const meanError = errors.reduce((sum, value) => sum + value, 0) / errors.length;
+const medianError = [...errors].sort((a, b) => a - b)[Math.floor(errors.length / 2)];
+const summary = lang === 'fr'
+  ? `${data.length} observables · écart moyen ${meanError.toFixed(3).replace('.', ',')} % · médiane ${medianError.toFixed(3).replace('.', ',')} %`
+  : `${data.length} observables · mean error ${meanError.toFixed(3)}% · median ${medianError.toFixed(3)}%`;
 
 function fmtErr(o: any): string {
   if (o.exact) return labels.note_exact;
@@ -98,7 +102,7 @@ function errBadgeClass(o: any): string {
   </div>
 
   <p class="text-sm text-stone-500 italic mb-3">
-    {labels.summary} · {lang === 'fr' ? 'cliquer une ligne pour voir la dérivation' : 'click a row to see the derivation'}
+    {summary} · {lang === 'fr' ? 'cliquer une ligne pour voir la dérivation' : 'click a row to see the derivation'}
   </p>
 
   <div class="overflow-x-auto rounded border border-stone-200">

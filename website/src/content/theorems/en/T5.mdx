@@ -1,8 +1,8 @@
 ---
 id: T5
-name: 'T5 — Unique attractive fixed point μ* = 15'
-short: 'The sieve admits a unique stable and attractive fixed point at $\mu^* = 3+5+7 = 15$.'
-statement: 'The self-consistency $\mu^* = \sum_{p : \gamma_p(\mu^*) > 1/2} p$ admits a unique stable and attractive solution, $\mu^* = 15$, with active set $\{3, 5, 7\}$. Verified by exhaustive scan over $\mu \in [3, 100]$.'
+name: 'T5 — Informational attractor μ* = 15'
+short: 'After p = 2 crystallises, the reduced sieve sector admits a unique physical attractor: $\mu^* = 3+5+7 = 15$.'
+statement: 'In the reduced information sector, the self-consistency $\mu^* = \sum_{p : \gamma_p(\mu^*) > 1/2} p$ admits a unique stable and attractive solution, $\mu^* = 15$, with active set $\{3, 5, 7\}$. The regimes with $p=2$ included are distinguished as binary/transitional sectors. Verified by exhaustive scan over $\mu \in [3, 100]$.'
 status: THM
 monograph_chapter: chap:fixed_point
 order: 7
@@ -19,26 +19,26 @@ $$
 \mu^* = \sum_{p\,:\,\gamma_p(\mu^*) > s} p, \qquad s = 1/2,
 $$
 
-admits a **unique** stable solution, namely:
+admits a **unique stable solution in the reduced information sector**, namely:
 
 $$
 \boxed{\mu^* = 3 + 5 + 7 = 15, \qquad \text{active set} = \{3, 5, 7\}.}
 $$
 
 The proof combines an exact rational exhaustive scan over $\mu \in [3, 100]$
-with an analytic monotonicity bound for $p \geq 7$, excluding any fixed
-point outside the active primorial $\{3, 5, 7\}$.
+with an analytic monotonicity bound for $p \geq 7$, excluding any additional
+fixed point in the reduced sector $\{3, 5, 7\}$.
 
 <Tag level="THM" />
 
 <div data-max-depth="L1" className="bg-amber-50 border-l-4 border-amber-300 px-4 py-3 my-6">
 **Plain reading.** We have a self-referential equation: "$\mu$ must equal the sum
-of primes active at $\mu$". How many solutions are there? T5 says: exactly one.
-It’s $\mu = 15$ with active primes $\{3, 5, 7\}$. No other choice of primes
-closes the equation. This uniqueness is what makes PT "zero-parameter": if
-several solutions existed, you’d have to choose, and that choice would be a parameter.
-The important nuance is that this fixed point is not merely a static equality:
-its stability makes it the attractor of the reduced sector.
+of primes active at $\mu$". In the physical sector where $p=2$ has crystallised
+into binary infrastructure, T5 says there is only one stable closure. It is
+$\mu = 15$ with active primes $\{3, 5, 7\}$. No other choice of primes closes
+the equation in that reduced sector. This is why it is better to call it an
+**informational attractor**: $\mu^* = 15$ is not merely a static equality, but
+the stable closure toward which the admissible cascade slides.
 </div>
 
 ## Why it matters
@@ -65,7 +65,7 @@ into the binary infrastructure.
 4. **Analytic bound**: $\gamma_p$ strictly decreasing in $p$ for $p \geq 7$,
    so no prime $\geq 11$ is active at any reasonable $\mu$.
 5. **Exhaustive scan** of finite subsets of $\{3, 5, 7, 11, 13, ...\}$ to
-   confirm uniqueness.
+   confirm uniqueness in the reduced sector.
 
 <div data-min-depth="L3" className="bg-stone-50 border border-stone-300 rounded-lg p-4 my-8">
 
