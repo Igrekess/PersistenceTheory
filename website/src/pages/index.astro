@@ -2,247 +2,254 @@
 import BaseLayout from '@layouts/BaseLayout.astro';
 import SubProjects from '@components/SubProjects.astro';
 import Citation from '@components/Citation.astro';
+
+const primaryLinks = [
+  { href: '/essays/idea-5min', label: 'L’idée en 5 minutes', tone: 'primary' },
+  { href: '/commencer-ici', label: 'Commencer ici', tone: 'outline' },
+  { href: '/premier-principe', label: 'Principe fondamental', tone: 'outline' },
+  { href: '/resultats', label: 'Dashboard résultats', tone: 'soft' },
+];
+
+const readingPath = [
+  {
+    step: '01',
+    title: 'Principe',
+    href: '/premier-principe',
+    text: 'La distinction totale se répartit entre structure persistante et dispersion entropique.',
+  },
+  {
+    step: '02',
+    title: 'Crible',
+    href: '/theorems',
+    text: 'Les survivants du crible donnent un laboratoire exact pour lire la contrainte.',
+  },
+  {
+    step: '03',
+    title: 'Attracteur',
+    href: '/big-bang',
+    text: 'La cascade stabilise μ* = 15 et donne son statut à la bifurcation issue de 2.',
+  },
+  {
+    step: '04',
+    title: 'Dérivations',
+    href: '/observables',
+    text: 'Les observables physiques et chimiques sont dérivées sans paramètre continu ajusté.',
+  },
+  {
+    step: '05',
+    title: 'Validation',
+    href: '/statuts-resultats',
+    text: 'Chaque résultat reçoit un statut : théorème, pont, dérivation, validation ou prédiction.',
+  },
+];
+
+const domainCards = [
+  {
+    href: '/theorems',
+    tag: 'Mathématique',
+    tagClass: 'pt-tag-thm',
+    title: 'Les points de persistance',
+    text: 'Survivants, gaps, GFT et théorèmes montrent comment une contrainte produit des structures stables.',
+  },
+  {
+    href: '/big-bang',
+    tag: 'Cosmogonie',
+    tagClass: 'pt-tag-bridge',
+    title: 'La cascade primordiale',
+    text: 'La cristallisation de 2, l’émergence du temps et μ* = 15 sont présentées comme une hiérarchie instantanée.',
+  },
+  {
+    href: '/observables',
+    tag: 'Physique',
+    tagClass: 'pt-tag-der',
+    title: 'Le principe mis à l’épreuve',
+    text: 'Couplages, masses, angles, temps et géométrie confrontent les structures persistantes aux mesures.',
+  },
+  {
+    href: '/tableau-periodique',
+    tag: 'Chimie',
+    tagClass: 'pt-tag-id',
+    title: 'La persistance des couches',
+    text: 'La suite 2, 8, 8, 18, 18, 32, 32 devient une conséquence des canaux, spins et couches internes.',
+  },
+];
+
+const groupedLinks = [
+  {
+    title: 'Lire',
+    links: [
+      ['/questions-fondamentales', 'Questions fondamentales'],
+      ['/limites', 'Limites'],
+      ['/monograph', 'Monographie FR/EN'],
+    ],
+  },
+  {
+    title: 'Vérifier',
+    links: [
+      ['/scripts', 'Scripts'],
+      ['/preuve-interactive', 'Preuve interactive'],
+      ['/difficile-a-rejeter', 'Difficile à rejeter'],
+    ],
+  },
+  {
+    title: 'Explorer',
+    links: [
+      ['/temps', 'Temps'],
+      ['/relativite', 'Relativité'],
+      ['/gravite-quantique', 'Gravité quantique'],
+      ['/nucleaire', 'Nucléaire'],
+      ['/cosmologie', 'Cosmologie'],
+    ],
+  },
+  {
+    title: 'Chimie',
+    links: [
+      ['/energies-ionisation', 'Énergies d’ionisation'],
+      ['/affinites-electroniques', 'Affinités électroniques'],
+      ['/demonstration-tableau-periodique', 'Démonstration tableau périodique'],
+    ],
+  },
+];
+
 ---
 
 <BaseLayout>
-  <section class="max-w-6xl mx-auto px-4 py-16">
-    <h1 class="text-4xl md:text-5xl font-bold text-thmblue mb-4">
-      La Théorie de la Persistance
-    </h1>
-    <p class="text-2xl md:text-3xl font-sans font-semibold text-derorange mb-8">
-      Ce qui persiste est ce qui reste sous contrainte.
-    </p>
-
-    <p data-max-depth="L1" class="text-lg text-stone-800 leading-relaxed mb-6 bg-amber-50 border-l-4 border-amber-300 px-4 py-3">
-      <strong>En une phrase :</strong> ce qui persiste n’est pas ce qui reste
-      par inertie, mais ce qui reste après contraintes admissibles. Ce qui se
-      dissipe devient entropie ; ce qui persiste devient structure, puis
-      observable.
-    </p>
-
-    <p class="text-lg text-stone-800 leading-relaxed mb-6">
-      L’idée de fond est simple. Tout système peut prendre plusieurs formes.
-      Certaines résistent aux contraintes qu’il subit ; d’autres se dispersent.
-      Ce qui résiste — la structure qui survit aux contraintes — est ce que la
-      PT appelle <em>persistance</em>. Ce qui se disperse devient
-      <em>entropie</em>. À toute échelle, ce partage est exact : rien ne
-      disparaît, tout se distribue entre ces deux faces. Les observables
-      physiques mesurent cette distribution.
-    </p>
-
-    <p class="text-lg text-stone-800 leading-relaxed mb-8">
-      La PT teste ensuite ce principe dans trois grands registres.
-      <strong>En mathématiques</strong>, la persistance se lit dans le crible
-      d’Ératosthène : les nombres premiers et les écarts entre eux sont les
-      survivants minimaux d’une contrainte élémentaire.
-      <strong>En physique</strong>, elle fixe constantes, masses, géométrie et
-      temps. <strong>En chimie</strong>, elle explique périodes, couches,
-      énergies d’ionisation et affinités électroniques. Les détails techniques
-      restent disponibles via le sélecteur de profondeur (en bas à droite),
-      mais l’entrée naturelle est l’idée : comprendre d’abord ce que
-      “persister” veut dire.
-    </p>
-
-    <div class="flex flex-wrap gap-3 mb-12">
-      <a
-        href="/essays/idea-5min"
-        class="px-5 py-3 bg-thmblue text-white font-sans font-semibold rounded hover:bg-thmblue/90"
-      >
-        L’idée en 5 minutes
-      </a>
-      <a
-        href="/commencer-ici"
-        class="px-5 py-3 bg-white border border-thmblue text-thmblue font-sans font-semibold rounded hover:bg-thmblue/5"
-      >
-        Commencer ici
-      </a>
-      <a
-        href="/premier-principe"
-        class="px-5 py-3 bg-white border border-thmblue text-thmblue font-sans font-semibold rounded hover:bg-thmblue/5"
-      >
-        Principe fondamental
-      </a>
-      <a
-        href="/tableau-periodique"
-        class="px-5 py-3 bg-white border border-thmblue text-thmblue font-sans font-semibold rounded hover:bg-thmblue/5"
-      >
-        Première démonstration
-      </a>
-      <a
-        href="/questions-fondamentales"
-        class="px-5 py-3 bg-white border border-thmblue text-thmblue font-sans font-semibold rounded hover:bg-thmblue/5"
-      >
-        Questions fondamentales
-      </a>
-      <a
-        href="/predictions"
-        class="px-5 py-3 bg-white border border-stone-300 text-stone-800 font-sans font-semibold rounded hover:bg-stone-50"
-      >
-        Prédictions
-      </a>
-      <a
-        href="/resultats"
-        class="px-5 py-3 bg-white border border-stone-300 text-stone-800 font-sans font-semibold rounded hover:bg-stone-50"
-      >
-        Dashboard résultats
-      </a>
-      <a
-        href="/observables"
-        class="px-5 py-3 bg-white border border-stone-300 text-stone-800 font-sans font-semibold rounded hover:bg-stone-50"
-      >
-        43 observables
-      </a>
-      <a
-        href="/temps"
-        class="px-5 py-3 bg-white border border-stone-300 text-stone-800 font-sans font-semibold rounded hover:bg-stone-50"
-      >
-        Temps
-      </a>
-      <a
-        href="/relativite"
-        class="px-5 py-3 bg-white border border-stone-300 text-stone-800 font-sans font-semibold rounded hover:bg-stone-50"
-      >
-        Relativité
-      </a>
-      <a
-        href="/gravite-quantique"
-        class="px-5 py-3 bg-white border border-stone-300 text-stone-800 font-sans font-semibold rounded hover:bg-stone-50"
-      >
-        Gravité quantique
-      </a>
-      <a
-        href="/nucleaire"
-        class="px-5 py-3 bg-white border border-stone-300 text-stone-800 font-sans font-semibold rounded hover:bg-stone-50"
-      >
-        Nucléaire
-      </a>
-      <a
-        href="/cosmologie"
-        class="px-5 py-3 bg-white border border-stone-300 text-stone-800 font-sans font-semibold rounded hover:bg-stone-50"
-      >
-        Cosmologie
-      </a>
-      <a
-        href="/energies-ionisation"
-        class="px-5 py-3 bg-white border border-stone-300 text-stone-800 font-sans font-semibold rounded hover:bg-stone-50"
-      >
-        Énergies d’ionisation
-      </a>
-      <a
-        href="/affinites-electroniques"
-        class="px-5 py-3 bg-white border border-stone-300 text-stone-800 font-sans font-semibold rounded hover:bg-stone-50"
-      >
-        Affinités électroniques
-      </a>
-      <a
-        href="/preuve-interactive"
-        class="px-5 py-3 bg-white border border-stone-300 text-stone-800 font-sans font-semibold rounded hover:bg-stone-50"
-      >
-        Preuve interactive
-      </a>
-      <a
-        href="/difficile-a-rejeter"
-        class="px-5 py-3 bg-white border border-stone-300 text-stone-800 font-sans font-semibold rounded hover:bg-stone-50"
-      >
-        Difficile à rejeter
-      </a>
-      <a
-        href="/statuts-resultats"
-        class="px-5 py-3 bg-white border border-stone-300 text-stone-800 font-sans font-semibold rounded hover:bg-stone-50"
-      >
-        Statuts des résultats
-      </a>
-      <a
-        href="/limites"
-        class="px-5 py-3 bg-white border border-stone-300 text-stone-800 font-sans font-semibold rounded hover:bg-stone-50"
-      >
-        Limites
-      </a>
-      <a
-        href="/theorems"
-        class="px-5 py-3 bg-white border border-thmblue text-thmblue font-sans font-semibold rounded hover:bg-thmblue/5"
-      >
-        8 théorèmes fondateurs
-      </a>
-      <a
-        href="/monograph"
-        class="px-5 py-3 bg-white border border-thmblue text-thmblue font-sans font-semibold rounded hover:bg-thmblue/5"
-      >
-        Lire la monographie (FR 913 p. / EN 883 p.)
-      </a>
-    </div>
-
-    <div class="grid md:grid-cols-2 lg:grid-cols-5 gap-4 text-sm mb-10">
-      <a href="/theorems" class="pt-card block group">
-        <span class="pt-tag pt-tag-thm">Mathématique</span>
-        <h2 class="font-sans font-semibold text-thmblue mt-3 mb-2 group-hover:underline">
-          Les points de persistance
-        </h2>
-        <p class="text-stone-700">
-          Le crible sert de laboratoire exact : survivants, gaps, GFT et
-          théorèmes montrent comment une contrainte produit des structures
-          stables.
+  <main class="max-w-6xl mx-auto px-4 py-10 md:py-14">
+    <section class="mb-12">
+      <div class="rounded-lg border border-slate-200 bg-white p-6 md:p-8 shadow-sm">
+        <p class="pt-tag pt-tag-bridge mb-5">Préimpression ouverte</p>
+        <h1 class="text-4xl md:text-5xl font-bold text-thmblue leading-tight mb-4">
+          La Théorie de la Persistance
+        </h1>
+        <p class="text-2xl md:text-3xl font-sans font-semibold text-derorange leading-snug mb-6">
+          Ce qui persiste est ce qui reste sous contrainte.
         </p>
-      </a>
-      <a href="/observables" class="pt-card block group">
-        <span class="pt-tag pt-tag-der">Physique</span>
-        <h2 class="font-sans font-semibold text-thmblue mt-3 mb-2 group-hover:underline">
-          Le principe mis à l’épreuve
-        </h2>
-        <p class="text-stone-700">
-          Couplages, masses, angles, temps et géométrie : la PT confronte ses
-          structures persistantes aux mesures physiques.
+        <p class="text-lg text-stone-800 leading-relaxed mb-5">
+          La PT part d’une idée simple : quand une contrainte agit, tout ne
+          disparaît pas. Une part se disperse en entropie ; une autre traverse
+          la contrainte et devient structure. Les observables mesurent cette
+          distribution.
         </p>
-      </a>
-      <a href="/tableau-periodique" class="pt-card block group">
-        <span class="pt-tag pt-tag-id">Chimie</span>
-        <h2 class="font-sans font-semibold text-thmblue mt-3 mb-2 group-hover:underline">
-          La persistance des couches
-        </h2>
-        <p class="text-stone-700">
-          La suite 2, 8, 8, 18, 18, 32, 32 devient une conséquence des canaux
-          persistants, des spins et des couches internes.
+        <p data-max-depth="L1" class="text-base text-slate-700 leading-relaxed rounded-lg bg-amber-50 border border-amber-200 px-4 py-3 mb-6">
+          <strong>En une phrase :</strong> persister, ce n’est pas rester par
+          inertie ; c’est survivre à une contrainte admissible sans perdre son
+          identité structurelle.
         </p>
-      </a>
-      <a href="/energies-ionisation" class="pt-card block group">
-        <span class="pt-tag pt-tag-val">Chimie</span>
-        <h2 class="font-sans font-semibold text-thmblue mt-3 mb-2 group-hover:underline">
-          Énergies d’ionisation
-        </h2>
-        <p class="text-stone-700">
-          La PT reconstruit les pics, les fermetures et les résidus relativistes
-          par une lecture continue des canaux et de la profondeur radiale.
-        </p>
-      </a>
-      <a href="/affinites-electroniques" class="pt-card block group">
-        <span class="pt-tag pt-tag-bridge">Chimie</span>
-        <h2 class="font-sans font-semibold text-thmblue mt-3 mb-2 group-hover:underline">
-          Affinités électroniques
-        </h2>
-        <p class="text-stone-700">
-          L’EA devient une énergie de capture au bord du canal, avec calculateur
-          PT, table complète et lecture à trois niveaux de profondeur.
-        </p>
-      </a>
-    </div>
+        <div class="flex flex-wrap gap-3">
+          {primaryLinks.map((link) => (
+            <a
+              href={link.href}
+              class:list={[
+                'px-5 py-3 font-sans font-semibold rounded transition',
+                link.tone === 'primary' && 'bg-thmblue text-white hover:bg-thmblue/90',
+                link.tone === 'outline' && 'bg-white border border-thmblue text-thmblue hover:bg-thmblue/5',
+                link.tone === 'soft' && 'bg-stone-50 border border-stone-300 text-stone-800 hover:bg-stone-100',
+              ]}
+            >
+              {link.label}
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
 
-    <div data-min-depth="L3" class="bg-stone-50 border border-stone-300 rounded-lg p-4 my-6 text-sm">
+    <section class="mb-12">
+      <div class="max-w-3xl mb-6">
+        <p class="pt-tag pt-tag-thm mb-3">Parcours conseillé</p>
+        <h2 class="text-3xl md:text-4xl font-bold text-thmblue mb-3">
+          Lire la théorie comme une chaîne, pas comme un catalogue
+        </h2>
+        <p class="text-slate-700 leading-relaxed">
+          L’ordre compte : principe de conservation informationnelle, dynamique
+          du crible, sélection de l’attracteur, dérivations numériques, puis
+          audit des statuts. C’est ce fil qui évite de confondre intuition,
+          théorème, pont physique et validation.
+        </p>
+      </div>
+      <div class="grid md:grid-cols-5 gap-3">
+        {readingPath.map((item) => (
+          <a href={item.href} class="group rounded-lg border border-slate-200 bg-white p-4 shadow-sm hover:border-thmblue/40 hover:shadow-md transition">
+            <span class="text-sm font-mono text-derorange">{item.step}</span>
+            <h3 class="mt-2 mb-2 font-sans text-lg font-bold text-thmblue group-hover:underline">
+              {item.title}
+            </h3>
+            <p class="text-sm text-slate-700 leading-relaxed">{item.text}</p>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <section class="grid lg:grid-cols-[0.92fr_1.08fr] gap-8 items-start mb-12">
+      <div>
+        <p class="pt-tag pt-tag-id mb-3">Ce que PT teste</p>
+        <h2 class="text-3xl font-bold text-thmblue mb-4">
+          Une même contrainte, plusieurs registres
+        </h2>
+        <p class="text-slate-700 leading-relaxed mb-4">
+          En mathématiques, la persistance se lit dans le crible
+          d’Ératosthène : les nombres premiers sont les survivants
+          irréductibles de la contrainte multiplicative, et les écarts entre
+          premiers forment la trace dynamique de ces survivants.
+        </p>
+        <p class="text-slate-700 leading-relaxed mb-4">
+          En PT, un premier est aussi un point discret de résonance du crible :
+          il indexe un mode de persistance. La phase cyclique associée à ce
+          premier donne une amplitude ; comparée au seuil de persistance, cette
+          amplitude fixe son statut : frontière, actif, écho ou super-écho.
+        </p>
+        <p class="text-slate-700 leading-relaxed">
+          En physique et en chimie, la question devient plus risquée : les
+          structures persistantes suffisent-elles à reconstruire constantes,
+          masses, géométrie, couches, énergies d’ionisation et affinités
+          électroniques ? Le site sépare les résultats démontrés, dérivés,
+          validés et encore ouverts.
+        </p>
+      </div>
+      <div class="grid sm:grid-cols-2 gap-4">
+        {domainCards.map((card) => (
+          <a href={card.href} class="pt-card block group">
+            <span class:list={['pt-tag', card.tagClass]}>{card.tag}</span>
+            <h3 class="font-sans font-semibold text-thmblue text-xl mt-3 mb-2 group-hover:underline">
+              {card.title}
+            </h3>
+            <p class="text-sm text-stone-700 leading-relaxed">{card.text}</p>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <section data-min-depth="L3" class="bg-stone-50 border border-stone-300 rounded-lg p-5 my-8 text-sm">
       <p class="text-xs font-sans text-stone-500 uppercase tracking-wider mb-2">Note technique</p>
-      <p class="text-stone-700">
+      <p class="text-stone-700 leading-relaxed">
         Le cadre formel comprend des ponts de base (BA0–BA2) qui identifient
         le champ dynamique aux écarts entre premiers consécutifs, puis des ponts dérivés
         (BA3–BA5) promus ou contraints dans la chaîne, une cascade de
         sept théorèmes (T0 → T6) qui dérivent les angles d’holonomie
         sin²(θ_p) = δ_p(2 − δ_p) et les dimensions anomales γ_p, et le théorème
-        T5 qui ferme le point fixe μ* = 15 par exhaustion rationnelle exacte.
+        T5 qui ferme le point fixe attractif μ* = 15 par exhaustion rationnelle exacte.
         L’identité log₂(m) = D_KL(P‖U_m) + H(P) (GFT) est le
         <strong>principe fondamental de la persistance</strong> : la capacité
         informationnelle totale se conserve et se répartit exactement entre
         persistance et entropie.
       </p>
-    </div>
+    </section>
 
-    <div class="grid md:grid-cols-3 gap-4 text-sm">
+    <section class="grid md:grid-cols-4 gap-4 mb-12">
+      {groupedLinks.map((group) => (
+        <div class="rounded-lg border border-slate-200 bg-white p-4 shadow-sm">
+          <h2 class="font-sans font-bold text-thmblue mb-3">{group.title}</h2>
+          <div class="space-y-2">
+            {group.links.map(([href, label]) => (
+              <a href={href} class="block text-sm text-slate-700 hover:text-thmblue hover:underline">
+                {label}
+              </a>
+            ))}
+          </div>
+        </div>
+      ))}
+    </section>
+
+    <div class="grid md:grid-cols-3 gap-4 text-sm mb-10">
       <div class="pt-card">
         <span class="pt-tag pt-tag-thm">Théorèmes</span>
         <p class="mt-2 text-stone-700">
@@ -270,5 +277,5 @@ import Citation from '@components/Citation.astro';
     <p class="mt-12 text-sm text-stone-500 italic font-sans">
       Préimpression — non révisée par les pairs. Toute critique scrupuleuse est bienvenue.
     </p>
-  </section>
+  </main>
 </BaseLayout>

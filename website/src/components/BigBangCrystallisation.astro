@@ -1,0 +1,2256 @@
+---
+interface Props {
+  lang: 'fr' | 'en';
+}
+
+const { lang } = Astro.props;
+const fr = lang === 'fr';
+const t = {
+  eyebrow: fr ? 'Cosmogonie' : 'Cosmogony',
+  title: fr ? 'Le Big Bang comme cristallisation du 2' : 'The Big Bang as the Crystallisation of 2',
+  dek: fr
+    ? 'Dans PT, le Big Bang n’est pas une explosion dans un temps déjà donné. C’est la première frontière stable de la cascade primordiale : toutes les étapes sont instantanées au sens cosmologique, puis p = 2 se cristallise en frontière spin/parité à partir de laquelle le discret et le continu peuvent se séparer.'
+    : 'In PT, the Big Bang is not an explosion inside an already-given time. It is the first stable boundary of the primordial cascade: all steps are cosmologically instantaneous, then p = 2 crystallises as the spin/parity boundary from which the discrete and continuous regimes can separate.',
+  heroNote: fr ? 'Lecture visuelle des tests T5 / N4 / GFT' : 'Visual reading of T5 / N4 / GFT checks',
+  statRaw: fr ? 'point fixe brut' : 'raw fixed point',
+  statPhysical: fr ? 'attracteur physique' : 'physical attractor',
+  statBoundary: fr ? 'écart cristallisé' : 'crystallised gap',
+  timelineTitle: fr ? 'Frise cosmogonique' : 'Cosmogonic timeline',
+  timelineText: fr
+    ? 'La frise ne décrit pas une durée. Elle déroule la hiérarchie instantanée de la cascade primordiale : information → seuils actifs → fermeture → échos. Le temps mesurable apparaît comme conséquence interne de cette cascade, juste avant la stabilisation à μ* = 15.'
+    : 'The timeline does not describe a duration. It unfolds the instantaneous hierarchy of the primordial cascade: information → active thresholds → closure → echoes. Measurable time appears as an internal consequence of that cascade, just before stabilisation at μ* = 15.',
+  timelineTextParts: fr
+    ? [
+        'La frise ne décrit pas une durée. Elle déroule une hiérarchie : d’abord un support neutre, puis une première séparation, puis les seuils qui portent réellement la cascade. Chaque case répond à la question : “qu’est-ce que ce premier rend possible ?”',
+        'La cascade primordiale ne déroule pas des nombres abstraits, mais des seuils de persistance. Les premiers 2, 3, 5, 7, puis 11, 13 et 17, 19, 23 marquent les points discrets où les modes du crible prennent un statut : origine, frontière, directions actives, échos, super-échos.',
+        'Le 1 n’est pas une dynamique, c’est le point neutre de lecture. Le 2 cristallise la séparation. Les premiers 3, 5 et 7 donnent les trois directions actives. Ensuite, 11 et 13 ne relancent pas un nouveau Big Bang : ils apparaissent comme des échos, c’est-à-dire des traces mesurables mais sous le seuil actif.',
+        'Cette représentation évite un contresens : la cascade est instantanée au sens primordial. La frise est pédagogique, pas chronométrique. Elle montre l’ordre logique par lequel une structure devient lisible avant de devenir une histoire temporelle.',
+      ]
+    : [
+        'The timeline does not describe a duration. It unfolds a hierarchy: first a neutral support, then a first separation, then the thresholds that actually carry the cascade. Each card answers the question: “what does this prime make possible?”',
+        'The primordial cascade does not unfold abstract numbers, but thresholds of persistence. The primes 2, 3, 5, 7, then 11, 13 and 17, 19, 23 mark the discrete points where sieve modes acquire a status: origin, boundary, active directions, echoes, super-echoes.',
+        '1 is not a dynamics; it is the neutral reading point. 2 crystallises separation. The primes 3, 5, and 7 give the three active directions. Then 11 and 13 do not restart a new Big Bang: they appear as echoes, measurable traces below the active threshold.',
+        'This representation avoids a common misunderstanding: the cascade is instantaneous in the primordial sense. The timeline is pedagogical, not chronological. It shows the logical order through which a structure becomes readable before it becomes a temporal history.',
+      ],
+  timelineAria: fr ? 'Frise hiérarchique des premiers en lecture cosmogonique' : 'Hierarchical prime timeline in the cosmogonic reading',
+  timelineHeadline: fr ? 'Du point neutre aux échos du crible' : 'From neutral point to sieve echoes',
+  timelineReduction: fr ? 'Cristallisation : 2 quitte la somme brute et devient frontière' : 'Crystallisation: 2 exits the raw sum and becomes boundary',
+  timelineCut: fr ? 'borne de non-répétition' : 'non-repetition bound',
+  artFriezeAlt: fr
+    ? 'Frise artistique de la cascade primordiale PT, avec deux branches persistantes depuis la membrane jusqu’aux super-échos'
+    : 'Artistic frieze of the PT primordial cascade, with two persistent branches from the membrane to the super-echoes',
+  artFriezeCaption: fr
+    ? 'Frise artistique : la membrane du 2 ouvre deux canaux qui traversent la cascade jusqu’aux super-échos. Le schéma contrôlé juste en dessous fixe les seuils exacts.'
+    : 'Artistic frieze: the 2 membrane opens two channels that cross the cascade up to the super-echoes. The controlled diagram below fixes the exact thresholds.',
+  plainLabel: fr ? 'Vulgarisé' : 'Plain language',
+  standardLabel: fr ? 'Standard' : 'Standard',
+  technicalLabel: fr ? 'Technique' : 'Technical',
+  guideTitle: fr ? 'Comment lire cette page' : 'How to read this page',
+  guideText: fr
+    ? 'La difficulté est de ne pas confondre quatre choses : le premier 2, la somme brute 17, l’attracteur physique 15 et le temps. Dans cette lecture, le temps n’est pas le contenant initial : il apparaît un cran avant μ* comme conséquence de la cascade.'
+    : 'The difficulty is not to confuse four things: the prime 2, the raw sum 17, the physical attractor 15, and time. In this reading, time is not the initial container: it appears one step before μ* as a consequence of the cascade.',
+  guideTextParts: fr
+    ? [
+        'Cette page se lit comme une cosmogonie structurale, pas comme un récit chronologique ordinaire. PT ne part pas d’un univers déjà placé dans un temps externe ; elle décrit d’abord une cascade de distinctions qui s’ordonne avant que le temps mesurable puisse être lu.',
+        'La difficulté est de ne pas confondre quatre objets : le premier 2, la somme brute 17, l’attracteur physique 15 et le temps. Le 2 n’est pas simplement “enlevé” : il change de statut. Il cesse d’être une direction dynamique et devient la frontière qui rend deux branches distinguables.',
+        'Tout le reste de la page développe cette idée : 3, 5 et 7 forment le coeur actif ; 11, 13 puis 17, 19, 23 deviennent des échos ; et μ* = 15 sert de point de stabilisation où les observables peuvent commencer à avoir un support physique.',
+      ]
+    : [
+        'Read this page as a structural cosmogony, not as an ordinary chronological story. PT does not begin with a universe already placed inside external time; it first describes a cascade of distinctions that orders itself before measurable time can be read.',
+        'The difficulty is not to confuse four objects: the prime 2, the raw sum 17, the physical attractor 15, and time. 2 is not simply “removed”: it changes status. It stops being a dynamic direction and becomes the boundary that makes two branches distinguishable.',
+        'The rest of the page unfolds that idea: 3, 5, and 7 form the active core; 11, 13 and then 17, 19, 23 become echoes; and μ* = 15 is the stabilisation point where observables can begin to have physical support.',
+      ],
+  timeTitle: fr ? 'Le temps arrive après la frontière' : 'Time arrives after the boundary',
+  timeText: fr
+    ? 'Les seuils 1, 2, 3, 5, 7 ne sont pas des dates. Ils forment une hiérarchie de conditions qui s’actualisent instantanément dans la cascade primordiale. Le temps devient une coordonnée lisible quand la cascade produit une signature orientée, juste avant la fermeture physique 3 + 5 + 7 = 15.'
+    : 'The thresholds 1, 2, 3, 5, 7 are not dates. They form a hierarchy of conditions that actualise instantaneously in the primordial cascade. Time becomes a readable coordinate when the cascade produces an oriented signature, just before the physical closure 3 + 5 + 7 = 15.',
+  timeTextParts: fr
+    ? [
+        'Dans le niveau standard, “instantané” veut dire : hors durée cosmologique ordinaire. Les seuils 1, 2, 3, 5 et 7 ne sont pas des moments successifs comme des secondes sur une horloge ; ce sont des conditions logiques qui deviennent disponibles dans la cascade.',
+        'Tant que la cascade n’a pas produit une signature orientée, il n’y a pas encore de temps mesurable au sens physique. Il y a un ordre de dépendance, mais pas encore une coordonnée temporelle sur laquelle placer des événements.',
+        'Le temps apparaît quand l’orientation devient stable : après la coupure portée par 2, et juste avant que le coeur actif 3 + 5 + 7 se ferme sur μ* = 15. Dans cette lecture, le temps n’est donc pas le contenant initial du Big Bang ; il est une conséquence interne de la cascade.',
+      ]
+    : [
+        'At the standard level, “instantaneous” means outside ordinary cosmological duration. The thresholds 1, 2, 3, 5, and 7 are not successive moments like seconds on a clock; they are logical conditions becoming available in the cascade.',
+        'As long as the cascade has not produced an oriented signature, measurable physical time is not yet present. There is dependency order, but not yet a time coordinate on which events can be placed.',
+        'Time appears when orientation becomes stable: after the boundary carried by 2, and just before the active core 3 + 5 + 7 closes on μ* = 15. In this reading, time is not the initial container of the Big Bang; it is an internal consequence of the cascade.',
+      ],
+  timeBefore: fr ? 'hors temps' : 'pre-time',
+  timeCut: fr ? 'frontière' : 'boundary',
+  timeSignature: fr ? 'signature orientée' : 'oriented signature',
+  timeFixedPoint: fr ? 'temps mesurable' : 'measurable time',
+  primeStatusTitle: fr ? 'Le statut de chaque seuil premier' : 'The status of each prime threshold',
+  primeStatusText: fr
+    ? 'La frise devient plus convaincante quand on voit que chaque premier n’a pas le même statut. Certains ouvrent une distinction, certains portent la cascade, d’autres ne sont plus des faces actives mais des échos mesurables.'
+    : 'The timeline becomes more convincing once each prime is given its own status. Some open a distinction, some carry the cascade, and others are no longer active faces but measurable echoes.',
+  primeStatusTextParts: fr
+    ? [
+        'La frise devient plus convaincante quand on voit que chaque premier n’a pas le même statut. PT ne dit pas simplement “les premiers apparaissent dans l’ordre” : elle distingue les seuils qui ouvrent une capacité, ceux qui portent la dynamique, et ceux qui ne font plus que laisser une trace.',
+        'Le 2 sert de frontière spin/parité. Les premiers 3, 5 et 7 forment le coeur actif : ce sont eux qui restent au-dessus du seuil et qui ferment μ* = 15. À partir de 11, on ne crée plus une nouvelle face active de la cosmogonie ; on entre dans des échos et super-échos qui corrigent, habillent ou prolongent la trace du crible.',
+      ]
+    : [
+        'The timeline becomes more convincing once each prime is given its own status. PT does not merely say “primes appear in order”: it distinguishes thresholds that open a capacity, thresholds that carry the dynamics, and thresholds that only leave a trace.',
+        '2 acts as the spin/parity boundary. The primes 3, 5, and 7 form the active core: they remain above threshold and close μ* = 15. From 11 onward, no new active Big Bang face is created in the PT reading; one enters echoes and super-echoes that correct, dress, or prolong the sieve trace.',
+      ],
+  proofTitle: fr ? 'Ce qui prouve la lecture PT' : 'What proves the PT reading',
+  proofText: fr
+    ? 'Le niveau technique ne consiste pas à illustrer le Big Bang autrement. Il consiste à montrer que la séquence 2 → 3,5,7 → échos est contrainte par plusieurs résultats indépendants : N4, T5, le seuil γ > 1/2, la trifurcation naturelle et les tests d’ablation.'
+    : 'The technical level is not merely an alternative illustration of the Big Bang. It shows that the sequence 2 → 3,5,7 → echoes is constrained by independent results: N4, T5, the γ > 1/2 gate, natural trifurcation, and ablation checks.',
+  proofTextParts: fr
+    ? [
+        'Le niveau technique ne consiste pas à illustrer le Big Bang autrement. Il demande quels calculs obligent cette lecture, et quels calculs se dégradent si l’on change l’ordre ou le rôle des seuils.',
+        'Quatre contraintes se croisent ici : N4 isole le statut spécial de 2 ; T5 sélectionne la fermeture attractive μ* = 15 ; le seuil γ > 1/2 sépare les premiers actifs des échos ; et les tests d’ablation vérifient que les deux branches q⁺/q⁻ ne sont pas interchangeables.',
+        'Autrement dit, la page ne présente pas une métaphore libre. Elle propose une lecture cosmologique d’une chaîne déjà contrainte par l’arithmétique du crible, la réduction 17 → 15 et la séparation discrète/continue.',
+      ]
+    : [
+        'The technical level is not an alternative illustration of the Big Bang. It asks which computations force this reading, and which computations degrade if the order or status of the thresholds is changed.',
+        'Four constraints meet here: N4 isolates the special status of 2; T5 selects the attractive closure μ* = 15; the γ > 1/2 threshold separates active primes from echoes; and ablation checks verify that the q⁺/q⁻ branches are not interchangeable.',
+        'In other words, the page is not offering a free metaphor. It gives a cosmological reading of a chain already constrained by sieve arithmetic, the 17 → 15 reduction, and the discrete/continuous separation.',
+      ],
+  standardProblemsTitle: fr ? 'Ce que PT change dans les problèmes du Big Bang standard' : 'What PT changes in the standard Big Bang problems',
+  standardProblemsText: fr
+    ? 'Le Big Bang standard décrit très bien l’évolution chaude, mais il laisse des questions de bord : pourquoi ces conditions initiales, pourquoi cette homogénéité, pourquoi cette platitude, pourquoi une flèche entropique. La lecture PT ne remplace pas les observations cosmologiques ; elle propose une origine structurelle de ces conditions.'
+    : 'The standard Big Bang describes the hot evolution very well, but it leaves boundary questions: why these initial conditions, why this homogeneity, why this flatness, why an entropic arrow. The PT reading does not replace cosmological observations; it proposes a structural origin for those conditions.',
+  standardProblemsTextParts: fr
+    ? [
+        'Le Big Bang standard décrit très bien l’évolution chaude une fois le régime cosmologique installé. PT ne cherche pas à remplacer cette phénoménologie : elle intervient en amont, au niveau des conditions de bord que le modèle standard doit souvent supposer.',
+        'La question devient alors : pourquoi ces conditions initiales, pourquoi une homogénéité, pourquoi une quasi-platitude, pourquoi une flèche entropique ? La réponse PT est structurelle : ces traits ne sont pas ajoutés comme réglages initiaux, ils émergent de la cascade hors-temps, de la cristallisation du 2 et de la fermeture attractive sur 15.',
+      ]
+    : [
+        'The standard Big Bang describes the hot evolution very well once the cosmological regime is installed. PT does not try to replace that phenomenology: it enters upstream, at the boundary-condition level that the standard model often has to assume.',
+        'The question then becomes: why these initial conditions, why homogeneity, why near-flatness, why an entropic arrow? The PT answer is structural: these features are not added as initial tunings; they emerge from the pre-temporal cascade, the crystallisation of 2, and the attractive closure on 15.',
+      ],
+  l1Title: fr ? 'L’idée avec les yeux' : 'The idea at a glance',
+  l1Text: fr
+    ? 'Le 2 ne disparaît pas. Il change de métier. Avant la cristallisation, on voit une somme brute 2 + 3 + 5 + 7 = 17. Après la cristallisation, le 2 n’est plus une direction de cascade : il devient la membrane qui permet de distinguer les deux côtés de la théorie. Il reste donc partout, mais comme infrastructure plutôt que comme terme dynamique.'
+    : '2 does not disappear. It changes job. Before crystallisation, one sees a raw sum 2 + 3 + 5 + 7 = 17. After crystallisation, 2 is no longer a cascade direction: it becomes the membrane that lets the two sides of the theory separate. It remains everywhere, but as infrastructure rather than as a dynamic term.',
+  l1TextParts: fr
+    ? [
+        'Au niveau vulgarisé, l’image la plus simple est celle d’un tri primordial. Avant que la théorie puisse distinguer des régimes physiques, tout est encore dans une somme brute : 2 + 3 + 5 + 7 = 17. Le 2 est bien présent, et même très important, mais il n’a pas encore trouvé son rôle définitif.',
+        'La cristallisation signifie que 2 quitte la liste des directions actives. Il devient la première coupure stable : pair/impair, gauche/droite, spin/parité, discret/continu. Ce n’est pas une disparition, c’est une promotion. Le 2 cesse d’être une brique comptée avec les autres et devient la membrane qui permet de les séparer.',
+        'Une fois cette frontière posée, le coeur dynamique se lit plus clairement : 3, 5 et 7 restent comme directions actives et se referment en 15. C’est ce passage de 17 à 15 que la page appelle “Big Bang” au sens PT : non pas une explosion dans un espace déjà donné, mais l’apparition d’une première frontière stable.',
+      ]
+    : [
+        'At the plain-language level, the simplest image is a primordial sorting. Before the theory can distinguish physical regimes, everything is still in a raw sum: 2 + 3 + 5 + 7 = 17. 2 is present, and very important, but it has not yet found its final role.',
+        'Crystallisation means that 2 leaves the list of active directions. It becomes the first stable cut: even/odd, left/right, spin/parity, discrete/continuous. This is not a disappearance; it is a promotion. 2 stops being a brick counted with the others and becomes the membrane that lets them separate.',
+        'Once that boundary is in place, the dynamic core becomes readable: 3, 5, and 7 remain as active directions and close on 15. This 17 to 15 passage is what the page calls “Big Bang” in the PT sense: not an explosion in an already given space, but the appearance of a first stable boundary.',
+      ],
+  before: fr ? 'Avant cristallisation' : 'Before crystallisation',
+  after: fr ? 'Après cristallisation' : 'After crystallisation',
+  rawActive: fr ? 'actifs bruts' : 'raw active',
+  cascadeActive: fr ? 'cascade active' : 'active cascade',
+  membrane: fr ? 'p = 2 devient frontière' : 'p = 2 becomes boundary',
+  total: fr ? 'somme' : 'sum',
+  l2Title: fr ? 'Pourquoi cette lecture n’est pas décorative' : 'Why this reading is not decorative',
+  l2Text: fr
+    ? 'Le calcul ne dit pas simplement “oublions 2”. Il montre au contraire que p = 2 est le plus actif dans le seuil γ > 1/2, mais qu’il est aussi le seul premier dégénéré : T₂ = (1). La lecture PT consiste donc à lui donner un statut spécial : brutement actif au départ, puis cristallisé en condition de bord.'
+    : 'The calculation does not simply say “ignore 2”. It shows the opposite: p = 2 is the most active at the γ > 1/2 threshold, but it is also the only degenerate prime: T₂ = (1). The PT reading therefore gives it a special status: raw-active first, then crystallised as a boundary condition.',
+  l2TextParts: fr
+    ? [
+        'Le niveau standard précise pourquoi cette lecture n’est pas seulement narrative. Le calcul ne dit pas “oublions 2”. Il montre au contraire que p = 2 est le plus actif dans le seuil γ > 1/2, mais aussi le seul premier dégénéré : T₂ = (1).',
+        'Cette combinaison oblige à lui donner un statut à part. Si l’on compte 2 comme une face dynamique ordinaire, on obtient la somme brute 17. Si l’on reconnaît sa dégénérescence, 2 devient condition de bord et la dynamique physique se réduit au triplet 3, 5, 7.',
+        'La réduction 17 → 15 ne doit donc pas être lue comme une suppression arbitraire. Elle exprime le changement de statut de 2 : d’abord actif dans la cascade brute, puis cristallisé comme infrastructure de séparation.',
+      ]
+    : [
+        'The standard level explains why this reading is not merely narrative. The computation does not say “forget 2”. It shows the opposite: p = 2 is the most active prime at the γ > 1/2 threshold, but also the only degenerate one: T₂ = (1).',
+        'That combination forces a special status. If 2 is counted as an ordinary dynamic face, one obtains the raw sum 17. If its degeneracy is recognised, 2 becomes a boundary condition and the physical dynamics reduces to the triplet 3, 5, 7.',
+        'The 17 → 15 reduction is therefore not an arbitrary deletion. It expresses the status change of 2: first active in the raw cascade, then crystallised as the infrastructure of separation.',
+      ],
+  gammaTitle: fr ? 'Seuil d’activité à μ* = 15' : 'Activity threshold at μ* = 15',
+  gammaCaption: fr
+    ? 'La ligne rouge est s = 1/2. p = 2 est bien au-dessus, mais il n’est pas une face de cascade : il devient l’infrastructure spin/parité.'
+    : 'The red line is s = 1/2. p = 2 is above it, but it is not a cascade face: it becomes the spin/parity infrastructure.',
+  l3Title: fr ? 'La fourche calculatoire' : 'The computational fork',
+  l3Text: fr
+    ? 'Une fois p = 2 cristallisé, la vieille graine de parité devient une vraie bifurcation. q⁺ hérite du côté discret : cardinalités, vertex, couplages. q⁻ ouvre le canal continu : dispersion, propagateurs, géométrie. L’attracteur μ* = 15 ne crée donc pas le 2 ; il le résout en deux branches exploitables.'
+    : 'Once p = 2 is crystallised, the old parity seed becomes a genuine bifurcation. q⁺ inherits the discrete side: cardinalities, vertices, couplings. q⁻ opens the continuous channel: dispersion, propagators, geometry. The μ* = 15 attractor therefore does not create 2; it resolves it into two usable branches.',
+  l3TextParts: fr
+    ? [
+        'Au niveau standard avancé, la cristallisation de 2 prépare la fourche q⁺/q⁻. Avant μ* = 15, la parité est une graine : on sait qu’il y a une involution, mais pas encore deux régimes physiques séparés.',
+        'Le point attractif 15 donne la résolution. q⁺ hérite du côté discret : cardinalités, vertex, couplages. q⁻ ouvre le canal continu : dispersion, propagateurs, géométrie. La bifurcation n’apparaît donc pas ex nihilo ; elle est la promotion de la graine de parité en deux canaux calculables.',
+        'C’est pourquoi les branches ne sont pas interchangeables. Les tests d’ablation montrent que les calculs se dégradent si l’on échange leur rôle : la séparation porte une information physique, pas seulement une notation.',
+      ]
+    : [
+        'At the advanced standard level, the crystallisation of 2 prepares the q⁺/q⁻ fork. Before μ* = 15, parity is a seed: one knows there is an involution, but not yet two separated physical regimes.',
+        'The attractive point 15 gives the resolution. q⁺ inherits the discrete side: cardinalities, vertices, couplings. q⁻ opens the continuous channel: dispersion, propagators, geometry. The bifurcation therefore does not appear ex nihilo; it promotes the parity seed into two computable channels.',
+        'That is why the branches are not interchangeable. Ablation checks show that computations degrade if their roles are swapped: the separation carries physical information, not just notation.',
+      ],
+  attractorTitle: fr ? 'μ* = 15 : point fixe arithmétique, attracteur physique' : 'μ* = 15: arithmetic fixed point, physical attractor',
+  attractorText: fr
+    ? 'Le vocabulaire “point fixe” reste exact pour T5 : la somme des actifs 3+5+7 se referme sur 15. Mais, dans la lecture cosmologique, ce qui compte est aussi la stabilité : les valeurs du bassin réduit glissent vers 15, puis μ = 18 marque le premier seuil hors bassin.'
+    : 'The wording “fixed point” remains exact for T5: the active sum 3+5+7 closes on 15. But in the cosmological reading, stability also matters: reduced-basin values slide toward 15, then μ = 18 marks the first threshold outside the basin.',
+  attractorTextParts: fr
+    ? [
+        'Le vocabulaire “point fixe” reste exact pour T5 : la somme des actifs 3 + 5 + 7 se referme sur 15. Mais, pour la cosmogonie, il est plus parlant d’ajouter que 15 agit aussi comme un attracteur physique.',
+        'Cela veut dire que 15 n’est pas seulement une valeur isolée. Le bassin réduit autour de lui glisse vers cette fermeture : 13, 14, 16 et 17 reviennent vers 15, et 17 devient exactement 15 quand 2 se cristallise.',
+        'La monographie place en revanche μ = 18 au premier seuil hors bassin : 11 commence alors à s’activer. La page le montre donc comme une frontière de sortie, pas comme une nouvelle fermeture physique concurrente de μ* = 15.',
+        'Graphiquement, on lit donc 15 comme le lieu où la cascade cesse d’être une somme brute et devient une structure capable de porter des observables.',
+      ]
+    : [
+        'The wording “fixed point” remains exact for T5: the active sum 3 + 5 + 7 closes on 15. But for cosmogony it is clearer to add that 15 also acts as a physical attractor.',
+        'This means that 15 is not just an isolated value. The reduced basin around it slides toward that closure: 13, 14, 16, and 17 return toward 15, and 17 becomes exactly 15 when 2 crystallises.',
+        'The monograph, however, places μ = 18 at the first threshold outside the basin: 11 then begins to activate. The page therefore shows it as an exit boundary, not as a new physical closure competing with μ* = 15.',
+        'Graphically, 15 is the place where the cascade stops being a raw sum and becomes a structure able to carry observables.',
+      ],
+  attractorBasin: fr ? 'bassin réduit' : 'reduced basin',
+  attractorCollapse: fr ? 'collapse' : 'collapse',
+  attractorRunaway: fr ? 'hors bassin' : 'outside basin',
+  attractorCaption: fr
+    ? 'Lecture T5/N4 : 17 est le dernier point fixe brut ; la cristallisation de p=2 donne 17−2=15 et place la cascade dans le bassin attractif. μ = 18 est le premier entier hors bassin : 11 s’active et l’itération ne revient plus vers une fermeture finie.'
+    : 'T5/N4 reading: 17 is the last raw fixed point; crystallising p=2 gives 17−2=15 and places the cascade in the attractive basin. μ = 18 is the first integer outside the basin: 11 activates and the iteration no longer returns to a finite closure.',
+  discrete: fr ? 'branche discrète' : 'discrete branch',
+  continuous: fr ? 'branche continue' : 'continuous branch',
+  vertex: fr ? 'vertex / couplages / leptons' : 'vertices / couplings / leptons',
+  propagator: fr ? 'propagateur / géométrie / quarks' : 'propagator / geometry / quarks',
+  ablationTitle: fr ? 'Test d’ablation' : 'Ablation check',
+  ablationText: fr
+    ? 'Si on échange les branches dans le calcul de α, le résultat se dégrade brutalement. Les branches ne sont donc pas un habillage narratif.'
+    : 'If the branches are swapped in the α computation, the result collapses. The two branches are not just narrative decoration.',
+  signatureTitle: fr ? 'La signature numérique du passage' : 'The numerical signature of the passage',
+  signatureText: fr
+    ? 'Le retrait de p = 2 laisse une trace dans l’échelle de couplage nue : 1/α(17) − 1/α(15) ≈ 42.'
+    : 'The withdrawal of p = 2 leaves a trace in the bare coupling scale: 1/α(17) − 1/α(15) ≈ 42.',
+  statusTitle: fr ? 'Statut épistémique' : 'Epistemic status',
+  statusText: fr
+    ? 'Le mécanisme 17 → 15 appartient à la réduction de secteur T5/N4. La lecture cosmologique “Big Bang” est une interprétation structurale : elle dit comment PT lit l’apparition d’une frontière et d’une dynamique, pas qu’elle a mesuré directement une température primordiale.'
+    : 'The 17 → 15 mechanism belongs to the T5/N4 sector reduction. The cosmological “Big Bang” reading is structural: it says how PT reads the appearance of a boundary and a dynamics, not that it directly measured a primordial temperature.',
+  sourcesTitle: fr ? 'Calculs et preuves à ouvrir' : 'Calculations and proofs to open',
+  t5: fr ? 'T5 — point fixe attractif μ* = 15' : 'T5 — attractive fixed point μ* = 15',
+  n4: fr ? 'N4 — rôle spécial de p = 2' : 'N4 — special role of p = 2',
+  gft: fr ? 'GFT — partition info / anti-info' : 'GFT — info / anti-info partition',
+  chain: fr ? 'Chaîne logique PT' : 'PT logical chain',
+};
+
+const base = fr ? '' : '/en';
+const gammaBars = [
+  { p: '2', gamma: '0.866960', width: 86.696, role: fr ? 'infrastructure' : 'infrastructure', tone: 'infra' },
+  { p: '3', gamma: '0.807614', width: 80.761, role: fr ? 'cascade' : 'cascade', tone: 'cascade' },
+  { p: '5', gamma: '0.696316', width: 69.632, role: fr ? 'cascade' : 'cascade', tone: 'cascade' },
+  { p: '7', gamma: '0.595468', width: 59.547, role: fr ? 'cascade' : 'cascade', tone: 'cascade' },
+  { p: '11', gamma: '0.425733', width: 42.573, role: fr ? 'écho' : 'echo', tone: 'echo' },
+];
+
+const basinPoints = [
+  { mu: '12', tone: 'edge', label: fr ? 'entrée basse' : 'lower entry' },
+  { mu: '13', tone: 'basin', label: fr ? 'glisse' : 'slides' },
+  { mu: '14', tone: 'basin', label: fr ? 'glisse' : 'slides' },
+  { mu: '15', tone: 'star', label: fr ? 'attracteur' : 'attractor' },
+  { mu: '16', tone: 'basin', label: fr ? 'revient' : 'returns' },
+  { mu: '17', tone: 'raw', label: fr ? 'brut' : 'raw' },
+  { mu: '18+', tone: 'outside', label: fr ? 'hors bassin' : 'outside' },
+];
+
+const guideCards = [
+  {
+    title: fr ? 'Ce qui est hiérarchique' : 'What is hierarchical',
+    body: fr
+      ? 'La frise ne date pas des instants physiques. Elle ordonne les seuils premiers : chaque étape ajoute une capacité de distinction dans une cascade instantanée.'
+      : 'The timeline does not date physical instants. It orders prime thresholds: each step adds a capacity for distinction in an instantaneous cascade.',
+  },
+  {
+    title: fr ? 'Ce qui arrive à 2' : 'What happens to 2',
+    body: fr
+      ? '2 n’est pas supprimé. Il passe de terme de la somme brute à condition de séparation, comme une membrane qui rend pair/impair lisible.'
+      : '2 is not removed. It moves from a term in the raw sum to a separation condition, like a membrane making even/odd readable.',
+  },
+  {
+    title: fr ? 'Pourquoi 15 est spécial' : 'Why 15 is special',
+    body: fr
+      ? '15 = 3 + 5 + 7 garde les trois directions actives. C’est le point fixe arithmétique attractif où le temps devenu lisible peut porter les observables.'
+      : '15 = 3 + 5 + 7 keeps the three active directions. It is the attractive arithmetic fixed point where readable time can carry observables.',
+  },
+];
+
+const primeStatuses = [
+  {
+    p: '1',
+    status: fr ? 'origine neutre' : 'neutral origin',
+    criterion: fr ? 'pas un premier ; support avant bifurcation' : 'not a prime; support before bifurcation',
+    consequence: fr ? 'il donne le point de départ logique, pas une dynamique' : 'it gives the logical starting point, not a dynamics',
+    tone: 'origin',
+  },
+  {
+    p: '2',
+    status: fr ? 'infrastructure spin/parité' : 'spin/parity infrastructure',
+    criterion: fr ? 'T₂ = (1), bloc dégénéré ; graine de l’involution' : 'T₂ = (1), degenerate block; seed of involution',
+    consequence: fr ? 'sort de 17, devient frontière ; rend q⁺/q⁻ lisibles' : 'exits 17, becomes boundary; makes q⁺/q⁻ readable',
+    tone: 'parity',
+  },
+  {
+    p: '3',
+    status: fr ? 'première face dynamique' : 'first dynamic face',
+    criterion: fr ? 'T₃ antidiagonale ; verrouille s = 1/2' : 'T₃ antidiagonal; locks s = 1/2',
+    consequence: fr ? 'début de la cascade active et premier axe spatial' : 'start of active cascade and first spatial axis',
+    tone: 'active-red',
+  },
+  {
+    p: '5',
+    status: fr ? 'pivot central' : 'central pivot',
+    criterion: fr ? 'au-dessus du seuil γ > 1/2 ; centre de 3-5-7' : 'above γ > 1/2; centre of 3-5-7',
+    consequence: fr ? 'stabilise μ* = 15 et porte les signatures médianes' : 'stabilises μ* = 15 and carries median signatures',
+    tone: 'active-green',
+  },
+  {
+    p: '7',
+    status: fr ? 'bord actif / pic analytique' : 'active edge / analytic peak',
+    criterion: fr ? 'dernier γ > 1/2 ; maximum entier de ln(p)/√p' : 'last γ > 1/2; integer maximum of ln(p)/√p',
+    consequence: fr ? 'ferme les trois directions actives ; prépare la signature temporelle avant les échos' : 'closes the three active directions; prepares the temporal signature before echoes',
+    tone: 'active-blue',
+  },
+  {
+    p: '11,13',
+    status: fr ? 'échos' : 'echoes',
+    criterion: fr ? 'sous le seuil ; plateau du drift' : 'below threshold; drift plateau',
+    consequence: fr ? 'contre-termes, running, corrections sans nouvelle face' : 'counter-terms, running, corrections without a new face',
+    tone: 'echo',
+  },
+  {
+    p: '17,19,23',
+    status: fr ? 'super-échos' : 'super-echoes',
+    criterion: fr ? 'strate de descente avant la queue p ≥ 29' : 'descent stratum before the p ≥ 29 tail',
+    consequence: fr ? 'habillage hadronique et corrections d’échelle' : 'hadronic dressing and scale corrections',
+    tone: 'super',
+  },
+  {
+    p: '29+',
+    status: fr ? 'queue inactive' : 'inactive tail',
+    criterion: fr ? 'non-répétition / marge au seuil' : 'non-repetition / threshold margin',
+    consequence: fr ? 'ne crée pas de nouveau régime Big Bang dans cette lecture' : 'does not create a new Big Bang regime in this reading',
+    tone: 'cutoff',
+  },
+];
+
+const proofSteps = [
+  {
+    code: 'N4',
+    title: fr ? '2 est un premier spécial' : '2 is a special prime',
+    body: fr
+      ? 'Il porte l’involution spin/parité, mais T₂ = (1) ne donne pas encore une transition cyclique non triviale.'
+      : 'It carries the spin/parity involution, but T₂ = (1) does not yet give a non-trivial cyclic transition.',
+  },
+  {
+    code: 'T5',
+    title: fr ? 'le point fixe attractif sélectionne 15' : 'the attractive fixed point selects 15',
+    body: fr
+      ? 'La somme physique stable est μ* = 3 + 5 + 7 = 15. C’est un point fixe au sens arithmétique et un attracteur dans le bassin réduit ; la somme brute 17 y glisse lorsque 2 se cristallise.'
+      : 'The stable physical sum is μ* = 3 + 5 + 7 = 15. It is a fixed point arithmetically and an attractor in the reduced basin; the raw sum 17 slides into it when 2 crystallises.',
+  },
+  {
+    code: 'γ > 1/2',
+    title: fr ? 'la porte active est tranchée' : 'the active gate is sharp',
+    body: fr
+      ? 'À μ* = 15, les seuls premiers dynamiques au-dessus du seuil sont 3, 5, 7 ; 11 est déjà sous le seuil.'
+      : 'At μ* = 15, the only dynamic primes above threshold are 3, 5, 7; 11 is already below threshold.',
+  },
+  {
+    code: 'q⁺/q⁻',
+    title: fr ? 'la parité devient deux branches' : 'parity becomes two branches',
+    body: fr
+      ? 'q⁺ porte la cardinalité discrète ; q⁻ porte la dispersion continue. L’échange des branches dégrade les calculs.'
+      : 'q⁺ carries discrete cardinality; q⁻ carries continuous dispersion. Swapping branches degrades the computations.',
+  },
+];
+
+const standardProblems = [
+  {
+    title: fr ? 'Singularité initiale' : 'Initial singularity',
+    standard: fr ? 'Le modèle chaud extrapolé vers t = 0 devient une frontière où la relativité classique cesse de parler.' : 'The hot model extrapolated toward t = 0 reaches a boundary where classical relativity stops speaking.',
+    pt: fr ? 'PT ne part pas d’un t = 0 déjà physique. La cascade est hors-temps, p=2 cristallise, puis le temps devient lisible juste avant μ* = 15.' : 'PT does not start from an already physical t = 0. The cascade is pre-temporal, p=2 crystallises, then time becomes readable just before μ* = 15.',
+  },
+  {
+    title: fr ? 'Conditions initiales' : 'Initial conditions',
+    standard: fr ? 'Il faut expliquer pourquoi les paramètres initiaux sont si particuliers.' : 'One must explain why the initial parameters are so special.',
+    pt: fr ? 'T5 sélectionne un point fixe attractif unique ; les degrés libres ne sont pas choisis continûment mais fermés par le bassin 12…17 → 15.' : 'T5 selects a unique attractive fixed point; degrees of freedom are not continuously chosen but closed by the basin 12…17 → 15.',
+  },
+  {
+    title: fr ? 'Horizon / homogénéité' : 'Horizon / homogeneity',
+    standard: fr ? 'Des régions causalement séparées semblent partager la même température.' : 'Causally separated regions appear to share the same temperature.',
+    pt: fr ? 'La cohérence vient d’une contrainte globale du crible avant le temps causal ordinaire, pas d’un échange préalable entre régions.' : 'Coherence comes from a global sieve constraint before ordinary causal time, not from prior exchange between regions.',
+  },
+  {
+    title: fr ? 'Platitude' : 'Flatness',
+    standard: fr ? 'La courbure initiale doit être extrêmement fine pour rester proche de zéro.' : 'Initial curvature must be extremely fine-tuned to remain close to zero.',
+    pt: fr ? 'La géométrie n’est pas libre : la signature lorentzienne et les trois directions actives sont héritées de l’attracteur μ* = 15.' : 'Geometry is not free: Lorentzian signature and the three active directions are inherited from the μ* = 15 attractor.',
+  },
+  {
+    title: fr ? 'Flèche entropique' : 'Entropic arrow',
+    standard: fr ? 'Le très bas état entropique initial demande une explication.' : 'The very low initial entropy state requires an explanation.',
+    pt: fr ? 'GFT sépare structure persistante DKL et entropie H : la flèche commence quand la cascade hors-temps devient évolution mesurable.' : 'GFT separates persistent structure DKL and entropy H: the arrow begins when the pre-temporal cascade becomes measurable evolution.',
+  },
+];
+
+const timeline = [
+  {
+    stage: fr ? 'pré-lecture' : 'pre-reading',
+    label: '1',
+    title: fr ? 'unité neutre' : 'neutral unit',
+    body: fr ? 'Aucune séparation encore : le support logique est là, mais pas de parité ni de cascade.' : 'No split yet: the logical support is present, but no parity and no cascade.',
+    meta: fr ? 'origine' : 'origin',
+    tone: 'origin',
+  },
+  {
+    stage: fr ? 'Big Bang informationnel' : 'informational Big Bang',
+    label: '2',
+    title: fr ? 'parité cristallisée' : 'crystallised parity',
+    body: fr ? 'La couche p=2 sépare pair/impair. Dans le passage 17 → 15, elle quitte la somme et devient membrane spin/parité.' : 'The p=2 layer separates even/odd. In the 17 → 15 passage, it exits the sum and becomes the spin/parity membrane.',
+    meta: fr ? 'spin / frontière' : 'spin / boundary',
+    tone: 'parity',
+  },
+  {
+    stage: fr ? 'première dynamique' : 'first dynamics',
+    label: '3',
+    title: fr ? 'matrice T₃, s=1/2' : 'T₃ matrix, s=1/2',
+    body: fr ? 'Premier transfert non trivial : l’antidiagonale impose l’alternance et stabilise l’invariant s=1/2.' : 'First non-trivial transfer: the antidiagonal imposes alternation and stabilises s=1/2.',
+    meta: fr ? 'début cascade' : 'cascade starts',
+    tone: 'active-red',
+  },
+  {
+    stage: fr ? 'indétermination' : 'indetermination',
+    label: '5',
+    title: fr ? 'niveau central' : 'central layer',
+    body: fr ? 'p=5 complète le cœur 3-5-7 et sert de pivot dans plusieurs signatures, dont 42 = 210/5.' : 'p=5 completes the 3-5-7 core and acts as a pivot in several signatures, including 42 = 210/5.',
+    meta: fr ? 'pivot' : 'pivot',
+    tone: 'active-green',
+  },
+  {
+    stage: fr ? 'espace 3D' : '3D space',
+    label: '7',
+    title: fr ? 'troisième direction active' : 'third active direction',
+    body: fr ? 'Avec 3,5,7 la cascade prépare sa fermeture : trois directions actives, puis la signature temporelle devient lisible.' : 'With 3,5,7 the cascade prepares its closure: three active directions, then temporal signature becomes readable.',
+    meta: fr ? 'avant μ* = 15' : 'before μ* = 15',
+    tone: 'active-blue',
+  },
+  {
+    stage: fr ? 'refroidissement' : 'cooling',
+    label: '11 · 13',
+    title: fr ? 'échos' : 'echoes',
+    body: fr ? 'Sous le seuil γ < 1/2 : plus des faces actives, mais des corrections perturbatives visibles.' : 'Below γ < 1/2: no longer active faces, but visible perturbative corrections.',
+    meta: fr ? 'sous seuil' : 'below threshold',
+    tone: 'echo',
+  },
+  {
+    stage: fr ? 'queue structurée' : 'structured tail',
+    label: '17 · 19 · 23',
+    title: fr ? 'super-échos' : 'super-echoes',
+    body: fr ? 'La frise continue en corrections tardives : les super-échos gardent une trace du crible sans redevenir la cascade principale.' : 'The line continues as late corrections: super-echoes retain a sieve trace without becoming the main cascade again.',
+    meta: fr ? 'corrections' : 'corrections',
+    tone: 'super',
+  },
+  {
+    stage: fr ? 'borne' : 'bound',
+    label: '29',
+    title: t.timelineCut,
+    body: fr ? 'p=29 sert de borne pédagogique : la lecture actuelle s’arrête ici par non-répétition plutôt que d’ajouter une nouvelle face.' : 'p=29 acts as the pedagogical bound: the current reading stops here by non-repetition rather than adding a new face.',
+    meta: fr ? 'exclu' : 'excluded',
+    tone: 'cutoff',
+  },
+];
+
+const sourceLinks = [
+  { href: `${base}/theorems/T5`, label: t.t5 },
+  { href: `${base}/theorems/N4`, label: t.n4 },
+  { href: `${base}/theorems/GFT`, label: t.gft },
+  { href: `${base}/chain`, label: t.chain },
+];
+---
+
+<section class="bb-shell">
+  <header class="bb-hero">
+    <div class="bb-hero-inner">
+      <p class="bb-eyebrow">{t.eyebrow}</p>
+      <h1>{t.title}</h1>
+      <p class="bb-dek">{t.dek}</p>
+      <div class="bb-hero-note">{t.heroNote}</div>
+    </div>
+  </header>
+
+  <div class="bb-stats" aria-label={fr ? 'Nombres structurants' : 'Structural numbers'}>
+    <div>
+      <span>{t.statRaw}</span>
+      <strong>μ = 17</strong>
+      <em>2 + 3 + 5 + 7</em>
+    </div>
+    <div>
+      <span>{t.statPhysical}</span>
+      <strong>μ* = 15</strong>
+      <em>3 + 5 + 7</em>
+    </div>
+    <div>
+      <span>{t.statBoundary}</span>
+      <strong>17 − 15 = 2</strong>
+      <em>p₁</em>
+    </div>
+  </div>
+
+  <section class="guide-section" aria-label={t.guideTitle}>
+    <div class="guide-copy">
+      <p class="bb-level">{t.plainLabel}</p>
+      <h2>{t.guideTitle}</h2>
+      <div class="copy-stack">
+        {t.guideTextParts.map((paragraph) => <p>{paragraph}</p>)}
+      </div>
+    </div>
+    <div class="guide-grid">
+      {guideCards.map((card) => (
+        <article>
+          <h3>{card.title}</h3>
+          <p>{card.body}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="time-emergence" data-min-depth="L2">
+    <div>
+      <p class="bb-level">{t.standardLabel}</p>
+      <h2>{t.timeTitle}</h2>
+      <div class="copy-stack">
+        {t.timeTextParts.map((paragraph) => <p>{paragraph}</p>)}
+      </div>
+    </div>
+    <div class="time-flow" aria-label={t.timeTitle}>
+      <span>{t.timeBefore}</span>
+      <strong>1 → 2</strong>
+      <i aria-hidden="true">→</i>
+      <span>{t.timeCut}</span>
+      <strong>3 · 5 · 7</strong>
+      <i aria-hidden="true">→</i>
+      <span>{t.timeSignature}</span>
+      <strong>μ* = 15</strong>
+      <i aria-hidden="true">→</i>
+      <span>{t.timeFixedPoint}</span>
+    </div>
+  </section>
+
+  <section class="timeline-section" aria-label={t.timelineAria}>
+    <div class="timeline-heading">
+      <p class="bb-level">{t.plainLabel}</p>
+      <h2>{t.timelineHeadline}</h2>
+      <div class="copy-stack">
+        {t.timelineTextParts.map((paragraph) => <p>{paragraph}</p>)}
+      </div>
+    </div>
+    <figure class="art-frieze">
+      <img src="/images/bigbang.png" alt={t.artFriezeAlt} loading="lazy" />
+      <div class="art-frieze-shade"></div>
+      <figcaption>{t.artFriezeCaption}</figcaption>
+    </figure>
+    <div class="timeline-frame">
+      <div class="timeline-scroll" role="list">
+        <div class="timeline-line" aria-hidden="true"></div>
+        {timeline.map((item) => (
+          <article class={`timeline-card ${item.tone}`} role="listitem">
+            <span class="timeline-stage">{item.stage}</span>
+            <strong class="timeline-prime">{item.label}</strong>
+            <h3>{item.title}</h3>
+            <p>{item.body}</p>
+            <em>{item.meta}</em>
+          </article>
+        ))}
+      </div>
+      <div class="timeline-reduction">
+        <span>{t.timelineReduction}</span>
+        <strong>2 + 3 + 5 + 7 = 17</strong>
+        <i aria-hidden="true">→</i>
+        <strong>3 + 5 + 7 = 15</strong>
+      </div>
+    </div>
+  </section>
+
+  <section class="bb-band">
+    <div class="bb-copy">
+      <p class="bb-level">{t.plainLabel}</p>
+      <h2>{t.l1Title}</h2>
+      <div class="copy-stack">
+        {t.l1TextParts.map((paragraph) => <p>{paragraph}</p>)}
+      </div>
+    </div>
+
+    <div class="crystalliser" aria-label={fr ? 'Schéma de cristallisation 17 vers 15' : 'Crystallisation diagram from 17 to 15'}>
+      <div class="phase before">
+        <p class="phase-title">{t.before}</p>
+        <div class="nodes raw">
+          {['2', '3', '5', '7'].map((p) => <span class={p === '2' ? 'node p2' : 'node'}>p={p}</span>)}
+        </div>
+        <div class="phase-sum">{t.total} = <strong>17</strong></div>
+        <div class="phase-caption">{t.rawActive}</div>
+      </div>
+
+      <div class="membrane" aria-hidden="true">
+        <span class="seed">p=2</span>
+        <span class="line"></span>
+        <span class="equation">17 − 15 = 2</span>
+        <span class="membrane-label">{t.membrane}</span>
+      </div>
+
+      <div class="phase after">
+        <p class="phase-title">{t.after}</p>
+        <div class="nodes stable">
+          {['3', '5', '7'].map((p) => <span class="node">p={p}</span>)}
+        </div>
+        <div class="phase-sum">{t.total} = <strong>15</strong></div>
+        <div class="phase-caption">{t.cascadeActive}</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="attractor-section" data-min-depth="L2">
+    <div class="bb-copy">
+      <p class="bb-level">{t.standardLabel}</p>
+      <h2>{t.attractorTitle}</h2>
+      <div class="copy-stack">
+        {t.attractorTextParts.map((paragraph) => <p>{paragraph}</p>)}
+      </div>
+    </div>
+    <div class="attractor-graph" aria-label={t.attractorTitle}>
+      <div class="basin-track" aria-hidden="true">
+        <span class="basin-zone collapse"></span>
+        <span class="basin-zone stable"></span>
+        <span class="basin-zone outside"></span>
+      </div>
+      <div class="basin-points">
+        {basinPoints.map((point) => (
+          <div class={`basin-point ${point.tone}`}>
+            <strong>{point.mu}</strong>
+            <span>{point.label}</span>
+          </div>
+        ))}
+      </div>
+      <div class="basin-arrows" aria-hidden="true">
+        <span>12</span>
+        <i>→</i>
+        <span>13</span>
+        <i>→</i>
+        <strong>15</strong>
+        <i>←</i>
+        <span>17 − 2</span>
+        <b>18+</b>
+      </div>
+      <p>{t.attractorCaption}</p>
+    </div>
+  </section>
+
+  <section class="prime-status-section" data-min-depth="L2">
+    <div class="section-intro">
+      <p class="bb-level">{t.standardLabel}</p>
+      <h2>{t.primeStatusTitle}</h2>
+      <div class="copy-stack">
+        {t.primeStatusTextParts.map((paragraph) => <p>{paragraph}</p>)}
+      </div>
+    </div>
+    <div class="prime-status-table" role="table" aria-label={t.primeStatusTitle}>
+      <div class="prime-status-head" role="row">
+        <span>{fr ? 'Seuil' : 'Threshold'}</span>
+        <span>{fr ? 'Statut PT' : 'PT status'}</span>
+        <span>{fr ? 'Critère' : 'Criterion'}</span>
+        <span>{fr ? 'Conséquence' : 'Consequence'}</span>
+      </div>
+      {primeStatuses.map((item) => (
+        <article class={`prime-status-row ${item.tone}`} role="row">
+          <strong role="cell">{item.p}</strong>
+          <span role="cell">{item.status}</span>
+          <span role="cell">{item.criterion}</span>
+          <span role="cell">{item.consequence}</span>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="bb-band bb-band-alt" data-min-depth="L2">
+    <div class="bb-copy">
+      <p class="bb-level">{t.standardLabel}</p>
+      <h2>{t.l2Title}</h2>
+      <div class="copy-stack">
+        {t.l2TextParts.map((paragraph) => <p>{paragraph}</p>)}
+      </div>
+    </div>
+
+    <div class="gamma-panel">
+      <div class="gamma-head">
+        <h3>{t.gammaTitle}</h3>
+        <span>s = 1/2</span>
+      </div>
+      <div class="gamma-chart">
+        <div class="threshold" aria-hidden="true"></div>
+        {gammaBars.map((bar) => (
+          <div class="gamma-row">
+            <span class="prime">p={bar.p}</span>
+            <div class="track">
+              <span class={`fill ${bar.tone}`} style={`width: ${bar.width}%`}></span>
+            </div>
+            <span class="value">{bar.gamma}</span>
+            <span class={`role ${bar.tone}`}>{bar.role}</span>
+          </div>
+        ))}
+      </div>
+      <p>{t.gammaCaption}</p>
+    </div>
+  </section>
+
+  <section class="proof-chain" data-min-depth="L3">
+    <div class="section-intro">
+      <p class="bb-level">{t.technicalLabel}</p>
+      <h2>{t.proofTitle}</h2>
+      <div class="copy-stack">
+        {t.proofTextParts.map((paragraph) => <p>{paragraph}</p>)}
+      </div>
+    </div>
+    <div class="proof-steps">
+      {proofSteps.map((step) => (
+        <article>
+          <strong>{step.code}</strong>
+          <h3>{step.title}</h3>
+          <p>{step.body}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="bb-band fork-band" data-min-depth="L2">
+    <div class="bb-copy">
+      <p class="bb-level">{t.standardLabel}</p>
+      <h2>{t.l3Title}</h2>
+      <div class="copy-stack">
+        {t.l3TextParts.map((paragraph) => <p>{paragraph}</p>)}
+      </div>
+    </div>
+
+    <div class="fork">
+      <div class="fork-source">
+        <span>p=2</span>
+        <strong>{fr ? 'frontière' : 'boundary'}</strong>
+      </div>
+      <div class="fork-branch plus">
+        <small>{t.discrete}</small>
+        <strong>q⁺ = 13/15</strong>
+        <span>0.866666...</span>
+        <em>{t.vertex}</em>
+      </div>
+      <div class="fork-branch minus">
+        <small>{t.continuous}</small>
+        <strong>q⁻ = e<sup>−1/15</sup></strong>
+        <span>0.935506...</span>
+        <em>{t.propagator}</em>
+      </div>
+    </div>
+  </section>
+
+  <section class="standard-problems" data-min-depth="L2">
+    <div class="section-intro">
+      <p class="bb-level">{t.standardLabel}</p>
+      <h2>{t.standardProblemsTitle}</h2>
+      <div class="copy-stack">
+        {t.standardProblemsTextParts.map((paragraph) => <p>{paragraph}</p>)}
+      </div>
+    </div>
+    <div class="problem-grid">
+      {standardProblems.map((item) => (
+        <article>
+          <h3>{item.title}</h3>
+          <dl>
+            <div>
+              <dt>{fr ? 'Big Bang standard' : 'Standard Big Bang'}</dt>
+              <dd>{item.standard}</dd>
+            </div>
+            <div>
+              <dt>{fr ? 'Lecture PT' : 'PT reading'}</dt>
+              <dd>{item.pt}</dd>
+            </div>
+          </dl>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="bb-two" data-min-depth="L3">
+    <div class="proof-block">
+      <p class="bb-level">{t.technicalLabel}</p>
+      <h2>{t.ablationTitle}</h2>
+      <p>{t.ablationText}</p>
+      <dl class="number-list">
+        <div><dt>1/α(q⁺)</dt><dd>136.28</dd></div>
+        <div><dt>1/α(q⁻)</dt><dd>746.80</dd></div>
+        <div><dt>{fr ? 'dégradation' : 'degradation'}</dt><dd>×805</dd></div>
+      </dl>
+    </div>
+
+    <div class="proof-block signature">
+      <p class="bb-level">{t.technicalLabel}</p>
+      <h2>{t.signatureTitle}</h2>
+      <p>{t.signatureText}</p>
+      <div class="signature-math">
+        <span>178.31965</span>
+        <i>−</i>
+        <span>136.27833</span>
+        <i>=</i>
+        <strong>42.0413</strong>
+      </div>
+      <div class="signature-note">≈ 42 = 2 × 3 × 7</div>
+    </div>
+  </section>
+
+  <section class="bb-band status-band">
+    <div class="bb-copy">
+      <p class="bb-level">{fr ? 'Statut' : 'Status'}</p>
+      <h2>{t.statusTitle}</h2>
+      <p>{t.statusText}</p>
+    </div>
+    <div class="source-links" aria-label={t.sourcesTitle}>
+      <h3>{t.sourcesTitle}</h3>
+      {sourceLinks.map((link) => <a href={link.href}>{link.label}</a>)}
+    </div>
+  </section>
+</section>
+
+<style>
+  .bb-shell {
+    background: #f8fafc;
+    color: #172033;
+  }
+
+  .bb-hero {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+    border-bottom: 1px solid #dbe3ec;
+  }
+
+  .bb-hero-inner {
+    position: relative;
+    z-index: 1;
+    width: min(1120px, calc(100% - 32px));
+    margin: 0 auto;
+    padding: 72px 0 44px;
+  }
+
+  .bb-eyebrow,
+  .bb-level {
+    font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 0.78rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: #d97706;
+  }
+
+  .bb-hero h1 {
+    max-width: 820px;
+    margin: 18px 0 22px;
+    color: #1f4e79;
+    font-size: clamp(2.25rem, 5.4vw, 4.15rem);
+    line-height: 1.02;
+    font-weight: 900;
+  }
+
+  .bb-dek {
+    max-width: 790px;
+    color: #334155;
+    font-size: 1.2rem;
+    line-height: 1.65;
+  }
+
+  .bb-hero-note {
+    display: inline-flex;
+    margin-top: 32px;
+    padding: 10px 14px;
+    border: 1px solid #fbbf24;
+    border-radius: 999px;
+    color: #92400e;
+    background: #fffbeb;
+    font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+  }
+
+  .bb-stats {
+    width: min(1120px, calc(100% - 32px));
+    margin: 24px auto 0;
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+  }
+
+  .bb-stats div,
+  .proof-block,
+  .gamma-panel {
+    background: white;
+    border: 1px solid #dbe3ec;
+    border-radius: 8px;
+    box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
+  }
+
+  .bb-stats div {
+    padding: 18px;
+  }
+
+  .bb-stats span,
+  .bb-stats em {
+    display: block;
+    font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    color: #64748b;
+    font-size: 0.85rem;
+  }
+
+  .bb-stats strong {
+    display: block;
+    margin: 6px 0;
+    color: #1f4e79;
+    font-size: 1.65rem;
+    line-height: 1.1;
+  }
+
+  .guide-section {
+    width: min(1120px, calc(100% - 32px));
+    margin: 42px auto 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 18px;
+    align-items: start;
+  }
+
+  .guide-copy {
+    max-width: 900px;
+    padding: 0;
+  }
+
+  .guide-copy h2 {
+    margin: 8px 0 14px;
+    color: #1f4e79;
+    font-size: 1.8rem;
+    line-height: 1.12;
+    font-weight: 900;
+  }
+
+  .copy-stack {
+    display: grid;
+    gap: 10px;
+  }
+
+  .copy-stack p {
+    margin: 0;
+  }
+
+  .guide-copy .copy-stack p {
+    color: #475569;
+    line-height: 1.72;
+    font-size: 1.04rem;
+    max-width: 72ch;
+  }
+
+  .guide-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    align-items: start;
+  }
+
+  .guide-grid article {
+    border: 1px solid #dbe3ec;
+    border-radius: 8px;
+    padding: 16px 18px 17px;
+    background: rgba(255, 255, 255, 0.82);
+    box-shadow: 0 10px 22px rgba(15, 23, 42, 0.045);
+  }
+
+  .guide-grid h3 {
+    margin: 0 0 10px;
+    color: #0f172a;
+    font-size: 1rem;
+    font-weight: 900;
+    line-height: 1.2;
+  }
+
+  .guide-grid p {
+    margin: 0;
+    color: #475569;
+    font-size: 0.94rem;
+    line-height: 1.55;
+  }
+
+  .time-emergence {
+    width: min(1120px, calc(100% - 32px));
+    margin: 28px auto 0;
+    display: grid;
+    grid-template-columns: 0.78fr 1.22fr;
+    gap: 24px;
+    align-items: center;
+    padding: 22px;
+    border: 1px solid #dbe3ec;
+    border-radius: 8px;
+    background:
+      linear-gradient(135deg, rgba(15, 23, 42, 0.98), rgba(31, 78, 121, 0.94)),
+      radial-gradient(circle at 8% 0%, rgba(251, 191, 36, 0.24), transparent 32%);
+    box-shadow: 0 16px 34px rgba(15, 23, 42, 0.13);
+  }
+
+  .time-emergence .bb-level {
+    color: #fbbf24;
+  }
+
+  .time-emergence h2 {
+    margin: 8px 0 12px;
+    color: white;
+    font-size: clamp(1.45rem, 2.3vw, 1.95rem);
+    line-height: 1.08;
+    font-weight: 900;
+  }
+
+  .time-emergence p {
+    margin: 0;
+    color: #dbeafe;
+    line-height: 1.68;
+    font-size: 1rem;
+  }
+
+  .time-emergence .copy-stack {
+    gap: 9px;
+  }
+
+  .time-flow {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+    justify-content: flex-end;
+    font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  }
+
+  .time-flow span,
+  .time-flow strong {
+    border-radius: 999px;
+    padding: 9px 12px;
+    line-height: 1;
+  }
+
+  .time-flow span {
+    border: 1px solid rgba(219, 234, 254, 0.25);
+    color: #dbeafe;
+    background: rgba(255, 255, 255, 0.06);
+    font-size: 0.78rem;
+    font-weight: 850;
+    text-transform: uppercase;
+  }
+
+  .time-flow strong {
+    color: #0f172a;
+    background: #fde68a;
+    font-size: 0.96rem;
+    font-weight: 950;
+  }
+
+  .time-flow i {
+    color: #38bdf8;
+    font-style: normal;
+    font-weight: 950;
+  }
+
+  .attractor-section {
+    width: min(1120px, calc(100% - 32px));
+    margin: 56px auto;
+    display: grid;
+    grid-template-columns: 0.82fr 1.18fr;
+    gap: 32px;
+    align-items: center;
+  }
+
+  .attractor-graph {
+    position: relative;
+    padding: 28px 24px 22px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    background:
+      linear-gradient(135deg, rgba(255, 255, 255, 0.96), rgba(248, 250, 252, 0.98)),
+      radial-gradient(circle at 50% 45%, rgba(22, 163, 74, 0.12), transparent 46%);
+    box-shadow: 0 18px 38px rgba(15, 23, 42, 0.08);
+    overflow: hidden;
+  }
+
+  .basin-track {
+    position: relative;
+    height: 18px;
+    margin: 16px 6px 26px;
+    border-radius: 999px;
+    background: #e2e8f0;
+    overflow: hidden;
+  }
+
+  .basin-zone {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+  }
+
+  .basin-zone.collapse {
+    left: 0;
+    width: 13%;
+    background: #cbd5e1;
+  }
+
+  .basin-zone.stable {
+    left: 13%;
+    width: 66%;
+    background: linear-gradient(90deg, #dbeafe, #bbf7d0 48%, #fef3c7);
+  }
+
+  .basin-zone.outside {
+    right: 0;
+    width: 21%;
+    background: linear-gradient(90deg, #e2e8f0, #cbd5e1);
+  }
+
+  .basin-points {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    gap: 8px;
+    align-items: end;
+  }
+
+  .basin-point {
+    min-width: 0;
+    display: grid;
+    justify-items: center;
+    gap: 8px;
+    color: #475569;
+    font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    text-align: center;
+  }
+
+  .basin-point strong {
+    width: 48px;
+    height: 48px;
+    display: grid;
+    place-items: center;
+    border-radius: 999px;
+    background: #e2e8f0;
+    color: #334155;
+    font-size: 1rem;
+    font-weight: 950;
+    box-shadow: 0 0 0 4px white;
+  }
+
+  .basin-point span {
+    min-height: 28px;
+    font-size: 0.68rem;
+    font-weight: 850;
+    line-height: 1.15;
+    text-transform: uppercase;
+  }
+
+  .basin-point.edge strong { background: #94a3b8; color: white; }
+  .basin-point.basin strong { background: #bfdbfe; color: #1d4ed8; }
+  .basin-point.star strong {
+    width: 64px;
+    height: 64px;
+    background: #16a34a;
+    color: white;
+    font-size: 1.25rem;
+    box-shadow: 0 0 0 5px white, 0 0 0 9px rgba(22, 163, 74, 0.18);
+  }
+  .basin-point.raw strong { background: #f59e0b; color: white; }
+  .basin-point.outside strong { background: #64748b; color: white; }
+
+  .basin-arrows {
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+    justify-content: center;
+    color: #64748b;
+    font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 0.86rem;
+    font-weight: 850;
+  }
+
+  .basin-arrows strong {
+    padding: 6px 10px;
+    border-radius: 999px;
+    background: #dcfce7;
+    color: #166534;
+  }
+
+  .basin-arrows b {
+    margin-left: 8px;
+    padding: 6px 10px;
+    border-radius: 999px;
+    background: #e2e8f0;
+    color: #334155;
+  }
+
+  .attractor-graph p {
+    margin: 20px 0 0;
+    color: #475569;
+    font-size: 0.95rem;
+    line-height: 1.58;
+  }
+
+  .section-intro,
+  .prime-status-section,
+  .proof-chain,
+  .standard-problems {
+    width: min(1120px, calc(100% - 32px));
+    margin: 56px auto;
+  }
+
+  .section-intro {
+    max-width: 760px;
+    margin: 0 0 20px;
+    display: block;
+  }
+
+  .section-intro h2 {
+    margin: 8px 0 12px;
+    color: #1f4e79;
+    font-size: clamp(1.55rem, 3vw, 2.15rem);
+    line-height: 1.12;
+    font-weight: 900;
+  }
+
+  .section-intro .copy-stack p {
+    color: #475569;
+    line-height: 1.7;
+    font-size: 1.04rem;
+  }
+
+  .prime-status-table {
+    overflow: hidden;
+    border: 1px solid #dbe3ec;
+    border-radius: 8px;
+    background: white;
+    box-shadow: 0 14px 30px rgba(15, 23, 42, 0.07);
+  }
+
+  .prime-status-head,
+  .prime-status-row {
+    display: grid;
+    grid-template-columns: 0.7fr 1.15fr 1.45fr 1.6fr;
+    gap: 1px;
+  }
+
+  .prime-status-head {
+    background: #0f172a;
+    color: #e2e8f0;
+    font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 0.78rem;
+    font-weight: 850;
+    text-transform: uppercase;
+  }
+
+  .prime-status-head span,
+  .prime-status-row span,
+  .prime-status-row strong {
+    padding: 13px 14px;
+  }
+
+  .prime-status-row {
+    border-top: 1px solid #e2e8f0;
+    color: #334155;
+    font-size: 0.92rem;
+    line-height: 1.42;
+  }
+
+  .prime-status-row strong {
+    display: grid;
+    align-items: center;
+    color: #0f172a;
+    font-size: 1.16rem;
+    font-weight: 950;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .prime-status-row.origin { background: #f8fafc; }
+  .prime-status-row.parity { background: #fff7ed; }
+  .prime-status-row.active { background: #eff6ff; }
+  .prime-status-row.active-red { background: #fff1f2; }
+  .prime-status-row.active-green { background: #f0fdf4; }
+  .prime-status-row.active-blue { background: #eff6ff; }
+  .prime-status-row.echo { background: #f5f3ff; }
+  .prime-status-row.super { background: #f8fafc; }
+  .prime-status-row.cutoff { background: #f1f5f9; }
+
+  .proof-steps,
+  .problem-grid {
+    display: grid;
+    gap: 14px;
+  }
+
+  .proof-steps {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .proof-steps article,
+  .problem-grid article {
+    border: 1px solid #dbe3ec;
+    border-radius: 8px;
+    background: white;
+    box-shadow: 0 12px 28px rgba(15, 23, 42, 0.06);
+  }
+
+  .proof-steps article {
+    padding: 18px;
+  }
+
+  .proof-steps strong {
+    display: inline-flex;
+    min-height: 34px;
+    align-items: center;
+    padding: 6px 10px;
+    border-radius: 999px;
+    background: #0f172a;
+    color: #fde68a;
+    font-size: 0.85rem;
+    font-weight: 900;
+  }
+
+  .proof-steps h3,
+  .problem-grid h3 {
+    margin: 14px 0 8px;
+    color: #0f172a;
+    font-size: 1.04rem;
+    line-height: 1.2;
+    font-weight: 900;
+  }
+
+  .proof-steps p {
+    margin: 0;
+    color: #475569;
+    font-size: 0.92rem;
+    line-height: 1.55;
+  }
+
+  .problem-grid {
+    grid-template-columns: repeat(5, 1fr);
+  }
+
+  .problem-grid article {
+    padding: 16px;
+    background: #ffffff;
+  }
+
+  .problem-grid h3 {
+    margin-top: 0;
+    color: #1f4e79;
+  }
+
+  .problem-grid dl,
+  .problem-grid div {
+    margin: 0;
+  }
+
+  .problem-grid div + div {
+    margin-top: 13px;
+    padding-top: 13px;
+    border-top: 1px solid #e2e8f0;
+  }
+
+  .problem-grid dt {
+    color: #64748b;
+    font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 0.72rem;
+    font-weight: 900;
+    text-transform: uppercase;
+  }
+
+  .problem-grid dd {
+    margin: 5px 0 0;
+    color: #475569;
+    font-size: 0.86rem;
+    line-height: 1.48;
+  }
+
+  .timeline-section {
+    width: min(1120px, calc(100% - 32px));
+    margin: 52px auto 0;
+  }
+
+  .timeline-heading {
+    max-width: 760px;
+    display: block;
+    margin-bottom: 20px;
+  }
+
+  .timeline-heading h2 {
+    margin: 8px 0 12px;
+    color: #1f4e79;
+    font-size: clamp(1.65rem, 3.2vw, 2.25rem);
+    line-height: 1.12;
+    font-weight: 900;
+  }
+
+  .timeline-heading .copy-stack p {
+    color: #475569;
+    line-height: 1.7;
+    font-size: 1.04rem;
+  }
+
+  .art-frieze {
+    position: relative;
+    margin: 0 0 18px;
+    border: 1px solid rgba(15, 23, 42, 0.18);
+    border-radius: 8px;
+    overflow: hidden;
+    background: #05080d;
+    box-shadow: 0 18px 40px rgba(15, 23, 42, 0.16);
+  }
+
+  .art-frieze img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 1927 / 816;
+    object-fit: cover;
+  }
+
+  .art-frieze-shade {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(180deg, rgba(5, 8, 13, 0.18), rgba(5, 8, 13, 0.02) 44%, rgba(5, 8, 13, 0.72)),
+      linear-gradient(90deg, rgba(5, 8, 13, 0.14), transparent 18%, transparent 82%, rgba(5, 8, 13, 0.2));
+    pointer-events: none;
+  }
+
+  .art-frieze figcaption {
+    position: absolute;
+    left: 18px;
+    right: 18px;
+    bottom: 14px;
+    margin: 0;
+    color: #dbeafe;
+    font-size: 0.84rem;
+    line-height: 1.45;
+    font-weight: 650;
+    font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  }
+
+  .timeline-frame {
+    position: relative;
+    border: 1px solid #dbe3ec;
+    border-radius: 8px;
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(248, 250, 252, 0.98)),
+      radial-gradient(circle at 18% 0%, rgba(251, 191, 36, 0.2), transparent 34%),
+      radial-gradient(circle at 76% 12%, rgba(56, 189, 248, 0.18), transparent 30%);
+    box-shadow: 0 16px 34px rgba(15, 23, 42, 0.08);
+    overflow: hidden;
+  }
+
+  .timeline-scroll {
+    position: relative;
+    display: grid;
+    grid-template-columns: 0.58fr 0.72fr repeat(3, 0.78fr) 0.82fr 1fr 0.66fr;
+    gap: 8px;
+    padding: 22px 18px 24px;
+    overflow-x: visible;
+  }
+
+  .timeline-line {
+    position: absolute;
+    left: 42px;
+    right: 42px;
+    top: 72px;
+    height: 4px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, #94a3b8, #f59e0b 18%, #dc2626 34%, #16a34a 45%, #2563eb 55%, #7c3aed 70%, #94a3b8 88%, #cbd5e1);
+    opacity: 0.7;
+  }
+
+  .timeline-card {
+    position: relative;
+    z-index: 1;
+    min-width: 0;
+    min-height: 224px;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 12px;
+    background: white;
+    font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  }
+
+  .timeline-card::before {
+    content: "";
+    position: absolute;
+    top: 45px;
+    left: 50%;
+    width: 14px;
+    height: 14px;
+    border: 4px solid white;
+    border-radius: 999px;
+    transform: translateX(-50%);
+    box-shadow: 0 0 0 1px rgba(15, 23, 42, 0.12);
+  }
+
+  .timeline-stage {
+    min-height: 28px;
+    color: #64748b;
+    font-size: 0.66rem;
+    font-weight: 850;
+    line-height: 1.25;
+    text-transform: uppercase;
+  }
+
+  .timeline-prime {
+    width: 54px;
+    min-height: 54px;
+    margin: 11px auto 13px;
+    display: grid;
+    place-items: center;
+    border-radius: 999px;
+    color: white;
+    font-size: 1.15rem;
+    font-weight: 950;
+    line-height: 1;
+    text-align: center;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .timeline-card h3 {
+    margin: 0 0 8px;
+    color: #0f172a;
+    font-size: 0.88rem;
+    font-weight: 900;
+    line-height: 1.18;
+  }
+
+  .timeline-card p {
+    margin: 0;
+    color: #475569;
+    font-size: 0.76rem;
+    line-height: 1.38;
+  }
+
+  .timeline-card em {
+    margin-top: auto;
+    padding-top: 12px;
+    color: #64748b;
+    font-size: 0.7rem;
+    font-style: normal;
+    font-weight: 800;
+  }
+
+  .timeline-card.origin { background: #f8fafc; }
+  .timeline-card.parity { background: #fff7ed; border-color: #fed7aa; box-shadow: inset 0 0 0 1px rgba(217, 119, 6, 0.08); }
+  .timeline-card.active { background: #eff6ff; border-color: #bfdbfe; }
+  .timeline-card.active-red { background: #fff1f2; border-color: #fecdd3; }
+  .timeline-card.active-green { background: #f0fdf4; border-color: #bbf7d0; }
+  .timeline-card.active-blue { background: #eff6ff; border-color: #bfdbfe; }
+  .timeline-card.echo { background: #f5f3ff; border-color: #ddd6fe; }
+  .timeline-card.super { background: #f8fafc; border-color: #cbd5e1; }
+  .timeline-card.cutoff { background: #f1f5f9; opacity: 0.82; }
+
+  .timeline-card.echo .timeline-prime {
+    width: 66px;
+    font-size: 0.98rem;
+  }
+
+  .timeline-card.super .timeline-prime {
+    width: 84px;
+    font-size: 0.86rem;
+  }
+
+  .timeline-card.origin .timeline-prime,
+  .timeline-card.origin::before { background: #64748b; }
+  .timeline-card.parity .timeline-prime,
+  .timeline-card.parity::before { background: #d97706; }
+  .timeline-card.active .timeline-prime,
+  .timeline-card.active::before { background: #1f4e79; }
+  .timeline-card.active-red .timeline-prime,
+  .timeline-card.active-red::before { background: #dc2626; }
+  .timeline-card.active-green .timeline-prime,
+  .timeline-card.active-green::before { background: #16a34a; }
+  .timeline-card.active-blue .timeline-prime,
+  .timeline-card.active-blue::before { background: #2563eb; }
+  .timeline-card.echo .timeline-prime,
+  .timeline-card.echo::before { background: #7c3aed; }
+  .timeline-card.super .timeline-prime,
+  .timeline-card.super::before { background: #64748b; }
+  .timeline-card.cutoff .timeline-prime,
+  .timeline-card.cutoff::before { background: #94a3b8; }
+
+  .timeline-reduction {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+    padding: 16px 20px;
+    border-top: 1px solid #e2e8f0;
+    background: rgba(15, 23, 42, 0.96);
+    color: #e2e8f0;
+    font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  }
+
+  .timeline-reduction span {
+    width: 100%;
+    color: #fde68a;
+    font-size: 0.82rem;
+    font-weight: 850;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  .timeline-reduction strong {
+    padding: 8px 10px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.08);
+    font-size: 0.92rem;
+  }
+
+  .timeline-reduction i {
+    color: #38bdf8;
+    font-style: normal;
+    font-weight: 900;
+  }
+
+  .bb-band,
+  .bb-two {
+    width: min(1120px, calc(100% - 32px));
+    margin: 56px auto;
+  }
+
+  .bb-band {
+    display: grid;
+    grid-template-columns: 0.8fr 1.2fr;
+    gap: 32px;
+    align-items: center;
+  }
+
+  .bb-band-alt {
+    align-items: start;
+  }
+
+  .bb-copy h2,
+  .proof-block h2 {
+    margin: 8px 0 14px;
+    color: #1f4e79;
+    font-size: 1.7rem;
+    line-height: 1.15;
+    font-weight: 850;
+  }
+
+  .bb-copy p,
+  .proof-block p,
+  .gamma-panel p {
+    color: #475569;
+    line-height: 1.72;
+    font-size: 1.02rem;
+  }
+
+  .crystalliser {
+    display: grid;
+    grid-template-columns: 1fr 170px 1fr;
+    min-height: 340px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+    overflow: hidden;
+  }
+
+  .phase {
+    padding: 26px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .phase-title {
+    margin: 0 0 18px;
+    color: #0f172a;
+    font-weight: 800;
+    font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  }
+
+  .nodes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    min-height: 104px;
+    align-content: center;
+  }
+
+  .node {
+    width: 72px;
+    height: 72px;
+    border-radius: 8px;
+    display: grid;
+    place-items: center;
+    border: 2px solid #1f4e79;
+    background: #eff6ff;
+    color: #16385b;
+    font-weight: 900;
+    font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  }
+
+  .node.p2 {
+    border-color: #d97706;
+    background: #fff7ed;
+    color: #92400e;
+    box-shadow: 0 0 0 5px rgba(217, 119, 6, 0.12);
+  }
+
+  .phase-sum {
+    margin-top: 22px;
+    color: #334155;
+    font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  }
+
+  .phase-sum strong {
+    color: #1f4e79;
+    font-size: 2rem;
+  }
+
+  .phase-caption {
+    margin-top: 6px;
+    color: #64748b;
+    font-size: 0.9rem;
+  }
+
+  .membrane {
+    position: relative;
+    display: grid;
+    place-items: center;
+    background: linear-gradient(90deg, rgba(255, 247, 237, 0.7), rgba(239, 246, 255, 0.85));
+    border-left: 1px solid #e2e8f0;
+    border-right: 1px solid #e2e8f0;
+  }
+
+  .membrane .line {
+    position: absolute;
+    top: 28px;
+    bottom: 28px;
+    width: 12px;
+    border-radius: 999px;
+    background: linear-gradient(#f59e0b, #dbeafe, #38bdf8);
+    box-shadow: 0 0 28px rgba(56, 189, 248, 0.45);
+  }
+
+  .seed,
+  .equation,
+  .membrane-label {
+    position: relative;
+    z-index: 1;
+    padding: 8px 10px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid #dbe3ec;
+    font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-weight: 800;
+    color: #0f172a;
+    text-align: center;
+  }
+
+  .seed {
+    align-self: start;
+    margin-top: 58px;
+    color: #b45309;
+  }
+
+  .equation {
+    color: #1f4e79;
+  }
+
+  .membrane-label {
+    align-self: end;
+    margin-bottom: 54px;
+    max-width: 130px;
+    color: #475569;
+    font-size: 0.75rem;
+  }
+
+  .gamma-panel {
+    padding: 24px;
+  }
+
+  .gamma-head {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    align-items: center;
+    margin-bottom: 22px;
+  }
+
+  .gamma-head h3 {
+    color: #0f172a;
+    font-size: 1.3rem;
+    font-weight: 850;
+  }
+
+  .gamma-head span {
+    padding: 7px 10px;
+    border-radius: 999px;
+    background: #fef2f2;
+    color: #b91c1c;
+    font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-weight: 800;
+    white-space: nowrap;
+  }
+
+  .gamma-chart {
+    position: relative;
+    display: grid;
+    gap: 12px;
+    margin-bottom: 18px;
+  }
+
+  .threshold {
+    position: absolute;
+    left: calc(60px + 50% * 0.62);
+    top: -6px;
+    bottom: -6px;
+    width: 2px;
+    background: #ef4444;
+    opacity: 0.8;
+  }
+
+  .gamma-row {
+    display: grid;
+    grid-template-columns: 52px minmax(120px, 1fr) 86px 104px;
+    gap: 8px;
+    align-items: center;
+    font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 0.9rem;
+  }
+
+  .prime {
+    font-weight: 900;
+    color: #0f172a;
+  }
+
+  .track {
+    height: 18px;
+    border-radius: 999px;
+    background: #e2e8f0;
+    overflow: hidden;
+  }
+
+  .fill {
+    display: block;
+    height: 100%;
+    border-radius: inherit;
+  }
+
+  .fill.infra { background: linear-gradient(90deg, #f59e0b, #facc15); }
+  .fill.cascade { background: linear-gradient(90deg, #1f4e79, #38bdf8); }
+  .fill.echo { background: linear-gradient(90deg, #94a3b8, #cbd5e1); }
+
+  .value {
+    color: #334155;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .role {
+    border-radius: 999px;
+    padding: 5px 8px;
+    font-size: 0.78rem;
+    font-weight: 800;
+    text-align: center;
+  }
+
+  .role.infra { background: #fff7ed; color: #92400e; }
+  .role.cascade { background: #eff6ff; color: #1f4e79; }
+  .role.echo { background: #f1f5f9; color: #64748b; }
+
+  .fork {
+    min-height: 330px;
+    display: grid;
+    grid-template-columns: 150px 1fr 1fr;
+    gap: 18px;
+    align-items: center;
+    position: relative;
+  }
+
+  .fork::before,
+  .fork::after {
+    content: "";
+    position: absolute;
+    left: 132px;
+    right: 47%;
+    height: 3px;
+    background: #cbd5e1;
+  }
+
+  .fork::before {
+    top: 39%;
+    transform: rotate(-10deg);
+  }
+
+  .fork::after {
+    bottom: 39%;
+    transform: rotate(10deg);
+  }
+
+  .fork-source,
+  .fork-branch {
+    position: relative;
+    z-index: 1;
+    border-radius: 8px;
+    border: 1px solid #dbe3ec;
+    background: white;
+    box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
+  }
+
+  .fork-source {
+    min-height: 170px;
+    display: grid;
+    place-items: center;
+    text-align: center;
+    background: linear-gradient(180deg, #fff7ed, #eff6ff);
+  }
+
+  .fork-source span {
+    display: block;
+    color: #b45309;
+    font-size: 2rem;
+    font-weight: 900;
+  }
+
+  .fork-source strong {
+    display: block;
+    color: #334155;
+    font-size: 0.85rem;
+    margin-top: -30px;
+  }
+
+  .fork-branch {
+    padding: 24px;
+  }
+
+  .fork-branch small {
+    color: #64748b;
+    font-weight: 800;
+    text-transform: uppercase;
+    font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  }
+
+  .fork-branch strong {
+    display: block;
+    margin: 10px 0 8px;
+    font-size: 2rem;
+    color: #1f4e79;
+  }
+
+  .fork-branch span {
+    display: block;
+    color: #0f172a;
+    font-variant-numeric: tabular-nums;
+    font-weight: 800;
+  }
+
+  .fork-branch em {
+    display: block;
+    margin-top: 18px;
+    color: #475569;
+    font-style: normal;
+    line-height: 1.45;
+  }
+
+  .fork-branch.plus { border-top: 5px solid #d97706; }
+  .fork-branch.minus { border-top: 5px solid #38bdf8; }
+
+  .bb-two {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+
+  .proof-block {
+    padding: 28px;
+  }
+
+  .number-list {
+    margin-top: 22px;
+    display: grid;
+    gap: 10px;
+  }
+
+  .number-list div {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid #e2e8f0;
+    font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  }
+
+  .number-list dt {
+    color: #64748b;
+    font-weight: 800;
+  }
+
+  .number-list dd {
+    color: #0f172a;
+    font-weight: 900;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .signature {
+    background: #0f172a;
+    color: white;
+    border-color: #0f172a;
+  }
+
+  .signature h2,
+  .signature p {
+    color: white;
+  }
+
+  .signature .bb-level {
+    color: #fbbf24;
+  }
+
+  .signature-math {
+    margin-top: 24px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+    font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 1.25rem;
+  }
+
+  .signature-math span,
+  .signature-math strong {
+    padding: 10px 12px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.08);
+  }
+
+  .signature-math strong {
+    color: #fbbf24;
+  }
+
+  .signature-note {
+    margin-top: 16px;
+    color: #fde68a;
+    font-weight: 900;
+    font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  }
+
+  .status-band {
+    padding-bottom: 70px;
+  }
+
+  .source-links {
+    display: grid;
+    gap: 10px;
+  }
+
+  .source-links h3 {
+    color: #0f172a;
+    font-size: 1.15rem;
+    font-weight: 850;
+  }
+
+  .source-links a {
+    display: block;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    padding: 13px 15px;
+    color: #1f4e79;
+    background: white;
+    font-weight: 800;
+    text-decoration: none;
+  }
+
+  .source-links a:hover {
+    background: #eff6ff;
+  }
+
+  @media (max-width: 900px) {
+    .bb-hero h1 {
+      max-width: 560px;
+      font-size: 2.55rem;
+    }
+
+    .bb-stats,
+    .guide-section,
+    .time-emergence,
+    .attractor-section,
+    .section-intro,
+    .timeline-heading,
+    .bb-band,
+    .bb-two {
+      grid-template-columns: 1fr;
+    }
+
+    .bb-stats {
+      margin-top: 16px;
+    }
+
+    .guide-copy {
+      padding: 0;
+    }
+
+    .guide-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .attractor-graph {
+      padding: 24px 18px 20px;
+    }
+
+    .time-flow {
+      justify-content: flex-start;
+    }
+
+    .prime-status-head {
+      display: none;
+    }
+
+    .prime-status-row {
+      grid-template-columns: 0.42fr 1fr;
+      gap: 0;
+      padding: 4px 0;
+    }
+
+    .prime-status-row strong {
+      grid-row: span 3;
+      align-items: start;
+      padding-top: 14px;
+    }
+
+    .prime-status-row span {
+      padding: 7px 12px;
+    }
+
+    .proof-steps,
+    .problem-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .timeline-scroll {
+      grid-template-columns: repeat(8, minmax(150px, 1fr));
+      overflow-x: auto;
+    }
+
+    .art-frieze figcaption {
+      position: static;
+      padding: 12px 14px;
+      background: rgba(5, 8, 13, 0.92);
+    }
+
+    .crystalliser {
+      grid-template-columns: 1fr;
+    }
+
+    .membrane {
+      min-height: 170px;
+      border-left: 0;
+      border-right: 0;
+      border-top: 1px solid #e2e8f0;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .membrane .line {
+      left: 28px;
+      right: 28px;
+      top: 50%;
+      bottom: auto;
+      height: 12px;
+      width: auto;
+      transform: translateY(-50%);
+    }
+
+    .seed,
+    .equation,
+    .membrane-label {
+      margin: 0;
+      align-self: auto;
+    }
+
+    .fork {
+      grid-template-columns: 1fr;
+    }
+
+    .fork::before,
+    .fork::after {
+      display: none;
+    }
+  }
+
+  @media (max-width: 620px) {
+    .bb-hero-inner {
+      padding: 72px 0 56px;
+    }
+
+    .bb-hero h1 {
+      font-size: 2.15rem;
+    }
+
+    .bb-dek {
+      font-size: 1rem;
+    }
+
+    .gamma-row {
+      grid-template-columns: 44px 1fr;
+    }
+
+    .timeline-section {
+      width: min(100% - 18px, 1120px);
+    }
+
+    .timeline-scroll {
+      padding: 22px 14px 24px;
+      gap: 10px;
+      grid-template-columns: repeat(8, 146px);
+    }
+
+    .timeline-line {
+      left: 34px;
+      right: 34px;
+      top: 76px;
+    }
+
+    .timeline-card {
+      min-width: 0;
+      min-height: 270px;
+      padding: 12px;
+    }
+
+    .art-frieze {
+      margin-left: -7px;
+      margin-right: -7px;
+    }
+
+    .timeline-prime {
+      width: 58px;
+      min-height: 58px;
+      font-size: 1.15rem;
+    }
+
+    .basin-points {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      row-gap: 18px;
+    }
+
+    .basin-track {
+      margin-top: 6px;
+    }
+
+    .basin-point strong {
+      width: 44px;
+      height: 44px;
+    }
+
+    .basin-point.star strong {
+      width: 56px;
+      height: 56px;
+    }
+
+    .proof-steps,
+    .problem-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .gamma-row .value,
+    .gamma-row .role {
+      grid-column: 2;
+    }
+
+    .threshold {
+      display: none;
+    }
+  }
+</style>

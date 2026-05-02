@@ -245,8 +245,8 @@ import BaseLayout from '@layouts/BaseLayout.astro';
         fixedPointIndicator.className = 'mt-4 p-3 rounded font-sans text-sm ' +
           (isFixedPoint ? 'bg-amber-50 border border-amber-300 text-amber-900' : 'bg-stone-50 border border-stone-200 text-stone-700');
         fixedPointIndicator.innerHTML = isFixedPoint
-          ? `<strong>Point fixe.</strong> Σ p<sub>actifs</sub> = ${activeSum} = μ. C’est μ* = ${activeSum}, l’unique point fixe stable du crible (T5).`
-          : `Σ p<sub>actifs</sub> = ${activeSum} ≠ μ = ${fmt(mu, mu === Math.floor(mu) ? 0 : 1)} : pas un point fixe. Glisse vers μ = 15.`;
+          ? `<strong>Point fixe attractif.</strong> Σ p<sub>actifs</sub> = ${activeSum} = μ. C’est μ* = ${activeSum}, la fermeture stable du secteur réduit (T5).`
+          : `Σ p<sub>actifs</sub> = ${activeSum} ≠ μ = ${fmt(mu, mu === Math.floor(mu) ? 0 : 1)} : pas un point fixe. La cascade réduite glisse vers μ = 15 dans son bassin.`;
       }
 
       muGamma.addEventListener('input', renderGamma);

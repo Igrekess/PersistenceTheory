@@ -1,9 +1,18 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
 
+const legend = [
+  ['IDENTITY', 'Identité exacte', 'Égalité algébrique ou informationnelle, indépendante d’un pont physique.'],
+  ['THM', 'Théorème', 'Résultat démontré dans le cadre mathématique de la monographie.'],
+  ['BRIDGE', 'Pont', 'Hypothèse ou identification structurante reliant arithmétique et physique.'],
+  ['DER', 'Dérivation', 'Conséquence calculée sous les ponts et définitions annoncés.'],
+  ['VAL', 'Validation', 'Comparaison numérique ou structurelle avec des données externes.'],
+  ['PRED', 'Prédiction', 'Fenêtre falsifiable encore ouverte à la mesure ou à la reproduction.'],
+];
+
 const rows = [
   ['GFT', 'IDENTITY', 'Principe fondamental : capacité = persistance + entropie.', 'Théorèmes / GFT', 'Algébrique'],
-  ['T0–T6 + L0', 'THM / DER', 'Chaîne arithmétique et fermeture à mu* = 15.', 'Page théorèmes', 'Démonstratif'],
+  ['T0–T6 + L0', 'THM / DER', 'Chaîne arithmétique et fermeture attractive à μ* = 15.', 'Page théorèmes', 'Démonstratif'],
   ['43 observables', 'DER / VAL', 'Dérivations physiques sous ponts explicites.', 'Observables + scripts', 'Numérique'],
   ['Tableau périodique', 'DER', 'Capacités 2, 6, 10, 14 et périodes 2, 8, 8, 18, 18, 32, 32.', 'Page tableau', 'Structurel'],
   ['Énergies d’ionisation', 'VAL', 'Lecture continue des canaux et corrections CPR.', 'Page EI / PTC', 'Comparatif'],
@@ -17,45 +26,94 @@ const rows = [
   title="Statuts des résultats"
   description="Table d’audit des statuts épistémiques des principaux résultats PT."
 >
-  <section class="max-w-6xl mx-auto px-4 py-12">
-    <p class="pt-tag pt-tag-cond mb-4">Audit épistémique</p>
-    <h1 class="text-4xl md:text-5xl font-bold text-thmblue mb-5">Statuts des résultats</h1>
-    <p class="text-lg text-slate-700 leading-relaxed max-w-3xl mb-10">
-      Cette page sert de garde-fou. Un résultat peut être exact, démontré,
-      dérivé sous pont, validé numériquement, prédictif ou encore conditionnel.
-      Ces statuts ne doivent pas être mélangés.
-    </p>
+  <main class="max-w-6xl mx-auto px-4 py-10 md:py-14">
+    <section class="grid lg:grid-cols-[1fr_0.95fr] gap-8 items-stretch mb-12">
+      <div class="rounded-lg border border-slate-200 bg-white p-6 md:p-8 shadow-sm">
+        <p class="pt-tag pt-tag-cond mb-5">Audit épistémique</p>
+        <h1 class="text-4xl md:text-5xl font-bold text-thmblue leading-tight mb-5">
+          Statuts des résultats
+        </h1>
+        <p class="text-lg text-slate-700 leading-relaxed mb-4">
+          Cette page sert de garde-fou. Un résultat peut être exact, démontré,
+          dérivé sous pont, validé numériquement, prédictif ou encore
+          conditionnel. Ces statuts ne doivent pas être mélangés.
+        </p>
+        <p class="text-slate-700 leading-relaxed">
+          La force de PT vient de la chaîne complète : une identité exacte ne
+          suffit pas à faire une loi physique, et une validation numérique ne
+          transforme pas une dérivation en théorème.
+        </p>
+      </div>
 
-    <div class="bg-white border border-slate-200 rounded-lg overflow-x-auto">
-      <table class="w-full text-sm">
-        <thead class="bg-slate-50 text-thmblue">
-          <tr>
-            <th class="text-left p-3">Résultat</th>
-            <th class="text-left p-3">Statut</th>
-            <th class="text-left p-3">Ce que cela signifie</th>
-            <th class="text-left p-3">Source site</th>
-            <th class="text-left p-3">Contrôle</th>
-          </tr>
-        </thead>
-        <tbody>
-          {rows.map(([name, status, meaning, source, control]) => (
-            <tr class="border-t border-slate-200">
-              <td class="p-3 font-semibold">{name}</td>
-              <td class="p-3 font-mono text-derorange">{status}</td>
-              <td class="p-3">{meaning}</td>
-              <td class="p-3">{source}</td>
-              <td class="p-3">{control}</td>
-            </tr>
+      <aside class="rounded-lg border border-slate-200 bg-slate-950 text-white p-6 md:p-8 shadow-sm">
+        <p class="text-xs font-sans uppercase tracking-[0.18em] text-amber-300 mb-5">
+          Règle de lecture
+        </p>
+        <div class="space-y-3">
+          {['Exact', 'Démontré', 'Ponté', 'Dérivé', 'Validé', 'Prédit'].map((label, index) => (
+            <div class="flex items-center gap-3">
+              <span class="flex h-8 w-8 items-center justify-center rounded-full border border-white/20 bg-white/10 text-sm font-bold">
+                {index + 1}
+              </span>
+              <span class="font-sans font-semibold">{label}</span>
+            </div>
           ))}
-        </tbody>
-      </table>
-    </div>
+        </div>
+      </aside>
+    </section>
 
-    <div class="mt-8 bg-amber-50 border border-amber-200 rounded-lg p-5 text-slate-800">
-      <strong>Règle de lecture :</strong> une validation numérique ne transforme
-      pas automatiquement une dérivation en théorème. Inversement, une identité
-      algébrique peut être démontrée exactement sans être à elle seule une loi
-      physique. La force PT vient de la chaîne complète et de sa rigidité.
+    <section class="grid md:grid-cols-2 lg:grid-cols-3 gap-4 mb-12">
+      {legend.map(([code, title, text]) => (
+        <article class="pt-card">
+          <span class="pt-tag pt-tag-val">{code}</span>
+          <h2 class="font-sans font-semibold text-thmblue text-xl mt-3 mb-2">{title}</h2>
+          <p class="text-sm text-slate-700 leading-relaxed">{text}</p>
+        </article>
+      ))}
+    </section>
+
+    <section class="mb-8">
+      <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-4">
+        <div>
+          <p class="pt-tag pt-tag-thm mb-3">Table d’audit</p>
+          <h2 class="text-3xl font-bold text-thmblue">Résultats principaux</h2>
+        </div>
+        <p class="text-sm text-slate-600 max-w-xl">
+          La table ci-dessous est une carte de lecture, pas une promotion de
+          statut : elle indique où vérifier chaque famille de résultat.
+        </p>
+      </div>
+      <div class="bg-white border border-slate-200 rounded-lg overflow-x-auto shadow-sm">
+        <table class="w-full text-sm">
+          <thead class="bg-slate-50 text-thmblue">
+            <tr>
+              <th class="text-left p-3">Résultat</th>
+              <th class="text-left p-3">Statut</th>
+              <th class="text-left p-3">Ce que cela signifie</th>
+              <th class="text-left p-3">Source site</th>
+              <th class="text-left p-3">Contrôle</th>
+            </tr>
+          </thead>
+          <tbody>
+            {rows.map(([name, status, meaning, source, control]) => (
+              <tr class="border-t border-slate-200">
+                <td class="p-3 font-semibold">{name}</td>
+                <td class="p-3 font-mono text-derorange">{status}</td>
+                <td class="p-3">{meaning}</td>
+                <td class="p-3">{source}</td>
+                <td class="p-3">{control}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <div class="bg-amber-50 border border-amber-200 rounded-lg p-5 text-slate-800">
+      <strong>Règle centrale :</strong> les statuts protègent la théorie contre
+      elle-même. Ils empêchent de présenter une hypothèse de pont comme une
+      identité mathématique, ou une validation numérique comme une preuve
+      indépendante.
     </div>
-  </section>
+  </main>
 </BaseLayout>

@@ -1,8 +1,8 @@
 ---
 id: T5
-name: 'T5 — Unique fixed point μ* = 15'
-short: 'The sieve admits a unique stable fixed point at $\mu^* = 3+5+7 = 15$.'
-statement: 'The self-consistency $\mu^* = \sum_{p : \gamma_p(\mu^*) > 1/2} p$ admits a unique stable solution, $\mu^* = 15$, with active set $\{3, 5, 7\}$. Verified by exhaustive scan over $\mu \in [3, 100]$.'
+name: 'T5 — Unique attractive fixed point μ* = 15'
+short: 'The sieve admits a unique stable and attractive fixed point at $\mu^* = 3+5+7 = 15$.'
+statement: 'The self-consistency $\mu^* = \sum_{p : \gamma_p(\mu^*) > 1/2} p$ admits a unique stable and attractive solution, $\mu^* = 15$, with active set $\{3, 5, 7\}$. Verified by exhaustive scan over $\mu \in [3, 100]$.'
 status: THM
 monograph_chapter: chap:fixed_point
 order: 7
@@ -37,6 +37,8 @@ of primes active at $\mu$". How many solutions are there? T5 says: exactly one.
 It’s $\mu = 15$ with active primes $\{3, 5, 7\}$. No other choice of primes
 closes the equation. This uniqueness is what makes PT "zero-parameter": if
 several solutions existed, you’d have to choose, and that choice would be a parameter.
+The important nuance is that this fixed point is not merely a static equality:
+its stability makes it the attractor of the reduced sector.
 </div>
 
 ## Why it matters
@@ -127,7 +129,7 @@ Exhaustive scan results (cf. proof_T5_fixed_point.py, 33 PASS):
 No other subset closes the equation in the information sector (without
 $p = 2$). $\mu^* = 15$ is unique for the info sector.
 
-#### Step 5 — Linear stability
+#### Step 5 — Linear stability and attractive basin
 
 Stability of the fixed point is checked by computing the Jacobian:
 
@@ -136,7 +138,9 @@ J_{ij} = \frac{\partial \gamma_{p_j}}{\partial \mu_i} \bigg|_{\mu = \mu^*}.
 $$
 
 The spectral radius $|\lambda_\max(J)| < 1$ confirms $\mu^* = 15$ is an
-attractor (cf. ch. 8, Stability Theorem).
+attractor (cf. ch. 8, Stability Theorem). In the reduced reading, the relevant
+basin is $\mu_0 \in [12,17]$: $17$ slides to $15$ after crystallisation of
+$p=2$, while $18$ triggers the divergent cascade.
 
 #### J1–J6: six independent justifications
 

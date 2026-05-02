@@ -225,8 +225,8 @@ import BaseLayout from '@layouts/BaseLayout.astro';
         fixedPointIndicator.className = 'mt-4 p-3 rounded font-sans text-sm ' +
           (isFixedPoint ? 'bg-amber-50 border border-amber-300 text-amber-900' : 'bg-stone-50 border border-stone-200 text-stone-700');
         fixedPointIndicator.innerHTML = isFixedPoint
-          ? `<strong>Fixed point.</strong> Σ p<sub>active</sub> = ${activeSum} = μ. This is μ* = ${activeSum}, the unique stable fixed point of the sieve (T5).`
-          : `Σ p<sub>active</sub> = ${activeSum} ≠ μ = ${fmt(mu, mu === Math.floor(mu) ? 0 : 1)}: not a fixed point. Slide toward μ = 15.`;
+          ? `<strong>Attractive fixed point.</strong> Σ p<sub>active</sub> = ${activeSum} = μ. This is μ* = ${activeSum}, the stable closure of the reduced sector (T5).`
+          : `Σ p<sub>active</sub> = ${activeSum} ≠ μ = ${fmt(mu, mu === Math.floor(mu) ? 0 : 1)}: not a fixed point. The reduced cascade slides toward μ = 15 inside its basin.`;
       }
       muGamma.addEventListener('input', renderGamma);
       muGammaReset.addEventListener('click', () => { muGamma.value = '15'; renderGamma(); });

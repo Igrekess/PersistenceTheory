@@ -2,61 +2,125 @@
 import BaseLayout from '@layouts/BaseLayout.astro';
 import Citation from '@components/Citation.astro';
 import { REPO_URL, MONOGRAPH_PDF_EN, MONOGRAPH_PDF_FR } from '@/lib/repo';
+
+const editions = [
+  ['English edition', '883 pages', 'Full PDF, English reference edition', MONOGRAPH_PDF_EN, 'Download EN'],
+  ['Édition française', '913 pages', 'Full PDF, French reference edition', MONOGRAPH_PDF_FR, 'Download FR'],
+];
+
+const checkpoints = [
+  ['Status', 'Preprint', 'Open to criticism, not peer-reviewed.'],
+  ['FR/EN parity', 'drift = 0', 'Reported check over roughly 4,400 labels.'],
+  ['Scripts', '45 entries', 'Canonical registry of companion scripts.'],
+  ['Checks', '2,522 / 2,523', 'One known failure kept as an audit point.'],
+];
+
+const routes = [
+  ['Read fast', 'Start with the site README, then “The idea in 5 minutes” and “Start here”.', '/en/commencer-ici'],
+  ['Read the chain', 'Follow GFT, T0–T6, L0, then the attractive closure μ* = 15.', '/en/theorems'],
+  ['Verify', 'Open scripts, statuses, and the results dashboard before specialised chapters.', '/en/scripts'],
+];
 ---
 
 <BaseLayout title="Monograph">
-  <section class="max-w-5xl mx-auto px-4 py-12">
-    <h1 class="text-3xl md:text-4xl font-bold text-thmblue mb-4">Monograph</h1>
-    <p class="text-stone-700 mb-6">
-      <em>The Theory of Persistence — From the Sieve to the Standard Model</em>,
-      yan senez, 2026. English edition: 883 pages; French edition:
-      913 pages, ~40 MB each.
-    </p>
+  <main class="max-w-6xl mx-auto px-4 py-10 md:py-14">
+    <section class="grid lg:grid-cols-[1.05fr_0.95fr] gap-8 items-stretch mb-12">
+      <div class="rounded-lg border border-slate-200 bg-white p-6 md:p-8 shadow-sm">
+        <p class="pt-tag pt-tag-thm mb-5">Source document</p>
+        <h1 class="text-4xl md:text-5xl font-bold text-thmblue leading-tight mb-4">
+          Monograph
+        </h1>
+        <p class="text-xl md:text-2xl font-sans font-semibold text-derorange leading-snug mb-5">
+          The Theory of Persistence — From the Sieve to the Standard Model
+        </p>
+        <p class="text-lg text-stone-800 leading-relaxed mb-6">
+          The monograph contains the full chain: GFT principle, sieve dynamics,
+          attractive closure μ* = 15, bridges to physics, numerical
+          derivations, chemical and cosmological extensions, then the
+          verification registry.
+        </p>
+        <div class="flex flex-wrap gap-3">
+          <a href={MONOGRAPH_PDF_EN} class="px-5 py-3 bg-thmblue text-white font-sans font-semibold rounded hover:bg-thmblue/90">
+            Download English edition
+          </a>
+          <a href={MONOGRAPH_PDF_FR} class="px-5 py-3 bg-white border border-thmblue text-thmblue font-sans font-semibold rounded hover:bg-thmblue/5">
+            Download French edition
+          </a>
+          <a href={REPO_URL} class="px-5 py-3 bg-stone-50 border border-stone-300 text-stone-800 font-sans font-semibold rounded hover:bg-stone-100">
+            GitHub repo
+          </a>
+        </div>
+      </div>
 
-    <div class="flex flex-wrap gap-3 mb-8">
-      <a
-        href={MONOGRAPH_PDF_EN}
-        class="px-5 py-3 bg-thmblue text-white font-sans font-semibold rounded hover:bg-thmblue/90"
-      >
-        Download English edition
-      </a>
-      <a
-        href={MONOGRAPH_PDF_FR}
-        class="px-5 py-3 bg-thmblue text-white font-sans font-semibold rounded hover:bg-thmblue/90"
-      >
-        Download French edition
-      </a>
-      <a
-        href={REPO_URL}
-        class="px-5 py-3 bg-white border border-stone-300 text-stone-800 font-sans font-semibold rounded hover:bg-stone-50"
-      >
-        GitHub repo
-      </a>
-    </div>
+      <aside class="rounded-lg border border-slate-200 bg-slate-950 text-white p-6 md:p-8 shadow-sm">
+        <p class="text-xs font-sans uppercase tracking-[0.18em] text-amber-300 mb-5">
+          Editorial audit
+        </p>
+        <div class="grid grid-cols-2 gap-3">
+          {checkpoints.map(([label, value, text]) => (
+            <div class="rounded-lg border border-white/10 bg-white/10 p-4">
+              <span class="text-xs text-slate-300">{label}</span>
+              <strong class="block text-2xl font-sans text-amber-200 mt-1">{value}</strong>
+              <p class="text-xs text-slate-300 leading-snug mt-2">{text}</p>
+            </div>
+          ))}
+        </div>
+      </aside>
+    </section>
 
-    <h2 class="text-xl font-semibold text-thmblue mt-8 mb-3 font-sans">Online reading</h2>
-    <p class="text-stone-700 mb-3 text-sm">
-      The PDF loads below from GitHub (~40 MB).
-      If the preview is slow, download the file instead.
-    </p>
+    <section class="grid md:grid-cols-3 gap-4 mb-12">
+      {routes.map(([title, text, href]) => (
+        <a href={href} class="pt-card block group">
+          <span class="pt-tag pt-tag-bridge">Route</span>
+          <h2 class="font-sans font-semibold text-thmblue text-xl mt-3 mb-2 group-hover:underline">{title}</h2>
+          <p class="text-sm text-stone-700 leading-relaxed">{text}</p>
+        </a>
+      ))}
+    </section>
 
-    <div class="border border-stone-300 rounded overflow-hidden bg-stone-100" style="height: 80vh;">
-      <iframe
-        src={MONOGRAPH_PDF_EN}
-        title="The Theory of Persistence — English edition"
-        class="w-full h-full"
-        loading="lazy"
-      ></iframe>
-    </div>
+    <section class="grid md:grid-cols-2 gap-4 mb-12">
+      {editions.map(([title, pages, text, href, cta]) => (
+        <article class="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
+          <p class="pt-tag pt-tag-val mb-3">{pages}</p>
+          <h2 class="font-sans text-2xl font-bold text-thmblue mb-2">{title}</h2>
+          <p class="text-slate-700 mb-4">{text}</p>
+          <a href={href} class="inline-flex px-4 py-2 rounded bg-thmblue text-white font-sans font-semibold hover:bg-thmblue/90">
+            {cta}
+          </a>
+        </article>
+      ))}
+    </section>
 
-    <h2 class="text-xl font-semibold text-thmblue mt-12 mb-3 font-sans">Editorial status</h2>
-    <ul class="list-disc list-inside text-stone-700 space-y-1 marker:text-thmblue">
-      <li>Preprint — not peer-reviewed</li>
-      <li>French and English editions on par (FR/EN drift = 0 on ~4,400 labels)</li>
-      <li>Canonical registry: 45 companion Python script entries, 2,522/2,523 passing checks, 1 known failure</li>
-      <li>LaTeX sources publicly available (monograph repo)</li>
-    </ul>
+    <section class="mb-12">
+      <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-4">
+        <div>
+          <p class="pt-tag pt-tag-id mb-3">Online reading</p>
+          <h2 class="text-3xl font-bold text-thmblue">PDF preview</h2>
+        </div>
+        <p class="text-sm text-stone-600 max-w-xl">
+          The PDF loads from GitHub (~40 MB). If the preview is slow, use the
+          download buttons.
+        </p>
+      </div>
+      <div class="border border-stone-300 rounded-lg overflow-hidden bg-stone-100" style="height: 80vh;">
+        <iframe
+          src={MONOGRAPH_PDF_EN}
+          title="The Theory of Persistence — English edition"
+          class="w-full h-full"
+          loading="lazy"
+        ></iframe>
+      </div>
+    </section>
+
+    <section class="rounded-lg border border-amber-200 bg-amber-50 p-5 text-slate-800 mb-10">
+      <h2 class="font-sans text-xl font-bold text-thmblue mb-2">Editorial status</h2>
+      <p class="leading-relaxed">
+        Preprint, not peer-reviewed. The LaTeX sources and companion scripts
+        are public so the chain can be read, reproduced, and criticised
+        independently.
+      </p>
+    </section>
 
     <Citation lang="en" />
-  </section>
+  </main>
 </BaseLayout>

@@ -230,6 +230,7 @@ export const mathPages: MathPage[] = [
       description: 'Pourquoi les premiers apparaissent comme canaux irréductibles de persistance.',
       status: 'theorem',
       l1: [
+        'En PT, un premier est un point discret de résonance du crible : il indexe un mode de persistance. La phase cyclique associée à ce premier donne une amplitude, et cette amplitude détermine son statut : actif, frontière, écho ou super-écho.',
         'Les nombres premiers sont les briques multiplicatives des entiers. En PT, ce n’est pas seulement une propriété arithmétique : c’est une propriété de canal.',
         'Un nombre composé mélange plusieurs contraintes. Un premier porte une contrainte irréductible : il ouvre un cycle propre que rien de plus petit ne peut factoriser.',
       ],
@@ -246,6 +247,7 @@ export const mathPages: MathPage[] = [
         String.raw`p\ \text{premier}\Rightarrow \mathbb{Z}/p\mathbb{Z}\ \text{canal irréductible}`,
       ],
       takeaways: [
+        'Un premier indexe un mode discret de persistance.',
         'Un premier ajoute une contrainte indépendante.',
         'Un composé hérite de contraintes déjà présentes.',
         'La PT transforme les premiers en canaux de persistance.',
@@ -259,6 +261,7 @@ export const mathPages: MathPage[] = [
       description: 'Why primes appear as irreducible channels of persistence.',
       status: 'theorem',
       l1: [
+        'In PT, a prime is a discrete resonance point of the sieve: it indexes a persistence mode. The cyclic phase associated with that prime gives an amplitude, and that amplitude determines its status: active, boundary, echo, or super-echo.',
         'Prime numbers are the multiplicative building blocks of the integers. In PT, this is not only arithmetic: it is a channel property.',
         'A composite number mixes several constraints. A prime carries an irreducible constraint: it opens its own cycle, which nothing smaller can factor.',
       ],
@@ -275,6 +278,7 @@ export const mathPages: MathPage[] = [
         String.raw`p\ \text{prime}\Rightarrow \mathbb{Z}/p\mathbb{Z}\ \text{irreducible channel}`,
       ],
       takeaways: [
+        'A prime indexes a discrete persistence mode.',
         'A prime adds an independent constraint.',
         'A composite inherits constraints already present.',
         'PT turns primes into persistence channels.',

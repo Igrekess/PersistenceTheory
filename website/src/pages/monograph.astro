@@ -2,61 +2,125 @@
 import BaseLayout from '@layouts/BaseLayout.astro';
 import Citation from '@components/Citation.astro';
 import { REPO_URL, MONOGRAPH_PDF_EN, MONOGRAPH_PDF_FR } from '@/lib/repo';
+
+const editions = [
+  ['Édition française', '913 pages', 'PDF complet, version de référence française', MONOGRAPH_PDF_FR, 'Télécharger FR'],
+  ['English edition', '883 pages', 'Full PDF, English reference edition', MONOGRAPH_PDF_EN, 'Télécharger EN'],
+];
+
+const checkpoints = [
+  ['Statut', 'Préimpression', 'Texte ouvert à la critique, non révisé par les pairs.'],
+  ['Parité FR/EN', 'drift = 0', 'Contrôle annoncé sur environ 4 400 labels.'],
+  ['Scripts', '45 entrées', 'Registre canonique des scripts compagnons.'],
+  ['Contrôles', '2 522 / 2 523', 'Un échec connu conservé comme point d’audit.'],
+];
+
+const routes = [
+  ['Lire vite', 'Commencer par le README du site, puis “L’idée en 5 minutes” et “Commencer ici”.', '/commencer-ici'],
+  ['Lire la chaîne', 'Suivre GFT, T0–T6, L0, puis la fermeture attractive μ* = 15.', '/theorems'],
+  ['Vérifier', 'Ouvrir les scripts, les statuts et le dashboard des résultats avant les chapitres spécialisés.', '/scripts'],
+];
 ---
 
 <BaseLayout title="Monographie">
-  <section class="max-w-5xl mx-auto px-4 py-12">
-    <h1 class="text-3xl md:text-4xl font-bold text-thmblue mb-4">Monographie</h1>
-    <p class="text-stone-700 mb-6">
-      <em>The Theory of Persistence — From the Sieve to the Standard Model</em>,
-      yan senez, 2026. Édition anglaise : 883 pages ; édition française :
-      913 pages, environ 40 Mo chacune.
-    </p>
+  <main class="max-w-6xl mx-auto px-4 py-10 md:py-14">
+    <section class="grid lg:grid-cols-[1.05fr_0.95fr] gap-8 items-stretch mb-12">
+      <div class="rounded-lg border border-slate-200 bg-white p-6 md:p-8 shadow-sm">
+        <p class="pt-tag pt-tag-thm mb-5">Document source</p>
+        <h1 class="text-4xl md:text-5xl font-bold text-thmblue leading-tight mb-4">
+          Monographie
+        </h1>
+        <p class="text-xl md:text-2xl font-sans font-semibold text-derorange leading-snug mb-5">
+          The Theory of Persistence — From the Sieve to the Standard Model
+        </p>
+        <p class="text-lg text-stone-800 leading-relaxed mb-6">
+          La monographie rassemble la chaîne complète : principe GFT,
+          dynamique du crible, fermeture attractive μ* = 15, ponts vers la
+          physique, dérivations numériques, extensions chimiques et cosmologiques,
+          puis registre de vérification.
+        </p>
+        <div class="flex flex-wrap gap-3">
+          <a href={MONOGRAPH_PDF_FR} class="px-5 py-3 bg-thmblue text-white font-sans font-semibold rounded hover:bg-thmblue/90">
+            Télécharger l’édition française
+          </a>
+          <a href={MONOGRAPH_PDF_EN} class="px-5 py-3 bg-white border border-thmblue text-thmblue font-sans font-semibold rounded hover:bg-thmblue/5">
+            Télécharger l’édition anglaise
+          </a>
+          <a href={REPO_URL} class="px-5 py-3 bg-stone-50 border border-stone-300 text-stone-800 font-sans font-semibold rounded hover:bg-stone-100">
+            Repo GitHub
+          </a>
+        </div>
+      </div>
 
-    <div class="flex flex-wrap gap-3 mb-8">
-      <a
-        href={MONOGRAPH_PDF_EN}
-        class="px-5 py-3 bg-thmblue text-white font-sans font-semibold rounded hover:bg-thmblue/90"
-      >
-        Télécharger l’édition anglaise
-      </a>
-      <a
-        href={MONOGRAPH_PDF_FR}
-        class="px-5 py-3 bg-thmblue text-white font-sans font-semibold rounded hover:bg-thmblue/90"
-      >
-        Télécharger l’édition française
-      </a>
-      <a
-        href={REPO_URL}
-        class="px-5 py-3 bg-white border border-stone-300 text-stone-800 font-sans font-semibold rounded hover:bg-stone-50"
-      >
-        Repo GitHub
-      </a>
-    </div>
+      <aside class="rounded-lg border border-slate-200 bg-slate-950 text-white p-6 md:p-8 shadow-sm">
+        <p class="text-xs font-sans uppercase tracking-[0.18em] text-amber-300 mb-5">
+          Audit éditorial
+        </p>
+        <div class="grid grid-cols-2 gap-3">
+          {checkpoints.map(([label, value, text]) => (
+            <div class="rounded-lg border border-white/10 bg-white/10 p-4">
+              <span class="text-xs text-slate-300">{label}</span>
+              <strong class="block text-2xl font-sans text-amber-200 mt-1">{value}</strong>
+              <p class="text-xs text-slate-300 leading-snug mt-2">{text}</p>
+            </div>
+          ))}
+        </div>
+      </aside>
+    </section>
 
-    <h2 class="text-xl font-semibold text-thmblue mt-8 mb-3 font-sans">Lecture en ligne</h2>
-    <p class="text-stone-700 mb-3 text-sm">
-      Le PDF se charge ci-dessous depuis GitHub (~40 Mo).
-      Si la prévisualisation est lente, télécharge plutôt le fichier.
-    </p>
+    <section class="grid md:grid-cols-3 gap-4 mb-12">
+      {routes.map(([title, text, href]) => (
+        <a href={href} class="pt-card block group">
+          <span class="pt-tag pt-tag-bridge">Route</span>
+          <h2 class="font-sans font-semibold text-thmblue text-xl mt-3 mb-2 group-hover:underline">{title}</h2>
+          <p class="text-sm text-stone-700 leading-relaxed">{text}</p>
+        </a>
+      ))}
+    </section>
 
-    <div class="border border-stone-300 rounded overflow-hidden bg-stone-100" style="height: 80vh;">
-      <iframe
-        src={MONOGRAPH_PDF_FR}
-        title="La Théorie de la Persistance — édition française"
-        class="w-full h-full"
-        loading="lazy"
-      ></iframe>
-    </div>
+    <section class="grid md:grid-cols-2 gap-4 mb-12">
+      {editions.map(([title, pages, text, href, cta]) => (
+        <article class="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
+          <p class="pt-tag pt-tag-val mb-3">{pages}</p>
+          <h2 class="font-sans text-2xl font-bold text-thmblue mb-2">{title}</h2>
+          <p class="text-slate-700 mb-4">{text}</p>
+          <a href={href} class="inline-flex px-4 py-2 rounded bg-thmblue text-white font-sans font-semibold hover:bg-thmblue/90">
+            {cta}
+          </a>
+        </article>
+      ))}
+    </section>
 
-    <h2 class="text-xl font-semibold text-thmblue mt-12 mb-3 font-sans">Statut éditorial</h2>
-    <ul class="list-disc list-inside text-stone-700 space-y-1 marker:text-thmblue">
-      <li>Préimpression — non révisée par les pairs</li>
-      <li>Édition française et anglaise à parité (drift FR/EN = 0 sur ~4 400 labels)</li>
-      <li>Registre canonique : 45 entrées de scripts Python compagnons, 2 522/2 523 contrôles passants, 1 échec connu</li>
-      <li>Sources LaTeX disponibles publiquement (repo monographie)</li>
-    </ul>
+    <section class="mb-12">
+      <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-4">
+        <div>
+          <p class="pt-tag pt-tag-id mb-3">Lecture en ligne</p>
+          <h2 class="text-3xl font-bold text-thmblue">Prévisualisation PDF</h2>
+        </div>
+        <p class="text-sm text-stone-600 max-w-xl">
+          Le PDF se charge depuis GitHub (~40 Mo). Si la prévisualisation est
+          lente, utilise les boutons de téléchargement.
+        </p>
+      </div>
+      <div class="border border-stone-300 rounded-lg overflow-hidden bg-stone-100" style="height: 80vh;">
+        <iframe
+          src={MONOGRAPH_PDF_FR}
+          title="La Théorie de la Persistance — édition française"
+          class="w-full h-full"
+          loading="lazy"
+        ></iframe>
+      </div>
+    </section>
+
+    <section class="rounded-lg border border-amber-200 bg-amber-50 p-5 text-slate-800 mb-10">
+      <h2 class="font-sans text-xl font-bold text-thmblue mb-2">Statut éditorial</h2>
+      <p class="leading-relaxed">
+        Préimpression non révisée par les pairs. Les sources LaTeX et scripts
+        compagnons sont publics afin que la chaîne puisse être relue,
+        reproduite et critiquée indépendamment.
+      </p>
+    </section>
 
     <Citation lang="fr" />
-  </section>
+  </main>
 </BaseLayout>

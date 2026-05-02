@@ -14,7 +14,7 @@ const nodes = [
   { id: 'T3', label: 'T3', sub: 'transfert antidiagonal', x: 950, y: 90, kind: 'thm', href: `${tBase}/T3`, tooltip: 'Le noyau mod 3 devient purement antidiagonal après T1.' },
   { id: 'T4', label: 'T4', sub: 'convergence αₖ → ½', x: 220, y: 220, kind: 'thm', href: `${tBase}/T4`, tooltip: 'Mertens + Gordin + CRT : le crible finit le travail.' },
   { id: 'T6', label: 'T6', sub: 'holonomie sin²θ_p', x: 360, y: 220, kind: 'thm', href: `${tBase}/T6`, tooltip: 'sin²θ_p = δ_p(2 − δ_p). La trigonométrie émerge.' },
-  { id: 'T5', label: 'T5', sub: 'μ* = 3 + 5 + 7 = 15', x: 540, y: 220, kind: 'thm', href: `${tBase}/T5`, tooltip: 'L\'unique point fixe stable du crible.' },
+  { id: 'T5', label: 'T5', sub: 'μ* = 3 + 5 + 7 = 15', x: 540, y: 220, kind: 'thm', href: `${tBase}/T5`, tooltip: 'Le point fixe arithmétique attractif du secteur réduit.' },
   { id: 'BIF', label: 'Bifurcation', sub: 'q⁺ / q⁻', x: 760, y: 220, kind: 'bridge', href: null, tooltip: 'Engendrée par p=2, puis figée à μ* = 15 : q⁺ = 1 − 2/μ ; q⁻ = e^(−1/μ).' },
   { id: 'qplus', label: 'q⁺', sub: 'couplages, leptons, α_EM', x: 600, y: 360, kind: 'der', href: '/observables', tooltip: 'Vertex, α_EM = 1/137, masses leptons, PMNS.' },
   { id: 'qminus', label: 'q⁻', sub: 'géométrie, quarks, CKM', x: 920, y: 360, kind: 'der', href: '/observables', tooltip: 'Propagateur, métrique, masses quarks, CKM.' },
@@ -104,7 +104,7 @@ const W = 1080, H = 540;
           de gaps et T1 impose la diagonale nulle. Le canal <span class="font-mono">p = 2</span>
           porte la dynamique spin/parité, dont <span class="font-mono">s = 1/2</span>
           est l’invariant moyen. T2 et GFT expriment la conservation, T6 fait
-          émerger la trigonométrie, puis T5 ferme le point fixe.
+          émerger la trigonométrie, puis T5 ferme le point fixe attractif.
         </p>
       </div>
       <div class="pt-card">

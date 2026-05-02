@@ -1,8 +1,8 @@
 ---
 id: T5
-name: 'T5 — Point fixe unique μ* = 15'
-short: 'Le crible admet un unique point fixe stable à $\mu^* = 3+5+7 = 15$.'
-statement: 'L’auto-cohérence $\mu^* = \sum_{p : \gamma_p(\mu^*) > 1/2} p$ admet une unique solution stable, $\mu^* = 15$, avec ensemble actif $\{3, 5, 7\}$. Vérifié par scan exhaustif sur $\mu \in [3, 100]$.'
+name: 'T5 — Point fixe attractif unique μ* = 15'
+short: 'Le crible admet un unique point fixe stable et attractif à $\mu^* = 3+5+7 = 15$.'
+statement: 'L’auto-cohérence $\mu^* = \sum_{p : \gamma_p(\mu^*) > 1/2} p$ admet une unique solution stable et attractive, $\mu^* = 15$, avec ensemble actif $\{3, 5, 7\}$. Vérifié par scan exhaustif sur $\mu \in [3, 100]$.'
 status: THM
 monograph_chapter: chap:fixed_point
 order: 7
@@ -37,7 +37,9 @@ des premiers actifs à $\mu$ ». Combien y a-t-il de solutions ? T5 dit : exacte
 une. C’est $\mu = 15$ avec les premiers actifs $\{3, 5, 7\}$. Aucun autre choix de
 premiers ne ferme l’équation. Cette unicité est ce qui fait dire à la PT « zéro
 paramètre libre » : si plusieurs solutions existaient, il faudrait choisir, et ce
-choix serait un paramètre.
+choix serait un paramètre. La nuance importante est que ce point fixe n’est
+pas seulement une égalité statique : sa stabilité en fait l’attracteur du
+secteur réduit.
 </div>
 
 ## Pourquoi ça compte
@@ -128,7 +130,7 @@ Résultats du scan exhaustif (cf. proof_T5_fixed_point.py, 33 PASS) :
 Aucun autre sous-ensemble ne ferme l’équation dans le secteur informationnel
 (sans $p = 2$). $\mu^* = 15$ est unique pour le secteur info.
 
-#### Étape 5 — Stabilité linéaire
+#### Étape 5 — Stabilité linéaire et bassin attractif
 
 La stabilité du point fixe se vérifie par calcul de la matrice jacobienne :
 
@@ -137,11 +139,13 @@ J_{ij} = \frac{\partial \gamma_{p_j}}{\partial \mu_i} \bigg|_{\mu = \mu^*}.
 $$
 
 Le rayon spectral $|\lambda_\max(J)| < 1$ confirme que $\mu^* = 15$ est un
-attracteur (cf. ch. 8, théorème de stabilité).
+attracteur (cf. ch. 8, théorème de stabilité). Dans la lecture réduite,
+le bassin pertinent est $\mu_0 \in [12,17]$ : $17$ glisse vers $15$ après
+cristallisation de $p=2$, tandis que $18$ déclenche la cascade divergente.
 
 #### J1–J6 : six justifications indépendantes
 
-La monographie liste six justifications indépendantes du point fixe $\mu^* = 15$ :
+La monographie liste six justifications indépendantes du point fixe attractif $\mu^* = 15$ :
 1. Scan exhaustif (étape 4).
 2. Stabilité linéaire (étape 5).
 3. $N_c = 3$ : seule solution de $(N_c + 1)! / (N_c + 3) = 2^{N_s - 1}$ avec $N_s = 3$.

@@ -2,14 +2,27 @@
 import BaseLayout from '@layouts/BaseLayout.astro';
 
 const cards = [
-  ['Mathematics', 'GFT + T0–T6 + L0', 'Fundamental principle, arithmetic chain, closure at mu* = 15.', '/en/theorems'],
-  ['Physics', '43 observables', 'Announced mean error 0.30%, median 0.06%, under explicit bridges.', '/en/observables'],
-  ['Chemistry', 'Periodic table', 's/p/d/f blocks and periods 2, 8, 8, 18, 18, 32, 32.', '/en/tableau-periodique'],
-  ['Chemistry', 'IE', 'Ionization energies: peaks, closures, residuals, and CPR correction.', '/en/energies-ionisation'],
-  ['Chemistry', 'EA', 'Electron affinities: boundary capture, vacancy, halogen/metal cases.', '/en/affinites-electroniques'],
-  ['Cosmology', 'Dark sector', 'Visible, dark energy, and informational matter reading.', '/en/cosmologie'],
-  ['QG', 'Fisher → GR → Kerr', 'Geometric chain, covariant amplitude, QNM, and observational limits.', '/en/gravite-quantique'],
-  ['Falsifiability', 'Predictions', 'Experimental windows and breaking points.', '/en/predictions'],
+  ['Mathematics', 'GFT + T0–T6 + L0', 'Fundamental principle, arithmetic chain, attractive closure at μ* = 15.', '/en/theorems', 'pt-tag-thm'],
+  ['Physics', '43 observables', 'Announced mean error 0.30%, median 0.06%, under explicit bridges.', '/en/observables', 'pt-tag-der'],
+  ['Chemistry', 'Periodic table', 's/p/d/f blocks and periods 2, 8, 8, 18, 18, 32, 32.', '/en/tableau-periodique', 'pt-tag-id'],
+  ['Chemistry', 'IE', 'Ionization energies: peaks, closures, residuals, and CPR correction.', '/en/energies-ionisation', 'pt-tag-val'],
+  ['Chemistry', 'EA', 'Electron affinities: boundary capture, vacancy, halogen/metal cases.', '/en/affinites-electroniques', 'pt-tag-val'],
+  ['Cosmology', 'Dark sector', 'Visible, dark energy, and informational matter reading.', '/en/cosmologie', 'pt-tag-bridge'],
+  ['QG', 'Fisher → GR → Kerr', 'Geometric chain, covariant amplitude, QNM, and observational limits.', '/en/gravite-quantique', 'pt-tag-bridge'],
+  ['Falsifiability', 'Predictions', 'Experimental windows and breaking points.', '/en/predictions', 'pt-tag-cond'],
+];
+
+const metrics = [
+  ['43', 'Standard Model observables'],
+  ['0.30%', 'reported mean deviation'],
+  ['0.06%', 'reported median deviation'],
+  ['0', 'continuously fitted parameters'],
+];
+
+const lenses = [
+  ['The hard core', 'GFT and the T0–T6/L0 chain form the skeleton. Without that skeleton, physical and chemical results lose their PT-derivation status.', '/en/theorems'],
+  ['The robust showcase', 'Chemistry gives the best first contact: it connects channel geometry, periods, IE, and EA in an inspectable language.', '/en/tableau-periodique'],
+  ['Open edges', 'QG, cosmology, and predictions must stay clear about what is derived, validated, expected, or still to be calibrated.', '/en/limites'],
 ];
 ---
 
@@ -17,46 +30,67 @@ const cards = [
   title="Results dashboard"
   description="Synthetic view of major PT results, validations, and proof pages."
 >
-  <section class="max-w-6xl mx-auto px-4 py-12">
-    <p class="pt-tag pt-tag-val mb-4">Synthesis</p>
-    <h1 class="text-4xl md:text-5xl font-bold text-thmblue mb-5">Results dashboard</h1>
-    <p class="text-lg text-slate-700 leading-relaxed max-w-3xl mb-10">
-      This page is a quick map: where the results are, what they mean, and how
-      to check them inside the site.
-    </p>
+  <main class="max-w-6xl mx-auto px-4 py-10 md:py-14">
+    <section class="grid lg:grid-cols-[1.05fr_0.95fr] gap-8 items-stretch mb-12">
+      <div class="rounded-lg border border-slate-200 bg-white p-6 md:p-8 shadow-sm">
+        <p class="pt-tag pt-tag-val mb-5">Synthesis</p>
+        <h1 class="text-4xl md:text-5xl font-bold text-thmblue leading-tight mb-5">
+          Results dashboard
+        </h1>
+        <p class="text-lg text-slate-700 leading-relaxed mb-4">
+          This page is a quick map: where the results are, what they mean, and
+          how to check them inside the site.
+        </p>
+        <p class="text-slate-700 leading-relaxed">
+          It does not replace statuses: a result can be proof-based, derived
+          under a bridge, numerically validated, or predictive. The dashboard
+          shows the verification route.
+        </p>
+      </div>
 
-    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4 mb-12">
-      {cards.map(([domain, title, body, href]) => (
-        <a href={href} class="pt-card block group">
-          <span class="pt-tag pt-tag-der">{domain}</span>
-          <h2 class="font-sans font-semibold text-thmblue text-xl mt-3 mb-2 group-hover:underline">{title}</h2>
-          <p class="text-sm text-slate-700">{body}</p>
+      <aside class="rounded-lg border border-slate-200 bg-slate-950 text-white p-6 md:p-8 shadow-sm">
+        <p class="text-xs font-sans uppercase tracking-[0.18em] text-amber-300 mb-5">
+          Reported landmarks
+        </p>
+        <div class="grid grid-cols-2 gap-3">
+          {metrics.map(([value, label]) => (
+            <div class="rounded-lg border border-white/10 bg-white/10 p-4">
+              <strong class="block text-3xl font-sans text-amber-200">{value}</strong>
+              <span class="text-xs text-slate-300 leading-snug">{label}</span>
+            </div>
+          ))}
+        </div>
+      </aside>
+    </section>
+
+    <section class="grid md:grid-cols-3 gap-5 mb-12">
+      {lenses.map(([title, text, href]) => (
+        <a href={href} class="rounded-lg border border-slate-200 bg-white p-5 shadow-sm hover:border-thmblue/40 hover:shadow-md transition group">
+          <h2 class="text-xl font-bold text-thmblue mb-3 group-hover:underline">{title}</h2>
+          <p class="text-slate-700 leading-relaxed text-sm">{text}</p>
         </a>
       ))}
-    </div>
+    </section>
 
-    <section class="grid lg:grid-cols-3 gap-5">
-      <div class="bg-white border border-slate-200 rounded-lg p-5">
-        <h2 class="text-xl font-bold text-thmblue mb-3">The hard core</h2>
-        <p class="text-slate-700">
-          GFT and the T0–T6/L0 chain form the skeleton. Without that skeleton,
-          the physical and chemical results lose their PT-derivation status.
-        </p>
+    <section>
+      <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-6">
+        <div>
+          <p class="pt-tag pt-tag-der mb-3">Domain map</p>
+          <h2 class="text-3xl font-bold text-thmblue">Where to verify each family</h2>
+        </div>
+        <a href="/en/statuts-resultats" class="text-sm font-sans font-semibold text-thmblue hover:underline">
+          View epistemic statuses
+        </a>
       </div>
-      <div class="bg-white border border-slate-200 rounded-lg p-5">
-        <h2 class="text-xl font-bold text-thmblue mb-3">The robust showcase</h2>
-        <p class="text-slate-700">
-          Chemistry gives the best first contact: it connects channel geometry,
-          periods, IE, and EA in a language scientists can inspect.
-        </p>
-      </div>
-      <div class="bg-white border border-slate-200 rounded-lg p-5">
-        <h2 class="text-xl font-bold text-thmblue mb-3">Open edges</h2>
-        <p class="text-slate-700">
-          QG, cosmology, and predictions must stay very clear about what is
-          derived, validated, expected, or still to be calibrated.
-        </p>
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+        {cards.map(([domain, title, body, href, tagClass]) => (
+          <a href={href} class="pt-card block group">
+            <span class:list={['pt-tag', tagClass]}>{domain}</span>
+            <h2 class="font-sans font-semibold text-thmblue text-xl mt-3 mb-2 group-hover:underline">{title}</h2>
+            <p class="text-sm text-slate-700 leading-relaxed">{body}</p>
+          </a>
+        ))}
       </div>
     </section>
-  </section>
+  </main>
 </BaseLayout>

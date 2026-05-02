@@ -13,7 +13,7 @@ const nodes = [
   { id: 'T3', label: 'T3', sub: 'antidiagonal transfer', x: 950, y: 90, kind: 'thm', href: `${tBase}/T3`, tooltip: 'The mod-3 kernel becomes purely antidiagonal after T1.' },
   { id: 'T4', label: 'T4', sub: 'convergence αₖ → ½', x: 220, y: 220, kind: 'thm', href: `${tBase}/T4`, tooltip: 'Mertens + Gordin + CRT: the sieve finishes the job.' },
   { id: 'T6', label: 'T6', sub: 'holonomy sin²θ_p', x: 360, y: 220, kind: 'thm', href: `${tBase}/T6`, tooltip: 'sin²θ_p = δ_p(2 − δ_p). Trigonometry emerges.' },
-  { id: 'T5', label: 'T5', sub: 'μ* = 3 + 5 + 7 = 15', x: 540, y: 220, kind: 'thm', href: `${tBase}/T5`, tooltip: 'The unique stable fixed point of the sieve.' },
+  { id: 'T5', label: 'T5', sub: 'μ* = 3 + 5 + 7 = 15', x: 540, y: 220, kind: 'thm', href: `${tBase}/T5`, tooltip: 'The attractive arithmetic fixed point of the reduced sector.' },
   { id: 'BIF', label: 'Bifurcation', sub: 'q⁺ / q⁻', x: 760, y: 220, kind: 'bridge', href: null, tooltip: 'Seeded by p=2, then frozen at μ* = 15: q⁺ = 1 − 2/μ; q⁻ = e^(−1/μ).' },
   { id: 'qplus', label: 'q⁺', sub: 'couplings, leptons, α_EM', x: 600, y: 360, kind: 'der', href: '/en/observables', tooltip: 'Vertex, α_EM = 1/137, lepton masses, PMNS.' },
   { id: 'qminus', label: 'q⁻', sub: 'geometry, quarks, CKM', x: 920, y: 360, kind: 'der', href: '/en/observables', tooltip: 'Propagator, metric, quark masses, CKM.' },
@@ -102,7 +102,7 @@ const W = 1080, H = 540;
           the gap law and T1 imposes the zero diagonal. The <span class="font-mono">p = 2</span>
           channel carries the spin/parity dynamics, whose average invariant is
           <span class="font-mono">s = 1/2</span>. T2 and GFT express conservation,
-          T6 makes trigonometry emerge, and T5 closes the fixed point.
+          T6 makes trigonometry emerge, and T5 closes the attractive fixed point.
         </p>
       </div>
       <div class="pt-card">
