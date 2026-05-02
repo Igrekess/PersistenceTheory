@@ -30,6 +30,32 @@ const principles = [
     body: '$H(P)$ measures what remains dispersed, uncrystallized, not selected as persistent structure.',
   },
 ];
+
+const beginnerConcepts = [
+  {
+    title: 'A constraint',
+    body: 'A constraint is a rule that prevents everything from happening. In a sieve, some numbers disappear; in a physical system, some configurations become impossible.',
+  },
+  {
+    title: 'What persists',
+    body: 'What persists is not what merely stays motionless. It is what passes through a constraint without losing its structural identity.',
+  },
+  {
+    title: 'What disperses',
+    body: 'Everything that is not stabilized remains as uncertainty, open choice, or noise. PT calls this the residual entropy.',
+  },
+  {
+    title: 'The total budget',
+    body: 'The key point is that structure and dispersion do not add freely. They share one same budget of distinction.',
+  },
+];
+
+const plainFlow = [
+  { label: 'possibilities', value: 'what could happen' },
+  { label: 'constraint', value: 'what sorts' },
+  { label: 'persistence', value: 'what keeps a form' },
+  { label: 'entropy', value: 'what remains open' },
+];
 ---
 
 <BaseLayout
@@ -45,10 +71,10 @@ const principles = [
         The fundamental principle of persistence
       </h1>
       <p class="text-lg text-slate-700 leading-relaxed max-w-3xl" data-max-depth="L1">
-        PT starts from an almost childlike idea: when a system has a fixed
-        number of possibilities, its budget of distinctions is fixed. Part of
-        that budget may become structure, another part may remain uncertainty,
-        but the total does not disappear.
+        PT starts from a simple idea: when a constraint acts, not everything
+        disappears. One part becomes structure; another part remains dispersed.
+        The first principle says that these two parts are not independent:
+        they share one same total amount of distinction.
       </p>
       <p class="text-lg text-slate-700 leading-relaxed max-w-3xl" data-min-depth="L2">
         GFT is the identity that formalizes this budget. For any distribution
@@ -56,8 +82,42 @@ const principles = [
         {String.raw`$\log_2 m$`} decomposes exactly into persistent information
         and residual entropy.
       </p>
-      <div class="mt-7 max-w-3xl bg-slate-50 border border-slate-200 rounded-lg px-4 py-4 font-mono text-slate-900 overflow-x-auto">
+      <div data-min-depth="L2" class="mt-7 max-w-3xl bg-slate-50 border border-slate-200 rounded-lg px-4 py-4 font-mono text-slate-900 overflow-x-auto">
         {`$${mainFormula}$`}
+      </div>
+    </div>
+  </section>
+
+  <section data-max-depth="L1" class="max-w-6xl mx-auto px-4 py-12">
+    <div class="grid lg:grid-cols-[0.72fr_1.28fr] gap-8 items-start">
+      <div>
+        <p class="font-sans text-sm font-semibold uppercase tracking-wider text-derorange mb-3">
+          Plain language
+        </p>
+        <h2 class="text-3xl font-bold text-thmblue mb-4">
+          Before the formula
+        </h2>
+        <p class="text-slate-700 leading-relaxed">
+          Imagine a sorting process. At first, many things are possible. Then a
+          rule acts: it removes, separates, or orients. At the end, there are
+          two things to read: what has taken a stable form, and what remains
+          still open.
+        </p>
+        <p class="mt-4 text-slate-700 leading-relaxed">
+          For PT, this is persistence. It does not mean “staying the same
+          without moving.” It means surviving an admissible constraint while
+          keeping a readable identity. The technical formula comes later; it
+          counts this distribution.
+        </p>
+      </div>
+
+      <div class="grid sm:grid-cols-2 gap-4">
+        {beginnerConcepts.map((item) => (
+          <article class="pt-card">
+            <h3 class="font-sans text-lg font-bold text-thmblue mb-2">{item.title}</h3>
+            <p class="text-slate-700 leading-relaxed">{item.body}</p>
+          </article>
+        ))}
       </div>
     </div>
   </section>
@@ -69,6 +129,25 @@ const principles = [
         <h2 class="text-3xl font-bold text-thmblue mt-4 mb-4">
           One budget, two ways to occupy it
         </h2>
+        <div data-max-depth="L1">
+          <p class="text-slate-700 leading-relaxed mb-4">
+            The word “information” can sound intimidating, but here it first
+            means: how many differences do you need to recognize a situation?
+            If everything looks the same, there is little to distinguish. If a
+            form appears, something becomes recognizable.
+          </p>
+          <p class="text-slate-700 leading-relaxed mb-4">
+            The first principle says that this recognizability has a cost. The
+            sharper a structure becomes, the less blur remains available inside
+            the same system. If the structure dissolves, the blur rises again.
+          </p>
+          <p class="text-slate-700 leading-relaxed">
+            This is the thread linking the other pages: in cosmogony, the
+            cascade sorts thresholds; in the periodic table, shells and blocks
+            are stabilized forms; here, we explain the common accounting rule.
+          </p>
+        </div>
+        <div data-min-depth="L2">
         <p class="text-slate-700 leading-relaxed mb-4">
           Picture a game with several possible squares. The more squares there
           are, the more distinctions you need to say exactly where you are.
@@ -90,9 +169,23 @@ const principles = [
           structure gains one bit, available entropy loses one bit, and
           conversely. PT places that conservation at the center of the theory.
         </p>
+        </div>
       </div>
 
-      <div class="bg-white border border-slate-200 rounded-lg p-5">
+      <div data-max-depth="L1" class="bg-white border border-slate-200 rounded-lg p-5">
+        <h3 class="font-sans font-semibold text-thmblue mb-4">Read it in four gestures</h3>
+        <div class="grid sm:grid-cols-4 lg:grid-cols-2 gap-3">
+          {plainFlow.map((step, index) => (
+            <div class="rounded-lg border border-slate-200 bg-slate-50 p-4">
+              <span class="font-sans text-xs font-bold uppercase tracking-wider text-derorange">0{index + 1}</span>
+              <h4 class="font-sans font-bold text-slate-900 mt-2">{step.label}</h4>
+              <p class="text-sm text-slate-700 mt-1">{step.value}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div data-min-depth="L2" class="bg-white border border-slate-200 rounded-lg p-5">
         <h3 class="font-sans font-semibold text-thmblue mb-3">Information budget of the sieve</h3>
         <div class="mb-2 flex justify-end gap-4 text-sm font-sans text-slate-800">
           <span class="flex items-center gap-2"><span class="w-4 h-4 rounded bg-thmblue inline-block"></span>persistence</span>

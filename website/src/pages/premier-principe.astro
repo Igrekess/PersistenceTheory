@@ -30,6 +30,32 @@ const principles = [
     body: '$H(P)$ mesure ce qui reste dispersé, non cristallisé, non sélectionné comme structure persistante.',
   },
 ];
+
+const beginnerConcepts = [
+  {
+    title: 'Une contrainte',
+    body: 'Une contrainte est une règle qui empêche tout d’arriver. Dans un crible, certains nombres disparaissent ; dans un système physique, certaines configurations deviennent impossibles.',
+  },
+  {
+    title: 'Ce qui persiste',
+    body: 'Ce qui persiste n’est pas ce qui reste immobile. C’est ce qui traverse la contrainte sans perdre son identité structurale.',
+  },
+  {
+    title: 'Ce qui se disperse',
+    body: 'Tout ce qui n’est pas stabilisé reste sous forme d’incertitude, de choix ouverts ou de bruit. La PT appelle cette part l’entropie résiduelle.',
+  },
+  {
+    title: 'Le budget total',
+    body: 'Le point clé est que structure et dispersion ne s’ajoutent pas librement. Elles se partagent un même budget de distinction.',
+  },
+];
+
+const plainFlow = [
+  { label: 'possibilités', value: 'ce qui pourrait arriver' },
+  { label: 'contrainte', value: 'ce qui trie' },
+  { label: 'persistance', value: 'ce qui garde une forme' },
+  { label: 'entropie', value: 'ce qui reste ouvert' },
+];
 ---
 
 <BaseLayout
@@ -45,10 +71,10 @@ const principles = [
         Le principe fondamental de la persistance
       </h1>
       <p class="text-lg text-slate-700 leading-relaxed max-w-3xl" data-max-depth="L1">
-        La PT part d’une idée presque enfantine : lorsqu’un système possède un
-        nombre fixé de possibilités, son budget de distinctions est fixé. Une
-        partie de ce budget peut devenir structure, une autre peut rester
-        incertitude, mais le total ne disparaît pas.
+        La PT part d’une idée simple : quand une contrainte agit, tout ne
+        disparaît pas. Une part devient structure, une autre reste dispersée.
+        Le premier principe dit que ces deux parts ne sont pas indépendantes :
+        elles se partagent une même quantité totale de distinction.
       </p>
       <p class="text-lg text-slate-700 leading-relaxed max-w-3xl" data-min-depth="L2">
         GFT est l’identité qui formalise ce budget. Pour toute distribution
@@ -56,8 +82,42 @@ const principles = [
         {String.raw`$\log_2 m$`} se décompose exactement en information
         persistante et entropie résiduelle.
       </p>
-      <div class="mt-7 max-w-3xl bg-slate-50 border border-slate-200 rounded-lg px-4 py-4 font-mono text-slate-900 overflow-x-auto">
+      <div data-min-depth="L2" class="mt-7 max-w-3xl bg-slate-50 border border-slate-200 rounded-lg px-4 py-4 font-mono text-slate-900 overflow-x-auto">
         {`$${mainFormula}$`}
+      </div>
+    </div>
+  </section>
+
+  <section data-max-depth="L1" class="max-w-6xl mx-auto px-4 py-12">
+    <div class="grid lg:grid-cols-[0.72fr_1.28fr] gap-8 items-start">
+      <div>
+        <p class="font-sans text-sm font-semibold uppercase tracking-wider text-derorange mb-3">
+          Vulgarisé
+        </p>
+        <h2 class="text-3xl font-bold text-thmblue mb-4">
+          Avant la formule
+        </h2>
+        <p class="text-slate-700 leading-relaxed">
+          Imagine un tri. Au départ, beaucoup de choses sont possibles. Puis
+          une règle agit : elle élimine, sépare, oriente. À la fin, il reste
+          deux choses à lire : ce qui a pris une forme stable, et ce qui reste
+          encore ouvert.
+        </p>
+        <p class="mt-4 text-slate-700 leading-relaxed">
+          Pour la PT, c’est cela la persistance. Ce n’est pas “rester pareil
+          sans bouger”. C’est survivre à une contrainte admissible en gardant
+          une identité lisible. La formule technique vient après ; elle sert à
+          compter cette répartition.
+        </p>
+      </div>
+
+      <div class="grid sm:grid-cols-2 gap-4">
+        {beginnerConcepts.map((item) => (
+          <article class="pt-card">
+            <h3 class="font-sans text-lg font-bold text-thmblue mb-2">{item.title}</h3>
+            <p class="text-slate-700 leading-relaxed">{item.body}</p>
+          </article>
+        ))}
       </div>
     </div>
   </section>
@@ -69,6 +129,26 @@ const principles = [
         <h2 class="text-3xl font-bold text-thmblue mt-4 mb-4">
           Un budget, deux manières de l’habiter
         </h2>
+        <div data-max-depth="L1">
+          <p class="text-slate-700 leading-relaxed mb-4">
+            Le mot “information” peut faire peur, mais ici il signifie d’abord :
+            combien de différences faut-il pour reconnaître une situation ?
+            Si tout se ressemble, il y a peu à distinguer. Si une forme apparaît,
+            quelque chose devient reconnaissable.
+          </p>
+          <p class="text-slate-700 leading-relaxed mb-4">
+            Le premier principe dit que cette reconnaissance a un coût. Plus une
+            structure devient nette, moins il reste de flou disponible dans le
+            même système. Et si la structure se défait, le flou remonte.
+          </p>
+          <p class="text-slate-700 leading-relaxed">
+            C’est le fil qui relie les autres pages : dans la cosmogonie, la
+            cascade trie les seuils ; dans le tableau périodique, les couches et
+            les blocs sont des formes stabilisées ; ici, on explique la règle de
+            comptabilité commune.
+          </p>
+        </div>
+        <div data-min-depth="L2">
         <p class="text-slate-700 leading-relaxed mb-4">
           Imagine un jeu avec plusieurs cases possibles. Plus il y a de cases,
           plus il faut de distinctions pour dire précisément où l’on se trouve.
@@ -91,9 +171,23 @@ const principles = [
           et inversement. La PT met cette conservation au centre de tout le
           reste.
         </p>
+        </div>
       </div>
 
-      <div class="bg-white border border-slate-200 rounded-lg p-5">
+      <div data-max-depth="L1" class="bg-white border border-slate-200 rounded-lg p-5">
+        <h3 class="font-sans font-semibold text-thmblue mb-4">Lecture en quatre gestes</h3>
+        <div class="grid sm:grid-cols-4 lg:grid-cols-2 gap-3">
+          {plainFlow.map((step, index) => (
+            <div class="rounded-lg border border-slate-200 bg-slate-50 p-4">
+              <span class="font-sans text-xs font-bold uppercase tracking-wider text-derorange">0{index + 1}</span>
+              <h4 class="font-sans font-bold text-slate-900 mt-2">{step.label}</h4>
+              <p class="text-sm text-slate-700 mt-1">{step.value}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div data-min-depth="L2" class="bg-white border border-slate-200 rounded-lg p-5">
         <h3 class="font-sans font-semibold text-thmblue mb-3">Budget d’information du crible</h3>
         <div class="mb-2 flex justify-end gap-4 text-sm font-sans text-slate-800">
           <span class="flex items-center gap-2"><span class="w-4 h-4 rounded bg-thmblue inline-block"></span>persistance</span>
