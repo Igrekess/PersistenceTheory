@@ -1,0 +1,222 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+
+const principles = [
+  {
+    n: 1,
+    title: 'Sequential cascade',
+    short: 'The sieve filters in ORDER: p = 3 → p = 5 → p = 7. Each filter sees the survivors of the previous one.',
+    detail: 'Tree-level α_EM = ∏ sin²(θ_p) is CRT-orthogonal so order does not matter. But dressing corrections ARE sequential. CKM is an explicit cascade: V_us → V_cb → V_ub (powers of λ).',
+    example: 'CKM: V_us = λ, V_cb = A·λ², V_ub = A·λ³·R',
+    color: 'thmblue',
+  },
+  {
+    n: 2,
+    title: 'Shannon cap (D_KL ≤ 1 per channel)',
+    short: 'Each CRT channel carries AT MOST 1 unit of information. sin²θ_p < 1 for every p.',
+    detail: 'The cap is AUTOMATIC for PT quantities. The resummation G_Fisher/cos²θ_3 = 5.12 sums ALL orders of the same channel (total throughput, not instantaneous).',
+    example: 'C_K^tree = 4/sin²θ_3, NLO = 1/(p₁p₃)',
+    color: 'sky',
+  },
+  {
+    n: 3,
+    title: 'Pythagoras = orthogonal CRT',
+    short: 'Channels on DIFFERENT CRT circles combine via Pythagoras.',
+    detail: 'sin²θ_W = γ_7² / (γ_3² + γ_5² + γ_7²) = Pythagorean norm. In chemistry: E² = E_cov² + E_ion². Same branch / same role: direct addition (V_us = sin²_3 + sin²_5 on q⁻).',
+    example: 'sin²θ_W = 0.2377 (tree), 0.23119 (corrected)',
+    color: 'emerald',
+  },
+  {
+    n: 4,
+    title: 'Bifurcation 3 regimes',
+    short: 'The q⁺/q⁻ bifurcation gives 3 regimes, not 2.',
+    detail: 'Regime 1 (strong coupling, EA/IE ≥ s): full transfer = confinement. Regime 2 (weak coupling, EA/IE < s): partial transmission = QED. Regime 3 (endothermic, BH ≤ 0): quantum fluctuations = VP. The threshold s = 1/2 is exactly the γ_p > 1/2 threshold from T5.',
+    example: 'Atomic IE: 3 regimes read directly',
+    color: 'amber',
+  },
+  {
+    n: 5,
+    title: 'Holonomic rotation',
+    short: 'Energy PROJECTS onto the sieve frame (Ry, m_e) via holonomic rotation.',
+    detail: 'Rotation amplitude depends on angular coverage (hybridisation in chemistry, Berry phase in physics). This is the MECHANISM by which D_KL converts into an observable. Chemistry: IE projects onto Ry via cos²θ_3 · (Ry − IE). Physics: masses = holonomic rotations around m_e.',
+    example: 'Berry integral 3π = N_gen · π fixes m_μ/m_e',
+    color: 'violet',
+  },
+  {
+    n: 6,
+    title: 'Geometric resummation',
+    short: 'The effective coupling for fluctuations is G_Fisher/cos²θ_3 = 5.12.',
+    detail: 'Resummation of ALL perturbation orders on the p = 3 channel: G_Fisher · Σ sin²₃ⁿ = 4/(1−sin²₃) = 4/cos²₃. In physics, this is the running coupling. The ratio C_Koide / (G_Fisher/cos²₃) = cos²₃/sin²₃ = cot²θ_3 links the two branches.',
+    example: 'Fisher-Koide identity: C_K = 4/sin²₃ + (1+5δ₃²/18)/21',
+    color: 'rose',
+  },
+  {
+    n: 7,
+    title: 'Anti-double-counting (GFT)',
+    short: 'log_2(m) = D_KL + H is an IDENTITY. No energy can be added that is already counted in D_KL.',
+    detail: 'The q⁺/q⁻ bifurcation is a PARTITION: sin²(q⁺) and sin²(q⁻) measure orthogonal projections of the same prime. No double-counting. Every PT coefficient respects this algebraic identity.',
+    example: 'Ω_info + Ω_Λ + Ω_baryon = 1 (Clausius split)',
+    color: 'slate',
+  },
+];
+
+const colorClasses: Record<string, string> = {
+  thmblue: 'border-thmblue bg-blue-50',
+  sky: 'border-sky-400 bg-sky-50',
+  emerald: 'border-emerald-400 bg-emerald-50',
+  amber: 'border-amber-400 bg-amber-50',
+  violet: 'border-violet-400 bg-violet-50',
+  rose: 'border-rose-400 bg-rose-50',
+  slate: 'border-slate-400 bg-slate-50',
+};
+---
+
+<BaseLayout
+  title="Seven architectural principles"
+  description="The 7 architectural principles discovered in PTCS v0.6 (March 2026). Emergent properties of the sieve at μ* = 15, applicable from molecular chemistry to particle physics."
+>
+  <main class="max-w-6xl mx-auto px-4 py-10 md:py-14">
+
+    <section class="mb-12">
+      <div class="rounded-lg border border-slate-200 bg-white p-6 md:p-8 shadow-sm">
+        <p class="pt-tag pt-tag-thm mb-5">Meta-theory</p>
+        <h1 class="text-4xl md:text-5xl font-bold text-thmblue leading-tight mb-4">
+          The 7 architectural principles of PT
+        </h1>
+        <p class="text-2xl md:text-3xl font-sans font-semibold text-derorange leading-snug mb-6">
+          Not imposed rules. Emergent properties of the sieve.
+        </p>
+        <p class="text-lg text-slate-700 leading-relaxed mb-5" data-max-depth="L1">
+          When applying PT to a new domain (molecular chemistry, biology,
+          geophysics), one observes that **the same structures recur**.
+          Not by convention: by architectural necessity. These seven
+          principles were identified in March 2026 during PTCS v0.6
+          (computational chemistry) development, then verified across
+          other domains.
+        </p>
+        <p class="text-base text-slate-700 leading-relaxed" data-min-depth="L2">
+          Each principle is an **emergent property** of the sieve at
+          $\mu^* = 15$, hence a consequence of T5 and T6. None is postulated.
+          Their force comes from universality: they apply equally to
+          {`$\\alpha_{\\rm EM}$`} and to the chemical bonding of a diatomic molecule.
+        </p>
+      </div>
+    </section>
+
+    <section class="mb-12">
+      <p class="pt-tag pt-tag-thm mb-3">The seven</p>
+      <h2 class="text-3xl font-bold text-thmblue mb-6">Seven universal patterns</h2>
+      <div class="space-y-5">
+        {principles.map((p) => (
+          <div class={`rounded-lg border-2 p-6 ${colorClasses[p.color]}`}>
+            <div class="flex items-start gap-5">
+              <span class="flex-shrink-0 w-14 h-14 rounded-full bg-white border-2 border-current font-mono text-3xl font-bold flex items-center justify-center">{p.n}</span>
+              <div class="flex-1">
+                <h3 class="font-sans text-2xl font-bold mb-2">{p.title}</h3>
+                <p class="text-slate-800 font-semibold leading-relaxed mb-3">{p.short}</p>
+                <p class="text-slate-700 leading-relaxed mb-3 text-sm">{p.detail}</p>
+                <p class="text-xs font-mono bg-white/60 border border-current/30 rounded px-3 py-2 inline-block">
+                  <strong>Ex:</strong> {p.example}
+                </p>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section class="mb-12">
+      <p class="pt-tag pt-tag-id mb-3">Natural question</p>
+      <h2 class="text-3xl font-bold text-thmblue mb-6">Why seven?</h2>
+      <div class="rounded-lg border border-slate-200 bg-white p-6 shadow-sm">
+        <p class="text-slate-700 leading-relaxed mb-4">
+          One might suspect the number 7 is itself chosen. It is not.
+          Principles 1–3 (cascade, Shannon cap, Pythagoras) describe the
+          **sequencing** of channels; principles 4–6 (bifurcation, rotation,
+          resummation) describe the **regimes** in which each channel operates;
+          principle 7 (anti-double-counting) is the **consistency constraint**
+          binding them all.
+        </p>
+        <p class="text-slate-700 leading-relaxed mb-4">
+          Three sequencings + three regimes + one consistency = 7. And this
+          is exactly the same $3 + 3 + 1$ structure as the main cascade:
+          three active primaries {`$\\{3, 5, 7\\}$`} + three dressing corrections
+          + one GFT consistency.
+        </p>
+        <p class="text-slate-700 leading-relaxed">
+          Not a coincidence: the architectural principles **are** the cascade,
+          read at a meta-level. Hence their universality.
+        </p>
+      </div>
+    </section>
+
+    <section class="mb-12">
+      <p class="pt-tag pt-tag-val mb-3">Tested universality</p>
+      <h2 class="text-3xl font-bold text-thmblue mb-6">Where these principles are verified</h2>
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div class="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
+          <h3 class="font-sans font-semibold text-thmblue mb-2">Quantum chemistry (PTCS)</h3>
+          <p class="text-sm text-slate-700">IE Z = 1–118 at 0.06 % MAE, EA 0.98 %, exact periods. Empirical origin of the 7 principles.</p>
+        </div>
+        <div class="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
+          <h3 class="font-sans font-semibold text-thmblue mb-2">Particle physics</h3>
+          <p class="text-sm text-slate-700">43 SM observables, 0.30 % MAE, 0 fit parameters. Every correction obeys the 7 principles.</p>
+        </div>
+        <div class="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
+          <h3 class="font-sans font-semibold text-thmblue mb-2">Cosmology</h3>
+          <p class="text-sm text-slate-700">H₀, n_s, Ω_info, F_echo within &lt; 0.2 % of Planck. q⁺/q⁻ bifurcation → dark sector.</p>
+        </div>
+        <div class="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
+          <h3 class="font-sans font-semibold text-thmblue mb-2">Nuclear</h3>
+          <p class="text-sm text-slate-700">408/413 PASS, magic numbers 2, 8, 20, 28, 50, 82, 126 derived. Resummation and bifurcation active.</p>
+        </div>
+        <div class="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
+          <h3 class="font-sans font-semibold text-thmblue mb-2">Biology (PT_PROTEIN)</h3>
+          <p class="text-sm text-slate-700">Universal q⁺/q⁻ bifurcation across 3 biopolymers; Ramachandran torus 15/15; RNA cos_therm at 90 ppm.</p>
+        </div>
+        <div class="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
+          <h3 class="font-sans font-semibold text-thmblue mb-2">Perception (SieveColorSpace)</h3>
+          <p class="text-sm text-slate-700">3 opponent channels forced by {`{3, 5, 7}`}; L-M weight = γ_3/Σγ_p (PT 0.385 vs measured 0.373); Pythagorean metric via CRT.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="mb-8">
+      <p class="pt-tag pt-tag-bridge mb-3">Going further</p>
+      <h2 class="text-3xl font-bold text-thmblue mb-6">Deeper</h2>
+      <div class="grid md:grid-cols-3 gap-4">
+        <a href="/en/theorems/T5" class="pt-card block group">
+          <span class="pt-tag pt-tag-thm">T5</span>
+          <h3 class="font-sans font-semibold text-thmblue text-lg mt-3 mb-2 group-hover:underline">Fixed point μ* = 15</h3>
+          <p class="text-sm text-slate-700">Where the principles come from: the fixed point that forces them.</p>
+        </a>
+        <a href="/en/theorems/T6" class="pt-card block group">
+          <span class="pt-tag pt-tag-thm">T6</span>
+          <h3 class="font-sans font-semibold text-thmblue text-lg mt-3 mb-2 group-hover:underline">Holonomy identity</h3>
+          <p class="text-sm text-slate-700">The geometric mechanism through which the principles operate.</p>
+        </a>
+        <a href="/en/theorems/FisherKoide" class="pt-card block group">
+          <span class="pt-tag pt-tag-thm">Fisher-Koide identity</span>
+          <h3 class="font-sans font-semibold text-thmblue text-lg mt-3 mb-2 group-hover:underline">Resummation in action</h3>
+          <p class="text-sm text-slate-700">Precise application of principle 6: C_K = 18.300 at 0.04 ppm.</p>
+        </a>
+        <a href="/en/essays/principes-pt" class="pt-card block group">
+          <span class="pt-tag pt-tag-id">Essay L2</span>
+          <h3 class="font-sans font-semibold text-thmblue text-lg mt-3 mb-2 group-hover:underline">11 methodological principles</h3>
+          <p class="text-sm text-slate-700">Methodological side: what prevents over-fitting.</p>
+        </a>
+        <a href="/en/essays/bifurcation-q-plus-q-minus" class="pt-card block group">
+          <span class="pt-tag pt-tag-id">Essay L1</span>
+          <h3 class="font-sans font-semibold text-thmblue text-lg mt-3 mb-2 group-hover:underline">The q⁺/q⁻ bifurcation</h3>
+          <p class="text-sm text-slate-700">Precise application of principle 4: 3 regimes, not 2.</p>
+        </a>
+        <a href="/en/observables" class="pt-card block group">
+          <span class="pt-tag pt-tag-val">Validation</span>
+          <h3 class="font-sans font-semibold text-thmblue text-lg mt-3 mb-2 group-hover:underline">43 observables</h3>
+          <p class="text-sm text-slate-700">The 7 principles are the patterns behind every derived observable.</p>
+        </a>
+      </div>
+    </section>
+
+  </main>
+</BaseLayout>

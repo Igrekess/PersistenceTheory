@@ -1,11 +1,131 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
 import BigBangCrystallisation from '@components/BigBangCrystallisation.astro';
+
+const misconceptions = [
+  {
+    wrong: 'The Big Bang is an explosion in space.',
+    right: 'In PT, the Big Bang is the logical order in which channels open. Space itself only becomes legible at p = 7 activation. Before that, there is no "where" to explode.',
+  },
+  {
+    wrong: 'Time existed before the cascade.',
+    right: 'g₀₀ < 0 (Lorentzian signature) only appears for μ > μ_c ≈ 6.97 — i.e. after p = 7 activates. Before that, the signature stays Euclidean: no proper time, no "before".',
+  },
+  {
+    wrong: 'μ* = 15 was chosen to reproduce physics.',
+    right: 'μ* = 15 is the unique attractive fixed point of the iteration γ_p > 1/2. The basin of attraction is [12, 17]; outside it, divergence or collapse. The value 15 was not adjusted.',
+  },
+  {
+    wrong: 'PT replaces the ΛCDM Big Bang model.',
+    right: 'PT reconstructs late-time ΛCDM (H₀, F_echo, n_s) within 0.1 %, with 0 fit parameters. The pre-recombination phase is derived as informational order, not as a primitive temporal event.',
+  },
+];
+
+const numerics = [
+  { label: 'μ_c (Hartle-Hawking transition)', value: '≈ 6.97', source: 'g₀₀ changes sign' },
+  { label: 'Basin of attraction of μ*', value: '[12, 17]', source: 'Iteration γ_p > 1/2 (T5)' },
+  { label: 'Divergence if μ ≥ 18', value: 'γ_11(18) = 0.500', source: 'p=11 activation, infinite cascade' },
+  { label: 'Collapse if μ ≤ 11', value: 'γ_3(3) = 0.224', source: 'p=3 deactivation' },
+  { label: 'p=11 margin at μ*=15', value: 'Δ = 0.074 (15 %)', source: 'γ_11(15) = 0.426' },
+  { label: 'p=13 margin at μ*=15', value: 'Δ = 0.144 (29 %)', source: 'γ_13(15) = 0.356' },
+];
 ---
 
 <BaseLayout
   title="Cosmogony"
-  description="PT reading of the Big Bang: crystallisation of p = 2, passage from 17 to 15, q+ and q- branches."
+  description="PT reading of the Big Bang: logical order of channel opening, p=2 crystallisation, q⁺/q⁻ bifurcation at μ*=15, cosmological lock-in."
 >
   <BigBangCrystallisation lang="en" />
+
+  <main class="max-w-6xl mx-auto px-4 pb-14">
+
+    <section class="mb-12 mt-8">
+      <p class="pt-tag pt-tag-id mb-3">Common misreadings</p>
+      <h2 class="text-3xl font-bold text-thmblue mb-6">Four misconceptions to avoid</h2>
+      <p class="text-slate-700 leading-relaxed mb-6 max-w-3xl">
+        Before going further, it helps to defuse four intuitive but
+        mistaken readings of the PT cosmogony.
+      </p>
+      <div class="grid md:grid-cols-2 gap-4">
+        {misconceptions.map((m) => (
+          <div class="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
+            <p class="text-xs font-sans uppercase tracking-wider text-rose-700 mb-2">Avoid</p>
+            <p class="text-slate-700 italic mb-3 line-through decoration-rose-300">{m.wrong}</p>
+            <p class="text-xs font-sans uppercase tracking-wider text-emerald-700 mb-2">PT reading</p>
+            <p class="text-slate-800 leading-relaxed">{m.right}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section data-min-depth="L2" class="mb-12">
+      <p class="pt-tag pt-tag-val mb-3">Numerical landmarks</p>
+      <h2 class="text-3xl font-bold text-thmblue mb-6">The basin of attraction is narrow</h2>
+      <p class="text-slate-700 leading-relaxed mb-6 max-w-3xl">
+        The uniqueness of μ* = 15 does not rest on a fit. It rests on the
+        geometry of the basin of attraction of the iteration
+        {`$\\mu_{k+1} = \\sum \\{p : \\gamma_p(\\mu_k) > 1/2\\}$`}. Any perturbation
+        outside [12, 17] leaves the stable phase. Here are the exact
+        margins ensuring uniqueness.
+      </p>
+      <div class="overflow-x-auto rounded-lg border border-slate-200 bg-white shadow-sm">
+        <table class="w-full text-sm">
+          <thead class="bg-slate-50 text-stone-600 font-sans">
+            <tr>
+              <th class="text-left px-4 py-3">Quantity</th>
+              <th class="text-left px-4 py-3">Value</th>
+              <th class="text-left px-4 py-3">Source</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-100">
+            {numerics.map((n) => (
+              <tr>
+                <td class="px-4 py-3 font-medium text-slate-800">{n.label}</td>
+                <td class="px-4 py-3 font-mono text-derorange">{n.value}</td>
+                <td class="px-4 py-3 text-stone-600">{n.source}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="mb-12">
+      <p class="pt-tag pt-tag-bridge mb-3">Going further</p>
+      <h2 class="text-3xl font-bold text-thmblue mb-6">Continue reading</h2>
+      <div class="grid md:grid-cols-3 gap-4">
+        <a href="/en/temps" class="pt-card block group">
+          <span class="pt-tag pt-tag-der">Time emergence</span>
+          <h3 class="font-sans font-semibold text-thmblue text-lg mt-3 mb-2 group-hover:underline">How g₀₀ changes sign</h3>
+          <p class="text-sm text-slate-700">The Hartle-Hawking transition at μ_c ≈ 6.97 makes the Lorentzian signature appear.</p>
+        </a>
+        <a href="/en/cosmologie" class="pt-card block group">
+          <span class="pt-tag pt-tag-val">Late cosmology</span>
+          <h3 class="font-sans font-semibold text-thmblue text-lg mt-3 mb-2 group-hover:underline">H₀, dark sector, n_s</h3>
+          <p class="text-sm text-slate-700">How the cascade freezes into ΛCDM observables with 0 fit parameters.</p>
+        </a>
+        <a href="/en/theorems/T5" class="pt-card block group">
+          <span class="pt-tag pt-tag-thm">Theorem T5</span>
+          <h3 class="font-sans font-semibold text-thmblue text-lg mt-3 mb-2 group-hover:underline">Uniqueness of fixed point μ* = 15</h3>
+          <p class="text-sm text-slate-700">Rigorous proof: 6 independent justifications (J1–J6).</p>
+        </a>
+        <a href="/en/essays/bifurcation-q-plus-q-minus" class="pt-card block group">
+          <span class="pt-tag pt-tag-id">Essay L1</span>
+          <h3 class="font-sans font-semibold text-thmblue text-lg mt-3 mb-2 group-hover:underline">The q⁺/q⁻ bifurcation</h3>
+          <p class="text-sm text-slate-700">Why the sieve splits into two branches after μ* = 15.</p>
+        </a>
+        <a href="/en/essays/echo-primes" class="pt-card block group">
+          <span class="pt-tag pt-tag-id">Essay L1</span>
+          <h3 class="font-sans font-semibold text-thmblue text-lg mt-3 mb-2 group-hover:underline">Echo primes</h3>
+          <p class="text-sm text-slate-700">What do {`{11, 13}`} do once they are no longer active? They dress α_EM.</p>
+        </a>
+        <a href="/en/calculator" class="pt-card block group">
+          <span class="pt-tag pt-tag-val">Calculator</span>
+          <h3 class="font-sans font-semibold text-thmblue text-lg mt-3 mb-2 group-hover:underline">Test γ_p(μ) live</h3>
+          <p class="text-sm text-slate-700">Watch the basin of attraction take shape as you slide μ.</p>
+        </a>
+      </div>
+    </section>
+
+  </main>
 </BaseLayout>

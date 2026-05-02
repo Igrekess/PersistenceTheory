@@ -36,6 +36,29 @@ The proof rests on three pillars:
 3. **Gordin decomposition** — the sequence $\{\alpha_k\}$ is a quasi-martingale
    plus a bounded remainder.
 
+**Canonical recurrence** (exact form, ch. 7):
+
+$$
+\frac{\varepsilon(k+1)}{\varepsilon(k)} = 1 - \frac{Q(k)}{p_{k+1} - 1}, \qquad
+\varepsilon(k) = \frac{1}{2} - \alpha(k).
+$$
+
+The **factor $Q(k) > 0$** (positivity proved by joint DAG induction, ch. 7,
+Lemmas B/C) and the harmonic divergence $\sum_k Q(k)/p_k = \infty$ (Mertens)
+guarantee $\varepsilon(k) \to 0$, hence $\alpha_k \to 1/2$.
+
+**Sieve depth $D = 2$** (spectral closure theorem): the sieve admits exactly
+two distinct dynamical levels:
+
+- **Level 0** — direct sieve: composite elimination, survivors = primes;
+- **Level 1** — transition sieve: convergence of $\alpha_k$ to $s = 1/2$.
+- **Level 2** — meta-transitions: structurally **non-existent** ($r_2(0) = 0$
+  closes the cascade).
+
+This depth $D = 2$ is responsible for the physical dichotomy
+**leptons (vertices, $d = 0$) / quarks (edges, $d = 1$)** with no third
+matter type at $d = 2$.
+
 <Tag level="THM" />
 
 <div data-max-depth="L1" className="bg-amber-50 border-l-4 border-amber-300 px-4 py-3 my-6">

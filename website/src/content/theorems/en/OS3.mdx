@@ -1,0 +1,123 @@
+---
+id: OS3
+name: 'OS3 — Uniform reflection-positivity'
+short: 'For every $p \geq 3$, $M_p = T_p^T T_p \succeq 0$ (Gram matrix). Wightman reconstruction applies.'
+statement: 'The squared transfer matrix $M_m = T_m^T T_m$ is positive semi-definite for every finite square-free modulus $m$. Osterwalder-Schrader reflection-positivity is satisfied uniformly, producing a Wightman QFT by reconstruction.'
+status: THM
+monograph_chapter: chap:bridge
+order: 20
+tier: secondary
+lang: en
+---
+
+import Tag from '@components/Tag.astro';
+
+## Statement
+
+Let $T_p$ be the mod-$p$ sieve transfer matrix (prime $\geq 3$). Then:
+
+$$
+\boxed{M_p = T_p^T T_p \succeq 0 \qquad \text{(Gram matrix, hence PSD)}.}
+$$
+
+For a square-free composite $m = p_1 \cdot \ldots \cdot p_k$, CRT
+factorisation gives:
+
+$$
+M_m = M_{p_1} \otimes \cdots \otimes M_{p_k} \succeq 0
+$$
+
+(Kronecker product of PSD matrices is PSD).
+
+**Consequence — Osterwalder-Schrader reconstruction**: for every finite
+$T_m$, the third OS axiom (reflection-positivity) is satisfied. The OS
+reconstruction theorem then yields a Wightman triple
+$(\mathcal{H}_m, \Omega_m, W_n)$: a Hilbert space, a vacuum state, and
+Wightman functions.
+
+<Tag level="THM" />
+
+## Why it matters
+
+Before this theorem, OS3 was numerically verified at considerable cost
+on a few moduli ($m \in \{3, 6, 30, 210\}$). The status was [VAL]
+(empirical validation).
+
+The uniform OS3 theorem **promotes** OS3 to [THM]: a short algebraic
+proof, applicable to every finite $T_m$ without exception. Consequences:
+
+- Osterwalder-Schrader reconstruction **guaranteed** for every finite $T_m$;
+- The PT Hilbert space is well defined by construction;
+- No need to postulate positivity — it follows from the Gram structure.
+
+<div data-max-depth="L1" className="bg-amber-50 border-l-4 border-amber-300 px-4 py-3 my-6">
+**Plain reading.** In quantum field theory, certain matrices need to be
+"positive" so that probabilities make sense. OS3 says this positivity is
+automatic in PT: the relevant matrix has the form $X^T X$, which is
+always positive. An automatic guarantee, not a case-by-case verification.
+</div>
+
+## Proof
+
+#### Step 1 — For $p$ prime
+
+If $T_p$ is a real matrix, then $M_p = T_p^T T_p$ is a **Gram matrix** (by
+definition, a matrix times its transpose). For any real matrix $X$ and
+any vector $v$:
+
+$$
+v^T (X^T X) v = (X v)^T (X v) = \|X v\|^2 \geq 0.
+$$
+
+Hence $X^T X \succeq 0$ for any $X$. In particular $M_p \succeq 0$.
+
+#### Step 2 — For square-free composite $m$
+
+If $m = p_1 \cdot p_2 \cdot \ldots \cdot p_k$ with all $p_i$ distinct, the
+Chinese Remainder Theorem gives:
+
+$$
+T_m = T_{p_1} \otimes T_{p_2} \otimes \cdots \otimes T_{p_k}.
+$$
+
+Hence:
+
+$$
+M_m = T_m^T T_m = (T_{p_1}^T \otimes \cdots \otimes T_{p_k}^T)(T_{p_1} \otimes \cdots \otimes T_{p_k}) = M_{p_1} \otimes \cdots \otimes M_{p_k}.
+$$
+
+The **Kronecker product of PSD matrices** is PSD (direct consequence:
+tensor-product eigenvalues are products of eigenvalues, and a product of
+positive reals is positive).
+
+#### Step 3 — Consequence: OS3 satisfied uniformly
+
+The Osterwalder-Schrader OS3 axiom requires the reflection matrix to be
+positive. The Gram matrix $M_m$ plays exactly that role. Hence **OS3 is
+satisfied for every finite $T_m$**, no exception.
+
+The OS reconstruction theorem applies, yielding a Wightman triple
+$(\mathcal{H}_m, \Omega_m, W_n)$ for every $m$.
+
+#### Step 4 — Inductive limit (remaining gap)
+
+Passing to the $m \to \infty$ limit to obtain the infinite Hilbert space
+$\mathcal{H}_\infty = \otimes_p \mathcal{H}_p$ is functional analysis
+(inductive limit). This passage is handled by **lemma G** (Hilbert
+reconstruction). OS3 itself is therefore fully THM; only the inductive
+limit remains a standard functional-analysis object.
+
+## Consequences
+
+1. **34/34 tests PASS** on the OS3 suite (monograph, Appendix F).
+2. The **QFT-from-sieve reconstruction programme** becomes rigorous:
+   each finite $T_m$ corresponds to a Wightman QFT.
+3. Lemmas E, F, G (coupling, metric, Hilbert reconstruction) rely on OS3
+   for their BRIDGE → THM promotion.
+
+## See also
+
+- [Lemma E — Coupling reconstruction](/en/theorems/E)
+- [Lemma F — Metric reconstruction](/en/theorems/F)
+- [Lemma G — Hilbert reconstruction](/en/theorems/G)
+- [T6 — Holonomy identity](/en/theorems/T6)

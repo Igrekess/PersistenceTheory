@@ -1,0 +1,393 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+
+const webappUrl = '';
+const webappPublic = webappUrl !== '';
+
+// Pourquoi la prédiction sismique est notoirement difficile
+const seismicChallenges = [
+  {
+    label: 'Pas de précurseur déterministe connu',
+    detail: 'La sismologie classique reconnaît qu’aucun signal physique unique (radon, champ électromagnétique, déformation lente) n’est universellement précurseur. Les méthodes statistiques (ETAS, EEPAS) prédisent des taux, pas des événements.',
+  },
+  {
+    label: 'Données rares et asymétriques',
+    detail: 'Un séisme M ≥ 7 est un événement rare ; M ≥ 6 reste rare. La validation impose des fenêtres temporelles longues (mois à années) et des décennies de catalogue.',
+  },
+  {
+    label: 'Risque de sur-ajustement énorme',
+    detail: 'Avec 11 régions et plusieurs marqueurs candidats, ajuster un protocole sur le passé donne facilement F1 > 0,9 — mais sans tenir en prospectif. La sismologie est jonchée de ces échecs.',
+  },
+  {
+    label: 'Aftershocks contaminent les statistiques',
+    detail: 'Après un gros séisme, des centaines d’aftershocks polluent les marqueurs. Sans filtre Omori robuste, on prédit indéfiniment des chocs déjà passés.',
+  },
+];
+
+// Comment PT_SISMO se distingue
+const ptApproach = [
+  {
+    title: 'Marqueurs dérivés de la cascade PT, pas fittés',
+    detail: 'Les trois marqueurs (gap T1, ρ T4, M4 CRT) viennent directement de la cascade PT séquentielle. Aucun n’est ajusté sur les données ; ce sont des analogues géophysiques de structures arithmétiques.',
+  },
+  {
+    title: 'Hash-chain SHA-256 anti-rétrofitting',
+    detail: 'Chaque snapshot de prédiction est haché en SHA-256 et chaîné dans prediction_chain.json. Toute modification rétroactive casse la chaîne. Les prédictions sont vérifiables comme un blockchain léger.',
+  },
+  {
+    title: '0 paramètre régional ajusté',
+    detail: 'Les 11 régions partagent les mêmes seuils. Si Banda atteint F1 = 0,91 et Japon F1 = 0,81 sans ajustement régional, ce n’est pas un fit local — c’est une signature universelle.',
+  },
+  {
+    title: 'Validation prospective fermée',
+    detail: 'Les prédictions sont émises avec date et fenêtre AVANT les événements. 5 séismes confirmés en avril 2026 (Indonésie M7,4, Tohoku M7,4, etc.) validés dans le système avant qu’ils n’arrivent.',
+  },
+];
+
+// Architecture du protocole composite
+const markers = [
+  {
+    code: 'gap',
+    pt: 'T1 — Transitions interdites mod 3',
+    geo: 'Distribution mod 3 des intervalles entre événements sismiques',
+    role: 'Une déviation des transitions interdites signale une rupture imminente du régime stable. Marqueur primaire de cascade.',
+  },
+  {
+    code: 'ρ (rho)',
+    pt: 'T4 — Convergence spectrale',
+    geo: 'Densité de persistance locale de la matrice de transfert (gap spectral + rotation eigenvecteur)',
+    role: 'Lorsque ρ chute brusquement par rapport à la baseline, le système quitte son point fixe local. Marqueur de phase-shift.',
+  },
+  {
+    code: 'M4',
+    pt: 'CRT — Asymétrie modulaire',
+    geo: 'Moment d’ordre 4 des magnitudes par cellule spatiale',
+    role: 'Mesure le déséquilibre entre canaux discrets (segments tectoniques). Marqueur d’orientation.',
+  },
+];
+
+// 5 validations (déjà mises en place)
+const recentDetections = [
+  {
+    label: 'Indonésie — M7,4 ★ première validation du protocole composite',
+    date: '2026-04-01',
+    detail: 'HIGH émis le 28 mars 2026 (gap 0,43, ρ 0,37). Séisme M7,4 survenu 4 jours après. Première validation prospective fermée du protocole composite (gap + ρ + VLOO). gap déclinant monotone 0,50 → 0,38, ρ élevé 0,37 vs seuil 0,34.',
+    status: '★ Validation prospective confirmée',
+    highlight: true,
+  },
+  {
+    label: 'Japon Tohoku — M7,4 ★ deuxième validation majeure',
+    date: '2026-04-20 07:53 UTC',
+    detail: 'WATCH au 28 mars 2026, escalation en HIGH au 18 avril (gap 0,49 → 0,33 monotone, rotation 0,98, mag_score 1492). tc estimé p25 = 9 j / p75 = 29 j. Séisme M7,4 survenu 2 jours après le passage en HIGH. Crossing inscrit en hash-chain 1,4 j avant l’événement.',
+    status: '★ Validation prospective confirmée',
+    highlight: true,
+  },
+  {
+    label: 'Indonésie — M5,5',
+    date: '2026-04-21',
+    detail: 'Hit secondaire dans la fenêtre Indonésie. Crossing inscrit 2,2 jours avant.',
+    status: 'Validation prospective confirmée',
+    highlight: false,
+  },
+  {
+    label: 'Japon Tohoku — M5,6 (deux événements)',
+    date: '2026-04-20 / 2026-04-21',
+    detail: 'Deux M5,6 dans la fenêtre Tohoku, 1,4 j et 2,9 j après les crossings inscrits. Cohérent avec activation de segments adjacents post-M7,4.',
+    status: 'Validation prospective confirmée',
+    highlight: false,
+  },
+  {
+    label: 'Grèce — M5,8',
+    date: '2026-04-24',
+    detail: 'HIGH déclenché par règle h_slope au 20 avril ; séisme 3,4 jours après. Famille tectonique continentale, hors arcs de subduction.',
+    status: 'Validation prospective confirmée',
+    highlight: false,
+  },
+  {
+    label: 'Turquie — région Anatolie Est',
+    date: '2026-03-28 (prédiction)',
+    detail: 'HIGH au 28 mars puis re-classement INSUFFISANT au 18 avril (catalogue tombé sous seuil). Honnêteté : signal résiduel post-Kahramanmaras 2023 probable, fenêtre non scorable. Cas reporté pour transparence.',
+    status: 'Prédiction non scorable (transparence)',
+    highlight: false,
+  },
+];
+
+const metrics = [
+  { label: 'F1 pooled', value: '0,65', context: '70/30 OOS, 252 événements test' },
+  { label: 'F1 Banda', value: '0,91', context: 'meilleure région' },
+  { label: 'F1 Japon', value: '0,81', context: '2e meilleure région' },
+  { label: 'Précision', value: '93 %', context: 'taux de fausses alarmes filtré' },
+  { label: 'Régions couvertes', value: '11', context: 'avec 0 paramètre régional ajusté' },
+  { label: 'Hits prospectifs avril 2026', value: '5', context: 'validés en hash-chain SHA-256' },
+];
+
+const limits = [
+  { title: 'Code privé, non auditable publiquement', detail: 'Le repo github.com/Igrekess/PT_SISMO est privé : moteur et pipeline ne sont pas open-source. Demande de collaboration possible sous accord.' },
+  { title: 'Pas de prédiction de magnitude exacte', detail: 'PT_SISMO prédit des fenêtres temporelles HIGH par catégorie de magnitude (M5-6, M6+, etc.), pas une magnitude exacte ou une localisation à la faille. Limite intrinsèque à l’approche par persistance.' },
+  { title: 'Pont géo ↔ PT théorique : exploratoire', detail: 'La transposition cascade T0 → T1 → CRT vers les séries sismiques n’est pas encore [DER] au sens strict. C’est une analogie empiriquement validée, pas un théorème de pont.' },
+  { title: 'Validation prospective fenêtres ouvertes', detail: 'Au-delà des 5 hits avril 2026, plusieurs prédictions du 28 mars 2026 ont leur fenêtre ouverte jusqu’à 2026-06-26. Le score définitif demandera plusieurs mois.' },
+];
+---
+
+<BaseLayout
+  title="PT_SISMO — prédiction sismique par cascade de persistance"
+  description="PT_SISMO : application empirique de la cascade T0 → T1 → CRT à la prédiction sismique. 5 séismes annoncés prospectivement et chaînés en SHA-256 (avril 2026), dont Indonésie M7,4 et Japon Tohoku M7,4. Backtest 70/30 sur 252 événements (F1 0,65). Code privé, validation prospective ouverte."
+>
+  <main class="max-w-6xl mx-auto px-4 py-10 md:py-14">
+
+    <!-- ============= HERO L1 ============= -->
+    <section class="mb-12">
+      <div class="rounded-lg border border-slate-200 bg-white p-6 md:p-8 shadow-sm">
+        <p class="pt-tag pt-tag-val mb-5">PT_SISMO — recherche prospective</p>
+        <h1 class="text-4xl md:text-5xl font-bold text-thmblue leading-tight mb-4">
+          La prédiction sismique par cascade de persistance
+        </h1>
+        <p class="text-2xl md:text-3xl font-sans font-semibold text-derorange leading-snug mb-6">
+          Cinq séismes annoncés avant. Chaînés en hash-chain. Vérifiables.
+        </p>
+        <div class="rounded-lg border-l-4 border-emerald-500 bg-emerald-50 px-4 py-3 mb-4">
+          <p class="text-sm text-emerald-900 leading-relaxed">
+            <strong>★ 5 validations prospectives confirmées par hash-chain.</strong>
+            Depuis avril 2026, PT_SISMO a annoncé prospectivement et tracé
+            cryptographiquement (SHA-256 chaînés dans <code class="font-mono bg-emerald-100 px-1 py-0.5 rounded">prediction_chain.json</code>)
+            au moins <strong>5 séismes survenus dans la fenêtre prédite</strong> :
+            Indonésie M7,4 (1<sup>er</sup> avril, 4 j après HIGH du 28 mars),
+            Japon Tohoku M7,4 (20 avril, 2 j après l’escalation HIGH),
+            Indonésie M5,5, Japon Tohoku M5,6 (×2), Grèce M5,8.
+          </p>
+        </div>
+        <div class="rounded-lg border-l-4 border-amber-400 bg-amber-50 px-4 py-3 mb-6">
+          <p class="text-sm text-amber-900 leading-relaxed">
+            <strong>Statut : recherche en cours, validation prospective ouverte.</strong>
+            Plusieurs prédictions du 28 mars 2026 ont leur fenêtre encore
+            ouverte (vérification 2026-06-26). Code et données ne sont pas
+            publics — repo
+            <code class="font-mono bg-amber-100 px-1 py-0.5 rounded">github.com/Igrekess/PT_SISMO</code> privé.
+            Voir aussi <a href="/recherches" class="underline">la page Recherches</a>
+            pour le contexte global.
+          </p>
+        </div>
+        <p class="text-lg text-slate-700 leading-relaxed mb-3" data-max-depth="L1">
+          La prédiction sismique a une réputation : <em>elle ne marche pas</em>.
+          Plus d’un siècle d’approches (radon, électromagnétisme, déformation
+          lente) n’a pas produit de précurseur déterministe universel.
+          PT_SISMO ne prétend pas en avoir trouvé un. Il prend une autre
+          route : appliquer la cascade arithmétique de la PT
+          (<em>les mêmes structures que celles qui dérivent l’atome</em>)
+          à des séries d’événements sismiques, et regarder si une signature
+          statistique apparaît.
+        </p>
+        <p class="text-base text-slate-700 leading-relaxed" data-min-depth="L2">
+          Le résultat empirique : oui, sur 11 régions tectoniques avec 35 ans
+          de catalogues, F1 pooled = 0,65 (Banda 0,91, Japon 0,81). Et — c’est
+          le point dur — 5 séismes en avril 2026 ont été annoncés
+          <strong>avant</strong> l’événement, leur snapshot haché en SHA-256
+          et chaîné. Cette page expose le protocole, les marqueurs, et
+          comment vous pouvez vérifier la chaîne vous-même.
+        </p>
+      </div>
+    </section>
+
+    <!-- ============= POURQUOI LA PREDICTION SISMIQUE EST DIFFICILE L1 ============= -->
+    <section class="mb-12">
+      <p class="pt-tag pt-tag-id mb-3">Contexte</p>
+      <h2 class="text-3xl font-bold text-thmblue mb-4">Pourquoi la prédiction sismique est notoirement difficile</h2>
+      <p class="text-slate-700 leading-relaxed mb-6 max-w-3xl">
+        Avant de présenter ce que fait PT_SISMO, il faut comprendre pourquoi
+        ce domaine est piégé. Quatre obstacles structurels rendent toute
+        approche suspecte par défaut.
+      </p>
+      <div class="grid md:grid-cols-2 gap-4">
+        {seismicChallenges.map((c) => (
+          <div class="rounded-lg border-l-4 border-rose-400 bg-rose-50 p-5">
+            <h4 class="font-sans font-semibold text-rose-900 mb-2">{c.label}</h4>
+            <p class="text-sm text-rose-900 leading-relaxed">{c.detail}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- ============= COMMENT PT_SISMO REPOND L2 ============= -->
+    <section class="mb-12" data-min-depth="L2">
+      <p class="pt-tag pt-tag-thm mb-3">Approche PT_SISMO</p>
+      <h2 class="text-3xl font-bold text-thmblue mb-4">Quatre choix de design qui distinguent PT_SISMO</h2>
+      <p class="text-slate-700 leading-relaxed mb-6 max-w-3xl">
+        PT_SISMO n’est pas un fit statistique de plus. C’est une transposition
+        de la cascade PT au domaine sismique, avec quatre garde-fous
+        structurels.
+      </p>
+      <div class="grid md:grid-cols-2 gap-4">
+        {ptApproach.map((a) => (
+          <div class="rounded-lg border-2 border-emerald-300 bg-emerald-50 p-5">
+            <h4 class="font-sans font-semibold text-emerald-800 mb-2">→ {a.title}</h4>
+            <p class="text-sm text-emerald-900 leading-relaxed">{a.detail}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- ============= ARCHITECTURE PROTOCOLE L2 ============= -->
+    <section class="mb-12" data-min-depth="L2">
+      <p class="pt-tag pt-tag-thm mb-3">Architecture du protocole</p>
+      <h2 class="text-3xl font-bold text-thmblue mb-4">Trois marqueurs, un signal composite</h2>
+      <p class="text-slate-700 leading-relaxed mb-6 max-w-3xl">
+        PT_SISMO combine trois marqueurs dérivés de la cascade PT. Un
+        signal HIGH n’est émis que lorsque <strong>les trois marqueurs
+        convergent</strong> dans une fenêtre de ±90 jours. C’est ce filtre
+        triple qui donne la précision de 93 %.
+      </p>
+      <div class="space-y-4">
+        {markers.map((m) => (
+          <div class="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
+            <div class="flex items-baseline gap-3 flex-wrap mb-3">
+              <code class="font-mono text-base font-bold text-amber-800 bg-amber-100 px-2 py-0.5 rounded">{m.code}</code>
+              <span class="text-xs font-sans uppercase tracking-wider text-slate-600">PT origine : {m.pt}</span>
+            </div>
+            <p class="text-sm text-slate-700 leading-relaxed mb-2">
+              <strong>Côté géophysique :</strong> {m.geo}
+            </p>
+            <p class="text-sm text-slate-700 leading-relaxed">
+              <strong>Rôle dans le signal :</strong> {m.role}
+            </p>
+          </div>
+        ))}
+      </div>
+      <div class="rounded-lg bg-blue-50 border-l-4 border-thmblue px-4 py-3 mt-6">
+        <p class="text-sm text-thmblue leading-relaxed">
+          <strong>Filtre aftershock Omori.</strong> En plus, PT_SISMO applique
+          une fenêtre Omori 15-365 jours pour exclure les aftershocks. Une
+          clause d’échappement maintient HIGH si <code class="font-mono">mag_estimate ≥ M6+</code>
+          ou <code class="font-mono">mag_score &gt; 500</code> — la zone est
+          alors marquée <code class="font-mono">aftershock_context</code>
+          plutôt que filtrée.
+        </p>
+      </div>
+    </section>
+
+    <!-- ============= WEBAPP / PLACEHOLDER ============= -->
+    <section class="mb-12">
+      <p class="pt-tag pt-tag-val mb-3">Webapp PT_SISMO</p>
+      <h2 class="text-3xl font-bold text-thmblue mb-4">Tableau de bord temps-réel</h2>
+      {webappPublic ? (
+        <div class="rounded-lg border border-slate-200 bg-white p-1 shadow-sm overflow-hidden">
+          <iframe
+            src={webappUrl}
+            title="PT_SISMO webapp"
+            class="w-full"
+            style="height: 720px; border: 0;"
+            loading="lazy"
+            referrerpolicy="no-referrer"
+          />
+          <p class="text-xs text-stone-500 italic px-4 py-2 border-t border-slate-200">
+            Aperçu intégré de la webapp PT_SISMO (lecture seule). Pour la version complète interactive, ouvrir <a href={webappUrl} class="text-thmblue underline">{webappUrl}</a>.
+          </p>
+        </div>
+      ) : (
+        <div class="rounded-lg border-2 border-dashed border-stone-300 bg-stone-50 p-8 text-center">
+          <p class="text-lg font-sans text-stone-700 mb-3">🚧 Webapp en développement</p>
+          <p class="text-sm text-stone-600 max-w-2xl mx-auto leading-relaxed">
+            Une webapp PT_SISMO de visualisation temps-réel des prédictions est
+            en cours de développement. Quand elle sera publiée, son tableau
+            de bord sera intégré ici (iframe). En attendant, le résumé des
+            détections récentes et des métriques est affiché ci-dessous.
+          </p>
+        </div>
+      )}
+    </section>
+
+    <!-- ============= METRIQUES ============= -->
+    <section class="mb-12">
+      <p class="pt-tag pt-tag-val mb-3">Métriques de validation</p>
+      <h2 class="text-3xl font-bold text-thmblue mb-4">Backtest et hits prospectifs</h2>
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+        {metrics.map((m) => (
+          <div class="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
+            <p class="text-xs font-sans uppercase tracking-wider text-stone-500 mb-2">{m.label}</p>
+            <p class="text-3xl font-bold font-mono text-derorange">{m.value}</p>
+            <p class="text-xs text-stone-600 mt-2">{m.context}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- ============= 5 VALIDATIONS PROSPECTIVES ============= -->
+    <section class="mb-12">
+      <p class="pt-tag pt-tag-thm mb-3">Détections récentes</p>
+      <h2 class="text-3xl font-bold text-thmblue mb-6">5 validations prospectives + 1 cas non scorable</h2>
+      <p class="text-sm text-stone-700 mb-5 max-w-3xl leading-relaxed">
+        Toutes les prédictions ci-dessous ont été inscrites dans le système
+        <strong>avant</strong> les événements correspondants, et chaînées par
+        SHA-256. Les hashes sont dans <code class="font-mono bg-stone-100 px-1 py-0.5 rounded">verified_log.json</code>
+        et <code class="font-mono bg-stone-100 px-1 py-0.5 rounded">prediction_chain.json</code>
+        du dépôt PT_SISMO (privé).
+      </p>
+      <div class="space-y-4">
+        {recentDetections.map((d) => (
+          <div class={d.highlight
+            ? "rounded-lg border-2 border-emerald-500 bg-emerald-50 p-5 shadow-md"
+            : "rounded-lg border-2 border-amber-300 bg-amber-50 p-5"}>
+            <div class="flex flex-wrap items-baseline justify-between gap-3 mb-2">
+              <h3 class={d.highlight ? "font-sans font-bold text-emerald-900 text-lg" : "font-sans font-semibold text-amber-900 text-lg"}>{d.label}</h3>
+              <span class={d.highlight ? "font-mono text-sm text-emerald-700" : "font-mono text-sm text-amber-700"}>{d.date}</span>
+            </div>
+            <p class={d.highlight ? "text-sm text-emerald-900 leading-relaxed mb-2" : "text-sm text-amber-900 leading-relaxed mb-2"}>{d.detail}</p>
+            <p class={d.highlight ? "text-xs font-sans uppercase tracking-wider text-emerald-700 font-bold" : "text-xs font-sans uppercase tracking-wider text-amber-700"}>→ {d.status}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- ============= LIMITES L2-L3 ============= -->
+    <section class="mb-12" data-min-depth="L2">
+      <p class="pt-tag pt-tag-id mb-3">Limites assumées</p>
+      <h2 class="text-3xl font-bold text-thmblue mb-4">Quatre limites à connaître</h2>
+      <div class="grid md:grid-cols-2 gap-4">
+        {limits.map((l) => (
+          <div class="rounded-lg border-2 border-rose-300 bg-rose-50 p-5">
+            <h4 class="font-sans font-semibold text-rose-800 mb-2">{l.title}</h4>
+            <p class="text-sm text-rose-900 leading-relaxed">{l.detail}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- ============= LIENS ============= -->
+    <section class="mb-8">
+      <p class="pt-tag pt-tag-bridge mb-3">Aller plus loin</p>
+      <h2 class="text-3xl font-bold text-thmblue mb-6">Approfondir</h2>
+      <div class="grid md:grid-cols-3 gap-4">
+        <a href="/recherches" class="pt-card block group">
+          <span class="pt-tag pt-tag-id">Hub recherches</span>
+          <h3 class="font-sans font-semibold text-thmblue text-lg mt-3 mb-2 group-hover:underline">Les 3 programmes en parallèle</h3>
+          <p class="text-sm text-slate-700">PT_SISMO en contexte avec biologie et SCS.</p>
+        </a>
+        <a href="/theorems/T1" class="pt-card block group">
+          <span class="pt-tag pt-tag-thm">Théorème T1</span>
+          <h3 class="font-sans font-semibold text-thmblue text-lg mt-3 mb-2 group-hover:underline">Transitions interdites mod 3</h3>
+          <p class="text-sm text-slate-700">La même règle T1 que celle utilisée comme marqueur « gap » dans PT_SISMO.</p>
+        </a>
+        <a href="/theorems/T4" class="pt-card block group">
+          <span class="pt-tag pt-tag-thm">Théorème T4</span>
+          <h3 class="font-sans font-semibold text-thmblue text-lg mt-3 mb-2 group-hover:underline">Convergence spectrale</h3>
+          <p class="text-sm text-slate-700">La densité ρ utilisée par PT_SISMO est l’analogue géo de la convergence T4.</p>
+        </a>
+        <a href="/predictions" class="pt-card block group">
+          <span class="pt-tag pt-tag-thm">Prédictions PT</span>
+          <h3 class="font-sans font-semibold text-thmblue text-lg mt-3 mb-2 group-hover:underline">28 cibles falsifiables</h3>
+          <p class="text-sm text-slate-700">Les prédictions PT_SISMO sont du même ordre épistémique : falsifiables avant échéance.</p>
+        </a>
+        <a href="/contact" class="pt-card block group">
+          <span class="pt-tag pt-tag-id">Contact</span>
+          <h3 class="font-sans font-semibold text-thmblue text-lg mt-3 mb-2 group-hover:underline">Demander accès au code</h3>
+          <p class="text-sm text-slate-700">Le code privé peut être partagé sous accord de collaboration.</p>
+        </a>
+        <a href="/critique" class="pt-card block group">
+          <span class="pt-tag pt-tag-id">Critique</span>
+          <h3 class="font-sans font-semibold text-thmblue text-lg mt-3 mb-2 group-hover:underline">Tester la falsifiabilité</h3>
+          <p class="text-sm text-slate-700">Comment formuler une objection technique aux résultats PT_SISMO.</p>
+        </a>
+      </div>
+    </section>
+
+  </main>
+</BaseLayout>

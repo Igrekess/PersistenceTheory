@@ -1,0 +1,221 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+
+const objections = [
+  {
+    cat: 'Methodology',
+    title: 'You must be hiding a fit somewhere.',
+    answer: 'The code is public (MIT) on GitHub: Igrekess/PT_CHEMISTRY, PT_PHYSICS, PT_MATHEMATICS. Anyone can audit. Any fitted coefficient would appear in commits or config files. None has been found — and 9 fragilities have been identified and closed (R46, R47).',
+    severity: 'high',
+  },
+  {
+    cat: 'Methodology',
+    title: 'You patch each observable after it fails.',
+    answer: 'Possible in principle. In practice, the corrections (F(2), echo VP, spiral feedback) are constrained by the cascade architecture: they cannot be added arbitrarily. The existence of the [PRED-cand] tag and public downgrades (P20 dark energy, April 2026) shows we do not silently cover failed derivations.',
+    severity: 'high',
+  },
+  {
+    cat: 'Mathematical',
+    title: '"The sieve" cannot be the root of the universe.',
+    answer: 'PT does not claim the universe IS the sieve. It says that the stable structures readable on the sieve (T1, T5, holonomy) coincide with the stable structures observed physically, with no parameter. A pattern issue, not an ontological one. The three possible readings (realist, structuralist, instrumentalist) are spelled out in the "Limits" section.',
+    severity: 'medium',
+  },
+  {
+    cat: 'Mathematical',
+    title: 'The uniqueness of μ* = 15 depends on the threshold γ_p > 1/2.',
+    answer: 'True, and that 1/2 threshold is a postulate (not derived from sieve axioms). But its **robustness** is strong: any threshold in [0.43, 0.60] yields the same fixed point {3, 5, 7}. The gap γ_7 - γ_11 = 0.169 ensures structural stability independent of the exact value. See T5.',
+    severity: 'medium',
+  },
+  {
+    cat: 'Physics',
+    title: 'Why {3, 5, 7} and not {2, 3, 5} or {5, 7, 11}?',
+    answer: 'Exhaustive search (T5): no other finite prime subset closes the self-consistency equation γ_p > 1/2 AND μ = sum. {2} is kinematic (not dynamic, T_2 trivial). {3, 5, 7} is the unique solution. Permuting degrades the 43 observables by a factor 106 on average (ablation test).',
+    severity: 'medium',
+  },
+  {
+    cat: 'Physics',
+    title: 'The F(2) dressing looks like an ad hoc candle.',
+    answer: 'F(2) = 0.758 272 782 6 is a closed-form **99.96 % rational** formula derived in monograph chapter 10 (R51, "Binary Leakage Dressing"). Its value is fully constrained by the channel structure. It contains no free parameter — it is computable from μ* and γ_p without choice.',
+    severity: 'medium',
+  },
+  {
+    cat: 'Cosmology',
+    title: 'P20 (dark energy) was downgraded. How many more downgrades to expect?',
+    answer: 'Exactly the right critical reflex. P20 was downgraded in April 2026 because the formula lacked a canonical Lagrangian derivation. If DUNE/JUNO contradict P4–P7, those would be major downgrades. The theory publishes its failures as well as its successes — that is what distinguishes it from an ad-hoc theory.',
+    severity: 'high',
+  },
+  {
+    cat: 'Cosmology',
+    title: 'You predict everything, hence nothing (multiverse, etc.).',
+    answer: 'PT predicts the opposite of the multiverse: a unique universe, no degree of freedom, no landscape. P11 forbids SUSY < 100 TeV. P10 forbids the QCD axion. P14 forbids WIMPs. P12 fixes N_gen = 3 exactly. The profile is restrictive, not permissive.',
+    severity: 'high',
+  },
+  {
+    cat: 'Status',
+    title: 'Why is this theory not published in a classical journal?',
+    answer: 'A timing choice. The monograph (913 p FR + 883 p EN) is in open preprint. The peer-reviewed route is planned chapter by chapter, not in bulk, which takes time. The site explicitly acknowledges [PREPRINT] status and invites criticism. See About page.',
+    severity: 'high',
+  },
+  {
+    cat: 'Status',
+    title: 'How can I test one of your results myself?',
+    answer: 'Three ways: (1) run the scripts in browser via Pyodide (page /scripts); (2) clone the GitHub repo and run pytest; (3) take a specific observable from the /observables table, follow the link to the monograph chapter, and verify the algebra. None requires heavy installation.',
+    severity: 'high',
+  },
+];
+
+const severityClasses: Record<string, string> = {
+  high: 'border-rose-300 bg-rose-50',
+  medium: 'border-amber-300 bg-amber-50',
+  low: 'border-slate-300 bg-slate-50',
+};
+---
+
+<BaseLayout
+  title="Critique and debate"
+  description="Serious objections to PT, and reasoned answers. Open space for scrupulous critique — that is how the theory progresses."
+>
+  <main class="max-w-6xl mx-auto px-4 py-10 md:py-14">
+
+    <section class="mb-12">
+      <div class="rounded-lg border border-slate-200 bg-white p-6 md:p-8 shadow-sm">
+        <p class="pt-tag pt-tag-id mb-5">Open space</p>
+        <h1 class="text-4xl md:text-5xl font-bold text-thmblue leading-tight mb-4">
+          Critique and debate
+        </h1>
+        <p class="text-2xl md:text-3xl font-sans font-semibold text-derorange leading-snug mb-6">
+          Serious objections deserve serious answers.
+        </p>
+        <p class="text-lg text-slate-700 leading-relaxed mb-5" data-max-depth="L1">
+          A theory claiming 43 observables with no parameter deserves
+          objections. This page collects the strongest ones and answers
+          them directly. None is dismissed as "misunderstanding": if the
+          critique holds, the theory must be revised — and we already had
+          the chance (P20 downgraded in April 2026).
+        </p>
+        <p class="text-base text-slate-700 leading-relaxed" data-min-depth="L2">
+          This is not a defence brief. It is a **public stress-test space**.
+          If you have an objection not listed here, write it on the
+          <a href="/en/contact" class="text-thmblue underline">Contact</a> page
+          or open a <a href="https://github.com/Igrekess" class="text-thmblue underline">GitHub issue</a>.
+          Good critiques will be added with their reply.
+        </p>
+      </div>
+    </section>
+
+    <section class="mb-12">
+      <p class="pt-tag pt-tag-thm mb-3">10 strong objections</p>
+      <h2 class="text-3xl font-bold text-thmblue mb-6">What I’ve been told</h2>
+      <div class="space-y-5">
+        {objections.map((o, i) => (
+          <div class={`rounded-lg border-2 p-6 ${severityClasses[o.severity]}`}>
+            <div class="flex items-start gap-4">
+              <span class="flex-shrink-0 w-10 h-10 rounded-full bg-white border-2 border-current font-mono text-sm font-bold flex items-center justify-center">
+                {String(i + 1).padStart(2, '0')}
+              </span>
+              <div class="flex-1">
+                <div class="flex items-center gap-3 mb-2 flex-wrap">
+                  <span class="text-xs font-sans uppercase tracking-wider opacity-75 border border-current/40 rounded-full px-3 py-0.5">{o.cat}</span>
+                  <span class="text-xs font-mono opacity-60">severity {o.severity}</span>
+                </div>
+                <h3 class="font-sans text-xl font-bold mb-3 text-slate-900 italic">"{o.title}"</h3>
+                <p class="text-slate-800 leading-relaxed">{o.answer}</p>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section class="mb-12">
+      <p class="pt-tag pt-tag-bridge mb-3">For critics</p>
+      <h2 class="text-3xl font-bold text-thmblue mb-6">How to formulate an effective objection</h2>
+      <div class="rounded-lg border border-slate-200 bg-white p-6 shadow-sm">
+        <p class="text-slate-700 leading-relaxed mb-4">
+          For an objection to gain traction, it must point to one of:
+        </p>
+        <ul class="space-y-3 text-slate-700">
+          <li><strong class="text-rose-700">Computation error.</strong> A derivation where PT yields a wrong value, scriptably checkable.</li>
+          <li><strong class="text-rose-700">Hidden parameter.</strong> A coefficient appearing in a formula without arithmetic justification tracing back to {`$\\{s, \\mu^*\\}$`}.</li>
+          <li><strong class="text-rose-700">Internal contradiction.</strong> Two PT statements incompatible with one another or with a cited classical theorem.</li>
+          <li><strong class="text-rose-700">Ablation test.</strong> A structural change that does not degrade the 43 observables (it should, if the assignment is forced).</li>
+          <li><strong class="text-rose-700">Experimental measurement</strong> contradicting a Tier-1 prediction at &gt;5σ.</li>
+        </ul>
+        <p class="text-slate-700 leading-relaxed mt-4">
+          **Philosophical** ("it cannot be that") or **rhetorical** ("you
+          claim to explain everything") objections are less useful because
+          they pinpoint nothing technically falsifiable. PT prefers precise
+          technical objections, even when they hurt.
+        </p>
+      </div>
+    </section>
+
+    <section class="mb-12">
+      <p class="pt-tag pt-tag-thm mb-3">Falsification criteria</p>
+      <h2 class="text-3xl font-bold text-thmblue mb-6">What would refute PT?</h2>
+      <div class="grid md:grid-cols-2 gap-4">
+        <div class="rounded-lg border-2 border-rose-300 bg-rose-50 p-5">
+          <h3 class="font-sans font-semibold text-rose-800 mb-2">A. Direct experimental falsification</h3>
+          <ul class="text-sm text-rose-900 leading-relaxed space-y-1">
+            <li>· 0νββ detection (P1 broken) → Majorana neutrinos</li>
+            <li>· Inverted hierarchy at &gt;5σ (P2 broken)</li>
+            <li>· δ_CP(PMNS) outside [170°, 224°] at 5σ (P4 broken)</li>
+            <li>· QCD axion detection (P10 broken)</li>
+            <li>· SUSY &lt; 100 TeV (P11 broken)</li>
+            <li>· Fourth fermion generation (P12 broken)</li>
+            <li>· Proton decay (P13 broken)</li>
+            <li>· WIMP detection (P14 broken)</li>
+          </ul>
+        </div>
+        <div class="rounded-lg border-2 border-amber-300 bg-amber-50 p-5">
+          <h3 class="font-sans font-semibold text-amber-800 mb-2">B. Theoretical falsification</h3>
+          <ul class="text-sm text-amber-900 leading-relaxed space-y-1">
+            <li>· Another prime sequence satisfying P1-P4 with reproduced Standard Model</li>
+            <li>· An SM observable inexpressible in PM algebra</li>
+            <li>· BA5 logically independent of BA0-BA4</li>
+            <li>· A proof that $\gamma_p > 1/2$ can be violated without internal contradiction</li>
+            <li>· A new classical theorem invalidating T0, T1, T5 or T6</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="mb-8">
+      <p class="pt-tag pt-tag-bridge mb-3">Contribute</p>
+      <h2 class="text-3xl font-bold text-thmblue mb-6">How to join the debate</h2>
+      <div class="grid md:grid-cols-3 gap-4">
+        <a href="https://github.com/Igrekess" class="pt-card block group">
+          <span class="pt-tag pt-tag-val">GitHub</span>
+          <h3 class="font-sans font-semibold text-thmblue text-lg mt-3 mb-2 group-hover:underline">Public issues</h3>
+          <p class="text-sm text-slate-700">Any technical objection in public form, traceable, archived.</p>
+        </a>
+        <a href="/en/contact" class="pt-card block group">
+          <span class="pt-tag pt-tag-id">Direct contact</span>
+          <h3 class="font-sans font-semibold text-thmblue text-lg mt-3 mb-2 group-hover:underline">Email the author</h3>
+          <p class="text-sm text-slate-700">For nuanced exchange, collaboration, private questions.</p>
+        </a>
+        <a href="/en/limites" class="pt-card block group">
+          <span class="pt-tag pt-tag-id">Honesty</span>
+          <h3 class="font-sans font-semibold text-thmblue text-lg mt-3 mb-2 group-hover:underline">Acknowledged limits</h3>
+          <p class="text-sm text-slate-700">List of points where PT recognises incompleteness.</p>
+        </a>
+        <a href="/en/audit" class="pt-card block group">
+          <span class="pt-tag pt-tag-thm">Audit</span>
+          <h3 class="font-sans font-semibold text-thmblue text-lg mt-3 mb-2 group-hover:underline">10 commitments C1–C10</h3>
+          <p class="text-sm text-slate-700">Verifiable internal closures constraining the theory.</p>
+        </a>
+        <a href="/en/predictions" class="pt-card block group">
+          <span class="pt-tag pt-tag-thm">Predictions</span>
+          <h3 class="font-sans font-semibold text-thmblue text-lg mt-3 mb-2 group-hover:underline">28 falsifiable targets</h3>
+          <p class="text-sm text-slate-700">Upcoming experiments that will validate or kill the theory.</p>
+        </a>
+        <a href="/en/scripts" class="pt-card block group">
+          <span class="pt-tag pt-tag-val">Reproduction</span>
+          <h3 class="font-sans font-semibold text-thmblue text-lg mt-3 mb-2 group-hover:underline">Scripts in browser</h3>
+          <p class="text-sm text-slate-700">Verify T5, T6, α_EM theorems in seconds.</p>
+        </a>
+      </div>
+    </section>
+
+  </main>
+</BaseLayout>

@@ -1,11 +1,133 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
 import BigBangCrystallisation from '@components/BigBangCrystallisation.astro';
+
+const misconceptions = [
+  {
+    wrong: 'Le Big Bang est une explosion dans l’espace.',
+    right: 'En PT, le Big Bang est l’ordre logique d’ouverture des canaux. L’espace lui-même ne devient lisible qu’à l’activation de p = 7. Avant, il n’y a pas de "lieu" pour exploser.',
+  },
+  {
+    wrong: 'Le temps existait avant la cascade.',
+    right: 'g₀₀ < 0 (signature lorentzienne) n’apparaît qu’à μ > μ_c ≈ 6,97 — soit après l’activation de p = 7. Avant, la signature reste euclidienne : pas de temps propre, pas de "avant".',
+  },
+  {
+    wrong: 'μ* = 15 a été choisi pour reproduire la physique.',
+    right: 'μ* = 15 est l’unique point fixe attractif de l’itération γ_p > 1/2. Le bassin d’attraction est [12, 17] ; en dehors, divergence ou collapse. La valeur 15 n’a pas été ajustée.',
+  },
+  {
+    wrong: 'Le modèle Big Bang PT remplace le modèle ΛCDM.',
+    right: 'PT reconstruit ΛCDM tardif (H₀, F_echo, n_s) avec 0,1 % d’écart, 0 paramètre. La phase pré-recombinaison est dérivée comme ordre informationnel, pas comme événement temporel primitif.',
+  },
+];
+
+const numerics = [
+  { label: 'μ_c (transition Hartle-Hawking)', value: '≈ 6,97', source: 'g₀₀ change de signe' },
+  { label: 'Bassin d’attraction de μ*', value: '[12, 17]', source: 'Itération γ_p > 1/2 (T5)' },
+  { label: 'Divergence si μ ≥ 18', value: 'γ_11(18) = 0,500', source: 'Activation p=11, cascade infinie' },
+  { label: 'Collapse si μ ≤ 11', value: 'γ_3(3) = 0,224', source: 'Désactivation p=3' },
+  { label: 'Marge de p=11 à μ*=15', value: 'Δ = 0,074 (15 %)', source: 'γ_11(15) = 0,426' },
+  { label: 'Marge de p=13 à μ*=15', value: 'Δ = 0,144 (29 %)', source: 'γ_13(15) = 0,356' },
+];
 ---
 
 <BaseLayout
   title="Cosmogonie"
-  description="Lecture PT du Big Bang : cristallisation de p = 2, passage 17 vers 15, branches q+ et q-."
+  description="Lecture PT du Big Bang : ordre logique d’ouverture des canaux, cristallisation de p=2, bifurcation q⁺/q⁻ à μ*=15, verrouillage cosmologique."
 >
   <BigBangCrystallisation lang="fr" />
+
+  <main class="max-w-6xl mx-auto px-4 pb-14">
+
+    <!-- CONTRE-INTUITIONS -->
+    <section class="mb-12 mt-8">
+      <p class="pt-tag pt-tag-id mb-3">Erreurs fréquentes</p>
+      <h2 class="text-3xl font-bold text-thmblue mb-6">Quatre malentendus à éviter</h2>
+      <p class="text-slate-700 leading-relaxed mb-6 max-w-3xl">
+        Avant d’aller plus loin, il est utile de désamorcer quatre lectures
+        intuitives mais erronées de la cosmogonie PT.
+      </p>
+      <div class="grid md:grid-cols-2 gap-4">
+        {misconceptions.map((m) => (
+          <div class="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
+            <p class="text-xs font-sans uppercase tracking-wider text-rose-700 mb-2">À éviter</p>
+            <p class="text-slate-700 italic mb-3 line-through decoration-rose-300">{m.wrong}</p>
+            <p class="text-xs font-sans uppercase tracking-wider text-emerald-700 mb-2">Lecture PT</p>
+            <p class="text-slate-800 leading-relaxed">{m.right}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- TABLE NUMERIQUE -->
+    <section data-min-depth="L2" class="mb-12">
+      <p class="pt-tag pt-tag-val mb-3">Repères numériques</p>
+      <h2 class="text-3xl font-bold text-thmblue mb-6">Le bassin d’attraction est étroit</h2>
+      <p class="text-slate-700 leading-relaxed mb-6 max-w-3xl">
+        L’unicité de μ* = 15 ne tient pas à un fit. Elle tient à la géométrie du
+        bassin d’attraction de l’itération {`$\\mu_{k+1} = \\sum \\{p : \\gamma_p(\\mu_k) > 1/2\\}$`}.
+        Si on perturbe l’itération hors de [12, 17], on quitte la phase stable.
+        Voici les marges exactes qui assurent cette unicité.
+      </p>
+      <div class="overflow-x-auto rounded-lg border border-slate-200 bg-white shadow-sm">
+        <table class="w-full text-sm">
+          <thead class="bg-slate-50 text-stone-600 font-sans">
+            <tr>
+              <th class="text-left px-4 py-3">Quantité</th>
+              <th class="text-left px-4 py-3">Valeur</th>
+              <th class="text-left px-4 py-3">Source</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-100">
+            {numerics.map((n) => (
+              <tr>
+                <td class="px-4 py-3 font-medium text-slate-800">{n.label}</td>
+                <td class="px-4 py-3 font-mono text-derorange">{n.value}</td>
+                <td class="px-4 py-3 text-stone-600">{n.source}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- LIENS -->
+    <section class="mb-12">
+      <p class="pt-tag pt-tag-bridge mb-3">Aller plus loin</p>
+      <h2 class="text-3xl font-bold text-thmblue mb-6">Continuer la lecture</h2>
+      <div class="grid md:grid-cols-3 gap-4">
+        <a href="/temps" class="pt-card block group">
+          <span class="pt-tag pt-tag-der">Émergence du temps</span>
+          <h3 class="font-sans font-semibold text-thmblue text-lg mt-3 mb-2 group-hover:underline">Comment g₀₀ change de signe</h3>
+          <p class="text-sm text-slate-700">La transition Hartle-Hawking à μ_c ≈ 6,97 fait apparaître la signature lorentzienne.</p>
+        </a>
+        <a href="/cosmologie" class="pt-card block group">
+          <span class="pt-tag pt-tag-val">Cosmologie tardive</span>
+          <h3 class="font-sans font-semibold text-thmblue text-lg mt-3 mb-2 group-hover:underline">H₀, secteur sombre, n_s</h3>
+          <p class="text-sm text-slate-700">Comment la cascade gèle dans les observables ΛCDM avec 0 paramètre ajusté.</p>
+        </a>
+        <a href="/theorems/T5" class="pt-card block group">
+          <span class="pt-tag pt-tag-thm">Théorème T5</span>
+          <h3 class="font-sans font-semibold text-thmblue text-lg mt-3 mb-2 group-hover:underline">Unicité du point fixe μ* = 15</h3>
+          <p class="text-sm text-slate-700">Démonstration rigoureuse : 6 justifications indépendantes (J1–J6).</p>
+        </a>
+        <a href="/essays/bifurcation-q-plus-q-minus" class="pt-card block group">
+          <span class="pt-tag pt-tag-id">Essai L1</span>
+          <h3 class="font-sans font-semibold text-thmblue text-lg mt-3 mb-2 group-hover:underline">La bifurcation q⁺/q⁻</h3>
+          <p class="text-sm text-slate-700">Pourquoi le crible se scinde en deux branches après μ* = 15.</p>
+        </a>
+        <a href="/essays/echo-primes" class="pt-card block group">
+          <span class="pt-tag pt-tag-id">Essai L1</span>
+          <h3 class="font-sans font-semibold text-thmblue text-lg mt-3 mb-2 group-hover:underline">Les premiers d’écho</h3>
+          <p class="text-sm text-slate-700">Que font {`{11, 13}`} quand ils ne sont plus actifs ? Ils habillent α_EM.</p>
+        </a>
+        <a href="/calculator" class="pt-card block group">
+          <span class="pt-tag pt-tag-val">Calculatrice</span>
+          <h3 class="font-sans font-semibold text-thmblue text-lg mt-3 mb-2 group-hover:underline">Tester γ_p(μ) en direct</h3>
+          <p class="text-sm text-slate-700">Voir le bassin d’attraction se former au fil du curseur μ.</p>
+        </a>
+      </div>
+    </section>
+
+  </main>
 </BaseLayout>

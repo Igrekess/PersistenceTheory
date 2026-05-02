@@ -12,13 +12,13 @@
     },
     {
       "key": "qplus",
-      "fr": { "term": "q⁺", "definition": "Branche couplages : q⁺ = 1 − 2/μ. Donne sin²(θ_p, q⁺) → vertex, leptons, α_EM. Bifurque depuis μ* = 15." },
-      "en": { "term": "q⁺", "definition": "Coupling branch: q⁺ = 1 − 2/μ. Gives sin²(θ_p, q⁺) → vertex, leptons, α_EM. Bifurcates from μ* = 15." }
+      "fr": { "term": "q⁺", "definition": "Branche **vertex / couplage** : q⁺ = 1 − 2/μ. À μ* = 15, q⁺ = 13/15. **Route forcée** : entropie maximale (L0) sur la distribution géométrique des entiers pairs {2, 4, 6, …}. La contrainte de moyenne μ fixe uniquement q = 1 − 2/μ — pas un choix. **Une fois fixée, la branche opère simultanément sur le discret (cercles ℤ/pℤ via CRT) et sur le continu (angles θ_p)**. Donne sin²(θ_p, q⁺) → α_EM, masses leptoniques, PMNS. **q⁺ ne peut pas être obtenu par une route continue** : la limite continue d’une géométrique sur entiers pairs est une exponentielle qui donne q⁻ = e^(−1/μ)." },
+      "en": { "term": "q⁺", "definition": "**Vertex / coupling** branch: q⁺ = 1 − 2/μ. At μ* = 15, q⁺ = 13/15. **Forced route**: maximum entropy (L0) on the geometric distribution over even integers {2, 4, 6, …}. The mean-μ constraint uniquely fixes q = 1 − 2/μ — not a choice. **Once fixed, the branch operates simultaneously on the discrete side (ℤ/pℤ circles via CRT) and the continuous side (angles θ_p)**. Gives sin²(θ_p, q⁺) → α_EM, lepton masses, PMNS. **q⁺ cannot be obtained via a continuous route**: the continuum limit of a geometric on even integers is an exponential, which gives q⁻ = e^(−1/μ)." }
     },
     {
       "key": "qminus",
-      "fr": { "term": "q⁻", "definition": "Branche géométrie : q⁻ = e^(−1/μ). Donne sin²(θ_p, q⁻) → propagateur, métrique, masses quarks, CKM." },
-      "en": { "term": "q⁻", "definition": "Geometry branch: q⁻ = e^(−1/μ). Gives sin²(θ_p, q⁻) → propagator, metric, quark masses, CKM." }
+      "fr": { "term": "q⁻", "definition": "Branche **arête / propagateur / géométrie** : q⁻ = e^(−1/μ). À μ* = 15, q⁻ = e^(−1/15). **Route forcée** : limite de Boltzmann (Gibbs) pour une distribution exponentielle continue sur ℝ⁺ de moyenne μ. La contrainte fixe uniquement q = e^(−1/μ) — pas un choix. **Une fois fixée, la branche opère simultanément sur le continu (métrique Fisher de Bianchi I) et sur le discret (les trois directions actives {3, 5, 7})**. Donne sin²(θ_p, q⁻) → masses quarks, mélange CKM, métrique gravitationnelle. **q⁻ ne peut pas être obtenu par une route discrète** : la discrétisation d’une exponentielle continue redonne une géométrique qui donne q⁺ = 1 − 2/μ. q⁻ et q⁺ sont les deux régimes du même problème variationnel ; q⁻ = lim(continuum) q⁺." },
+      "en": { "term": "q⁻", "definition": "**Edge / propagator / geometry** branch: q⁻ = e^(−1/μ). At μ* = 15, q⁻ = e^(−1/15). **Forced route**: Boltzmann (Gibbs) limit for a continuous exponential distribution on ℝ⁺ of mean μ. The constraint uniquely fixes q = e^(−1/μ) — not a choice. **Once fixed, the branch operates simultaneously on the continuous side (Fisher metric of Bianchi I) and the discrete side (the three active directions {3, 5, 7})**. Gives sin²(θ_p, q⁻) → quark masses, CKM mixing, gravitational metric. **q⁻ cannot be obtained via a discrete route**: discretising a continuous exponential yields a geometric, which gives q⁺ = 1 − 2/μ. q⁻ and q⁺ are the two regimes of the same variational problem; q⁻ = lim(continuum) q⁺." }
     },
     {
       "key": "delta_p",
@@ -32,8 +32,8 @@
     },
     {
       "key": "holonomy",
-      "fr": { "term": "holonomie", "definition": "Nom mathématique du transport de phase sur le cercle Z/pZ. Dans la nomenclature de la monographie, le terme PT usuel est « phase cyclique » : l’identité de phase cyclique définit θ_p par cos θ_p = 1 − δ_p, donc sin²(θ_p) = δ_p(2 − δ_p)." },
-      "en": { "term": "holonomy", "definition": "Mathematical name for phase transport on the circle Z/pZ. In the monograph nomenclature, the usual PT term is “cyclic phase”: the Cyclic Phase Identity defines θ_p by cos θ_p = 1 − δ_p, hence sin²(θ_p) = δ_p(2 − δ_p)." }
+      "fr": { "term": "holonomie / phase cyclique", "definition": "Nom mathématique du transport de phase autour du cercle ℤ/pℤ. **Traduction PT canonique** (monographie) : « phase cyclique ». Lecture intuitive : c’est la trace de mémoire que conserve le crible quand un canal premier p est parcouru — l’angle θ_p mesure de combien la structure persistante a tourné après un tour complet du cycle. Identité de phase cyclique : cos θ_p = 1 − δ_p, donc sin²(θ_p) = δ_p(2 − δ_p)." },
+      "en": { "term": "holonomy / cyclic phase", "definition": "Mathematical name for phase transport around the circle ℤ/pℤ. **Canonical PT translation** (monograph): “cyclic phase”. Intuitive reading: it is the memory trace the sieve retains as a prime channel p is traversed — the angle θ_p measures how much the persistent structure has rotated after a full cycle. Cyclic Phase Identity: cos θ_p = 1 − δ_p, hence sin²(θ_p) = δ_p(2 − δ_p)." }
     },
     {
       "key": "anomalous_dimension",
@@ -122,8 +122,8 @@
     },
     {
       "key": "bifurcation",
-      "fr": { "term": "bifurcation", "definition": "Scission primitive engendrée par p = 2 (parité/involution), puis figée à μ* = 15 comme q⁺ (couplages) et q⁻ (géométrie). Sépare leptons/vertex de quarks/propagateur, PMNS de CKM." },
-      "en": { "term": "bifurcation", "definition": "Primitive split seeded by p = 2 (parity/involution), then frozen at μ* = 15 as q⁺ (couplings) and q⁻ (geometry). Separates leptons/vertex from quarks/propagator, PMNS from CKM." }
+      "fr": { "term": "bifurcation q⁺/q⁻", "definition": "Scission primitive amorcée par l’involution p = 2, puis figée à μ* = 15 en deux **rôles** : q⁺ (vertex / couplage) et q⁻ (arête / propagateur). **Attention au piège** : la bifurcation ne sépare pas le « discret » du « continu ». Les deux branches opèrent simultanément sur des objets discrets (cercles ℤ/pℤ, trois directions actives {3, 5, 7}) et continus (angles d’holonomie θ_p, métrique Fisher). L’axe discret/continu caractérise seulement les **routes de dérivation** initiales : L0 max-entropie exacte → q⁺ ; limite de Boltzmann → q⁻. **Ce qui sépare réellement les branches** : leur rôle physique (interaction au point vs propagation entre points), donc leptons/PMNS d’un côté, quarks/CKM/gravité de l’autre. Chaleur latente L = q⁻ − q⁺ ≈ 0,069 → secteur sombre cosmologique." },
+      "en": { "term": "q⁺/q⁻ bifurcation", "definition": "Primitive split seeded by the p = 2 involution, frozen at μ* = 15 into two **roles**: q⁺ (vertex / coupling) and q⁻ (edge / propagator). **Common pitfall**: the bifurcation does not split the “discrete” from the “continuous”. Both branches operate simultaneously on discrete objects (ℤ/pℤ circles, three active directions {3, 5, 7}) and continuous ones (holonomy angles θ_p, Fisher metric). The discrete/continuous axis only characterises the initial **derivation routes**: L0 exact max-entropy → q⁺; Boltzmann limit → q⁻. **What truly separates the branches** is their physical role (interaction at a point vs propagation between points), hence leptons/PMNS on one side, quarks/CKM/gravity on the other. Latent heat L = q⁻ − q⁺ ≈ 0.069 → cosmological dark sector." }
     },
     {
       "key": "Ngen",
@@ -149,6 +149,66 @@
       "key": "PRED",
       "fr": { "term": "[PRED]", "definition": "Tag épistémique : prédiction falsifiable. Énoncé numérique non vérifié à ce jour mais que la PT impose. Ex. δ_CP(PMNS) = 197,4° (DUNE ~2032)." },
       "en": { "term": "[PRED]", "definition": "Epistemic tag: falsifiable prediction. Numerical statement not yet verified but imposed by PT. E.g. δ_CP(PMNS) = 197.4° (DUNE ~2032)." }
+    },
+    {
+      "key": "echo_vp",
+      "fr": { "term": "Polarisation de vide d’écho (Echo VP)", "definition": "Effet d’habillage des couplages par les premiers d’écho {11, 13}. β_echo = Σ sin²(θ_p)·γ_p ≈ 0,1039. Joue en PT le rôle des contre-termes de renormalisation en QED, sans particules virtuelles : c’est la trace persistante des canaux passés sous le seuil γ_p > 1/2. Pousse 1/α_EM de 14 ppb à 0,01 ppb d’écart avec CODATA." },
+      "en": { "term": "Echo vacuum polarisation (Echo VP)", "definition": "Coupling dressing by echo primes {11, 13}. β_echo = Σ sin²(θ_p)·γ_p ≈ 0.1039. Plays in PT the role of QED renormalisation counter-terms, without virtual particles: it is the persistent trace of channels that fell below the γ_p > 1/2 threshold. Pushes 1/α_EM from 14 ppb to 0.01 ppb away from CODATA." }
+    },
+    {
+      "key": "F_echo",
+      "fr": { "term": "F_echo(N)", "definition": "Fraction d’information « inactive » du crible à N premiers vus : F_echo(N) = 1 − 2/(e^γ · ln N). À N = 10¹⁰ : 95,12 % vs ΛCDM 95,07 % (écart 0,06 %). C’est la « matière noire informationnelle » de la PT — non particulaire, structurellement portée par les premiers d’écho." },
+      "en": { "term": "F_echo(N)", "definition": "Inactive information fraction of the sieve up to N primes: F_echo(N) = 1 − 2/(e^γ · ln N). At N = 10¹⁰: 95.12 % vs ΛCDM 95.07 % (0.06 % gap). PT's 'informational dark matter' — non-particulate, structurally carried by echo primes." }
+    },
+    {
+      "key": "fisher_koide",
+      "fr": { "term": "Identité Fisher-Koide", "definition": "Dérivation exacte du coefficient de Koide à partir de s = 1/2 : C_K = G_Fisher/sin²θ_3 + (1 + 5δ_3²/18)/21 = 4/sin²θ_3 + (1 + 5δ_3²/18)/21 = 18,300 (0,04 ppm). Chaque premier actif contribue à un seul ordre : p₁=3 (arbre, information de Fisher du spin), p₃=7 (NLO, skip cross-canal), p₂=5 (NNLO, raffinement central)." },
+      "en": { "term": "Fisher-Koide identity", "definition": "Exact derivation of the Koide coefficient from s = 1/2: C_K = G_Fisher/sin²θ_3 + (1 + 5δ_3²/18)/21 = 4/sin²θ_3 + (1 + 5δ_3²/18)/21 = 18.300 (0.04 ppm). Each active prime contributes to a single order: p₁=3 (tree, spin Fisher info), p₃=7 (NLO, cross-channel skip), p₂=5 (NNLO, central refinement)." }
+    },
+    {
+      "key": "fourier_koide",
+      "fr": { "term": "Lemme Fourier-Koide [PROUVÉ]", "definition": "Caractérisation de la condition Q = 2/3 par Parseval sur ℤ/3ℤ : Q_Koide = 2/3 ⟺ |a₁|/|a₀| = 1/√2 = √s, où a₀, a₁ sont les coefficients de Fourier discrète du triplet (√m_e, √m_μ, √m_τ). Le rapport AC/DC du spectre de masse leptonique vaut donc la racine du spin fondamental. Promu de COND à THM en avril 2026." },
+      "en": { "term": "Fourier-Koide lemma [PROVEN]", "definition": "Parseval characterisation of the Q = 2/3 condition on ℤ/3ℤ: Q_Koide = 2/3 ⟺ |a₁|/|a₀| = 1/√2 = √s, where a₀, a₁ are the discrete Fourier coefficients of (√m_e, √m_μ, √m_τ). The AC/DC ratio of the leptonic mass spectrum equals the square root of the fundamental spin. Promoted from COND to THM in April 2026." }
+    },
+    {
+      "key": "OS3",
+      "fr": { "term": "OS3 (réflexion-positivité uniforme)", "definition": "Théorème : pour tout p ≥ 3, M_p = T_p^T·T_p est une matrice de Gram (donc PSD). Pour m = p₁·...·p_k, M_m = ⊗ M_p. Conséquence : Osterwalder-Schrader applicable à tout T_m fini, produisant une QFT de Wightman. Promu VAL → THM." },
+      "en": { "term": "OS3 (uniform reflection-positivity)", "definition": "Theorem: for every p ≥ 3, M_p = T_p^T·T_p is a Gram matrix (hence PSD). For m = p₁·...·p_k, M_m = ⊗ M_p. Consequence: Osterwalder-Schrader applies to every finite T_m, producing a Wightman QFT. Promoted VAL → THM." }
+    },
+    {
+      "key": "spiral_feedback",
+      "fr": { "term": "Spirale de feedback", "definition": "Re-perturbation auto-cohérente de la cascade primaire par F(2). Δ* = F(2) / (1 + γ_3·r·Π) avec |ρ| ≈ 8×10⁻⁴ (contraction). Erreur de troncature O(ρ²) ≈ 6×10⁻⁷. C’est cette spirale qui pousse 1/α_EM dans la zone sub-ppb." },
+      "en": { "term": "Spiral feedback", "definition": "Self-consistent re-perturbation of the primary cascade by F(2). Δ* = F(2) / (1 + γ_3·r·Π) with |ρ| ≈ 8×10⁻⁴ (contraction). Truncation error O(ρ²) ≈ 6×10⁻⁷. This spiral is what pushes 1/α_EM into the sub-ppb regime." }
+    },
+    {
+      "key": "ghost_beta",
+      "fr": { "term": "β_echo, β_super-echo", "definition": "β_echo {11,13} : universel, IR (rôles I+II), entre dans l’habillage α_EM. β_super-echo(μ) {11,13,17,19,23} : échelle-dépendant, hadronique (rôle III), couvre 88 % de la tension P'_5 dans les FCNC." },
+      "en": { "term": "β_echo, β_super-echo", "definition": "β_echo {11,13}: universal, IR (roles I+II), enters α_EM dressing. β_super-echo(μ) {11,13,17,19,23}: scale-dependent, hadronic (role III), covers 88 % of the P'_5 tension in FCNCs." }
+    },
+    {
+      "key": "C_F",
+      "fr": { "term": "C_F (facteur de couleur)", "definition": "C_F = 4/3, facteur de Casimir fondamental de SU(N_c) avec N_c = 3. En PT, dérivé de la matrice T_3 (7/9 transitions permises) et de l’équation (3·N_c+1)(N_c-3)=0. Apparaît dans tension de corde QCD, masse proton, η/η'." },
+      "en": { "term": "C_F (colour factor)", "definition": "C_F = 4/3, fundamental Casimir factor of SU(N_c) with N_c = 3. In PT, derived from the T_3 matrix (7/9 allowed transitions) and the equation (3·N_c+1)(N_c-3)=0. Appears in QCD string tension, proton mass, η/η'." }
+    },
+    {
+      "key": "Q_Koide",
+      "fr": { "term": "Q_Koide (quantité)", "definition": "Définition : Q = (√m_e + √m_μ + √m_τ)² / (m_e + m_μ + m_τ). Mesurée expérimentalement à 2/3 = (N_c−1)/N_c. **Pourquoi 2/3 ?** Voir le lemme Fourier-Koide [PROUVÉ], qui donne la caractérisation algébrique de cette valeur via Parseval sur ℤ/3ℤ. **Combien vaut C_K ?** Voir l’identité Fisher-Koide qui dérive le coefficient C_K = 18,300 depuis s = 1/2." },
+      "en": { "term": "Q_Koide (quantity)", "definition": "Definition: Q = (√m_e + √m_μ + √m_τ)² / (m_e + m_μ + m_τ). Experimentally measured to 2/3 = (N_c−1)/N_c. **Why 2/3?** See the Fourier-Koide lemma [PROVEN], which gives the algebraic characterisation of this value via Parseval on ℤ/3ℤ. **What is C_K?** See the Fisher-Koide identity that derives the coefficient C_K = 18.300 from s = 1/2." }
+    },
+    {
+      "key": "rotation_holonomique",
+      "fr": { "term": "Rotation holonomique", "definition": "Mécanisme par lequel D_KL se convertit en observable physique : projection sur le référentiel du crible (Ry pour la chimie, m_e pour la physique des particules). Encodée par cos²(θ_p) sur les angles d’holonomie. Voir Principe Architectural 5." },
+      "en": { "term": "Holonomic rotation", "definition": "Mechanism by which D_KL converts into a physical observable: projection onto the sieve reference frame (Ry for chemistry, m_e for particle physics). Encoded by cos²(θ_p) on the holonomy angles. See Architectural Principle 5." }
+    },
+    {
+      "key": "resommation_geometrique",
+      "fr": { "term": "Resommation géométrique", "definition": "Couplage effectif pour les fluctuations : G_Fisher/cos²(θ_3) = 4/0,781 = 5,12. Resommation de tous les ordres de perturbation sur le canal p = 3. Apparaît dans l’identité Fisher-Koide. Voir Principe Architectural 6." },
+      "en": { "term": "Geometric resummation", "definition": "Effective coupling for fluctuations: G_Fisher/cos²(θ_3) = 4/0.781 = 5.12. Resummation of all perturbation orders on channel p = 3. Appears in the Fisher-Koide identity. See Architectural Principle 6." }
+    },
+    {
+      "key": "anti_double_counting",
+      "fr": { "term": "Anti-double-comptage (GFT)", "definition": "Principe Architectural 7. log_2(m) = D_KL + H est une IDENTITÉ : on ne peut pas ajouter d’énergie déjà comptée dans D_KL. La bifurcation q⁺/q⁻ est une partition orthogonale, pas une duplication." },
+      "en": { "term": "Anti-double-counting (GFT)", "definition": "Architectural Principle 7. log_2(m) = D_KL + H is an IDENTITY: one cannot add energy already counted in D_KL. The q⁺/q⁻ bifurcation is an orthogonal partition, not a duplication." }
     }
   ]
 }

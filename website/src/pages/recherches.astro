@@ -1,0 +1,240 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+
+const projects = [
+  {
+    href: '/biologie',
+    title: 'Biologie',
+    code: 'PT_PROTEIN, PT_RNA',
+    domain: 'Vivant',
+    status: 'private',
+    statusLabel: 'Code privé · Draft LaTeX en cours',
+    summary: 'Bifurcation q⁺/q⁻ vérifiée sur 3 biopolymères (ADN, ARN, protéines), tore de Ramachandran reconstruit depuis projections modulaires, allostérie protéique testée sur 1000 permutations.',
+    headline: '3/3 biopolymères · A_m = 1 [THM] · cos_therm 90 ppm',
+    color: 'rose',
+    keyResults: [
+      'Tore Ramachandran 20/20 acides aminés depuis projections modulaires',
+      'ARN scale-up 94 → 300 nt stable, peak Vienna L = 4',
+      'Allostérie : test shuffle 6/6 PASS, p = 0/1000',
+      'cos_therm accord 90 ppm avec mesure DSSR-strict',
+    ],
+  },
+  {
+    href: '/scs',
+    title: 'SieveColorSpace',
+    code: 'SieveColorSpace',
+    domain: 'Perception couleur',
+    status: 'public',
+    statusLabel: 'Code public · MIT · GitHub Igrekess',
+    summary: 'Espace de couleur dérivé du crible. Trois canaux opposants (L-M, S-LM, achromatique) forcés par les primaires actifs {3, 5, 7}, poids γ_p calculables sans fit, métrique pythagorienne par CRT. Réponse aux limites de Lab/Oklab/ICtCp.',
+    headline: 'Poids L-M : 0,385 (PT) vs 0,373 (mesure 118 sujets) · 3,2 %',
+    color: 'violet',
+    keyResults: [
+      'Trois canaux opposants forcés par {3, 5, 7}, pas par fit',
+      'Poids L-M dérivé exactement de γ_3 / Σγ_p',
+      'Métrique pythagorienne par CRT — pas de coefficients ad hoc',
+      'Compatible Lab, ICtCp, Oklab — applications industrielles HDR, print, IA',
+    ],
+  },
+];
+
+const statusBadgeClasses: Record<string, string> = {
+  public: 'bg-emerald-100 text-emerald-800 border-emerald-400',
+  private: 'bg-amber-100 text-amber-900 border-amber-400',
+};
+
+const colorBorders: Record<string, string> = {
+  rose: 'border-rose-300 bg-rose-50',
+  amber: 'border-amber-300 bg-amber-50',
+  violet: 'border-violet-300 bg-violet-50',
+};
+---
+
+<BaseLayout
+  title="Recherches"
+  description="Programmes de recherche en cours autour de la PT : Biologie (PT_PROTEIN, PT_RNA) et SieveColorSpace (perception couleur). Chacun teste la transposition de la cascade PT à un domaine empirique. Statuts, résultats actuels, code et limites assumées."
+>
+  <main class="max-w-6xl mx-auto px-4 py-10 md:py-14">
+
+    <!-- HERO -->
+    <section class="mb-12">
+      <div class="rounded-lg border border-slate-200 bg-white p-6 md:p-8 shadow-sm">
+        <p class="pt-tag pt-tag-id mb-5">Programmes de recherche</p>
+        <h1 class="text-4xl md:text-5xl font-bold text-thmblue leading-tight mb-4">
+          Recherches en cours
+        </h1>
+        <p class="text-2xl md:text-3xl font-sans font-semibold text-derorange leading-snug mb-6">
+          Deux programmes empiriques actuellement publics. Une même cascade.
+        </p>
+        <p class="text-lg text-slate-700 leading-relaxed mb-5">
+          Si la PT est juste, la cascade {`{3, 5, 7}`} et la bifurcation q⁺/q⁻
+          ne doivent pas se cantonner au Modèle Standard. Deux programmes
+          de recherche, présentés ici, testent cette transposition dans deux
+          domaines empiriques : la <strong>biologie</strong> (biopolymères)
+          et la <strong>perception couleur</strong> (espaces de couleur).
+          D’autres programmes (notamment en sismologie) sont en cours en
+          interne et seront publiés ultérieurement.
+        </p>
+        <div class="rounded-lg border-l-4 border-amber-400 bg-amber-50 px-4 py-3">
+          <p class="text-sm text-amber-900 leading-relaxed">
+            <strong>Statut commun.</strong> Ces programmes sont
+            <em>encore exploratoires</em>. Leurs résultats sont mesurés,
+            chaînés, vérifiables — mais ils ne remplacent pas le cœur déductif
+            de la PT (43 observables Modèle Standard, 28 prédictions Tier-1).
+            Cette page sert de portail vers chacun, avec son code, ses limites
+            et son ambition propres.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- DEUX PROJETS -->
+    <section class="mb-12">
+      <p class="pt-tag pt-tag-thm mb-3">Deux transpositions publiques</p>
+      <h2 class="text-3xl font-bold text-thmblue mb-6">Vivant et couleur</h2>
+      <div class="space-y-6">
+        {projects.map((p) => (
+          <a href={p.href} class={`block rounded-lg border-2 p-6 transition hover:shadow-lg ${colorBorders[p.color]}`}>
+            <div class="flex flex-wrap items-baseline gap-3 mb-3">
+              <h3 class="font-sans text-2xl font-bold text-slate-900">{p.title}</h3>
+              <span class="text-xs font-sans uppercase tracking-wider border border-slate-400 rounded-full px-3 py-0.5 text-slate-700">{p.domain}</span>
+              <span class="font-mono text-xs text-slate-600">{p.code}</span>
+              <span class={`text-xs font-sans uppercase tracking-wider border rounded-full px-3 py-0.5 ${statusBadgeClasses[p.status]}`}>
+                {p.statusLabel}
+              </span>
+              <span class="ml-auto font-mono text-sm font-bold text-slate-800">{p.headline}</span>
+            </div>
+            <p class="text-slate-800 leading-relaxed mb-4">{p.summary}</p>
+            <h4 class="font-sans text-xs uppercase tracking-wider text-slate-600 mb-2">Résultats clés</h4>
+            <ul class="space-y-1 text-sm leading-relaxed text-slate-700">
+              {p.keyResults.map((r) => (
+                <li class="flex items-start gap-2">
+                  <span class="text-emerald-600 font-bold mt-0.5">✓</span>
+                  <span>{r}</span>
+                </li>
+              ))}
+            </ul>
+            <p class="mt-4 font-sans text-sm font-semibold text-thmblue group-hover:underline">
+              → Lire le détail
+            </p>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <!-- PHILOSOPHIE -->
+    <section class="mb-12">
+      <p class="pt-tag pt-tag-id mb-3">Pourquoi ces domaines</p>
+      <h2 class="text-3xl font-bold text-thmblue mb-4">Deux tests indépendants de la même cascade</h2>
+      <div class="rounded-lg border border-slate-200 bg-white p-6 shadow-sm">
+        <p class="text-slate-700 leading-relaxed mb-4">
+          Le risque d’une théorie qui réussit à reproduire son domaine
+          d’origine, c’est qu’elle <em>ne dise rien d’ailleurs</em>. La PT
+          se prête à un test naturel : sa cascade {`{3, 5, 7}`} est-elle
+          générique, ou spécifique à la physique des particules ?
+        </p>
+        <p class="text-slate-700 leading-relaxed mb-4">
+          Deux domaines volontairement très différents permettent de tester
+          cela sans contamination :
+        </p>
+        <ul class="space-y-3 text-slate-700 leading-relaxed">
+          <li><strong class="text-rose-700">Biologie</strong> — un système
+          qui combine combinatoire discrète (4 bases ARN, 20 acides aminés)
+          et dynamique continue (repliement). Si q⁺/q⁻ apparaît dans les
+          biopolymères, c’est une signature forte.</li>
+          <li><strong class="text-violet-700">Perception couleur</strong> —
+          un système où la prédiction PT (3 canaux opposants pondérés par
+          γ_p) entre en compétition directe avec des espaces existants
+          (Lab, Oklab) qui ont des coefficients <em>fittés</em>.</li>
+        </ul>
+        <p class="text-slate-700 leading-relaxed mt-4">
+          Si les deux donnent des résultats convergents avec la prédiction PT,
+          la transposition n’est pas un hasard. Si l’un échoue, c’est un
+          signal sérieux. La transparence des statuts (privé / public,
+          empirique / théorique) est ici essentielle.
+        </p>
+      </div>
+    </section>
+
+    <!-- AVERTISSEMENT EPISTEMIQUE -->
+    <section class="mb-12">
+      <p class="pt-tag pt-tag-id mb-3">Honnêteté</p>
+      <h2 class="text-3xl font-bold text-thmblue mb-4">Ce que ces recherches ne sont PAS</h2>
+      <div class="grid md:grid-cols-2 gap-4">
+        <div class="rounded-lg border-2 border-rose-300 bg-rose-50 p-5">
+          <h4 class="font-sans font-semibold text-rose-800 mb-2">✗ Pas le cœur de la PT</h4>
+          <p class="text-sm text-rose-900 leading-relaxed">
+            Le cœur de la PT, ce sont les 43 observables Modèle Standard
+            dérivés depuis s = 1/2 (cf. <a href="/observables" class="underline">page Observables</a>).
+            Ces recherches sont <em>en plus</em> — elles ne remplacent
+            rien.
+          </p>
+        </div>
+        <div class="rounded-lg border-2 border-rose-300 bg-rose-50 p-5">
+          <h4 class="font-sans font-semibold text-rose-800 mb-2">✗ Pas des théorèmes [THM]</h4>
+          <p class="text-sm text-rose-900 leading-relaxed">
+            La transposition cascade PT → biologie / couleur n’est pas
+            encore un théorème. Ce sont des <strong>analogies validées
+            empiriquement</strong>, pas des dérivations rigoureuses.
+          </p>
+        </div>
+        <div class="rounded-lg border-2 border-rose-300 bg-rose-50 p-5">
+          <h4 class="font-sans font-semibold text-rose-800 mb-2">✗ Pas tous publiés</h4>
+          <p class="text-sm text-rose-900 leading-relaxed">
+            SieveColorSpace a son code public ; PT_PROTEIN / PT_RNA sont en
+            draft / repo privé. Une demande de collaboration peut donner
+            accès au code sous accord.
+          </p>
+        </div>
+        <div class="rounded-lg border-2 border-rose-300 bg-rose-50 p-5">
+          <h4 class="font-sans font-semibold text-rose-800 mb-2">✗ Pas une preuve de la PT</h4>
+          <p class="text-sm text-rose-900 leading-relaxed">
+            Si ces programmes confirment la PT, c’est un argument
+            <em>cumulatif</em> en sa faveur. S’ils l’infirment, c’est un
+            signal que la cascade ne se transpose pas — pas que le cœur de
+            la PT est faux.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- LIENS -->
+    <section class="mb-8">
+      <p class="pt-tag pt-tag-bridge mb-3">Aller plus loin</p>
+      <h2 class="text-3xl font-bold text-thmblue mb-6">Approfondir</h2>
+      <div class="grid md:grid-cols-3 gap-4">
+        <a href="/tableau-periodique" class="pt-card block group">
+          <span class="pt-tag pt-tag-val">PTC déployé</span>
+          <h3 class="font-sans font-semibold text-thmblue text-lg mt-3 mb-2 group-hover:underline">Chimie : tableau périodique PT</h3>
+          <p class="text-sm text-slate-700">L’application PT déjà déployée publiquement : 7 périodes exactes, 200+ molécules, 0 paramètre.</p>
+        </a>
+        <a href="/principes-architecturaux" class="pt-card block group">
+          <span class="pt-tag pt-tag-thm">Méta-théorie</span>
+          <h3 class="font-sans font-semibold text-thmblue text-lg mt-3 mb-2 group-hover:underline">7 principes architecturaux</h3>
+          <p class="text-sm text-slate-700">Pourquoi les mêmes patterns réapparaissent dans des domaines différents.</p>
+        </a>
+        <a href="/observables" class="pt-card block group">
+          <span class="pt-tag pt-tag-val">Cœur PT</span>
+          <h3 class="font-sans font-semibold text-thmblue text-lg mt-3 mb-2 group-hover:underline">43 observables Modèle Standard</h3>
+          <p class="text-sm text-slate-700">Le cœur déductif sur lequel s’appuient les recherches exploratoires.</p>
+        </a>
+        <a href="/critique" class="pt-card block group">
+          <span class="pt-tag pt-tag-id">Critique</span>
+          <h3 class="font-sans font-semibold text-thmblue text-lg mt-3 mb-2 group-hover:underline">Discuter ces recherches</h3>
+          <p class="text-sm text-slate-700">Objections, contre-tests, demandes d’accès au code.</p>
+        </a>
+        <a href="/limites" class="pt-card block group">
+          <span class="pt-tag pt-tag-id">Honnêteté</span>
+          <h3 class="font-sans font-semibold text-thmblue text-lg mt-3 mb-2 group-hover:underline">Limites assumées</h3>
+          <p class="text-sm text-slate-700">Liste publique des points où la PT reconnaît son incomplétude.</p>
+        </a>
+        <a href="/contact" class="pt-card block group">
+          <span class="pt-tag pt-tag-bridge">Collaborer</span>
+          <h3 class="font-sans font-semibold text-thmblue text-lg mt-3 mb-2 group-hover:underline">Demander un accès code</h3>
+          <p class="text-sm text-slate-700">Repos privés (PT_PROTEIN, PT_RNA) accessibles sous accord de collaboration.</p>
+        </a>
+      </div>
+    </section>
+
+  </main>
+</BaseLayout>

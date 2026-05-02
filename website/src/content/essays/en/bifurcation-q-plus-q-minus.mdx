@@ -1,0 +1,217 @@
+---
+slug: bifurcation-q-plus-q-minus
+title: 'The q⁺ / q⁻ bifurcation: why two branches?'
+summary: 'At μ* = 15, the sieve splits into two natural branches: q⁺ for couplings (vertex, leptons, α_EM), q⁻ for geometry (propagator, quarks, metric). Why this bifurcation is unavoidable and what it separates.'
+level: L1
+reading_minutes: 7
+related_theorems: ['L0', 'T5', 'T6']
+lang: en
+order: 6
+---
+
+## One line, two readings
+
+At first glance, PT contains a single cascade: $s = 1/2$, $\mu^* = 15$,
+$\alpha_{\rm EM}$. Yet, midway through, something surprising happens. The
+system splits into **two parallel branches** that share the same ingredients
+but use them in two different ways.
+
+One measures **couplings**: how particles interact (vertex, $\alpha_{\rm EM}$,
+lepton masses, PMNS oscillations).
+
+The other measures **geometry**: the space those particles live in
+(propagator, Bianchi I metric, quark masses, CKM mixing, gravity).
+
+These two branches are called $q^+$ and $q^-$. They are tied to
+$\mu^* = 15$ in two profoundly different ways.
+
+## Theorem L0: maximum entropy
+
+Everything starts with a simple theorem. Asking that a distribution on
+$\{2, 4, 6, \ldots\}$ be (i) memoryless, (ii) of fixed mean $\mu$, and
+(iii) of maximum entropy gives a **unique geometric law**:
+
+$$
+P(X = 2k) = (1 - q) \cdot q^{k - 1}.
+$$
+
+This is theorem L0. With required mean $\mu$, we find $q = 1 - 2/\mu$.
+
+## But there is another derivation
+
+Beside this exact discrete derivation, there is a natural continuous
+reading: the **Boltzmann limit**, where the gaps are seen not as even
+integers but as durations on a continuum. There, the distribution becomes
+$\propto e^{-x/\mu}$, and the parameter is:
+
+$$
+q^- = e^{-1/\mu}.
+$$
+
+At the fixed point $\mu^* = 15$:
+
+$$
+q^+ = \frac{13}{15} = 0.8667 \qquad \text{and} \qquad
+q^- = e^{-1/15} = 0.9355.
+$$
+
+Different. Yet both legitimate: nothing internal to the sieve favours one
+over the other.
+
+## How the bifurcation takes root
+
+Here PT becomes subtle. At each prime $p$, the holonomy formula T6 gives:
+
+$$
+\sin^2\theta_p = \delta_p (2 - \delta_p), \qquad \delta_p = \frac{1 - q^p}{p}.
+$$
+
+Evaluated with $q^+$, we get the values $\sin^2(\theta_p, q^+)$. Evaluated
+with $q^-$, we get $\sin^2(\theta_p, q^-)$. Two distinct families:
+
+$$
+\begin{array}{c|cc}
+p & \sin^2(\theta_p, q^+) & \sin^2(\theta_p, q^-) \\ \hline
+3 & 0.2192 & 0.1172 \\
+5 & 0.1940 & 0.1102 \\
+7 & 0.1726 & 0.1037
+\end{array}
+$$
+
+PT then reads a bifurcation: $q^+$ naturally lives on **vertices** (where
+particles interact pointwise), $q^-$ naturally lives on **edges** (the
+propagators between two vertices).
+
+## What the two branches separate
+
+> **Pitfall.** It is tempting to say "q⁺ is the discrete branch, q⁻ the
+> continuous one". That would be wrong. The discrete/continuous distinction
+> only characterises the **initial derivation route** for q (L0 max-entropy
+> for q⁺, Boltzmann limit for q⁻). Once fixed, **both branches operate
+> simultaneously on discrete and continuous objects**: each computes
+> continuous angles θ_p on discrete ℤ/pℤ circles, and each projects into a
+> continuous metric on three discrete active directions. What truly separates
+> the branches is their **physical role**.
+
+| Branch | $q^+$ | $q^-$ |
+|---|---|---|
+| **Physical role** | Vertex (point interaction) | Edge (propagation between points) |
+| **Value at μ* = 15** | $13/15$ | $e^{-1/15}$ |
+| **Derivation route** | L0 max-entropy on even integers | Boltzmann limit |
+| **Target** | Couplings, leptons, PMNS, Higgs | Geometry, quarks, CKM, $G$, cosmology |
+| **Discrete objects used** | ℤ/3ℤ, ℤ/5ℤ, ℤ/7ℤ circles (CRT) | Three active directions {3, 5, 7} of Bianchi I |
+| **Continuous objects used** | Holonomy angles $\theta_p$ | Fisher metric, scale factors $a_p(\mu)$ |
+| **Emblematic example** | $\alpha_{\rm EM} = \prod \sin^2(\theta_p, q^+)$ | $V_{us} = \sin^2(\theta_3, q^-) + \sin^2(\theta_5, q^-)$ |
+
+This **vertex/edge** duality splits the 43 observables into two groups:
+those descending from the coupling branch, those from the geometry branch.
+**No physical observable mixes the two** at tree level — this is the
+**cross-branch exclusion** rule.
+
+## A signature: the factor 2
+
+The difference between $\delta(q^+)$ and $\delta(q^-)$ is almost exactly
+a factor 2. This near-binary duality is what separates what is measured
+as "interaction" from what is measured as "space".
+
+> Ablation test: permuting the branch assignment across the 43 observables
+> degrades the discrepancies by a factor **106 on average**. The bifurcation
+> is therefore not cosmetic: it is forced by data.
+
+## Natural question: can we cross the routes?
+
+> *If q⁺ comes from a discrete route and q⁻ from a continuous one, couldn’t
+> we derive q⁺ along another continuous path, or q⁻ along another discrete one?*
+
+**No, and that is what makes the bifurcation rigid.** Here is why.
+
+#### The continuum limit of q⁺ gives q⁻
+
+Start from the discrete geometric distribution on even integers with mean
+$\mu$. Take the **continuum limit** (event spacing $\Delta x \to 0$ with
+fixed mean): the geometric distribution becomes a continuous exponential:
+
+$$
+P_{\rm disc}(X = 2k) = (1 - q^+)\,(q^+)^{k-1}
+\quad \xrightarrow{\Delta x \to 0} \quad
+P_{\rm cont}(x) = \frac{1}{\mu}\,e^{-x/\mu}.
+$$
+
+The parameter of the continuous regime is:
+
+$$
+q^- = \lim_{\Delta x \to 0} \left(1 - \frac{\Delta x}{\mu}\right)^{1/\Delta x} = e^{-1/\mu}.
+$$
+
+So **any attempt to re-derive q⁺ along a continuous route lands
+mechanically on q⁻**.
+
+#### Discretising q⁻ gives q⁺
+
+Conversely, start from the continuous exponential. Discretise it on the
+even-integer lattice under the same mean constraint, and you recover
+exactly the geometric of parameter $q^+ = 1 - 2/\mu$. **No other
+result is compatible.**
+
+#### Conclusion: not an arbitrary choice
+
+q⁺ and q⁻ are **not two conventions** among infinitely many possible.
+They are the **two regimes** (discrete-even / continuous-real) of the
+**same variational problem** (max-entropy under mean constraint). The
+route determines the regime, and the regime determines the parameter —
+no choice involved.
+
+#### But are q⁺ and q⁻ then "the same thing seen differently"?
+
+In the limit $\mu \to \infty$, yes: $q^+ \to 1$ and $q^- \to 1$, and the
+latent heat $L = q^- - q^+ \to 0$. Both branches coincide.
+
+At finite μ — and in particular at $\mu^* = 15$ — the gap $L \approx 0.069$
+is **non-zero, measurable, and physical**. This finite gap between discrete
+and continuous separates the roles: point-interaction on one side,
+between-point propagation on the other. Without finite μ, no observable
+bifurcation.
+
+> **The bifurcation is the arithmetic shadow of a thermodynamic fact**:
+> at finite μ, a discrete system and its continuum limit do not coincide
+> exactly, and that gap carries half of Standard Model physics.
+
+## A first-order phase transition
+
+The difference $L = q^- - q^+ = 0.069$ is a **latent heat**. PT reads the
+bifurcation as a first-order phase transition at $\mu^* = 15$. Before
+bifurcation, the system is unitary; after, it is dual.
+
+This latent heat is not lost: it reappears in the cosmological dark sector.
+The fraction $\Omega_{\rm info} = 26.48\%$ obtained by Clausius
+$L \sim D_{KL} = s^2 = 1/4$ matches the Planck measurement to **0.09 %**.
+Not a fit.
+
+## Why it is unavoidable
+
+The uniqueness $\mu^* = 15$ does not only say the fixed point is
+arithmetically determined. It also says that two independent derivations
+of $q$ from $\mu$ exist — an exact discrete one ($q^+$), a continuous
+Boltzmann one ($q^-$) — and neither can be removed.
+
+Keeping only one would lose half the Standard Model. Artificially merging
+them would erase the natural separation between interactions and geometry.
+PT takes the cleanest path: **both coexist and signal two faces of the
+same fixed point**.
+
+## In one sentence
+
+The $q^+ / q^-$ bifurcation is the unique way for the cascade to close
+its consistency at $\mu^* = 15$ while staying simultaneously (i) exactly
+discrete (L0 maximum entropy) and (ii) Boltzmann-continuous (natural Gibbs
+limit). Its necessity is the deep reason physics contains both couplings
+**and** geometry.
+
+## See also
+
+- [L0 — Unique geometric distribution](/en/theorems/L0)
+- [T5 — Fixed point μ* = 15](/en/theorems/T5)
+- [T6 — Holonomy identity](/en/theorems/T6)
+- [Cosmogony](/en/big-bang) — phase S5 where the bifurcation kicks in
+- [Cosmology](/en/cosmologie) — latent heat becomes the dark sector
+- [Calculator](/en/calculator) — see the two branches live

@@ -36,6 +36,29 @@ La preuve repose sur trois piliers :
 3. **Décomposition de Gordin** — la suite $\{\alpha_k\}$ est quasi-martingale
    plus reste borné.
 
+**Récurrence canonique** (forme exacte, ch. 7) :
+
+$$
+\frac{\varepsilon(k+1)}{\varepsilon(k)} = 1 - \frac{Q(k)}{p_{k+1} - 1}, \qquad
+\varepsilon(k) = \frac{1}{2} - \alpha(k).
+$$
+
+Le **facteur $Q(k) > 0$** (positivité prouvée par induction jointe DAG, ch. 7,
+Lemmes B/C) et la divergence harmonique $\sum_k Q(k)/p_k = \infty$ (Mertens)
+garantissent $\varepsilon(k) \to 0$, donc $\alpha_k \to 1/2$.
+
+**Profondeur du crible $D = 2$** (théorème de fermeture spectrale) : le crible
+admet exactement deux niveaux dynamiques distincts :
+
+- **Niveau 0** — crible direct : élimination des composites, survivants = premiers ;
+- **Niveau 1** — crible de transition : convergence de $\alpha_k$ vers $s = 1/2$.
+- **Niveau 2** — meta-transitions : structurellement **inexistant** ($r_2(0) = 0$
+  ferme la cascade).
+
+Cette profondeur $D = 2$ est responsable de la dichotomie physique
+**leptons (sommets, $d = 0$) / quarks (arêtes, $d = 1$)** sans troisième
+type de matière à $d = 2$.
+
 <Tag level="THM" />
 
 <div data-max-depth="L1" className="bg-amber-50 border-l-4 border-amber-300 px-4 py-3 my-6">

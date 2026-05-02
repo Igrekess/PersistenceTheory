@@ -52,6 +52,10 @@ export const ui = {
     'nav.glossary': 'Glossaire',
     'nav.about': 'À propos',
     'nav.contact': 'Contact',
+    'nav.principles': '7 principes',
+    'nav.confirmations': 'Confirmations externes',
+    'nav.critique': 'Critique & débat',
+    'nav.research': 'Recherches',
     // Site meta
     'site.title': 'Théorie de la Persistance',
     'site.tagline': 'Du crible au Modèle Standard.',
@@ -115,6 +119,10 @@ export const ui = {
     'nav.glossary': 'Glossary',
     'nav.about': 'About',
     'nav.contact': 'Contact',
+    'nav.principles': '7 principles',
+    'nav.confirmations': 'External confirmations',
+    'nav.critique': 'Critique & debate',
+    'nav.research': 'Research',
     'site.title': 'The Theory of Persistence',
     'site.tagline': 'From the sieve to the Standard Model.',
     'site.description':

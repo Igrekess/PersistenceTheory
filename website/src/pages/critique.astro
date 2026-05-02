@@ -1,0 +1,228 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+
+const objections = [
+  {
+    cat: 'Méthodologie',
+    title: 'Vous ajustez forcément quelque chose en cachette.',
+    answer: 'Le code est public (MIT) sur GitHub : Igrekess/PT_CHEMISTRY, PT_PHYSICS, PT_MATHEMATICS. Toute personne peut auditer. Si un coefficient est ajusté, il apparaîtra dans les commits ou les fichiers de configuration. Aucun paramètre continu libre n’a été trouvé — et 9 fragilités ont été identifiées et fermées (R46, R47).',
+    severity: 'haute',
+  },
+  {
+    cat: 'Méthodologie',
+    title: 'Vous corrigez après coup chaque fois qu’une observable rate.',
+    answer: 'Possible en principe. En pratique, les corrections (F(2), echo VP, spirale feedback) sont contraintes par les architectures de la cascade : elles ne peuvent pas être ajoutées arbitrairement. L’existence du tag "[PRED-cand]" et des rétrogradations publiques (P20 dark energy en avril 2026) prouve qu’on ne couvre pas systématiquement les dérivations échouées.',
+    severity: 'haute',
+  },
+  {
+    cat: 'Mathématique',
+    title: '“Le crible” ne peut pas être la racine de l’univers.',
+    answer: 'PT ne dit pas que l’univers EST le crible. Elle dit que les structures stables qu’on peut lire sur le crible (T1, T5, holonomie) coïncident avec les structures stables qu’on observe physiquement, sans paramètre. C’est un problème de pattern, pas d’ontologie. Les trois lectures possibles (réaliste, structuraliste, instrumentaliste) sont explicitées dans la section "Limites".',
+    severity: 'moyenne',
+  },
+  {
+    cat: 'Mathématique',
+    title: 'L’unicité de μ* = 15 dépend du seuil γ_p > 1/2.',
+    answer: 'Vrai, et ce seuil 1/2 est admis comme postulat (pas dérivé des axiomes du crible). Mais sa **robustesse** est forte : tout seuil dans [0,43, 0,60] donne le même point fixe {3, 5, 7}. Le gap γ_7 - γ_11 = 0,169 assure une stabilité structurelle indépendante de la valeur exacte. Voir T5.',
+    severity: 'moyenne',
+  },
+  {
+    cat: 'Physique',
+    title: 'Pourquoi {3, 5, 7} et pas {2, 3, 5} ou {5, 7, 11} ?',
+    answer: 'Recherche exhaustive (T5) : aucun autre sous-ensemble fini de premiers ne ferme l’équation d’auto-cohérence γ_p > 1/2 ET μ = somme. {2} est cinématique (pas dynamique, T_2 trivial). {3, 5, 7} est l’unique solution. Permuter dégrade les 43 observables d’un facteur 106 en moyenne (test d’ablation).',
+    severity: 'moyenne',
+  },
+  {
+    cat: 'Physique',
+    title: 'L’habillage F(2) ressemble à une bougie ad hoc.',
+    answer: 'F(2) = 0,758 272 782 6 est une formule **fermée à 99,96 % rationnelle**, dérivée chapitre 10 de la monographie (R51, "Binary Leakage Dressing"). Sa valeur est complètement contrainte par la structure des canaux. Elle ne contient pas de paramètre libre — elle est calculable depuis μ* et γ_p sans choix.',
+    severity: 'moyenne',
+  },
+  {
+    cat: 'Cosmologie',
+    title: 'P20 (dark energy) a été rétrogradée. Combien d’autres rétrogradations attendues ?',
+    answer: 'C’est exactement le bon réflexe critique. P20 a été retroupée en avril 2026 parce que la formule manquait une dérivation lagrangienne canonique. Si DUNE/JUNO contredit P4-P7, ce serait des rétrogradations majeures. La théorie publie ses échecs autant que ses succès — c’est ce qui la distingue d’une théorie ad hoc.',
+    severity: 'haute',
+  },
+  {
+    cat: 'Cosmologie',
+    title: 'Vous prédisez tout, donc vous ne prédisez rien (multivers, etc.).',
+    answer: 'PT prédit l’opposé du multivers : un univers unique, sans degré de liberté, sans landscape. P11 interdit SUSY < 100 TeV. P10 interdit l’axion QCD. P14 interdit les WIMPs. P12 fixe N_gen = 3 exactement. Le profil est restrictif, pas permissif.',
+    severity: 'haute',
+  },
+  {
+    cat: 'Statut',
+    title: 'Pourquoi cette théorie n’est-elle pas publiée dans un journal classique ?',
+    answer: 'C’est un choix temporel. La monographie (913 p FR + 883 p EN) est en preprint ouvert. La voie peer-reviewed est planifiée par chapitre, pas en bloc, ce qui prend du temps. Le site reconnaît explicitement le statut [PREIMPRESSION] et invite la critique. Voir page About.',
+    severity: 'haute',
+  },
+  {
+    cat: 'Statut',
+    title: 'Comment puis-je tester moi-même un de vos résultats ?',
+    answer: 'Trois façons : (1) lancer les scripts en navigateur via Pyodide (page /scripts) ; (2) cloner le repo GitHub et exécuter pytest ; (3) prendre un observable spécifique de la table /observables, suivre le lien vers le chapitre monographique, et vérifier l’algèbre. Aucun nécessite installation lourde.',
+    severity: 'haute',
+  },
+];
+
+const severityClasses: Record<string, string> = {
+  haute: 'border-rose-300 bg-rose-50',
+  moyenne: 'border-amber-300 bg-amber-50',
+  basse: 'border-slate-300 bg-slate-50',
+};
+---
+
+<BaseLayout
+  title="Critique et débats"
+  description="Les objections sérieuses à la PT, et les réponses argumentées. Espace ouvert à la critique scrupuleuse — c’est ainsi que la théorie progresse."
+>
+  <main class="max-w-6xl mx-auto px-4 py-10 md:py-14">
+
+    <!-- HERO -->
+    <section class="mb-12">
+      <div class="rounded-lg border border-slate-200 bg-white p-6 md:p-8 shadow-sm">
+        <p class="pt-tag pt-tag-id mb-5">Espace ouvert</p>
+        <h1 class="text-4xl md:text-5xl font-bold text-thmblue leading-tight mb-4">
+          Critique et débats
+        </h1>
+        <p class="text-2xl md:text-3xl font-sans font-semibold text-derorange leading-snug mb-6">
+          Les objections sérieuses méritent des réponses sérieuses.
+        </p>
+        <p class="text-lg text-slate-700 leading-relaxed mb-5" data-max-depth="L1">
+          Une théorie qui prétend reproduire 43 observables sans paramètre
+          mérite des objections. Cette page rassemble les plus fortes et
+          y répond directement. Aucune n’est écartée comme « malentendu » :
+          si la critique tient, la théorie doit être révisée — et on a déjà
+          eu l’occasion de le faire (P20 rétrogradée en avril 2026).
+        </p>
+        <p class="text-base text-slate-700 leading-relaxed" data-min-depth="L2">
+          Cette page n’est pas un argumentaire de défense. C’est un espace
+          de **stress-test public**. Si vous avez une objection qui n’apparaît
+          pas ici, écrivez-la sur la page <a href="/contact" class="text-thmblue underline">Contact</a>
+          ou ouvrez une <a href="https://github.com/Igrekess" class="text-thmblue underline">issue GitHub</a>.
+          Les bonnes critiques seront ajoutées avec leur réponse.
+        </p>
+      </div>
+    </section>
+
+    <!-- 10 OBJECTIONS -->
+    <section class="mb-12">
+      <p class="pt-tag pt-tag-thm mb-3">10 objections fortes</p>
+      <h2 class="text-3xl font-bold text-thmblue mb-6">Ce qu’on m’a déjà reproché</h2>
+      <div class="space-y-5">
+        {objections.map((o, i) => (
+          <div class={`rounded-lg border-2 p-6 ${severityClasses[o.severity]}`}>
+            <div class="flex items-start gap-4">
+              <span class="flex-shrink-0 w-10 h-10 rounded-full bg-white border-2 border-current font-mono text-sm font-bold flex items-center justify-center">
+                {String(i + 1).padStart(2, '0')}
+              </span>
+              <div class="flex-1">
+                <div class="flex items-center gap-3 mb-2 flex-wrap">
+                  <span class="text-xs font-sans uppercase tracking-wider opacity-75 border border-current/40 rounded-full px-3 py-0.5">{o.cat}</span>
+                  <span class="text-xs font-mono opacity-60">sévérité {o.severity}</span>
+                </div>
+                <h3 class="font-sans text-xl font-bold mb-3 text-slate-900 italic">« {o.title} »</h3>
+                <p class="text-slate-800 leading-relaxed">{o.answer}</p>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- COMMENT FAIRE UNE BONNE CRITIQUE -->
+    <section class="mb-12">
+      <p class="pt-tag pt-tag-bridge mb-3">Pour les critiques</p>
+      <h2 class="text-3xl font-bold text-thmblue mb-6">Comment formuler une objection efficace</h2>
+      <div class="rounded-lg border border-slate-200 bg-white p-6 shadow-sm">
+        <p class="text-slate-700 leading-relaxed mb-4">
+          Pour qu’une objection ait de la traction, elle doit pointer un
+          des éléments suivants :
+        </p>
+        <ul class="space-y-3 text-slate-700">
+          <li><strong class="text-rose-700">Erreur de calcul.</strong> Une dérivation où la PT donne une valeur fausse, vérifiable scriptiquement.</li>
+          <li><strong class="text-rose-700">Paramètre caché.</strong> Un coefficient qui apparaît dans une formule sans justification arithmétique remontant à {`$\\{s, \\mu^*\\}$`}.</li>
+          <li><strong class="text-rose-700">Contradiction interne.</strong> Deux affirmations PT incompatibles entre elles ou avec un théorème classique cité.</li>
+          <li><strong class="text-rose-700">Test d’ablation.</strong> Un changement de structure qui ne dégrade pas les 43 observables (devrait les dégrader si l’assignation est forcée).</li>
+          <li><strong class="text-rose-700">Mesure expérimentale</strong> qui contredit une prédiction Tier-1 à plus de 5σ.</li>
+        </ul>
+        <p class="text-slate-700 leading-relaxed mt-4">
+          Les objections de **type philosophique** (« ça ne peut pas être ça »)
+          ou **rhétorique** (« vous prétendez tout expliquer ») sont moins
+          utiles parce qu’elles ne pointent rien de réfutable techniquement.
+          La PT préfère les objections techniques précises, même quand elles
+          font mal.
+        </p>
+      </div>
+    </section>
+
+    <!-- CRITERES DE FALSIFICATION -->
+    <section class="mb-12">
+      <p class="pt-tag pt-tag-thm mb-3">Critères de falsification</p>
+      <h2 class="text-3xl font-bold text-thmblue mb-6">Qu’est-ce qui réfuterait la PT ?</h2>
+      <div class="grid md:grid-cols-2 gap-4">
+        <div class="rounded-lg border-2 border-rose-300 bg-rose-50 p-5">
+          <h3 class="font-sans font-semibold text-rose-800 mb-2">A. Falsification expérimentale directe</h3>
+          <ul class="text-sm text-rose-900 leading-relaxed space-y-1">
+            <li>· Détection 0νββ (P1 brisé) → neutrinos Majorana</li>
+            <li>· Hiérarchie inversée à >5σ (P2 brisé)</li>
+            <li>· δ_CP(PMNS) hors [170°, 224°] à 5σ (P4 brisé)</li>
+            <li>· Détection axion QCD (P10 brisé)</li>
+            <li>· SUSY {'<'} 100 TeV (P11 brisé)</li>
+            <li>· Quatrième génération de fermions (P12 brisé)</li>
+            <li>· Désintégration du proton (P13 brisé)</li>
+            <li>· Détection WIMP (P14 brisé)</li>
+          </ul>
+        </div>
+        <div class="rounded-lg border-2 border-amber-300 bg-amber-50 p-5">
+          <h3 class="font-sans font-semibold text-amber-800 mb-2">B. Falsification théorique</h3>
+          <ul class="text-sm text-amber-900 leading-relaxed space-y-1">
+            <li>· Une autre séquence de premiers satisfait P1-P4 avec un Modèle Standard reproduit</li>
+            <li>· Un observable du SM inexprimable dans l’algèbre PM</li>
+            <li>· BA5 logiquement indépendant de BA0-BA4</li>
+            <li>· Une preuve que le seuil $\gamma_p > 1/2$ peut être violé sans contradiction interne</li>
+            <li>· Un nouveau théorème classique qui invalide T0, T1, T5 ou T6</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTRIBUER -->
+    <section class="mb-8">
+      <p class="pt-tag pt-tag-bridge mb-3">Contribuer</p>
+      <h2 class="text-3xl font-bold text-thmblue mb-6">Comment participer au débat</h2>
+      <div class="grid md:grid-cols-3 gap-4">
+        <a href="https://github.com/Igrekess" class="pt-card block group">
+          <span class="pt-tag pt-tag-val">GitHub</span>
+          <h3 class="font-sans font-semibold text-thmblue text-lg mt-3 mb-2 group-hover:underline">Issues publiques</h3>
+          <p class="text-sm text-slate-700">Toute objection technique formulée publiquement, traçable, archivée.</p>
+        </a>
+        <a href="/contact" class="pt-card block group">
+          <span class="pt-tag pt-tag-id">Contact direct</span>
+          <h3 class="font-sans font-semibold text-thmblue text-lg mt-3 mb-2 group-hover:underline">Email à l’auteur</h3>
+          <p class="text-sm text-slate-700">Pour les échanges nuancés, les collaborations, les questions privées.</p>
+        </a>
+        <a href="/limites" class="pt-card block group">
+          <span class="pt-tag pt-tag-id">Honnêteté</span>
+          <h3 class="font-sans font-semibold text-thmblue text-lg mt-3 mb-2 group-hover:underline">Limites assumées</h3>
+          <p class="text-sm text-slate-700">Liste des points où la PT reconnaît ses incomplétudes.</p>
+        </a>
+        <a href="/audit" class="pt-card block group">
+          <span class="pt-tag pt-tag-thm">Audit</span>
+          <h3 class="font-sans font-semibold text-thmblue text-lg mt-3 mb-2 group-hover:underline">10 engagements C1–C10</h3>
+          <p class="text-sm text-slate-700">Les fermetures internes vérifiables qui contraignent la théorie.</p>
+        </a>
+        <a href="/predictions" class="pt-card block group">
+          <span class="pt-tag pt-tag-thm">Prédictions</span>
+          <h3 class="font-sans font-semibold text-thmblue text-lg mt-3 mb-2 group-hover:underline">28 cibles falsifiables</h3>
+          <p class="text-sm text-slate-700">Les expériences à venir qui valideront ou tueront la théorie.</p>
+        </a>
+        <a href="/scripts" class="pt-card block group">
+          <span class="pt-tag pt-tag-val">Reproduction</span>
+          <h3 class="font-sans font-semibold text-thmblue text-lg mt-3 mb-2 group-hover:underline">Scripts en navigateur</h3>
+          <p class="text-sm text-slate-700">Vérifier les théorèmes T5, T6, α_EM en quelques secondes.</p>
+        </a>
+      </div>
+    </section>
+
+  </main>
+</BaseLayout>

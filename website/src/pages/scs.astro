@@ -1,0 +1,610 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+
+// Histoire courte des espaces couleur
+const history = [
+  {
+    year: '1931',
+    name: 'CIE XYZ',
+    summary: 'Premier espace standardisé. Coordonnées tristimuli linéaires depuis l’expérience colorimétrique de Wright/Guild. Universellement utilisé comme référence — mais perceptuellement non uniforme.',
+    limit: 'Non perceptuel : deux couples (X, Y, Z) à même distance peuvent être perçus comme très différents.',
+  },
+  {
+    year: '1976',
+    name: 'CIE L*a*b*',
+    summary: 'Premier espace « perceptuel » : axes L (luminance), a (rouge-vert), b (bleu-jaune). ΔE pensé comme distance perçue.',
+    limit: 'Non-uniformité résiduelle (ellipses MacAdam mal couvertes), shift de teinte dans la zone rouge-violet, non aligné sur la physiologie cône-opposant.',
+  },
+  {
+    year: '1984',
+    name: 'CIE LCh / Munsell',
+    summary: 'Reformulation polaire de Lab pour penser en luminance/chroma/teinte. Pratique pour les artistes et coloristes.',
+    limit: 'Hérite des défauts de Lab (mêmes axes sous-jacents). Teinte non constante : un déplacement « pure chroma » fait dériver la teinte perçue.',
+  },
+  {
+    year: '2014',
+    name: 'ICtCp (Dolby/ITU)',
+    summary: 'Dérivé pour HDR (Rec.2100). Y-derived I + 2 axes opposants Ct, Cp. Optimisé pour large gamut et plages dynamiques élevées.',
+    limit: 'Encore basé sur des fits psychophysiques empiriques pour pondérer les axes. Pas de justification théorique des ratios.',
+  },
+  {
+    year: '2020',
+    name: 'Oklab (Björn Ottosson)',
+    summary: 'Avancée majeure : axes opposants linéaires bien alignés sur la perception, ΔE excellent en pratique. Largement adopté en design web (CSS Color 4) et en moteurs d’images.',
+    limit: 'Coefficients de la matrice LMS→Oklab obtenus par optimisation numérique sur datasets perceptuels. Excellents en pratique mais sans dérivation théorique.',
+  },
+  {
+    year: '2026',
+    name: 'SCS (Sieve Color Space)',
+    summary: 'Espace dérivé du crible PT. Trois canaux opposants forcés par les 3 primaires actifs {3, 5, 7}, poids γ_p calculables exactement. Pythagore = orthogonalité CRT.',
+    limit: 'Statut : approche jeune (2026). Compatibilité expérimentale validée à 3,2 % d’écart sur le poids L-M — mais pas encore industriellement battue par tous les usages.',
+    highlight: true,
+  },
+];
+
+const currentLimits = [
+  {
+    label: 'Non-uniformité perceptuelle résiduelle',
+    detail: 'ΔE_Lab = 1 ne correspond pas toujours à un écart perçu de 1. Régions sombres et saturées particulièrement défaillantes.',
+    impact: 'En grading vidéo, des corrections numériquement « petites » paraissent flagrantes ; d’autres « grandes » sont invisibles.',
+  },
+  {
+    label: 'Hue shift dans Lab',
+    detail: 'Un déplacement « luminance pure » dans Lab change la teinte perçue. Le rouge sombre devient violacé, le bleu clair tire vers le vert.',
+    impact: 'Pousse les coloristes à corriger en post : ils font du Lab + retouche à l’œil.',
+  },
+  {
+    label: 'Gamut mapping artificiel',
+    detail: 'Passer de Rec.709 (sRGB) à Rec.2020 (HDR) ou DCI-P3 demande des matrices d’adaptation tabulées, pas dérivées.',
+    impact: 'Chaque pipeline a sa propre formule, et les écarts entre studios sont visibles.',
+  },
+  {
+    label: 'Coefficients ad hoc',
+    detail: 'Oklab, ICtCp et autres bons espaces ont leurs coefficients fittés sur datasets perceptuels (MacAdam, COLOROID, CIECAM02, etc).',
+    impact: 'Pas de réponse à la question : « pourquoi ces coefficients-là, pas d’autres ? »',
+  },
+  {
+    label: 'Inadéquation à la cognition',
+    detail: 'Un coloriste pense « plus chaud / plus froid », « plus saturé » — pas en termes de coordonnées Lab. La traduction se fait dans sa tête.',
+    impact: 'Outils de grading multiplient les contrôles redondants (lift-gamma-gain, courbes RGB, vector scope, qualifiers HSL…).',
+  },
+];
+
+const scsFeatures = [
+  {
+    title: 'Trois canaux structurels (pas plus, pas moins)',
+    why: 'Le théorème T5 de la PT impose exactement trois primaires actifs au point fixe μ* = 15 : {3, 5, 7}. SCS prédit trois canaux **structurels** — c’est-à-dire trois axes informationnellement indépendants qui ouvrent l’espace. Les espèces tétrachromates (oiseaux, certains poissons) ont effectivement un quatrième cône, mais ce cône n’ouvre pas de quatrième dimension informationnelle : il apporte de la précision, de la discrimination ou de la vitesse de détection à l’intérieur des trois axes existants. SCS reste compatible.',
+  },
+  {
+    title: 'Poids γ_p calculables sans fit',
+    why: 'Chaque canal SCS a une force γ_p calculable : γ_3 = 0,808, γ_5 = 0,696, γ_7 = 0,595. Le poids L-M = γ_3 / Σγ_p = 0,385. Mesuré : 0,373.',
+  },
+  {
+    title: 'Orthogonalité CRT',
+    why: 'Les trois canaux sont indexés par des premiers distincts → CRT impose qu’ils sont orthogonaux au sens du produit tensoriel. La métrique est exactement pythagorienne.',
+  },
+  {
+    title: 'Hue stable par construction',
+    why: 'Un déplacement « luminance pure » ne touche pas les canaux L-M et S-LM. La teinte ne dérive pas — propriété structurelle, pas patch empirique.',
+  },
+  {
+    title: 'Gamut mapping comme rotation',
+    why: 'Passer Rec.709 → Rec.2020 = changement de norme dans chaque canal pondéré par γ_p. Pas de matrice ad hoc, juste une rescale homogène par axe.',
+  },
+];
+
+const colorist = [
+  {
+    workflow: 'Workflow Lab/HSL traditionnel',
+    steps: [
+      'Régler la luminance globale (Lift-Gamma-Gain)',
+      'Vérifier la balance des blancs (température, teinte)',
+      'Saturer ou désaturer en HSL',
+      'Corriger les zones rouges/peau séparément (qualifiers HSL)',
+      'Vérifier sur scope (vector + parade RGB)',
+      'Ajuster encore en Lab si nécessaire',
+    ],
+    issue: 'Au moins 6 contrôles redondants. Chacun introduit du bruit. Coupling perçu : changer la luminance change aussi la teinte.',
+  },
+  {
+    workflow: 'Workflow SCS',
+    steps: [
+      'Régler la luminance (canal L+M, indépendant)',
+      'Régler la balance L-M (rouge ↔ vert)',
+      'Régler la balance S-LM (bleu ↔ jaune)',
+      'Saturer = augmenter la norme des canaux opposants',
+      'Pas de qualifier nécessaire : la peau a une signature SCS unique',
+    ],
+    issue: 'Trois contrôles indépendants alignés sur la perception. Pas de coupling : régler la luminance ne change pas la teinte.',
+  },
+];
+
+const industrial = [
+  {
+    sector: 'Cinéma / vidéo HDR',
+    use: 'Color grading aligné sur la perception en HDR10+ et Dolby Vision. Préservation des intentions artistiques entre SDR et HDR.',
+  },
+  {
+    sector: 'Print prepress',
+    use: 'Conversion CMYK ↔ RGB sans hue shift. Profils ICC dérivés des poids γ_p au lieu de fits empiriques.',
+  },
+  {
+    sector: 'IA générative',
+    use: 'Prompts couleur cohérents (« vert tirant vers bleu ») en coordonnées SCS au lieu de RGB hex. Distillation perceptuelle native.',
+  },
+  {
+    sector: 'Display calibration',
+    use: 'MicroLED/OLED 10 000 nits : calibrage perceptuellement uniforme à toutes luminances. Pas d’effondrement chroma en hautes lumières.',
+  },
+  {
+    sector: 'Quality control industriel',
+    use: 'Robots de tri couleur (textile, peinture, plastique) : seuil ΔE_SCS perceptuellement linéaire. Moins de faux positifs.',
+  },
+  {
+    sector: 'Photographie computationnelle',
+    use: 'Tone-mapping, dénombrement automatique de scènes, debayering : tout devient un calcul SCS plutôt qu’un patchwork RGB/Lab/HSV.',
+  },
+];
+
+const scriptDeriveLM = `# derive_lm_weight.py
+# Poids du canal L-M dérivé directement des γ_p PT,
+# sans paramètre ajusté.
+
+from scs.gamma import gamma_p_at_mu_star
+
+mu_star = 15
+gammas = {p: gamma_p_at_mu_star(p) for p in (3, 5, 7)}
+
+# Le poids du canal L-M = part du canal p=3 dans la somme totale
+lm_weight = gammas[3] / sum(gammas.values())
+print(f"γ_3 (canal L-M)        = {gammas[3]:.4f}")  # 0.808
+print(f"γ_5 (canal S-LM)       = {gammas[5]:.4f}")  # 0.696
+print(f"γ_7 (canal achromat.)  = {gammas[7]:.4f}")  # 0.595
+print(f"L-M weight (PT)         = {lm_weight:.4f}")  # 0.385
+print(f"L-M weight (SCPT 118 obs) = 0.373")
+print(f"Écart (PT vs mesure)    = {abs(lm_weight - 0.373) / 0.373 * 100:.1f} %")  # 3.2 %`;
+
+const scriptOpponent = `# opponent_channels.py
+# Construire les trois canaux opposants depuis l'espace LMS,
+# avec vérification Pythagore CRT.
+
+from scs.opponent import scs_from_lms
+import numpy as np
+
+# Couleur d'entrée : rouge cinabre (proche de la peau humaine)
+lms = np.array([0.62, 0.42, 0.13])
+
+# Décomposition SCS
+result = scs_from_lms(lms)
+print(f"L-M  (rouge-vert)        : {result['L_M']:+.3f}")
+print(f"S-LM (bleu-jaune)        : {result['S_LM']:+.3f}")
+print(f"L+M  (achromatique)      : {result['lum']:+.3f}")
+
+# Pythagore CRT : la norme totale est conservée modulo γ_p
+norm_scs = np.sqrt(
+    result['L_M']**2 + result['S_LM']**2 + result['lum']**2
+)
+print(f"\\nNorme pythagorienne SCS : {norm_scs:.4f}")
+# Cette norme correspond à la luminance perçue (linéaire).`;
+
+const scriptDeltaE = `# delta_e_comparison.py
+# Compare ΔE_SCS, ΔE_Lab, et ΔE_Oklab sur les ellipses de MacAdam.
+# SCS doit donner les ΔE les plus proches de 1 partout (uniformité).
+
+from scs.metric import delta_e_scs
+from colorspace import delta_e_lab, delta_e_oklab
+from datasets.macadam import macadam_pairs
+
+results = {'SCS': [], 'Lab': [], 'Oklab': []}
+for c1, c2 in macadam_pairs():
+    results['SCS'].append(delta_e_scs(c1, c2))
+    results['Lab'].append(delta_e_lab(c1, c2))
+    results['Oklab'].append(delta_e_oklab(c1, c2))
+
+import numpy as np
+for name, dEs in results.items():
+    arr = np.array(dEs)
+    cv = np.std(arr) / np.mean(arr)  # coefficient de variation
+    print(f"{name:6} : moyenne {arr.mean():.2f} | "
+          f"écart-type {arr.std():.2f} | CV {cv:.3f}")
+# Lecture : plus le CV est petit, plus l'espace est uniforme.
+# Attendu sur ce dataset : SCS CV ≈ 0.18, Oklab CV ≈ 0.21, Lab CV ≈ 0.42`;
+---
+
+<BaseLayout
+  title="SCS — Sieve Color Space"
+  description="SCS (Sieve Color Space) : un espace de couleur dérivé du crible PT. 3 canaux opposants forcés par {3, 5, 7}, poids γ_p calculables sans fit, métrique pythagorienne par CRT. Code public sous licence MIT. Réponse à la non-uniformité perceptuelle de Lab et aux fits empiriques d'Oklab/ICtCp."
+>
+  <main class="max-w-6xl mx-auto px-4 py-10 md:py-14">
+
+    <!-- ============= HERO L1 ============= -->
+    <section class="mb-12">
+      <div class="rounded-lg border border-slate-200 bg-white p-6 md:p-8 shadow-sm">
+        <p class="pt-tag pt-tag-val mb-5">SCS — Sieve Color Space</p>
+        <h1 class="text-4xl md:text-5xl font-bold text-thmblue leading-tight mb-4">
+          La couleur, depuis le crible
+        </h1>
+        <p class="text-2xl md:text-3xl font-sans font-semibold text-derorange leading-snug mb-6">
+          Un espace de couleur où les axes ne sont plus choisis. Ils sont forcés.
+        </p>
+        <p class="text-lg text-slate-700 leading-relaxed mb-5" data-max-depth="L1">
+          Quand vous regardez un coucher de soleil, votre œil ne « voit »
+          pas trois nombres RGB. Il voit trois <strong>oppositions</strong> :
+          rouge contre vert, bleu contre jaune, lumière contre obscurité.
+          C’est la physiologie même de la rétine. Tous les espaces de
+          couleur modernes — CIE Lab, Oklab, ICtCp — essaient de capturer
+          cette structure. Mais ils le font par <em>fit empirique</em> :
+          ils calibrent leurs coefficients sur des expériences perceptuelles.
+          SCS prend une autre route : il <strong>dérive</strong> ces
+          coefficients depuis la PT, sans fit.
+        </p>
+        <p class="text-base text-slate-700 leading-relaxed mb-5" data-min-depth="L2">
+          Le résultat est un espace à trois canaux opposants où les poids
+          relatifs viennent directement des dimensions anomales γ_p de la
+          cascade PT au point fixe μ* = 15. Aucun ajustement. Le test :
+          le poids du canal L-M (rouge-vert) prédit par PT vaut 0,385 ;
+          mesure neurophysiologique sur 118 sujets : 0,373. 3,2 % d’écart.
+        </p>
+        <div class="rounded-lg border-l-4 border-emerald-500 bg-emerald-50 px-4 py-3">
+          <p class="text-sm text-emerald-900 leading-relaxed">
+            <strong>📦 Code public :</strong>
+            <a href="https://github.com/Igrekess/SieveColorSpace" class="underline font-mono">github.com/Igrekess/SieveColorSpace</a>
+            (MIT). Tout est auditable.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============= POURQUOI UN NOUVEL ESPACE COULEUR ============= -->
+    <section class="mb-12">
+      <p class="pt-tag pt-tag-id mb-3">Contexte</p>
+      <h2 class="text-3xl font-bold text-thmblue mb-4">Pourquoi un nouvel espace de couleur ?</h2>
+      <p class="text-slate-700 leading-relaxed mb-6 max-w-3xl">
+        Avant d’expliquer SCS, il faut comprendre où en sont les espaces
+        existants — leurs forces, et surtout leurs <strong>limites
+        structurelles</strong>. Sans ce contexte, on ne saisit pas pourquoi
+        la PT propose un nouvel espace.
+      </p>
+      <h3 class="font-sans font-semibold text-thmblue text-xl mb-4">95 ans d’histoire en 6 jalons</h3>
+      <div class="space-y-3 mb-8">
+        {history.map((h) => (
+          <div class={h.highlight
+            ? "rounded-lg border-2 border-emerald-500 bg-emerald-50 p-5 shadow-md"
+            : "rounded-lg border border-slate-200 bg-white p-5"}>
+            <div class="flex items-baseline gap-4 flex-wrap mb-2">
+              <span class="font-mono text-lg font-bold text-thmblue">{h.year}</span>
+              <h4 class={h.highlight ? "font-sans font-bold text-emerald-900 text-lg" : "font-sans font-semibold text-slate-900 text-lg"}>{h.name}</h4>
+            </div>
+            <p class="text-sm text-slate-700 leading-relaxed mb-2">{h.summary}</p>
+            <p class={h.highlight ? "text-xs text-emerald-700 italic" : "text-xs text-rose-700 italic"}>
+              {h.highlight ? '→ ' : '⚠ Limite : '}{h.limit}
+            </p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- ============= LIMITES DES ESPACES ACTUELS L2 ============= -->
+    <section class="mb-12" data-min-depth="L2">
+      <p class="pt-tag pt-tag-id mb-3">Diagnostic</p>
+      <h2 class="text-3xl font-bold text-thmblue mb-4">Cinq limites structurelles des espaces actuels</h2>
+      <p class="text-slate-700 leading-relaxed mb-6 max-w-3xl">
+        Les meilleurs espaces actuels (Oklab, ICtCp) résolvent l’uniformité
+        perceptuelle <em>en moyenne</em>, mais avec des coefficients fittés.
+        Cette dépendance aux datasets crée cinq problèmes industriellement
+        visibles.
+      </p>
+      <div class="space-y-3">
+        {currentLimits.map((l) => (
+          <div class="rounded-lg border-l-4 border-rose-400 bg-rose-50 p-5">
+            <h4 class="font-sans font-semibold text-rose-900 mb-2">{l.label}</h4>
+            <p class="text-sm text-slate-700 leading-relaxed mb-2">{l.detail}</p>
+            <p class="text-xs text-rose-800 italic"><strong>Conséquence :</strong> {l.impact}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- ============= COMMENT SCS A ETE PENSE ============= -->
+    <section class="mb-12">
+      <p class="pt-tag pt-tag-thm mb-3">Genèse de SCS</p>
+      <h2 class="text-3xl font-bold text-thmblue mb-4">L’idée centrale en une phrase</h2>
+      <div class="rounded-lg border border-thmblue/30 bg-blue-50 p-6 mb-6">
+        <p class="text-lg font-sans font-semibold text-thmblue leading-relaxed">
+          « Si la perception couleur émerge d’une cascade de persistance
+          comme le reste de la physique, alors elle doit s’organiser autour
+          des trois primaires actifs PT — exactement les mêmes que celles
+          qui donnent les trois dimensions spatiales et les trois générations
+          de fermions. »
+        </p>
+      </div>
+      <p class="text-slate-700 leading-relaxed mb-4" data-max-depth="L1">
+        Cette idée n’est pas un postulat sorti du chapeau. La PT prédit
+        que partout où une structure se construit par persistance sous
+        contrainte (chimie, biologie, perception…), les trois primaires
+        actifs {`{3, 5, 7}`} doivent réapparaître. La perception couleur
+        est un test naturel de cette prédiction.
+      </p>
+      <h3 class="font-sans font-semibold text-thmblue text-xl mb-3 mt-6">Ce que SCS emprunte à PT — et ce qu’il n’emprunte pas</h3>
+      <div class="grid md:grid-cols-2 gap-4">
+        <div class="rounded-lg border-2 border-emerald-300 bg-emerald-50 p-5">
+          <h4 class="font-sans font-semibold text-emerald-800 mb-2">✓ Ce que SCS prend de PT</h4>
+          <ul class="text-sm text-emerald-900 space-y-2">
+            <li>· Le <strong>nombre exact</strong> de canaux : trois (théorème T5)</li>
+            <li>· Les <strong>poids relatifs</strong> γ_3, γ_5, γ_7 calculables au point fixe μ* = 15</li>
+            <li>· La <strong>métrique pythagorienne</strong> par orthogonalité CRT</li>
+          </ul>
+        </div>
+        <div class="rounded-lg border-2 border-stone-300 bg-stone-50 p-5">
+          <h4 class="font-sans font-semibold text-stone-800 mb-2">✗ Ce que SCS NE prend PAS de PT</h4>
+          <ul class="text-sm text-stone-700 space-y-2">
+            <li>· Aucune ontologie informationnelle particulière</li>
+            <li>· Aucune cosmologie</li>
+            <li>· Aucune cascade quantique</li>
+            <li>· Le reste de SCS = colorimétrie standard (LMS depuis Stockman & Sharpe, espace gamut connu)</li>
+          </ul>
+          <p class="text-xs text-stone-600 italic mt-3">SCS est utilisable même par quelqu’un qui n’adhère pas à la PT, à condition d’accepter que les poids γ_p donnent le bon résultat empirique.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============= ARCHITECTURE SCS L2 ============= -->
+    <section class="mb-12" data-min-depth="L2">
+      <p class="pt-tag pt-tag-thm mb-3">Architecture</p>
+      <h2 class="text-3xl font-bold text-thmblue mb-4">SCS en quatre couches</h2>
+      <ol class="space-y-4">
+        <li class="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
+          <div class="flex items-start gap-4">
+            <span class="flex-shrink-0 w-10 h-10 rounded-full bg-thmblue text-white font-mono font-bold flex items-center justify-center">1</span>
+            <div>
+              <h4 class="font-sans font-semibold text-thmblue mb-1">Stimulus → LMS</h4>
+              <p class="text-sm text-slate-700 leading-relaxed">Réponses des trois cônes (Long, Medium, Short) selon Stockman & Sharpe (2000) — étape standard, identique à tous les espaces modernes.</p>
+            </div>
+          </div>
+        </li>
+        <li class="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
+          <div class="flex items-start gap-4">
+            <span class="flex-shrink-0 w-10 h-10 rounded-full bg-thmblue text-white font-mono font-bold flex items-center justify-center">2</span>
+            <div>
+              <h4 class="font-sans font-semibold text-thmblue mb-1">LMS → 3 canaux opposants pondérés par γ_p</h4>
+              <p class="text-sm text-slate-700 leading-relaxed">L-M (rouge-vert) avec poids γ_3, S-LM (bleu-jaune) avec γ_5, L+M (achromatique) avec γ_7. <strong>C’est l’unique étape PT-spécifique.</strong></p>
+            </div>
+          </div>
+        </li>
+        <li class="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
+          <div class="flex items-start gap-4">
+            <span class="flex-shrink-0 w-10 h-10 rounded-full bg-thmblue text-white font-mono font-bold flex items-center justify-center">3</span>
+            <div>
+              <h4 class="font-sans font-semibold text-thmblue mb-1">Métrique pythagorienne</h4>
+              <p class="text-sm text-slate-700 leading-relaxed">ΔE_SCS = √[(ΔL-M)² + (ΔS-LM)² + (ΔLum)²]. Justifiée par CRT (orthogonalité des cercles ℤ/3ℤ × ℤ/5ℤ × ℤ/7ℤ), pas par fit.</p>
+            </div>
+          </div>
+        </li>
+        <li class="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
+          <div class="flex items-start gap-4">
+            <span class="flex-shrink-0 w-10 h-10 rounded-full bg-thmblue text-white font-mono font-bold flex items-center justify-center">4</span>
+            <div>
+              <h4 class="font-sans font-semibold text-thmblue mb-1">Compatibilité avec gamut existants</h4>
+              <p class="text-sm text-slate-700 leading-relaxed">Conversion sRGB / Rec.709 / Rec.2020 / DCI-P3 directe. Pas de table tabulée : les transformations préservent la pondération γ_p sur chaque axe.</p>
+            </div>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <!-- ============= POURQUOI SCS RESOUT LES PROBLEMES ============= -->
+    <section class="mb-12">
+      <p class="pt-tag pt-tag-val mb-3">Réponse aux limites</p>
+      <h2 class="text-3xl font-bold text-thmblue mb-4">Pourquoi SCS répond aux problématiques actuelles</h2>
+      <div class="space-y-3">
+        {scsFeatures.map((f) => (
+          <div class="rounded-lg border-2 border-emerald-300 bg-emerald-50 p-5">
+            <h4 class="font-sans font-semibold text-emerald-800 mb-2">→ {f.title}</h4>
+            <p class="text-sm text-emerald-900 leading-relaxed">{f.why}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- ============= LOGIQUE COLORISTE L1-L2 ============= -->
+    <section class="mb-12">
+      <p class="pt-tag pt-tag-bridge mb-3">Pratique</p>
+      <h2 class="text-3xl font-bold text-thmblue mb-4">Comment SCS change la logique d’un coloriste</h2>
+      <p class="text-slate-700 leading-relaxed mb-6 max-w-3xl">
+        Pour un coloriste vidéo ou un étalonneur, l’enjeu n’est pas
+        philosophique : c’est <strong>« combien de contrôles dois-je
+        manipuler simultanément pour obtenir la couleur que je veux ? »</strong>
+        SCS change radicalement cette équation.
+      </p>
+      <div class="grid md:grid-cols-2 gap-5">
+        {colorist.map((w) => (
+          <div class="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
+            <h4 class="font-sans font-semibold text-thmblue mb-3">{w.workflow}</h4>
+            <ol class="text-sm text-slate-700 leading-relaxed space-y-1 list-decimal list-inside mb-3">
+              {w.steps.map((s) => (
+                <li>{s}</li>
+              ))}
+            </ol>
+            <p class="text-xs text-slate-600 italic border-t border-slate-200 pt-2 mt-2">{w.issue}</p>
+          </div>
+        ))}
+      </div>
+      <div class="rounded-lg bg-blue-50 border-l-4 border-thmblue px-4 py-3 mt-5">
+        <p class="text-sm text-thmblue leading-relaxed">
+          <strong>Conséquence pratique.</strong> En SCS, un coloriste pense
+          en termes <em>perceptuels</em>, pas en RGB ni en Lab. La traduction
+          mentale entre « ce que je veux » et « comment je l’obtiens » est
+          réduite. Moins de contrôles → moins d’erreurs → moins d’aller-retours.
+        </p>
+      </div>
+    </section>
+
+    <!-- ============= APPLICATIONS INDUSTRIELLES ============= -->
+    <section class="mb-12">
+      <p class="pt-tag pt-tag-val mb-3">Applications</p>
+      <h2 class="text-3xl font-bold text-thmblue mb-4">Six secteurs industriels concernés</h2>
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {industrial.map((i) => (
+          <div class="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
+            <h4 class="font-sans font-semibold text-thmblue mb-2">{i.sector}</h4>
+            <p class="text-sm text-slate-700 leading-relaxed">{i.use}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- ============= PREMIERS RESULTATS L2-L3 ============= -->
+    <section class="mb-12" data-min-depth="L2">
+      <p class="pt-tag pt-tag-val mb-3">Validation</p>
+      <h2 class="text-3xl font-bold text-thmblue mb-4">Premiers résultats expérimentaux</h2>
+      <div class="grid md:grid-cols-3 gap-4 mb-6">
+        <div class="rounded-lg border-2 border-violet-400 bg-violet-50 p-5 text-center">
+          <p class="text-xs uppercase tracking-wider text-violet-700 mb-2">Poids L-M (PT)</p>
+          <p class="text-3xl font-bold font-mono text-violet-900">0,385</p>
+          <p class="text-xs text-violet-700 mt-2">γ_3 / Σγ_p — calcul exact</p>
+        </div>
+        <div class="rounded-lg border-2 border-violet-400 bg-violet-50 p-5 text-center">
+          <p class="text-xs uppercase tracking-wider text-violet-700 mb-2">Poids L-M (mesuré)</p>
+          <p class="text-3xl font-bold font-mono text-violet-900">0,373</p>
+          <p class="text-xs text-violet-700 mt-2">SCPT, 118 sujets</p>
+        </div>
+        <div class="rounded-lg border-2 border-emerald-400 bg-emerald-50 p-5 text-center">
+          <p class="text-xs uppercase tracking-wider text-emerald-700 mb-2">Écart</p>
+          <p class="text-3xl font-bold font-mono text-emerald-900">3,2 %</p>
+          <p class="text-xs text-emerald-700 mt-2">Sans paramètre ajusté</p>
+        </div>
+      </div>
+      <p class="text-sm text-slate-700 leading-relaxed max-w-3xl">
+        Ce 3,2 % d’écart est de l’ordre de grandeur des variations
+        inter-sujet en perception couleur. Il est notable que la prédiction
+        PT — calculée avant toute mesure — soit dans cette plage. Pour
+        comparer, Oklab obtient une excellente fidélité, mais ses
+        coefficients sont fittés sur le même type de données. SCS arrive
+        au même niveau d’accord avec un seul théorème.
+      </p>
+    </section>
+
+    <!-- ============= SCRIPTS DE REPRODUCTION L3 ============= -->
+    <section class="mb-12" data-min-depth="L3">
+      <p class="pt-tag pt-tag-val mb-3">Reproductibilité</p>
+      <h2 class="text-3xl font-bold text-thmblue mb-3">Trois scripts pour vérifier soi-même</h2>
+      <p class="text-slate-700 leading-relaxed mb-6 max-w-3xl">
+        Le code SCS est public — vous pouvez tout vérifier. Pour exécuter,
+        cloner le repo : <code class="font-mono bg-slate-100 px-1.5 py-0.5 rounded">git clone https://github.com/Igrekess/SieveColorSpace</code>
+      </p>
+
+      <h3 class="font-sans font-semibold text-thmblue text-lg mb-3 mt-6">1. Dériver le poids L-M depuis γ_p</h3>
+      <div class="rounded-lg overflow-hidden border border-slate-200 bg-slate-900 text-slate-100 mb-6">
+        <div class="flex items-center justify-between px-4 py-2 bg-slate-800 text-xs font-mono text-slate-300 border-b border-slate-700">
+          <span>derive_lm_weight.py</span>
+          <span class="text-violet-400">$ python derive_lm_weight.py</span>
+        </div>
+        <pre class="px-4 py-4 text-sm overflow-x-auto"><code>{scriptDeriveLM}</code></pre>
+      </div>
+
+      <h3 class="font-sans font-semibold text-thmblue text-lg mb-3 mt-6">2. Décomposition LMS → SCS d’une couleur</h3>
+      <div class="rounded-lg overflow-hidden border border-slate-200 bg-slate-900 text-slate-100 mb-6">
+        <div class="flex items-center justify-between px-4 py-2 bg-slate-800 text-xs font-mono text-slate-300 border-b border-slate-700">
+          <span>opponent_channels.py</span>
+          <span class="text-violet-400">$ python opponent_channels.py</span>
+        </div>
+        <pre class="px-4 py-4 text-sm overflow-x-auto"><code>{scriptOpponent}</code></pre>
+      </div>
+
+      <h3 class="font-sans font-semibold text-thmblue text-lg mb-3 mt-6">3. Comparaison ΔE_SCS vs ΔE_Lab vs ΔE_Oklab</h3>
+      <div class="rounded-lg overflow-hidden border border-slate-200 bg-slate-900 text-slate-100 mb-6">
+        <div class="flex items-center justify-between px-4 py-2 bg-slate-800 text-xs font-mono text-slate-300 border-b border-slate-700">
+          <span>delta_e_comparison.py</span>
+          <span class="text-violet-400">$ python delta_e_comparison.py</span>
+        </div>
+        <pre class="px-4 py-4 text-sm overflow-x-auto"><code>{scriptDeltaE}</code></pre>
+      </div>
+    </section>
+
+    <!-- ============= TETRACHROMATES = PAS UNE FALSIFICATION ============= -->
+    <section class="mb-12">
+      <p class="pt-tag pt-tag-id mb-3">Précision importante</p>
+      <h2 class="text-3xl font-bold text-thmblue mb-4">Et les oiseaux tétrachromates ?</h2>
+      <p class="text-slate-700 leading-relaxed mb-4 max-w-3xl">
+        Une objection naturelle : « si SCS prédit trois canaux opposants,
+        que faire des oiseaux, des reptiles, de certains poissons qui ont
+        un quatrième cône (UV ou bleu profond) ? »
+      </p>
+      <div class="rounded-lg border-l-4 border-thmblue bg-blue-50 px-4 py-4 mb-4">
+        <p class="text-sm text-thmblue leading-relaxed">
+          <strong>Réponse précise.</strong> SCS prédit trois canaux
+          <strong>structurels</strong> — trois axes <em>informationnellement
+          indépendants</em> qui ouvrent l’espace de couleur. Les espèces
+          tétrachromates ont effectivement un quatrième cône, mais ce cône
+          <strong>n’ouvre pas un quatrième axe informationnel</strong>. Il
+          apporte trois choses, toutes <em>à l’intérieur</em> des trois axes
+          existants :
+        </p>
+        <ul class="text-sm text-thmblue leading-relaxed mt-3 space-y-1 list-disc list-inside">
+          <li><strong>Précision</strong> dans la discrimination le long des axes existants (deux teintes proches deviennent distinguables) ;</li>
+          <li><strong>Discrimination</strong> hors du domaine visible humain (UV étendu) — mais cela <em>élargit</em> le gamut, pas la dimensionnalité informationnelle ;</li>
+          <li><strong>Vitesse</strong> de détection (les oiseaux ont des temps de réaction couleur ~3× plus rapides).</li>
+        </ul>
+        <p class="text-sm text-thmblue leading-relaxed mt-3">
+          Géométriquement : un quatrième cône <em>raffine</em> les trois
+          axes ; il n’en ajoute pas un quatrième orthogonal. C’est la
+          différence entre <em>résolution</em> (combien de bits par axe)
+          et <em>dimension</em> (combien d’axes informationnels).
+        </p>
+      </div>
+    </section>
+
+    <!-- ============= FALSIFIABILITE ============= -->
+    <section class="mb-12">
+      <p class="pt-tag pt-tag-thm mb-3">Falsifiabilité</p>
+      <h2 class="text-3xl font-bold text-thmblue mb-4">Ce qui détruirait SCS (et donc PT)</h2>
+      <div class="rounded-lg border-2 border-rose-300 bg-rose-50 p-6">
+        <ul class="space-y-3 text-rose-900 text-sm leading-relaxed">
+          <li>· <strong>Découverte d’un quatrième axe informationnel indépendant</strong> chez l’humain : non pas un quatrième cône (les tétrachromates connus n’en ouvrent pas), mais un quatrième canal opposant qui transporte de l’information non réductible aux trois axes L-M, S-LM, achromatique. PT fixe trois axes structurels au point fixe ; un quatrième briserait T5.</li>
+          <li>· <strong>Mesure répétée du poids L-M en dehors de [0,35 ; 0,40]</strong> sur populations standard. Le poids 0,385 ne tolère pas un fit empirique différent.</li>
+          <li>· <strong>Échec d’uniformité ΔE_SCS</strong> sur les ellipses MacAdam : si SCS est moins uniforme que Oklab, son intérêt s’effondre.</li>
+          <li>· <strong>Découverte d’une espèce trichromate</strong> dont les canaux opposants ne respectent pas le ratio γ_3 : γ_5 : γ_7. Sa physiologie devrait être réinterprétée.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============= LIENS ============= -->
+    <section class="mb-8">
+      <p class="pt-tag pt-tag-bridge mb-3">Aller plus loin</p>
+      <h2 class="text-3xl font-bold text-thmblue mb-6">Approfondir</h2>
+      <div class="grid md:grid-cols-3 gap-4">
+        <a href="https://github.com/Igrekess/SieveColorSpace" class="pt-card block group">
+          <span class="pt-tag pt-tag-val">Code public</span>
+          <h3 class="font-sans font-semibold text-thmblue text-lg mt-3 mb-2 group-hover:underline">github.com/Igrekess/SieveColorSpace</h3>
+          <p class="text-sm text-slate-700">Repo MIT. Cloner, tester, modifier, contribuer.</p>
+        </a>
+        <a href="/essays/why-3-dimensions" class="pt-card block group">
+          <span class="pt-tag pt-tag-id">Essai L1</span>
+          <h3 class="font-sans font-semibold text-thmblue text-lg mt-3 mb-2 group-hover:underline">Pourquoi trois dimensions ?</h3>
+          <p class="text-sm text-slate-700">Le même argument {`{3, 5, 7}`} qui donne SCS donne aussi les trois dimensions spatiales.</p>
+        </a>
+        <a href="/principes-architecturaux" class="pt-card block group">
+          <span class="pt-tag pt-tag-thm">Méta-théorie</span>
+          <h3 class="font-sans font-semibold text-thmblue text-lg mt-3 mb-2 group-hover:underline">7 principes architecturaux</h3>
+          <p class="text-sm text-slate-700">Pythagore = orthogonalité CRT (principe 3) explique la métrique de SCS.</p>
+        </a>
+        <a href="/recherches" class="pt-card block group">
+          <span class="pt-tag pt-tag-id">Recherches</span>
+          <h3 class="font-sans font-semibold text-thmblue text-lg mt-3 mb-2 group-hover:underline">Hub des programmes de recherche</h3>
+          <p class="text-sm text-slate-700">SCS en contexte avec les autres programmes empiriques en cours.</p>
+        </a>
+        <a href="/biologie" class="pt-card block group">
+          <span class="pt-tag pt-tag-val">Biologie</span>
+          <h3 class="font-sans font-semibold text-thmblue text-lg mt-3 mb-2 group-hover:underline">PT en biologie</h3>
+          <p class="text-sm text-slate-700">Autre application au vivant : tore Ramachandran, ARN, allostérie.</p>
+        </a>
+        <a href="/critique" class="pt-card block group">
+          <span class="pt-tag pt-tag-id">Critique</span>
+          <h3 class="font-sans font-semibold text-thmblue text-lg mt-3 mb-2 group-hover:underline">Discuter SCS</h3>
+          <p class="text-sm text-slate-700">Ouvrir une issue GitHub ou contacter l’auteur pour confronter SCS à votre cas d’usage.</p>
+        </a>
+      </div>
+    </section>
+
+  </main>
+</BaseLayout>

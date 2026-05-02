@@ -1,0 +1,231 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+
+const projects = [
+  {
+    href: '/en/biologie',
+    title: 'Biology',
+    code: 'PT_PROTEIN, PT_RNA',
+    domain: 'Life sciences',
+    status: 'private',
+    statusLabel: 'Private code · LaTeX draft in progress',
+    summary: 'q⁺/q⁻ bifurcation verified across 3 biopolymers (DNA, RNA, proteins), Ramachandran torus reconstructed from modular projections, protein allostery tested against 1000 permutations.',
+    headline: '3/3 biopolymers · A_m = 1 [THM] · cos_therm 90 ppm',
+    color: 'rose',
+    keyResults: [
+      'Ramachandran torus 20/20 amino acids from modular projections',
+      'RNA scale-up 94 → 300 nt stable, Vienna peak L = 4',
+      'Allostery: shuffle test 6/6 PASS, p = 0/1000',
+      'cos_therm agrees within 90 ppm of DSSR-strict measurement',
+    ],
+  },
+  {
+    href: '/en/scs',
+    title: 'SieveColorSpace',
+    code: 'SieveColorSpace',
+    domain: 'Colour perception',
+    status: 'public',
+    statusLabel: 'Public code · MIT · GitHub Igrekess',
+    summary: 'Colour space derived from the sieve. Three opponent channels (L-M, S-LM, achromatic) forced by active primes {3, 5, 7}, γ_p weights derived without fitting, Pythagorean metric via CRT. Answers the limits of Lab/Oklab/ICtCp.',
+    headline: 'L-M weight: 0.385 (PT) vs 0.373 (118 subjects) · 3.2 %',
+    color: 'violet',
+    keyResults: [
+      'Three opponent channels forced by {3, 5, 7}, not by fit',
+      'L-M weight derived exactly from γ_3 / Σγ_p',
+      'Pythagorean metric via CRT — no ad-hoc coefficients',
+      'Compatible with Lab, ICtCp, Oklab — industrial applications HDR, print, AI',
+    ],
+  },
+];
+
+const statusBadgeClasses: Record<string, string> = {
+  public: 'bg-emerald-100 text-emerald-800 border-emerald-400',
+  private: 'bg-amber-100 text-amber-900 border-amber-400',
+};
+
+const colorBorders: Record<string, string> = {
+  rose: 'border-rose-300 bg-rose-50',
+  amber: 'border-amber-300 bg-amber-50',
+  violet: 'border-violet-300 bg-violet-50',
+};
+---
+
+<BaseLayout
+  title="Research"
+  description="Ongoing research programmes around PT: Biology (PT_PROTEIN, PT_RNA) and SieveColorSpace (colour perception). Each tests transposing the PT cascade to an empirical domain. Statuses, current results, code and acknowledged limits."
+>
+  <main class="max-w-6xl mx-auto px-4 py-10 md:py-14">
+
+    <section class="mb-12">
+      <div class="rounded-lg border border-slate-200 bg-white p-6 md:p-8 shadow-sm">
+        <p class="pt-tag pt-tag-id mb-5">Research programmes</p>
+        <h1 class="text-4xl md:text-5xl font-bold text-thmblue leading-tight mb-4">
+          Ongoing research
+        </h1>
+        <p class="text-2xl md:text-3xl font-sans font-semibold text-derorange leading-snug mb-6">
+          Two empirical programmes currently public. One cascade.
+        </p>
+        <p class="text-lg text-slate-700 leading-relaxed mb-5">
+          If PT is right, the cascade {`{3, 5, 7}`} and the q⁺/q⁻
+          bifurcation should not be confined to the Standard Model. Two
+          research programmes, presented here, test this transposition in
+          two empirical domains: <strong>biology</strong> (biopolymers) and
+          <strong>colour perception</strong> (colour spaces). Other
+          programmes (notably in seismology) are ongoing internally and will
+          be released later.
+        </p>
+        <div class="rounded-lg border-l-4 border-amber-400 bg-amber-50 px-4 py-3">
+          <p class="text-sm text-amber-900 leading-relaxed">
+            <strong>Common status.</strong> These programmes are
+            <em>still exploratory</em>. Their results are measured, chained,
+            verifiable — but they do not replace PT's deductive core (43
+            Standard Model observables, 28 Tier-1 predictions). This page
+            is a portal to each, with code, limits, and ambitions of its own.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="mb-12">
+      <p class="pt-tag pt-tag-thm mb-3">Two public transpositions</p>
+      <h2 class="text-3xl font-bold text-thmblue mb-6">Life and colour</h2>
+      <div class="space-y-6">
+        {projects.map((p) => (
+          <a href={p.href} class={`block rounded-lg border-2 p-6 transition hover:shadow-lg ${colorBorders[p.color]}`}>
+            <div class="flex flex-wrap items-baseline gap-3 mb-3">
+              <h3 class="font-sans text-2xl font-bold text-slate-900">{p.title}</h3>
+              <span class="text-xs font-sans uppercase tracking-wider border border-slate-400 rounded-full px-3 py-0.5 text-slate-700">{p.domain}</span>
+              <span class="font-mono text-xs text-slate-600">{p.code}</span>
+              <span class={`text-xs font-sans uppercase tracking-wider border rounded-full px-3 py-0.5 ${statusBadgeClasses[p.status]}`}>
+                {p.statusLabel}
+              </span>
+              <span class="ml-auto font-mono text-sm font-bold text-slate-800">{p.headline}</span>
+            </div>
+            <p class="text-slate-800 leading-relaxed mb-4">{p.summary}</p>
+            <h4 class="font-sans text-xs uppercase tracking-wider text-slate-600 mb-2">Key results</h4>
+            <ul class="space-y-1 text-sm leading-relaxed text-slate-700">
+              {p.keyResults.map((r) => (
+                <li class="flex items-start gap-2">
+                  <span class="text-emerald-600 font-bold mt-0.5">✓</span>
+                  <span>{r}</span>
+                </li>
+              ))}
+            </ul>
+            <p class="mt-4 font-sans text-sm font-semibold text-thmblue group-hover:underline">
+              → Read details
+            </p>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <section class="mb-12">
+      <p class="pt-tag pt-tag-id mb-3">Why these domains</p>
+      <h2 class="text-3xl font-bold text-thmblue mb-4">Two independent tests of the same cascade</h2>
+      <div class="rounded-lg border border-slate-200 bg-white p-6 shadow-sm">
+        <p class="text-slate-700 leading-relaxed mb-4">
+          A theory that succeeds within its origin domain risks <em>saying
+          nothing elsewhere</em>. PT lends itself to a natural test: is its
+          cascade {`{3, 5, 7}`} generic, or particle-physics-specific?
+        </p>
+        <p class="text-slate-700 leading-relaxed mb-4">
+          Two deliberately very different domains let us check this without
+          contamination:
+        </p>
+        <ul class="space-y-3 text-slate-700 leading-relaxed">
+          <li><strong class="text-rose-700">Biology</strong> — combines
+          discrete combinatorics (4 RNA bases, 20 amino acids) and continuous
+          dynamics (folding). If q⁺/q⁻ shows up in biopolymers, it’s a
+          strong signature.</li>
+          <li><strong class="text-violet-700">Colour perception</strong> —
+          PT prediction (3 opponent channels weighted by γ_p) competes
+          directly with existing spaces (Lab, Oklab) whose coefficients are
+          <em>fitted</em>.</li>
+        </ul>
+        <p class="text-slate-700 leading-relaxed mt-4">
+          If both converge with the PT prediction, the transposition is
+          not coincidence. If one fails, that's a serious signal. The
+          transparency of statuses (private / public, empirical / theoretical)
+          is essential here.
+        </p>
+      </div>
+    </section>
+
+    <section class="mb-12">
+      <p class="pt-tag pt-tag-id mb-3">Honesty</p>
+      <h2 class="text-3xl font-bold text-thmblue mb-4">What this research is NOT</h2>
+      <div class="grid md:grid-cols-2 gap-4">
+        <div class="rounded-lg border-2 border-rose-300 bg-rose-50 p-5">
+          <h4 class="font-sans font-semibold text-rose-800 mb-2">✗ Not the PT core</h4>
+          <p class="text-sm text-rose-900 leading-relaxed">
+            The PT core is the 43 Standard Model observables derived from
+            s = 1/2 (cf. <a href="/en/observables" class="underline">Observables</a>).
+            These programmes are <em>in addition</em> — they replace nothing.
+          </p>
+        </div>
+        <div class="rounded-lg border-2 border-rose-300 bg-rose-50 p-5">
+          <h4 class="font-sans font-semibold text-rose-800 mb-2">✗ Not [THM] theorems</h4>
+          <p class="text-sm text-rose-900 leading-relaxed">
+            The PT-cascade transposition to biology / colour is not yet a
+            theorem. These are <strong>empirically validated analogies</strong>,
+            not rigorous derivations.
+          </p>
+        </div>
+        <div class="rounded-lg border-2 border-rose-300 bg-rose-50 p-5">
+          <h4 class="font-sans font-semibold text-rose-800 mb-2">✗ Not all published</h4>
+          <p class="text-sm text-rose-900 leading-relaxed">
+            SieveColorSpace has public code; PT_PROTEIN / PT_RNA are in
+            draft / private repo. Code access can be granted under
+            collaboration agreement.
+          </p>
+        </div>
+        <div class="rounded-lg border-2 border-rose-300 bg-rose-50 p-5">
+          <h4 class="font-sans font-semibold text-rose-800 mb-2">✗ Not proof of PT</h4>
+          <p class="text-sm text-rose-900 leading-relaxed">
+            If these programmes confirm PT, that's a <em>cumulative</em>
+            argument in its favour. If they fail, that signals the cascade
+            does not transpose — not that the PT core is wrong.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="mb-8">
+      <p class="pt-tag pt-tag-bridge mb-3">Going further</p>
+      <h2 class="text-3xl font-bold text-thmblue mb-6">Deeper</h2>
+      <div class="grid md:grid-cols-3 gap-4">
+        <a href="/en/tableau-periodique" class="pt-card block group">
+          <span class="pt-tag pt-tag-val">PTC deployed</span>
+          <h3 class="font-sans font-semibold text-thmblue text-lg mt-3 mb-2 group-hover:underline">Chemistry: PT periodic table</h3>
+          <p class="text-sm text-slate-700">The PT application already publicly deployed: 7 exact periods, 200+ molecules, 0 parameters.</p>
+        </a>
+        <a href="/en/principes-architecturaux" class="pt-card block group">
+          <span class="pt-tag pt-tag-thm">Meta-theory</span>
+          <h3 class="font-sans font-semibold text-thmblue text-lg mt-3 mb-2 group-hover:underline">7 architectural principles</h3>
+          <p class="text-sm text-slate-700">Why the same patterns recur across different domains.</p>
+        </a>
+        <a href="/en/observables" class="pt-card block group">
+          <span class="pt-tag pt-tag-val">PT core</span>
+          <h3 class="font-sans font-semibold text-thmblue text-lg mt-3 mb-2 group-hover:underline">43 Standard Model observables</h3>
+          <p class="text-sm text-slate-700">The deductive core that exploratory research builds upon.</p>
+        </a>
+        <a href="/en/critique" class="pt-card block group">
+          <span class="pt-tag pt-tag-id">Critique</span>
+          <h3 class="font-sans font-semibold text-thmblue text-lg mt-3 mb-2 group-hover:underline">Discuss this research</h3>
+          <p class="text-sm text-slate-700">Objections, counter-tests, code-access requests.</p>
+        </a>
+        <a href="/en/limites" class="pt-card block group">
+          <span class="pt-tag pt-tag-id">Honesty</span>
+          <h3 class="font-sans font-semibold text-thmblue text-lg mt-3 mb-2 group-hover:underline">Acknowledged limits</h3>
+          <p class="text-sm text-slate-700">Public list of points where PT recognises incompleteness.</p>
+        </a>
+        <a href="/en/contact" class="pt-card block group">
+          <span class="pt-tag pt-tag-bridge">Collaborate</span>
+          <h3 class="font-sans font-semibold text-thmblue text-lg mt-3 mb-2 group-hover:underline">Request code access</h3>
+          <p class="text-sm text-slate-700">Private repos (PT_PROTEIN, PT_RNA) accessible under collaboration agreement.</p>
+        </a>
+      </div>
+    </section>
+
+  </main>
+</BaseLayout>

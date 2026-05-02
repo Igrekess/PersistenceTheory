@@ -1,0 +1,130 @@
+---
+slug: echo-primes
+title: 'Qu’est-ce qu’un premier d’écho ?'
+summary: 'À μ* = 15, les premiers {3, 5, 7} sont actifs et façonnent la physique. Mais que deviennent {11, 13} ? Ils restent : ils habillent α_EM et fournissent ce que le ΛCDM appelle « matière noire ».'
+level: L1
+reading_minutes: 6
+related_theorems: ['T5', 'T6']
+lang: fr
+order: 7
+---
+
+## Trois actifs, et après ?
+
+La cascade PT s’arrête à $\mu^* = 15$ avec exactement trois premiers actifs :
+$\{3, 5, 7\}$. Ce sont eux qui donnent les trois directions spatiales, les
+trois couleurs, les trois générations de fermions, et dont le produit
+$\sin^2\theta_3 \cdot \sin^2\theta_5 \cdot \sin^2\theta_7 = 1/136{,}28$
+contient déjà l’essentiel d’$\alpha_{\rm EM}$.
+
+Mais qu’en est-il des suivants ? Que devient $p = 11$, qui pourrait sembler
+être « le quatrième actif » mais qui ne l’est pas ?
+
+> **Réponse PT** : les premiers $\{11, 13, 17, \ldots\}$ ne sont pas
+> éliminés. Ils sont **inactifs au sens de la cascade** mais restent
+> présents comme **échos**. Ils ne créent pas de nouvelle direction
+> spatiale, mais ils habillent les couplages et constituent ce qui apparaît
+> en cosmologie comme « matière noire informationnelle ».
+
+## Le seuil $\gamma_p > 1/2$
+
+Au point fixe $\mu^* = 15$, la dimension anomale du canal $p$ vaut :
+
+$$
+\gamma_p(15) = \frac{4 \cdot p \cdot q^{p-1} \cdot (1 - \delta_p)}{\mu \cdot \delta_p \cdot (2 - \delta_p)}.
+$$
+
+Voici les valeurs exactes :
+
+$$
+\begin{array}{c|cc}
+p & \gamma_p(15) & \text{statut} \\ \hline
+3 & 0{,}808 & \text{actif} \\
+5 & 0{,}696 & \text{actif} \\
+7 & 0{,}595 & \text{actif} \\
+\textbf{11} & \textbf{0{,}426} & \textbf{écho} \\
+\textbf{13} & \textbf{0{,}356} & \textbf{écho} \\
+17 & 0{,}245 & \text{supprimé} \\
+\end{array}
+$$
+
+La règle est claire : un premier est actif si et seulement si $\gamma_p > 1/2$.
+Les actifs participent à la cascade ; les autres restent en arrière-plan.
+
+## Pourquoi « écho » et pas « éliminé »
+
+Un premier d’écho n’est pas oublié. Il continue à contribuer à la dynamique
+quantique sous une forme appauvrie :
+
+- Il **n’ouvre pas** de canal CRT principal ;
+- Mais il **module** les amplitudes des canaux actifs par effet de boucle.
+
+C’est exactement la situation de la **polarisation du vide** en
+électrodynamique quantique : les particules virtuelles écrantent la charge
+nue. En PT, ce sont les premiers d’écho qui jouent ce rôle.
+
+## La formule de l’habillage
+
+Le produit nu $\alpha_{\rm bare} = 1/136{,}28$ doit être habillé pour
+reproduire la valeur observée $1/137{,}036$. La PT dérive l’habillage en
+4 corrections indépendantes, dont l’une — la plus précise — vient des
+échos :
+
+$$
+\beta_{\rm echo} = \sum_{p \in \{11, 13\}} \sin^2(\theta_p) \cdot \gamma_p = 0{,}1039.
+$$
+
+C’est ce $\beta_{\rm echo}$ qui pousse $1/\alpha_{\rm EM}$ de **14 ppb à
+0,01 ppb** d’écart avec CODATA dans la formule SOTA. Sans les premiers
+d’écho, la PT échouerait à atteindre la précision sub-ppb.
+
+> Échos $\{11, 13\}$ = équivalent informationnel des contre-termes de
+> renormalisation en QED.
+
+## Pourquoi ils suffisent à reconstruire la matière noire
+
+À l’échelle cosmologique, les échos jouent un rôle complémentaire. À très
+grand $N$ (nombre de premiers vus), la fraction d’information « inactive »
+au sens du crible vaut :
+
+$$
+F_{\rm echo}(N) = 1 - \frac{2}{e^\gamma \cdot \ln N}.
+$$
+
+À $N = 10^{10}$, on obtient $F_{\rm echo} = 95{,}12\%$. Pour comparaison,
+$\Lambda{\rm CDM}$ donne $95{,}07\%$. Écart : **0,06 %**.
+
+Cette fraction n’est pas faite de particules. Elle est faite de **structure
+informationnelle persistante mais non couplée aux canaux actifs**. C’est
+ce que la PT appelle « matière noire informationnelle » — une lecture qui
+ne demande ni nouvelle particule ni nouvelle interaction, juste la
+géométrie du crible à grande échelle.
+
+## Limite naturelle : pas de cinquième génération
+
+Une conséquence importante : puisque $\gamma_{11} < 1/2$ et que la
+hiérarchie est strictement décroissante, **tout premier $p \geq 11$
+restera en écho au point fixe**. Donc :
+
+- Pas de quatrième famille de fermions ;
+- Pas de bloc g (ℓ = 4) dans le tableau périodique ;
+- Pas de nouvelle force fondamentale entre $\alpha_{\rm EM}$ et $G$.
+
+Tester l’une de ces prédictions négatives (ex. quatrième génération à LHC,
+ou bloc g stable autour de Z = 121) **falsifierait directement la PT**.
+
+## En une phrase
+
+Les premiers d’écho sont ce que la PT garde du crible une fois la cascade
+fermée à $\mu^* = 15$. Ils ne créent pas la physique visible, ils
+**l’habillent** ; ils ne créent pas de matière nouvelle, ils **expliquent
+la matière sombre** comme structure informationnelle de l’arrière-plan
+arithmétique.
+
+## Voir aussi
+
+- [Théorème T5 — Le seuil γ_p > 1/2](/theorems/T5)
+- [Cosmologie](/cosmologie) — F_echo, Ω_info, ΛCDM
+- [Calculatrice](/calculator) — voir γ_p(μ) en direct
+- [Prédictions](/predictions) — les négations associées (P10, P11, P14)
+- [Essai — D’où vient α_EM ?](/essays/where-alpha-comes-from)

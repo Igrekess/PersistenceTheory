@@ -1,0 +1,126 @@
+---
+slug: echo-primes
+title: 'What is an echo prime?'
+summary: 'At μ* = 15, the primes {3, 5, 7} are active and shape physics. But what about {11, 13}? They stay: they dress α_EM and supply what ΛCDM calls "dark matter".'
+level: L1
+reading_minutes: 6
+related_theorems: ['T5', 'T6']
+lang: en
+order: 7
+---
+
+## Three active, then what?
+
+The PT cascade stops at $\mu^* = 15$ with exactly three active primes:
+$\{3, 5, 7\}$. They give the three spatial directions, the three colours,
+the three fermion generations, and their product
+$\sin^2\theta_3 \cdot \sin^2\theta_5 \cdot \sin^2\theta_7 = 1/136.28$
+already contains most of $\alpha_{\rm EM}$.
+
+But what about the next ones? What of $p = 11$, which might look like
+"the fourth active" but is not?
+
+> **PT answer**: the primes $\{11, 13, 17, \ldots\}$ are not eliminated.
+> They are **inactive in the cascade sense** but remain present as
+> **echoes**. They do not create a new spatial direction, but they dress
+> the couplings and form what cosmology calls "informational dark matter".
+
+## The threshold $\gamma_p > 1/2$
+
+At the fixed point $\mu^* = 15$, the channel-$p$ anomalous dimension is:
+
+$$
+\gamma_p(15) = \frac{4 \cdot p \cdot q^{p-1} \cdot (1 - \delta_p)}{\mu \cdot \delta_p \cdot (2 - \delta_p)}.
+$$
+
+Exact values:
+
+$$
+\begin{array}{c|cc}
+p & \gamma_p(15) & \text{status} \\ \hline
+3 & 0.808 & \text{active} \\
+5 & 0.696 & \text{active} \\
+7 & 0.595 & \text{active} \\
+\textbf{11} & \textbf{0.426} & \textbf{echo} \\
+\textbf{13} & \textbf{0.356} & \textbf{echo} \\
+17 & 0.245 & \text{suppressed} \\
+\end{array}
+$$
+
+The rule is clear: a prime is active iff $\gamma_p > 1/2$. Active primes
+participate in the cascade; the others stay in the background.
+
+## Why "echo" and not "eliminated"
+
+An echo prime is not forgotten. It still contributes to quantum dynamics
+in a depleted form:
+
+- It does **not open** a main CRT channel;
+- But it **modulates** the active-channel amplitudes via loop effects.
+
+This is exactly the situation of **vacuum polarisation** in QED: virtual
+particles screen the bare charge. In PT, echo primes play that role.
+
+## The dressing formula
+
+The bare product $\alpha_{\rm bare} = 1/136.28$ must be dressed to
+reproduce the observed $1/137.036$. PT derives the dressing from 4
+independent corrections, one of which — the most precise — comes from
+echoes:
+
+$$
+\beta_{\rm echo} = \sum_{p \in \{11, 13\}} \sin^2(\theta_p) \cdot \gamma_p = 0.1039.
+$$
+
+This $\beta_{\rm echo}$ pushes $1/\alpha_{\rm EM}$ from **14 ppb to
+0.01 ppb** away from CODATA in the SOTA formula. Without the echo primes,
+PT would fail to reach sub-ppb accuracy.
+
+> Echoes $\{11, 13\}$ = informational equivalent of QED renormalisation
+> counter-terms.
+
+## Why they suffice to reconstruct dark matter
+
+At cosmological scale, echoes play a complementary role. At very large
+$N$ (number of primes seen), the "inactive" information fraction in the
+sieve sense is:
+
+$$
+F_{\rm echo}(N) = 1 - \frac{2}{e^\gamma \cdot \ln N}.
+$$
+
+At $N = 10^{10}$, $F_{\rm echo} = 95.12\%$. For comparison, $\Lambda{\rm CDM}$
+gives $95.07\%$. Discrepancy: **0.06 %**.
+
+This fraction is not made of particles. It is made of **persistent
+informational structure not coupled to the active channels**. PT calls it
+"informational dark matter" — a reading that requires no new particle and
+no new interaction, only the large-scale geometry of the sieve.
+
+## Natural limit: no fourth generation
+
+An important consequence: since $\gamma_{11} < 1/2$ and the hierarchy is
+strictly decreasing, **every prime $p \geq 11$ stays in echo at the fixed
+point**. Therefore:
+
+- No fourth fermion family;
+- No g-block (ℓ = 4) in the periodic table;
+- No new fundamental force between $\alpha_{\rm EM}$ and $G$.
+
+Testing one of these negative predictions (e.g. fourth generation at LHC,
+or stable g-block around Z = 121) would **directly falsify PT**.
+
+## In one sentence
+
+Echo primes are what PT keeps from the sieve once the cascade is closed
+at $\mu^* = 15$. They do not create the visible physics, they **dress
+it**; they create no new matter, they **explain dark matter** as
+informational structure of the arithmetic background.
+
+## See also
+
+- [Theorem T5 — The γ_p > 1/2 threshold](/en/theorems/T5)
+- [Cosmology](/en/cosmologie) — F_echo, Ω_info, ΛCDM
+- [Calculator](/en/calculator) — see γ_p(μ) live
+- [Predictions](/en/predictions) — associated negations (P10, P11, P14)
+- [Essay — Where α_EM comes from](/en/essays/where-alpha-comes-from)

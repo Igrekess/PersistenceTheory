@@ -15,6 +15,11 @@ const labels = lang === 'fr'
       btnPlay: 'Rejouer',
       btnPause: 'Pause',
       btnNext: 'Étape suivante',
+      btnPrev: 'Étape précédente',
+      btnReset: 'Recommencer',
+      speedLabel: 'Vitesse',
+      speedSlow: 'Lent',
+      speedFast: 'Rapide',
       legendPrime: 'premier',
       legendStruck: 'multiple éliminé',
       legendCurrent: 'premier courant',
@@ -22,6 +27,7 @@ const labels = lang === 'fr'
       legendGap2: 'gap ≡ 2 mod 3',
       legendForbidden: 'transition interdite (jamais observée)',
       forbiddenNote: 'Sur les 49 transitions ici, la classe ne se répète jamais. C\'est exact, pas statistique — théorème T1.',
+      stepLabel: 'Étape',
     }
   : {
       title: 'The sieve and the forbidden rule',
@@ -33,6 +39,11 @@ const labels = lang === 'fr'
       btnPlay: 'Replay',
       btnPause: 'Pause',
       btnNext: 'Next step',
+      btnPrev: 'Previous step',
+      btnReset: 'Reset',
+      speedLabel: 'Speed',
+      speedSlow: 'Slow',
+      speedFast: 'Fast',
       legendPrime: 'prime',
       legendStruck: 'multiple eliminated',
       legendCurrent: 'current prime',
@@ -40,6 +51,7 @@ const labels = lang === 'fr'
       legendGap2: 'gap ≡ 2 mod 3',
       legendForbidden: 'forbidden transition (never observed)',
       forbiddenNote: 'Across 49 transitions here, the class never repeats. Exact, not statistical — theorem T1.',
+      stepLabel: 'Step',
     };
 ---
 
@@ -54,8 +66,24 @@ const labels = lang === 'fr'
 
     <div class="flex flex-wrap items-center gap-3 mt-3">
       <button id="sieve-toggle" class="px-3 py-1.5 bg-thmblue text-white text-sm font-sans rounded hover:bg-thmblue/90">{labels.btnPause}</button>
-      <button id="sieve-step" class="px-3 py-1.5 bg-white border border-stone-300 text-stone-700 text-sm font-sans rounded hover:bg-stone-50">{labels.btnNext}</button>
+      <button id="sieve-prev" class="px-3 py-1.5 bg-white border border-stone-300 text-stone-700 text-sm font-sans rounded hover:bg-stone-50">← {labels.btnPrev}</button>
+      <button id="sieve-step" class="px-3 py-1.5 bg-white border border-stone-300 text-stone-700 text-sm font-sans rounded hover:bg-stone-50">{labels.btnNext} →</button>
+      <button id="sieve-reset" class="px-3 py-1.5 bg-white border border-stone-300 text-stone-700 text-sm font-sans rounded hover:bg-stone-50">↺ {labels.btnReset}</button>
       <span id="sieve-phase" class="text-sm font-sans text-thmblue font-medium ml-1"></span>
+    </div>
+
+    <!-- Speed slider + step jumper -->
+    <div class="flex flex-wrap items-center gap-3 mt-3 text-xs font-sans text-stone-600">
+      <label class="flex items-center gap-2">
+        <span>{labels.speedLabel} :</span>
+        <span class="text-stone-500">{labels.speedSlow}</span>
+        <input id="sieve-speed" type="range" min="500" max="4000" step="100" value="2200" class="w-32" />
+        <span class="text-stone-500">{labels.speedFast}</span>
+      </label>
+      <span class="ml-3">{labels.stepLabel} :</span>
+      {[1, 2, 3, 4, 5, 6, 7].map((n) => (
+        <button data-jump-step={n - 1} class="sieve-jump px-2 py-1 border border-stone-300 rounded font-mono text-xs hover:bg-stone-100">{n}</button>
+      ))}
     </div>
 
     <div class="flex flex-wrap gap-x-4 gap-y-1 mt-4 text-xs font-sans text-stone-600">
@@ -305,11 +333,18 @@ const labels = lang === 'fr'
         phase = (phase + 1) % 7;
       }
 
+      const prevBtn = document.getElementById('sieve-prev');
+      const resetBtn = document.getElementById('sieve-reset');
+      const speedSlider = document.getElementById('sieve-speed');
+      const jumpBtns = document.querySelectorAll('.sieve-jump');
+
+      let speedMs = 2200;
+
       function start() {
         playing = true;
         toggleBtn.textContent = labels.btnPause;
         if (timer) clearInterval(timer);
-        timer = setInterval(advance, 2200);
+        timer = setInterval(advance, speedMs);
       }
       function stop() {
         playing = false;
@@ -319,6 +354,28 @@ const labels = lang === 'fr'
 
       toggleBtn.addEventListener('click', () => playing ? stop() : start());
       stepBtn.addEventListener('click', () => { stop(); advance(); });
+      prevBtn.addEventListener('click', () => {
+        stop();
+        phase = (phase - 2 + 7) % 7;
+        advance();
+      });
+      resetBtn.addEventListener('click', () => {
+        stop();
+        phase = 0;
+        advance();
+      });
+      speedSlider.addEventListener('input', () => {
+        // Inverser la valeur : slider haut = rapide donc petit ms
+        speedMs = 4500 - parseInt(speedSlider.value, 10);
+        if (playing) start();
+      });
+      jumpBtns.forEach((btn) => {
+        btn.addEventListener('click', () => {
+          stop();
+          phase = parseInt(btn.getAttribute('data-jump-step'), 10);
+          advance();
+        });
+      });
 
       advance();   // immediately render phase 0
       start();     // and begin auto-advancing

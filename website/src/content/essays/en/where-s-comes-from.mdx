@@ -1,0 +1,115 @@
+---
+slug: where-s-comes-from
+title: 'Where does s = 1/2 come from?'
+summary: 'Why the only input of the model, the fundamental symmetry s = 1/2, is not a choice but a forced arithmetic consequence. A guided tour of theorem T1 (mod-3 forbidden transitions).'
+level: L1
+reading_minutes: 6
+related_theorems: ['T1', 'T3', 'L0']
+lang: en
+order: 5
+---
+
+## The unique input
+
+PT contains exactly **one** numerical input: the symmetry $s = 1/2$.
+Everything else — $\mu^* = 15$, $\alpha_{\rm EM}$, masses, metric, the 43
+observables — descends from it by deduction.
+
+The natural question: why $1/2$? Why not $1/3$, $0.47$, or some fitted number?
+
+> **PT answer**: $s = 1/2$ is not chosen. It is forced by an elementary
+> arithmetic theorem, the **T1** theorem of mod-3 forbidden transitions.
+
+## The crucial observation
+
+Take the list of "6-rough" integers — those whose only divisors are neither
+2 nor 3. Modulo 30:
+
+$$
+\{1, 7, 11, 13, 17, 19, 23, 29\}.
+$$
+
+Each of these eight numbers has a **mod-3 class**: 1 or 2 (never 0, since
+they are not divisible by 3). Their classes alternate:
+
+$$
+1 \to 1 \to 2 \to 1 \to 2 \to 1 \to 2 \to 2.
+$$
+
+At first glance, almost uniform. What is remarkable is what we **never see**:
+three consecutive 6-rough integers are never all in the same mod-3 class.
+Not a coincidence — a theorem.
+
+## Why it is forbidden
+
+Take three consecutive 6-rough integers $p$, $p + g$, $p + g + g'$, and
+suppose both gaps $g$ and $g'$ are $\equiv 0 \mod 3$. Then the three
+integers cover the three classes $\{0, 1, 2\}$ mod 3, and one of them is
+divisible by 3 — hence not 6-rough. Contradiction.
+
+Rigorous consequence:
+
+$$
+\boxed{P(1 \to 1 \mod 3) = P(2 \to 2 \mod 3) = 0.}
+$$
+
+This is **exact**, not statistical. Not an average, not an approximation:
+a strict arithmetic zero.
+
+## The matrix $T_3$ and its spectrum
+
+Place the allowed transitions in a matrix:
+
+$$
+T_3 = \begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix}.
+$$
+
+It is the unique $2 \times 2$ doubly-stochastic matrix of vanishing trace.
+Two eigenvalues: $+1$ (stationary vector) and $-1$ (antisymmetric mode).
+
+The involution $T_3^2 = I$ means two successive applications return to the
+starting state: the class "flip, flip, back". This pure-flip symmetry
+produces $s = 1/2$.
+
+## Why $1/2$ and nothing else
+
+The stationary distribution of $T_3$ is uniform: half the transitions go
+from class 1 to class 2, the other half from class 2 to class 1. This
+**exchange symmetry** measures exactly $1/2$.
+
+In filter language:
+
+$$
+s = \frac{n_{12}}{n_{12} + n_{21}} \xrightarrow[k \to \infty]{} \frac{1}{2}.
+$$
+
+Theorem T4 (spectral convergence) closes this limit. At infinite sieve
+depth, the fraction is exactly $1/2$. No other number is compatible.
+
+## What this then forces
+
+Once $s = 1/2$ is fixed, the cascade unfolds with no further choice:
+
+- $\alpha(3) = s^2 = 1/4$ (T2: spectral conservation);
+- $L_0$ (maximum entropy) imposes the geometric distribution with two
+  natural branches $q_+ = 1 - 2/\mu$ and $q_- = e^{-1/\mu}$;
+- T6 (holonomy) gives $\sin^2\theta_p = \delta_p(2 - \delta_p)$;
+- T5 (fixed point) selects $\mu^* = 15$;
+- BA5 (Pontryagin) sets $\alpha_{\rm EM} = \prod \sin^2\theta_p$.
+
+At no step is a new parameter introduced. The rigidity is total.
+
+## In one sentence
+
+$s = 1/2$ is not a constant of nature in the usual sense. It is the
+**signature of the involution $\{1 \leftrightarrow 2\}$** on the mod-3
+classes of 6-rough integers — an arithmetic fact. The rest of physics
+follows because the rest of physics needs it.
+
+## See also
+
+- [T1 — Mod-3 forbidden transitions](/en/theorems/T1)
+- [T3 — Antidiagonal matrix](/en/theorems/T3)
+- [T4 — Spectral convergence](/en/theorems/T4)
+- [Calculator — sin²(θ_p) live](/en/calculator)
+- [Animation — the sieve step by step](/en/gaps-premiers)

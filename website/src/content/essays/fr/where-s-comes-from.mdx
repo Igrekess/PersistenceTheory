@@ -1,0 +1,119 @@
+---
+slug: where-s-comes-from
+title: 'D’où vient s = 1/2 ?'
+summary: 'Pourquoi le seul paramètre du modèle Standard, la symétrie fondamentale s = 1/2, n’est pas un choix mais une conséquence arithmétique forcée. Visite guidée du théorème T1 (transitions interdites mod 3).'
+level: L1
+reading_minutes: 6
+related_theorems: ['T1', 'T3', 'L0']
+lang: fr
+order: 5
+---
+
+## L’unique entrée
+
+La PT contient exactement **une** entrée numérique : la symétrie $s = 1/2$.
+Tout le reste — $\mu^* = 15$, $\alpha_{\rm EM}$, les masses, la métrique,
+les 43 observables — en descend par déduction.
+
+La question naturelle est donc : pourquoi $1/2$ ? Pourquoi pas $1/3$, $0{,}47$,
+ou un nombre ajusté par fit ?
+
+> **Réponse PT** : $s = 1/2$ n’est pas choisi. Il est forcé par un théorème
+> arithmétique élémentaire, le théorème **T1** des transitions interdites mod 3.
+
+## L’observation cruciale
+
+Prenons la liste des entiers « 6-rough » — c’est-à-dire ceux qui n’ont pour
+diviseurs ni 2 ni 3. La voici, modulo 30 :
+
+$$
+\{1, 7, 11, 13, 17, 19, 23, 29\}.
+$$
+
+Ces huit nombres ont chacun une **classe modulo 3** : 1 ou 2 (jamais 0,
+car ils ne sont pas divisibles par 3). Leurs classes alternent :
+
+$$
+1 \to 1 \to 2 \to 1 \to 2 \to 1 \to 2 \to 2.
+$$
+
+À première vue, c’est presque uniforme. Mais ce qui est remarquable, c’est
+ce qu’on **ne voit jamais** : trois entiers 6-rough consécutifs ne sont
+jamais tous dans la même classe mod 3. Ce n’est pas une coïncidence, c’est
+un théorème.
+
+## Pourquoi c’est interdit
+
+Soient trois entiers 6-rough consécutifs $p$, $p + g$, $p + g + g'$, et
+supposons que les écarts $g$ et $g'$ soient tous deux $\equiv 0 \mod 3$.
+Alors les trois entiers couvrent les trois classes $\{0, 1, 2\}$ mod 3, et
+l’un d’entre eux est divisible par 3 — donc pas 6-rough. Contradiction.
+
+Conséquence rigoureuse :
+
+$$
+\boxed{P(1 \to 1 \mod 3) = P(2 \to 2 \mod 3) = 0.}
+$$
+
+C’est **exact**, pas statistique. Pas une moyenne, pas une approximation :
+un zéro arithmétique strict.
+
+## La matrice $T_3$ et son spectre
+
+Mettons les transitions autorisées dans une matrice :
+
+$$
+T_3 = \begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix}.
+$$
+
+C’est l’unique matrice $2 \times 2$ doublement stochastique de trace nulle.
+Elle a deux valeurs propres : $+1$ (vecteur stationnaire) et $-1$ (mode
+antisymétrique).
+
+L’involution $T_3^2 = I$ signifie que deux applications successives ramènent
+à l’état de départ : la classe « bascule, bascule, retour ». C’est cette
+symétrie de bascule pure qui produit $s = 1/2$.
+
+## Pourquoi $1/2$ et pas autre chose
+
+La distribution stationnaire de $T_3$ est uniforme : la moitié des transitions
+va de la classe 1 vers la classe 2, l’autre moitié de la classe 2 vers la
+classe 1. Cette **symétrie d’échange** mesure exactement $1/2$.
+
+En langage de filtre :
+
+$$
+s = \frac{n_{12}}{n_{12} + n_{21}} \xrightarrow[k \to \infty]{} \frac{1}{2}.
+$$
+
+C’est le théorème T4 (convergence spectrale) qui ferme cette limite. À
+profondeur infinie du crible, la fraction est exactement $1/2$. Aucun autre
+nombre n’est compatible.
+
+## Ce que ça force ensuite
+
+Une fois $s = 1/2$ fixé, la cascade s’enclenche sans nouveau choix :
+
+- $\alpha(3) = s^2 = 1/4$ (T2 : conservation spectrale) ;
+- $L_0$ (entropie maximale) impose la distribution géométrique avec deux
+  branches naturelles $q_+ = 1 - 2/\mu$ et $q_- = e^{-1/\mu}$ ;
+- T6 (holonomie) donne $\sin^2\theta_p = \delta_p(2 - \delta_p)$ ;
+- T5 (point fixe) sélectionne $\mu^* = 15$ ;
+- BA5 (Pontryagin) fixe $\alpha_{\rm EM} = \prod \sin^2\theta_p$.
+
+À aucune étape, un nouveau paramètre n’est introduit. La rigidité est totale.
+
+## En une phrase
+
+$s = 1/2$ n’est pas une constante de la nature au sens habituel. C’est la
+**signature de l’involution $\{1 \leftrightarrow 2\}$** sur les classes
+mod 3 des entiers 6-rough — un fait arithmétique. Tout le reste de la
+physique en découle parce que tout le reste de la physique en a besoin.
+
+## Voir aussi
+
+- [T1 — Transitions interdites mod 3](/theorems/T1)
+- [T3 — Matrice antidiagonale](/theorems/T3)
+- [T4 — Convergence spectrale](/theorems/T4)
+- [Calculatrice — sin²(θ_p) en direct](/calculator)
+- [Animation — le crible étape par étape](/gaps-premiers)

@@ -1,0 +1,418 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+
+// Why biology is a natural test of PT
+const whyBio = [
+  {
+    title: 'Biology combines discrete and continuous',
+    detail: '4 nucleotide bases, 20 amino acids, 64 codons: discrete combinatorics. But folding, thermal fluctuation, allostery: continuous dynamics. PT predicts that the q⁺/q⁻ bifurcation appears exactly in this duality.',
+  },
+  {
+    title: 'Biopolymers have structural invariants',
+    detail: 'The Ramachandran torus (φ, ψ) for amino acids, the modular asymmetry A_m of RNA, the V₄ symmetry of the genetic code: all inherited discrete structures. PT predicts that they are indexed by the primes {3, 5, 7}.',
+  },
+  {
+    title: 'Allostery = persistence signal',
+    detail: 'An allosteric protein transmits information over long distances along its chain. If PT is correct, this transport must follow the sequential cascade (T0 → T1 → CRT) — testable by shuffle of residues.',
+  },
+];
+
+// Architecture of the research
+const programme = [
+  {
+    code: 'PT_PROTEIN',
+    title: 'Protein module',
+    target: 'Allostery, Ramachandran torus, q⁺/q⁻ signature of α-helices and β-sheets',
+    method: 'Computation of modular projections on the 20 amino acids, comparison with observed basins (Lovell et al. 2003), shuffle test 1000× to exclude chance.',
+    status: 'Private code, LaTeX draft in progress',
+  },
+  {
+    code: 'PT_RNA',
+    title: 'RNA module',
+    target: 'Modular asymmetry A_m, Vienna peak L = 4, scale-up sequences 94 → 300 nt',
+    method: 'Enumeration over the Klein group V₄ (the 4 bases), computation of the thermal cosine cos_therm(p = 2, μ = 4), comparison with DSSR-strict structures.',
+    status: 'Private code, theorem A_m = 1 promoted [THM]',
+  },
+  {
+    code: 'PT_DNA',
+    title: 'DNA module (in progress)',
+    target: 'V₄ symmetry of the genetic code on codons, mod 3 statistics on triplets',
+    method: 'Mapping of the 64 codons on ℤ/3ℤ × V₄, test of forbidden mod 3 transitions on real genomes.',
+    status: 'In preparation',
+  },
+];
+
+const results = [
+  {
+    title: 'Universal q⁺/q⁻ bifurcation (3 biopolymers)',
+    detail: 'The q⁺/q⁻ bifurcation that PT predicts for the Standard Model is found in biopolymers: DNA (codon scale), RNA (base scale), proteins (amino acid scale). No regional parameter is fitted.',
+    metric: '3/3 biopolymers',
+    status: 'Confirmed across 3 independent systems',
+  },
+  {
+    title: 'Ramachandran torus — 20/20 amino acids',
+    detail: 'The 20 natural amino acids position themselves on the Ramachandran torus exactly as predicted by the PT modular projections. Validation test: 15/15 PASS on the secondary structure bins.',
+    metric: '15/15 PASS',
+    status: 'Internally validated',
+  },
+  {
+    title: 'A_m = 1 for RNA — derived theorem',
+    detail: 'The modular asymmetry A_m equals exactly 1 for RNA. Direct consequence of the CRT structure of the sieve applied to the 4 nucleotide bases (|V_4| = 4). Predicted Vienna peak L = 4.',
+    metric: 'correlation 0.745',
+    status: '[THM] in the draft',
+  },
+  {
+    title: 'Protein allostery — 1000-permutation shuffle test',
+    detail: 'Across 6 allosteric systems tested, the PT signal survives 6/6 permutation (shuffle) tests. p-value = 0/1000 over 1000 random permutations: signal not explainable by chance.',
+    metric: 'p = 0/1000',
+    status: '6/6 PASS',
+  },
+  {
+    title: 'cos_therm — agreement at 90 ppm',
+    detail: 'The thermal cosine cos_therm(p = 2, μ = |V_4| = 4) predicted by PT agrees to 90 ppm with the direct structural measurement on DSSR-strict corpora.',
+    metric: '90 ppm',
+    status: 'Remarkable agreement',
+  },
+  {
+    title: 'RNA scale-up 94 → 300 nucleotides',
+    detail: 'The predicted structure remains stable when increasing the length of RNA sequences. NC-2 Markov-1 6/6 PASS. No regional parameter to fit with length.',
+    metric: 'F1 = 0.958 (DSSR-strict)',
+    status: 'Robust',
+  },
+];
+
+const limits = [
+  {
+    label: 'Code not public',
+    detail: 'The PT_PROTEIN and PT_RNA modules are not open-source as of today. A collaboration request can give access to the code under agreement.',
+  },
+  {
+    label: 'No complete [THM] bridge',
+    detail: 'Apart from the A_m = 1 theorem for RNA, the cascade PT → biopolymers transposition is an empirically validated analogy, not a rigorous bridge between PT and molecular biology.',
+  },
+  {
+    label: 'Limited samples',
+    detail: 'The allostery tests have been carried out on 6 systems only. An extension to 50+ diverse systems is necessary to exclude any selection bias.',
+  },
+  {
+    label: 'No physiological validation',
+    detail: 'PT predicts statistical invariants. It does not predict biological function (catalysis, signalling, etc.). These two levels must not be conflated.',
+  },
+];
+
+const scriptPrediction = `# verify_rna_bifurcation.py
+# Verify the q⁺/q⁻ bifurcation on an RNA sequence
+
+from pt_protein.bifurcation import compute_q_plus, compute_q_minus
+from pt_protein.rna import load_sequence, modular_projection
+
+seq = load_sequence("path/to/rna_sample.fasta")
+mu = 4  # |V_4| = 4 for nucleotide bases
+
+q_plus = compute_q_plus(mu)        # 1 - 2/μ
+q_minus = compute_q_minus(mu)      # exp(-1/μ)
+L = q_minus - q_plus               # latent heat
+
+print(f"q⁺ = {q_plus:.6f}")        # 0.500000  (1 - 2/4)
+print(f"q⁻ = {q_minus:.6f}")       # 0.778801  (e^(-1/4))
+print(f"L  = {L:.6f}")             # 0.278801
+
+proj_plus = modular_projection(seq, q_plus)
+proj_minus = modular_projection(seq, q_minus)
+
+from pt_protein.metrics import dssr_strict_f1
+print(f"DSSR F1 = {dssr_strict_f1(proj_plus, proj_minus, seq):.3f}")
+# expected: ~0.958 on the internal corpus`;
+
+const scriptShuffle = `# allostery_shuffle_test.py
+# Crucial test: does the PT signal survive a residue shuffle?
+
+from pt_protein.allostery import compute_pt_signal, shuffle_residues
+import numpy as np
+
+protein_pdb = "1AVI.pdb"  # Avidin, known allosteric
+n_perm = 1000
+
+signal_real = compute_pt_signal(protein_pdb)
+signals_shuffled = [
+    compute_pt_signal(shuffle_residues(protein_pdb, seed=i))
+    for i in range(n_perm)
+]
+
+p_value = np.mean(np.array(signals_shuffled) >= signal_real)
+print(f"real signal : {signal_real:.4f}")
+print(f"p-value     : {p_value:.4f}")    # expected: 0.0000 (0/1000)
+print(f"verdict     : {'PASS' if p_value < 0.01 else 'FAIL'}")`;
+
+const scriptRamachandran = `# ramachandran_torus.py
+# Reconstruct the Ramachandran torus from modular projections
+
+from pt_protein.aa import twenty_amino_acids, modular_position
+
+phi_psi = []
+for aa in twenty_amino_acids:
+    phi, psi = modular_position(aa)  # projection onto Z/(2p)Z
+    phi_psi.append((aa, phi, psi))
+    print(f"{aa.symbol:3} {aa.name:15} φ={phi:6.1f}° ψ={psi:6.1f}°")
+
+# Comparison with observed basins (Lovell et al. 2003)
+from pt_protein.metrics import ramachandran_bin_match
+matches = ramachandran_bin_match(phi_psi)
+print(f"\\n{matches}/20 amino acids in the correct Ramachandran basin")
+# expected: 20/20`;
+---
+
+<BaseLayout
+  title="PT in biology — internal results"
+  description="PT_PROTEIN / PT_RNA programme: universal q⁺/q⁻ bifurcation across 3 biopolymers, Ramachandran torus reconstructed, protein allostery tested by 1000× shuffle, A_m = 1 for RNA [THM]. Private code, LaTeX draft in progress, documented reproduction scripts."
+>
+  <main class="max-w-6xl mx-auto px-4 py-10 md:py-14">
+
+    <!-- ============= HERO L1 ============= -->
+    <section class="mb-12">
+      <div class="rounded-lg border border-slate-200 bg-white p-6 md:p-8 shadow-sm">
+        <p class="pt-tag pt-tag-val mb-5">PT in biology — ongoing research</p>
+        <h1 class="text-4xl md:text-5xl font-bold text-thmblue leading-tight mb-4">
+          When PT touches the living
+        </h1>
+        <p class="text-2xl md:text-3xl font-sans font-semibold text-derorange leading-snug mb-6">
+          DNA, RNA, proteins. Three biopolymers, one single bifurcation.
+        </p>
+        <div class="rounded-lg border-l-4 border-amber-400 bg-amber-50 px-4 py-3 mb-6">
+          <p class="text-sm text-amber-900 leading-relaxed">
+            <strong>Status: ongoing research.</strong> The
+            <code class="font-mono bg-amber-100 px-1.5 py-0.5 rounded">PT_PROTEIN</code> and
+            <code class="font-mono bg-amber-100 px-1.5 py-0.5 rounded">PT_RNA</code> modules
+            are not yet published. Private code, LaTeX draft in preparation. This
+            page documents the programme's ambition, the results already
+            obtained, and their limits. See also
+            <a href="/en/recherches" class="underline">the Research page</a>
+            for the broader context.
+          </p>
+        </div>
+        <p class="text-lg text-slate-700 leading-relaxed mb-5" data-max-depth="L1">
+          PT predicts that what makes a structure stable and readable —
+          persistence — is governed by a fixed cascade: three active
+          channels, indexed by the primes 3, 5, 7. If this
+          prediction is correct, it should not be confined to
+          atoms or particles. The living too is made of stable and
+          readable structures — folded proteins, folded RNA, double-helix
+          DNA. The same cascade should appear in it.
+        </p>
+        <p class="text-base text-slate-700 leading-relaxed" data-min-depth="L2">
+          Three research modules test this transposition:
+          <strong>PT_PROTEIN</strong> on proteins (allostery, Ramachandran
+          torus), <strong>PT_RNA</strong> on RNA (modular
+          asymmetry, sequence scale-up), and a future <strong>PT_DNA</strong>
+          on the genetic code. This page presents what has been tested
+          so far.
+        </p>
+      </div>
+    </section>
+
+    <!-- ============= WHY BIO L1 ============= -->
+    <section class="mb-12">
+      <p class="pt-tag pt-tag-id mb-3">Why test PT on biology?</p>
+      <h2 class="text-3xl font-bold text-thmblue mb-4">Three reasons to test PT on the living</h2>
+      <p class="text-slate-700 leading-relaxed mb-6 max-w-3xl">
+        Molecular biology is paradoxically an excellent testing ground
+        for PT — precisely because it has no obvious causal link
+        with particle physics. Any concordance found there
+        is non-trivial.
+      </p>
+      <div class="grid md:grid-cols-3 gap-4">
+        {whyBio.map((w) => (
+          <div class="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
+            <h4 class="font-sans font-semibold text-thmblue mb-2">{w.title}</h4>
+            <p class="text-sm text-slate-700 leading-relaxed">{w.detail}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- ============= PROGRAMME ARCHITECTURE L2 ============= -->
+    <section class="mb-12" data-min-depth="L2">
+      <p class="pt-tag pt-tag-thm mb-3">Programme architecture</p>
+      <h2 class="text-3xl font-bold text-thmblue mb-4">Three modules, one cascade</h2>
+      <p class="text-slate-700 leading-relaxed mb-6 max-w-3xl">
+        The programme breaks down into three independent modules, each targeting
+        one biopolymer. The logic is shared: take the structural
+        invariant of the polymer (Ramachandran torus for proteins,
+        V₄ symmetry for RNA, genetic code for DNA), project it
+        modularly, and test whether the q⁺/q⁻ signature appears in it.
+      </p>
+      <div class="space-y-4">
+        {programme.map((m) => (
+          <div class="rounded-lg border-l-4 border-rose-400 bg-rose-50 p-5">
+            <div class="flex items-baseline gap-3 flex-wrap mb-3">
+              <code class="font-mono text-sm font-bold text-rose-900 bg-rose-100 px-2 py-0.5 rounded">{m.code}</code>
+              <h4 class="font-sans font-semibold text-rose-900 text-lg">{m.title}</h4>
+              <span class="ml-auto text-xs font-sans uppercase tracking-wider text-rose-700">{m.status}</span>
+            </div>
+            <p class="text-sm text-rose-900 leading-relaxed mb-2">
+              <strong>Target:</strong> {m.target}
+            </p>
+            <p class="text-sm text-rose-900 leading-relaxed">
+              <strong>Method:</strong> {m.method}
+            </p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- ============= 6 MAIN RESULTS ============= -->
+    <section class="mb-12">
+      <p class="pt-tag pt-tag-val mb-3">Current results</p>
+      <h2 class="text-3xl font-bold text-thmblue mb-4">Six main results</h2>
+      <p class="text-slate-700 leading-relaxed mb-6 max-w-3xl">
+        The figures below are the internal audit balance from April 2026.
+        None have yet been submitted to external review; all are
+        reproducible in the private modules.
+      </p>
+      <div class="grid md:grid-cols-2 gap-4">
+        {results.map((r) => (
+          <div class="rounded-lg border-2 border-rose-300 bg-rose-50 p-5">
+            <div class="flex items-start justify-between gap-3 mb-3">
+              <h3 class="font-sans font-semibold text-rose-900 text-lg">{r.title}</h3>
+              <span class="font-mono text-sm font-bold text-rose-700 whitespace-nowrap">{r.metric}</span>
+            </div>
+            <p class="text-sm text-rose-900 leading-relaxed mb-3">{r.detail}</p>
+            <p class="text-xs font-sans uppercase tracking-wider text-rose-700">Status: {r.status}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- ============= THEORETICAL READING L2 ============= -->
+    <section class="mb-12" data-min-depth="L2">
+      <p class="pt-tag pt-tag-thm mb-3">Theoretical reading</p>
+      <h2 class="text-3xl font-bold text-thmblue mb-4">Why PT touches the living</h2>
+      <div class="rounded-lg border border-slate-200 bg-white p-6 shadow-sm">
+        <p class="text-slate-700 leading-relaxed mb-4">
+          If PT is correct, the information carried by biopolymers is
+          constrained by the same laws as those of the Standard Model, because
+          it is read by the same arithmetic cascade. Three keys:
+        </p>
+        <ul class="space-y-3 text-slate-700">
+          <li><strong class="text-rose-700">q⁺/q⁻ bifurcation.</strong> DNA, RNA, proteins: all carry both an interaction structure (vertex, q⁺) and a propagation structure (edge, q⁻). PT predicts the gap between the two; DSSR measurement confirms ~90 ppm on cos_therm.</li>
+          <li><strong class="text-rose-700">V₄ symmetry.</strong> The 4 nucleotide bases form exactly the Klein four-group V₄. PT predicts |V_4| = 4 = μ for the nucleotide cascade. Vienna folding shows a peak at L = 4.</li>
+          <li><strong class="text-rose-700">Ramachandran torus.</strong> The (φ, ψ) angles are holonomy angles in the PT sense — amino acids live on circles ℤ/pℤ projected onto the torus. 20/20 reconstruction without parameter.</li>
+        </ul>
+        <p class="text-slate-700 leading-relaxed mt-4">
+          It is not that biology "obeys" PT. It is that
+          biopolymers, like the atom, are <strong>persistent informational
+          structures</strong>: they exist because they
+          satisfy the persistence conditions that PT describes
+          mathematically.
+        </p>
+      </div>
+    </section>
+
+    <!-- ============= ACKNOWLEDGED LIMITS ============= -->
+    <section class="mb-12">
+      <p class="pt-tag pt-tag-id mb-3">Acknowledged limits</p>
+      <h2 class="text-3xl font-bold text-thmblue mb-4">Four limits to keep in mind</h2>
+      <div class="grid md:grid-cols-2 gap-4">
+        {limits.map((l) => (
+          <div class="rounded-lg border-2 border-rose-300 bg-rose-50 p-5">
+            <h4 class="font-sans font-semibold text-rose-800 mb-2">{l.label}</h4>
+            <p class="text-sm text-rose-900 leading-relaxed">{l.detail}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- ============= SCRIPTS L3 ============= -->
+    <section class="mb-12" data-min-depth="L3">
+      <p class="pt-tag pt-tag-val mb-3">Reproducibility</p>
+      <h2 class="text-3xl font-bold text-thmblue mb-3">Three reproduction scripts</h2>
+      <p class="text-slate-700 leading-relaxed mb-6 max-w-3xl">
+        The code of the <code class="font-mono bg-slate-100 px-1.5 py-0.5 rounded">PT_PROTEIN</code>
+        and <code class="font-mono bg-slate-100 px-1.5 py-0.5 rounded">PT_RNA</code> modules is
+        not yet public. While waiting for the preprint, here are the
+        canonical scripts that these modules allow to run, with
+        expected values. They serve to document exactly
+        <strong>what is tested and how</strong>.
+      </p>
+
+      <h3 class="font-sans font-semibold text-thmblue text-lg mb-3 mt-6">1. Verify the q⁺/q⁻ bifurcation on RNA</h3>
+      <p class="text-sm text-stone-600 mb-3">
+        Computes q⁺ = 1 − 2/μ and q⁻ = e^(−1/μ) for μ = |V_4| = 4 (the 4 bases),
+        then projects an RNA sequence on the two branches and compares with
+        observed structures.
+      </p>
+      <div class="rounded-lg overflow-hidden border border-slate-200 bg-slate-900 text-slate-100 mb-6">
+        <div class="flex items-center justify-between px-4 py-2 bg-slate-800 text-xs font-mono text-slate-300 border-b border-slate-700">
+          <span>verify_rna_bifurcation.py</span>
+          <span class="text-rose-400">$ python verify_rna_bifurcation.py</span>
+        </div>
+        <pre class="px-4 py-4 text-sm overflow-x-auto"><code>{scriptPrediction}</code></pre>
+      </div>
+
+      <h3 class="font-sans font-semibold text-thmblue text-lg mb-3 mt-6">2. Permutation test on allostery</h3>
+      <p class="text-sm text-stone-600 mb-3">
+        The crucial test to exclude coincidence: does the PT signal survive
+        a shuffle of the protein's residues? Over 1000 permutations, p = 0/1000.
+      </p>
+      <div class="rounded-lg overflow-hidden border border-slate-200 bg-slate-900 text-slate-100 mb-6">
+        <div class="flex items-center justify-between px-4 py-2 bg-slate-800 text-xs font-mono text-slate-300 border-b border-slate-700">
+          <span>allostery_shuffle_test.py</span>
+          <span class="text-rose-400">$ python allostery_shuffle_test.py</span>
+        </div>
+        <pre class="px-4 py-4 text-sm overflow-x-auto"><code>{scriptShuffle}</code></pre>
+      </div>
+
+      <h3 class="font-sans font-semibold text-thmblue text-lg mb-3 mt-6">3. Ramachandran torus from modular projections</h3>
+      <p class="text-sm text-stone-600 mb-3">
+        Reconstruction of the Ramachandran torus (φ, ψ) for the 20 natural
+        amino acids from PT modular projections, without fitted parameter.
+      </p>
+      <div class="rounded-lg overflow-hidden border border-slate-200 bg-slate-900 text-slate-100 mb-6">
+        <div class="flex items-center justify-between px-4 py-2 bg-slate-800 text-xs font-mono text-slate-300 border-b border-slate-700">
+          <span>ramachandran_torus.py</span>
+          <span class="text-rose-400">$ python ramachandran_torus.py</span>
+        </div>
+        <pre class="px-4 py-4 text-sm overflow-x-auto"><code>{scriptRamachandran}</code></pre>
+      </div>
+    </section>
+
+    <!-- ============= LINKS ============= -->
+    <section class="mb-8">
+      <p class="pt-tag pt-tag-bridge mb-3">Going further</p>
+      <h2 class="text-3xl font-bold text-thmblue mb-6">Deeper</h2>
+      <div class="grid md:grid-cols-3 gap-4">
+        <a href="/en/recherches" class="pt-card block group">
+          <span class="pt-tag pt-tag-id">Research hub</span>
+          <h3 class="font-sans font-semibold text-thmblue text-lg mt-3 mb-2 group-hover:underline">The 3 parallel programmes</h3>
+          <p class="text-sm text-slate-700">PT in biology / seismic / colour: overview.</p>
+        </a>
+        <a href="/en/essays/bifurcation-q-plus-q-minus" class="pt-card block group">
+          <span class="pt-tag pt-tag-id">L1 essay</span>
+          <h3 class="font-sans font-semibold text-thmblue text-lg mt-3 mb-2 group-hover:underline">The q⁺/q⁻ bifurcation</h3>
+          <p class="text-sm text-slate-700">The same bifurcation observed on biopolymers, explained from the Standard Model.</p>
+        </a>
+        <a href="/en/principes-architecturaux" class="pt-card block group">
+          <span class="pt-tag pt-tag-thm">Meta-theory</span>
+          <h3 class="font-sans font-semibold text-thmblue text-lg mt-3 mb-2 group-hover:underline">7 architectural principles</h3>
+          <p class="text-sm text-slate-700">Why the same patterns reappear from the SM to biopolymers.</p>
+        </a>
+        <a href="/en/contact" class="pt-card block group">
+          <span class="pt-tag pt-tag-id">Contact</span>
+          <h3 class="font-sans font-semibold text-thmblue text-lg mt-3 mb-2 group-hover:underline">Request access to the code</h3>
+          <p class="text-sm text-slate-700">The private code can be shared under a collaboration agreement. Write to the author.</p>
+        </a>
+        <a href="/en/critique" class="pt-card block group">
+          <span class="pt-tag pt-tag-id">Critique</span>
+          <h3 class="font-sans font-semibold text-thmblue text-lg mt-3 mb-2 group-hover:underline">Test falsifiability</h3>
+          <p class="text-sm text-slate-700">How to formulate a technical objection to these biological results.</p>
+        </a>
+        <a href="/en/limites" class="pt-card block group">
+          <span class="pt-tag pt-tag-id">Honesty</span>
+          <h3 class="font-sans font-semibold text-thmblue text-lg mt-3 mb-2 group-hover:underline">Acknowledged limits</h3>
+          <p class="text-sm text-slate-700">What PT biology does not yet say, and where it remains exploratory.</p>
+        </a>
+      </div>
+    </section>
+
+  </main>
+</BaseLayout>

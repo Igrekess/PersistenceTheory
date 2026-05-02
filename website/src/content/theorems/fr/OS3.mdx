@@ -1,0 +1,128 @@
+---
+id: OS3
+name: 'OS3 — Réflexion-positivité uniforme'
+short: 'Pour tout $p \geq 3$, $M_p = T_p^T T_p \succeq 0$ (matrice de Gram). Reconstruction Wightman applicable.'
+statement: 'La matrice de transfert au carré $M_m = T_m^T T_m$ est définie positive pour tout module $m$ fini square-free. La réflexion-positivité d’Osterwalder-Schrader est satisfaite uniformément, produisant une QFT de Wightman par reconstruction.'
+status: THM
+monograph_chapter: chap:bridge
+order: 20
+tier: secondary
+lang: fr
+---
+
+import Tag from '@components/Tag.astro';
+
+## Énoncé
+
+Soit $T_p$ la matrice de transfert du crible mod $p$ (premier $\geq 3$).
+Alors :
+
+$$
+\boxed{M_p = T_p^T T_p \succeq 0 \qquad \text{(matrice de Gram, donc PSD)}.}
+$$
+
+Pour un module composite $m = p_1 \cdot \ldots \cdot p_k$ (square-free), la
+factorisation CRT donne :
+
+$$
+M_m = M_{p_1} \otimes \cdots \otimes M_{p_k} \succeq 0
+$$
+
+(produit de Kronecker de matrices PSD est PSD).
+
+**Conséquence — Reconstruction d’Osterwalder-Schrader** : pour tout $T_m$
+fini, la troisième axiome OS3 (réflexion-positivité) est satisfait. Le
+théorème de reconstruction OS produit alors un triplet de Wightman
+$(\mathcal{H}_m, \Omega_m, W_n)$ : un espace de Hilbert, un état vide,
+et des fonctions de Wightman.
+
+<Tag level="THM" />
+
+## Pourquoi c’est important
+
+Avant ce théorème, OS3 était vérifié numériquement à grand effort sur
+quelques modules ($m \in \{3, 6, 30, 210\}$). Le statut était [VAL]
+(validation empirique).
+
+Le théorème OS3 uniforme **promeut** OS3 à [THM] : preuve algébrique courte,
+applicable à tous les $T_m$ finis sans exception. Les conséquences sont
+considérables :
+
+- Reconstruction Osterwalder-Schrader **garantie** pour tout $T_m$ fini ;
+- L’espace de Hilbert PT est bien défini par construction ;
+- Pas besoin de postuler la positivité — elle découle de la structure de
+  Gram.
+
+<div data-max-depth="L1" className="bg-amber-50 border-l-4 border-amber-300 px-4 py-3 my-6">
+**Lecture vulgarisée.** En théorie quantique des champs, on a besoin que
+certaines matrices soient « positives » pour que les probabilités fassent
+sens. OS3 dit que cette positivité est automatique en PT : la matrice
+correspondante est de la forme $X^T X$, qui est toujours positive.
+C’est une garantie automatique, pas une vérification au cas par cas.
+</div>
+
+## Démonstration
+
+#### Étape 1 — Pour $p$ premier
+
+Si $T_p$ est une matrice réelle, alors $M_p = T_p^T T_p$ est une
+**matrice de Gram** (par définition, le produit d’une matrice par sa
+transposée). Pour toute matrice réelle $X$ et tout vecteur $v$ :
+
+$$
+v^T (X^T X) v = (X v)^T (X v) = \|X v\|^2 \geq 0.
+$$
+
+Donc $X^T X \succeq 0$ pour toute $X$. En particulier $M_p \succeq 0$.
+
+#### Étape 2 — Pour $m$ composite square-free
+
+Si $m = p_1 \cdot p_2 \cdot \ldots \cdot p_k$ avec $p_i$ tous distincts, le
+théorème des restes chinois donne :
+
+$$
+T_m = T_{p_1} \otimes T_{p_2} \otimes \cdots \otimes T_{p_k}.
+$$
+
+Donc :
+
+$$
+M_m = T_m^T T_m = (T_{p_1}^T \otimes \cdots \otimes T_{p_k}^T)(T_{p_1} \otimes \cdots \otimes T_{p_k}) = M_{p_1} \otimes \cdots \otimes M_{p_k}.
+$$
+
+Le **produit de Kronecker de matrices PSD** est PSD (conséquence directe :
+les valeurs propres du produit tensoriel sont les produits des valeurs
+propres, et un produit de réels positifs est positif).
+
+#### Étape 3 — Conséquence : OS3 satisfait uniformément
+
+L’axiome OS3 d’Osterwalder-Schrader exige que la matrice de réflexion
+soit positive. La matrice de Gram $M_m$ joue exactement ce rôle. Donc
+**OS3 est satisfait pour tout $T_m$ fini**, sans exception.
+
+Le théorème de reconstruction Osterwalder-Schrader s’applique alors :
+on obtient un triplet de Wightman $(\mathcal{H}_m, \Omega_m, W_n)$ pour
+chaque $m$.
+
+#### Étape 4 — Limite inductive (gap restant)
+
+Le passage à la limite $m \to \infty$ pour obtenir l’espace de Hilbert
+infini $\mathcal{H}_\infty = \otimes_p \mathcal{H}_p$ relève de l’analyse
+fonctionnelle (limite inductive). Ce passage est traité par le **lemme G**
+(Hilbert reconstruction). OS3 lui-même est donc complètement THM ; seule
+la limite inductive reste un objet de l’analyse fonctionnelle standard.
+
+## Conséquences
+
+1. **34/34 tests PASS** sur la suite OS3 (monographie, Annexe F).
+2. Le programme de **reconstruction QFT depuis le crible** est rendu
+   rigoureux : à chaque $T_m$ fini correspond une QFT de Wightman.
+3. Les lemmes E, F, G (couplage, métrique, Hilbert reconstruction) prennent
+   appui sur OS3 pour leur promotion BRIDGE → THM.
+
+## Voir aussi
+
+- [Lemme E — Reconstruction du couplage](/theorems/E)
+- [Lemme F — Reconstruction de la métrique](/theorems/F)
+- [Lemme G — Reconstruction de Hilbert](/theorems/G)
+- [T6 — Identité d’holonomie](/theorems/T6)

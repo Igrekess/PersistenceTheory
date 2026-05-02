@@ -1,0 +1,695 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+
+type Status = 'classical' | 'published' | 'preprint' | 'experimental';
+type Links = { wikipedia?: string; doi?: string; arxiv?: string };
+
+interface Confirmation {
+  label: string;
+  field: string;
+  year: string;
+  role: string;
+  why: string;
+  statusLabel: string;
+  status: Status;
+  links: Links;
+  flag?: string;
+}
+
+const confirmations: Confirmation[] = [
+  // ============ THEORIE DES NOMBRES / ARITHMETIQUE ============
+  {
+    label: 'Mihăilescu — conjecture de Catalan',
+    field: 'Théorie des nombres',
+    year: '2002',
+    role: '$3^2 - 2^3 = 1$ est l’unique solution non triviale de $x^p - y^q = 1$ pour $x, y, p, q \\geq 2$.',
+    why: 'PT en déduit $N_{\\rm gen} = 3$ : exactement 3 générations de fermions. La preuve de Mihăilescu valide arithmétiquement ce qui pourrait sembler une coïncidence.',
+    status: 'classical',
+    statusLabel: 'Théorème démontré',
+    links: {
+      wikipedia: 'https://fr.wikipedia.org/wiki/Th%C3%A9or%C3%A8me_de_Mih%C4%83ilescu',
+      doi: 'https://doi.org/10.1515/crll.2004.048',
+    },
+  },
+  {
+    label: 'Wiles — modularité de Fermat',
+    field: 'Théorie des nombres',
+    year: '1995',
+    role: 'Toute courbe elliptique semi-stable sur $\\mathbb{Q}$ est modulaire.',
+    why: 'La structure modulaire utilisée par PT (factorisation CRT, caractères de Pontryagin) est cohérente avec la même modularité qui ferme la preuve de Fermat. Pas de contradiction.',
+    status: 'classical',
+    statusLabel: 'Théorème démontré',
+    links: {
+      wikipedia: 'https://fr.wikipedia.org/wiki/Derni%C3%A8re_conjecture_de_Fermat',
+      doi: 'https://doi.org/10.2307/2118559',
+    },
+  },
+  {
+    label: 'Hardy–Littlewood — k-uplets de premiers',
+    field: 'Théorie des nombres',
+    year: '1923',
+    role: 'Densités prédites des constellations $(p, p+2, p+6)$, etc., sous la conjecture des $k$-uplets.',
+    why: 'PT donne les fractions structurelles ; HL valide leur cohérence avec la distribution des premiers à grand $N$. Calcul PT $S_{\\rm HL}(3) = \\prod f(p) = 2$.',
+    status: 'classical',
+    statusLabel: 'Conjecture, vérifiée numériquement',
+    links: {
+      wikipedia: 'https://fr.wikipedia.org/wiki/Conjecture_des_k-uplets_premiers',
+      doi: 'https://doi.org/10.1007/BF02403921',
+    },
+  },
+  {
+    label: 'Kakkar — Neural Prime Sieves',
+    field: 'Théorie des nombres',
+    year: '2026',
+    role: 'Réseau neuronal vérifiant les asymptotiques Hardy–Littlewood pour de multiples constellations de premiers.',
+    why: 'Confirmation numérique indépendante par méthode ML, cohérente avec le calcul PT $S_{\\rm HL}(3) = 2$. Vérifie le pont arithmétique → spectre.',
+    status: 'preprint',
+    statusLabel: 'Prépublication arXiv',
+    links: { arxiv: 'https://arxiv.org/abs/2604.02383' },
+  },
+  {
+    label: 'Kolpakov & Rocke — ML of the Prime Distribution',
+    field: 'Théorie des nombres',
+    year: '2024',
+    role: 'Méthodes max-entropie qui re-dérivent Hardy–Ramanujan et Erdős–Kac.',
+    why: 'Soutien indépendant à L0 : la distribution géométrique des gaps en PT émerge du même principe variationnel. La max-entropie est universelle, pas un artefact.',
+    status: 'preprint',
+    statusLabel: 'Prépublication arXiv',
+    links: { arxiv: 'https://arxiv.org/abs/2403.12588' },
+  },
+  {
+    label: 'Baumgartner — Ruelle–Mayer transfer operators',
+    field: 'Théorie des nombres',
+    year: '2025',
+    role: 'Le spectre de Ruelle–Mayer retient l’information spectrale des formes de Maass et des zéros de $\\zeta$.',
+    why: 'Confirme l’usage par PT de $T_m$ comme porteur de la structure arithmétique (Lemme E, rigidité spectrale).',
+    status: 'preprint',
+    statusLabel: 'Prépublication arXiv',
+    links: { arxiv: 'https://arxiv.org/abs/2511.06513' },
+  },
+  {
+    label: 'Jiang & Wu — Ruelle zeta non-archimédien',
+    field: 'Théorie des nombres',
+    year: '2026',
+    role: 'Extension de la fonction zêta de Ruelle aux applications rationnelles non-archimédiennes (p-adique).',
+    why: 'Cohérent avec la décomposition profinie sous-jacente à BA5 (produit Pontryagin sur $\\prod_p \\mathbb{Z}/p\\mathbb{Z}$).',
+    status: 'preprint',
+    statusLabel: 'Prépublication arXiv',
+    links: { arxiv: 'https://arxiv.org/abs/2508.19374' },
+  },
+  {
+    label: 'Ben-Zvi, Sakellaridis, Venkatesh — Relative Langlands Duality',
+    field: 'Théorie des nombres',
+    year: '2024',
+    role: 'Programme proposant une « dualité électrique-magnétique arithmétique ».',
+    why: 'Parallèle structurel profond avec PT : périodes automorphes et $L$-fonctions jouent le rôle d’observables de jauge. Convergence programmatique avec le pont PT.',
+    status: 'preprint',
+    statusLabel: 'Monographie arXiv',
+    links: { arxiv: 'https://arxiv.org/abs/2409.04677' },
+  },
+  {
+    label: 'LeClair — Spectral Flow for Riemann zeros',
+    field: 'Théorie des nombres',
+    year: '2024',
+    role: 'Matrice $S$ unitaire construite à partir du produit d’Euler dont les valeurs propres convergent vers les zéros de $\\zeta$ quand $\\sigma \\to 1/2$.',
+    why: 'Convergence avec le pont PT (lemme E) : les zéros de zêta apparaissent comme spectre d’un opérateur unitaire dérivé du produit eulérien.',
+    status: 'preprint',
+    statusLabel: 'Prépublication arXiv (Adv. Theor. Math. Phys.)',
+    links: { arxiv: 'https://arxiv.org/abs/2406.01828' },
+  },
+  {
+    label: 'Remmen — Amplitudes and Riemann Zeta',
+    field: 'Théorie des nombres',
+    year: '2021',
+    role: 'Amplitudes de diffusion construites à partir de $\\zeta(s)$, avec RH comme condition d’unitarité.',
+    why: 'Convergence avec PT : les zéros de zêta apparaissent comme spectre physique. RH ↔ unitarité ↔ structure de la PT.',
+    status: 'published',
+    statusLabel: 'Publié — Phys. Rev. Lett.',
+    links: {
+      doi: 'https://doi.org/10.1103/PhysRevLett.127.241602',
+      arxiv: 'https://arxiv.org/abs/2108.07820',
+    },
+  },
+
+  // ============ GEOMETRIE DE L'INFORMATION ============
+  {
+    label: 'Čencov–Petz',
+    field: 'Géométrie de l’information',
+    year: '1982',
+    role: 'La métrique de Fisher est l’unique métrique riemannienne monotone sur l’espace des distributions.',
+    why: 'Utilisé directement par PT comme socle de la métrique de l’espace-temps (Lemme F). Sans Čencov, pas de dérivation PT de la gravité.',
+    status: 'classical',
+    statusLabel: 'Théorème classique',
+    links: {
+      wikipedia: 'https://en.wikipedia.org/wiki/Chentsov%27s_theorem',
+    },
+  },
+  {
+    label: 'Ciaglia, Di Cosmo, Gonzalez-Bravo — Cencov non-commutatif',
+    field: 'Géométrie de l’information',
+    year: '2025',
+    role: 'Étend l’unicité de Čencov aux espaces de probabilité non-commutatifs (métriques monotones quantiques) ; la propriété clé est la *tracialité*, pas la commutativité.',
+    why: 'Renforce G3 : la métrique de Fisher reste unique même quand l’algèbre du crible est étendue à un cadre quantique. Pas de surprise pour PT.',
+    status: 'preprint',
+    statusLabel: 'Prépublication arXiv',
+    links: { arxiv: 'https://arxiv.org/abs/2510.24617' },
+  },
+
+  // ============ GRAVITE / ESPACE-TEMPS / BH ============
+  {
+    label: 'KL et trous noirs (Bekenstein–Hawking)',
+    field: 'Gravité quantique',
+    year: '1973',
+    role: '$D_{KL} = $ entropie de Bekenstein-Hawking (aire = information).',
+    why: 'PT lit $D_{KL}$ comme l’entropie d’un horizon. La coïncidence avec la formule de Bekenstein suggère que la gravité informationnelle PT est dans la bonne classe.',
+    status: 'classical',
+    statusLabel: 'Identification structurelle classique',
+    links: {
+      wikipedia: 'https://fr.wikipedia.org/wiki/Entropie_de_Bekenstein-Hawking',
+      doi: 'https://doi.org/10.1103/PhysRevD.7.2333',
+    },
+  },
+  {
+    label: 'Gravité entropique (Verlinde, Jacobson)',
+    field: 'Gravité quantique',
+    year: '1995–2011',
+    role: 'La gravité = gradient d’entropie ; les équations d’Einstein émergent comme équation d’état.',
+    why: 'PT identifie ce gradient d’entropie comme le gradient de $D_{KL}$. La compatibilité avec Jacobson (1995) et Verlinde (2010) est structurelle.',
+    status: 'classical',
+    statusLabel: 'Cadre théorique compatible',
+    links: {
+      wikipedia: 'https://fr.wikipedia.org/wiki/Gravit%C3%A9_entropique',
+      doi: 'https://doi.org/10.1103/PhysRevLett.75.1260',
+    },
+  },
+  {
+    label: 'Bianconi — Gravity from entropy',
+    field: 'Gravité quantique',
+    year: '2025',
+    role: 'Équations d’Einstein modifiées dérivées de l’entropie quantique relative entre deux métriques.',
+    why: 'Même mécanisme structurel que la dérivation PT d’Einstein via Hessien Fisher (Lemme F). Convergence indépendante sur le pont info → gravité.',
+    status: 'published',
+    statusLabel: 'Publié — Phys. Rev. D',
+    links: {
+      doi: 'https://doi.org/10.1103/PhysRevD.111.066001',
+      arxiv: 'https://arxiv.org/abs/2408.14391',
+    },
+  },
+  {
+    label: 'Bianconi — Beyond holography (gravité quantique entropique)',
+    field: 'Gravité quantique',
+    year: '2025',
+    role: 'Dynamique gravitationnelle dérivée de l’entropie quantique relative — fondement « entropique » de la gravité.',
+    why: 'Même mécanisme structurel que PT (Lemme F). Indique qu’une famille croissante de cadres convergent vers info-géométrie → gravité.',
+    status: 'preprint',
+    statusLabel: 'Prépublication arXiv',
+    links: { arxiv: 'https://arxiv.org/abs/2503.14048' },
+  },
+  {
+    label: 'Matsueda — General Relativity from Fisher Metric',
+    field: 'Gravité quantique',
+    year: '2013',
+    role: 'Tenseur d’Einstein dérivé directement de la métrique de Fisher d’un système statistique-mécanique.',
+    why: 'PT va plus loin en identifiant la *famille statistique spécifique* (distributions du crible) qui reproduit les couplages observés. Matsueda valide la route.',
+    status: 'preprint',
+    statusLabel: 'Prépublication arXiv',
+    links: { arxiv: 'https://arxiv.org/abs/1310.1831' },
+  },
+  {
+    label: 'Tsuruyama — KL Divergence near Black Hole Horizons',
+    field: 'Gravité quantique',
+    year: '2025',
+    role: '$D_{KL}$ confirmé comme mesure naturelle de la perte d’information irréversible près des horizons.',
+    why: 'Convergence avec lecture PT de $D_{KL}$ comme entropie d’horizon (au-delà de Bekenstein) ; cadre unifié info / thermo / RG.',
+    status: 'preprint',
+    statusLabel: 'Prépublication arXiv',
+    links: { arxiv: 'https://arxiv.org/abs/2508.04348' },
+  },
+
+  // ============ CONSTANTES PHYSIQUES / PARTICULES ============
+  {
+    label: 'Sticker — α as a Scaled Quantity',
+    field: 'Constantes',
+    year: '2025',
+    role: '$\\alpha_{\\rm EM} \\approx 1/137$ argumentée comme quantité d’échelle structurelle, à l’intersection des régimes classique / quantique / relativiste.',
+    why: 'Cohérent avec dérivation PT comme produit d’angles cycliques ($\\prod \\sin^2\\theta_p$) — pas un paramètre libre, un ratio structurel.',
+    status: 'preprint',
+    statusLabel: 'Prépublication arXiv',
+    links: { arxiv: 'https://arxiv.org/abs/2512.07027' },
+  },
+  {
+    label: 'Quispe Hancco et al. — Geometric Origin of Lepton Anomalous Magnetic Moments',
+    field: 'Constantes',
+    year: '2025',
+    role: '$Q_{\\rm Koide} = 2/3$ dérivé indépendamment d’un attracteur géométrique de triangles primitifs.',
+    why: 'Soutient la vue PT que la relation de Koide est une identité structurelle, pas un accident numérique. Auteurs : P. Quispe Hancco, A. N. Condori Mamani, C. Quispe Hancco, A. H. Zanabria Galvez, H. Quispe Hancco.',
+    status: 'preprint',
+    statusLabel: 'Prépublication arXiv',
+    links: { arxiv: 'https://arxiv.org/abs/2512.10288' },
+  },
+  {
+    label: 'Lee, Takahashi, Tsai — Number Theory in Quantum Physics',
+    field: 'Constantes',
+    year: '2026',
+    role: 'Annulation des anomalies de jauge $U(1)_H \\times U(1)_X$ équivalente au problème PTE de degré 3.',
+    why: 'Convergence avec PT : la consistance quantique se réduit à une contrainte arithmétique. C’est exactement ce que PT dérive du crible.',
+    status: 'preprint',
+    statusLabel: 'Prépublication arXiv',
+    links: { arxiv: 'https://arxiv.org/abs/2603.12320' },
+  },
+  {
+    label: 'Camp, Gripaios, Nguyen — Anomalies p-adiques',
+    field: 'Constantes',
+    year: '2024',
+    role: 'Annulation d’anomalies de jauge 2D via le principe local-global $p$-adique (Hasse–Minkowski).',
+    why: 'Convergence avec la décomposition CRT du crible : la consistance physique passe par chaque prime $p$ séparément.',
+    status: 'preprint',
+    statusLabel: 'Prépublication arXiv',
+    links: { arxiv: 'https://arxiv.org/abs/2403.10611' },
+  },
+  {
+    label: 'Odrzywołek — All elementary functions from EML',
+    field: 'Constantes',
+    year: '2026',
+    role: 'L’opérateur $\\mathrm{eml}(x,y) = e^x - \\ln y$ génère, avec la constante 1, toutes les fonctions élémentaires.',
+    why: 'Dans cette mesure de complexité primitive, $1/\\alpha_{\\rm EM}$ a une taille EML $\\simeq 40$, **plus compact que $\\pi$** (taille $> 53$). Signal de naturalité invisible en notation standard.',
+    status: 'preprint',
+    statusLabel: 'Prépublication arXiv',
+    links: { arxiv: 'https://arxiv.org/abs/2603.21852' },
+  },
+
+  // ============ QUANTIQUE FONDAMENTAL ============
+  {
+    label: 'White, Vera, Sylvester, Dudzinski — Emergent quantization',
+    field: 'Quantique fondamental',
+    year: '2026',
+    role: 'Spectre exact de l’hydrogène dérivé d’un champ acoustique avec gate spectral $A(\\omega) < 0$.',
+    why: 'Identifié à la projection $P_-$ de la famille Dirac chirale PT $D_+(s) = (1-s)P_+ - sP_-$. La dispersion $\\omega = D q^2$ avec $D = \\hbar/(2\\mu)$ re-dérive $s = 1/2$.',
+    status: 'published',
+    statusLabel: 'Publié — Phys. Rev. Research',
+    links: { doi: 'https://doi.org/10.1103/l8y7-r3rm' },
+  },
+  {
+    label: 'Lohmiller & Slotine — Quantum waves from classical action',
+    field: 'Quantique fondamental',
+    year: '2026',
+    role: 'Fonction d’onde exacte comme somme finie sur branches d’action classique ; lemme géométrique-série quantifie via $\\varphi/\\hbar \\in 2\\pi\\mathbb{Z}$.',
+    why: 'Le lemme 3.4 = caractère de Pontryagin sur $\\mathbb{Z}/K\\mathbb{Z}$, composante $p=2$ de la structure BA5. Les deux branches = projecteurs $P_\\pm$ de la famille chirale PT.',
+    status: 'published',
+    statusLabel: 'Publié — Proc. R. Soc. A',
+    links: {
+      doi: 'https://doi.org/10.1098/rspa.2025.0413',
+      arxiv: 'https://arxiv.org/abs/2405.06328',
+    },
+  },
+  {
+    label: 'Koch et al. — Topology from a single DoF (OAM)',
+    field: 'Quantique expérimental',
+    year: '2025',
+    role: 'Démonstration expérimentale : structure topologique riche ($\\binom{d^2-1}{3}$ invariants) à partir d’**un seul** degré de liberté (OAM) entanglé.',
+    why: 'Parallèle direct au principe PT : $s = 1/2$ seul génère tout le spectre observable. Confirmation expérimentale de robustesse au bruit.',
+    status: 'published',
+    statusLabel: 'Publié — Nature Communications',
+    links: { doi: 'https://doi.org/10.1038/s41467-025-66066-3' },
+  },
+
+  // ============ COSMOLOGIE / METROLOGIE / EXPERIMENTS ============
+  {
+    label: 'CODATA 2022 — α_EM',
+    field: 'Métrologie',
+    year: '2025',
+    role: '$1/\\alpha_{\\rm EM} = 137{,}035\\,999\\,084$ avec incertitude $1{,}5 \\times 10^{-10}$.',
+    why: 'PT donne $137{,}035\\,999\\,083\\,4$ avec 0 paramètre ajusté. Écart $\\sim 4$ ppt (compatible 1σ). Non trivial : la PT pourrait avoir donné un nombre éloigné.',
+    status: 'experimental',
+    statusLabel: 'Mesure de référence — J. Phys. Chem. Ref. Data',
+    links: {
+      wikipedia: 'https://fr.wikipedia.org/wiki/Constante_de_structure_fine',
+      doi: 'https://doi.org/10.1063/5.0238275',
+    },
+  },
+  {
+    label: 'PDG / Particle Data Group',
+    field: 'Métrologie',
+    year: '2024',
+    role: 'Source canonique pour 43 observables comparés.',
+    why: 'Toutes les valeurs PT vs PDG sont consultables dans la table des observables. 36/43 sous 0,5 % d’écart. Pas un seul ajustement.',
+    status: 'experimental',
+    statusLabel: 'Compilation expérimentale — Phys. Rev. D',
+    links: {
+      wikipedia: 'https://fr.wikipedia.org/wiki/Particle_Data_Group',
+      doi: 'https://doi.org/10.1103/PhysRevD.110.030001',
+    },
+  },
+  {
+    label: 'Planck 2018 / DESI / Euclid',
+    field: 'Cosmologie',
+    year: '2018–2024',
+    role: '$H_0$, $n_s$, $\\Omega_b$, $\\Omega_{\\rm DM}$ avec barres d’erreur.',
+    why: 'PT donne $H_0 = 67{,}43$ km/s/Mpc (Planck : 67,4 ± 0,5), $n_s = 0{,}964$ (Planck : 0,9649 ± 0,0042), $\\Omega_{\\rm info} = 26{,}48\\,\\%$ (Planck : 26,5 %). Tous compatibles 1σ.',
+    status: 'experimental',
+    statusLabel: 'Mission spatiale — Astron. Astrophys.',
+    links: {
+      wikipedia: 'https://fr.wikipedia.org/wiki/Planck_(satellite)',
+      doi: 'https://doi.org/10.1051/0004-6361/201833910',
+    },
+  },
+  {
+    label: 'Fan et al. — Mesure de $a_e$ (suite Hanneke)',
+    field: 'Métrologie',
+    year: '2023',
+    role: 'Moment magnétique de l’électron mesuré à 280 ppt.',
+    why: 'PT donne $a_e = 1{,}159\\,652\\,181\\,05 \\times 10^{-3}$ (P25b). Écart $+0{,}28$ ppb avec mesure : compatible 1σ. Test indépendant de la formule echo-VP.',
+    status: 'experimental',
+    statusLabel: 'Mesure de précision — Phys. Rev. Lett.',
+    links: {
+      wikipedia: 'https://en.wikipedia.org/wiki/Anomalous_magnetic_dipole_moment',
+      doi: 'https://doi.org/10.1103/PhysRevLett.130.071801',
+    },
+  },
+  {
+    label: 'Theory Initiative — SM White Paper g − 2',
+    field: 'Métrologie',
+    year: '2025',
+    role: 'Calcul Standard Model de $a_\\mu$ après corrections HVP/lattice.',
+    why: 'L’anomalie historique 5σ de $g - 2$ est dissoute : SM White Paper compatible avec mesure Fermilab finale. PT compatible $-0{,}85\\sigma$ à $-0{,}24\\sigma$ via $R_{\\rm HVP} = 1{,}042\\,03$.',
+    status: 'experimental',
+    statusLabel: 'Consensus collaboratif — Phys. Rep.',
+    links: {
+      wikipedia: 'https://en.wikipedia.org/wiki/Anomalous_magnetic_dipole_moment',
+      arxiv: 'https://arxiv.org/abs/2505.21476',
+    },
+  },
+  {
+    label: 'OPERA / Borexino — vitesse des neutrinos',
+    field: 'Métrologie',
+    year: '2011–2012',
+    role: 'Neutrinos voyagent à $c$ avec écart $< 10^{-9}$.',
+    why: 'PT prédit Lorentz exact (P15), aucune violation détectable. La rétractation initiale d’OPERA et la mesure de Borexino confirment PT négativement (rien à corriger).',
+    status: 'experimental',
+    statusLabel: 'Confirmation négative',
+    links: {
+      wikipedia: 'https://fr.wikipedia.org/wiki/Anomalie_des_neutrinos_supraluminiques',
+      doi: 'https://doi.org/10.1103/PhysRevD.86.038501',
+    },
+  },
+
+  // ============ COGNITION / AUTRES DOMAINES ============
+  {
+    label: 'Barman et al. — Geometry of Forgetting',
+    field: 'Sciences cognitives',
+    year: '2026',
+    role: 'Loi de puissance d’oubli avec exposant $b \\sim 0{,}5 = s$, dimensionnalité effective $d_{\\rm eff} \\sim 16 = \\mu^* + 1$.',
+    why: 'Étude empirique de la persistance de la mémoire humaine. PT n’a pas dérivé ces nombres — mais ils correspondent aux constantes structurelles ($s$, $\\mu^*$) sans ajustement.',
+    status: 'preprint',
+    statusLabel: 'Prépublication arXiv (Sentra + MIT)',
+    links: { arxiv: 'https://arxiv.org/abs/2604.06222' },
+  },
+];
+
+const statusBadgeClasses: Record<Status, string> = {
+  classical: 'bg-blue-100 text-blue-900 border-blue-400',
+  published: 'bg-emerald-100 text-emerald-900 border-emerald-500',
+  preprint: 'bg-amber-100 text-amber-900 border-amber-400',
+  experimental: 'bg-violet-100 text-violet-900 border-violet-400',
+};
+
+const statusIcon: Record<Status, string> = {
+  classical: '◆',
+  published: '★',
+  preprint: '○',
+  experimental: '▲',
+};
+
+const fields = [...new Set(confirmations.map((c) => c.field))];
+const totalCount = confirmations.length;
+const publishedCount = confirmations.filter((c) => c.status === 'published').length;
+const experimentalCount = confirmations.filter((c) => c.status === 'experimental').length;
+const classicalCount = confirmations.filter((c) => c.status === 'classical').length;
+const preprintCount = confirmations.filter((c) => c.status === 'preprint').length;
+
+const featured = confirmations.filter((c) => c.status === 'published');
+---
+
+<BaseLayout
+  title="Confirmations externes"
+  description={`${totalCount} résultats expérimentaux, théorèmes mathématiques classiques et publications récentes (peer-reviewed et arXiv) compatibles avec PT — sans avoir été conçus pour la tester.`}
+>
+  <main class="max-w-6xl mx-auto px-4 py-10 md:py-14">
+
+    <!-- HERO -->
+    <section class="mb-12">
+      <div class="rounded-lg border border-slate-200 bg-white p-6 md:p-8 shadow-sm">
+        <p class="pt-tag pt-tag-val mb-5">Validation externe</p>
+        <h1 class="text-4xl md:text-5xl font-bold text-thmblue leading-tight mb-4">
+          {totalCount} confirmations indépendantes
+        </h1>
+        <p class="text-2xl md:text-3xl font-sans font-semibold text-derorange leading-snug mb-6">
+          Pas conçues pour PT. Compatibles avec PT, sans ajustement.
+        </p>
+        <p class="text-lg text-slate-700 leading-relaxed mb-5" data-max-depth="L1">
+          Une théorie peut être interne et auto-cohérente sans pour autant
+          dire quelque chose sur le monde. Pour PT, le test est différent :
+          si la théorie est juste, des résultats indépendants — théorèmes
+          mathématiques classiques, mesures expérimentales, publications
+          récentes — devraient lui être compatibles <strong>sans
+          réajustement</strong>.
+        </p>
+        <p class="text-base text-slate-700 leading-relaxed" data-min-depth="L2">
+          {totalCount} confirmations dans 7 domaines distincts. Aucune n’a été
+          produite pour valider PT ; toutes lui sont compatibles. Ce n’est pas
+          une preuve, mais c’est une garantie de cohérence externe rare en
+          physique théorique alternative.
+        </p>
+      </div>
+    </section>
+
+    <!-- LEGENDE STATUTS -->
+    <section class="mb-10">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+        <div class="rounded-lg border-2 border-emerald-500 bg-emerald-50 p-4">
+          <p class="font-mono text-2xl mb-1">★</p>
+          <p class="font-sans font-bold text-emerald-900 text-sm">Publié peer-reviewed</p>
+          <p class="text-xs text-emerald-800 mt-1">{publishedCount} entrées</p>
+          <p class="text-xs text-emerald-700 mt-1">Phys. Rev. D, PRR, Nat. Commun., Proc. R. Soc., PRL</p>
+        </div>
+        <div class="rounded-lg border-2 border-violet-400 bg-violet-50 p-4">
+          <p class="font-mono text-2xl mb-1">▲</p>
+          <p class="font-sans font-bold text-violet-900 text-sm">Mesure expérimentale</p>
+          <p class="text-xs text-violet-800 mt-1">{experimentalCount} entrées</p>
+          <p class="text-xs text-violet-700 mt-1">CODATA, PDG, Planck, Fermilab, Borexino</p>
+        </div>
+        <div class="rounded-lg border-2 border-blue-400 bg-blue-50 p-4">
+          <p class="font-mono text-2xl mb-1">◆</p>
+          <p class="font-sans font-bold text-blue-900 text-sm">Théorème classique</p>
+          <p class="text-xs text-blue-800 mt-1">{classicalCount} entrées</p>
+          <p class="text-xs text-blue-700 mt-1">Cencov, Mihăilescu, Wiles, Bekenstein, etc.</p>
+        </div>
+        <div class="rounded-lg border-2 border-amber-400 bg-amber-50 p-4">
+          <p class="font-mono text-2xl mb-1">○</p>
+          <p class="font-sans font-bold text-amber-900 text-sm">Prépublication arXiv</p>
+          <p class="text-xs text-amber-800 mt-1">{preprintCount} entrées</p>
+          <p class="text-xs text-amber-700 mt-1">Non encore revues par les pairs</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- PUBLICATIONS PEER-REVIEWED MISES EN AVANT -->
+    {featured.length > 0 && (
+      <section class="mb-12">
+        <p class="pt-tag pt-tag-val mb-3">Mises en avant</p>
+        <h2 class="text-3xl font-bold text-thmblue mb-4">Publications récentes peer-reviewed</h2>
+        <p class="text-base text-slate-700 leading-relaxed mb-6" data-min-depth="L2">
+          Convergences indépendantes publiées dans des revues à comité de
+          lecture entre 2021 et 2026. Ce sont les confirmations les plus
+          fortes : article relu, accepté, ressorti structurellement compatible
+          avec PT.
+        </p>
+        <div class="grid md:grid-cols-2 gap-4">
+          {featured.map((c) => (
+            <div class="rounded-lg border-2 border-emerald-300 bg-emerald-50 p-5 shadow-sm">
+              <div class="flex items-center gap-2 mb-2">
+                <span class="text-xl">★</span>
+                <span class="font-mono text-xs text-emerald-700">{c.year}</span>
+                <span class="font-sans text-xs uppercase tracking-wider text-emerald-800 ml-auto">{c.field}</span>
+              </div>
+              <h3 class="font-sans font-bold text-emerald-900 text-base mb-2">{c.label}</h3>
+              <p class="text-xs text-emerald-800 italic mb-3">{c.statusLabel}</p>
+              <p class="text-sm text-emerald-900 leading-relaxed mb-3" set:html={c.role.replace(/\$([^$]+)\$/g, '<em>$1</em>')} />
+              <div class="flex flex-wrap gap-2 mt-3">
+                {c.links.doi && (
+                  <a href={c.links.doi} target="_blank" rel="noopener noreferrer" class="text-xs font-sans font-semibold text-emerald-800 bg-white border border-emerald-400 rounded-full px-3 py-1 hover:bg-emerald-100">
+                    DOI ↗
+                  </a>
+                )}
+                {c.links.arxiv && (
+                  <a href={c.links.arxiv} target="_blank" rel="noopener noreferrer" class="text-xs font-sans font-semibold text-emerald-800 bg-white border border-emerald-400 rounded-full px-3 py-1 hover:bg-emerald-100">
+                    arXiv ↗
+                  </a>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+    )}
+
+    <!-- DOMAINES -->
+    <section class="mb-12">
+      <p class="pt-tag pt-tag-id mb-3">Couverture</p>
+      <h2 class="text-3xl font-bold text-thmblue mb-6">Sept domaines indépendants</h2>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+        {fields.map((f) => (
+          <div class="rounded-lg border border-slate-200 bg-white p-4 shadow-sm">
+            <p class="text-xs font-sans uppercase tracking-wider text-stone-500 mb-1">Domaine</p>
+            <p class="font-sans font-semibold text-thmblue text-sm">{f}</p>
+            <p class="text-xs text-stone-500 mt-2">{confirmations.filter((c) => c.field === f).length} confirmation(s)</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- TABLE COMPLETE -->
+    <section class="mb-12">
+      <p class="pt-tag pt-tag-val mb-3">Liste détaillée</p>
+      <h2 class="text-3xl font-bold text-thmblue mb-6">Les {totalCount}, par domaine</h2>
+      <div class="space-y-4">
+        {fields.map((field) => {
+          const items = confirmations.filter((c) => c.field === field);
+          return (
+            <div>
+              <h3 class="font-sans text-xs font-bold uppercase tracking-wider text-stone-600 border-b border-stone-300 pb-1 mb-3">{field} <span class="text-stone-400 font-normal">· {items.length}</span></h3>
+              <div class="space-y-3">
+                {items.map((c) => (
+                  <div class={`rounded-lg border p-5 shadow-sm ${c.status === 'published' ? 'border-emerald-300 bg-emerald-50/40' : 'border-slate-200 bg-white'}`}>
+                    <div class="flex items-start gap-3 mb-3">
+                      <span class={`flex-shrink-0 inline-flex items-center justify-center w-7 h-7 rounded-full font-mono text-sm ${c.status === 'published' ? 'bg-emerald-200 text-emerald-900' : c.status === 'preprint' ? 'bg-amber-200 text-amber-900' : c.status === 'classical' ? 'bg-blue-200 text-blue-900' : 'bg-violet-200 text-violet-900'}`}>
+                        {statusIcon[c.status]}
+                      </span>
+                      <div class="flex-1">
+                        <div class="flex flex-wrap items-baseline gap-2 mb-1">
+                          <h4 class="font-sans text-base md:text-lg font-bold text-thmblue">{c.label}</h4>
+                          <span class="font-mono text-xs text-stone-600">{c.year}</span>
+                          <span class={`text-xs font-sans uppercase tracking-wider border rounded-full px-2 py-0.5 ${statusBadgeClasses[c.status]}`}>
+                            {c.statusLabel}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <p class="text-sm text-slate-800 leading-relaxed mb-2">
+                      <strong class="text-derorange">Énoncé :</strong> <span set:html={c.role.replace(/\$([^$]+)\$/g, '<em>$1</em>')} />
+                    </p>
+                    <p class="text-sm text-slate-700 leading-relaxed mb-3">
+                      <strong class="text-emerald-700">Lien PT :</strong> <span set:html={c.why.replace(/\$([^$]+)\$/g, '<em>$1</em>').replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\*(.*?)\*/g, '<em>$1</em>')} />
+                    </p>
+                    {c.flag && (
+                      <p class="text-xs text-rose-800 bg-rose-50 border border-rose-300 rounded px-3 py-2 mb-3">
+                        <strong>⚠ {c.flag}</strong>
+                      </p>
+                    )}
+                    <div class="flex flex-wrap gap-2 mt-2">
+                      {c.links.wikipedia && (
+                        <a href={c.links.wikipedia} target="_blank" rel="noopener noreferrer" class="text-xs font-sans text-blue-800 bg-white border border-blue-300 rounded-full px-3 py-1 hover:bg-blue-50">
+                          Wikipédia ↗
+                        </a>
+                      )}
+                      {c.links.doi && (
+                        <a href={c.links.doi} target="_blank" rel="noopener noreferrer" class="text-xs font-sans text-emerald-800 bg-white border border-emerald-400 rounded-full px-3 py-1 hover:bg-emerald-50">
+                          DOI ↗
+                        </a>
+                      )}
+                      {c.links.arxiv && (
+                        <a href={c.links.arxiv} target="_blank" rel="noopener noreferrer" class="text-xs font-sans text-amber-800 bg-white border border-amber-400 rounded-full px-3 py-1 hover:bg-amber-50">
+                          arXiv ↗
+                        </a>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </section>
+
+    <!-- METHODOLOGIE -->
+    <section class="mb-12">
+      <p class="pt-tag pt-tag-thm mb-3">Méthodologie</p>
+      <h2 class="text-3xl font-bold text-thmblue mb-6">Ce que chaque confirmation veut dire</h2>
+      <div class="grid md:grid-cols-2 gap-4">
+        <div class="rounded-lg border-2 border-emerald-300 bg-emerald-50 p-5">
+          <h3 class="font-sans font-semibold text-emerald-800 text-lg mb-2">Confirmation théorique</h3>
+          <p class="text-sm text-emerald-900 leading-relaxed">
+            Un théorème mathématique classique (Čencov, Mihăilescu, Wiles)
+            est utilisé par PT comme <strong>brique structurelle</strong>. Si
+            ce théorème est faux, PT s’effondre. Confirmation = théorème
+            reste valide.
+          </p>
+        </div>
+        <div class="rounded-lg border-2 border-blue-300 bg-blue-50 p-5">
+          <h3 class="font-sans font-semibold text-blue-800 text-lg mb-2">Confirmation expérimentale</h3>
+          <p class="text-sm text-blue-900 leading-relaxed">
+            Une mesure indépendante (CODATA, PDG, Planck, Fermilab)
+            <strong>rétrodit</strong> une valeur PT à $\sigma$ près. Si la
+            mesure s’éloigne significativement, PT est falsifiée.
+          </p>
+        </div>
+        <div class="rounded-lg border-2 border-violet-300 bg-violet-50 p-5">
+          <h3 class="font-sans font-semibold text-violet-800 text-lg mb-2">Confirmation négative</h3>
+          <p class="text-sm text-violet-900 leading-relaxed">
+            Une mesure cherche un effet (axion, SUSY, KK modes) que PT
+            <strong>interdit</strong>. L’absence durable de ces effets
+            confirme PT négativement (P10–P14).
+          </p>
+        </div>
+        <div class="rounded-lg border-2 border-amber-300 bg-amber-50 p-5">
+          <h3 class="font-sans font-semibold text-amber-800 text-lg mb-2">Compatibilité structurelle</h3>
+          <p class="text-sm text-amber-900 leading-relaxed">
+            Un cadre indépendant (Verlinde, Jacobson, Bekenstein, Bianconi)
+            propose une structure compatible avec PT sans s’y référer.
+            Convergence d’idées → indication de cohérence externe.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- LIENS -->
+    <section class="mb-8">
+      <p class="pt-tag pt-tag-bridge mb-3">Aller plus loin</p>
+      <h2 class="text-3xl font-bold text-thmblue mb-6">Approfondir</h2>
+      <div class="grid md:grid-cols-3 gap-4">
+        <a href="/observables" class="pt-card block group">
+          <span class="pt-tag pt-tag-val">Validation</span>
+          <h3 class="font-sans font-semibold text-thmblue text-lg mt-3 mb-2 group-hover:underline">43 observables vs PDG</h3>
+          <p class="text-sm text-slate-700">La rétrodiction massive : 36/43 sous 0,5 % d’erreur, 0 paramètre.</p>
+        </a>
+        <a href="/predictions" class="pt-card block group">
+          <span class="pt-tag pt-tag-thm">Prédictions</span>
+          <h3 class="font-sans font-semibold text-thmblue text-lg mt-3 mb-2 group-hover:underline">28 Tier-1 falsifiables</h3>
+          <p class="text-sm text-slate-700">Les confirmations futures attendues : DUNE, JUNO, Euclid, LEGEND.</p>
+        </a>
+        <a href="/limites" class="pt-card block group">
+          <span class="pt-tag pt-tag-id">Honnêteté</span>
+          <h3 class="font-sans font-semibold text-thmblue text-lg mt-3 mb-2 group-hover:underline">Limites et points ouverts</h3>
+          <p class="text-sm text-slate-700">Ce que les confirmations ne disent PAS, et ce qui reste à fermer.</p>
+        </a>
+        <a href="/principes-architecturaux" class="pt-card block group">
+          <span class="pt-tag pt-tag-thm">Méta-théorie</span>
+          <h3 class="font-sans font-semibold text-thmblue text-lg mt-3 mb-2 group-hover:underline">7 principes architecturaux</h3>
+          <p class="text-sm text-slate-700">L’universalité interne qui rend les confirmations externes plausibles.</p>
+        </a>
+        <a href="/audit" class="pt-card block group">
+          <span class="pt-tag pt-tag-id">Audit</span>
+          <h3 class="font-sans font-semibold text-thmblue text-lg mt-3 mb-2 group-hover:underline">Engagements C1–C10</h3>
+          <p class="text-sm text-slate-700">Les fermetures internes que les confirmations externes mettent à l’épreuve.</p>
+        </a>
+        <a href="/difficile-a-rejeter" class="pt-card block group">
+          <span class="pt-tag pt-tag-bridge">Robustesse</span>
+          <h3 class="font-sans font-semibold text-thmblue text-lg mt-3 mb-2 group-hover:underline">Pourquoi PT est dur à rejeter</h3>
+          <p class="text-sm text-slate-700">Les 5 critères de robustesse, dont la cohérence externe.</p>
+        </a>
+      </div>
+    </section>
+
+  </main>
+</BaseLayout>

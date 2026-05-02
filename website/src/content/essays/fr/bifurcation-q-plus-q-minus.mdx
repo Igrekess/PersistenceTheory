@@ -1,0 +1,224 @@
+---
+slug: bifurcation-q-plus-q-minus
+title: 'La bifurcation q⁺ / q⁻ : pourquoi deux branches ?'
+summary: 'À μ* = 15, le crible se scinde en deux branches naturelles : q⁺ pour les couplages (vertex, leptons, α_EM), q⁻ pour la géométrie (propagateur, quarks, métrique). Voici pourquoi cette bifurcation est inévitable et ce qu’elle sépare.'
+level: L1
+reading_minutes: 7
+related_theorems: ['L0', 'T5', 'T6']
+lang: fr
+order: 6
+---
+
+## Une seule ligne, deux lectures
+
+À première vue, la PT ne contient qu’une cascade : $s = 1/2$, $\mu^* = 15$,
+$\alpha_{\rm EM}$. Pourtant, à mi-parcours, quelque chose de surprenant se
+produit. Le système se scinde en **deux branches parallèles**, qui partagent
+les mêmes ingrédients mais en font deux usages différents.
+
+L’une mesure les **couplages** : ce qui décrit comment les particules
+interagissent (vertex, $\alpha_{\rm EM}$, masses des leptons, oscillations
+PMNS).
+
+L’autre mesure la **géométrie** : ce qui décrit l’espace dans lequel ces
+particules vivent (propagateur, métrique de Bianchi I, masses des quarks,
+mélange CKM, gravité).
+
+Ces deux branches s’appellent $q^+$ et $q^-$. Elles sont liées à $\mu^* = 15$
+de deux façons profondément différentes.
+
+## Le théorème L0 : entropie maximale
+
+Tout commence par un théorème simple. Si on demande à une distribution sur
+$\{2, 4, 6, \ldots\}$ d’être (i) sans mémoire, (ii) de moyenne fixée à
+$\mu$, et (iii) d’entropie maximale, alors elle est **uniquement géométrique** :
+
+$$
+P(X = 2k) = (1 - q) \cdot q^{k - 1}.
+$$
+
+C’est le théorème L0. Avec moyenne $\mu$ exigée, on trouve $q = 1 - 2/\mu$.
+
+## Mais il existe une autre dérivation
+
+À côté de cette dérivation discrète exacte, il existe une lecture continue
+naturelle : la **limite de Boltzmann**, où les écarts sont vus non comme
+des entiers pairs mais comme des durées dans un continu. Dans cette lecture,
+la distribution prend la forme $\propto e^{-x/\mu}$, et le paramètre devient :
+
+$$
+q^- = e^{-1/\mu}.
+$$
+
+Au point fixe $\mu^* = 15$, on obtient :
+
+$$
+q^+ = \frac{13}{15} = 0{,}8667 \qquad \text{et} \qquad
+q^- = e^{-1/15} = 0{,}9355.
+$$
+
+Différents. Mais tous deux légitimes : aucune raison interne au crible ne
+permet de privilégier l’un sur l’autre.
+
+## Comment la bifurcation prend racine
+
+C’est ici que la PT devient subtile. À chaque premier $p$, la formule
+d’holonomie T6 donne :
+
+$$
+\sin^2\theta_p = \delta_p (2 - \delta_p), \qquad \delta_p = \frac{1 - q^p}{p}.
+$$
+
+Si on l’évalue avec $q^+$, on obtient les valeurs $\sin^2(\theta_p, q^+)$.
+Si on l’évalue avec $q^-$, on obtient les valeurs $\sin^2(\theta_p, q^-)$.
+Ce sont deux familles de nombres distinctes :
+
+$$
+\begin{array}{c|cc}
+p & \sin^2(\theta_p, q^+) & \sin^2(\theta_p, q^-) \\ \hline
+3 & 0{,}2192 & 0{,}1172 \\
+5 & 0{,}1940 & 0{,}1102 \\
+7 & 0{,}1726 & 0{,}1037
+\end{array}
+$$
+
+La PT lit alors une bifurcation : $q^+$ vit naturellement sur les
+**vertex** (où les particules interagissent ponctuellement), $q^-$ vit
+naturellement sur les **arêtes** (les propagateurs entre deux vertex).
+
+## Ce que séparent les deux branches
+
+> **Attention au piège.** Il est tentant de dire « q⁺ est la branche
+> discrète, q⁻ la branche continue ». Ce serait faux. La distinction
+> discret/continu ne caractérise que la **route initiale** par laquelle on
+> dérive q (L0 max-entropie pour q⁺, limite de Boltzmann pour q⁻). Une
+> fois fixées, **les deux branches opèrent simultanément sur des objets
+> discrets et continus** : chacune calcule des angles continus θ_p sur
+> des cercles discrets ℤ/pℤ, et chacune se projette dans une métrique
+> continue à trois directions discrètes. Ce qui sépare réellement les
+> branches, c’est leur **rôle physique**.
+
+| Branche | $q^+$ | $q^-$ |
+|---|---|---|
+| **Rôle physique** | Vertex (interaction au point) | Arête (propagation entre points) |
+| **Valeur à μ* = 15** | $13/15$ | $e^{-1/15}$ |
+| **Route de dérivation** | L0 max-entropie sur les entiers pairs | Limite de Boltzmann |
+| **Cible** | Couplages, leptons, PMNS, Higgs | Géométrie, quarks, CKM, $G$, cosmologie |
+| **Objets discrets utilisés** | Cercles ℤ/3ℤ, ℤ/5ℤ, ℤ/7ℤ (CRT) | Trois directions actives {3, 5, 7} de Bianchi I |
+| **Objets continus utilisés** | Angles d’holonomie $\theta_p$ | Métrique de Fisher, facteurs d’échelle $a_p(\mu)$ |
+| **Exemple emblématique** | $\alpha_{\rm EM} = \prod \sin^2(\theta_p, q^+)$ | $V_{us} = \sin^2(\theta_3, q^-) + \sin^2(\theta_5, q^-)$ |
+
+C’est cette dualité **vertex/arête** qui répartit les 43 observables en
+deux groupes : ceux qui descendent de la branche couplage, et ceux qui
+descendent de la branche géométrie. **Aucune observable physique ne
+mélange les deux** au niveau arbre — c’est ce qu’on appelle la règle
+d’**exclusion cross-branch**.
+
+## Une signature : le facteur 2
+
+La différence entre $\delta(q^+)$ et $\delta(q^-)$ est presque exactement
+un facteur 2. C’est cette dualité quasi-binaire qui sépare ce qui se
+mesure comme « interaction » et ce qui se mesure comme « espace ».
+
+> Test d’ablation : permuter l’assignation des branches pour les 43
+> observables dégrade les écarts par un facteur **106 en moyenne**. La
+> bifurcation n’est donc pas cosmétique : elle est forcée par les données.
+
+## Question naturelle : peut-on croiser les routes ?
+
+> *Si q⁺ vient d’une route discrète et q⁻ d’une route continue, ne pourrait-on
+> pas dériver q⁺ par une autre voie continue, ou q⁻ par une autre voie discrète ?*
+
+**Non, et c’est ce qui rend la bifurcation rigide.** Voici pourquoi.
+
+#### La limite continue de q⁺ donne q⁻
+
+Partons de la distribution géométrique discrète sur les entiers pairs avec
+moyenne $\mu$. Si on prend la **limite continue** (l’écart entre événements
+$\Delta x \to 0$, mais avec la même moyenne), la distribution géométrique
+devient une exponentielle continue :
+
+$$
+P_{\rm disc}(X = 2k) = (1 - q^+)\,(q^+)^{k-1}
+\quad \xrightarrow{\Delta x \to 0} \quad
+P_{\rm cont}(x) = \frac{1}{\mu}\,e^{-x/\mu}.
+$$
+
+Le paramètre du régime continu est :
+
+$$
+q^- = \lim_{\Delta x \to 0} \left(1 - \frac{\Delta x}{\mu}\right)^{1/\Delta x} = e^{-1/\mu}.
+$$
+
+Donc **toute tentative de redériver q⁺ par une route continue retombe
+mécaniquement sur q⁻**.
+
+#### La discrétisation de q⁻ donne q⁺
+
+Inversement, partons de l’exponentielle continue. Si on la discrétise sur
+le réseau des entiers pairs sous la même contrainte de moyenne, on obtient
+exactement la géométrique de paramètre $q^+ = 1 - 2/\mu$. **Aucun autre
+résultat n’est compatible.**
+
+#### Conclusion : pas un choix arbitraire
+
+q⁺ et q⁻ ne sont **pas deux conventions** parmi une infinité possible. Ce
+sont les **deux régimes** (discret pair / continu réel) du **même problème
+variationnel** (max-entropie sous contrainte de moyenne). La route détermine
+le régime, et le régime détermine le paramètre — pas de choix.
+
+#### Mais alors q⁺ et q⁻ ne sont-ils « la même chose vue autrement » ?
+
+À la limite $\mu \to \infty$, oui : $q^+ \to 1$ et $q^- \to 1$, et la
+chaleur latente $L = q^- - q^+ \to 0$. Les deux branches coïncident.
+
+À μ fini — et notamment à $\mu^* = 15$ — l’écart $L \approx 0{,}069$ est
+**non-nul, mesurable, et physique**. C’est cette différence finie entre
+discret et continu qui sépare les rôles : interaction au point d’un côté,
+propagation entre points de l’autre. Sans μ fini, pas de bifurcation
+observable.
+
+> **La bifurcation est l’ombre arithmétique d’un fait thermodynamique** :
+> à μ fini, un système discret et sa limite continue ne coïncident pas
+> exactement, et cet écart porte la moitié de la physique du Modèle Standard.
+
+## Une transition de phase de premier ordre
+
+La différence $L = q^- - q^+ = 0{,}069$ est une **chaleur latente**.
+La PT lit la bifurcation comme une transition de phase du premier ordre
+au point $\mu^* = 15$. Avant la bifurcation, le système est unitaire ;
+après, il est dual.
+
+Cette chaleur latente n’est pas perdue : elle se retrouve dans le secteur
+sombre cosmologique. La fraction $\Omega_{\rm info} = 26{,}48\%$ obtenue
+par la formule de Clausius $L \sim D_{KL} = s^2 = 1/4$ correspond à
+**0,09 %** de la mesure Planck. Ce n’est pas un fit.
+
+## Pourquoi c’est inévitable
+
+L’unicité $\mu^* = 15$ ne dit pas seulement que le point fixe est
+arithmétiquement déterminé. Elle dit aussi qu’il existe deux dérivations
+indépendantes de $q$ à partir de $\mu$ — une discrète exacte ($q^+$),
+une continue de Boltzmann ($q^-$) — et qu’aucune ne peut être éliminée.
+
+Si on n’avait que l’une, on perdrait la moitié du Modèle Standard. Si on
+les fusionnait artificiellement, on ferait disparaître la séparation
+naturelle entre interactions et géométrie. La PT prend la voie la plus
+propre : **les deux coexistent et signent deux faces du même point fixe**.
+
+## En une phrase
+
+La bifurcation $q^+ / q^-$ est l’unique manière dont la cascade peut
+fermer sa cohérence à $\mu^* = 15$ tout en restant simultanément (i) discrète
+exacte (entropie maximale L0) et (ii) continue Boltzmann (limite naturelle
+de Gibbs). Sa nécessité est la raison profonde pour laquelle la physique
+contient à la fois des couplages **et** une géométrie.
+
+## Voir aussi
+
+- [L0 — Distribution géométrique unique](/theorems/L0)
+- [T5 — Point fixe μ* = 15](/theorems/T5)
+- [T6 — Identité d’holonomie](/theorems/T6)
+- [Cosmogonie](/big-bang) — la phase S5 où la bifurcation s’enclenche
+- [Cosmologie](/cosmologie) — la chaleur latente devient secteur sombre
+- [Calculatrice](/calculator) — voir les deux branches en direct
