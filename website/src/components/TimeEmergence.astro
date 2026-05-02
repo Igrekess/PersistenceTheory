@@ -1,0 +1,1081 @@
+---
+interface Props {
+  lang: 'fr' | 'en';
+}
+
+const { lang } = Astro.props;
+const fr = lang === 'fr';
+
+const t = {
+  eyebrow: fr ? 'Temps' : 'Time',
+  title: fr
+    ? 'Le temps comme signature mesurable de la persistance'
+    : 'Time as the measurable signature of persistence',
+  dek: fr
+    ? 'Dans PT, le crible ne se déroule pas dans un temps déjà donné. Il porte d’abord une hiérarchie de distinctions ; le temps propre apparaît quand la géométrie de Fisher donne à la profondeur μ une signature opposée aux directions spatiales.'
+    : 'In PT, the sieve does not unfold inside an already-given time. It first carries a hierarchy of distinctions; proper time appears when Fisher geometry gives the depth μ a signature opposite to spatial directions.',
+  heroNote: fr ? 'Lecture visuelle du chapitre 13' : 'Visual reading of chapter 13',
+  plainLabel: fr ? 'Vulgarisé' : 'Plain language',
+  standardLabel: 'Standard',
+  technicalLabel: fr ? 'Technique' : 'Technical',
+  statLogic: fr ? 'ordre logique' : 'logical order',
+  statMetric: fr ? 'bascule métrique' : 'metric switch',
+  statProper: fr ? 'temps propre' : 'proper time',
+  guideTitle: fr ? 'Comment lire cette page' : 'How to read this page',
+  guideParts: fr
+    ? [
+        'Notre intuition imagine le temps comme une scène : l’univers serait posé dessus, puis les événements arriveraient les uns après les autres. PT inverse l’image. Elle commence par une structure de contraintes, puis demande à quel moment cette structure devient lisible comme durée.',
+        'Une bonne métaphore est celle d’un livre fermé. Les pages existent ensemble, mais la lecture les ordonne. L’ordre de lecture ne crée pas les pages ; il rend seulement lisible une structure déjà donnée.',
+        'La cosmogonie PT fonctionne ainsi : les seuils du crible ne sont pas des dates. Ils sont des dépendances. Le temps apparaît seulement quand cette hiérarchie reçoit une géométrie capable de transformer une profondeur de lecture en durée propre.',
+      ]
+    : [
+        'Our intuition imagines time as a stage: the universe is placed on it, then events arrive one after another. PT reverses the image. It begins with a structure of constraints, then asks when that structure becomes readable as duration.',
+        'A useful metaphor is a closed book. The pages exist together, but reading orders them. Reading order does not create the pages; it only makes an already-given structure readable.',
+        'PT cosmogony works in that way: sieve thresholds are not dates. They are dependencies. Time appears only when this hierarchy receives a geometry able to turn reading depth into proper duration.',
+      ],
+  guideCards: fr
+    ? [
+        { title: 'Livre', body: 'les pages existent ensemble, mais la lecture leur donne un ordre interne.' },
+        { title: 'Partition', body: 'les notes sont écrites ; l’exécution transforme la structure en durée vécue.' },
+        { title: 'Carte', body: 'un chemin ne devient mesurable que lorsqu’une échelle permet de convertir les pas.' },
+      ]
+    : [
+        { title: 'Book', body: 'pages exist together, but reading gives them an internal order.' },
+        { title: 'Score', body: 'notes are written; performance turns structure into lived duration.' },
+        { title: 'Map', body: 'a path becomes measurable only once a scale converts steps.' },
+      ],
+  plainTitle: fr ? 'Le temps comme lecture, pas comme décor' : 'Time as reading, not as scenery',
+  plainParts: fr
+    ? [
+        'La première difficulté est de sortir de l’image familière du décor. Nous avons tendance à imaginer le temps comme une grande règle horizontale sur laquelle l’univers serait posé. Dans cette image, il y aurait un “avant”, puis un “pendant”, puis un “après”. PT demande plutôt comment cette règle peut apparaître.',
+        'Dans la lecture PT, le crible est d’abord une structure donnée par contraintes. On peut la lire couche après couche, mais cette lecture n’est pas encore une chronologie physique. C’est comme une partition : toutes les notes sont sur la page, pourtant la musique n’existe comme durée qu’au moment où une exécution orientée traverse la partition.',
+        'La cosmogonie PT se comprend ainsi : les seuils 2, 3, 5, 7, puis les échos, ne sont pas des instants alignés sur une horloge extérieure. Ce sont des conditions de lisibilité. Certaines distinctions doivent être disponibles avant que d’autres aient un sens.',
+        'Le point crucial est donc : un ordre n’est pas encore une horloge. Une recette de cuisine a un ordre, une preuve mathématique a un ordre, une phrase a un ordre ; pourtant cet ordre ne suffit pas à produire une durée mesurable. Pour qu’une durée apparaisse, il faut une règle de mesure interne.',
+        'C’est là que la métrique intervient. Elle ne dit pas seulement “dans quel ordre lire”, elle dit combien vaut un petit pas de lecture. Quand cette métrique donne à la profondeur μ le signe opposé aux distances spatiales, ce pas ne se lit plus comme une longueur supplémentaire. Il se lit comme une durée.',
+        'En langage simple : le crible ne se déroule pas dans le temps. Le temps apparaît quand la lecture interne du crible reçoit une géométrie qui permet à une horloge interne d’exister.',
+      ]
+    : [
+        'The first difficulty is to leave the familiar image of scenery. We tend to imagine time as a large horizontal ruler on which the universe is placed. In that image, there is a “before”, then a “during”, then an “after”. PT instead asks how that ruler can appear.',
+        'In the PT reading, the sieve is first a structure given by constraints. One can read it layer after layer, but that reading is not yet physical chronology. It is like a musical score: all notes are on the page, yet music exists as duration only when an oriented performance crosses the score.',
+        'PT cosmogony is understood in that way: the thresholds 2, 3, 5, 7, then the echoes, are not instants lined up on an external clock. They are conditions of readability. Some distinctions must be available before others can make sense.',
+        'The crucial point is therefore: an order is not yet a clock. A cooking recipe has an order, a mathematical proof has an order, a sentence has an order; but that order alone does not produce measurable duration. For duration to appear, an internal rule of measurement is needed.',
+        'That is where the metric enters. It does not merely say “in what order to read”; it says how much a small reading step is worth. When this metric gives the depth μ the sign opposite to spatial distances, that step no longer reads as one more length. It reads as duration.',
+        'In simple terms: the sieve does not unfold in time. Time appears when the internal reading of the sieve receives a geometry that allows an internal clock to exist.',
+      ],
+  plainChecks: fr
+    ? [
+        { title: 'Ordre logique', body: 'les dépendances sont déjà orientées, mais aucune durée physique n’est encore mesurée.' },
+        { title: 'Échelle interne', body: 'la métrique donne un poids aux petits pas de lecture dans la profondeur μ.' },
+        { title: 'Signe temporel', body: 'le signe opposé aux longueurs spatiales empêche μ d’être seulement une quatrième distance.' },
+      ]
+    : [
+        { title: 'Logical order', body: 'dependencies are already oriented, but no physical duration is measured yet.' },
+        { title: 'Internal scale', body: 'the metric gives weight to small reading steps in depth μ.' },
+        { title: 'Timelike sign', body: 'the sign opposite to spatial lengths prevents μ from being merely a fourth distance.' },
+      ],
+  flowTitle: fr ? 'De l’ordre logique au temps propre' : 'From logical order to proper time',
+  flowParts: fr
+    ? [
+        'Un ordre logique ne suffit pas à faire une horloge. Pour obtenir du temps physique, il faut une métrique : une règle qui dit comment mesurer une petite différence entre deux états internes.',
+        'La métrique de Fisher mesure précisément cette distinguabilité. Si un petit changement de μ modifie beaucoup la distribution du crible, la distance Fisher est grande ; s’il la modifie peu, elle est petite.',
+        'Quand la composante g₀₀ devient négative, μ cesse d’être une simple profondeur. Elle reçoit le signe temporel : elle ne s’ajoute plus comme une longueur spatiale, elle définit une durée propre.',
+        'Autrement dit, PT distingue trois niveaux : l’ordre de dépendance, la mesure Fisher de cet ordre, puis la signature qui permet d’appeler une direction “temps”. Le schéma résume cette promotion progressive, pas une chronologie cosmique.',
+      ]
+    : [
+        'A logical order is not enough to make a clock. To obtain physical time, one needs a metric: a rule saying how to measure a small difference between two internal states.',
+        'The Fisher metric measures exactly this distinguishability. If a small change in μ strongly changes the sieve distribution, Fisher distance is large; if it changes it only slightly, distance is small.',
+        'When the g₀₀ component becomes negative, μ stops being a bare depth. It receives the timelike sign: it no longer adds like a spatial length; it defines proper duration.',
+        'In other words, PT separates three levels: dependency order, Fisher measurement of that order, then the signature that allows one direction to be called “time”. The diagram summarises that promotion, not a cosmic chronology.',
+      ],
+  beforeTime: fr ? 'ordre de dépendance' : 'dependency order',
+  fisher: fr ? 'Fisher mesure' : 'Fisher measures',
+  signature: fr ? 'g₀₀ < 0' : 'g₀₀ < 0',
+  proper: fr ? 'dτ = √|g₀₀| dμ' : 'dτ = √|g₀₀| dμ',
+  graphTitle: fr ? 'Où la direction de temps apparaît' : 'Where the time direction appears',
+  graphParts: fr
+    ? [
+        'La courbe ci-dessous n’est plus un schéma métaphorique : elle est calculée depuis la formule du chapitre 13, sur le secteur actif {3,5,7}.',
+        'Ce que l’on lit d’abord est le signe. Avant μc ≈ 6,97, la direction μ ne possède pas encore le signe temporel. Après ce seuil, g₀₀ < 0 : la profondeur peut être convertie en temps propre.',
+        'μ* = 15 se situe déjà dans ce régime lorentzien. C’est pourquoi la cosmogonie peut dire que le temps mesurable apparaît juste avant la stabilisation physique de la cascade.',
+      ]
+    : [
+        'The curve below is no longer a metaphorical sketch: it is computed from the chapter 13 formula on the active sector {3,5,7}.',
+        'The first thing to read is the sign. Before μc ≈ 6.97, the μ direction does not yet carry the timelike sign. After that threshold, g₀₀ < 0: depth can be converted into proper time.',
+        'μ* = 15 already lies in that Lorentzian regime. This is why cosmogony can say measurable time appears just before physical stabilisation of the cascade.',
+      ],
+  graphCaption: fr
+    ? 'Courbe calculée : g₀₀(μ) = −d² ln αEM / dμ², fenêtre μ∈[2,30], secteur actif {3,5,7}.'
+    : 'Computed curve: g₀₀(μ) = −d² ln αEM / dμ², window μ∈[2,30], active sector {3,5,7}.',
+  signTitle: fr ? 'Pourquoi le signe opposé change tout' : 'Why the opposite sign changes everything',
+  signParts: fr
+    ? [
+        'Si μ avait le même signe que les directions spatiales, il serait seulement une quatrième longueur. On pourrait l’ajouter aux autres distances, comme une direction de plus où se déplacer.',
+        'Avec le signe opposé, la situation change. La contribution temporelle peut compenser une contribution spatiale dans l’intervalle total. C’est la logique relativiste minimale : la direction ne décrit plus un autre endroit, mais le rythme interne qui sépare deux états.',
+        'Le petit démonstrateur ne simule pas PT. Il montre seulement ce mécanisme : I = dx² − |g₀₀|dμ². Quand le terme temporel domine, la séparation se lit comme une durée.',
+      ]
+    : [
+        'If μ had the same sign as spatial directions, it would merely be a fourth length. It could be added to other distances, like one more direction of travel.',
+        'With the opposite sign, the situation changes. The temporal contribution can compensate a spatial contribution in the total interval. This is the minimal relativistic logic: the direction no longer describes another place, but the internal rhythm separating two states.',
+        'The small demonstrator does not simulate PT. It only shows this mechanism: I = dx² − |g₀₀|dμ². When the temporal term dominates, separation reads as duration.',
+      ],
+  dxLabel: fr ? 'déplacement spatial dx' : 'spatial displacement dx',
+  gLabel: fr ? 'poids temporel |g₀₀|' : 'temporal weight |g₀₀|',
+  spaceTerm: fr ? 'Terme spatial' : 'Spatial term',
+  timeTerm: fr ? 'Terme temporel' : 'Temporal term',
+  interval: fr ? 'Intervalle' : 'Interval',
+  nullBoundary: fr ? 'frontière nulle' : 'null boundary',
+  technicalTitle: fr ? 'Démonstration technique' : 'Technical demonstration',
+  technicalParts: fr
+    ? [
+        'Le chapitre 13 ne dit pas simplement “appelons μ le temps”. Il classe l’identification μ ↔ τ au niveau structurel : la métrique d’espace-temps est lue comme un invariant spectral des matrices de transfert du crible, et μ est l’unique coordonnée qui fournit la composante temporelle.',
+        'Par unicité de Cencov, Fisher est la métrique monotone naturelle sur les familles statistiques : elle mesure ce que l’on peut distinguer sans créer artificiellement de l’information. Dans PT, deux profondeurs μ voisines sont donc proches ou éloignées selon la déformation réelle de la distribution du crible.',
+        'Sur le secteur actif p∈{3,5,7}, la décomposition CRT fournit les trois blocs spatiaux. Il reste une coordonnée de profondeur μ, dont la courbure est portée par le potentiel de persistance S(μ) = −ln αEM(μ).',
+        'Le signe de cette courbure fixe la signature. Quand g₀₀ < 0, la ligne prend la forme lorentzienne ds² = −|g₀₀|dμ² + Σp ap²dxp². Le terme dμ² n’est plus une quatrième longueur : il définit la durée propre.',
+        'La distinction essentielle est donc μ versus τ. μ est une coordonnée de lecture, analogue à une profondeur de crible ; τ est le scalaire mesurable par une horloge interne : τ = ∫√|g₀₀|dμ.',
+        'La proposition de rigidité du temps montre enfin que le contenu physique ne dépend pas du nom donné à la coordonnée. Pour tout reparamétrage strictement monotone μ̃=f(μ), le produit √|g₀₀|dμ reste invariant, donc les observables écrites en fonction de τ restent inchangées.',
+      ]
+    : [
+        'Chapter 13 does not merely say “let μ be time”. It treats the identification μ ↔ τ structurally: the spacetime metric is read as a spectral invariant of sieve transfer matrices, and μ is the unique coordinate producing the temporal component.',
+        'By Cencov uniqueness, Fisher is the natural monotone metric on statistical families: it measures distinguishability without artificially creating information. In PT, two nearby depths μ are close or far according to the actual deformation of the sieve distribution.',
+        'On the active sector p∈{3,5,7}, CRT decomposition provides the three spatial blocks. A depth coordinate μ remains, whose curvature is carried by the persistence potential S(μ) = −ln αEM(μ).',
+        'The sign of that curvature fixes the signature. When g₀₀ < 0, the line element becomes Lorentzian, ds² = −|g₀₀|dμ² + Σp ap²dxp². The dμ² term is no longer a fourth length: it defines proper duration.',
+        'The essential distinction is therefore μ versus τ. μ is a reading coordinate, analogous to sieve depth; τ is the scalar measurable by an internal clock: τ = ∫√|g₀₀|dμ.',
+        'Time Rigidity then shows that physical content does not depend on the chosen coordinate name. For every strictly monotone reparametrisation μ̃=f(μ), the product √|g₀₀|dμ remains invariant, so observables written in terms of τ are unchanged.',
+      ],
+  proofSteps: fr
+    ? [
+        { code: '1', title: 'famille statistique', body: 'On part de la famille des distributions du crible, indexée par la profondeur μ.' },
+        { code: '2', title: 'Cencov / Fisher', body: 'La métrique monotone compatible avec les transformations qui ne créent pas d’information est Fisher.' },
+        { code: '3', title: 'secteur actif', body: 'Sur p∈{3,5,7}, CRT diagonalise les blocs spatiaux et laisse μ comme coordonnée d’échelle.' },
+        { code: '4', title: 'potentiel', body: 'S(μ)=−ln αEM(μ) encode la sensibilité de persistance le long de la profondeur.' },
+        { code: '5', title: 'courbure', body: 'La composante temporelle est lue par g₀₀(μ)=−d²lnαEM/dμ² sur le secteur actif.' },
+        { code: '6', title: 'bascule', body: 'Le changement de signe arrive à μc≈6,97 ; pour μ>μc, la signature est lorentzienne.' },
+        { code: '7', title: 'temps propre', body: 'Le temps mesurable est τ=∫√|g₀₀|dμ, pas le paramètre nu μ.' },
+        { code: '8', title: 'rigidité', body: 'Sous μ̃=f(μ), √|g₀₀|dμ reste invariant : H₀, ΩΛ, q₀ et les équations dérivées se lisent en τ.' },
+      ]
+    : [
+        { code: '1', title: 'statistical family', body: 'Start from the family of sieve distributions indexed by depth μ.' },
+        { code: '2', title: 'Cencov / Fisher', body: 'The monotone metric compatible with information-non-creating maps is Fisher.' },
+        { code: '3', title: 'active sector', body: 'On p∈{3,5,7}, CRT diagonalises spatial blocks and leaves μ as the scale coordinate.' },
+        { code: '4', title: 'potential', body: 'S(μ)=−ln αEM(μ) encodes persistence sensitivity along depth.' },
+        { code: '5', title: 'curvature', body: 'The time component is read as g₀₀(μ)=−d²lnαEM/dμ² on the active sector.' },
+        { code: '6', title: 'switch', body: 'The sign switch occurs at μc≈6.97; for μ>μc, signature is Lorentzian.' },
+        { code: '7', title: 'proper time', body: 'Measurable time is τ=∫√|g₀₀|dμ, not the bare parameter μ.' },
+        { code: '8', title: 'rigidity', body: 'Under μ̃=f(μ), √|g₀₀|dμ remains invariant: H₀, ΩΛ, q₀ and derived equations are read in τ.' },
+      ],
+  equationTitle: fr ? 'Les invariants à ne pas perdre' : 'Invariants not to lose',
+  equations: fr
+    ? [
+        { label: 'Famille statistique', math: 'p(x|μ),  gᶠᵢⱼ = E[∂ᵢlnp ∂ⱼlnp]', note: 'Fisher mesure la distinguabilité locale des distributions du crible.' },
+        { label: 'Potentiel de persistance', math: 'S(μ) = −ln αEM(μ)', note: 'La courbure de S porte la composante temporelle.' },
+        { label: 'Composante temporelle', math: 'g₀₀(μ) = −d²lnαEM / dμ²', note: 'Le signe de g₀₀ décide si μ reste une échelle ou devient une direction temporelle.' },
+        { label: 'Ligne lorentzienne', math: 'ds² = −|g₀₀|dμ² + Σp ap²dxp²', note: 'Le signe opposé sépare durée et distance.' },
+        { label: 'Temps propre', math: 'dτ = √|g₀₀| dμ', note: 'τ est le scalaire observable, pas la graduation nue μ.' },
+        { label: 'Rigidité', math: 'g̃₀₀ = g₀₀/(f′)²,  dμ̃=f′dμ', note: 'Le produit √|g₀₀|dμ est invariant.' },
+      ]
+    : [
+        { label: 'Statistical family', math: 'p(x|μ),  gᶠᵢⱼ = E[∂ᵢlnp ∂ⱼlnp]', note: 'Fisher measures local distinguishability of sieve distributions.' },
+        { label: 'Persistence potential', math: 'S(μ) = −ln αEM(μ)', note: 'The curvature of S carries the temporal component.' },
+        { label: 'Temporal component', math: 'g₀₀(μ) = −d²lnαEM / dμ²', note: 'The sign of g₀₀ decides whether μ remains a scale or becomes timelike.' },
+        { label: 'Lorentzian line', math: 'ds² = −|g₀₀|dμ² + Σp ap²dxp²', note: 'The opposite sign separates duration from distance.' },
+        { label: 'Proper time', math: 'dτ = √|g₀₀| dμ', note: 'τ is the observable scalar, not the bare graduation μ.' },
+        { label: 'Rigidity', math: 'g̃₀₀ = g₀₀/(f′)²,  dμ̃=f′dμ', note: 'The product √|g₀₀|dμ is invariant.' },
+      ],
+  statusTitle: fr ? 'Statut épistémique' : 'Epistemic status',
+  statusText: fr
+    ? 'La page ne prétend pas mesurer directement une horloge primordiale. Elle expose la chaîne PT : ordre du crible → géométrie de Fisher → changement de signe de g₀₀ → temps propre invariant. Le statut fort porte sur la structure métrique ; l’interprétation cosmologique reste une lecture physique de cette structure.'
+    : 'The page does not claim to directly measure a primordial clock. It lays out the PT chain: sieve order → Fisher geometry → sign change of g₀₀ → invariant proper time. The strong status concerns the metric structure; the cosmological interpretation remains a physical reading of that structure.',
+  sourcesTitle: fr ? 'Calculs et preuves à ouvrir' : 'Calculations and proofs to open',
+};
+
+const base = fr ? '' : '/en';
+const sourceLinks = [
+  { href: `${base}/big-bang`, label: fr ? 'Cosmogonie' : 'Cosmogony' },
+  { href: `${base}/cosmologie`, label: fr ? 'Cosmologie' : 'Cosmology' },
+  { href: `${base}/theorems/T5`, label: fr ? 'T5 — attracteur μ* = 15' : 'T5 — μ* = 15 attractor' },
+  { href: `${base}/gravite-quantique`, label: fr ? 'Géométrie / gravité' : 'Geometry / gravity' },
+];
+
+const g00Value = (mu: number) => {
+  const q = 1 - 2 / mu;
+  let dF = 0;
+  let d2F = 0;
+  [3, 5, 7].forEach((p) => {
+    const qp = q ** p;
+    const a = 1 - qp;
+    const b = 2 * p - 1 + qp;
+    const pqpm1 = p * q ** (p - 1);
+    dF += -pqpm1 / a + pqpm1 / b;
+    const pqpm2 = q > 0 ? p * q ** (p - 2) : 0;
+    d2F += -pqpm2 * (p - 1 + qp) / (a ** 2) + pqpm2 * ((p - 1) * (2 * p - 1) - qp) / (b ** 2);
+  });
+  const oneMinusQ = 1 - q;
+  const fpp = (oneMinusQ ** 3 / 2) * ((oneMinusQ / 2) * d2F - dF);
+  return -fpp;
+};
+
+const makeG00Plot = () => {
+  const x0 = 92;
+  const y0 = 55;
+  const w = 714;
+  const h = 218;
+  const minMu = 2.05;
+  const maxMu = 30;
+  const minG = -0.012;
+  const maxG = 0.09;
+  const x = (mu: number) => x0 + ((mu - minMu) / (maxMu - minMu)) * w;
+  const y = (g: number) => y0 + ((maxG - g) / (maxG - minG)) * h;
+  const points = Array.from({ length: 140 }, (_, i) => {
+    const mu = minMu + (i / 139) * (maxMu - minMu);
+    return [x(mu), y(g00Value(mu))];
+  });
+  return {
+    path: points.map(([px, py], i) => `${i === 0 ? 'M' : 'L'}${px.toFixed(1)} ${py.toFixed(1)}`).join(' '),
+    x0,
+    y0,
+    w,
+    h,
+    zeroY: y(0),
+    muCX: x(6.9675),
+    muStarX: x(15),
+    muStarY: y(g00Value(15)),
+  };
+};
+
+const g00Plot = makeG00Plot();
+---
+
+<section class="bb-shell time-shell">
+  <header class="bb-hero">
+    <div class="bb-hero-inner">
+      <p class="bb-eyebrow">{t.eyebrow}</p>
+      <h1>{t.title}</h1>
+      <p class="bb-dek">{t.dek}</p>
+      <div class="bb-hero-note">{t.heroNote}</div>
+    </div>
+  </header>
+
+  <div class="bb-stats" aria-label={fr ? 'Repères structurants' : 'Structural markers'}>
+    <div>
+      <span>{t.statLogic}</span>
+      <strong>2 → 3 · 5 · 7</strong>
+      <em>{fr ? 'hiérarchie, pas chronologie' : 'hierarchy, not chronology'}</em>
+    </div>
+    <div>
+      <span>{t.statMetric}</span>
+      <strong>μc ≈ 6.97</strong>
+      <em>g₀₀ : + → −</em>
+    </div>
+    <div>
+      <span>{t.statProper}</span>
+      <strong>τ = ∫√|g₀₀|dμ</strong>
+      <em>{fr ? 'invariant physique' : 'physical invariant'}</em>
+    </div>
+  </div>
+
+  <section class="guide-section" aria-label={t.guideTitle}>
+    <div class="guide-copy">
+      <p class="bb-level">{t.plainLabel}</p>
+      <h2>{t.guideTitle}</h2>
+      <div class="copy-stack">
+        {t.guideParts.map((paragraph) => <p>{paragraph}</p>)}
+      </div>
+    </div>
+    <div class="guide-grid">
+      {t.guideCards.map((card) => (
+        <article>
+          <h3>{card.title}</h3>
+          <p>{card.body}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="plain-section">
+    <div class="plain-copy">
+      <p class="bb-level">{t.plainLabel}</p>
+      <h2>{t.plainTitle}</h2>
+      <div class="copy-stack">
+        {t.plainParts.map((paragraph) => <p>{paragraph}</p>)}
+      </div>
+    </div>
+    <div class="plain-checks">
+      {t.plainChecks.map((card) => (
+        <article>
+          <h3>{card.title}</h3>
+          <p>{card.body}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="time-emergence" data-min-depth="L2">
+    <div>
+      <p class="bb-level">{t.standardLabel}</p>
+      <h2>{t.flowTitle}</h2>
+      <div class="copy-stack">
+        {t.flowParts.map((paragraph) => <p>{paragraph}</p>)}
+      </div>
+    </div>
+    <div class="time-flow" aria-label={t.flowTitle}>
+      <span>{t.beforeTime}</span>
+      <i aria-hidden="true">→</i>
+      <strong>{t.fisher}</strong>
+      <i aria-hidden="true">→</i>
+      <strong>{t.signature}</strong>
+      <i aria-hidden="true">→</i>
+      <span>{t.proper}</span>
+    </div>
+  </section>
+
+  <section class="bb-band graph-band" data-min-depth="L2">
+    <div class="bb-copy">
+      <p class="bb-level">{t.standardLabel}</p>
+      <h2>{t.graphTitle}</h2>
+      <div class="copy-stack">
+        {t.graphParts.map((paragraph) => <p>{paragraph}</p>)}
+      </div>
+    </div>
+    <figure class="g00-panel">
+      <svg viewBox="0 0 880 380" role="img" aria-label={t.graphTitle}>
+        <rect x="34" y="28" width="812" height="300" rx="16" fill="#fbfdff" stroke="#d7e1ea" />
+        <rect x={g00Plot.x0} y={g00Plot.y0} width={g00Plot.muCX - g00Plot.x0} height={g00Plot.zeroY - g00Plot.y0} fill="#eff6ff" opacity="0.7" />
+        <rect x={g00Plot.muCX} y={g00Plot.zeroY} width={g00Plot.x0 + g00Plot.w - g00Plot.muCX} height={g00Plot.y0 + g00Plot.h - g00Plot.zeroY} fill="#fff7ed" opacity="0.85" />
+        <line x1={g00Plot.x0} y1={g00Plot.zeroY} x2={g00Plot.x0 + g00Plot.w} y2={g00Plot.zeroY} stroke="#64748b" stroke-width="2" stroke-dasharray="8 8" />
+        <line x1={g00Plot.x0} y1={g00Plot.y0} x2={g00Plot.x0} y2={g00Plot.y0 + g00Plot.h} stroke="#94a3b8" stroke-width="2" />
+        <line x1={g00Plot.x0} y1={g00Plot.y0 + g00Plot.h} x2={g00Plot.x0 + g00Plot.w} y2={g00Plot.y0 + g00Plot.h} stroke="#94a3b8" stroke-width="2" />
+        <text x={g00Plot.x0 + g00Plot.w} y={g00Plot.y0 + g00Plot.h + 28} text-anchor="end" class="svg-muted">μ</text>
+        <text x={g00Plot.x0 - 18} y={g00Plot.y0 + 8} text-anchor="end" class="svg-muted">g₀₀(μ)</text>
+        <text x={g00Plot.x0 - 10} y={g00Plot.zeroY + 5} text-anchor="end" class="svg-small">0</text>
+        <path d={g00Plot.path} fill="none" stroke="#1f4e79" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+        <line x1={g00Plot.muCX} y1={g00Plot.y0} x2={g00Plot.muCX} y2={g00Plot.y0 + g00Plot.h} stroke="#d97706" stroke-width="3" stroke-dasharray="7 7" />
+        <circle cx={g00Plot.muCX} cy={g00Plot.zeroY} r="8" fill="#d97706" />
+        <text x={g00Plot.muCX} y="345" text-anchor="middle" class="svg-orange">μc ≈ 6.97</text>
+        <text x={g00Plot.muCX} y="365" text-anchor="middle" class="svg-small">{fr ? 'bascule métrique' : 'metric switch'}</text>
+        <line x1={g00Plot.muStarX} y1={g00Plot.y0} x2={g00Plot.muStarX} y2={g00Plot.y0 + g00Plot.h} stroke="#15803d" stroke-width="3" stroke-dasharray="7 7" />
+        <circle cx={g00Plot.muStarX} cy={g00Plot.muStarY} r="9" fill="#15803d" />
+        <text x={g00Plot.muStarX} y="345" text-anchor="middle" class="svg-green">μ* = 15</text>
+        <text x={g00Plot.muStarX} y="365" text-anchor="middle" class="svg-small">{fr ? 'attracteur réduit' : 'reduced attractor'}</text>
+        <rect x="92" y="4" width="278" height="24" rx="7" fill="#ffffff" opacity="0.96" stroke="#bfdbfe" />
+        <text x="231" y="21" text-anchor="middle" class="svg-blue">{fr ? 'g₀₀ > 0 : pas encore temps propre' : 'g₀₀ > 0: not yet proper time'}</text>
+        <rect x="514" y="292" width="280" height="28" rx="8" fill="#ffffff" opacity="0.92" stroke="#fed7aa" />
+        <text x="654" y="312" text-anchor="middle" class="svg-orange small">{fr ? 'g₀₀ < 0 : direction temporelle' : 'g₀₀ < 0: timelike direction'}</text>
+        <text x="806" y="20" text-anchor="end" class="svg-small">{fr ? 'courbe calculée, fenêtre μ∈[2,30]' : 'computed curve, window μ∈[2,30]'}</text>
+      </svg>
+      <figcaption>{t.graphCaption}</figcaption>
+    </figure>
+  </section>
+
+  <section class="bb-band bb-band-alt sign-band" data-min-depth="L2">
+    <div class="bb-copy">
+      <p class="bb-level">{t.standardLabel}</p>
+      <h2>{t.signTitle}</h2>
+      <div class="copy-stack">
+        {t.signParts.map((paragraph) => <p>{paragraph}</p>)}
+      </div>
+    </div>
+    <div class="interval-demo" data-interval-demo>
+      <div class="sliders">
+        <label>
+          <span>{t.dxLabel}</span>
+          <input data-interval-dx type="range" min="0" max="2" value="1" step="0.05" />
+        </label>
+        <label>
+          <span>{t.gLabel}</span>
+          <input data-interval-g type="range" min="0.05" max="4" value="1" step="0.05" />
+        </label>
+      </div>
+      <div class="interval-cards">
+        <div>
+          <span>{t.spaceTerm}</span>
+          <strong data-interval-space>1.00</strong>
+          <i><b data-interval-space-bar style="width: 25%"></b></i>
+        </div>
+        <div>
+          <span>{t.timeTerm}</span>
+          <strong data-interval-time>1.00</strong>
+          <i><b data-interval-time-bar style="width: 25%"></b></i>
+        </div>
+        <div>
+          <span>{t.interval}</span>
+          <strong data-interval-value>0.00</strong>
+          <em data-interval-kind>{t.nullBoundary}</em>
+        </div>
+      </div>
+      <p class="interval-formula">I = dx² − |g₀₀|dμ²</p>
+      <p data-interval-text class="interval-reading"></p>
+    </div>
+  </section>
+
+  <section class="proof-chain" data-min-depth="L3">
+    <div class="section-intro">
+      <p class="bb-level">{t.technicalLabel}</p>
+      <h2>{t.technicalTitle}</h2>
+      <div class="copy-stack">
+        {t.technicalParts.map((paragraph) => <p>{paragraph}</p>)}
+      </div>
+    </div>
+    <div class="proof-steps">
+      {t.proofSteps.map((step) => (
+        <article>
+          <strong>{step.code}</strong>
+          <h3>{step.title}</h3>
+          <p>{step.body}</p>
+        </article>
+      ))}
+    </div>
+    <div class="equation-panel">
+      <h3>{t.equationTitle}</h3>
+      <div class="equation-grid">
+        {t.equations.map((item) => (
+          <article>
+            <span>{item.label}</span>
+            <strong>{item.math}</strong>
+            <p>{item.note}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="bb-band status-band">
+    <div class="bb-copy">
+      <p class="bb-level">{fr ? 'Statut' : 'Status'}</p>
+      <h2>{t.statusTitle}</h2>
+      <p>{t.statusText}</p>
+    </div>
+    <div class="source-links" aria-label={t.sourcesTitle}>
+      <h3>{t.sourcesTitle}</h3>
+      {sourceLinks.map((link) => <a href={link.href}>{link.label}</a>)}
+    </div>
+  </section>
+</section>
+
+<script define:vars={{ fr }}>
+  const format = (value, digits = 2) => Number(value).toFixed(digits);
+  const text = {
+    spaceKind: fr ? 'séparation spatiale' : 'spatial separation',
+    nullKind: fr ? 'frontière nulle' : 'null boundary',
+    timeKind: fr ? 'séparation temporelle' : 'temporal separation',
+    space: fr
+      ? 'Le terme spatial domine : l’intervalle reste du côté des longueurs.'
+      : 'The spatial term dominates: the interval remains on the side of lengths.',
+    null: fr
+      ? 'Les deux termes se compensent : c’est la frontière nulle, l’analogue pédagogique du trajet lumineux.'
+      : 'The two terms compensate: this is the null boundary, the pedagogical analogue of a lightlike path.',
+    time: fr
+      ? 'Le terme temporel domine : la direction interne n’ajoute pas une longueur, elle produit une durée propre.'
+      : 'The temporal term dominates: the internal direction does not add a length; it produces proper duration.',
+  };
+
+  document.querySelectorAll('[data-interval-demo]').forEach((demo) => {
+    const dxInput = demo.querySelector('[data-interval-dx]');
+    const gInput = demo.querySelector('[data-interval-g]');
+    const update = () => {
+      const dx = Number(dxInput.value);
+      const g = Number(gInput.value);
+      const spatial = dx * dx;
+      const temporal = g;
+      const interval = spatial - temporal;
+      const kind = Math.abs(interval) < 0.08 ? text.nullKind : interval > 0 ? text.spaceKind : text.timeKind;
+      const reading = Math.abs(interval) < 0.08 ? text.null : interval > 0 ? text.space : text.time;
+      demo.querySelector('[data-interval-space]').textContent = format(spatial);
+      demo.querySelector('[data-interval-time]').textContent = format(temporal);
+      demo.querySelector('[data-interval-value]').textContent = format(interval);
+      demo.querySelector('[data-interval-kind]').textContent = kind;
+      demo.querySelector('[data-interval-text]').textContent = reading;
+      demo.querySelector('[data-interval-space-bar]').style.width = `${Math.max(4, Math.min(100, (spatial / 4) * 100))}%`;
+      demo.querySelector('[data-interval-time-bar]').style.width = `${Math.max(4, Math.min(100, (temporal / 4) * 100))}%`;
+    };
+    dxInput.addEventListener('input', update);
+    gInput.addEventListener('input', update);
+    update();
+  });
+</script>
+
+<style>
+  .bb-shell {
+    background: #f8fafc;
+    color: #172033;
+  }
+
+  .bb-hero {
+    display: flex;
+    align-items: center;
+    background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+    border-bottom: 1px solid #dbe3ec;
+  }
+
+  .bb-hero-inner {
+    width: min(1120px, calc(100% - 32px));
+    margin: 0 auto;
+    padding: 72px 0 44px;
+  }
+
+  .bb-eyebrow,
+  .bb-level {
+    font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 0.78rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: #1e3a8a;
+  }
+
+  .bb-eyebrow {
+    display: inline-flex;
+    margin: 0;
+    padding: 4px 10px;
+    border-radius: 6px;
+    background-color: #1e3a8a1a;
+    line-height: 1.1;
+    letter-spacing: 0;
+  }
+
+  .bb-hero h1 {
+    max-width: 860px;
+    margin: 18px 0 22px;
+    color: #1f4e79;
+    font-size: clamp(2.25rem, 5.4vw, 4.15rem);
+    line-height: 1.02;
+    font-weight: 900;
+  }
+
+  .bb-dek {
+    max-width: 820px;
+    color: #334155;
+    font-size: 1.2rem;
+    line-height: 1.65;
+  }
+
+  .bb-hero-note {
+    display: inline-flex;
+    margin-top: 32px;
+    padding: 10px 14px;
+    border: 1px solid #fbbf24;
+    border-radius: 999px;
+    color: #92400e;
+    background: #fffbeb;
+    font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+  }
+
+  .bb-stats {
+    width: min(1120px, calc(100% - 32px));
+    margin: 24px auto 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+  }
+
+  .bb-stats div,
+  .g00-panel,
+  .interval-demo {
+    background: white;
+    border: 1px solid #dbe3ec;
+    border-radius: 8px;
+    box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
+  }
+
+  .bb-stats div {
+    padding: 18px;
+  }
+
+  .bb-stats span,
+  .bb-stats em {
+    display: block;
+    font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    color: #64748b;
+    font-size: 0.85rem;
+  }
+
+  .bb-stats strong {
+    display: block;
+    margin: 6px 0;
+    color: #1f4e79;
+    font-size: 1.45rem;
+    line-height: 1.1;
+  }
+
+  .guide-section,
+  .plain-section,
+  .bb-band,
+  .proof-chain {
+    width: min(1120px, calc(100% - 32px));
+    margin: 56px auto;
+  }
+
+  .guide-section {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 18px;
+    align-items: start;
+  }
+
+  .plain-section {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 18px;
+    padding: 24px;
+    border: 1px solid #dbe3ec;
+    border-radius: 8px;
+    background: #ffffff;
+    box-shadow: 0 12px 28px rgba(15, 23, 42, 0.06);
+  }
+
+  .guide-copy,
+  .plain-copy {
+    max-width: none;
+  }
+
+  .guide-copy h2,
+  .plain-copy h2,
+  .bb-copy h2,
+  .section-intro h2 {
+    margin: 8px 0 14px;
+    color: #1f4e79;
+    font-size: clamp(1.55rem, 3vw, 2.15rem);
+    line-height: 1.12;
+    font-weight: 900;
+  }
+
+  .copy-stack {
+    display: grid;
+    gap: 10px;
+  }
+
+  .copy-stack p,
+  .bb-copy p,
+  .section-intro .copy-stack p {
+    margin: 0;
+    color: #475569;
+    line-height: 1.7;
+    font-size: 1.04rem;
+  }
+
+  .guide-copy .copy-stack p,
+  .plain-copy .copy-stack p {
+    max-width: none;
+  }
+
+  .bb-copy .copy-stack {
+    grid-template-columns: 1fr;
+    row-gap: 12px;
+  }
+
+  .section-intro .copy-stack {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 34px;
+    row-gap: 12px;
+  }
+
+  .bb-copy .copy-stack p,
+  .section-intro .copy-stack p {
+    max-width: none;
+  }
+
+  .guide-grid,
+  .plain-checks {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+  }
+
+  .guide-grid article,
+  .plain-checks article,
+  .proof-steps article {
+    border: 1px solid #dbe3ec;
+    border-radius: 8px;
+    padding: 16px 18px 17px;
+    background: rgba(255, 255, 255, 0.82);
+    box-shadow: 0 10px 22px rgba(15, 23, 42, 0.045);
+  }
+
+  .guide-grid h3,
+  .plain-checks h3,
+  .proof-steps h3 {
+    margin: 0 0 10px;
+    color: #0f172a;
+    font-size: 1rem;
+    font-weight: 900;
+    line-height: 1.2;
+  }
+
+  .guide-grid p,
+  .plain-checks p,
+  .proof-steps p {
+    margin: 0;
+    color: #475569;
+    font-size: 0.94rem;
+    line-height: 1.55;
+  }
+
+  .time-emergence {
+    width: min(1120px, calc(100% - 32px));
+    margin: 28px auto 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 22px;
+    align-items: center;
+    padding: 22px;
+    border: 1px solid #dbe3ec;
+    border-radius: 8px;
+    background:
+      linear-gradient(135deg, rgba(15, 23, 42, 0.98), rgba(31, 78, 121, 0.94)),
+      radial-gradient(circle at 8% 0%, rgba(251, 191, 36, 0.24), transparent 32%);
+    box-shadow: 0 16px 34px rgba(15, 23, 42, 0.13);
+  }
+
+  .time-emergence .bb-level {
+    color: #fbbf24;
+  }
+
+  .time-emergence h2 {
+    margin: 8px 0 12px;
+    color: white;
+    font-size: clamp(1.45rem, 2.3vw, 1.95rem);
+    line-height: 1.08;
+    font-weight: 900;
+  }
+
+  .time-emergence p {
+    margin: 0;
+    color: #dbeafe;
+    line-height: 1.68;
+    font-size: 1rem;
+  }
+
+  .time-emergence .copy-stack {
+    grid-template-columns: 1fr;
+    row-gap: 12px;
+  }
+
+  .time-flow {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+    font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  }
+
+  .time-flow span,
+  .time-flow strong {
+    border-radius: 999px;
+    padding: 9px 12px;
+    line-height: 1;
+  }
+
+  .time-flow span {
+    border: 1px solid rgba(219, 234, 254, 0.25);
+    color: #dbeafe;
+    background: rgba(255, 255, 255, 0.06);
+    font-size: 0.78rem;
+    font-weight: 850;
+    text-transform: uppercase;
+  }
+
+  .time-flow strong {
+    color: #0f172a;
+    background: #fde68a;
+    font-size: 0.96rem;
+    font-weight: 950;
+  }
+
+  .time-flow i {
+    color: #38bdf8;
+    font-style: normal;
+    font-weight: 950;
+  }
+
+  .bb-band {
+    display: grid;
+    grid-template-columns: 0.82fr 1.18fr;
+    gap: 32px;
+    align-items: center;
+  }
+
+  .bb-band-alt {
+    align-items: start;
+  }
+
+  .g00-panel {
+    margin: 0;
+    padding: 16px;
+  }
+
+  .g00-panel svg {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .g00-panel figcaption {
+    margin-top: 12px;
+    color: #475569;
+    font-size: 0.92rem;
+    line-height: 1.55;
+  }
+
+  .svg-muted,
+  .svg-small,
+  .svg-blue,
+  .svg-orange,
+  .svg-green {
+    font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  }
+
+  .svg-muted { fill: #475569; font-size: 16px; }
+  .svg-small { fill: #64748b; font-size: 13px; }
+  .svg-blue { fill: #1f4e79; font-size: 13px; font-weight: 800; }
+  .svg-orange { fill: #d97706; font-size: 18px; font-weight: 800; }
+  .svg-orange.small { font-size: 14px; }
+  .svg-green { fill: #15803d; font-size: 18px; font-weight: 800; }
+
+  .interval-demo {
+    padding: 20px;
+  }
+
+  .sliders {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+  }
+
+  .sliders label span {
+    display: block;
+    margin-bottom: 8px;
+    color: #64748b;
+    font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 0.78rem;
+    font-weight: 850;
+    text-transform: uppercase;
+  }
+
+  .sliders input {
+    width: 100%;
+  }
+
+  .interval-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-top: 18px;
+  }
+
+  .interval-cards div {
+    padding: 14px;
+    border: 1px solid #dbe3ec;
+    border-radius: 8px;
+    background: #f8fafc;
+  }
+
+  .interval-cards span,
+  .interval-cards em {
+    display: block;
+    color: #64748b;
+    font-size: 0.78rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    font-style: normal;
+  }
+
+  .interval-cards strong {
+    display: block;
+    margin: 8px 0;
+    color: #0f172a;
+    font-size: 1.25rem;
+  }
+
+  .interval-cards i {
+    display: block;
+    height: 8px;
+    overflow: hidden;
+    border-radius: 999px;
+    background: #e2e8f0;
+    font-style: normal;
+  }
+
+  .interval-cards b {
+    display: block;
+    height: 100%;
+    border-radius: inherit;
+    background: #1f4e79;
+  }
+
+  .interval-cards div:nth-child(2) b {
+    background: #d97706;
+  }
+
+  .interval-formula {
+    margin: 16px 0 0;
+    padding: 10px 12px;
+    border: 1px solid #dbe3ec;
+    border-radius: 8px;
+    background: #ffffff;
+    color: #1f4e79;
+    font-weight: 850;
+    text-align: center;
+  }
+
+  .interval-reading {
+    margin: 12px 0 0;
+    color: #475569;
+    line-height: 1.58;
+  }
+
+  .section-intro {
+    max-width: none;
+    margin-bottom: 20px;
+  }
+
+  .proof-steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+  }
+
+  .proof-steps strong {
+    display: inline-flex;
+    margin-bottom: 12px;
+    padding: 6px 9px;
+    border-radius: 999px;
+    background: #eff6ff;
+    color: #1f4e79;
+    font-size: 0.82rem;
+  }
+
+  .equation-panel {
+    margin-top: 18px;
+    padding: 20px;
+    border: 1px solid #dbe3ec;
+    border-radius: 8px;
+    background: #ffffff;
+    box-shadow: 0 12px 28px rgba(15, 23, 42, 0.06);
+  }
+
+  .equation-panel h3 {
+    margin: 0 0 14px;
+    color: #1f4e79;
+    font-size: 1.15rem;
+    font-weight: 900;
+  }
+
+  .equation-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .equation-grid article {
+    padding: 14px;
+    border: 1px solid #dbe3ec;
+    border-radius: 8px;
+    background: #f8fafc;
+  }
+
+  .equation-grid span {
+    display: block;
+    margin-bottom: 8px;
+    color: #64748b;
+    font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 0.74rem;
+    font-weight: 850;
+    text-transform: uppercase;
+  }
+
+  .equation-grid strong {
+    display: block;
+    color: #0f172a;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+    font-size: 0.98rem;
+    line-height: 1.45;
+  }
+
+  .equation-grid p {
+    margin: 8px 0 0;
+    color: #475569;
+    font-size: 0.9rem;
+    line-height: 1.55;
+  }
+
+  .status-band {
+    align-items: start;
+    padding: 24px;
+    border: 1px solid #dbe3ec;
+    border-radius: 8px;
+    background: #ffffff;
+    box-shadow: 0 12px 28px rgba(15, 23, 42, 0.06);
+  }
+
+  .source-links {
+    display: grid;
+    gap: 10px;
+  }
+
+  .source-links h3 {
+    margin: 0 0 4px;
+    color: #0f172a;
+    font-size: 1rem;
+    font-weight: 900;
+  }
+
+  .source-links a {
+    display: block;
+    padding: 12px 14px;
+    border: 1px solid #dbe3ec;
+    border-radius: 8px;
+    color: #1f4e79;
+    background: #f8fafc;
+    font-weight: 800;
+    text-decoration: none;
+  }
+
+  .source-links a:hover {
+    border-color: #1f4e79;
+  }
+
+  @media (max-width: 900px) {
+    .bb-stats,
+    .guide-grid,
+    .plain-checks,
+    .time-emergence,
+    .bb-band,
+    .proof-steps,
+    .equation-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .time-flow {
+      justify-content: flex-start;
+    }
+
+    .bb-copy .copy-stack,
+    .section-intro .copy-stack,
+    .time-emergence .copy-stack {
+      grid-template-columns: 1fr;
+    }
+
+    .interval-cards,
+    .sliders {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .bb-hero-inner {
+      padding: 48px 0 34px;
+    }
+
+    .bb-stats strong {
+      font-size: 1.2rem;
+    }
+
+    .bb-band,
+    .time-emergence,
+    .status-band {
+      gap: 20px;
+      padding: 18px;
+    }
+  }
+</style>

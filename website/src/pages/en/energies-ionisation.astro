@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
+import PageHero from '@components/PageHero.astro';
 import { readFileSync } from 'node:fs';
 import { ionizationHighlights, ionizationMetrics, ionizationRows, periodStarts } from '@/data/ionization';
 
@@ -76,30 +77,17 @@ const checks = [
   title="Ionization energies derived by PT"
   description="PT-Chemistry demonstration page: from the periodic table skeleton to first ionization energies, with a PT vs reference plot and reproducible script."
 >
+  <PageHero
+    eyebrow="PT chemistry / quantitative validation"
+    domain="chemistry"
+    title="Ionization energies derived by PT"
+    dek="The periodic table gives the skeleton. Ionization energy tests whether that skeleton can produce measurable numbers: how much energy does it take to remove the first electron from an atom?"
+    heroNote="This page shows two levels: the geometric engine, readable and directly tied to shell polygons, then the full atomic engine adding PT screening and relaxation corrections, including the jj2 spinor correction, superheavy CPR, and the continuous CPR branch projected on the s/p/d/f channels."
+  />
+
   <section class="border-b border-stone-200 bg-white">
     <div class="max-w-6xl mx-auto px-4 py-12 md:py-16">
       <div class="grid gap-8">
-        <div class="max-w-3xl">
-          <p class="font-sans text-sm font-semibold uppercase tracking-wider text-derorange mb-3">
-            PT chemistry / quantitative validation
-          </p>
-          <h1 class="text-4xl md:text-5xl font-bold text-thmblue leading-tight mb-5">
-            Ionization energies derived by PT
-          </h1>
-          <p class="text-lg text-stone-700 leading-relaxed mb-5">
-            The periodic table gives the skeleton. Ionization energy tests
-            whether that skeleton can produce measurable numbers: how much
-            energy does it take to remove the first electron from an atom?
-          </p>
-          <p class="text-stone-700 leading-relaxed">
-            This page shows two levels: the geometric engine, readable and
-            directly tied to shell polygons, then the full atomic engine adding
-            PT screening and relaxation corrections, including the jj2 spinor
-            correction, superheavy CPR, and the continuous CPR branch projected
-            on the s/p/d/f channels.
-          </p>
-        </div>
-
         <div class="bg-stone-50 border border-stone-200 rounded-lg p-4">
           <div class="flex items-center justify-between gap-4 mb-3">
             <h2 class="font-sans font-semibold text-thmblue">

@@ -1,101 +1,98 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
-import ResearchTopic from '@components/ResearchTopic.astro';
+import DeepPhysicsPage from '@components/DeepPhysicsPage.astro';
 
-const features = [
-  { title: 'Continuous wave, remarkable points', body: 'The Fisher/holonomy mechanics is continuous; the sieve selects persistent points and channels.', status: 'THM/DER' },
-  { title: 'Covariance of persistent points', body: 'Constraints, boundary amplitudes, Dirac algebra, topological foams, and Fourier/RG decorations form the minimal QG sector.', status: 'DER/VAL' },
-  { title: 'Kerr observables', body: 'The Kerr phase channel is selected by half-holonomy; the dissipative $d\\tau$ channel remains to be finely validated on ringdowns.', status: 'OPEN' },
-];
-
-const sections = [
-  {
-    eyebrow: 'Plain',
-    title: 'Do not quantize the scenery, read the scenery from the quantum',
-    paragraphs: [
-      'The usual conflict comes from asking the wrong question: should the continuum be quantized, or should the discrete manufacture the continuum? The PT reading says something else: there is a continuous wave mechanics, and the sieve marks its points of persistence.',
-      'In plain language: think of a wave whose specific places become stable, like nodes or resonances. The sieve does not replace the wave; it indicates the positions, channels, and closures where that wave becomes readable.',
-      'On this reading, the question is no longer “how do we quantize the metric?”, but “why does this continuous mechanics select precisely these remarkable points?”. PT quantum gravity is therefore a theory of persistent selection.',
-    ],
-  },
-  {
-    eyebrow: 'Standard',
-    title: 'Physical architecture: continuous, remarkable points, covariant',
-    depth: 'L2',
-    paragraphs: [
-      'The classical sector comes from informational geometry: the distribution family of the sieve carries a Fisher metric $g^F$, then the active restriction gives Fisher-Bianchi geometry, Lorentzian signature, and Einstein equations.',
-      'The minimal quantum sector adds dynamics: transfer matrices $T_m$ define the CRT Hilbert space, canonical constraints select persistent states, and boundary amplitudes give the covariant version of the calculation.',
-      'The decisive conceptual point is the dissolution of the “continuum limit”. PT does not start from a geometric mesh whose spacing must go to zero: it starts from a continuous mechanics of phase, metric, and holonomy, whose persistent points are marked by the sieve.',
-      'For black holes, ringdown becomes a selection observable. Kerr phase follows a spin half-holonomy; the dissipative $d\\tau$ channel is read as a surface-gravity candidate, still to be separated from start-time and overtone effects.',
-    ],
-    items: [
-      'Continuous mechanics: Fisher metric, phases, holonomies, proper time, and Einstein equations.',
-      'Remarkable points: transfer matrix, CRT, constraints, and persistent states.',
-      'Covariant: arbitrary-boundary amplitudes, Dirac algebra, and physical foams.',
-      'Observable: Kerr selector, ringdown phase, and dissipative $d\\tau$ candidate.',
-    ],
-  },
-  {
-    eyebrow: 'Technical',
-    title: 'Complete technical demonstration',
-    depth: 'L3',
-    paragraphs: [
-      'The technical level unfolds the chain without shortcuts: continuous Fisher/holonomy mechanics, selection of persistent points by the sieve, CRT Hilbert space, GR sector, constraints, covariant amplitudes, foams, then Kerr observables. Every step preserves the same PT logic: exclusion of self-copying, spin involution, boundary covariance, and persistence of admissible channels.',
-      'The continuous support is $g^F$ with its associated phases and holonomies. It is defined on the distribution family and directly gives informational geometry: the wave-like support on which channels are read.',
-      'Discrete selection is carried by $T_m$. By CRT, it marks remarkable points of this continuous mechanics, factorizes into primes, and supplies a tensor structure. The inductive limit $\\mathcal H_\\infty=\\varinjlim\\bigotimes_p\\mathcal H_p$ preserves these persistent selections without postulating primitive continuous spacetime.',
-      'Covariance requires the amplitude not to depend on an arbitrary history slicing. Arbitrary-boundary amplitudes compose, the finite Dirac algebra lifts cylindrically, and topology changes remain physical foams when they respect admissible channels.',
-      'The test observable is Kerr. The macroscopic selector uses $M\\Omega_H(a)=a/(2(1+\\sqrt{1-a^2}))$ and forces the phase correction $\\phi(a)=\\phi_0+\\pi M\\Omega_H(a)$, hence $M\\omega(a)=M\\omega_0+\\Omega_H(a)/2$.',
-    ],
-    items: [
-      'Proof 1: $g^F$ and holonomies give the continuous mechanics.',
-      'Proof 2: $T_m$ selects persistent points and the CRT Hilbert structure.',
-      'Proof 3: constraints, amplitudes, and foams give minimal QG covariance.',
-      'Proof 4: Kerr selects a phase half-holonomy and leaves $d\\tau$ as the dissipative test.',
-    ],
-    demo: {
-      kind: 'kerr',
-      title: 'Macroscopic Kerr selector',
-      caption: 'The slider shows $M\\Omega_H(a)=a/(2(1+\\sqrt{1-a^2}))$, the quantity driving the ringdown phase half-holonomy in the PT reading.',
-      labels: ['Kerr spin a'],
-    },
-    proof: {
-      title: 'Technical demonstration chain',
-      steps: [
-        'Informational mechanics: on the distribution family, the Fisher metric $g^F$ measures the sensitivity of persistent states. With phases and holonomies, it supplies the continuous support of PT dynamics.',
-        'Discrete selection: the sieve gives a transfer matrix $T_m$ whose forbidden transitions eliminate self-copying. Survivors are the remarkable points of this continuous mechanics.',
-        'CRT factorization: the modular structure decomposes into prime factors. This factorization naturally gives the local tensor product of degrees of freedom.',
-        'Quantum support: the inductive limit $\\mathcal H_\\infty=\\varinjlim\\bigotimes_p\\mathcal H_p$ supplies the PT Hilbert space. Quantum structure comes from persistent channel selection, not from a secondary quantization of the metric.',
-        'Classical relativity: the restriction of $g^F$ to active channels gives Fisher-Bianchi geometry; Lorentzian signature, proper time, and Einstein equations follow in the GR sector.',
-        'Canonical constraints: PT QG constraints remove boundary redundancies and select physical persistent states. Their finite algebra verifies the expected closure.',
-        'Continuum lift: the finite Dirac algebra lifts cylindrically. The sieve’s remarkable points remain compatible with the continuous mechanics instead of adding covariance by hand.',
-        'Boundary amplitudes: for an arbitrary boundary, the covariant amplitude composes correctly when two regions are glued. This is the PT analogue of independence from the chosen slicing.',
-        'Physical foams: topology changes are admissible only when they respect persistence channels. Fourier/RG decorations add higher modes without breaking closure.',
-        'Kerr selector: for a real black hole, rotation selects $\\Omega_H(a)$; spin involution imposes the half-holonomy and therefore the $\\pi M\\Omega_H(a)$ phase correction.',
-        'Uniqueness of the phase channel: other same-order admissible deformations fail once spin involution, Kerr holonomy, and dissipative invariance are imposed together.',
-        'Open dissipative channel: $R_\\tau(a)=1/(4M\\kappa_H(a))-1$ is the natural surface-gravity candidate. Its status depends on observational separation between real signal, start-time, overtones, and pyRing/LVK systematics.',
-      ],
-      conclusion: 'In PT, quantum gravity is the persistent covariance of a continuous wave mechanics whose remarkable points are selected by the sieve. The minimal sector articulates Fisher/holonomy, CRT selection, Hilbert space, GR, constraints, amplitudes, and Kerr observables. Full empirical promotion remains open: the dissipative $d\\tau$ channel must still be cleanly isolated or excluded in real ringdowns.',
-    },
-  },
-];
-
-const sources = [
-  'ch. 13: GR sector, WDW, graviton vertex, graviton constraint.',
-  'ch. 24: “minimal QG sector closed; empirical ringdown validation ongoing”.',
-  'ch. 9: CRT Hilbert space, metric reconstruction and bridges.',
-  'Appendix F: canonical companion script registry, 45 script entries, 2,522/2,523 passing checks, 1 known failure.',
-  'Appendix S: exploratory QG status, Kerr selector, half-holonomy, and dissipative $d\\tau$ channel.',
+const links = [
+  { href: '/en/relativite', label: 'Relativity' },
+  { href: '/en/temps', label: 'Time' },
+  { href: '/en/observables', label: 'Observables' },
+  { href: '/en/audit', label: 'Audit' },
 ];
 ---
 
 <BaseLayout title="Quantum Gravity in PT" description="What PT derives, reframes, and leaves open about quantum gravity.">
-  <ResearchTopic
+  <DeepPhysicsPage
+    domain="physics"
     eyebrow="Quantum gravity"
-    title="Quantum gravity in PT: from sieve to ringdown"
-    description="PT does not only try to quantize Einstein. It proposes that Einstein geometry is the gravitational reading of a continuous wave mechanics whose persistent points are selected by the sieve."
-    lead="The core idea is powerful: if Fisher/holonomy mechanics selects the same remarkable points as the sieve, then classical gravity is a geometric projection of a more fundamental object. The page is organized in three depths: plain intuition, standard physical architecture, and technical demonstration."
-    features={features}
-    sections={sections}
-    sources={sources}
+    title="From sieve to ringdown"
+    dek="PT does not only try to quantize Einstein. It proposes that Einstein geometry is the gravitational reading of a continuous wave mechanics whose persistent points are selected by the sieve."
+    heroNote="Fisher / holonomy → CRT → constraints → amplitudes → Kerr"
+    plainLabel="Plain language"
+    standardLabel="Standard"
+    technicalLabel="Technical"
+    statusLabel="Status"
+    stats={[
+      { label: 'continuous sector', value: 'Fisher', note: 'metric, phases, holonomies' },
+      { label: 'discrete selection', value: 'CRT', note: 'persistent points and Hilbert space' },
+      { label: 'QG validation', value: 'open', note: 'Kerr ringdowns still to isolate' },
+    ]}
+    guide={{
+      title: 'Do not quantize the scenery, read the scenery from the quantum',
+      paragraphs: [
+        'The usual difficulty of quantum gravity often comes from an overly rigid image: on one side continuous spacetime, on the other a discrete quantum world. One then tries either to cut the continuum into small bricks or to make the continuum emerge from a collection of bricks.',
+        'PT proposes a different order. First there is a continuous information mechanics: phases, holonomies, Fisher metric, proper time. The sieve does not replace that wave; it marks the places where it becomes persistent, like stable nodes or resonances.',
+        'A simple image: a vibrating string carries a continuous wave, but some points become privileged because they remain stable. PT quantum gravity reads spacetime in that way: the continuum carries the wave, the sieve selects remarkable points.',
+        'This changes the question. Instead of asking “how do we quantize the metric?”, PT asks “why does this continuous mechanics select precisely these channels, constraints, and amplitudes?”.',
+        'Black-hole ringdown then becomes a natural test: after a merger, the black hole rings like an instrument. If PT channels are real, some phases of that sound should follow Kerr selection.',
+      ],
+      cards: [
+        { title: 'Wave', body: 'The continuous side carries phases, metric, and holonomies: it is not a mesh to refine.' },
+        { title: 'Nodes', body: 'The sieve marks channels that persist within this continuous mechanics.' },
+        { title: 'Test', body: 'Kerr ringdowns test phase selection and the dissipative channel.' },
+      ],
+    }}
+    standard={{
+      title: 'Physical architecture: continuous, remarkable points, covariance',
+      paragraphs: [
+        'The classical sector comes from informational geometry: the distribution family of the sieve carries a Fisher metric gᶠ, then the active restriction gives Fisher-Bianchi geometry, Lorentzian signature, and Einstein equations.',
+        'The minimal quantum sector adds dynamics: transfer matrices Tₘ define the CRT Hilbert space, canonical constraints select persistent states, and boundary amplitudes give the covariant version of the calculation.',
+        'The decisive conceptual point is the dissolution of the “continuum limit”. PT does not start from a geometric mesh whose spacing must go to zero; it starts from a continuous mechanics whose persistent points are marked by the sieve.',
+        'For black holes, ringdown becomes a selection observable. Kerr phase follows a spin half-holonomy; the dissipative dτ channel still has to be finely validated on real signals.',
+      ],
+      flow: ['Fisher wave', 'CRT points', 'Hilbert', 'constraints', 'Kerr'],
+    }}
+    visual={{
+      kind: 'quantum',
+      title: 'Continuous wave and persistent points',
+      paragraphs: [
+        'The diagram is deliberately conceptual: it shows that PT does not replace the continuum with a grid. Fisher/holonomy mechanics remains continuous; the sieve selects persistent points, channels, and closures.',
+        'This distinction matters pedagogically. The discrete is not spacetime dust; it is the trace of resonances surviving the constraint.',
+        'Covariance then comes from how boundary amplitudes glue: the calculation must give the same physical content independently of the chosen slicing.',
+      ],
+      cards: [
+        { title: 'Native continuum', body: 'Fisher, phases, and holonomies form the wave-like support of the dynamics.' },
+        { title: 'Selection', body: 'Tₘ and CRT isolate persistent channels without making spacetime out of bricks.' },
+        { title: 'Covariance', body: 'Constraints, amplitudes, and foams ensure that slicing does not change the result.' },
+      ],
+    }}
+    technical={{
+      title: 'Complete technical demonstration',
+      paragraphs: [
+        'The technical level unfolds the chain without shortcuts: continuous Fisher/holonomy mechanics, selection of persistent points by the sieve, CRT Hilbert space, GR sector, constraints, covariant amplitudes, foams, then Kerr observables.',
+        'The continuous support is gᶠ with its associated phases and holonomies. It is defined on the distribution family and directly gives informational geometry.',
+        'Discrete selection is carried by Tₘ. By CRT, it marks remarkable points of this continuous mechanics, factorizes into primes, and supplies a tensor structure.',
+      ],
+      steps: [
+        { code: '1', title: 'Fisher', body: 'gᶠ measures sensitivity of persistent distributions.' },
+        { code: '2', title: 'holonomies', body: 'Cyclic phases give transport channels.' },
+        { code: '3', title: 'Tₘ', body: 'The transfer matrix removes self-copying and marks survivors.' },
+        { code: '4', title: 'CRT', body: 'Prime factorisation supplies local tensor structure.' },
+        { code: '5', title: 'Hilbert', body: 'The inductive limit preserves persistent selections.' },
+        { code: '6', title: 'constraints', body: 'Canonical constraints remove boundary redundancies.' },
+        { code: '7', title: 'amplitudes', body: 'Covariant amplitudes glue on arbitrary boundaries.' },
+        { code: '8', title: 'Kerr', body: 'Spin half-holonomy selects the ringdown phase correction.' },
+      ],
+      cards: [
+        { title: 'DER/VAL', body: 'The minimal sector is coherent as a structurally tested derived chain.' },
+        { title: 'OPEN', body: 'The dissipative dτ channel must still be isolated cleanly in real ringdowns.' },
+        { title: 'Caution', body: 'PT does not claim full experimental validation of quantum gravity here.' },
+      ],
+    }}
+    status={{
+      title: 'Epistemic status',
+      text: 'The QG sector is a strong structural reconstruction but empirically more open than already stabilised observables. Kerr tests and the dissipative channel must remain presented as a validation programme.',
+      linksTitle: 'Related pages',
+      links,
+    }}
   />
 </BaseLayout>

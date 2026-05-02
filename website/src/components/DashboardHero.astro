@@ -1,0 +1,25 @@
+---
+import PageHero from '@components/PageHero.astro';
+
+type Domain = 'math' | 'physics' | 'chemistry' | 'bio' | 'cosmo' | 'geo' | 'meta';
+
+interface Props {
+  eyebrow: string;
+  domain?: Domain;
+  title: string;
+  plain: string;
+  standard?: string;
+  note?: string;
+}
+
+const { eyebrow, domain = 'meta', title, plain, standard, note } = Astro.props;
+---
+
+<PageHero
+  eyebrow={eyebrow}
+  domain={domain}
+  title={title}
+  dekL1={plain}
+  dekL2={standard}
+  heroNote={note}
+/>

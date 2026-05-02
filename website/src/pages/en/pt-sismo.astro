@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
+import PageHero from '@components/PageHero.astro';
 
 const webappUrl = '';
 const webappPublic = webappUrl !== '';
@@ -133,60 +134,17 @@ const limits = [
   title="PT_SISMO — seismic prediction by persistence cascade"
   description="PT_SISMO: empirical application of the cascade T0 → T1 → CRT to seismic prediction. 5 earthquakes announced prospectively and chained in SHA-256 (April 2026), including Indonesia M7.4 and Japan Tohoku M7.4. 70/30 backtest on 252 events (F1 0.65). Private code, open prospective validation."
 >
-  <main class="max-w-6xl mx-auto px-4 py-10 md:py-14">
+  <PageHero
+    eyebrow="Plain · prospective research"
+    domain="geo"
+    title="Seismic prediction by persistence cascade"
+    kicker="Five earthquakes announced beforehand. Chained in hash-chain. Verifiable."
+    dekL1="Seismic prediction has a reputation: it does not work. Over a century of approaches (radon, electromagnetism, slow deformation) has not produced a universal deterministic precursor. PT_SISMO does not claim to have found one. It takes another route: apply PT's arithmetic cascade (the same structures that derive the atom) to series of seismic events, and look for whether a statistical signature appears."
+    dekL2="The empirical result: yes, on 11 tectonic regions with 35 years of catalogues, F1 pooled = 0.65 (Banda 0.91, Japan 0.81). And — this is the hard point — 5 earthquakes in April 2026 were announced before the event, their snapshot hashed in SHA-256 and chained. This page presents the protocol, the markers, and how you can verify the chain yourself."
+    oneLineNote={{ label: '★ 5 prospective validations confirmed by hash-chain', body: 'since April 2026, PT_SISMO has prospectively announced and cryptographically traced (SHA-256 chained in prediction_chain.json) at least 5 earthquakes occurring within the predicted window: Indonesia M7.4, Japan Tohoku M7.4, Indonesia M5.5, Japan Tohoku M5.6 (×2), Greece M5.8.' }}
+  />
 
-    <!-- ============= HERO L1 ============= -->
-    <section class="mb-12">
-      <div class="rounded-lg border border-slate-200 bg-white p-6 md:p-8 shadow-sm">
-        <p class="pt-tag pt-tag-val mb-5">Plain · prospective research</p>
-        <h1 class="text-4xl md:text-5xl font-bold text-thmblue leading-tight mb-4">
-          Seismic prediction by persistence cascade
-        </h1>
-        <p class="text-2xl md:text-3xl font-sans font-semibold text-derorange leading-snug mb-6">
-          Five earthquakes announced beforehand. Chained in hash-chain. Verifiable.
-        </p>
-        <div class="rounded-lg border-l-4 border-emerald-500 bg-emerald-50 px-4 py-3 mb-4">
-          <p class="text-sm text-emerald-900 leading-relaxed">
-            <strong>★ 5 prospective validations confirmed by hash-chain.</strong>
-            Since April 2026, PT_SISMO has prospectively announced and
-            cryptographically traced (SHA-256 chained in <code class="font-mono bg-emerald-100 px-1 py-0.5 rounded">prediction_chain.json</code>)
-            at least <strong>5 earthquakes occurring within the predicted window</strong>:
-            Indonesia M7.4 (1<sup>st</sup> April, 4 d after HIGH on 28 March),
-            Japan Tohoku M7.4 (20 April, 2 d after the HIGH escalation),
-            Indonesia M5.5, Japan Tohoku M5.6 (×2), Greece M5.8.
-          </p>
-        </div>
-        <div class="rounded-lg border-l-4 border-amber-400 bg-amber-50 px-4 py-3 mb-6">
-          <p class="text-sm text-amber-900 leading-relaxed">
-            <strong>Status: ongoing research, open prospective validation.</strong>
-            Several predictions from 28 March 2026 still have their window
-            open (verification 2026-06-26). Code and data are not
-            public — repo
-            <code class="font-mono bg-amber-100 px-1 py-0.5 rounded">github.com/Igrekess/PT_SISMO</code> private.
-            See also <a href="/en/recherches" class="underline">the Research page</a>
-            for the broader context.
-          </p>
-        </div>
-        <p class="text-lg text-slate-700 leading-relaxed mb-3" data-max-depth="L1">
-          Seismic prediction has a reputation: <em>it does not work</em>.
-          Over a century of approaches (radon, electromagnetism, slow
-          deformation) has not produced a universal deterministic precursor.
-          PT_SISMO does not claim to have found one. It takes another
-          route: apply PT's arithmetic cascade
-          (<em>the same structures that derive the atom</em>)
-          to series of seismic events, and look for whether a statistical
-          signature appears.
-        </p>
-        <p class="text-base text-slate-700 leading-relaxed" data-min-depth="L2">
-          The empirical result: yes, on 11 tectonic regions with 35 years
-          of catalogues, F1 pooled = 0.65 (Banda 0.91, Japan 0.81). And — this
-          is the hard point — 5 earthquakes in April 2026 were announced
-          <strong>before</strong> the event, their snapshot hashed in SHA-256
-          and chained. This page presents the protocol, the markers, and
-          how you can verify the chain yourself.
-        </p>
-      </div>
-    </section>
+  <main class="max-w-6xl mx-auto px-4 py-10 md:py-14">
 
     <!-- ============= WHY SEISMIC PREDICTION IS HARD L1 ============= -->
     <section class="mb-12">

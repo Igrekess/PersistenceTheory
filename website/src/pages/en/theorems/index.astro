@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '@layouts/BaseLayout.astro';
+import PageHero from '@components/PageHero.astro';
 import Tag from '@components/Tag.astro';
 
 const all = (await getCollection('theorems_en'))
@@ -10,15 +11,15 @@ const secondaries = all.filter(t => t.data.tier === 'secondary');
 ---
 
 <BaseLayout title="Theorems">
-  <section class="max-w-4xl mx-auto px-4 py-12">
-    <h1 class="text-3xl md:text-4xl font-bold text-thmblue mb-3">Theorems</h1>
-    <p class="text-stone-700 mb-8 max-w-2xl">
-      The central results of Persistence Theory, in two tiers: the
-      <strong>fundamentals</strong> (GFT, then the $T_0 \to T_6$ chain and L0)
-      closing the derivation at $\mu^* = 15$, and the <strong>secondaries</strong>
-      (naturality, bridges, identifications) widening and tightening the edifice.
-    </p>
+  <PageHero
+    width="medium"
+    eyebrow="Theorems"
+    domain="math"
+    title="Theorems"
+    dek="The central results of Persistence Theory, in two tiers: the fundamentals (GFT, then the T₀ → T₆ chain and L0) closing the derivation at μ* = 15, and the secondaries (naturality, bridges, identifications) widening and tightening the edifice."
+  />
 
+  <section class="max-w-4xl mx-auto px-4 py-12">
     <h2 class="text-xl font-sans font-semibold text-thmblue mt-4 mb-3">Fundamental theorems</h2>
     <p class="text-sm text-stone-600 mb-4">
       Nine results. GFT gives the fundamental principle: capacity =

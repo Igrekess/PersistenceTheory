@@ -1,12 +1,20 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
+import PageHero from '@components/PageHero.astro';
 import Citation from '@components/Citation.astro';
 ---
 
 <BaseLayout title="About">
-  <section class="max-w-3xl mx-auto px-4 py-12">
-    <h1 class="text-3xl md:text-4xl font-bold text-thmblue mb-6">About</h1>
+  <PageHero
+    width="narrow"
+    eyebrow="About"
+    domain="meta"
+    tone="simple"
+    title="About"
+    dek="Author, editorial status, licenses and site credits."
+  />
 
+  <section class="max-w-3xl mx-auto px-4 py-12">
     <h2 class="text-xl font-semibold text-thmblue mt-8 mb-3 font-sans">Author</h2>
     <p class="text-stone-800 leading-relaxed mb-3">
       <strong>Yan Senez</strong>, born in 1979, is an artist, independent

@@ -1,0 +1,808 @@
+---
+import PageHero from '@components/PageHero.astro';
+
+type Domain = 'math' | 'physics' | 'chemistry' | 'bio' | 'cosmo' | 'geo' | 'meta';
+
+interface Stat {
+  label: string;
+  value: string;
+  note: string;
+}
+
+interface Card {
+  title: string;
+  body: string;
+}
+
+interface Step {
+  code: string;
+  title: string;
+  body: string;
+}
+
+interface SourceLink {
+  href: string;
+  label: string;
+}
+
+interface Props {
+  eyebrow: string;
+  domain?: Domain;
+  title: string;
+  dek: string;
+  heroNote: string;
+  plainLabel: string;
+  standardLabel: string;
+  technicalLabel: string;
+  statusLabel: string;
+  stats: Stat[];
+  guide: {
+    title: string;
+    paragraphs: string[];
+    cards: Card[];
+  };
+  standard: {
+    title: string;
+    paragraphs: string[];
+    flow: string[];
+  };
+  visual: {
+    kind: 'cosmology' | 'relativity' | 'quantum' | 'nuclear';
+    title: string;
+    paragraphs: string[];
+    cards: Card[];
+  };
+  technical: {
+    title: string;
+    paragraphs: string[];
+    steps: Step[];
+    cards: Card[];
+  };
+  status: {
+    title: string;
+    text: string;
+    linksTitle: string;
+    links: SourceLink[];
+  };
+}
+
+const {
+  eyebrow,
+  domain = 'physics',
+  title,
+  dek,
+  heroNote,
+  plainLabel,
+  standardLabel,
+  technicalLabel,
+  statusLabel,
+  stats,
+  guide,
+  standard,
+  visual,
+  technical,
+  status,
+} = Astro.props;
+
+const gammaP = (p: number, mu: number) => {
+  const q = 1 - 2 / mu;
+  const delta = (1 - q ** p) / p;
+  return (4 * q ** (p - 1) * (1 - delta)) / (mu * delta * (2 - delta));
+};
+
+const makeBianchiPlot = () => {
+  const x0 = 104;
+  const y0 = 84;
+  const w = 520;
+  const h = 214;
+  const minMu = 7;
+  const maxMu = 30;
+  const minA = 0.02;
+  const maxA = 0.11;
+  const x = (mu: number) => x0 + ((mu - minMu) / (maxMu - minMu)) * w;
+  const y = (a: number) => y0 + ((maxA - a) / (maxA - minA)) * h;
+  const pathFor = (p: number) =>
+    Array.from({ length: 140 }, (_, i) => {
+      const mu = minMu + (i / 139) * (maxMu - minMu);
+      return [x(mu), y(gammaP(p, mu) / mu)];
+    }).map(([px, py], i) => `${i === 0 ? 'M' : 'L'}${px.toFixed(1)} ${py.toFixed(1)}`).join(' ');
+  return {
+    x0,
+    y0,
+    w,
+    h,
+    muStarX: x(15),
+    paths: [
+      { p: 3, d: pathFor(3), color: '#dc2626', label: 'a₃' },
+      { p: 5, d: pathFor(5), color: '#16a34a', label: 'a₅' },
+      { p: 7, d: pathFor(7), color: '#2563eb', label: 'a₇' },
+    ],
+    points: [3, 5, 7].map((p) => ({ p, x: x(15), y: y(gammaP(p, 15) / 15) })),
+  };
+};
+
+const bianchiPlot = makeBianchiPlot();
+const isEnglish = statusLabel === 'Status';
+const bianchiFormulaLabel = 'a_p(mu) = gamma_p(mu) / mu';
+const bianchiCaption = isEnglish
+  ? 'Computed Bianchi I scale-factor curves, not a metaphorical drawing.'
+  : 'Courbes calculées des facteurs d’échelle Bianchi I, pas un dessin métaphorique.';
+const quantumCaption = isEnglish
+  ? 'Controlled diagram: nodes mark sieve selection, not a spacetime mesh.'
+  : 'Schéma contrôlé : les nœuds marquent la sélection du crible, pas une maille d’espace-temps.';
+const nuclearCaption = isEnglish
+  ? 'Structural diagram: 2, 8, 20 without LS; 28, 50, 82, 126 with spin-orbit amplification.'
+  : 'Schéma de structure : 2, 8, 20 sans LS ; 28, 50, 82, 126 avec amplification spin-orbite.';
+---
+
+<section class="deep-shell">
+  <PageHero
+    eyebrow={eyebrow}
+    domain={domain}
+    title={title}
+    dek={dek}
+    heroNote={heroNote}
+  />
+
+  <div class="deep-stats" aria-label={eyebrow}>
+    {stats.map((stat) => (
+      <article>
+        <span>{stat.label}</span>
+        <strong>{stat.value}</strong>
+        <em>{stat.note}</em>
+      </article>
+    ))}
+  </div>
+
+  <section class="guide-section" aria-label={guide.title}>
+    <div class="deep-copy">
+      <p class="deep-level">{plainLabel}</p>
+      <h2>{guide.title}</h2>
+      <div class="copy-stack">
+        {guide.paragraphs.map((paragraph) => <p>{paragraph}</p>)}
+      </div>
+    </div>
+    <div class="guide-grid">
+      {guide.cards.map((card) => (
+        <article>
+          <h3>{card.title}</h3>
+          <p>{card.body}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="standard-band" data-min-depth="L2">
+    <div>
+      <p class="deep-level">{standardLabel}</p>
+      <h2>{standard.title}</h2>
+      <div class="copy-stack">
+        {standard.paragraphs.map((paragraph) => <p>{paragraph}</p>)}
+      </div>
+    </div>
+    <div class="flow-line" aria-label={standard.title}>
+      {standard.flow.map((item, index) => (
+        <>
+          <strong>{item}</strong>
+          {index < standard.flow.length - 1 && <i aria-hidden="true">→</i>}
+        </>
+      ))}
+    </div>
+  </section>
+
+  <section class="visual-band" data-min-depth="L2">
+    <div class="deep-copy">
+      <p class="deep-level">{standardLabel}</p>
+      <h2>{visual.title}</h2>
+      <div class="copy-stack">
+        {visual.paragraphs.map((paragraph) => <p>{paragraph}</p>)}
+      </div>
+    </div>
+
+    {visual.kind === 'cosmology' ? (
+      <figure class="cosmo-visual">
+        <div class="budget-orbit" aria-label="Budget cosmologique">
+          <div class="budget-donut">
+            <span>Ω</span>
+          </div>
+          <div class="budget-bars">
+            <article>
+              <span>ΩΛ</span>
+              <strong>68.65%</strong>
+              <i><b style="width: 68.65%"></b></i>
+            </article>
+            <article>
+              <span>Ωinfo</span>
+              <strong>26.48%</strong>
+              <i><b style="width: 26.48%"></b></i>
+            </article>
+            <article>
+              <span>Ωb</span>
+              <strong>4.87%</strong>
+              <i><b style="width: 4.87%"></b></i>
+            </article>
+          </div>
+        </div>
+      </figure>
+    ) : visual.kind === 'relativity' ? (
+      <figure class="relativity-visual">
+        <svg viewBox="0 0 760 430" role="img" aria-label={visual.title}>
+          <rect x="36" y="30" width="688" height="348" rx="20" fill="#fbfdff" stroke="#cbd5e1" />
+          <line x1={bianchiPlot.x0} y1={bianchiPlot.y0} x2={bianchiPlot.x0} y2={bianchiPlot.y0 + bianchiPlot.h} stroke="#94a3b8" stroke-width="1.6" />
+          <line x1={bianchiPlot.x0} y1={bianchiPlot.y0 + bianchiPlot.h} x2={bianchiPlot.x0 + bianchiPlot.w} y2={bianchiPlot.y0 + bianchiPlot.h} stroke="#94a3b8" stroke-width="1.6" />
+          {[0.03, 0.06, 0.09].map((tick) => {
+            const y = bianchiPlot.y0 + ((0.11 - tick) / (0.11 - 0.02)) * bianchiPlot.h;
+            return (
+              <g>
+                <line x1={bianchiPlot.x0} y1={y} x2={bianchiPlot.x0 + bianchiPlot.w} y2={y} stroke="#e2e8f0" stroke-width="1" />
+                <text x={bianchiPlot.x0 - 10} y={y + 4} text-anchor="end" class="svg-small">{tick.toFixed(2)}</text>
+              </g>
+            );
+          })}
+          <line x1={bianchiPlot.muStarX} y1={bianchiPlot.y0 - 10} x2={bianchiPlot.muStarX} y2={bianchiPlot.y0 + bianchiPlot.h + 10} stroke="#d97706" stroke-width="2" stroke-dasharray="6 8" />
+          {bianchiPlot.paths.map((curve) => <path d={curve.d} fill="none" stroke={curve.color} stroke-width="2.35" stroke-linecap="round" stroke-linejoin="round" />)}
+          {bianchiPlot.points.map((point) => <circle cx={point.x} cy={point.y} r="5.2" fill={point.p === 3 ? '#dc2626' : point.p === 5 ? '#16a34a' : '#2563eb'} stroke="#ffffff" stroke-width="2" />)}
+          <text x={bianchiPlot.x0 + bianchiPlot.w} y={bianchiPlot.y0 + bianchiPlot.h + 32} text-anchor="end" class="svg-muted">μ</text>
+          <text x={bianchiPlot.x0 - 18} y={bianchiPlot.y0 - 4} text-anchor="end" class="svg-muted">aₚ(μ)</text>
+          <text x={bianchiPlot.muStarX} y={bianchiPlot.y0 + bianchiPlot.h + 34} text-anchor="middle" class="svg-orange">μ* = 15</text>
+          <text x="380" y="58" text-anchor="middle" class="svg-title">{bianchiFormulaLabel}</text>
+          <text x="380" y="78" text-anchor="middle" class="svg-small">p ∈ {'{3,5,7}'}</text>
+          <g transform="translate(560 100)">
+            {bianchiPlot.paths.map((curve, i) => (
+              <g transform={`translate(0 ${i * 24})`}>
+                <line x1="0" x2="26" y1="0" y2="0" stroke={curve.color} stroke-width="3" stroke-linecap="round" />
+                <text x="36" y="5" class="svg-muted">{curve.label}</text>
+              </g>
+            ))}
+          </g>
+          <text x="380" y="352" text-anchor="middle" class="svg-small">{bianchiCaption}</text>
+        </svg>
+      </figure>
+    ) : visual.kind === 'quantum' ? (
+      <figure class="quantum-visual">
+        <svg viewBox="0 0 680 360" role="img" aria-label={visual.title}>
+          <rect x="28" y="24" width="624" height="312" rx="18" fill="#fbfdff" stroke="#cbd5e1" />
+          <path d="M72 184 C128 74, 186 74, 244 184 S360 294, 418 184 S534 74, 608 184" fill="none" stroke="#1f4e79" stroke-width="4" stroke-linecap="round" />
+          <path d="M72 184 C128 294, 186 294, 244 184 S360 74, 418 184 S534 294, 608 184" fill="none" stroke="#38bdf8" stroke-width="3" stroke-linecap="round" opacity="0.75" />
+          {[128, 244, 360, 476, 592].map((x, i) => (
+            <g>
+              <circle cx={x} cy="184" r={i === 1 || i === 3 ? 17 : 12} fill={i === 1 || i === 3 ? '#fbbf24' : '#ffffff'} stroke="#1f4e79" stroke-width="3" />
+              <line x1={x} x2={x} y1="78" y2="290" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="5 6" opacity="0.8" />
+            </g>
+          ))}
+          <text x="340" y="62" text-anchor="middle" class="svg-title">onde continue + points persistants</text>
+          <text x="340" y="318" text-anchor="middle" class="svg-small">{quantumCaption}</text>
+        </svg>
+      </figure>
+    ) : (
+      <figure class="nuclear-visual">
+        <svg viewBox="0 0 760 520" role="img" aria-label={visual.title}>
+          <rect x="36" y="30" width="688" height="408" rx="20" fill="#fbfdff" stroke="#cbd5e1" />
+          <text x="380" y="66" text-anchor="middle" class="svg-title">fermetures magiques nucléaires</text>
+          <line x1="92" x2="668" y1="374" y2="374" stroke="#94a3b8" stroke-width="1.8" />
+          {[2, 8, 20, 28, 50, 82, 126].map((n, i) => {
+            const x = 112 + i * 90;
+            const h = 52 + i * 19;
+            return (
+              <g>
+                <rect x={x - 28} y={374 - h} width="56" height={h} rx="8" fill={i < 3 ? '#dbeafe' : '#dcfce7'} stroke={i < 3 ? '#2563eb' : '#16a34a'} />
+                <text x={x} y={374 - h - 13} text-anchor="middle" class="svg-nuclear-number">{n}</text>
+                <circle cx={x} cy={374 - h} r="7" fill={i < 3 ? '#2563eb' : '#16a34a'} />
+              </g>
+            );
+          })}
+          <line x1="328" x2="676" y1="110" y2="110" stroke="#d97706" stroke-width="2" stroke-linecap="round" stroke-dasharray="7 9" />
+          <text x="502" y="96" text-anchor="middle" class="svg-orange">amplification spin-orbite PT</text>
+          <text x="502" y="132" text-anchor="middle" class="svg-small">ouverture des grandes fermetures 28, 50, 82, 126</text>
+        </svg>
+        <figcaption>{nuclearCaption}</figcaption>
+      </figure>
+    )}
+
+    <div class="visual-cards">
+      {visual.cards.map((card) => (
+        <article>
+          <h3>{card.title}</h3>
+          <p>{card.body}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="proof-chain" data-min-depth="L3">
+    <div class="section-intro">
+      <p class="deep-level">{technicalLabel}</p>
+      <h2>{technical.title}</h2>
+      <div class="copy-stack">
+        {technical.paragraphs.map((paragraph) => <p>{paragraph}</p>)}
+      </div>
+    </div>
+    <div class="proof-steps">
+      {technical.steps.map((step) => (
+        <article>
+          <strong>{step.code}</strong>
+          <h3>{step.title}</h3>
+          <p>{step.body}</p>
+        </article>
+      ))}
+    </div>
+    <div class="technical-cards">
+      {technical.cards.map((card) => (
+        <article>
+          <h3>{card.title}</h3>
+          <p>{card.body}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="status-band">
+    <div class="deep-copy">
+      <p class="deep-level">{statusLabel}</p>
+      <h2>{status.title}</h2>
+      <p>{status.text}</p>
+    </div>
+    <div class="source-links" aria-label={status.linksTitle}>
+      <h3>{status.linksTitle}</h3>
+      {status.links.map((link) => <a href={link.href}>{link.label}</a>)}
+    </div>
+  </section>
+</section>
+
+<style>
+  .deep-shell {
+    background: #f8fafc;
+    color: #172033;
+  }
+
+  .deep-level {
+    margin: 0;
+    color: #1e3a8a;
+    font: 800 0.78rem/1.1 ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    letter-spacing: 0;
+    text-transform: uppercase;
+  }
+
+  .deep-stats,
+  .guide-section,
+  .standard-band,
+  .visual-band,
+  .proof-chain,
+  .status-band {
+    width: min(1120px, calc(100% - 32px));
+    margin: 24px auto 0;
+  }
+
+  .deep-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+  }
+
+  .deep-stats article,
+  .guide-grid article,
+  .visual-cards article,
+  .proof-steps article,
+  .technical-cards article,
+  .cosmo-visual,
+  .relativity-visual,
+  .quantum-visual,
+  .nuclear-visual {
+    border: 1px solid #dbe3ec;
+    border-radius: 8px;
+    background: #ffffff;
+    box-shadow: 0 12px 28px rgba(15, 23, 42, 0.065);
+  }
+
+  .deep-stats article {
+    padding: 18px;
+  }
+
+  .deep-stats span,
+  .deep-stats em {
+    display: block;
+    color: #64748b;
+    font: 0.85rem/1.35 ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  }
+
+  .deep-stats strong {
+    display: block;
+    margin: 6px 0;
+    color: #1f4e79;
+    font-size: 1.42rem;
+    line-height: 1.1;
+  }
+
+  .guide-section,
+  .visual-band,
+  .proof-chain,
+  .status-band {
+    margin-top: 56px;
+  }
+
+  .guide-section {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .guide-section .deep-copy,
+  .visual-band .deep-copy {
+    max-width: none;
+  }
+
+  .deep-copy {
+    max-width: 940px;
+  }
+
+  .deep-copy h2,
+  .section-intro h2,
+  .standard-band h2 {
+    margin: 8px 0 14px;
+    color: #1f4e79;
+    font-size: clamp(1.55rem, 3vw, 2.15rem);
+    line-height: 1.12;
+    font-weight: 900;
+  }
+
+  .copy-stack {
+    display: grid;
+    gap: 10px;
+  }
+
+  .copy-stack p,
+  .deep-copy p,
+  .section-intro p {
+    max-width: 78ch;
+    margin: 0;
+    color: #475569;
+    font-size: 1.04rem;
+    line-height: 1.72;
+  }
+
+  .guide-grid,
+  .visual-cards,
+  .technical-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+  }
+
+  .guide-section .copy-stack p,
+  .visual-band .copy-stack p,
+  .section-intro .copy-stack p {
+    max-width: none;
+  }
+
+  .guide-grid article,
+  .visual-cards article,
+  .technical-cards article {
+    padding: 16px 18px 17px;
+  }
+
+  .guide-grid h3,
+  .visual-cards h3,
+  .proof-steps h3,
+  .technical-cards h3 {
+    margin: 0 0 9px;
+    color: #0f172a;
+    font-size: 1rem;
+    font-weight: 900;
+    line-height: 1.2;
+  }
+
+  .guide-grid p,
+  .visual-cards p,
+  .proof-steps p,
+  .technical-cards p {
+    margin: 0;
+    color: #475569;
+    font-size: 0.94rem;
+    line-height: 1.58;
+  }
+
+  .standard-band {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 22px;
+    align-items: center;
+    padding: 22px;
+    border: 1px solid #dbe3ec;
+    border-radius: 8px;
+    background:
+      linear-gradient(135deg, rgba(15, 23, 42, 0.98), rgba(31, 78, 121, 0.94)),
+      radial-gradient(circle at 8% 0%, rgba(251, 191, 36, 0.24), transparent 32%);
+    box-shadow: 0 16px 34px rgba(15, 23, 42, 0.13);
+  }
+
+  .standard-band .deep-level {
+    color: #fbbf24;
+  }
+
+  .standard-band h2 {
+    color: white;
+  }
+
+  .standard-band p {
+    color: #dbeafe;
+    max-width: none;
+  }
+
+  .standard-band .copy-stack {
+    grid-template-columns: 1fr;
+    row-gap: 12px;
+  }
+
+  .flow-line {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  }
+
+  .flow-line strong {
+    padding: 11px 14px;
+    border-radius: 999px;
+    color: #0f172a;
+    background: #fde68a;
+    font-size: 1rem;
+    line-height: 1;
+    font-weight: 950;
+  }
+
+  .flow-line i {
+    color: #38bdf8;
+    font-style: normal;
+    font-weight: 950;
+  }
+
+  .visual-band {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 22px;
+    align-items: start;
+  }
+
+  .visual-band .deep-copy {
+    max-width: none;
+  }
+
+  .visual-band .copy-stack {
+    grid-template-columns: 1fr;
+    row-gap: 12px;
+  }
+
+  .visual-band .copy-stack p {
+    max-width: none;
+  }
+
+  .visual-cards {
+    grid-column: 1 / -1;
+  }
+
+  .cosmo-visual,
+  .relativity-visual,
+  .quantum-visual,
+  .nuclear-visual {
+    margin: 0;
+    padding: 20px;
+  }
+
+  .budget-orbit {
+    display: grid;
+    grid-template-columns: 210px 1fr;
+    gap: 24px;
+    align-items: center;
+  }
+
+  .budget-donut {
+    width: 210px;
+    aspect-ratio: 1;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background:
+      radial-gradient(circle at center, #ffffff 0 42%, transparent 43%),
+      conic-gradient(#7c3aed 0 68.65%, #1f4e79 68.65% 95.13%, #fbbf24 95.13% 100%);
+    box-shadow: inset 0 0 0 1px #dbe3ec, 0 18px 38px rgba(15, 23, 42, 0.12);
+  }
+
+  .budget-donut span {
+    color: #1f4e79;
+    font-size: 2rem;
+    font-weight: 950;
+  }
+
+  .budget-bars {
+    display: grid;
+    gap: 13px;
+  }
+
+  .budget-bars article {
+    display: grid;
+    grid-template-columns: 70px 86px 1fr;
+    gap: 10px;
+    align-items: center;
+    color: #334155;
+    font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  }
+
+  .budget-bars strong {
+    color: #1f4e79;
+  }
+
+  .budget-bars i {
+    height: 10px;
+    overflow: hidden;
+    border-radius: 999px;
+    background: #e2e8f0;
+  }
+
+  .budget-bars b {
+    display: block;
+    height: 100%;
+    border-radius: inherit;
+    background: linear-gradient(90deg, #1f4e79, #38bdf8);
+  }
+
+  .relativity-visual svg,
+  .quantum-visual svg,
+  .nuclear-visual svg {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .nuclear-visual figcaption {
+    margin: 14px 0 2px;
+    color: #64748b;
+    font: 800 0.92rem/1.45 ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    text-align: center;
+  }
+
+  .svg-prime {
+    fill: #0f172a;
+    font: 900 1.4rem/1 ui-sans-serif, system-ui;
+  }
+
+  .svg-title {
+    fill: #0f172a;
+    font: 900 1rem/1 ui-sans-serif, system-ui;
+  }
+
+  .svg-small {
+    fill: #64748b;
+    font: 700 0.78rem/1 ui-sans-serif, system-ui;
+  }
+
+  .svg-orange {
+    fill: #d97706;
+    font: 900 0.9rem/1 ui-sans-serif, system-ui;
+  }
+
+  .svg-muted {
+    fill: #475569;
+    font: 800 1rem/1 ui-sans-serif, system-ui;
+  }
+
+  .svg-nuclear-number {
+    fill: #475569;
+    font: 850 0.9rem/1 ui-sans-serif, system-ui;
+  }
+
+  .proof-chain {
+    display: grid;
+    gap: 20px;
+  }
+
+  .section-intro {
+    max-width: none;
+  }
+
+  .section-intro .copy-stack {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 34px;
+    row-gap: 12px;
+  }
+
+  .proof-steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+  }
+
+  .proof-steps article {
+    padding: 16px;
+  }
+
+  .proof-steps strong {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    margin-bottom: 12px;
+    border-radius: 50%;
+    color: white;
+    background: #1f4e79;
+    font: 900 0.95rem/1 ui-sans-serif, system-ui;
+  }
+
+  .status-band {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 320px;
+    gap: 20px;
+    align-items: start;
+    padding: 22px;
+    border: 1px solid #dbe3ec;
+    border-radius: 8px;
+    background: #ffffff;
+    box-shadow: 0 12px 28px rgba(15, 23, 42, 0.065);
+    margin-bottom: 64px;
+  }
+
+  .source-links {
+    display: grid;
+    gap: 10px;
+    padding: 16px;
+    border-radius: 8px;
+    background: #f8fafc;
+    border: 1px solid #dbe3ec;
+  }
+
+  .source-links h3 {
+    margin: 0 0 4px;
+    color: #0f172a;
+    font-size: 0.95rem;
+    font-weight: 900;
+  }
+
+  .source-links a {
+    color: #1f4e79;
+    font-weight: 800;
+    text-decoration: none;
+  }
+
+  .source-links a:hover {
+    text-decoration: underline;
+  }
+
+  @media (max-width: 900px) {
+    .deep-stats,
+    .guide-grid,
+    .visual-cards,
+    .technical-cards,
+    .proof-steps,
+    .standard-band,
+    .visual-band,
+    .status-band,
+    .budget-orbit {
+      grid-template-columns: 1fr;
+    }
+
+    .flow-line {
+      justify-content: flex-start;
+    }
+
+    .standard-band .copy-stack,
+    .visual-band .copy-stack,
+    .section-intro .copy-stack {
+      grid-template-columns: 1fr;
+    }
+
+    .budget-donut {
+      width: min(210px, 70vw);
+      justify-self: center;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .visual-band,
+    .standard-band,
+    .status-band {
+      padding: 18px;
+    }
+  }
+</style>

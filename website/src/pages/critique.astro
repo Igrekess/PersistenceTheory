@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
+import PageHero from '@components/PageHero.astro';
 
 const objections = [
   {
@@ -75,36 +76,16 @@ const severityClasses: Record<string, string> = {
   title="Critique et débats"
   description="Les objections sérieuses à la PT, et les réponses argumentées. Espace ouvert à la critique scrupuleuse — c’est ainsi que la théorie progresse."
 >
-  <main class="max-w-6xl mx-auto px-4 py-10 md:py-14">
+  <PageHero
+    eyebrow="Espace ouvert"
+    domain="meta"
+    title="Critique et débats"
+    kicker="Les objections sérieuses méritent des réponses sérieuses."
+    dekL1="Une théorie qui prétend reproduire 43 observables sans paramètre mérite des objections. Plus précisément, PT revendique zéro paramètre continu ajusté, avec une convention dimensionnelle SCU et des engagements structurels discrets explicités. Cette page rassemble les plus fortes et y répond directement. Aucune n’est écartée comme « malentendu » : si la critique tient, la théorie doit être révisée — et on a déjà eu l’occasion de le faire (P20 rétrogradée en avril 2026)."
+    dekL2="Cette page n’est pas un argumentaire de défense. C’est un espace de stress-test public. Si vous avez une objection qui n’apparaît pas ici, écrivez-la sur la page Contact ou ouvrez une issue GitHub. Les bonnes critiques seront ajoutées avec leur réponse."
+  />
 
-    <!-- HERO -->
-    <section class="mb-12">
-      <div class="rounded-lg border border-slate-200 bg-white p-6 md:p-8 shadow-sm">
-        <p class="pt-tag pt-tag-id mb-5">Espace ouvert</p>
-        <h1 class="text-4xl md:text-5xl font-bold text-thmblue leading-tight mb-4">
-          Critique et débats
-        </h1>
-        <p class="text-2xl md:text-3xl font-sans font-semibold text-derorange leading-snug mb-6">
-          Les objections sérieuses méritent des réponses sérieuses.
-        </p>
-        <p class="text-lg text-slate-700 leading-relaxed mb-5" data-max-depth="L1">
-          Une théorie qui prétend reproduire 43 observables sans paramètre
-          mérite des objections. Plus précisément, PT revendique zéro
-          paramètre continu ajusté, avec une convention dimensionnelle SCU
-          et des engagements structurels discrets explicités. Cette page rassemble les plus fortes et
-          y répond directement. Aucune n’est écartée comme « malentendu » :
-          si la critique tient, la théorie doit être révisée — et on a déjà
-          eu l’occasion de le faire (P20 rétrogradée en avril 2026).
-        </p>
-        <p class="text-base text-slate-700 leading-relaxed" data-min-depth="L2">
-          Cette page n’est pas un argumentaire de défense. C’est un espace
-          de **stress-test public**. Si vous avez une objection qui n’apparaît
-          pas ici, écrivez-la sur la page <a href="/contact" class="text-thmblue underline">Contact</a>
-          ou ouvrez une <a href="https://github.com/Igrekess" class="text-thmblue underline">issue GitHub</a>.
-          Les bonnes critiques seront ajoutées avec leur réponse.
-        </p>
-      </div>
-    </section>
+  <main class="max-w-6xl mx-auto px-4 py-10 md:py-14">
 
     <!-- 10 OBJECTIONS -->
     <section class="mb-12">

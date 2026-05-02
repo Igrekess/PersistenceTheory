@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
+import PageHero from '@components/PageHero.astro';
 
 // 4 étapes de démonstration auto-portées
 const steps = [
@@ -95,32 +96,16 @@ def test_anomalies():
   title="Démonstration : tableau périodique"
   description="Démonstration auto-portée : 4 étapes pour dériver le tableau périodique entier depuis s = 1/2 et μ* = 15. Code Python testable inclus."
 >
-  <main class="max-w-6xl mx-auto px-4 py-10 md:py-14">
+  <PageHero
+    eyebrow="Démonstration auto-portée"
+    domain="chemistry"
+    title="Le tableau périodique en 4 étapes"
+    kicker="De « s = 1/2 » à 2, 8, 8, 18, 18, 32, 32 sans paramètre."
+    dek="Cette page contient une démonstration compacte : quatre étapes algébriques qui mènent du principe de Pauli aux capacités exactes des blocs s/p/d/f, puis aux périodes du tableau de Mendeleïev. Le code Python associé est exécutable et testable."
+    dekL2="Pour la version visuelle complète (polygones, anomalies d⁵/d¹⁰, calculateur Z → bloc), consultez la page principale Tableau périodique. Cette page-ci est dédiée à la démonstration formelle."
+  />
 
-    <!-- HERO -->
-    <section class="mb-12">
-      <div class="rounded-lg border border-slate-200 bg-white p-6 md:p-8 shadow-sm">
-        <p class="pt-tag pt-tag-thm mb-5">Démonstration auto-portée</p>
-        <h1 class="text-4xl md:text-5xl font-bold text-thmblue leading-tight mb-4">
-          Le tableau périodique en 4 étapes
-        </h1>
-        <p class="text-2xl md:text-3xl font-sans font-semibold text-derorange leading-snug mb-6">
-          De « s = 1/2 » à 2, 8, 8, 18, 18, 32, 32 sans paramètre.
-        </p>
-        <p class="text-lg text-slate-700 leading-relaxed mb-5">
-          Cette page contient une démonstration compacte : quatre étapes
-          algébriques qui mènent du principe de Pauli aux capacités exactes
-          des blocs s/p/d/f, puis aux périodes du tableau de Mendeleïev.
-          Le code Python associé est exécutable et testable.
-        </p>
-        <p class="text-base text-slate-700 leading-relaxed mb-5" data-min-depth="L2">
-          Pour la version visuelle complète (polygones, anomalies d⁵/d¹⁰,
-          calculateur Z → bloc), consultez la page principale
-          <a href="/tableau-periodique" class="text-thmblue underline">Tableau périodique</a>.
-          Cette page-ci est dédiée à la démonstration formelle.
-        </p>
-      </div>
-    </section>
+  <main class="max-w-6xl mx-auto px-4 py-10 md:py-14">
 
     <!-- 4 ETAPES -->
     <section class="mb-12">

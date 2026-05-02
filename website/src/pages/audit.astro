@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
+import DashboardHero from '@components/DashboardHero.astro';
 
 const commitments = [
   { id: 'C1', label: 'Calibration SCU comme convention de Buckingham π', detail: '1 SCU ≡ 1 MeV. Dissoute en convention d\'unité ; cf. App. P §C1.' },
@@ -16,13 +17,15 @@ const commitments = [
 ---
 
 <BaseLayout title="Audit transparent">
-  <section class="max-w-4xl mx-auto px-4 py-12">
-    <h1 class="text-3xl md:text-4xl font-bold text-thmblue mb-3">Audit transparent</h1>
-    <p class="text-stone-700 mb-6 max-w-3xl">
-      La Théorie de la Persistance se soumet à un audit interne explicite. Cette
-      page rend public l’inventaire des choix structurels, des audits externes et
-      des corrections appliquées.
-    </p>
+  <DashboardHero
+    eyebrow="Technique · traçabilité"
+    title="Audit transparent"
+    plain="Cette page rassemble les choix structurels, les vérifications internes, les audits externes et les corrections appliquées. Elle sert de registre de lecture critique du site et de la monographie."
+    standard="Chaque engagement C1–C10 est présenté comme un choix discret fermé par un argument indépendant, avec son statut épistémique. L’objectif est de séparer ce qui est démontré, dérivé, validé, prédit ou encore ouvert."
+    note="Préimpression ouverte : le site conserve la trace des points solides et des points à vérifier."
+  />
+
+  <section class="max-w-4xl mx-auto px-4 py-10 md:py-14">
 
     <h2 class="text-xl font-semibold text-thmblue mt-10 mb-3 font-sans">
       Les 10 engagements structurels (C1–C10)

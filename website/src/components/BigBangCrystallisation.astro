@@ -69,11 +69,13 @@ const t = {
         'Dans le niveau standard, “instantané” veut dire : hors durée cosmologique ordinaire. Les seuils 1, 2, 3, 5 et 7 ne sont pas des moments successifs comme des secondes sur une horloge ; ce sont des conditions logiques qui deviennent disponibles dans la cascade.',
         'Tant que la cascade n’a pas produit une signature orientée, il n’y a pas encore de temps mesurable au sens physique. Il y a un ordre de dépendance, mais pas encore une coordonnée temporelle sur laquelle placer des événements.',
         'Le temps apparaît quand l’orientation devient stable : après la coupure portée par 2, et juste avant que le coeur actif 3 + 5 + 7 se ferme sur μ* = 15. Dans cette lecture, le temps n’est donc pas le contenant initial du Big Bang ; il est une conséquence interne de la cascade.',
+        'Cela change la manière de lire la frise : elle ne raconte pas une suite d’instants, elle indique les conditions minimales qui rendent une horloge possible. Le diagramme en dessous fixe seulement l’ordre de dépendance : frontière, signature, puis temps mesurable.',
       ]
     : [
         'At the standard level, “instantaneous” means outside ordinary cosmological duration. The thresholds 1, 2, 3, 5, and 7 are not successive moments like seconds on a clock; they are logical conditions becoming available in the cascade.',
         'As long as the cascade has not produced an oriented signature, measurable physical time is not yet present. There is dependency order, but not yet a time coordinate on which events can be placed.',
         'Time appears when orientation becomes stable: after the boundary carried by 2, and just before the active core 3 + 5 + 7 closes on μ* = 15. In this reading, time is not the initial container of the Big Bang; it is an internal consequence of the cascade.',
+        'This changes how the timeline should be read: it is not a sequence of instants, but the list of minimal conditions that make a clock possible. The diagram below only fixes dependency order: boundary, signature, then measurable time.',
       ],
   timeBefore: fr ? 'hors temps' : 'pre-time',
   timeCut: fr ? 'frontière' : 'boundary',
@@ -530,11 +532,6 @@ const sourceLinks = [
         {t.timelineTextParts.map((paragraph) => <p>{paragraph}</p>)}
       </div>
     </div>
-    <figure class="art-frieze">
-      <img src="/images/bigbang.png" alt={t.artFriezeAlt} loading="lazy" />
-      <div class="art-frieze-shade"></div>
-      <figcaption>{t.artFriezeCaption}</figcaption>
-    </figure>
     <div class="timeline-frame">
       <div class="timeline-scroll" role="list">
         <div class="timeline-line" aria-hidden="true"></div>
@@ -830,7 +827,17 @@ const sourceLinks = [
     font-size: 0.78rem;
     font-weight: 800;
     text-transform: uppercase;
-    color: #d97706;
+    color: #1e3a8a;
+  }
+
+  .bb-eyebrow {
+    display: inline-flex;
+    margin: 0;
+    padding: 4px 10px;
+    border-radius: 6px;
+    background-color: #1e3a8a1a;
+    line-height: 1.1;
+    letter-spacing: 0;
   }
 
   .bb-hero h1 {
@@ -910,7 +917,7 @@ const sourceLinks = [
   }
 
   .guide-copy {
-    max-width: 900px;
+    max-width: none;
     padding: 0;
   }
 
@@ -935,7 +942,7 @@ const sourceLinks = [
     color: #475569;
     line-height: 1.72;
     font-size: 1.04rem;
-    max-width: 72ch;
+    max-width: none;
   }
 
   .guide-grid {
@@ -972,8 +979,8 @@ const sourceLinks = [
     width: min(1120px, calc(100% - 32px));
     margin: 28px auto 0;
     display: grid;
-    grid-template-columns: 0.78fr 1.22fr;
-    gap: 24px;
+    grid-template-columns: 1fr;
+    gap: 22px;
     align-items: center;
     padding: 22px;
     border: 1px solid #dbe3ec;
@@ -1004,7 +1011,8 @@ const sourceLinks = [
   }
 
   .time-emergence .copy-stack {
-    gap: 9px;
+    grid-template-columns: 1fr;
+    row-gap: 12px;
   }
 
   .time-flow {
@@ -1012,7 +1020,7 @@ const sourceLinks = [
     flex-wrap: wrap;
     gap: 10px;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: center;
     font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   }
 
@@ -1194,9 +1202,15 @@ const sourceLinks = [
   }
 
   .section-intro {
-    max-width: 760px;
+    max-width: none;
     margin: 0 0 20px;
     display: block;
+  }
+
+  .section-intro .copy-stack {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 34px;
+    row-gap: 12px;
   }
 
   .section-intro h2 {
@@ -1211,6 +1225,7 @@ const sourceLinks = [
     color: #475569;
     line-height: 1.7;
     font-size: 1.04rem;
+    max-width: none;
   }
 
   .prime-status-table {
@@ -1365,7 +1380,7 @@ const sourceLinks = [
   }
 
   .timeline-heading {
-    max-width: 760px;
+    max-width: none;
     display: block;
     margin-bottom: 20px;
   }
@@ -1382,45 +1397,7 @@ const sourceLinks = [
     color: #475569;
     line-height: 1.7;
     font-size: 1.04rem;
-  }
-
-  .art-frieze {
-    position: relative;
-    margin: 0 0 18px;
-    border: 1px solid rgba(15, 23, 42, 0.18);
-    border-radius: 8px;
-    overflow: hidden;
-    background: #05080d;
-    box-shadow: 0 18px 40px rgba(15, 23, 42, 0.16);
-  }
-
-  .art-frieze img {
-    display: block;
-    width: 100%;
-    aspect-ratio: 1927 / 816;
-    object-fit: cover;
-  }
-
-  .art-frieze-shade {
-    position: absolute;
-    inset: 0;
-    background:
-      linear-gradient(180deg, rgba(5, 8, 13, 0.18), rgba(5, 8, 13, 0.02) 44%, rgba(5, 8, 13, 0.72)),
-      linear-gradient(90deg, rgba(5, 8, 13, 0.14), transparent 18%, transparent 82%, rgba(5, 8, 13, 0.2));
-    pointer-events: none;
-  }
-
-  .art-frieze figcaption {
-    position: absolute;
-    left: 18px;
-    right: 18px;
-    bottom: 14px;
-    margin: 0;
-    color: #dbeafe;
-    font-size: 0.84rem;
-    line-height: 1.45;
-    font-weight: 650;
-    font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    max-width: none;
   }
 
   .timeline-frame {
@@ -2095,6 +2072,11 @@ const sourceLinks = [
       justify-content: flex-start;
     }
 
+    .section-intro .copy-stack,
+    .time-emergence .copy-stack {
+      grid-template-columns: 1fr;
+    }
+
     .prime-status-head {
       display: none;
     }
@@ -2123,12 +2105,6 @@ const sourceLinks = [
     .timeline-scroll {
       grid-template-columns: repeat(8, minmax(150px, 1fr));
       overflow-x: auto;
-    }
-
-    .art-frieze figcaption {
-      position: static;
-      padding: 12px 14px;
-      background: rgba(5, 8, 13, 0.92);
     }
 
     .crystalliser {
@@ -2207,11 +2183,6 @@ const sourceLinks = [
       min-width: 0;
       min-height: 270px;
       padding: 12px;
-    }
-
-    .art-frieze {
-      margin-left: -7px;
-      margin-right: -7px;
     }
 
     .timeline-prime {

@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
+import PageHero from '@components/PageHero.astro';
 
 const principles = [
   {
@@ -75,35 +76,16 @@ const colorClasses: Record<string, string> = {
   title="Sept principes architecturaux"
   description="Les 7 principes architecturaux découverts en PTCS v0.6 (mars 2026). Propriétés émergentes du crible à μ* = 15, applicables de la chimie moléculaire à la physique des particules."
 >
-  <main class="max-w-6xl mx-auto px-4 py-10 md:py-14">
+  <PageHero
+    eyebrow="Méta-théorie"
+    domain="meta"
+    title="Les 7 principes architecturaux de la PT"
+    kicker="Pas des règles imposées. Des propriétés émergentes du crible."
+    dekL1="Quand on tente d’appliquer la PT à un domaine nouveau (chimie moléculaire, biologie, géophysique), on observe que les mêmes structures réapparaissent. Pas par convention : par nécessité architecturale. Ces sept principes ont été identifiés en mars 2026 lors du développement de PTCS v0.6 (chimie computationnelle), puis vérifiés sur les autres domaines."
+    dekL2="Chaque principe est une propriété émergente du crible à $\mu^* = 15$, donc une conséquence de T5 et T6. Aucun n’est postulé. Leur force vient de leur universalité : ils s’appliquent aussi bien à $\alpha_{\rm EM}$ qu’à la liaison chimique d’une molécule diatomique."
+  />
 
-    <!-- HERO -->
-    <section class="mb-12">
-      <div class="rounded-lg border border-slate-200 bg-white p-6 md:p-8 shadow-sm">
-        <p class="pt-tag pt-tag-thm mb-5">Méta-théorie</p>
-        <h1 class="text-4xl md:text-5xl font-bold text-thmblue leading-tight mb-4">
-          Les 7 principes architecturaux de la PT
-        </h1>
-        <p class="text-2xl md:text-3xl font-sans font-semibold text-derorange leading-snug mb-6">
-          Pas des règles imposées. Des propriétés émergentes du crible.
-        </p>
-        <p class="text-lg text-slate-700 leading-relaxed mb-5" data-max-depth="L1">
-          Quand on tente d’appliquer la PT à un domaine nouveau (chimie
-          moléculaire, biologie, géophysique), on observe que **les mêmes
-          structures réapparaissent**. Pas par convention : par nécessité
-          architecturale. Ces sept principes ont été identifiés en
-          mars 2026 lors du développement de PTCS v0.6 (chimie computationnelle),
-          puis vérifiés sur les autres domaines.
-        </p>
-        <p class="text-base text-slate-700 leading-relaxed" data-min-depth="L2">
-          Chaque principe est une **propriété émergente** du crible à
-          $\mu^* = 15$, donc une conséquence de T5 et T6. Aucun n’est
-          postulé. Leur force vient de leur universalité : ils s’appliquent
-          aussi bien à {`$\\alpha_{\\rm EM}$`} qu’à la liaison chimique
-          d’une molécule diatomique.
-        </p>
-      </div>
-    </section>
+  <main class="max-w-6xl mx-auto px-4 py-10 md:py-14">
 
     <!-- LES 7 PRINCIPES -->
     <section class="mb-12">

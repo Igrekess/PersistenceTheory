@@ -1,20 +1,21 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
+import DashboardHero from '@components/DashboardHero.astro';
 ---
 
 <BaseLayout
   title="PT calculators"
   description="Three interactive calculators for exploring the PT sieve: anomalous dimensions γ_p, holonomies sin²(θ_p) on both branches, and α_EM bare → dressed."
 >
-  <section class="max-w-5xl mx-auto px-4 py-12">
-    <h1 class="text-3xl md:text-4xl font-bold text-thmblue mb-3">
-      PT calculators
-    </h1>
-    <p class="text-stone-700 mb-8 max-w-3xl">
-      Three interactive tools for working with the arithmetic cascade of the
-      sieve. Everything runs in the browser, in plain JavaScript, with no
-      dependency.
-    </p>
+  <DashboardHero
+    eyebrow="Standard · direct manipulation"
+    title="PT calculators"
+    plain="Three interactive tools let the reader manipulate the arithmetic cascade of the sieve in the browser: anomalous dimensions, branch holonomies and the bare-to-dressed reading of α_EM."
+    standard="The goal is not to replace the companion scripts, but to make the formulas legible: move μ, change p, observe when a prime becomes active, and see how q+ and q− carry two distinct readings."
+    note="Plain JavaScript calculations, with no additional fit parameter."
+  />
+
+  <section class="max-w-5xl mx-auto px-4 py-10 md:py-14">
 
     <!-- ============ Calc 1 — γ_p(μ) ============ -->
     <article id="calc-gamma" class="pt-card mb-8">

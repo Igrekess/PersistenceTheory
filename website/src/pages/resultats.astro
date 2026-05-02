@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
+import PageHero from '@components/PageHero.astro';
 
 const cards = [
   ['Mathématique', 'GFT + T0–T6 + L0', 'Principe fondamental, chaîne arithmétique, fermeture attractive μ* = 15.', '/theorems', 'pt-tag-thm'],
@@ -30,24 +31,16 @@ const lenses = [
   title="Dashboard des résultats"
   description="Vue synthétique des principaux résultats, validations et pages de preuve PT."
 >
-  <main class="max-w-6xl mx-auto px-4 py-10 md:py-14">
-    <section class="grid lg:grid-cols-[1.05fr_0.95fr] gap-8 items-stretch mb-12">
-      <div class="rounded-lg border border-slate-200 bg-white p-6 md:p-8 shadow-sm">
-        <p class="pt-tag pt-tag-val mb-5">Synthèse</p>
-        <h1 class="text-4xl md:text-5xl font-bold text-thmblue leading-tight mb-5">
-          Dashboard des résultats
-        </h1>
-        <p class="text-lg text-slate-700 leading-relaxed mb-4">
-          Cette page sert de carte rapide : où sont les résultats, à quoi ils
-          correspondent, et comment les vérifier dans le site.
-        </p>
-        <p class="text-slate-700 leading-relaxed">
-          Elle ne remplace pas les statuts : un résultat peut être démonstratif,
-          dérivé sous pont, validé numériquement, ou prédictif. Le dashboard
-          indique le chemin de vérification.
-        </p>
-      </div>
+  <PageHero
+    eyebrow="Synthèse"
+    domain="meta"
+    title="Dashboard des résultats"
+    dek="Cette page sert de carte rapide : où sont les résultats, à quoi ils correspondent, et comment les vérifier dans le site."
+    heroNote="Elle ne remplace pas les statuts : un résultat peut être démonstratif, dérivé sous pont, validé numériquement, ou prédictif. Le dashboard indique le chemin de vérification."
+  />
 
+  <main class="max-w-6xl mx-auto px-4 py-10 md:py-14">
+    <section class="mb-12">
       <aside class="rounded-lg border border-slate-200 bg-slate-950 text-white p-6 md:p-8 shadow-sm">
         <p class="text-xs font-sans uppercase tracking-[0.18em] text-amber-300 mb-5">
           Repères annoncés

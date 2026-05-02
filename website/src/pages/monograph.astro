@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
+import PageHero from '@components/PageHero.astro';
 import Citation from '@components/Citation.astro';
 import { REPO_URL, MONOGRAPH_PDF_EN, MONOGRAPH_PDF_FR } from '@/lib/repo';
 
@@ -23,35 +24,21 @@ const routes = [
 ---
 
 <BaseLayout title="Monographie">
-  <main class="max-w-6xl mx-auto px-4 py-10 md:py-14">
-    <section class="grid lg:grid-cols-[1.05fr_0.95fr] gap-8 items-stretch mb-12">
-      <div class="rounded-lg border border-slate-200 bg-white p-6 md:p-8 shadow-sm">
-        <p class="pt-tag pt-tag-thm mb-5">Document source</p>
-        <h1 class="text-4xl md:text-5xl font-bold text-thmblue leading-tight mb-4">
-          Monographie
-        </h1>
-        <p class="text-xl md:text-2xl font-sans font-semibold text-derorange leading-snug mb-5">
-          The Theory of Persistence — From the Sieve to the Standard Model
-        </p>
-        <p class="text-lg text-stone-800 leading-relaxed mb-6">
-          La monographie rassemble la chaîne complète : principe GFT,
-          dynamique du crible, fermeture attractive μ* = 15, ponts vers la
-          physique, dérivations numériques, extensions chimiques et cosmologiques,
-          puis registre de vérification.
-        </p>
-        <div class="flex flex-wrap gap-3">
-          <a href={MONOGRAPH_PDF_FR} class="px-5 py-3 bg-thmblue text-white font-sans font-semibold rounded hover:bg-thmblue/90">
-            Télécharger l’édition française
-          </a>
-          <a href={MONOGRAPH_PDF_EN} class="px-5 py-3 bg-white border border-thmblue text-thmblue font-sans font-semibold rounded hover:bg-thmblue/5">
-            Télécharger l’édition anglaise
-          </a>
-          <a href={REPO_URL} class="px-5 py-3 bg-stone-50 border border-stone-300 text-stone-800 font-sans font-semibold rounded hover:bg-stone-100">
-            Repo GitHub
-          </a>
-        </div>
-      </div>
+  <PageHero
+    eyebrow="Document source"
+    domain="meta"
+    title="Monographie"
+    kicker="The Theory of Persistence — From the Sieve to the Standard Model"
+    dek="La monographie rassemble la chaîne complète : principe GFT, dynamique du crible, fermeture attractive μ* = 15, ponts vers la physique, dérivations numériques, extensions chimiques et cosmologiques, puis registre de vérification."
+    actions={[
+      { href: MONOGRAPH_PDF_FR, label: 'Télécharger l’édition française', tone: 'primary' },
+      { href: MONOGRAPH_PDF_EN, label: 'Télécharger l’édition anglaise', tone: 'outline' },
+      { href: REPO_URL, label: 'Repo GitHub', tone: 'soft' },
+    ]}
+  />
 
+  <main class="max-w-6xl mx-auto px-4 py-10 md:py-14">
+    <section class="mb-12">
       <aside class="rounded-lg border border-slate-200 bg-slate-950 text-white p-6 md:p-8 shadow-sm">
         <p class="text-xs font-sans uppercase tracking-[0.18em] text-amber-300 mb-5">
           Audit éditorial

@@ -1,120 +1,98 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
-import ResearchTopic from '@components/ResearchTopic.astro';
+import DeepPhysicsPage from '@components/DeepPhysicsPage.astro';
 
-const features = [
-  { title: 'Same logic, deeper layer', body: 'The nucleus is read as a deeper persistence layer: colour, pions, closures and binding follow the same cascade.', status: 'DER' },
-  { title: 'Magic numbers', body: 'Without spin-orbit the model recovers 2, 8, 20; with the nuclear PT spin-orbit term it gives 2, 8, 20, 28, 50, 82, 126.', status: 'VAL' },
-  { title: '408/413 tests', body: 'The reported score is 408 passing tests out of 413, i.e. 98.8%, with zero fitted parameters.', status: 'VAL' },
-];
-
-const sections = [
-  {
-    eyebrow: 'Plain',
-    title: 'The nucleus is a deeper chemistry',
-    paragraphs: [
-      'One can enter nuclear physics without starting from equations. An atom has two layers of organization: outside, electrons make ordinary chemistry; at the centre, protons and neutrons make a much more compact, deeper chemistry, where the strong force replaces electromagnetism as the dominant channel.',
-      'PT therefore does not treat the nucleus as a separate continent. It asks a simple question: if persistence already organizes electrons, quarks, and colour channels, what does the same logic become when the degrees of freedom are trapped in a tiny, very dense volume?',
-      'The intuitive answer is shells. In an atom, closed electronic shells give noble gases. In a nucleus, proton and neutron shells can close too: these are the magic numbers. A nucleus near such a closure resists deformation better, binds more cleanly, and even changes its radioactive behaviour.',
-      'The central idea is this: nuclear stability is not just “a lot of strong force”. It is a geometry of channels. Some positions are exposed, others protected; some configurations close a shell, others leave a fragile boundary. PT tries to read that architecture with the same vocabulary as chemistry: channels, closures, depth, and echoes.',
-      'So the picture to keep is this: the nucleus is a very tight shell object. When a shell closes, the whole object becomes more stable; when it stays open, it becomes more reactive, more deformable, or more likely to decay.',
-    ],
-    items: [
-      'Protons and neutrons are the objects organized into shells.',
-      'Nuclear closures are the deep analogue of noble gases.',
-      'The strong force makes nuclear spin-orbit much more powerful than atomic spin-orbit.',
-      'Radioactivity also depends on this architecture: a closure can suppress alpha preformation.',
-    ],
-  },
-  {
-    eyebrow: 'Standard',
-    title: 'How PT computes the nuclear sector',
-    depth: 'L2',
-    paragraphs: [
-      'The monograph organizes the sector into eight families: equations, nucleon-nucleon potential, binding energies, magic numbers, radioactivity, reactions, NLO phases, and ab initio calculations.',
-      'The computation starts from constants already present in the theory: $s=1/2$, $N_c=3$, $C_F=4/3$ and the effective strong coupling. From there, PT reconstructs a nuclear potential, then the binding terms: volume, surface, Coulomb, asymmetry, pairing and closure corrections.',
-      'The important point is that these are not knobs adjusted to rescue a curve. The terms are continuous readings or shell corrections imposed by the PT hierarchy. That is precisely why the nuclear sector matters for a physicist.',
-    ],
-    items: [
-      'Potential: the colour channel leaves an effective residual between nucleons.',
-      'Binding: Bethe-Weizsäcker-type mass formula, but with a PT dictionary.',
-      'Shells: magic closures appear when internal channels close.',
-      'Radioactivity: the factor $(5/8)^{n_{magic}}$ suppresses preformation near closures.',
-    ],
-  },
-  {
-    eyebrow: 'Standard',
-    title: 'Where do magic numbers come from?',
-    depth: 'L2',
-    paragraphs: [
-      'In the usual nuclear shell model, magic numbers are often presented as the result of a mean potential plus strong spin-orbit coupling. The PT reading keeps that structure, but gives it a reason: nuclear depth amplifies spin-orbit because the strong channel replaces the electromagnetic scale.',
-      'At the discrete level, sieve depth $D=2$ gives four quantum numbers $(n,l,m_l,m_s)$. Without spin-orbit, the first closures 2, 8 and 20 are recovered, but the large nuclear closures are not forced.',
-      'With PT spin-orbit, the effective strength is $\\lambda_{LS}=C_F\\alpha_{s,eff}(\\hbar c/(2m_\\pi))^2\\simeq0.475\\,\\mathrm{fm}^2$. Since $\\alpha_{s,eff}/\\alpha_{EM}$ is of order 100, the nucleus sees a much stronger spin-orbit splitting than the atom.',
-      'This is where the module becomes useful: the same channel logic explains why 28, 50, 82 and 126 appear. The closures correspond to the $0f_{7/2}$, $0g_{9/2}$, $0h_{11/2}$ and $0i_{13/2}$ orbitals dropping and opening the large gaps.',
-    ],
-    visual: {
-      kind: 'magic-shells',
-      title: 'Nuclear shell closures',
-      caption: 'Without spin-orbit, the structure is too poor. With the nuclear spin-orbit term derived by PT, the seven standard closures are reconstructed.',
-      labels: ['Without spin-orbit', 'With PT spin-orbit', 'The large closures come from strong amplification of the LS channel.'],
-    },
-  },
-  {
-    eyebrow: 'Technical',
-    title: 'Technical demonstration: cascade, magic numbers, limits',
-    depth: 'L3',
-    paragraphs: [
-      'The nuclear chapter belongs to physical validation: outputs are compared with experiment and structural tests. Its status is not that of a pure arithmetic identity such as GFT or T5, but of a derived cascade whose consequences are confronted with data.',
-      'The 5 failures are explicitly listed as limitations of the monopole approximation or three-body corrections, not as refutations of the cascade.',
-      'The technical cascade is $s=1/2\\to N_c\\to C_F\\to\\alpha_s\\to\\sigma_{QCD}\\to f_\\pi,m_\\pi,M_N\\to V_{NN}\\to E_{bind}$. Each stage inherits constants already derived in earlier chapters.',
-      'For magic numbers, the route is explicit: $D=2$ gives $(n,l,m_l,m_s)$, the PT Woods-Saxon potential fixes the mean spectrum, then the derived LS term opens the 28, 50, 82 and 126 gaps. The responsible orbitals are $0s_{1/2}$, $0p_{3/2}$, $0d_{3/2}$, $0f_{7/2}$, $0g_{9/2}$, $0h_{11/2}$ and $0i_{13/2}$.',
-      'The 408/413 score mixes algebraic, structural, and empirical tests; the monograph indicates roughly 132 genuinely experimental comparisons. This is a major coherence test, but not 413 independent constants.',
-    ],
-    items: [
-      '$V_{NN}$ potential: OPE, $\\sigma$, $\\omega$, tensor components.',
-      'Binding: Bethe-Weizsäcker + PT corrections, saturation near iron.',
-      'Magic numbers: $2,8,20,28,50,82,126$ obtained with strong spin-orbit amplification.',
-      'Radioactivity: alpha NLO with spectroscopic factor $(5/8)^{n_{magic}}$.',
-      'Open: deuteron radius by tensor force, deformed nuclei, EOS beyond $2n_0$.',
-    ],
-    demo: {
-      kind: 'magic-proximity',
-      title: 'Echo of a magic closure',
-      caption: 'The spectroscopic factor used in alpha radioactivity is $(5/8)^{n_{magic}}$. Near a closure the shell echo is strong; far from it the effect fades continuously.',
-      labels: ['distance to a magic closure'],
-    },
-    proof: {
-      title: 'Technical demonstration of the nuclear cascade',
-      steps: [
-        'The chain starts from constants already derived in the SM sector: $s=1/2$, $\\mu^*=15$, $N_c=3$, $C_F=4/3$, $\\alpha_{EM}$, and $\\alpha_s$. Nuclear physics adds no continuous fitted parameter.',
-        'The colour channel fixes the strong residual. The scales $f_\\pi$, $m_\\pi$, and $M_N$ inherit from the previous hadronic chain; they feed the nucleon-nucleon potential.',
-        '$V_{NN}$ is decomposed into pion, sigma, omega, and tensor-like components. Each component corresponds to a different PT reading of colour residual and channel depth.',
-        'Binding energies are then read through a Bethe-Weizsäcker-type mass formula with PT corrections: volume, surface, Coulomb, asymmetry, pairing, and closure corrections.',
-        'Magic numbers are not pasted as a table: $D=2$ supplies the four quantum numbers, the PT Woods-Saxon potential gives the mean spectrum, then $\\lambda_{LS}=C_F\\alpha_{s,eff}(\\hbar c/(2m_\\pi))^2$ creates the large spin-orbit gaps.',
-        'Alpha radioactivity is demonstrated through Gamow + PT corrections. The spectroscopic factor $(5/8)^{n_{magic}}$ reduces preformation near magic closures and replaces part of the full many-body solver.',
-        'The reported 408/413 validation tests this cascade across eight families: equations, $V_{NN}$, binding, magic numbers, radioactivity, reactions, NLO phases, ab initio.',
-      ],
-      conclusion: 'The PT reading of nuclear physics rests on a derived and validated cascade: SM-sector constants, colour residual, $V_{NN}$ potential, binding, magic numbers, and radioactivity. Its strength is coherence without continuous fitted parameters across many families, with known limits explicitly stated.',
-    },
-  },
-];
-
-const sources = [
-  'ch. 22d: Nuclear Physics, status box and ledger.',
-  'pt_chimie_scores.tex: 408/413 tests, 98.8%.',
-  'ch. 24: nuclear sector in post-programme directions.',
-  'Appendix F: companion scripts and coverage.',
+const links = [
+  { href: '/en/observables', label: 'Observables' },
+  { href: '/en/tableau-periodique', label: 'Periodic table' },
+  { href: '/en/relativite', label: 'Relativity' },
+  { href: '/en/audit', label: 'Audit' },
 ];
 ---
 
 <BaseLayout title="Nuclear Physics in PT" description="PT reading of the nuclear sector: cascade, magic numbers, binding energies, radioactivity, and validation.">
-  <ResearchTopic
+  <DeepPhysicsPage
+    domain="physics"
     eyebrow="Nuclear physics"
     title="The nucleus as a depth of persistence"
-    description="PT treats the nuclear domain as an observation layer of the same structure: the channels that give Standard Model constants recombine into nuclear force, closures and binding energies."
-    lead="The nuclear sector matters because it tests PT far away from its entry point: if the same cascade also explains nuclei, the theory gains considerable explanatory depth."
-    features={features}
-    sections={sections}
-    sources={sources}
+    dek="PT treats the nuclear domain as an observation layer of the same structure: the channels that give Standard Model constants recombine into nuclear force, closures, and binding energies."
+    heroNote="colour → pions → NN potential → shells → radioactivity"
+    plainLabel="Plain language"
+    standardLabel="Standard"
+    technicalLabel="Technical"
+    statusLabel="Status"
+    stats={[
+      { label: 'magic numbers', value: '2,8,20…126', note: 'nuclear closures reconstructed' },
+      { label: 'reported validation', value: '408/413', note: 'passing tests, zero fitted parameter' },
+      { label: 'status', value: 'DER/VAL', note: 'derived cascade, then compared with data' },
+    ]}
+    guide={{
+      title: 'The nucleus is a deeper chemistry',
+      paragraphs: [
+        'One can enter nuclear physics without starting from equations. An atom has two layers of organization: outside, electrons make ordinary chemistry; at the centre, protons and neutrons make a much more compact chemistry.',
+        'In chemistry, electrons fill shells. When a shell is closed, the atom becomes especially stable: noble gases are the familiar example. In the nucleus, there is an analogous idea, but with protons and neutrons, and with the strong force as the dominant channel.',
+        'Magic numbers are the sizes at which a nuclear shell closes: 2, 8, 20, 28, 50, 82, 126. A nucleus near such a closure resists deformation better, binds more cleanly, and may change how it decays.',
+        'PT therefore does not treat the nucleus as a separate continent. It asks what the same persistence logic becomes when degrees of freedom are trapped in a tiny, dense volume dominated by colour and pions.',
+        'The idea to keep: nuclear stability is not just “a lot of strong force”. It is an architecture of channels. Some positions close a shell; others leave a fragile boundary.',
+      ],
+      cards: [
+        { title: 'Shells', body: 'Protons and neutrons occupy levels; some closures make the nucleus more stable.' },
+        { title: 'Spin-orbit', body: 'In the nucleus, the strong channel greatly amplifies spin-orbit splitting.' },
+        { title: 'Radioactivity', body: 'A closure can suppress alpha preformation and change lifetimes.' },
+      ],
+    }}
+    standard={{
+      title: 'How PT computes the nuclear sector',
+      paragraphs: [
+        'The monograph organizes the sector into eight families: equations, nucleon-nucleon potential, binding energies, magic numbers, radioactivity, reactions, NLO phases, and ab initio calculations.',
+        'The computation starts from constants already present in the theory: s=1/2, Nc=3, CF=4/3, and the effective strong coupling. From there, PT reconstructs a nuclear potential, then binding terms.',
+        'The binding terms resemble a Bethe-Weizsäcker-type mass formula: volume, surface, Coulomb, asymmetry, pairing, closure corrections. The difference is that each term is read through the PT dictionary.',
+        'The important point is that these terms are not knobs adjusted to rescue a curve. They are inherited from the channel cascade and then confronted with data.',
+      ],
+      flow: ['s=1/2', 'Nc / CF', 'αs', 'VNN', 'shells'],
+    }}
+    visual={{
+      kind: 'nuclear',
+      title: 'Why magic numbers appear',
+      paragraphs: [
+        'Without spin-orbit, the shell structure recovers the first closures 2, 8, and 20. It remains too poor, however, to force the large nuclear closures.',
+        'With PT spin-orbit, the strong channel amplifies splitting: orbitals 0f7/2, 0g9/2, 0h11/2, and 0i13/2 drop and open the large gaps 28, 50, 82, and 126.',
+        'The diagram is a structural reading of these closures. It does not replace the spectrum calculation; it shows where the spin-orbit bifurcation becomes decisive.',
+      ],
+      cards: [
+        { title: '2, 8, 20', body: 'Closures already visible in shell structure without strong LS.' },
+        { title: '28, 50, 82, 126', body: 'Large closures opened by nuclear spin-orbit amplification.' },
+        { title: 'Validation', body: 'The nuclear sector is DER/VAL, not a pure arithmetic identity.' },
+      ],
+    }}
+    technical={{
+      title: 'Technical demonstration: cascade, magic numbers, limits',
+      paragraphs: [
+        'The nuclear chapter belongs to physical validation: outputs are compared with experiment and structural tests. Its status is not that of a pure arithmetic identity such as GFT or T5, but of a derived cascade whose consequences are confronted with data.',
+        'The technical cascade is s=1/2 → Nc → CF → αs → σQCD → fπ,mπ,MN → VNN → Ebind. Each stage inherits constants derived in earlier chapters.',
+        'The 408/413 score mixes algebraic, structural, and empirical tests; it should be read as a large coherence test, not as 413 independent constants.',
+      ],
+      steps: [
+        { code: '1', title: 'constants', body: 's, μ*, Nc, CF, αEM, and αs come from previous sectors.' },
+        { code: '2', title: 'colour', body: 'The colour channel fixes the strong residual between nucleons.' },
+        { code: '3', title: 'pions', body: 'fπ, mπ, and MN feed the nucleon-nucleon potential.' },
+        { code: '4', title: 'VNN', body: 'The potential combines pion, sigma, omega, and tensor components.' },
+        { code: '5', title: 'binding', body: 'The mass formula receives volume, surface, Coulomb, asymmetry, and pairing terms.' },
+        { code: '6', title: 'shells', body: 'D=2 supplies the four quantum numbers of the shell model.' },
+        { code: '7', title: 'LS', body: 'PT spin-orbit opens closures 28, 50, 82, and 126.' },
+        { code: '8', title: 'limits', body: 'Remaining failures concern monopole, three-body, and deformed-nucleus effects.' },
+      ],
+      cards: [
+        { title: '408/413', body: 'Reported global coherence score for the nuclear sector.' },
+        { title: 'about 132', body: 'Genuinely experimental comparisons according to the monograph reading.' },
+        { title: 'Open', body: 'Deuteron, deformed nuclei, and EOS beyond 2n0 remain work areas.' },
+      ],
+    }}
+    status={{
+      title: 'Epistemic status',
+      text: 'The nuclear sector is DER/VAL: the cascade is derived from PT constants and then compared with data. It is strong as a coherence test, but should not be presented as a pure theorem.',
+      linksTitle: 'Related pages',
+      links,
+    }}
   />
 </BaseLayout>

@@ -1,20 +1,20 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
+import PageHero from '@components/PageHero.astro';
 ---
 
 <BaseLayout
   title="Interactive proof"
   description="Interactive teaching module for manipulating PT channels in the periodic table."
 >
+  <PageHero
+    eyebrow="Teaching module"
+    domain="meta"
+    title="Manipulate the chemical proof"
+    dek="The goal is not to simulate all atomic chemistry. The goal is to make the central PT brick visible: a channel has orientations, spin doubles each orientation, then channel occupation turns geometry into period, closure, capture boundary, or vacancy."
+  />
+
   <section class="max-w-6xl mx-auto px-4 py-12">
-    <p class="pt-tag pt-tag-id mb-4">Teaching module</p>
-    <h1 class="text-4xl md:text-5xl font-bold text-thmblue mb-5">Manipulate the chemical proof</h1>
-    <p class="text-lg text-slate-700 leading-relaxed max-w-3xl mb-10">
-      The goal is not to simulate all atomic chemistry. The goal is to make the
-      central PT brick visible: a channel has orientations, spin doubles each
-      orientation, then channel occupation turns geometry into period, closure,
-      capture boundary, or vacancy.
-    </p>
 
     <div class="grid lg:grid-cols-[0.85fr_1.15fr] gap-8 items-start">
       <div class="bg-white border border-slate-200 rounded-lg p-5">

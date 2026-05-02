@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '@layouts/BaseLayout.astro';
+import PageHero from '@components/PageHero.astro';
 
 const items = (await getCollection('essays_fr'))
   .sort((a, b) => a.data.order - b.data.order);
@@ -15,17 +16,15 @@ const levelLabel: Record<string, string> = {
 ---
 
 <BaseLayout title="En quelques mots">
-  <section class="max-w-5xl mx-auto px-4 py-12">
-    <h1 class="text-3xl md:text-4xl font-bold text-thmblue mb-3">
-      En quelques mots
-    </h1>
-    <p class="text-stone-700 mb-8 max-w-3xl">
-      Des textes courts pour entrer dans la Théorie de la Persistance sans
-      passer par la monographie complète. On commence vulgarisé, puis on pousse
-      un cran plus loin en mode standard. Chaque essai renvoie aux résultats
-      précis pour aller plus loin.
-    </p>
+  <PageHero
+    width="wide"
+    eyebrow="En quelques mots"
+    domain="meta"
+    title="En quelques mots"
+    dek="Des textes courts pour entrer dans la Théorie de la Persistance sans passer par la monographie complète. On commence vulgarisé, puis on pousse un cran plus loin en mode standard. Chaque essai renvoie aux résultats précis pour aller plus loin."
+  />
 
+  <section class="max-w-5xl mx-auto px-4 py-12">
     <div class="grid md:grid-cols-2 gap-4">
       {intro && (
         <a href={`/essays/${intro.data.slug}`} class="pt-card block group border-thmblue/40">

@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
+import PageHero from '@components/PageHero.astro';
 
 const reasons = [
   ['No fitted continuous parameter', 'Values are not obtained by observable-by-observable regression. Remaining choices must be discrete, named, and justified.'],
@@ -14,15 +15,14 @@ const reasons = [
   title="Why it is hard to dismiss"
   description="The criteria that make PT auditable: no continuous fit, status labels, scripts, and predictions."
 >
-  <section class="max-w-6xl mx-auto px-4 py-12">
-    <p class="pt-tag pt-tag-val mb-4">Rigor and falsifiability</p>
-    <h1 class="text-4xl md:text-5xl font-bold text-thmblue mb-5">Why it is hard to dismiss</h1>
-    <p class="text-lg text-slate-700 leading-relaxed max-w-3xl mb-10">
-      A new theory should not merely tell a beautiful story. It must reduce
-      fitting freedom, expose its assumptions, provide tests, and state where
-      it could fail.
-    </p>
+  <PageHero
+    eyebrow="Rigor and falsifiability"
+    domain="meta"
+    title="Why it is hard to dismiss"
+    dek="A new theory should not merely tell a beautiful story. It must reduce fitting freedom, expose its assumptions, provide tests, and state where it could fail."
+  />
 
+  <section class="max-w-6xl mx-auto px-4 py-12">
     <div class="grid md:grid-cols-2 lg:grid-cols-5 gap-3 mb-12">
       {reasons.map(([title, body]) => (
         <div class="pt-card">

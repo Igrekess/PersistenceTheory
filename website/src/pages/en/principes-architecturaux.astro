@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
+import PageHero from '@components/PageHero.astro';
 
 const principles = [
   {
@@ -75,33 +76,16 @@ const colorClasses: Record<string, string> = {
   title="Seven architectural principles"
   description="The 7 architectural principles discovered in PTCS v0.6 (March 2026). Emergent properties of the sieve at μ* = 15, applicable from molecular chemistry to particle physics."
 >
-  <main class="max-w-6xl mx-auto px-4 py-10 md:py-14">
+  <PageHero
+    eyebrow="Meta-theory"
+    domain="meta"
+    title="The 7 architectural principles of PT"
+    kicker="Not imposed rules. Emergent properties of the sieve."
+    dekL1="When applying PT to a new domain (molecular chemistry, biology, geophysics), one observes that the same structures recur. Not by convention: by architectural necessity. These seven principles were identified in March 2026 during PTCS v0.6 (computational chemistry) development, then verified across other domains."
+    dekL2="Each principle is an emergent property of the sieve at $\mu^* = 15$, hence a consequence of T5 and T6. None is postulated. Their force comes from universality: they apply equally to $\alpha_{\rm EM}$ and to the chemical bonding of a diatomic molecule."
+  />
 
-    <section class="mb-12">
-      <div class="rounded-lg border border-slate-200 bg-white p-6 md:p-8 shadow-sm">
-        <p class="pt-tag pt-tag-thm mb-5">Meta-theory</p>
-        <h1 class="text-4xl md:text-5xl font-bold text-thmblue leading-tight mb-4">
-          The 7 architectural principles of PT
-        </h1>
-        <p class="text-2xl md:text-3xl font-sans font-semibold text-derorange leading-snug mb-6">
-          Not imposed rules. Emergent properties of the sieve.
-        </p>
-        <p class="text-lg text-slate-700 leading-relaxed mb-5" data-max-depth="L1">
-          When applying PT to a new domain (molecular chemistry, biology,
-          geophysics), one observes that **the same structures recur**.
-          Not by convention: by architectural necessity. These seven
-          principles were identified in March 2026 during PTCS v0.6
-          (computational chemistry) development, then verified across
-          other domains.
-        </p>
-        <p class="text-base text-slate-700 leading-relaxed" data-min-depth="L2">
-          Each principle is an **emergent property** of the sieve at
-          $\mu^* = 15$, hence a consequence of T5 and T6. None is postulated.
-          Their force comes from universality: they apply equally to
-          {`$\\alpha_{\\rm EM}$`} and to the chemical bonding of a diatomic molecule.
-        </p>
-      </div>
-    </section>
+  <main class="max-w-6xl mx-auto px-4 py-10 md:py-14">
 
     <section class="mb-12">
       <p class="pt-tag pt-tag-thm mb-3">The seven</p>

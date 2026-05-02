@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
+import PageHero from '@components/PageHero.astro';
 
 const reasons = [
   ['Zéro paramètre continu ajusté', 'Les valeurs ne sont pas obtenues par régression observable par observable. Les choix restants doivent être discrets, nommés et justifiés.'],
@@ -14,15 +15,14 @@ const reasons = [
   title="Pourquoi c’est difficile à rejeter"
   description="Les critères qui rendent la PT auditable : zéro fit continu, statuts, scripts et prédictions."
 >
-  <section class="max-w-6xl mx-auto px-4 py-12">
-    <p class="pt-tag pt-tag-val mb-4">Rigueur et falsifiabilité</p>
-    <h1 class="text-4xl md:text-5xl font-bold text-thmblue mb-5">Pourquoi c’est difficile à rejeter</h1>
-    <p class="text-lg text-slate-700 leading-relaxed max-w-3xl mb-10">
-      Une théorie nouvelle ne doit pas seulement raconter une belle histoire.
-      Elle doit réduire la liberté d’ajustement, exposer ses hypothèses, donner
-      des tests et dire où elle pourrait échouer.
-    </p>
+  <PageHero
+    eyebrow="Rigueur et falsifiabilité"
+    domain="meta"
+    title="Pourquoi c’est difficile à rejeter"
+    dek="Une théorie nouvelle ne doit pas seulement raconter une belle histoire. Elle doit réduire la liberté d’ajustement, exposer ses hypothèses, donner des tests et dire où elle pourrait échouer."
+  />
 
+  <section class="max-w-6xl mx-auto px-4 py-12">
     <div class="grid md:grid-cols-2 lg:grid-cols-5 gap-3 mb-12">
       {reasons.map(([title, body]) => (
         <div class="pt-card">

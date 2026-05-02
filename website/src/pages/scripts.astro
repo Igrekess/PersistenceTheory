@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
+import PageHero from '@components/PageHero.astro';
 
 const scripts = [
   {
@@ -59,21 +60,16 @@ const scripts = [
   title="Scripts de vérification"
   description="Exécute les preuves PT directement dans ton navigateur via Pyodide. Cinq scripts emblématiques : T5 attracteur réduit, T6 holonomie, α_EM, lemmes E/F/G, outils math."
 >
+  <PageHero
+    width="wide"
+    eyebrow="Scripts de vérification"
+    domain="meta"
+    title="Scripts de vérification"
+    dek="Cinq scripts emblématiques de la monographie PT, exécutables directement dans ton navigateur via Pyodide (Python 3.13 compilé en WebAssembly). Aucun aller-retour serveur ; tout tourne en local."
+    heroNote="Premier clic « Lancer » : téléchargement de Pyodide (~10 Mo) + numpy + scipy (~35 Mo au total). Comptez 20 à 40 s la première fois, quelques secondes ensuite (cache navigateur)."
+  />
+
   <section class="max-w-5xl mx-auto px-4 py-12">
-    <h1 class="text-3xl md:text-4xl font-bold text-thmblue mb-3">
-      Scripts de vérification
-    </h1>
-    <p class="text-stone-700 mb-3 max-w-3xl">
-      Cinq scripts emblématiques de la monographie PT, exécutables directement
-      dans ton navigateur via <a class="underline" href="https://pyodide.org" target="_blank" rel="noopener">Pyodide</a>
-      (Python 3.13 compilé en WebAssembly). Aucun aller-retour serveur ; tout
-      tourne en local.
-    </p>
-    <p class="text-sm text-stone-600 mb-6 max-w-3xl">
-      <strong>Premier clic « Lancer »</strong> : téléchargement de Pyodide
-      (~10 Mo) + numpy + scipy (~35 Mo au total). Comptez 20 à 40 s la première
-      fois, quelques secondes ensuite (cache navigateur).
-    </p>
 
     <div id="pyodide-status" class="mb-6 px-4 py-2 rounded font-sans text-sm bg-stone-100 text-stone-600 hidden">
       <span id="pyodide-status-text">Pyodide non chargé.</span>

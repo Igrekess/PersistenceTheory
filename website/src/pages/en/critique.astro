@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
+import PageHero from '@components/PageHero.astro';
 
 const objections = [
   {
@@ -75,35 +76,16 @@ const severityClasses: Record<string, string> = {
   title="Critique and debate"
   description="Serious objections to PT, and reasoned answers. Open space for scrupulous critique — that is how the theory progresses."
 >
-  <main class="max-w-6xl mx-auto px-4 py-10 md:py-14">
+  <PageHero
+    eyebrow="Open space"
+    domain="meta"
+    title="Critique and debate"
+    kicker="Serious objections deserve serious answers."
+    dekL1="A theory claiming 43 observables with no parameter deserves objections. More precisely, PT claims zero continuously fitted parameters, with an SCU dimensional convention and explicit discrete structural commitments. This page collects the strongest ones and answers them directly. None is dismissed as misunderstanding: if the critique holds, the theory must be revised — and we already had the chance (P20 downgraded in April 2026)."
+    dekL2="This is not a defence brief. It is a public stress-test space. If you have an objection not listed here, write it on the Contact page or open a GitHub issue. Good critiques will be added with their reply."
+  />
 
-    <section class="mb-12">
-      <div class="rounded-lg border border-slate-200 bg-white p-6 md:p-8 shadow-sm">
-        <p class="pt-tag pt-tag-id mb-5">Open space</p>
-        <h1 class="text-4xl md:text-5xl font-bold text-thmblue leading-tight mb-4">
-          Critique and debate
-        </h1>
-        <p class="text-2xl md:text-3xl font-sans font-semibold text-derorange leading-snug mb-6">
-          Serious objections deserve serious answers.
-        </p>
-        <p class="text-lg text-slate-700 leading-relaxed mb-5" data-max-depth="L1">
-          A theory claiming 43 observables with no parameter deserves
-          objections. More precisely, PT claims zero continuously fitted
-          parameters, with an SCU dimensional convention and explicit discrete
-          structural commitments. This page collects the strongest ones and answers
-          them directly. None is dismissed as "misunderstanding": if the
-          critique holds, the theory must be revised — and we already had
-          the chance (P20 downgraded in April 2026).
-        </p>
-        <p class="text-base text-slate-700 leading-relaxed" data-min-depth="L2">
-          This is not a defence brief. It is a **public stress-test space**.
-          If you have an objection not listed here, write it on the
-          <a href="/en/contact" class="text-thmblue underline">Contact</a> page
-          or open a <a href="https://github.com/Igrekess" class="text-thmblue underline">GitHub issue</a>.
-          Good critiques will be added with their reply.
-        </p>
-      </div>
-    </section>
+  <main class="max-w-6xl mx-auto px-4 py-10 md:py-14">
 
     <section class="mb-12">
       <p class="pt-tag pt-tag-thm mb-3">10 strong objections</p>

@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
+import PageHero from '@components/PageHero.astro';
 
 const statusClass = (type: string) => {
   if (type === 'THM') return 'pt-tag-thm';
@@ -431,20 +432,15 @@ const groups = [
   title="Questions fondamentales"
   description="Carte des questions auxquelles la Théorie de la Persistance répond, qu’elle reformule ou qu’elle dissout, avec statut épistémique."
 >
-  <section class="max-w-6xl mx-auto px-4 py-14">
-    <p class="text-sm font-sans font-semibold uppercase tracking-wider text-derorange mb-3">
-      Carte épistémique
-    </p>
-    <h1 class="text-4xl md:text-5xl font-bold text-thmblue mb-5">
-      Questions auxquelles répond la PT
-    </h1>
-    <p class="text-xl text-slate-700 leading-relaxed max-w-4xl mb-8">
-      Cette page ne classe pas toutes les idées au même niveau. Certaines réponses sont des théorèmes ou des identités, d’autres sont des ponts physiques, des validations numériques, des prédictions, ou des dissolutions conceptuelles.
-    </p>
+  <PageHero
+    eyebrow="Carte épistémique"
+    domain="meta"
+    title="Questions auxquelles répond la PT"
+    dek="Cette page ne classe pas toutes les idées au même niveau. Certaines réponses sont des théorèmes ou des identités, d’autres sont des ponts physiques, des validations numériques, des prédictions, ou des dissolutions conceptuelles."
+    oneLineNote={{ label: 'Règle de lecture', body: '« répondre » ne veut pas toujours dire « résoudre par une formule ». En PT, une question peut être dérivée, expliquée, validée, prédite, ou dissoute quand le cadre qui la produisait cesse d’être applicable.' }}
+  />
 
-    <div class="bg-amber-50 border-l-4 border-amber-300 px-5 py-4 mb-10 text-slate-800 leading-relaxed">
-      <strong>Règle de lecture :</strong> “répondre” ne veut pas toujours dire “résoudre par une formule”. En PT, une question peut être dérivée, expliquée, validée, prédite, ou dissoute quand le cadre qui la produisait cesse d’être applicable.
-    </div>
+  <section class="max-w-6xl mx-auto px-4 py-14">
 
     <div class="space-y-10">
       {groups.map((group) => (

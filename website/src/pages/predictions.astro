@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
+import PageHero from '@components/PageHero.astro';
 
 const statusClass = (type: string) => {
   if (type.includes('PRED') || type.includes('NEG')) return 'pt-tag-pred';
@@ -95,21 +96,15 @@ const nearTerm = [
   title="Prédictions de la PT"
   description="Registre vulgarisé et technique des prédictions de la Théorie de la Persistance, avec statuts épistémiques et critères de test."
 >
-  <section class="max-w-6xl mx-auto px-4 py-14">
-    <p class="text-sm font-sans font-semibold uppercase tracking-wider text-derorange mb-3">
-      En quelques mots / registre testable
-    </p>
-    <h1 class="text-4xl md:text-5xl font-bold text-thmblue mb-5">
-      Prédictions de la PT
-    </h1>
-    <p class="text-xl text-slate-700 leading-relaxed max-w-4xl">
-      Une théorie fondamentale doit accepter d’être contredite. La monographie
-      actuelle recense 28 entrées Tier‑1 (P1–P19, P21–P28 et P25b), auxquelles
-      s’ajoutent des échelles de running de αs. Cette page les présente sans
-      les transformer en théorèmes : ce sont des tests physiques du pont PT.
-    </p>
+  <PageHero
+    eyebrow="En quelques mots / registre testable"
+    domain="meta"
+    title="Prédictions de la PT"
+    dek="Une théorie fondamentale doit accepter d’être contredite. La monographie actuelle recense 28 entrées Tier‑1 (P1–P19, P21–P28 et P25b), auxquelles s’ajoutent des échelles de running de αs. Cette page les présente sans les transformer en théorèmes : ce sont des tests physiques du pont PT."
+  />
 
-    <div class="grid md:grid-cols-4 gap-4 mt-8">
+  <section class="max-w-6xl mx-auto px-4 py-14">
+    <div class="grid md:grid-cols-4 gap-4">
       {predictionTypes.map((item) => (
         <article class="pt-card">
           <span class={`pt-tag ${statusClass(item.tag)}`}>{item.tag}</span>

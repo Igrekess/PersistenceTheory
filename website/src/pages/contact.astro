@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
+import PageHero from '@components/PageHero.astro';
 import { REPO_ISSUES, REPO_URL } from '@/lib/repo';
 
 const email = 'yan.senez@protonmail.com';
@@ -9,14 +10,16 @@ const formAction = `https://formspree.io/f/${formspreeId}`;
 ---
 
 <BaseLayout title="Contact">
-  <section class="max-w-3xl mx-auto px-4 py-12">
-    <h1 class="text-3xl md:text-4xl font-bold text-thmblue mb-6">Contact</h1>
+  <PageHero
+    width="narrow"
+    eyebrow="Contact"
+    domain="meta"
+    tone="simple"
+    title="Contact"
+    dek="Pour toute question, remarque, signalement d’erreur ou demande de collaboration, plusieurs canaux sont à votre disposition selon la nature du message."
+  />
 
-    <p class="text-stone-800 leading-relaxed mb-8">
-      Pour toute question, remarque, signalement d’erreur ou demande de
-      collaboration, plusieurs canaux sont à votre disposition selon la nature
-      du message.
-    </p>
+  <section class="max-w-3xl mx-auto px-4 py-12">
 
     <div class="grid md:grid-cols-2 gap-4 mb-10">
       <a

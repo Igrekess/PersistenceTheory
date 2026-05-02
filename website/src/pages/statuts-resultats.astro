@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
+import PageHero from '@components/PageHero.astro';
 
 const legend = [
   ['IDENTITY', 'Identité exacte', 'Égalité algébrique ou informationnelle, indépendante d’un pont physique.'],
@@ -26,25 +27,16 @@ const rows = [
   title="Statuts des résultats"
   description="Table d’audit des statuts épistémiques des principaux résultats PT."
 >
-  <main class="max-w-6xl mx-auto px-4 py-10 md:py-14">
-    <section class="grid lg:grid-cols-[1fr_0.95fr] gap-8 items-stretch mb-12">
-      <div class="rounded-lg border border-slate-200 bg-white p-6 md:p-8 shadow-sm">
-        <p class="pt-tag pt-tag-cond mb-5">Audit épistémique</p>
-        <h1 class="text-4xl md:text-5xl font-bold text-thmblue leading-tight mb-5">
-          Statuts des résultats
-        </h1>
-        <p class="text-lg text-slate-700 leading-relaxed mb-4">
-          Cette page sert de garde-fou. Un résultat peut être exact, démontré,
-          dérivé sous pont, validé numériquement, prédictif ou encore
-          conditionnel. Ces statuts ne doivent pas être mélangés.
-        </p>
-        <p class="text-slate-700 leading-relaxed">
-          La force de PT vient de la chaîne complète : une identité exacte ne
-          suffit pas à faire une loi physique, et une validation numérique ne
-          transforme pas une dérivation en théorème.
-        </p>
-      </div>
+  <PageHero
+    eyebrow="Audit épistémique"
+    domain="meta"
+    title="Statuts des résultats"
+    dek="Cette page sert de garde-fou. Un résultat peut être exact, démontré, dérivé sous pont, validé numériquement, prédictif ou encore conditionnel. Ces statuts ne doivent pas être mélangés."
+    heroNote="La force de PT vient de la chaîne complète : une identité exacte ne suffit pas à faire une loi physique, et une validation numérique ne transforme pas une dérivation en théorème."
+  />
 
+  <main class="max-w-6xl mx-auto px-4 py-10 md:py-14">
+    <section class="mb-12">
       <aside class="rounded-lg border border-slate-200 bg-slate-950 text-white p-6 md:p-8 shadow-sm">
         <p class="text-xs font-sans uppercase tracking-[0.18em] text-amber-300 mb-5">
           Règle de lecture

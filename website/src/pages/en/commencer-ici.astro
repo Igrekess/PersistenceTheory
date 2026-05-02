@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
+import PageHero from '@components/PageHero.astro';
 
 const steps = [
   ['01', 'Understand the idea', '/en/essays/idea-5min', 'Persistence is what passes through a constraint without losing structural identity.'],
@@ -21,25 +22,16 @@ const routes = [
   title="Start here"
   description="Guided route for reading the Theory of Persistence in the right order."
 >
-  <main class="max-w-6xl mx-auto px-4 py-10 md:py-14">
-    <section class="grid lg:grid-cols-[1fr_0.95fr] gap-8 items-stretch mb-12">
-      <div class="rounded-lg border border-slate-200 bg-white p-6 md:p-8 shadow-sm">
-        <p class="pt-tag pt-tag-bridge mb-5">Guided route</p>
-        <h1 class="text-4xl md:text-5xl font-bold text-thmblue leading-tight mb-5">
-          Start here
-        </h1>
-        <p class="text-lg text-slate-700 leading-relaxed mb-4">
-          The site has many entry points. This page gives the recommended
-          reading order: first the principle, then the cosmogony that situates
-          the cascade, then a readable demonstration, results, epistemic status,
-          and limits.
-        </p>
-        <p class="text-slate-700 leading-relaxed">
-          The goal is not to read everything at once, but to keep the thread:
-          constraint, persistence, sieve, attractor, derivations, audit.
-        </p>
-      </div>
+  <PageHero
+    eyebrow="Guided route"
+    domain="meta"
+    title="Start here"
+    dek="The site has many entry points. This page gives the recommended reading order: first the principle, then the cosmogony that situates the cascade, then a readable demonstration, results, epistemic status, and limits."
+    heroNote="The goal is not to read everything at once, but to keep the thread: constraint, persistence, sieve, attractor, derivations, audit."
+  />
 
+  <main class="max-w-6xl mx-auto px-4 py-10 md:py-14">
+    <section class="mb-12">
       <aside class="rounded-lg border border-slate-200 bg-slate-950 text-white p-6 md:p-8 shadow-sm">
         <p class="text-xs font-sans uppercase tracking-[0.18em] text-amber-300 mb-5">
           Choose your pace

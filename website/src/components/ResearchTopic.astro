@@ -10,6 +10,7 @@ interface Section {
   title: string;
   eyebrow?: string;
   depth?: string;
+  maxDepth?: string;
   paragraphs: string[];
   items?: string[];
   visual?: {
@@ -39,9 +40,11 @@ interface Props {
   features: Feature[];
   sections: Section[];
   sources: string[];
+  variant?: 'default' | 'feature';
 }
 
-const { eyebrow, title, description, lead, features, sections, sources } = Astro.props;
+const { eyebrow, title, description, lead, features, sections, sources, variant = 'default' } = Astro.props;
+const isFeatureLayout = variant === 'feature';
 
 const statusClass = (status = '') => {
   const key = status.toLowerCase();
@@ -53,23 +56,71 @@ const statusClass = (status = '') => {
   if (key.includes('cond') || key.includes('open') || key.includes('ouvert')) return 'pt-tag-cond';
   return 'pt-tag-der';
 };
+
+const g00Value = (mu: number) => {
+  const q = 1 - 2 / mu;
+  let dF = 0;
+  let d2F = 0;
+  [3, 5, 7].forEach((p) => {
+    const qp = q ** p;
+    const a = 1 - qp;
+    const b = 2 * p - 1 + qp;
+    const pqpm1 = p * q ** (p - 1);
+    dF += -pqpm1 / a + pqpm1 / b;
+    const pqpm2 = q > 0 ? p * q ** (p - 2) : 0;
+    d2F += -pqpm2 * (p - 1 + qp) / (a ** 2) + pqpm2 * ((p - 1) * (2 * p - 1) - qp) / (b ** 2);
+  });
+  const oneMinusQ = 1 - q;
+  const fpp = (oneMinusQ ** 3 / 2) * ((oneMinusQ / 2) * d2F - dF);
+  return -fpp;
+};
+
+const makeG00Plot = () => {
+  const x0 = 92;
+  const y0 = 55;
+  const w = 714;
+  const h = 218;
+  const minMu = 2.05;
+  const maxMu = 30;
+  const minG = -0.012;
+  const maxG = 0.09;
+  const x = (mu: number) => x0 + ((mu - minMu) / (maxMu - minMu)) * w;
+  const y = (g: number) => y0 + ((maxG - g) / (maxG - minG)) * h;
+  const points = Array.from({ length: 140 }, (_, i) => {
+    const mu = minMu + (i / 139) * (maxMu - minMu);
+    return [x(mu), y(g00Value(mu))];
+  });
+  return {
+    path: points.map(([px, py], i) => `${i === 0 ? 'M' : 'L'}${px.toFixed(1)} ${py.toFixed(1)}`).join(' '),
+    x0,
+    y0,
+    w,
+    h,
+    zeroY: y(0),
+    muCX: x(6.9675),
+    muStarX: x(15),
+    muStarY: y(g00Value(15)),
+  };
+};
+
+const g00Plot = makeG00Plot();
 ---
 
-<section class="max-w-6xl mx-auto px-4 py-14">
-  <div class="mb-10">
+<section class={isFeatureLayout ? 'max-w-6xl mx-auto px-4 py-12' : 'max-w-6xl mx-auto px-4 py-14'}>
+  <div class={isFeatureLayout ? 'mb-8 rounded-lg border border-slate-200 bg-white p-6 md:p-8 shadow-sm shadow-slate-900/5' : 'mb-10'}>
     <p class="text-sm font-sans font-semibold uppercase tracking-wider text-derorange mb-3">
       {eyebrow}
     </p>
-    <h1 class="text-4xl md:text-5xl font-bold text-thmblue mb-5">
+    <h1 class={isFeatureLayout ? 'text-3xl md:text-4xl font-bold text-thmblue mb-4 max-w-4xl' : 'text-4xl md:text-5xl font-bold text-thmblue mb-5'}>
       {title}
     </h1>
-    <p class="text-xl text-slate-700 leading-relaxed max-w-4xl">
+    <p class={isFeatureLayout ? 'text-lg text-slate-700 leading-relaxed max-w-5xl' : 'text-xl text-slate-700 leading-relaxed max-w-4xl'}>
       {description}
     </p>
   </div>
 
-  <div class="bg-white border border-slate-200 rounded-lg p-6 md:p-8 mb-10 shadow-sm shadow-slate-900/5">
-    <p class="text-lg text-slate-800 leading-relaxed">
+  <div class={isFeatureLayout ? 'rounded-lg border border-thmblue/20 bg-thmblue/5 p-5 md:p-6 mb-10' : 'bg-white border border-slate-200 rounded-lg p-6 md:p-8 mb-10 shadow-sm shadow-slate-900/5'}>
+    <p class={isFeatureLayout ? 'text-base md:text-lg text-slate-800 leading-relaxed max-w-5xl' : 'text-lg text-slate-800 leading-relaxed'}>
       {lead}
     </p>
   </div>
@@ -95,31 +146,40 @@ const statusClass = (status = '') => {
     })}
   </div>
 
-  <div class="space-y-8">
+  <div class={isFeatureLayout ? 'space-y-12' : 'space-y-8'}>
     {sections.map((section) => (
-      <section class="bg-white border border-slate-200 rounded-lg p-6 md:p-8 shadow-sm shadow-slate-900/5" data-min-depth={section.depth}>
-        {section.eyebrow && (
-          <p class="text-xs font-sans font-semibold uppercase tracking-wider text-slate-500 mb-2">
-            {section.eyebrow}
-          </p>
-        )}
-        <h2 class="text-2xl font-bold text-thmblue mb-4">{section.title}</h2>
-        <div class="space-y-3">
-          {section.paragraphs.map((paragraph) => (
-            <p class="text-slate-700 leading-relaxed">{paragraph}</p>
-          ))}
-        </div>
-        {section.items && (
-          <ul class="mt-5 grid md:grid-cols-2 gap-3">
-            {section.items.map((item) => (
-              <li class="bg-slate-50 border border-slate-200 rounded-md p-4 text-sm text-slate-700 leading-relaxed">
-                {item}
-              </li>
-            ))}
-          </ul>
-        )}
-        {section.visual && (
-          <div class="mt-6 rounded-lg border border-slate-200 bg-slate-50 p-4 md:p-5">
+      <section
+        class={isFeatureLayout ? 'rounded-lg border border-slate-200 bg-white p-5 md:p-7 shadow-sm shadow-slate-900/5' : 'bg-white border border-slate-200 rounded-lg p-6 md:p-8 shadow-sm shadow-slate-900/5'}
+        data-min-depth={section.depth}
+        data-max-depth={section.maxDepth}
+      >
+        <div class={isFeatureLayout ? 'grid gap-6 lg:grid-cols-[0.92fr_1.08fr] lg:items-start' : ''}>
+          <div>
+            {section.eyebrow && (
+              <p class={isFeatureLayout ? 'inline-flex rounded bg-derorange/10 px-2 py-1 text-xs font-sans font-semibold uppercase tracking-wider text-derorange mb-3' : 'text-xs font-sans font-semibold uppercase tracking-wider text-slate-500 mb-2'}>
+                {section.eyebrow}
+              </p>
+            )}
+            <h2 class={isFeatureLayout ? 'text-2xl md:text-3xl font-bold text-thmblue mb-4' : 'text-2xl font-bold text-thmblue mb-4'}>{section.title}</h2>
+            <div class="space-y-3">
+              {section.paragraphs.map((paragraph) => (
+                <p class="text-slate-700 leading-relaxed">{paragraph}</p>
+              ))}
+            </div>
+          </div>
+
+          <div class={isFeatureLayout ? 'space-y-5' : ''}>
+            {section.items && (
+              <ul class={isFeatureLayout ? 'grid gap-3' : 'mt-5 grid md:grid-cols-2 gap-3'}>
+                {section.items.map((item) => (
+                  <li class="bg-slate-50 border border-slate-200 rounded-md p-4 text-sm text-slate-700 leading-relaxed">
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            )}
+            {section.visual && (
+          <div class={isFeatureLayout ? 'rounded-lg border border-slate-200 bg-slate-50 p-4 md:p-5' : 'mt-6 rounded-lg border border-slate-200 bg-slate-50 p-4 md:p-5'}>
             <h3 class="font-sans font-semibold text-thmblue mb-2">{section.visual.title}</h3>
             <div class="bg-white rounded-md border border-slate-200 p-3 overflow-hidden">
               {section.visual.kind === 'time-flow' && (
@@ -191,6 +251,37 @@ const statusClass = (status = '') => {
                   <text x="844" y="335" text-anchor="middle" class="fill-slate-700 text-[18px] font-sans">{section.visual.labels?.[6] ?? 'la lecture devient durée propre'}</text>
 
                   <text x="540" y="435" text-anchor="middle" class="fill-slate-900 text-[23px] font-sans">{section.visual.labels?.[7] ?? 'PT : la timeline est la lecture interne d’une hiérarchie déjà donnée.'}</text>
+                </svg>
+              )}
+              {section.visual.kind === 'g00-transition' && (
+                <svg viewBox="0 0 880 380" role="img" aria-label={section.visual.title} class="w-full h-auto">
+                  <rect x="34" y="28" width="812" height="300" rx="16" fill="#fbfdff" stroke="#d7e1ea" />
+                  <rect x={g00Plot.x0} y={g00Plot.y0} width={g00Plot.muCX - g00Plot.x0} height={g00Plot.zeroY - g00Plot.y0} fill="#eff6ff" opacity="0.7" />
+                  <rect x={g00Plot.muCX} y={g00Plot.zeroY} width={g00Plot.x0 + g00Plot.w - g00Plot.muCX} height={g00Plot.y0 + g00Plot.h - g00Plot.zeroY} fill="#fff7ed" opacity="0.85" />
+                  <line x1={g00Plot.x0} y1={g00Plot.zeroY} x2={g00Plot.x0 + g00Plot.w} y2={g00Plot.zeroY} stroke="#64748b" stroke-width="2" stroke-dasharray="8 8" />
+                  <line x1={g00Plot.x0} y1={g00Plot.y0} x2={g00Plot.x0} y2={g00Plot.y0 + g00Plot.h} stroke="#94a3b8" stroke-width="2" />
+                  <line x1={g00Plot.x0} y1={g00Plot.y0 + g00Plot.h} x2={g00Plot.x0 + g00Plot.w} y2={g00Plot.y0 + g00Plot.h} stroke="#94a3b8" stroke-width="2" />
+                  <text x={g00Plot.x0 + g00Plot.w} y={g00Plot.y0 + g00Plot.h + 28} text-anchor="end" class="fill-slate-600 text-[16px] font-sans">μ</text>
+                  <text x={g00Plot.x0 - 18} y={g00Plot.y0 + 8} text-anchor="end" class="fill-slate-600 text-[16px] font-sans">g00(μ)</text>
+                  <text x={g00Plot.x0 - 10} y={g00Plot.zeroY + 5} text-anchor="end" class="fill-slate-500 text-[13px] font-sans">0</text>
+
+                  <path d={g00Plot.path} fill="none" stroke="#1f4e79" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+
+                  <line x1={g00Plot.muCX} y1={g00Plot.y0} x2={g00Plot.muCX} y2={g00Plot.y0 + g00Plot.h} stroke="#d97706" stroke-width="3" stroke-dasharray="7 7" />
+                  <circle cx={g00Plot.muCX} cy={g00Plot.zeroY} r="8" fill="#d97706" />
+                  <text x={g00Plot.muCX} y="345" text-anchor="middle" class="fill-derorange text-[18px] font-sans font-bold">μc ≈ 6.97</text>
+                  <text x={g00Plot.muCX} y="365" text-anchor="middle" class="fill-slate-600 text-[14px] font-sans">{section.visual.labels?.[2] ?? 'changement de signe'}</text>
+
+                  <line x1={g00Plot.muStarX} y1={g00Plot.y0} x2={g00Plot.muStarX} y2={g00Plot.y0 + g00Plot.h} stroke="#15803d" stroke-width="3" stroke-dasharray="7 7" />
+                  <circle cx={g00Plot.muStarX} cy={g00Plot.muStarY} r="9" fill="#15803d" />
+                  <text x={g00Plot.muStarX} y="345" text-anchor="middle" class="fill-idgreen text-[18px] font-sans font-bold">μ* = 15</text>
+                  <text x={g00Plot.muStarX} y="365" text-anchor="middle" class="fill-slate-600 text-[14px] font-sans">{section.visual.labels?.[3] ?? 'régime physique stabilisé'}</text>
+
+                  <rect x="92" y="4" width="278" height="24" rx="7" fill="#ffffff" opacity="0.96" stroke="#bfdbfe" />
+                  <text x="231" y="21" text-anchor="middle" class="fill-thmblue text-[13px] font-sans font-bold">{section.visual.labels?.[0] ?? 'g00 > 0'}</text>
+                  <rect x="514" y="292" width="280" height="28" rx="8" fill="#ffffff" opacity="0.92" stroke="#fed7aa" />
+                  <text x="654" y="312" text-anchor="middle" class="fill-derorange text-[14px] font-sans font-bold">{section.visual.labels?.[1] ?? 'g00 < 0'}</text>
+                  <text x="806" y="20" text-anchor="end" class="fill-slate-500 text-[12px] font-sans">{section.visual.labels?.[4] ?? 'courbe calculée, fenêtre μ∈[2,30]'}</text>
                 </svg>
               )}
               {section.visual.kind === 'nuclear-cascade' && (
@@ -298,8 +389,8 @@ const statusClass = (status = '') => {
             <p class="mt-3 text-sm text-slate-600 leading-relaxed">{section.visual.caption}</p>
           </div>
         )}
-        {section.demo && (
-          <div class="mt-6 rounded-lg border border-thmblue/20 bg-thmblue/5 p-4 md:p-5" data-pt-demo={section.demo.kind}>
+            {section.demo && (
+          <div class={isFeatureLayout ? 'rounded-lg border border-thmblue/20 bg-thmblue/5 p-4 md:p-5' : 'mt-6 rounded-lg border border-thmblue/20 bg-thmblue/5 p-4 md:p-5'} data-pt-demo={section.demo.kind}>
             <h3 class="font-sans font-semibold text-thmblue mb-2">{section.demo.title}</h3>
             <p class="text-sm text-slate-700 leading-relaxed mb-4">{section.demo.caption}</p>
             {section.demo.kind === 'proper-time' && (
@@ -317,15 +408,71 @@ const statusClass = (status = '') => {
               <div>
                 <label class="text-xs font-sans uppercase tracking-wider text-slate-500" for="time-slope-slider">{section.demo.labels?.[0] ?? 'pente métrique |g00|'}</label>
                 <input id="time-slope-slider" data-demo-input type="range" min="0.05" max="3" value="1" step="0.05" class="w-full mt-2" />
+                <p class="mt-3 text-sm text-slate-700 leading-relaxed">
+                  {section.demo.labels?.[1] ?? 'Dans ce mini modèle, dμ reste constant. Le curseur montre combien la métrique transforme ce pas en durée propre.'}
+                </p>
                 <div class="grid grid-cols-3 gap-3 mt-4 text-sm">
-                  <div class="pt-card !p-3"><strong>|g00|</strong><br /><span data-demo-slope-g>1.00</span></div>
-                  <div class="pt-card !p-3"><strong>dμ</strong><br /><span>1.00</span></div>
-                  <div class="pt-card !p-3"><strong>dτ</strong><br /><span data-demo-slope-tau>1.00</span></div>
+                  <div class="pt-card !p-3">
+                    <strong>{section.demo.labels?.[3] ?? 'Poids métrique'}</strong>
+                    <br /><span class="text-lg font-sans font-semibold text-thmblue" data-demo-slope-g>1.00</span>
+                    <p class="mt-1 text-xs text-slate-600 leading-snug">{section.demo.labels?.[4] ?? '|g00| : facteur de conversion donné par la métrique'}</p>
+                  </div>
+                  <div class="pt-card !p-3">
+                    <strong>{section.demo.labels?.[5] ?? 'Cran de lecture'}</strong>
+                    <br /><span class="text-lg font-sans font-semibold text-thmblue">1.00</span>
+                    <p class="mt-1 text-xs text-slate-600 leading-snug">{section.demo.labels?.[6] ?? 'dμ : un petit pas abstrait dans la profondeur du crible'}</p>
+                  </div>
+                  <div class="pt-card !p-3">
+                    <strong>{section.demo.labels?.[7] ?? 'Durée d’horloge'}</strong>
+                    <br /><span class="text-lg font-sans font-semibold text-thmblue" data-demo-slope-tau>1.00</span>
+                    <p class="mt-1 text-xs text-slate-600 leading-snug">{section.demo.labels?.[8] ?? 'dτ : ce que ce pas devient en temps propre mesurable'}</p>
+                  </div>
                 </div>
+                <p class="mt-3 rounded-md border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 leading-relaxed">
+                  {section.demo.labels?.[2] ?? 'Formule lue ici : dτ = √|g00| × dμ. Comme dμ vaut 1, la case dτ affiche √|g00|.'}
+                </p>
                 <div class="mt-4 h-3 rounded-full bg-white border border-slate-200 overflow-hidden">
                   <div data-demo-slope-bar class="h-full bg-derorange" style="width: 33%"></div>
                 </div>
                 <p class="mt-3 text-sm text-slate-700"><span data-demo-slope-text>La même profondeur de lecture donne une durée différente selon la pente métrique.</span></p>
+              </div>
+            )}
+            {section.demo.kind === 'interval-signature' && (
+              <div>
+                <div class="grid md:grid-cols-2 gap-4">
+                  <div>
+                    <label class="text-xs font-sans uppercase tracking-wider text-slate-500" for="interval-dx-slider">{section.demo.labels?.[0] ?? 'déplacement spatial dx'}</label>
+                    <input id="interval-dx-slider" data-demo-input data-demo-interval-dx type="range" min="0" max="2" value="1" step="0.05" class="w-full mt-2" />
+                  </div>
+                  <div>
+                    <label class="text-xs font-sans uppercase tracking-wider text-slate-500" for="interval-g-slider">{section.demo.labels?.[1] ?? 'poids temporel |g00|'}</label>
+                    <input id="interval-g-slider" data-demo-input data-demo-interval-g type="range" min="0.05" max="4" value="1" step="0.05" class="w-full mt-2" />
+                  </div>
+                </div>
+                <p class="mt-3 text-sm text-slate-700 leading-relaxed">
+                  {section.demo.labels?.[2] ?? 'On fixe le pas interne dμ à 1. Le démonstrateur compare ce qui ajoute de l’espace et ce qui soustrait du temps dans l’intervalle.'}
+                </p>
+                <div class="mt-4 grid md:grid-cols-3 gap-3 text-sm">
+                  <div class="pt-card !p-3">
+                    <strong>{section.demo.labels?.[4] ?? 'Terme spatial'}</strong>
+                    <br /><span class="text-lg font-sans font-semibold text-thmblue" data-demo-interval-space>1.00</span>
+                    <div class="mt-2 h-2 rounded-full bg-slate-100 overflow-hidden"><div data-demo-interval-space-bar class="h-full bg-thmblue" style="width: 25%"></div></div>
+                  </div>
+                  <div class="pt-card !p-3">
+                    <strong>{section.demo.labels?.[5] ?? 'Terme temporel'}</strong>
+                    <br /><span class="text-lg font-sans font-semibold text-derorange" data-demo-interval-time>1.00</span>
+                    <div class="mt-2 h-2 rounded-full bg-slate-100 overflow-hidden"><div data-demo-interval-time-bar class="h-full bg-derorange" style="width: 25%"></div></div>
+                  </div>
+                  <div class="pt-card !p-3">
+                    <strong>{section.demo.labels?.[6] ?? 'Intervalle'}</strong>
+                    <br /><span class="text-lg font-sans font-semibold text-slate-900" data-demo-interval-value>0.00</span>
+                    <p class="mt-1 text-xs text-slate-600 leading-snug" data-demo-interval-kind>{section.demo.labels?.[7] ?? 'frontière nulle'}</p>
+                  </div>
+                </div>
+                <p class="mt-3 rounded-md border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 leading-relaxed">
+                  {section.demo.labels?.[3] ?? 'Formule lue ici : I = dx² − |g00| dμ². Si le terme temporel dépasse le terme spatial, la séparation se lit comme durée.'}
+                </p>
+                <p class="mt-3 text-sm text-slate-700 leading-relaxed"><span data-demo-interval-text>La frontière nulle montre le point où l’espace et le temps se compensent.</span></p>
               </div>
             )}
             {section.demo.kind === 'nuclear-binding' && (
@@ -382,8 +529,8 @@ const statusClass = (status = '') => {
             )}
           </div>
         )}
-        {section.proof && (
-          <div class="mt-6 border border-thmblue/20 bg-thmblue/5 rounded-lg p-5">
+            {section.proof && (
+          <div class={isFeatureLayout ? 'border border-thmblue/20 bg-thmblue/5 rounded-lg p-5' : 'mt-6 border border-thmblue/20 bg-thmblue/5 rounded-lg p-5'}>
             <p class="text-sm font-sans font-semibold text-thmblue uppercase tracking-wider mb-4">
               {section.proof.title}
             </p>
@@ -399,6 +546,8 @@ const statusClass = (status = '') => {
             )}
           </div>
         )}
+          </div>
+        </div>
       </section>
     ))}
   </div>
@@ -436,9 +585,15 @@ const statusClass = (status = '') => {
       anisotropyLow: 'ligne de visée plus proche du canal p=3',
       anisotropyHigh: 'ligne de visée plus proche du canal p=7',
       educationalDelta: 'écart pédagogique',
-      slopeLow: 'La pente est faible : la profondeur change, mais l’horloge propre avance peu.',
-      slopeMid: 'La pente est lisible : une unité de profondeur devient presque une unité de durée propre.',
-      slopeHigh: 'La pente est forte : la même profondeur correspond à plus de durée propre mesurée.',
+      slopeLow: '|g00| est petit : le pas dμ existe, mais il pèse peu dans la durée propre. La lecture avance ; l’horloge interne avance lentement.',
+      slopeMid: '|g00| est proche de 1 : une unité de lecture devient presque une unité de durée propre. Ici μ ressemble à une bonne graduation d’horloge.',
+      slopeHigh: '|g00| est grand : le même pas dμ reçoit plus de poids métrique. La profondeur ne change pas, mais la durée propre mesurée augmente.',
+      intervalSpaceKind: 'séparation spatiale',
+      intervalNullKind: 'frontière nulle',
+      intervalTimeKind: 'séparation temporelle',
+      intervalSpace: 'Le terme spatial domine : l’intervalle reste du côté des longueurs. Le pas interne ne suffit pas à produire une durée propre dominante.',
+      intervalNull: 'Les deux termes se compensent : c’est la frontière nulle, l’analogue pédagogique du trajet lumineux en relativité.',
+      intervalTime: 'Le terme temporel domine : la direction interne n’ajoute pas une longueur, elle produit une durée propre.',
     },
     en: {
       nuclearLight: 'surface effects still dominate strongly',
@@ -451,15 +606,22 @@ const statusClass = (status = '') => {
       anisotropyLow: 'line of sight closer to the p=3 channel',
       anisotropyHigh: 'line of sight closer to the p=7 channel',
       educationalDelta: 'pedagogical offset',
-      slopeLow: 'The slope is weak: depth changes, but the proper clock advances little.',
-      slopeMid: 'The slope is readable: one unit of depth becomes almost one unit of proper duration.',
-      slopeHigh: 'The slope is strong: the same depth corresponds to more measured proper duration.',
+      slopeLow: '|g00| is small: the dμ step exists, but it carries little proper duration. The reading advances; the internal clock advances slowly.',
+      slopeMid: '|g00| is close to 1: one unit of reading becomes almost one unit of proper duration. Here μ behaves like a good clock graduation.',
+      slopeHigh: '|g00| is large: the same dμ step receives more metric weight. Depth does not change, but measured proper duration increases.',
+      intervalSpaceKind: 'spatial separation',
+      intervalNullKind: 'null boundary',
+      intervalTimeKind: 'temporal separation',
+      intervalSpace: 'The spatial term dominates: the interval remains on the side of lengths. The internal step is not enough to produce dominant proper duration.',
+      intervalNull: 'The two terms compensate: this is the null boundary, the pedagogical analogue of a lightlike path in relativity.',
+      intervalTime: 'The temporal term dominates: the internal direction does not add a length; it produces proper duration.',
     },
   }[lang];
 
   document.querySelectorAll('[data-pt-demo]').forEach((demo) => {
-    const input = demo.querySelector('[data-demo-input]');
-    if (!(input instanceof HTMLInputElement)) return;
+    const inputs = Array.from(demo.querySelectorAll('[data-demo-input]')).filter((input): input is HTMLInputElement => input instanceof HTMLInputElement);
+    if (inputs.length === 0) return;
+    const input = inputs[0];
 
     const update = () => {
       const kind = demo.getAttribute('data-pt-demo');
@@ -481,6 +643,34 @@ const statusClass = (status = '') => {
         setText(demo, '[data-demo-slope-tau]', format(tau, 2));
         setText(demo, '[data-demo-slope-text]', text);
         setWidth(demo, '[data-demo-slope-bar]', `${width}%`);
+      }
+
+      if (kind === 'interval-signature') {
+        const dxInput = demo.querySelector('[data-demo-interval-dx]');
+        const gInput = demo.querySelector('[data-demo-interval-g]');
+        const dx = dxInput instanceof HTMLInputElement ? Number(dxInput.value) : 1;
+        const g = gInput instanceof HTMLInputElement ? Number(gInput.value) : 1;
+        const spatial = dx * dx;
+        const temporal = g;
+        const interval = spatial - temporal;
+        const maxTerm = 4;
+        const kindLabel = Math.abs(interval) < 0.08
+          ? demoText.intervalNullKind
+          : interval > 0
+            ? demoText.intervalSpaceKind
+            : demoText.intervalTimeKind;
+        const text = Math.abs(interval) < 0.08
+          ? demoText.intervalNull
+          : interval > 0
+            ? demoText.intervalSpace
+            : demoText.intervalTime;
+        setText(demo, '[data-demo-interval-space]', format(spatial, 2));
+        setText(demo, '[data-demo-interval-time]', format(temporal, 2));
+        setText(demo, '[data-demo-interval-value]', format(interval, 2));
+        setText(demo, '[data-demo-interval-kind]', kindLabel);
+        setText(demo, '[data-demo-interval-text]', text);
+        setWidth(demo, '[data-demo-interval-space-bar]', `${Math.max(4, Math.min(100, (spatial / maxTerm) * 100))}%`);
+        setWidth(demo, '[data-demo-interval-time-bar]', `${Math.max(4, Math.min(100, (temporal / maxTerm) * 100))}%`);
       }
 
       if (kind === 'nuclear-binding') {
@@ -530,7 +720,7 @@ const statusClass = (status = '') => {
       }
     };
 
-    input.addEventListener('input', update);
+    inputs.forEach((input) => input.addEventListener('input', update));
     update();
   });
 </script>

@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
+import PageHero from '@components/PageHero.astro';
 
 // Histoire courte des espaces couleur
 const history = [
@@ -224,49 +225,17 @@ for name, dEs in results.items():
   title="SCS — Sieve Color Space"
   description="SCS (Sieve Color Space) : un espace de couleur dérivé du crible PT. 3 canaux opposants forcés par {3, 5, 7}, poids γ_p calculables sans fit, métrique pythagorienne par CRT, relation saturation-luminance formalisée. Code public sous licence MIT."
 >
-  <main class="max-w-6xl mx-auto px-4 py-10 md:py-14">
+  <PageHero
+    eyebrow="Vulgarisé · SCS"
+    domain="meta"
+    title="La couleur, depuis le crible"
+    kicker="Un espace de couleur où les axes ne sont plus choisis. Ils sont forcés."
+    dekL1="Quand vous regardez un coucher de soleil, votre œil ne « voit » pas trois nombres RGB. Il voit trois oppositions : rouge contre vert, bleu contre jaune, lumière contre obscurité. C’est la physiologie même de la rétine. Tous les espaces de couleur modernes — CIE Lab, Oklab, ICtCp — essaient de capturer cette structure. Mais ils le font par fit empirique : ils calibrent leurs coefficients sur des expériences perceptuelles. SCS prend une autre route : il dérive ces coefficients depuis la PT, sans fit."
+    dekL2="Le résultat est un espace à trois canaux opposants où les poids relatifs viennent directement des dimensions anomales γ_p de la cascade PT à l’attracteur réduit μ* = 15. Aucun ajustement. Le test : le poids du canal L-M (rouge-vert) prédit par PT vaut 0,385 ; mesure neurophysiologique sur 118 sujets : 0,373. 3,2 % d’écart. Et surtout, SCS rend formelle une relation qui restait pratique mais mal capturée : saturation et luminance deviennent deux lectures coordonnées d’une même géométrie, au lieu de deux curseurs qui se contaminent."
+    oneLineNote={{ label: 'Code public', body: 'github.com/Igrekess/SieveColorSpace (MIT). Tout est auditable.' }}
+  />
 
-    <!-- ============= HERO L1 ============= -->
-    <section class="mb-12">
-      <div class="rounded-lg border border-slate-200 bg-white p-6 md:p-8 shadow-sm">
-        <p class="pt-tag pt-tag-val mb-5">Vulgarisé · SCS</p>
-        <h1 class="text-4xl md:text-5xl font-bold text-thmblue leading-tight mb-4">
-          La couleur, depuis le crible
-        </h1>
-        <p class="text-2xl md:text-3xl font-sans font-semibold text-derorange leading-snug mb-6">
-          Un espace de couleur où les axes ne sont plus choisis. Ils sont forcés.
-        </p>
-        <p class="text-lg text-slate-700 leading-relaxed mb-5" data-max-depth="L1">
-          Quand vous regardez un coucher de soleil, votre œil ne « voit »
-          pas trois nombres RGB. Il voit trois <strong>oppositions</strong> :
-          rouge contre vert, bleu contre jaune, lumière contre obscurité.
-          C’est la physiologie même de la rétine. Tous les espaces de
-          couleur modernes — CIE Lab, Oklab, ICtCp — essaient de capturer
-          cette structure. Mais ils le font par <em>fit empirique</em> :
-          ils calibrent leurs coefficients sur des expériences perceptuelles.
-          SCS prend une autre route : il <strong>dérive</strong> ces
-          coefficients depuis la PT, sans fit.
-        </p>
-        <p class="text-base text-slate-700 leading-relaxed mb-5" data-min-depth="L2">
-          Le résultat est un espace à trois canaux opposants où les poids
-          relatifs viennent directement des dimensions anomales γ_p de la
-          cascade PT à l’attracteur réduit μ* = 15. Aucun ajustement. Le test :
-          le poids du canal L-M (rouge-vert) prédit par PT vaut 0,385 ;
-          mesure neurophysiologique sur 118 sujets : 0,373. 3,2 % d’écart.
-          Et surtout, SCS rend formelle une relation qui restait pratique
-          mais mal capturée : saturation et luminance deviennent deux lectures
-          coordonnées d’une même géométrie, au lieu de deux curseurs qui se
-          contaminent.
-        </p>
-        <div class="rounded-lg border-l-4 border-emerald-500 bg-emerald-50 px-4 py-3">
-          <p class="text-sm text-emerald-900 leading-relaxed">
-            <strong>📦 Code public :</strong>
-            <a href="https://github.com/Igrekess/SieveColorSpace" class="underline font-mono">github.com/Igrekess/SieveColorSpace</a>
-            (MIT). Tout est auditable.
-          </p>
-        </div>
-      </div>
-    </section>
+  <main class="max-w-6xl mx-auto px-4 py-10 md:py-14">
 
     <!-- ============= POURQUOI UN NOUVEL ESPACE COULEUR ============= -->
     <section class="mb-12">

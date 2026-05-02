@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
+import PageHero from '@components/PageHero.astro';
 
 const legend = [
   ['IDENTITY', 'Exact identity', 'Algebraic or informational equality, independent of a physical bridge.'],
@@ -26,25 +27,16 @@ const rows = [
   title="Result status"
   description="Audit table of the epistemic status of major PT results."
 >
-  <main class="max-w-6xl mx-auto px-4 py-10 md:py-14">
-    <section class="grid lg:grid-cols-[1fr_0.95fr] gap-8 items-stretch mb-12">
-      <div class="rounded-lg border border-slate-200 bg-white p-6 md:p-8 shadow-sm">
-        <p class="pt-tag pt-tag-cond mb-5">Epistemic audit</p>
-        <h1 class="text-4xl md:text-5xl font-bold text-thmblue leading-tight mb-5">
-          Result status
-        </h1>
-        <p class="text-lg text-slate-700 leading-relaxed mb-4">
-          This page is a guardrail. A result may be exact, proved, derived
-          under a bridge, numerically validated, predictive, or still
-          conditional. These statuses must not be mixed.
-        </p>
-        <p class="text-slate-700 leading-relaxed">
-          PT’s strength comes from the complete chain: an exact identity is not
-          by itself a physical law, and numerical validation does not turn a
-          derivation into a theorem.
-        </p>
-      </div>
+  <PageHero
+    eyebrow="Epistemic audit"
+    domain="meta"
+    title="Result status"
+    dek="This page is a guardrail. A result may be exact, proved, derived under a bridge, numerically validated, predictive, or still conditional. These statuses must not be mixed."
+    heroNote="PT’s strength comes from the complete chain: an exact identity is not by itself a physical law, and numerical validation does not turn a derivation into a theorem."
+  />
 
+  <main class="max-w-6xl mx-auto px-4 py-10 md:py-14">
+    <section class="mb-12">
       <aside class="rounded-lg border border-slate-200 bg-slate-950 text-white p-6 md:p-8 shadow-sm">
         <p class="text-xs font-sans uppercase tracking-[0.18em] text-amber-300 mb-5">
           Reading rule

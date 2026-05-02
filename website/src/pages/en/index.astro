@@ -1,13 +1,14 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
+import PageHero from '@components/PageHero.astro';
 import SubProjects from '@components/SubProjects.astro';
 import Citation from '@components/Citation.astro';
 
 const primaryLinks = [
-  { href: '/en/essays/idea-5min', label: 'The idea in 5 minutes', tone: 'primary' },
-  { href: '/en/commencer-ici', label: 'Start here', tone: 'outline' },
-  { href: '/en/premier-principe', label: 'Fundamental principle', tone: 'outline' },
-  { href: '/en/resultats', label: 'Results dashboard', tone: 'soft' },
+  { href: '/en/essays/idea-5min', label: 'The idea in 5 minutes', tone: 'primary' as const },
+  { href: '/en/commencer-ici', label: 'Start here', tone: 'outline' as const },
+  { href: '/en/premier-principe', label: 'Fundamental principle', tone: 'outline' as const },
+  { href: '/en/resultats', label: 'Results dashboard', tone: 'soft' as const },
 ];
 
 const readingPath = [
@@ -147,57 +148,19 @@ const groupedLinks = [
 ---
 
 <BaseLayout>
-  <main class="max-w-6xl mx-auto px-4 py-10 md:py-14">
-    <section class="mb-12">
-      <div class="rounded-lg border border-slate-200 bg-white p-6 md:p-8 shadow-sm">
-        <p class="pt-tag pt-tag-bridge mb-5">Plain · open preprint</p>
-        <h1 class="text-4xl md:text-5xl font-bold text-thmblue leading-tight mb-4">
-          The Theory of Persistence
-        </h1>
-        <p class="text-2xl md:text-3xl font-sans font-semibold text-derorange leading-snug mb-6">
-          What persists is what remains under constraint.
-        </p>
-        <p class="text-lg text-stone-800 leading-relaxed mb-5" data-max-depth="L1">
-          PT starts from a simple idea: when a constraint acts, not everything
-          disappears. One part disperses as entropy; another crosses the
-          constraint and becomes structure. Observables measure that
-          distribution.
-        </p>
-        <p class="text-lg text-stone-800 leading-relaxed mb-5" data-min-depth="L2">
-          PT starts from a simple idea: under constraint, one part disperses as
-          entropy while another persists as structure. That idea unfolds as a
-          chain: informational conservation principle, sieve dynamics,
-          crystallisation of 2, slide toward the reduced attractor μ* = 15,
-          then derivation of observables with explicit epistemic status.
-        </p>
-        <p class="text-base text-slate-700 leading-relaxed rounded-lg bg-slate-50 border border-slate-200 px-4 py-3 mb-5" data-min-depth="L3">
-          <strong>Technical reading:</strong> do not read this page as one
-          global proof, but as an audit map. Theorems, bridges, physical
-          derivations, validations, and predictions do not carry the same status.
-        </p>
-        <p data-max-depth="L1" class="text-base text-slate-700 leading-relaxed rounded-lg bg-amber-50 border border-amber-200 px-4 py-3 mb-6">
-          <strong>In one sentence:</strong> persisting does not mean remaining
-          by inertia; it means surviving an admissible constraint without
-          losing structural identity.
-        </p>
-        <div class="flex flex-wrap gap-3">
-          {primaryLinks.map((link) => (
-            <a
-              href={link.href}
-              class:list={[
-                'px-5 py-3 font-sans font-semibold rounded transition',
-                link.tone === 'primary' && 'bg-thmblue text-white hover:bg-thmblue/90',
-                link.tone === 'outline' && 'bg-white border border-thmblue text-thmblue hover:bg-thmblue/5',
-                link.tone === 'soft' && 'bg-stone-50 border border-stone-300 text-stone-800 hover:bg-stone-100',
-              ]}
-            >
-              {link.label}
-            </a>
-          ))}
-        </div>
-      </div>
-    </section>
+  <PageHero
+    eyebrow="Plain · open preprint"
+    domain="meta"
+    title="The Theory of Persistence"
+    kicker="What remains is form."
+    dekL1="Persistence Theory (PT) starts from a simple idea: when a constraint acts, not everything disappears. One part disperses as entropy; another crosses the constraint and becomes structure. What persists is not what is strongest. It is what is most compatible with the logic of the filter. Persistence is not a victory. It is an agreement. Form is not decoration: it is the structure made visible by constraint. Observables measure that distribution."
+    dekL2="Persistence Theory (PT) starts from a simple idea: under constraint, one part disperses as entropy while another persists as structure. What persists is not what is strongest. It is what is most compatible with the logic of the filter. Persistence is not a victory. It is an agreement. Form is not decoration: it is the structure made visible by constraint. That idea unfolds as a chain: informational conservation principle, sieve dynamics, crystallisation of 2, slide toward the reduced attractor μ* = 15, then derivation of observables with explicit epistemic status."
+    oneLineNote={{ label: 'In one sentence', body: 'persisting does not mean remaining by inertia; it means surviving an admissible constraint without losing structural identity.' }}
+    technicalNote={{ label: 'Technical reading', body: 'do not read this page as one global proof, but as an audit map. Theorems, bridges, physical derivations, validations, and predictions do not carry the same status.' }}
+    actions={primaryLinks}
+  />
 
+  <main class="max-w-6xl mx-auto px-4 py-10 md:py-14">
     <section class="mb-12">
       <p class="pt-tag pt-tag-id mb-3">Plain</p>
       <h2 class="text-3xl md:text-4xl font-bold text-thmblue mb-6">

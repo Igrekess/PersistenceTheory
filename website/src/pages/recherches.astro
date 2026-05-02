@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
+import PageHero from '@components/PageHero.astro';
 
 const projects = [
   {
@@ -54,39 +55,16 @@ const colorBorders: Record<string, string> = {
   title="Recherches"
   description="Programmes de recherche en cours autour de la PT : Biologie (PT_PROTEIN, PT_RNA) et SieveColorSpace (perception couleur). Chacun teste la transposition de la cascade PT à un domaine empirique. Statuts, résultats actuels, code et limites assumées."
 >
-  <main class="max-w-6xl mx-auto px-4 py-10 md:py-14">
+  <PageHero
+    eyebrow="Programmes de recherche"
+    domain="meta"
+    title="Recherches en cours"
+    kicker="Deux programmes empiriques actuellement publics. Une même cascade."
+    dek="Si la PT est juste, la cascade {3, 5, 7} et la bifurcation q⁺/q⁻ ne doivent pas se cantonner au Modèle Standard. Deux programmes de recherche, présentés ici, testent cette transposition dans deux domaines empiriques : la biologie (biopolymères) et la perception couleur (espaces de couleur). D’autres programmes (notamment en sismologie) sont en cours en interne et seront publiés ultérieurement."
+    oneLineNote={{ label: 'Statut commun', body: 'ces programmes sont encore exploratoires. Leurs résultats sont mesurés, chaînés, vérifiables — mais ils ne remplacent pas le cœur déductif de la PT (43 observables Modèle Standard, 28 prédictions Tier-1). Cette page sert de portail vers chacun, avec son code, ses limites et son ambition propres.' }}
+  />
 
-    <!-- HERO -->
-    <section class="mb-12">
-      <div class="rounded-lg border border-slate-200 bg-white p-6 md:p-8 shadow-sm">
-        <p class="pt-tag pt-tag-id mb-5">Programmes de recherche</p>
-        <h1 class="text-4xl md:text-5xl font-bold text-thmblue leading-tight mb-4">
-          Recherches en cours
-        </h1>
-        <p class="text-2xl md:text-3xl font-sans font-semibold text-derorange leading-snug mb-6">
-          Deux programmes empiriques actuellement publics. Une même cascade.
-        </p>
-        <p class="text-lg text-slate-700 leading-relaxed mb-5">
-          Si la PT est juste, la cascade {`{3, 5, 7}`} et la bifurcation q⁺/q⁻
-          ne doivent pas se cantonner au Modèle Standard. Deux programmes
-          de recherche, présentés ici, testent cette transposition dans deux
-          domaines empiriques : la <strong>biologie</strong> (biopolymères)
-          et la <strong>perception couleur</strong> (espaces de couleur).
-          D’autres programmes (notamment en sismologie) sont en cours en
-          interne et seront publiés ultérieurement.
-        </p>
-        <div class="rounded-lg border-l-4 border-amber-400 bg-amber-50 px-4 py-3">
-          <p class="text-sm text-amber-900 leading-relaxed">
-            <strong>Statut commun.</strong> Ces programmes sont
-            <em>encore exploratoires</em>. Leurs résultats sont mesurés,
-            chaînés, vérifiables — mais ils ne remplacent pas le cœur déductif
-            de la PT (43 observables Modèle Standard, 28 prédictions Tier-1).
-            Cette page sert de portail vers chacun, avec son code, ses limites
-            et son ambition propres.
-          </p>
-        </div>
-      </div>
-    </section>
+  <main class="max-w-6xl mx-auto px-4 py-10 md:py-14">
 
     <!-- DEUX PROJETS -->
     <section class="mb-12">

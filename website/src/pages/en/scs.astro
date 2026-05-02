@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
+import PageHero from '@components/PageHero.astro';
 
 // Short history of colour spaces
 const history = [
@@ -224,49 +225,17 @@ for name, dEs in results.items():
   title="SCS — Sieve Colour Space"
   description="SCS (Sieve Colour Space): a colour space derived from the PT sieve. 3 opponent channels forced by {3, 5, 7}, γ_p weights computable without fitting, Pythagorean metric via CRT, formalised saturation-luminance relation. Public code under MIT licence."
 >
-  <main class="max-w-6xl mx-auto px-4 py-10 md:py-14">
+  <PageHero
+    eyebrow="Plain · SCS"
+    domain="meta"
+    title="Colour, from the sieve"
+    kicker="A colour space where the axes are no longer chosen. They are forced."
+    dekL1="When you look at a sunset, your eye does not see three RGB numbers. It sees three oppositions: red against green, blue against yellow, light against dark. This is the very physiology of the retina. All modern colour spaces — CIE Lab, Oklab, ICtCp — try to capture this structure. But they do so by empirical fitting: they calibrate their coefficients on perceptual experiments. SCS takes another route: it derives these coefficients from PT, without fitting."
+    dekL2="The result is a three-channel opponent space where the relative weights come directly from the anomalous dimensions γ_p of the PT cascade at the reduced attractor μ* = 15. No tuning. The test: the L-M channel weight (red-green) predicted by PT is 0.385; neurophysiological measurement on 118 subjects: 0.373. 3.2% deviation. More importantly, SCS formalises a relation that had remained practical but poorly captured: saturation and luminance become two coordinated readings of one geometry, instead of two sliders that contaminate each other."
+    oneLineNote={{ label: 'Public code', body: 'github.com/Igrekess/SieveColorSpace (MIT). Everything is auditable.' }}
+  />
 
-    <!-- ============= HERO L1 ============= -->
-    <section class="mb-12">
-      <div class="rounded-lg border border-slate-200 bg-white p-6 md:p-8 shadow-sm">
-        <p class="pt-tag pt-tag-val mb-5">Plain · SCS</p>
-        <h1 class="text-4xl md:text-5xl font-bold text-thmblue leading-tight mb-4">
-          Colour, from the sieve
-        </h1>
-        <p class="text-2xl md:text-3xl font-sans font-semibold text-derorange leading-snug mb-6">
-          A colour space where the axes are no longer chosen. They are forced.
-        </p>
-        <p class="text-lg text-slate-700 leading-relaxed mb-5" data-max-depth="L1">
-          When you look at a sunset, your eye does not "see"
-          three RGB numbers. It sees three <strong>oppositions</strong>:
-          red against green, blue against yellow, light against dark.
-          This is the very physiology of the retina. All modern colour
-          spaces — CIE Lab, Oklab, ICtCp — try to capture
-          this structure. But they do so by <em>empirical fitting</em>:
-          they calibrate their coefficients on perceptual experiments.
-          SCS takes another route: it <strong>derives</strong> these
-          coefficients from PT, without fitting.
-        </p>
-        <p class="text-base text-slate-700 leading-relaxed mb-5" data-min-depth="L2">
-          The result is a three-channel opponent space where the relative
-          weights come directly from the anomalous dimensions γ_p of the
-          PT cascade at the reduced attractor μ* = 15. No tuning. The test:
-          the L-M channel weight (red-green) predicted by PT is 0.385;
-          neurophysiological measurement on 118 subjects: 0.373. 3.2% deviation.
-          More importantly, SCS formalises a relation that had remained
-          practical but poorly captured: saturation and luminance become two
-          coordinated readings of one geometry, instead of two sliders that
-          contaminate each other.
-        </p>
-        <div class="rounded-lg border-l-4 border-emerald-500 bg-emerald-50 px-4 py-3">
-          <p class="text-sm text-emerald-900 leading-relaxed">
-            <strong>📦 Public code:</strong>
-            <a href="https://github.com/Igrekess/SieveColorSpace" class="underline font-mono">github.com/Igrekess/SieveColorSpace</a>
-            (MIT). Everything is auditable.
-          </p>
-        </div>
-      </div>
-    </section>
+  <main class="max-w-6xl mx-auto px-4 py-10 md:py-14">
 
     <!-- ============= WHY A NEW COLOUR SPACE ============= -->
     <section class="mb-12">

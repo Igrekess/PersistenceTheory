@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
+import PageHero from '@components/PageHero.astro';
 import PeriodicPTExplorer from '@components/PeriodicPTExplorer.astro';
 import { readFileSync } from 'node:fs';
 
@@ -263,41 +264,18 @@ const periodicLineCount = periodicSource.trimEnd().split('\n').length;
   title="Le tableau périodique dérivé par la PT"
   description="Démontrer et vulgariser la dérivation PT du tableau périodique: blocs s/p/d/f, longueurs de période, absence de couche g et anomalies de configuration."
 >
+  <PageHero
+    eyebrow="Chimie PT / dérivation exécutable"
+    domain="chemistry"
+    title="Pourquoi le tableau périodique a cette forme ?"
+    kicker="Première démonstration robuste"
+    dekL1="Le tableau périodique range les atomes selon la manière dont leurs électrons remplissent des places autour du noyau. En mode vulgarisé, l’idée est simple : les électrons ne se placent pas au hasard. Ils remplissent des couches, puis des familles de places appelées s, p, d et f. La PT propose une raison structurelle à cette organisation."
+    dekL2="En PT, le tableau des éléments n’est pas un catalogue empirique : sa forme vient d’une chaîne courte. Le spin donne le facteur 2, les orientations donnent 1, 3, 5, 7, et les capacités deviennent 2, 6, 10, 14. De là, les blocs, les périodes et plusieurs anomalies de configuration tombent ensemble."
+  />
+
   <section class="border-b border-stone-200 bg-white">
     <div class="max-w-6xl mx-auto px-4 py-12 md:py-16">
-      <div class="grid lg:grid-cols-[1fr_1.05fr] gap-10 items-center">
-        <div>
-          <p class="font-sans text-sm font-semibold uppercase tracking-wider text-derorange mb-3">
-            Chimie PT / dérivation exécutable
-          </p>
-          <p class="pt-tag pt-tag-id mb-4">Première démonstration robuste</p>
-          <h1 class="text-4xl md:text-5xl font-bold text-thmblue leading-tight mb-5">
-            Pourquoi le tableau périodique a cette forme ?
-          </h1>
-          <p data-max-depth="L1" class="text-lg md:text-xl text-stone-700 leading-relaxed">
-            Le tableau périodique range les atomes selon la manière dont leurs
-            électrons remplissent des places autour du noyau. En mode
-            vulgarisé, l’idée est simple : les électrons ne se placent pas au
-            hasard. Ils remplissent des couches, puis des familles de places
-            appelées <code>s</code>, <code>p</code>, <code>d</code> et
-            <code>f</code>. La PT propose une raison structurelle à cette
-            organisation.
-          </p>
-          <p data-min-depth="L2" class="text-lg md:text-xl text-stone-700 leading-relaxed">
-            En PT, le tableau des éléments n’est pas un catalogue empirique :
-            sa forme vient d’une chaîne courte. Le spin donne le facteur 2,
-            les orientations donnent 1, 3, 5, 7, et les capacités deviennent
-            2, 6, 10, 14. De là, les blocs, les périodes et plusieurs
-            anomalies de configuration tombent ensemble.
-          </p>
-          <div class="mt-6 flex flex-wrap gap-2 font-sans text-xs">
-            <span class="pt-tag pt-tag-thm">THM</span>
-            <span class="pt-tag pt-tag-der">DER</span>
-            <span class="pt-tag pt-tag-val">PTC code</span>
-            <span class="pt-tag pt-tag-pred">No g-shell</span>
-          </div>
-        </div>
-
+      <div class="grid lg:grid-cols-1 gap-10 items-center">
         <div class="overflow-hidden rounded-lg border border-stone-200 bg-stone-50">
           <div class="grid grid-cols-4 min-h-[260px]">
             {blocks.map((block) => (

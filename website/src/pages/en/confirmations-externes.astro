@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
+import PageHero from '@components/PageHero.astro';
 
 type Status = 'classical' | 'published' | 'preprint' | 'experimental';
 type Links = { wikipedia?: string; doi?: string; arxiv?: string };
@@ -434,33 +435,16 @@ const featured = confirmations.filter((c) => c.status === 'published');
   title="External confirmations"
   description={`${totalCount} experimental results, classical mathematical theorems and recent publications (peer-reviewed and arXiv) compatible with PT — none designed to test it.`}
 >
-  <main class="max-w-6xl mx-auto px-4 py-10 md:py-14">
+  <PageHero
+    eyebrow="Plain · external validation"
+    domain="meta"
+    title={`${totalCount} independent confirmations`}
+    kicker="Not designed for PT. Compatible with PT, no adjustment."
+    dekL1="A theory can be internal and self-consistent without saying anything about the world. For PT the test is different: if the theory is right, independent results — classical mathematical theorems, experimental measurements, recent publications — should be compatible with it without readjustment."
+    dekL2={`${totalCount} confirmations across 7 distinct domains. None were produced to validate PT; all are compatible. Not proof, but a rare guarantee of external coherence in alternative theoretical physics.`}
+  />
 
-    <!-- HERO -->
-    <section class="mb-12">
-      <div class="rounded-lg border border-slate-200 bg-white p-6 md:p-8 shadow-sm">
-        <p class="pt-tag pt-tag-val mb-5">Plain · external validation</p>
-        <h1 class="text-4xl md:text-5xl font-bold text-thmblue leading-tight mb-4">
-          {totalCount} independent confirmations
-        </h1>
-        <p class="text-2xl md:text-3xl font-sans font-semibold text-derorange leading-snug mb-6">
-          Not designed for PT. Compatible with PT, no adjustment.
-        </p>
-        <p class="text-lg text-slate-700 leading-relaxed mb-5" data-max-depth="L1">
-          A theory can be internal and self-consistent without saying anything
-          about the world. For PT the test is different: if the theory is
-          right, independent results — classical mathematical theorems,
-          experimental measurements, recent publications — should be
-          compatible with it <strong>without readjustment</strong>.
-        </p>
-        <p class="text-base text-slate-700 leading-relaxed" data-min-depth="L2">
-          {totalCount} confirmations across 7 distinct domains. None were
-          produced to validate PT; all are compatible. Not proof, but a
-          rare guarantee of external coherence in alternative theoretical
-          physics.
-        </p>
-      </div>
-    </section>
+  <main class="max-w-6xl mx-auto px-4 py-10 md:py-14">
 
     <!-- STATUS LEGEND -->
     <section class="mb-10">

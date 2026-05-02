@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
+import PageHero from '@components/PageHero.astro';
 
 // Why biology is a natural test of PT
 const whyBio = [
@@ -166,49 +167,17 @@ print(f"\\n{matches}/20 amino acids in the correct Ramachandran basin")
   title="PT in biology — internal results"
   description="PT_PROTEIN / PT_RNA programme: universal q⁺/q⁻ bifurcation across 3 biopolymers, Ramachandran torus reconstructed, protein allostery tested by 1000× shuffle, A_m = 1 for RNA [THM]. Private code, LaTeX draft in progress, documented reproduction scripts."
 >
-  <main class="max-w-6xl mx-auto px-4 py-10 md:py-14">
+  <PageHero
+    eyebrow="Plain · ongoing research"
+    domain="bio"
+    title="When PT touches the living"
+    kicker="DNA, RNA, proteins. Three biopolymers, one single bifurcation."
+    dekL1="PT predicts that what makes a structure stable and readable — persistence — is governed by a fixed cascade: three active channels, indexed by the primes 3, 5, 7. If this prediction is correct, it should not be confined to atoms or particles. The living too is made of stable and readable structures — folded proteins, folded RNA, double-helix DNA. The same cascade should appear in it."
+    dekL2="Three research modules test this transposition: PT_PROTEIN on proteins (allostery, Ramachandran torus), PT_RNA on RNA (modular asymmetry, sequence scale-up), and a future PT_DNA on the genetic code. This page presents what has been tested so far."
+    oneLineNote={{ label: 'Status', body: 'ongoing research. The PT_PROTEIN and PT_RNA modules are not yet published. Private code, LaTeX draft in preparation. This page documents the programme’s ambition, the results already obtained, and their limits.' }}
+  />
 
-    <!-- ============= HERO L1 ============= -->
-    <section class="mb-12">
-      <div class="rounded-lg border border-slate-200 bg-white p-6 md:p-8 shadow-sm">
-        <p class="pt-tag pt-tag-val mb-5">Plain · ongoing research</p>
-        <h1 class="text-4xl md:text-5xl font-bold text-thmblue leading-tight mb-4">
-          When PT touches the living
-        </h1>
-        <p class="text-2xl md:text-3xl font-sans font-semibold text-derorange leading-snug mb-6">
-          DNA, RNA, proteins. Three biopolymers, one single bifurcation.
-        </p>
-        <div class="rounded-lg border-l-4 border-amber-400 bg-amber-50 px-4 py-3 mb-6">
-          <p class="text-sm text-amber-900 leading-relaxed">
-            <strong>Status: ongoing research.</strong> The
-            <code class="font-mono bg-amber-100 px-1.5 py-0.5 rounded">PT_PROTEIN</code> and
-            <code class="font-mono bg-amber-100 px-1.5 py-0.5 rounded">PT_RNA</code> modules
-            are not yet published. Private code, LaTeX draft in preparation. This
-            page documents the programme's ambition, the results already
-            obtained, and their limits. See also
-            <a href="/en/recherches" class="underline">the Research page</a>
-            for the broader context.
-          </p>
-        </div>
-        <p class="text-lg text-slate-700 leading-relaxed mb-5" data-max-depth="L1">
-          PT predicts that what makes a structure stable and readable —
-          persistence — is governed by a fixed cascade: three active
-          channels, indexed by the primes 3, 5, 7. If this
-          prediction is correct, it should not be confined to
-          atoms or particles. The living too is made of stable and
-          readable structures — folded proteins, folded RNA, double-helix
-          DNA. The same cascade should appear in it.
-        </p>
-        <p class="text-base text-slate-700 leading-relaxed" data-min-depth="L2">
-          Three research modules test this transposition:
-          <strong>PT_PROTEIN</strong> on proteins (allostery, Ramachandran
-          torus), <strong>PT_RNA</strong> on RNA (modular
-          asymmetry, sequence scale-up), and a future <strong>PT_DNA</strong>
-          on the genetic code. This page presents what has been tested
-          so far.
-        </p>
-      </div>
-    </section>
+  <main class="max-w-6xl mx-auto px-4 py-10 md:py-14">
 
     <!-- ============= WHY BIO L1 ============= -->
     <section class="mb-12">

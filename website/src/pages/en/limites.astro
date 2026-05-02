@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
+import PageHero from '@components/PageHero.astro';
 
 const limits = [
   ['Physical bridges', 'BA bridges remain structuring commitments. Even when strongly motivated, they must stay distinct from algebraic identities.'],
@@ -14,15 +15,14 @@ const limits = [
   title="Limits and open points"
   description="What PT claims, what it does not claim yet, and what remains to be locked."
 >
-  <section class="max-w-6xl mx-auto px-4 py-12">
-    <p class="pt-tag pt-tag-cond mb-4">Rigor</p>
-    <h1 class="text-4xl md:text-5xl font-bold text-thmblue mb-5">Limits and open points</h1>
-    <p class="text-lg text-slate-700 leading-relaxed max-w-3xl mb-10">
-      A good scientific showcase should not only display successes. It must
-      say what is closed, what is conditional, what is numerically validated,
-      and what still awaits external verification.
-    </p>
+  <PageHero
+    eyebrow="Rigor"
+    domain="meta"
+    title="Limits and open points"
+    dek="A good scientific showcase should not only display successes. It must say what is closed, what is conditional, what is numerically validated, and what still awaits external verification."
+  />
 
+  <section class="max-w-6xl mx-auto px-4 py-12">
     <div class="space-y-4 mb-12">
       {limits.map(([title, body]) => (
         <div class="bg-white border border-slate-200 rounded-lg p-5">

@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
+import PageHero from '@components/PageHero.astro';
 import { electronAffinityMetrics, electronAffinityRows } from '../data/electronAffinity';
 
 const simpleStages = [
@@ -67,34 +68,18 @@ const blockColor: Record<string, string> = {
   title="Affinités électroniques dérivées par la PT"
   description="Démonstration du calcul PT des affinités électroniques atomiques, organisée en trois profondeurs de lecture : vulgarisée, standard et technique."
 >
+  <PageHero
+    eyebrow="Chimie PT / bord de capture"
+    domain="chemistry"
+    title="Comment la PT calcule une affinité électronique"
+    dek="L’affinité électronique EA est l’énergie libérée quand un atome neutre capture un électron. En PT, cette capture est lue comme une entrée au bord d’un canal discret."
+    dekL1="La version courte : la PT ne demande pas seulement « reste-t-il une place ? ». Elle demande où se trouve la prochaine place et dans quelle géométrie elle s’ouvre."
+    dekL2="La couche active possède une capacité $N = 2(2\ell+1)$ et contient $n$ électrons. L’électron ajouté est lu sur le bord receveur $x=(n+1)/N$, puis les champs PT de seuil, de cœur, de canal et de contact-profondeur corrigent l’énergie de capture."
+  />
+
   <section class="border-b border-stone-200 bg-white">
     <div class="max-w-6xl mx-auto px-4 py-12 md:py-16">
-      <p class="font-sans text-sm font-semibold uppercase tracking-wider text-derorange mb-3">
-        Chimie PT / bord de capture
-      </p>
-      <div class="grid lg:grid-cols-[1fr_0.9fr] gap-8 items-start">
-        <div>
-          <h1 class="text-4xl md:text-5xl font-bold text-thmblue leading-tight mb-5">
-            Comment la PT calcule une affinité électronique
-          </h1>
-          <p class="text-lg text-stone-700 leading-relaxed mb-5">
-            L’affinité électronique EA est l’énergie libérée quand un atome neutre
-            capture un électron. En PT, cette capture est lue comme une entrée au
-            bord d’un canal discret.
-          </p>
-          <p class="text-stone-700 leading-relaxed" data-max-depth="L1">
-            La version courte : la PT ne demande pas seulement « reste-t-il une
-            place ? ». Elle demande où se trouve la prochaine place et dans quelle
-            géométrie elle s’ouvre.
-          </p>
-          <p class="text-stone-700 leading-relaxed" data-min-depth="L2">
-            La couche active possède une capacité $N = 2(2\ell+1)$ et contient
-            $n$ électrons. L’électron ajouté est lu sur le bord receveur
-            $x=(n+1)/N$, puis les champs PT de seuil, de cœur, de canal et de
-            contact-profondeur corrigent l’énergie de capture.
-          </p>
-        </div>
-
+      <div class="grid lg:grid-cols-1 gap-8 items-start">
         <div class="pt-card">
           <div class="text-xs font-sans text-stone-500 uppercase tracking-wider mb-2">Score canonique</div>
           <div class="text-5xl font-bold text-thmblue">{electronAffinityMetrics.maePercent.toFixed(3).replace('.', ',')} %</div>

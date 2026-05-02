@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
+import PageHero from '@components/PageHero.astro';
 import MathVisual from '@components/MathVisual.astro';
 import { mathPages, statusLabels } from '@/data/mathPages';
 ---
@@ -8,28 +9,13 @@ import { mathPages, statusLabels } from '@/data/mathPages';
   title="Mathematical atlas"
   description="An atlas of the mathematical pages of the Theory of Persistence: survivors, GFT, CRT, anomalous dimensions, Riemann, compression, and cryptography."
 >
-  <section class="border-b border-slate-200 bg-white">
-    <div class="max-w-6xl mx-auto px-4 py-12 md:py-16">
-      <p class="font-sans text-sm font-semibold uppercase tracking-wider text-derorange mb-3">
-        PT mathematics
-      </p>
-      <h1 class="text-4xl md:text-5xl font-bold text-thmblue leading-tight mb-5">
-        Mathematical atlas of persistence
-      </h1>
-      <p class="text-lg text-slate-700 leading-relaxed max-w-3xl">
-        These pages show the mathematical mechanics of PT: the constrained
-        continuum, persistence points, the sieve, GFT, prime cycles,
-        thresholds, and informational applications.
-      </p>
-      <p class="text-lg text-slate-700 leading-relaxed max-w-3xl mt-4">
-        We often picture the numbers as a straight line unfolding forward. PT
-        reads them differently: as soon as residues modulo prime numbers are
-        taken seriously, that line closes into cycles. At increasing depth,
-        the bare line gives way to phase mechanics: discrete points are the
-        remarkable, stable, readable traces of that continuum under constraint.
-      </p>
-    </div>
-  </section>
+  <PageHero
+    eyebrow="PT mathematics"
+    domain="math"
+    title="Mathematical atlas of persistence"
+    dek="These pages show the mathematical mechanics of PT: the constrained continuum, persistence points, the sieve, GFT, prime cycles, thresholds, and informational applications."
+    heroNote="We often picture the numbers as a straight line unfolding forward. PT reads them differently: as soon as residues modulo prime numbers are taken seriously, that line closes into cycles. At increasing depth, the bare line gives way to phase mechanics: discrete points are the remarkable, stable, readable traces of that continuum under constraint."
+  />
 
   <section class="max-w-6xl mx-auto px-4 py-12">
     <div class="grid lg:grid-cols-[0.92fr_1.08fr] gap-8 items-center mb-12">

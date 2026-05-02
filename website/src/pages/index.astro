@@ -1,13 +1,14 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
+import PageHero from '@components/PageHero.astro';
 import SubProjects from '@components/SubProjects.astro';
 import Citation from '@components/Citation.astro';
 
 const primaryLinks = [
-  { href: '/essays/idea-5min', label: 'L’idée en 5 minutes', tone: 'primary' },
-  { href: '/commencer-ici', label: 'Commencer ici', tone: 'outline' },
-  { href: '/premier-principe', label: 'Principe fondamental', tone: 'outline' },
-  { href: '/resultats', label: 'Dashboard résultats', tone: 'soft' },
+  { href: '/essays/idea-5min', label: 'L’idée en 5 minutes', tone: 'primary' as const },
+  { href: '/commencer-ici', label: 'Commencer ici', tone: 'outline' as const },
+  { href: '/premier-principe', label: 'Principe fondamental', tone: 'outline' as const },
+  { href: '/resultats', label: 'Dashboard résultats', tone: 'soft' as const },
 ];
 
 const readingPath = [
@@ -147,59 +148,19 @@ const groupedLinks = [
 ---
 
 <BaseLayout>
-  <main class="max-w-6xl mx-auto px-4 py-10 md:py-14">
-    <section class="mb-12">
-      <div class="rounded-lg border border-slate-200 bg-white p-6 md:p-8 shadow-sm">
-        <p class="pt-tag pt-tag-bridge mb-5">Vulgarisé · préimpression ouverte</p>
-        <h1 class="text-4xl md:text-5xl font-bold text-thmblue leading-tight mb-4">
-          La Théorie de la Persistance
-        </h1>
-        <p class="text-2xl md:text-3xl font-sans font-semibold text-derorange leading-snug mb-6">
-          Ce qui persiste est ce qui reste sous contrainte.
-        </p>
-        <p class="text-lg text-stone-800 leading-relaxed mb-5" data-max-depth="L1">
-          La PT part d’une idée simple : quand une contrainte agit, tout ne
-          disparaît pas. Une part se disperse en entropie ; une autre traverse
-          la contrainte et devient structure. Les observables mesurent cette
-          distribution.
-        </p>
-        <p class="text-lg text-stone-800 leading-relaxed mb-5" data-min-depth="L2">
-          La PT part d’une idée simple : sous contrainte, une part se disperse
-          en entropie et une autre persiste comme structure. Cette idée se
-          déploie en chaîne : principe de conservation informationnelle,
-          dynamique du crible, cristallisation de 2, glissement vers
-          l’attracteur réduit μ* = 15, puis dérivation des observables avec
-          statut épistémique explicite.
-        </p>
-        <p class="text-base text-slate-700 leading-relaxed rounded-lg bg-slate-50 border border-slate-200 px-4 py-3 mb-5" data-min-depth="L3">
-          <strong>Lecture technique :</strong> ne pas lire cette page comme une
-          preuve globale, mais comme une carte d’audit. Les théorèmes, ponts,
-          dérivations physiques, validations et prédictions ne portent pas le
-          même statut.
-        </p>
-        <p data-max-depth="L1" class="text-base text-slate-700 leading-relaxed rounded-lg bg-amber-50 border border-amber-200 px-4 py-3 mb-6">
-          <strong>En une phrase :</strong> persister, ce n’est pas rester par
-          inertie ; c’est survivre à une contrainte admissible sans perdre son
-          identité structurelle.
-        </p>
-        <div class="flex flex-wrap gap-3">
-          {primaryLinks.map((link) => (
-            <a
-              href={link.href}
-              class:list={[
-                'px-5 py-3 font-sans font-semibold rounded transition',
-                link.tone === 'primary' && 'bg-thmblue text-white hover:bg-thmblue/90',
-                link.tone === 'outline' && 'bg-white border border-thmblue text-thmblue hover:bg-thmblue/5',
-                link.tone === 'soft' && 'bg-stone-50 border border-stone-300 text-stone-800 hover:bg-stone-100',
-              ]}
-            >
-              {link.label}
-            </a>
-          ))}
-        </div>
-      </div>
-    </section>
+  <PageHero
+    eyebrow="Vulgarisé · préimpression ouverte"
+    domain="meta"
+    title="La Théorie de la Persistance"
+    kicker="Ce qui reste, c’est la forme."
+    dekL1="La théorie de la persistance (PT) part d’une idée simple : quand une contrainte agit, tout ne disparaît pas. Une part se disperse en entropie ; une autre traverse la contrainte et devient structure. Ce qui persiste n’est pas ce qui est le plus fort. C’est ce qui est le plus compatible avec la logique du filtre. La persistance n’est pas une victoire. C’est un accord. La forme n’est pas décorative : c’est la structure que la contrainte rend visible. Les observables mesurent cette distribution."
+    dekL2="La théorie de la persistance (PT) part d’une idée simple : sous contrainte, une part se disperse en entropie et une autre persiste comme structure. Ce qui persiste n’est pas ce qui est le plus fort. C’est ce qui est le plus compatible avec la logique du filtre. La persistance n’est pas une victoire. C’est un accord. La forme n’est pas décorative : c’est la structure que la contrainte rend visible. Cette idée se déploie en chaîne : principe de conservation informationnelle, dynamique du crible, cristallisation de 2, glissement vers l’attracteur réduit μ* = 15, puis dérivation des observables avec statut épistémique explicite."
+    oneLineNote={{ label: 'En une phrase', body: 'persister, ce n’est pas rester par inertie ; c’est survivre à une contrainte admissible sans perdre son identité structurelle.' }}
+    technicalNote={{ label: 'Lecture technique', body: 'ne pas lire cette page comme une preuve globale, mais comme une carte d’audit. Les théorèmes, ponts, dérivations physiques, validations et prédictions ne portent pas le même statut.' }}
+    actions={primaryLinks}
+  />
 
+  <main class="max-w-6xl mx-auto px-4 py-10 md:py-14">
     <section class="mb-12">
       <p class="pt-tag pt-tag-id mb-3">Vulgarisé</p>
       <h2 class="text-3xl md:text-4xl font-bold text-thmblue mb-6">

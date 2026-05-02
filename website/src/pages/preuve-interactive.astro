@@ -1,20 +1,20 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
+import PageHero from '@components/PageHero.astro';
 ---
 
 <BaseLayout
   title="Preuve interactive"
   description="Module pédagogique interactif pour manipuler les canaux PT du tableau périodique."
 >
+  <PageHero
+    eyebrow="Module pédagogique"
+    domain="meta"
+    title="Manipuler la preuve chimique"
+    dek="Le but n’est pas de simuler toute la chimie atomique. Le but est de rendre visible la brique PT centrale : un canal possède des orientations, le spin double chaque orientation, puis l’occupation du canal transforme la géométrie en période, fermeture, bord de capture ou vacance."
+  />
+
   <section class="max-w-6xl mx-auto px-4 py-12">
-    <p class="pt-tag pt-tag-id mb-4">Module pédagogique</p>
-    <h1 class="text-4xl md:text-5xl font-bold text-thmblue mb-5">Manipuler la preuve chimique</h1>
-    <p class="text-lg text-slate-700 leading-relaxed max-w-3xl mb-10">
-      Le but n’est pas de simuler toute la chimie atomique. Le but est de rendre
-      visible la brique PT centrale : un canal possède des orientations, le spin
-      double chaque orientation, puis l’occupation du canal transforme la
-      géométrie en période, fermeture, bord de capture ou vacance.
-    </p>
 
     <div class="grid lg:grid-cols-[0.85fr_1.15fr] gap-8 items-start">
       <div class="bg-white border border-slate-200 rounded-lg p-5">

@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
+import PageHero from '@components/PageHero.astro';
 
 // Pourquoi la biologie est un test naturel de PT
 const whyBio = [
@@ -166,49 +167,17 @@ print(f"\\n{matches}/20 acides aminés dans le bon bassin Ramachandran")
   title="PT en biologie — résultats internes"
   description="Programme PT_PROTEIN / PT_RNA : bifurcation q⁺/q⁻ universelle sur 3 biopolymères, tore de Ramachandran reconstruit, allostérie protéique testée par shuffle 1000×, A_m = 1 pour l'ARN [THM]. Code privé, draft LaTeX en cours, scripts de reproduction documentés."
 >
-  <main class="max-w-6xl mx-auto px-4 py-10 md:py-14">
+  <PageHero
+    eyebrow="Vulgarisé · recherche en cours"
+    domain="bio"
+    title="Quand la PT touche le vivant"
+    kicker="ADN, ARN, protéines. Trois biopolymères, une seule bifurcation."
+    dekL1="La PT prédit que ce qui rend une structure stable et lisible — la persistance — est gouverné par une cascade fixe : trois canaux actifs, indexés par les nombres premiers 3, 5, 7. Si cette prédiction est correcte, elle ne devrait pas se cantonner aux atomes ou aux particules. Le vivant aussi est fait de structures stables et lisibles — protéines repliées, ARN folded, ADN double hélice. La même cascade devrait y apparaître."
+    dekL2="Trois modules de recherche testent cette transposition : PT_PROTEIN sur les protéines (allostérie, tore de Ramachandran), PT_RNA sur l’ARN (asymétrie modulaire, scale-up de séquences), et un futur PT_DNA sur le code génétique. Cette page expose ce qui a été testé jusqu’ici."
+    oneLineNote={{ label: 'Statut', body: 'recherche en cours. Les modules PT_PROTEIN et PT_RNA ne sont pas encore publiés. Code privé, draft LaTeX en préparation. Cette page documente l’ambition du programme, les résultats déjà obtenus, et leurs limites.' }}
+  />
 
-    <!-- ============= HERO L1 ============= -->
-    <section class="mb-12">
-      <div class="rounded-lg border border-slate-200 bg-white p-6 md:p-8 shadow-sm">
-        <p class="pt-tag pt-tag-val mb-5">Vulgarisé · recherche en cours</p>
-        <h1 class="text-4xl md:text-5xl font-bold text-thmblue leading-tight mb-4">
-          Quand la PT touche le vivant
-        </h1>
-        <p class="text-2xl md:text-3xl font-sans font-semibold text-derorange leading-snug mb-6">
-          ADN, ARN, protéines. Trois biopolymères, une seule bifurcation.
-        </p>
-        <div class="rounded-lg border-l-4 border-amber-400 bg-amber-50 px-4 py-3 mb-6">
-          <p class="text-sm text-amber-900 leading-relaxed">
-            <strong>Statut : recherche en cours.</strong> Les modules
-            <code class="font-mono bg-amber-100 px-1.5 py-0.5 rounded">PT_PROTEIN</code> et
-            <code class="font-mono bg-amber-100 px-1.5 py-0.5 rounded">PT_RNA</code> ne sont
-            pas encore publiés. Code privé, draft LaTeX en préparation. Cette
-            page documente l’ambition du programme, les résultats déjà
-            obtenus, et leurs limites. Voir aussi
-            <a href="/recherches" class="underline">la page Recherches</a>
-            pour le contexte global.
-          </p>
-        </div>
-        <p class="text-lg text-slate-700 leading-relaxed mb-5" data-max-depth="L1">
-          La PT prédit que ce qui rend une structure stable et lisible —
-          la persistance — est gouverné par une cascade fixe : trois canaux
-          actifs, indexés par les nombres premiers 3, 5, 7. Si cette
-          prédiction est correcte, elle ne devrait pas se cantonner aux
-          atomes ou aux particules. Le vivant aussi est fait de structures
-          stables et lisibles — protéines repliées, ARN folded, ADN double
-          hélice. La même cascade devrait y apparaître.
-        </p>
-        <p class="text-base text-slate-700 leading-relaxed" data-min-depth="L2">
-          Trois modules de recherche testent cette transposition :
-          <strong>PT_PROTEIN</strong> sur les protéines (allostérie, tore
-          de Ramachandran), <strong>PT_RNA</strong> sur l’ARN (asymétrie
-          modulaire, scale-up de séquences), et un futur <strong>PT_DNA</strong>
-          sur le code génétique. Cette page expose ce qui a été testé
-          jusqu’ici.
-        </p>
-      </div>
-    </section>
+  <main class="max-w-6xl mx-auto px-4 py-10 md:py-14">
 
     <!-- ============= POURQUOI LA BIO L1 ============= -->
     <section class="mb-12">

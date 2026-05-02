@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
+import PageHero from '@components/PageHero.astro';
 import { electronAffinityMetrics, electronAffinityRows } from '../../data/electronAffinity';
 
 const simpleStages = [
@@ -67,33 +68,18 @@ const blockColor: Record<string, string> = {
   title="Electron affinities derived by PT"
   description="A PT derivation of atomic electron affinities, organized into three reading depths: plain-language, standard, and technical."
 >
+  <PageHero
+    eyebrow="PT chemistry / capture boundary"
+    domain="chemistry"
+    title="How PT computes an electron affinity"
+    dek="Electron affinity EA is the energy released when a neutral atom captures an electron. In PT, this capture is read as an entry at the edge of a discrete channel."
+    dekL1="Short version: PT does not ask only whether a place is open. It asks where the next place sits, and in which geometry it opens."
+    dekL2="The active shell has capacity $N = 2(2\ell+1)$ and contains $n$ electrons. The added electron is read on the receiver edge $x=(n+1)/N$, then PT threshold, core, channel, and contact-depth fields correct the capture energy."
+  />
+
   <section class="border-b border-stone-200 bg-white">
     <div class="max-w-6xl mx-auto px-4 py-12 md:py-16">
-      <p class="font-sans text-sm font-semibold uppercase tracking-wider text-derorange mb-3">
-        PT chemistry / capture boundary
-      </p>
-      <div class="grid lg:grid-cols-[1fr_0.9fr] gap-8 items-start">
-        <div>
-          <h1 class="text-4xl md:text-5xl font-bold text-thmblue leading-tight mb-5">
-            How PT computes an electron affinity
-          </h1>
-          <p class="text-lg text-stone-700 leading-relaxed mb-5">
-            Electron affinity EA is the energy released when a neutral atom
-            captures an electron. In PT, this capture is read as an entry at the
-            edge of a discrete channel.
-          </p>
-          <p class="text-stone-700 leading-relaxed" data-max-depth="L1">
-            Short version: PT does not ask only whether a place is open. It asks
-            where the next place sits, and in which geometry it opens.
-          </p>
-          <p class="text-stone-700 leading-relaxed" data-min-depth="L2">
-            The active shell has capacity $N = 2(2\ell+1)$ and contains $n$
-            electrons. The added electron is read on the receiver edge
-            $x=(n+1)/N$, then PT threshold, core, channel, and contact-depth
-            fields correct the capture energy.
-          </p>
-        </div>
-
+      <div class="grid lg:grid-cols-1 gap-8 items-start">
         <div class="pt-card">
           <div class="text-xs font-sans text-stone-500 uppercase tracking-wider mb-2">Canonical score</div>
           <div class="text-5xl font-bold text-thmblue">{electronAffinityMetrics.maePercent.toFixed(3)}%</div>

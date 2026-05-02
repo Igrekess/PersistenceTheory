@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
+import PageHero from '@components/PageHero.astro';
 
 const cards = [
   ['Mathematics', 'GFT + T0–T6 + L0', 'Fundamental principle, arithmetic chain, attractive closure at μ* = 15.', '/en/theorems', 'pt-tag-thm'],
@@ -30,24 +31,16 @@ const lenses = [
   title="Results dashboard"
   description="Synthetic view of major PT results, validations, and proof pages."
 >
-  <main class="max-w-6xl mx-auto px-4 py-10 md:py-14">
-    <section class="grid lg:grid-cols-[1.05fr_0.95fr] gap-8 items-stretch mb-12">
-      <div class="rounded-lg border border-slate-200 bg-white p-6 md:p-8 shadow-sm">
-        <p class="pt-tag pt-tag-val mb-5">Synthesis</p>
-        <h1 class="text-4xl md:text-5xl font-bold text-thmblue leading-tight mb-5">
-          Results dashboard
-        </h1>
-        <p class="text-lg text-slate-700 leading-relaxed mb-4">
-          This page is a quick map: where the results are, what they mean, and
-          how to check them inside the site.
-        </p>
-        <p class="text-slate-700 leading-relaxed">
-          It does not replace statuses: a result can be proof-based, derived
-          under a bridge, numerically validated, or predictive. The dashboard
-          shows the verification route.
-        </p>
-      </div>
+  <PageHero
+    eyebrow="Synthesis"
+    domain="meta"
+    title="Results dashboard"
+    dek="This page is a quick map: where the results are, what they mean, and how to check them inside the site."
+    heroNote="It does not replace statuses: a result can be proof-based, derived under a bridge, numerically validated, or predictive. The dashboard shows the verification route."
+  />
 
+  <main class="max-w-6xl mx-auto px-4 py-10 md:py-14">
+    <section class="mb-12">
       <aside class="rounded-lg border border-slate-200 bg-slate-950 text-white p-6 md:p-8 shadow-sm">
         <p class="text-xs font-sans uppercase tracking-[0.18em] text-amber-300 mb-5">
           Reported landmarks

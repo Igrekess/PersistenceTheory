@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
+import PageHero from '@components/PageHero.astro';
 
 const projects = [
   {
@@ -54,37 +55,16 @@ const colorBorders: Record<string, string> = {
   title="Research"
   description="Ongoing research programmes around PT: Biology (PT_PROTEIN, PT_RNA) and SieveColorSpace (colour perception). Each tests transposing the PT cascade to an empirical domain. Statuses, current results, code and acknowledged limits."
 >
-  <main class="max-w-6xl mx-auto px-4 py-10 md:py-14">
+  <PageHero
+    eyebrow="Research programmes"
+    domain="meta"
+    title="Ongoing research"
+    kicker="Two empirical programmes currently public. One cascade."
+    dek="If PT is right, the cascade {3, 5, 7} and the q⁺/q⁻ bifurcation should not be confined to the Standard Model. Two research programmes, presented here, test this transposition in two empirical domains: biology (biopolymers) and colour perception (colour spaces). Other programmes (notably in seismology) are ongoing internally and will be released later."
+    oneLineNote={{ label: 'Common status', body: 'these programmes are still exploratory. Their results are measured, chained, verifiable — but they do not replace PT’s deductive core (43 Standard Model observables, 28 Tier-1 predictions). This page is a portal to each, with code, limits, and ambitions of its own.' }}
+  />
 
-    <section class="mb-12">
-      <div class="rounded-lg border border-slate-200 bg-white p-6 md:p-8 shadow-sm">
-        <p class="pt-tag pt-tag-id mb-5">Research programmes</p>
-        <h1 class="text-4xl md:text-5xl font-bold text-thmblue leading-tight mb-4">
-          Ongoing research
-        </h1>
-        <p class="text-2xl md:text-3xl font-sans font-semibold text-derorange leading-snug mb-6">
-          Two empirical programmes currently public. One cascade.
-        </p>
-        <p class="text-lg text-slate-700 leading-relaxed mb-5">
-          If PT is right, the cascade {`{3, 5, 7}`} and the q⁺/q⁻
-          bifurcation should not be confined to the Standard Model. Two
-          research programmes, presented here, test this transposition in
-          two empirical domains: <strong>biology</strong> (biopolymers) and
-          <strong>colour perception</strong> (colour spaces). Other
-          programmes (notably in seismology) are ongoing internally and will
-          be released later.
-        </p>
-        <div class="rounded-lg border-l-4 border-amber-400 bg-amber-50 px-4 py-3">
-          <p class="text-sm text-amber-900 leading-relaxed">
-            <strong>Common status.</strong> These programmes are
-            <em>still exploratory</em>. Their results are measured, chained,
-            verifiable — but they do not replace PT's deductive core (43
-            Standard Model observables, 28 Tier-1 predictions). This page
-            is a portal to each, with code, limits, and ambitions of its own.
-          </p>
-        </div>
-      </div>
-    </section>
+  <main class="max-w-6xl mx-auto px-4 py-10 md:py-14">
 
     <section class="mb-12">
       <p class="pt-tag pt-tag-thm mb-3">Two public transpositions</p>
