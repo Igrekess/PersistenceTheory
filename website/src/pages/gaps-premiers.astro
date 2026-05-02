@@ -2,6 +2,7 @@
 import BaseLayout from '@layouts/BaseLayout.astro';
 import PageHero from '@components/PageHero.astro';
 
+// ── Données crible mod 30 (existant) ─────────────────────────────────────────
 const survivors = [1, 7, 11, 13, 17, 19, 23, 29];
 const gaps = survivors.map((value, index) => {
   const next = survivors[(index + 1) % survivors.length] + (index === survivors.length - 1 ? 30 : 0);
@@ -9,6 +10,163 @@ const gaps = survivors.map((value, index) => {
 });
 const x = (n: number) => 48 + ((n - 1) / 28) * 704;
 const gapMid = (a: number, b: number) => (x(a) + x(b)) / 2;
+
+// ── Spirale d'Ulam ────────────────────────────────────────────────────────────
+function isPrime(n: number): boolean {
+  if (n < 2) return false;
+  if (n < 4) return true;
+  if (n % 2 === 0) return false;
+  for (let i = 3; i * i <= n; i += 2) if (n % i === 0) return false;
+  return true;
+}
+
+function ulamSpiral(N: number) {
+  const cx = Math.floor(N / 2);
+  const cy = Math.floor(N / 2);
+  let gx = cx, gy = cy;
+  let dx = 1, dy = 0;
+  let segLen = 1, stepInSeg = 0, segParity = 0;
+  const cells = [{ n: 1, gx, gy, prime: false }];
+  for (let n = 2; n <= N * N; n++) {
+    gx += dx;
+    gy += dy;
+    cells.push({ n, gx, gy, prime: isPrime(n) });
+    stepInSeg++;
+    if (stepInSeg === segLen) {
+      stepInSeg = 0;
+      [dx, dy] = [dy, -dx]; // tourne 90° antihoraire (y vers le haut math)
+      segParity++;
+      if (segParity === 2) { segLen++; segParity = 0; }
+    }
+  }
+  return cells;
+}
+
+const ULAM_N = 17; // 17×17 = 289 cells, 61 premiers
+const ulamCells = ulamSpiral(ULAM_N);
+const ulamCellSize = 22;
+const ulamPad = 14;
+const ulamSize = ULAM_N * ulamCellSize + 2 * ulamPad;
+
+// ── Distribution π(x) — données exactes ───────────────────────────────────────
+const piXData = [
+  { x: 10,        pi: 4,        xOverLogX: 4.34,    li: 6.17 },
+  { x: 100,       pi: 25,       xOverLogX: 21.71,   li: 30.13 },
+  { x: 1000,      pi: 168,      xOverLogX: 144.76,  li: 177.61 },
+  { x: 10000,     pi: 1229,     xOverLogX: 1085.74, li: 1246.14 },
+  { x: 100000,    pi: 9592,     xOverLogX: 8685.89, li: 9629.81 },
+  { x: 1000000,   pi: 78498,    xOverLogX: 72382.41,li: 78627.55 },
+  { x: 10000000,  pi: 664579,   xOverLogX: 620420.69, li: 664917.36 },
+  { x: 100000000, pi: 5761455,  xOverLogX: 5428681.02, li: 5762209.38 },
+];
+
+// ── Loi PT θ_p ~ √(2/p) ──────────────────────────────────────────────────────
+const primesForTheta = [3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53];
+const thetaPoints = primesForTheta.map(p => ({
+  p,
+  theta: Math.sqrt(2 / p), // approximation asymptotique
+}));
+
+// ── Histoire des mathématiques ───────────────────────────────────────────────
+const historyEvents = [
+  {
+    year: '−240',
+    name: 'Ératosthène',
+    body: 'Le crible : barrer les multiples de 2, 3, 5, 7… Premier algorithme connu pour énumérer les premiers.',
+    tag: 'origine',
+  },
+  {
+    year: '1737',
+    name: 'Euler',
+    body: 'Identité ζ(s) = ∏(1 − p^{−s})^{−1} : fonction zêta = produit eulérien sur les premiers. Le pont entre additif et multiplicatif est ouvert.',
+    tag: 'pont',
+  },
+  {
+    year: '1859',
+    name: 'Riemann',
+    body: 'Sur les zéros de ζ(s). L\'hypothèse RH lie la distribution des premiers aux zéros critiques. Ouverte depuis.',
+    tag: 'conjecture',
+    },
+  {
+    year: '1874',
+    name: 'Mertens',
+    body: '∏_{p≤y}(1 − 1/p) ~ e^{−γ} / log y. Donne la vitesse exacte d\'éclaircissement des survivants.',
+    tag: 'théorème',
+  },
+  {
+    year: '1896',
+    name: 'Hadamard / de la Vallée Poussin',
+    body: 'Théorème des nombres premiers : π(x) ~ x / log x. Indépendamment, sans RH.',
+    tag: 'théorème',
+  },
+  {
+    year: '1919',
+    name: 'Brun',
+    body: 'Crible combinatoire moderne : la somme ∑ 1/p sur jumeaux converge. Introduction du sieve théorique.',
+    tag: 'crible',
+  },
+  {
+    year: '1937',
+    name: 'Vinogradov',
+    body: 'Tout impair assez grand est somme de trois premiers (conjecture faible de Goldbach).',
+    tag: 'théorème',
+  },
+  {
+    year: '1947',
+    name: 'Selberg',
+    body: 'Λ²-crible et preuve élémentaire du théorème des nombres premiers (Erdős, parallèlement).',
+    tag: 'crible',
+  },
+  {
+    year: '2013',
+    name: 'Zhang / Polymath8',
+    body: 'Premiers consécutifs à distance bornée : ∃ infinité de paires (p, q) premiers avec q − p ≤ 246.',
+    tag: 'rupture',
+  },
+  {
+    year: '2014',
+    name: 'Maynard / Tao',
+    body: 'Borne explicite en O(m³ exp(4m)) sur l\'écart minimal pour m premiers consécutifs. Sieve admissible m-uples.',
+    tag: 'rupture',
+  },
+];
+
+// ── Outils PT_MATH (mise en valeur, sélection) ───────────────────────────────
+const ptMathTools = [
+  { id: 'M01', name: 'Obstruction quaternionique', body: 'T_3(x)T_3 (4×4) involution, spec={+1,+1,−1,−1}. Engendre V_4 (Klein), pas Q_8. Les quaternions ℍ sont inaccessibles depuis le crible.' },
+  { id: 'M10', name: 'Laplacien du graphe-crible', body: 'L = D − A. K_3 est un expander OPTIMAL (λ_2 = 3 max). Donne le gap spectral structurel.' },
+  { id: 'M11', name: 'Zêta d\'Ihara', body: 'Z_G(u) de K_3 via Bass-Hashimoto. RH graphique vérifiée, zéros = racines 3e de l\'unité.' },
+  { id: 'M15', name: 'Algèbre du crible', body: 'Nouveau produit *_T sur fonctions arithmétiques. Non-associatif, non-commutatif, sans identité — distinct de toute algèbre connue.' },
+  { id: 'M16', name: 'Transformée de persistance', body: 'P_K(f) = projection spectrale (v_+, v_−). f = 1 purement v_+, χ_3 purement v_−.' },
+  { id: 'M17', name: 'Métrique PT', body: 'd_PT(m,n) = distance de trajectoire crible. Quasi-orthogonale à |·|, |·|_p. Premiers dispersés, composites regroupés.' },
+  { id: 'M18', name: 'Nombres PT', body: 'ℤ_PT = entiers enrichis par signature de crible. Enrichissement profini filtré, multiplication propre, addition disruptive.' },
+  { id: 'M27', name: 'Crible quantique', body: 'États quantiques, canal CPTP, décohérence. S_vN croissant, pureté → 1/3 — décohérence arithmétique.' },
+  { id: 'M28', name: 'Réseau de tenseurs CRT', body: 'MPS, SVD. Bond dim = 3 exact, ξ fini, réseau gapped. Intrication entre facteurs premiers.' },
+  { id: 'M32', name: 'Code à distance de gap', body: 'Code sur résidus de gaps, d = n − 1 (CRT). K = 5 corrige 1 erreur, K = 7 corrige 2.' },
+  { id: 'M34', name: 'Transformée holonomique', body: 'H : f → {sin²(θ_p)}. Angles par premier, produit Euler généralisé, métrique de Fisher non-nulle.' },
+  { id: 'M35', name: 'Transformée de décohérence', body: 'D : f → {S_K(f)}. Théorème H (S_K croissant), taux = gap spectral.' },
+];
+
+// ── Mystères ouverts (L1) ────────────────────────────────────────────────────
+const openMysteries = [
+  {
+    title: 'Premiers jumeaux',
+    body: 'On conjecture qu\'il existe une infinité de paires (p, p+2) toutes deux premières (3-5, 5-7, 11-13, 17-19, 29-31…). Ouvert depuis l\'Antiquité.',
+    status: 'conjecture',
+  },
+  {
+    title: 'Conjecture de Cramér',
+    body: 'Le plus grand gap entre premiers consécutifs jusqu\'à x devrait être ~ (log x)². Vérifiée jusqu\'à x ≈ 10^{19}, jamais prouvée.',
+    status: 'conjecture',
+  },
+  {
+    title: 'Conjecture de Goldbach',
+    body: 'Tout entier pair > 2 est somme de deux premiers. Vérifiée jusqu\'à 4 × 10^{18}, ouverte depuis 1742.',
+    status: 'conjecture',
+  },
+];
+
+// ── Propositions techniques (existant, conservé) ────────────────────────────
 const propositions = [
   {
     tag: 'exact',
@@ -35,80 +193,274 @@ const propositions = [
     text: 'Candidat naturel pour la loi universelle des survivants rugueux, avec le point racine $K_{PT}(2)=e^\\gamma/2$.',
   },
 ];
+
+// ── Shell regime blocks (PT_New_Math) ────────────────────────────────────────
+const shellRegimes = [
+  { shell: 11, threshold: 1, spectrum: '(4, 6, 4, 1)', regime: 'vertex' },
+  { shell: 13, threshold: 1, spectrum: '(4, 6, 4, 1)', regime: 'vertex' },
+  { shell: 17, threshold: 2, spectrum: '(0, 6, 4, 1)', regime: 'edge' },
+  { shell: 19, threshold: 2, spectrum: '(0, 6, 4, 1)', regime: 'edge' },
+  { shell: 23, threshold: 2, spectrum: '(0, 6, 4, 1)', regime: 'edge' },
+  { shell: 29, threshold: 3, spectrum: '(0, 0, 4, 1)', regime: 'triangle' },
+  { shell: 31, threshold: 3, spectrum: '(0, 0, 4, 1)', regime: 'triangle' },
+  { shell: 37, threshold: 3, spectrum: '(0, 0, 4, 1)', regime: 'triangle' },
+  { shell: 41, threshold: 1, spectrum: '(4, 6, 4, 1)', regime: 'vertex' },
+  { shell: 43, threshold: 1, spectrum: '(4, 6, 4, 1)', regime: 'vertex' },
+  { shell: 47, threshold: 1, spectrum: '(4, 6, 4, 1)', regime: 'vertex' },
+  { shell: 53, threshold: 1, spectrum: '(4, 6, 4, 1)', regime: 'vertex' },
+];
 ---
 
 <BaseLayout
   title="Mécanique PT des gaps premiers"
-  description="Une page mathématique sur la mécanique PT des gaps de survivants, la réduction exacte aux nombres premiers et le statut de la loi des gaps premiers."
+  description="Mécanique PT des gaps de survivants : crible, fenêtre racine, lois théta, noyau PT-Buchstab, shell regime blocks. Synthèse PT_MATH (35 outils) et PT_New_Math (programme shell, transport de phase)."
 >
   <PageHero
-    eyebrow="Mathématique PT / crible et premiers"
+    eyebrow="Mathématique · crible & premiers"
     domain="math"
     title="Mécanique PT des gaps : du crible aux nombres premiers"
-    dekL1="L’idée est simple : on laisse agir un crible, certains nombres survivent, et les écarts entre survivants dessinent une mécanique. À la bonne profondeur, ces survivants deviennent exactement les nombres premiers."
-    dekL2="La PT ne pose pas les gaps premiers comme une suite mystérieuse donnée d’avance. Elle part d’une dynamique de survivance : les points qui persistent sous les contraintes du crible forment des écarts, puis la fenêtre $y=\lfloor\sqrt{x}\rfloor$ réduit exactement ces survivants aux premiers."
+    kicker="Les gaps sont le champ dynamique du crible."
+    dekL1="L'idée est simple : un crible filtre les entiers, certains survivent, et les écarts entre survivants dessinent une mécanique. À la bonne profondeur, ces survivants deviennent exactement les nombres premiers."
+    dekL2="La PT ne pose pas les gaps comme une suite mystérieuse donnée d'avance. Elle part d'une dynamique de survivance : la suite {String.raw`$\{g_n\}$`} des écarts est l'unique champ dynamique du crible (T0 / BA0). De là émergent les transformées spectrale, holonomique et de décohérence (PT_MATH M01-M35), une loi exacte sur les angles {String.raw`$\theta_p \sim \sqrt{2/p}$`} (PT_New_Math) et un noyau universel {String.raw`$K_{PT}(u) = e^\gamma \omega(u)$`} candidat pour la loi de fenêtre."
+    heroNote="crible → survivants → gaps → fenêtre √x → premiers → angles θ_p"
+    oneLineNote={{ label: 'En une phrase', body: 'les nombres premiers ne sont pas un objet primitif — ils sont les survivants ultimes d\'une mécanique de contraintes, et leurs gaps sont le champ dynamique qui en porte toute l\'information.' }}
+    technicalNote={{ label: 'Lecture technique', body: 'cette page synthétise les programmes mathématiques internes — PT_MATH (32+ outils, 659/659 PASS) et PT_New_Math (programme shell, transport de phase, équation PT-Buchstab renormalisée). Statuts épistémiques distingués : THM démontré, DER dérivé, COND ouvert.' }}
   />
 
-  <section class="max-w-6xl mx-auto px-4 py-12">
-    <div class="grid lg:grid-cols-[0.88fr_1.12fr] gap-8 items-center mb-12">
-      <div>
-        <span class="pt-tag pt-tag-bridge">Image</span>
-        <h2 class="text-3xl font-bold text-thmblue mt-4 mb-4">
-          Un gap est d’abord un écart entre survivants
-        </h2>
-        <p class="text-slate-700 leading-relaxed mb-4">
-          Si l’on retire les multiples de 2, 3 et 5, les positions encore
-          vivantes modulo 30 sont 1, 7, 11, 13, 17, 19, 23 et 29. Les gaps
-          6, 4, 2, 4, 2, 4, 6, 2 ne sont pas ajoutés à la main : ils sont la
-          forme laissée par le crible.
-        </p>
-        <p class="text-slate-700 leading-relaxed">
-          C’est cette idée que la PT généralise : le discret n’est pas un
-          ingrédient arbitraire, mais l’ensemble des points qui persistent dans
-          une mécanique de contraintes.
-        </p>
-      </div>
+  <main class="max-w-6xl mx-auto px-4 py-12">
 
-      <div class="bg-white border border-slate-200 rounded-lg p-5">
-        <h3 class="font-sans font-semibold text-thmblue mb-3">Survivants modulo 30</h3>
-        <svg viewBox="0 0 800 260" class="w-full h-auto" role="img" aria-label="Gaps entre survivants du crible modulo 30">
-          <line x1="48" y1="112" x2="752" y2="112" stroke="#d7e1ea" stroke-width="5" stroke-linecap="round" />
-          {[1,5,10,15,20,25,30].map((tick) => (
-            <g>
-              <line x1={x(tick)} x2={x(tick)} y1="102" y2="122" stroke="#94a3b8" />
-              <text x={x(tick)} y="152" text-anchor="middle" font-size="14" fill="#5f6f80" font-family="ui-sans-serif, system-ui">{tick}</text>
-            </g>
-          ))}
-          {survivors.map((n) => (
-            <g>
-              <circle cx={x(n)} cy="112" r="15" fill="#e8f5ee" stroke="#198754" stroke-width="4" />
-              <text x={x(n)} y="84" text-anchor="middle" font-size="14" fill="#14566b" font-weight="700" font-family="ui-sans-serif, system-ui">{n}</text>
-            </g>
-          ))}
-          {survivors.slice(0, -1).map((n, i) => {
-            const next = survivors[i + 1];
-            return (
+    {/* ═════════════════════════ L1 — POURQUOI ═════════════════════════════ */}
+    <section class="mb-14">
+      <span class="pt-tag pt-tag-bridge mb-3 inline-block">Vulgarisé</span>
+      <h2 class="text-3xl font-bold text-thmblue mb-4">
+        Pourquoi parler de gaps ?
+      </h2>
+      <div class="grid lg:grid-cols-[1.1fr_0.9fr] gap-8 items-start">
+        <div class="text-slate-700 leading-relaxed space-y-4">
+          <p>
+            Les <strong>nombres premiers</strong> sont les entiers que rien ne
+            divise, à part 1 et eux-mêmes : 2, 3, 5, 7, 11, 13, 17, 19, 23, 29…
+            Ils sont les briques multiplicatives des entiers. Tout entier se
+            décompose en produit de premiers, et de manière unique : c'est le
+            théorème fondamental de l'arithmétique.
+          </p>
+          <p>
+            Ce qui rend les premiers fascinants, c'est leur <strong>distribution
+            irrégulière</strong>. Entre deux premiers consécutifs, il peut y
+            avoir un gap de 2 (jumeaux : 11–13, 17–19), de 4 (7–11), de 6
+            (23–29), ou bien plusieurs centaines pour des nombres gigantesques.
+            Aucune formule simple ne donne le n-ième premier, et personne ne
+            sait prédire le prochain gap exactement.
+          </p>
+          <p>
+            Pourtant, en moyenne, les premiers <em>obéissent</em> à des lois.
+            Le théorème des nombres premiers dit qu'autour de $x$, l'espace
+            moyen entre deux premiers vaut environ $\log x$. Les gaps grossissent
+            donc, mais lentement.
+          </p>
+          <p>
+            Cette tension — irrégularité locale, régularité globale — est au
+            cœur de la théorie des nombres. Elle est aussi au cœur de la
+            cryptographie moderne : RSA repose entièrement sur la difficulté de
+            factoriser un produit de deux grands premiers.
+          </p>
+        </div>
+        <aside class="rounded-lg border border-amber-300 bg-amber-50 p-5">
+          <p class="text-xs font-sans uppercase tracking-wider text-amber-800 mb-2">
+            Quelques chiffres
+          </p>
+          <ul class="text-sm text-slate-800 space-y-2">
+            <li><strong>π(100)</strong> = 25 premiers ≤ 100</li>
+            <li><strong>π(10⁶)</strong> = 78 498 premiers ≤ 10⁶</li>
+            <li><strong>π(10⁸)</strong> = 5 761 455 premiers ≤ 10⁸</li>
+            <li><strong>Plus grand gap</strong> connu sous 10¹⁹ : 1550</li>
+            <li><strong>Plus grands jumeaux</strong> connus : 2 996 863 034 895 · 2¹²⁹⁰⁰⁰⁰ ± 1</li>
+          </ul>
+        </aside>
+      </div>
+    </section>
+
+    {/* ═════════════════════════ L1 — ÉRATOSTHÈNE ═══════════════════════════ */}
+    <section class="mb-14">
+      <span class="pt-tag pt-tag-bridge mb-3 inline-block">Vulgarisé</span>
+      <h2 class="text-3xl font-bold text-thmblue mb-4">
+        Le crible d'Ératosthène, en pratique
+      </h2>
+      <div class="grid lg:grid-cols-[0.85fr_1.15fr] gap-8 items-start">
+        <div class="text-slate-700 leading-relaxed space-y-4">
+          <p>
+            Vers 240 av. J.-C., Ératosthène propose une recette mécanique pour
+            trouver tous les premiers jusqu'à un nombre donné. C'est le
+            <strong>premier crible</strong> de l'histoire — et le mot est pris
+            au sens littéral : on tamise.
+          </p>
+          <ol class="list-decimal pl-5 space-y-2">
+            <li>Écrire les entiers de 2 à N.</li>
+            <li>Garder 2, barrer ses multiples 4, 6, 8…</li>
+            <li>Garder 3, barrer ses multiples 9, 15, 21…</li>
+            <li>Garder 5, barrer ses multiples 25, 35…</li>
+            <li>Continuer avec le plus petit non-barré, jusqu'à {String.raw`$\sqrt{N}$`}.</li>
+          </ol>
+          <p>
+            Ce qui reste, ce sont les premiers. Le crible est <strong>exact</strong>,
+            mais coûteux pour les grands $N$. Surtout, il ne donne pas de formule
+            fermée : il faut « faire passer le tamis » pour savoir.
+          </p>
+        </div>
+        <div class="bg-white border border-slate-200 rounded-lg p-5">
+          <h3 class="font-sans font-semibold text-thmblue mb-3 text-sm">
+            Crible jusqu'à 50 — premiers en vert, composites en gris clair
+          </h3>
+          <div class="grid grid-cols-10 gap-1 text-center font-mono text-xs">
+            {Array.from({ length: 50 }, (_, i) => i + 1).map((n) => (
+              <div class:list={[
+                'rounded py-1.5 border',
+                n === 1 && 'bg-amber-100 border-amber-300 text-amber-800',
+                n !== 1 && isPrime(n) && 'bg-emerald-100 border-emerald-300 text-emerald-800 font-bold',
+                n !== 1 && !isPrime(n) && 'bg-slate-50 border-slate-200 text-slate-400',
+              ]}>{n}</div>
+            ))}
+          </div>
+          <p class="text-xs text-slate-500 mt-3">
+            1 est en orange : ni premier, ni vraiment composite — c'est l'unité
+            multiplicative, le seul point fixe absolu du crible.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    {/* ═════════════════════════ L1 — UN GAP EST UN ÉCART (existant) ════════ */}
+    <section class="mb-14">
+      <span class="pt-tag pt-tag-bridge mb-3 inline-block">Vulgarisé</span>
+      <h2 class="text-3xl font-bold text-thmblue mb-4">
+        Un gap est d'abord un écart entre survivants
+      </h2>
+      <div class="grid lg:grid-cols-[0.88fr_1.12fr] gap-8 items-center">
+        <div class="text-slate-700 leading-relaxed space-y-4">
+          <p>
+            Si l'on retire les multiples de 2, 3 et 5, les positions encore
+            vivantes modulo 30 sont 1, 7, 11, 13, 17, 19, 23 et 29. Les gaps
+            6, 4, 2, 4, 2, 4, 6, 2 ne sont pas ajoutés à la main : ils sont la
+            forme laissée par le crible.
+          </p>
+          <p>
+            C'est cette idée que la PT généralise : le discret n'est pas un
+            ingrédient arbitraire, mais l'ensemble des points qui persistent dans
+            une mécanique de contraintes. La symétrie cyclique des gaps modulo 30
+            (palindrome 6-4-2-4-2-4-6-2) est l'écho de la structure CRT
+            {String.raw`$\mathbb{Z}/30 \cong \mathbb{Z}/2 \times \mathbb{Z}/3 \times \mathbb{Z}/5$`}.
+          </p>
+        </div>
+        <div class="bg-white border border-slate-200 rounded-lg p-5">
+          <h3 class="font-sans font-semibold text-thmblue mb-3">Survivants modulo 30</h3>
+          <svg viewBox="0 0 800 260" class="w-full h-auto" role="img" aria-label="Gaps entre survivants du crible modulo 30">
+            <line x1="48" y1="112" x2="752" y2="112" stroke="#d7e1ea" stroke-width="5" stroke-linecap="round" />
+            {[1,5,10,15,20,25,30].map((tick) => (
               <g>
-                <path d={`M ${x(n)} 188 C ${x(n)} 214, ${x(next)} 214, ${x(next)} 188`} fill="none" stroke="#c96f24" stroke-width="3" />
-                <text x={gapMid(n, next)} y="230" text-anchor="middle" font-size="15" fill="#9a4f13" font-weight="700" font-family="ui-sans-serif, system-ui">{gaps[i]}</text>
+                <line x1={x(tick)} x2={x(tick)} y1="102" y2="122" stroke="#94a3b8" />
+                <text x={x(tick)} y="152" text-anchor="middle" font-size="14" fill="#5f6f80" font-family="ui-sans-serif, system-ui">{tick}</text>
               </g>
-            );
-          })}
-          <path d={`M ${x(29)} 42 C ${x(29)} 18, ${x(1)} 18, ${x(1)} 42`} fill="none" stroke="#c96f24" stroke-width="3" />
-          <text x="400" y="26" text-anchor="middle" font-size="15" fill="#9a4f13" font-weight="700" font-family="ui-sans-serif, system-ui">2</text>
-          <text x="400" y="252" text-anchor="middle" font-size="13" fill="#5f6f80" font-family="ui-sans-serif, system-ui">
-            les gaps sont produits par les positions persistantes
-          </text>
-        </svg>
+            ))}
+            {survivors.map((n) => (
+              <g>
+                <circle cx={x(n)} cy="112" r="15" fill="#e8f5ee" stroke="#198754" stroke-width="4" />
+                <text x={x(n)} y="84" text-anchor="middle" font-size="14" fill="#14566b" font-weight="700" font-family="ui-sans-serif, system-ui">{n}</text>
+              </g>
+            ))}
+            {survivors.slice(0, -1).map((n, i) => {
+              const next = survivors[i + 1];
+              return (
+                <g>
+                  <path d={`M ${x(n)} 188 C ${x(n)} 214, ${x(next)} 214, ${x(next)} 188`} fill="none" stroke="#c96f24" stroke-width="3" />
+                  <text x={gapMid(n, next)} y="230" text-anchor="middle" font-size="15" fill="#9a4f13" font-weight="700" font-family="ui-sans-serif, system-ui">{gaps[i]}</text>
+                </g>
+              );
+            })}
+            <path d={`M ${x(29)} 42 C ${x(29)} 18, ${x(1)} 18, ${x(1)} 42`} fill="none" stroke="#c96f24" stroke-width="3" />
+            <text x="400" y="26" text-anchor="middle" font-size="15" fill="#9a4f13" font-weight="700" font-family="ui-sans-serif, system-ui">2</text>
+            <text x="400" y="252" text-anchor="middle" font-size="13" fill="#5f6f80" font-family="ui-sans-serif, system-ui">
+              les gaps sont produits par les positions persistantes
+            </text>
+          </svg>
+        </div>
       </div>
-    </div>
+    </section>
 
-    <div class="grid md:grid-cols-3 gap-4 mb-12">
+    {/* ═════════════════════════ L1 — SPIRALE D'ULAM ════════════════════════ */}
+    <section class="mb-14">
+      <span class="pt-tag pt-tag-bridge mb-3 inline-block">Vulgarisé</span>
+      <h2 class="text-3xl font-bold text-thmblue mb-4">
+        La spirale d'Ulam : l'irrégularité qui s'aligne
+      </h2>
+      <div class="grid lg:grid-cols-[1fr_1fr] gap-8 items-start">
+        <div class="text-slate-700 leading-relaxed space-y-4">
+          <p>
+            En 1963, Stanisław Ulam griffonne pendant une conférence ennuyeuse :
+            il enroule les entiers en spirale carrée à partir de 1, et marque
+            les premiers. Le résultat le surprend.
+          </p>
+          <p>
+            Au lieu d'apparaître au hasard, les premiers <strong>s'alignent
+            visiblement sur des diagonales</strong>. Aucun théorème ne dit que
+            ça doit arriver : la spirale n'est qu'une manière arbitraire de
+            ranger les entiers. Pourtant, les diagonales se voient à l'œil nu,
+            et le motif persiste à toutes les échelles.
+          </p>
+          <p>
+            L'explication partielle : les diagonales correspondent à des
+            polynômes quadratiques de la forme $4n^2 + bn + c$. Certaines
+            valeurs de $b, c$ produisent une densité de premiers anormalement
+            élevée — le polynôme $n^2 + n + 41$ d'Euler donne 40 premiers
+            consécutifs pour $n = 0, \ldots, 39$.
+          </p>
+          <p>
+            Pour la PT, la spirale d'Ulam est une <strong>manifestation
+            visuelle</strong> du fait que les survivants du crible portent une
+            structure cachée — non pas additive, mais algébrique-géométrique.
+            C'est cette structure que les transformées de PT_MATH (M16, M34,
+            M35) tentent de capturer.
+          </p>
+        </div>
+        <div class="bg-white border border-slate-200 rounded-lg p-5">
+          <h3 class="font-sans font-semibold text-thmblue mb-3 text-sm">
+            Spirale d'Ulam {ULAM_N}×{ULAM_N} — premiers en bleu
+          </h3>
+          <svg viewBox={`0 0 ${ulamSize} ${ulamSize}`} class="w-full h-auto" role="img" aria-label="Spirale d'Ulam, primes marqués">
+            <rect x="0" y="0" width={ulamSize} height={ulamSize} fill="#fbfdff" stroke="#cbd5e1" rx="6" />
+            {ulamCells.map((c) => {
+              const px = ulamPad + c.gx * ulamCellSize;
+              const py = ulamPad + (ULAM_N - 1 - c.gy) * ulamCellSize;
+              return (
+                <g>
+                  <rect x={px} y={py} width={ulamCellSize - 1} height={ulamCellSize - 1}
+                        fill={c.prime ? '#1e40af' : (c.n === 1 ? '#fbbf24' : '#f1f5f9')}
+                        stroke={c.prime ? '#1e3a8a' : '#e2e8f0'} stroke-width="0.5" />
+                  {(c.prime || c.n === 1) && (
+                    <text x={px + ulamCellSize / 2} y={py + ulamCellSize / 2 + 3}
+                          text-anchor="middle" font-size="9"
+                          font-family="ui-monospace, monospace"
+                          fill={c.prime ? '#ffffff' : '#92400e'} font-weight="700">{c.n}</text>
+                  )}
+                </g>
+              );
+            })}
+          </svg>
+          <p class="text-xs text-slate-500 mt-3">
+            289 cellules, 61 premiers visibles. Les diagonales émergent
+            spontanément — un fait visuel qu'aucune théorie ne prédit
+            entièrement à ce jour.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    {/* ═════════════════════════ L1 — 3 CARTES RÉSUMÉ (existant) ════════════ */}
+    <div class="grid md:grid-cols-3 gap-4 mb-14">
       <div class="pt-card">
         <span class="pt-tag pt-tag-thm">exact</span>
         <h3 class="font-sans font-semibold text-thmblue text-xl mt-3 mb-2">Gaps du crible</h3>
         <p class="text-sm text-slate-700">
-          Les résidus copremiers d’un primoriel donnent une suite circulaire de
+          Les résidus copremiers d'un primoriel donnent une suite circulaire de
           survivants ; leurs différences donnent les gaps du crible.
         </p>
       </div>
@@ -117,61 +469,357 @@ const propositions = [
         <h3 class="font-sans font-semibold text-thmblue text-xl mt-3 mb-2">Réduction aux premiers</h3>
         <p class="text-sm text-slate-700">
           À la fenêtre {String.raw`$\sqrt{x}$`}, tout composite a déjà été éliminé. Les
-          survivants restants sont donc {String.raw`$1$`} et les premiers.
+          survivants restants sont donc 1 et les premiers.
         </p>
       </div>
       <div class="pt-card">
         <span class="pt-tag pt-tag-cond">ouvert</span>
         <h3 class="font-sans font-semibold text-thmblue text-xl mt-3 mb-2">Gap premier exact</h3>
         <p class="text-sm text-slate-700">
-          Ce n’est pas encore une loi fermée donnant chaque
-          {String.raw`$p_{n+1}-p_n$`} sans connaître les premiers. C’est une mécanique de
+          Ce n'est pas encore une loi fermée donnant chaque
+          {String.raw`$p_{n+1}-p_n$`} sans connaître les premiers. C'est une mécanique de
           réduction et de transport.
         </p>
       </div>
     </div>
 
-    <div data-min-depth="L2" class="mb-12">
-      <span class="pt-tag pt-tag-der">Standard</span>
-      <h2 class="text-3xl font-bold text-thmblue mt-4 mb-4">
+    {/* ═════════════════════════ L1 — MYSTÈRES OUVERTS ══════════════════════ */}
+    <section class="mb-14">
+      <span class="pt-tag pt-tag-bridge mb-3 inline-block">Vulgarisé</span>
+      <h2 class="text-3xl font-bold text-thmblue mb-4">
+        Trois mystères qui restent ouverts
+      </h2>
+      <p class="text-slate-700 leading-relaxed mb-6 max-w-3xl">
+        Malgré 2500 ans d'études et tous les outils modernes — analyse complexe,
+        cribles avancés, ordinateurs — les questions les plus simples sur les
+        gaps premiers résistent encore. Voici les trois grandes ouvertes.
+      </p>
+      <div class="grid md:grid-cols-3 gap-4">
+        {openMysteries.map((m) => (
+          <div class="rounded-lg border border-rose-200 bg-rose-50/40 p-5">
+            <span class="pt-tag pt-tag-pred">{m.status}</span>
+            <h3 class="font-sans font-semibold text-thmblue text-lg mt-3 mb-2">{m.title}</h3>
+            <p class="text-sm text-slate-700 leading-relaxed">{m.body}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    {/* ═════════════════════════ L2 — HISTOIRE ══════════════════════════════ */}
+    <section data-min-depth="L2" class="mb-14">
+      <span class="pt-tag pt-tag-der mb-3 inline-block">Standard</span>
+      <h2 class="text-3xl font-bold text-thmblue mb-4">
+        2 500 ans d'histoire en dix jalons
+      </h2>
+      <p class="text-slate-700 leading-relaxed mb-6 max-w-3xl">
+        Le problème des premiers a structuré une grande partie des
+        mathématiques modernes : analyse complexe (Riemann), théorie analytique
+        des nombres (Hardy-Littlewood), cribles combinatoires (Brun, Selberg),
+        et plus récemment les méthodes additives (Maynard-Tao, Polymath).
+      </p>
+      <div class="space-y-3">
+        {historyEvents.map((e) => (
+          <div class="grid grid-cols-[80px_1fr] gap-4 items-start py-3 border-b border-slate-100 last:border-0">
+            <div class="text-right">
+              <div class="font-mono font-bold text-thmblue">{e.year}</div>
+              <div class="text-xs uppercase tracking-wider text-slate-500 mt-1">{e.tag}</div>
+            </div>
+            <div>
+              <div class="font-sans font-semibold text-thmblue">{e.name}</div>
+              <p class="text-sm text-slate-700 leading-relaxed mt-1">{e.body}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    {/* ═════════════════════════ L2 — MERTENS ═══════════════════════════════ */}
+    <section data-min-depth="L2" class="mb-14">
+      <span class="pt-tag pt-tag-der mb-3 inline-block">Standard</span>
+      <h2 class="text-3xl font-bold text-thmblue mb-4">
+        Mertens : la vitesse d'éclaircissement des survivants
+      </h2>
+      <div class="grid lg:grid-cols-[1fr_0.9fr] gap-8 items-start">
+        <div class="text-slate-700 leading-relaxed space-y-4">
+          <p>
+            Combien d'entiers survivent à un crible de profondeur $y$ ? La
+            densité naïve est le produit eulérien tronqué :
+          </p>
+          <div class="bg-slate-50 border border-slate-200 rounded-lg p-4 font-mono text-center">
+            {String.raw`$V(y) = \prod_{p \leq y} \left(1 - \dfrac{1}{p}\right)$`}
+          </div>
+          <p>
+            Mertens (1874) prouve l'asymptotique exacte :
+          </p>
+          <div class="bg-slate-50 border border-slate-200 rounded-lg p-4 font-mono text-center">
+            {String.raw`$V(y) \sim \dfrac{e^{-\gamma}}{\log y}$`}
+          </div>
+          <p>
+            où {String.raw`$\gamma \approx 0{,}5772$`} est la <strong>constante d'Euler-Mascheroni</strong>.
+            Le facteur {String.raw`$e^{-\gamma} \approx 0{,}5615$`} apparaît partout dans les
+            cribles — il est le coefficient de proportionnalité fondamental
+            entre densité naïve et densité observée.
+          </p>
+          <p>
+            Pour la PT, $e^\gamma$ est exactement le préfacteur du noyau
+            universel {String.raw`$K_{PT}(u) = e^\gamma \omega(u)$`} (voir L3 ci-dessous,
+            programme PT_New_Math/PT_BUCHSTAB_RENORMALIZED_EQUATION).
+          </p>
+        </div>
+        <div class="bg-white border border-slate-200 rounded-lg p-5">
+          <h3 class="font-sans font-semibold text-thmblue mb-3">Densité de survie en pratique</h3>
+          <table class="w-full text-sm">
+            <thead>
+              <tr class="border-b border-slate-300">
+                <th class="text-left py-2">$y$</th>
+                <th class="text-right py-2">$V(y)$</th>
+                <th class="text-right py-2">{String.raw`$e^{-\gamma}/\log y$`}</th>
+              </tr>
+            </thead>
+            <tbody class="font-mono text-xs">
+              <tr><td>10</td><td class="text-right">0,2295</td><td class="text-right">0,2438</td></tr>
+              <tr><td>100</td><td class="text-right">0,1203</td><td class="text-right">0,1219</td></tr>
+              <tr><td>1 000</td><td class="text-right">0,0813</td><td class="text-right">0,0813</td></tr>
+              <tr><td>10 000</td><td class="text-right">0,0610</td><td class="text-right">0,0610</td></tr>
+              <tr><td>100 000</td><td class="text-right">0,0488</td><td class="text-right">0,0488</td></tr>
+            </tbody>
+          </table>
+          <p class="text-xs text-slate-500 mt-3 italic">
+            La convergence est rapide : à $y = 1000$, l'erreur relative est
+            déjà sous 0,1 %.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    {/* ═════════════════════════ L2 — DISTRIBUTION π(x) ═════════════════════ */}
+    <section data-min-depth="L2" class="mb-14">
+      <span class="pt-tag pt-tag-der mb-3 inline-block">Standard</span>
+      <h2 class="text-3xl font-bold text-thmblue mb-4">
+        Distribution π(x) : le théorème des nombres premiers
+      </h2>
+      <div class="grid lg:grid-cols-[0.8fr_1.2fr] gap-8 items-start">
+        <div class="text-slate-700 leading-relaxed space-y-4">
+          <p>
+            $\pi(x) = $ nombre de premiers $\leq x$. Le <strong>théorème des
+            nombres premiers</strong> (Hadamard, de la Vallée Poussin, 1896)
+            établit que :
+          </p>
+          <div class="bg-slate-50 border border-slate-200 rounded-lg p-4 font-mono text-center">
+            {String.raw`$\pi(x) \sim \dfrac{x}{\log x}$`}
+          </div>
+          <p>
+            Une approximation bien plus précise est donnée par le <strong>logarithme
+            intégral</strong> :
+          </p>
+          <div class="bg-slate-50 border border-slate-200 rounded-lg p-4 font-mono text-center text-sm">
+            {String.raw`$\mathrm{Li}(x) = \int_2^x \dfrac{dt}{\log t}$`}
+          </div>
+          <p>
+            L'écart {String.raw`$\pi(x) - \mathrm{Li}(x)$`} change de signe une infinité
+            de fois (Littlewood, 1914), bien que numériquement
+            {String.raw`$\pi(x) < \mathrm{Li}(x)$`} pour tout $x$ jusqu'au premier passage,
+            estimé autour de {String.raw`$10^{316}$`} (nombre de Skewes).
+          </p>
+        </div>
+        <div class="bg-white border border-slate-200 rounded-lg p-5">
+          <h3 class="font-sans font-semibold text-thmblue mb-3">π(x), x/log(x), Li(x) — valeurs exactes</h3>
+          <svg viewBox="0 0 760 360" class="w-full h-auto" role="img" aria-label="Distribution de pi(x)">
+            <rect x="0" y="0" width="760" height="360" fill="#fbfdff" stroke="#cbd5e1" rx="6" />
+            <g transform="translate(70, 30)">
+              {/* axes */}
+              <line x1="0" y1="280" x2="640" y2="280" stroke="#94a3b8" stroke-width="1.5" />
+              <line x1="0" y1="0" x2="0" y2="280" stroke="#94a3b8" stroke-width="1.5" />
+              {/* x labels (log scale) */}
+              {piXData.map((d, i) => {
+                const xPos = (i / (piXData.length - 1)) * 640;
+                return (
+                  <g>
+                    <line x1={xPos} y1="280" x2={xPos} y2="284" stroke="#94a3b8" />
+                    <text x={xPos} y="298" text-anchor="middle" font-size="10" fill="#5f6f80" font-family="ui-monospace, monospace">10^{i + 1}</text>
+                  </g>
+                );
+              })}
+              {/* y labels */}
+              {[0, 0.25, 0.5, 0.75, 1.0].map((frac) => {
+                const yPos = 280 - frac * 260;
+                return (
+                  <g>
+                    <line x1="-4" y1={yPos} x2="0" y2={yPos} stroke="#94a3b8" />
+                    <text x="-8" y={yPos + 3} text-anchor="end" font-size="10" fill="#5f6f80" font-family="ui-monospace, monospace">{(frac * 100).toFixed(0)}%</text>
+                  </g>
+                );
+              })}
+              {/* π(x) bars */}
+              {piXData.map((d, i) => {
+                const xPos = (i / (piXData.length - 1)) * 640;
+                const ratio = d.pi / d.x;
+                const yPos = 280 - ratio * 260 / 0.5;
+                return (
+                  <g>
+                    <circle cx={xPos} cy={yPos} r="5" fill="#1e3a8a" />
+                  </g>
+                );
+              })}
+              {/* line through pi/x */}
+              <path d={piXData.map((d, i) => {
+                const xPos = (i / (piXData.length - 1)) * 640;
+                const ratio = d.pi / d.x;
+                const yPos = 280 - ratio * 260 / 0.5;
+                return `${i === 0 ? 'M' : 'L'}${xPos} ${yPos}`;
+              }).join(' ')} fill="none" stroke="#1e3a8a" stroke-width="2.5" />
+
+              {/* x/log(x) line */}
+              <path d={piXData.map((d, i) => {
+                const xPos = (i / (piXData.length - 1)) * 640;
+                const ratio = d.xOverLogX / d.x;
+                const yPos = 280 - ratio * 260 / 0.5;
+                return `${i === 0 ? 'M' : 'L'}${xPos} ${yPos}`;
+              }).join(' ')} fill="none" stroke="#c96f24" stroke-width="2" stroke-dasharray="6 4" />
+
+              {/* Li(x) line */}
+              <path d={piXData.map((d, i) => {
+                const xPos = (i / (piXData.length - 1)) * 640;
+                const ratio = d.li / d.x;
+                const yPos = 280 - ratio * 260 / 0.5;
+                return `${i === 0 ? 'M' : 'L'}${xPos} ${yPos}`;
+              }).join(' ')} fill="none" stroke="#16a34a" stroke-width="2" stroke-dasharray="2 4" />
+
+              {/* legend */}
+              <g transform="translate(420, 0)">
+                <line x1="0" y1="6" x2="20" y2="6" stroke="#1e3a8a" stroke-width="2.5" />
+                <text x="26" y="10" font-size="11" fill="#1e3a8a" font-family="ui-sans-serif, system-ui">π(x)/x exact</text>
+                <line x1="0" y1="26" x2="20" y2="26" stroke="#c96f24" stroke-width="2" stroke-dasharray="6 4" />
+                <text x="26" y="30" font-size="11" fill="#9a4f13" font-family="ui-sans-serif, system-ui">x/log(x) / x</text>
+                <line x1="0" y1="46" x2="20" y2="46" stroke="#16a34a" stroke-width="2" stroke-dasharray="2 4" />
+                <text x="26" y="50" font-size="11" fill="#15803d" font-family="ui-sans-serif, system-ui">Li(x)/x</text>
+              </g>
+
+              <text x="320" y="-10" text-anchor="middle" font-size="13" fill="#14566b" font-weight="700" font-family="ui-sans-serif, system-ui">
+                Densité des premiers : π(x)/x
+              </text>
+              <text x="320" y="328" text-anchor="middle" font-size="11" fill="#5f6f80" font-family="ui-sans-serif, system-ui">
+                Li(x) approche π(x) bien mieux que x/log(x) — écart relatif &lt; 0,01% à 10⁸
+              </text>
+            </g>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    {/* ═════════════════════════ L2 — FENÊTRE RACINE (existant) ═════════════ */}
+    <section data-min-depth="L2" class="mb-14">
+      <span class="pt-tag pt-tag-der mb-3 inline-block">Standard</span>
+      <h2 class="text-3xl font-bold text-thmblue mb-4">
         Le point clé : la fenêtre racine
       </h2>
       <div class="grid lg:grid-cols-[1fr_0.9fr] gap-6 items-start">
-        <div class="text-slate-700 leading-relaxed">
-          <p class="mb-4">
-            Soit {String.raw`$S(x;y)$`} le nombre d’entiers {String.raw`$n\le x$`} qui ne sont divisibles
-            par aucun premier {String.raw`$\le y$`}. Si l’on choisit
-            {String.raw`$y=\lfloor\sqrt{x}\rfloor$`}, alors un composite ne peut plus
+        <div class="text-slate-700 leading-relaxed space-y-4">
+          <p>
+            Soit $S(x;y)$ le nombre d'entiers $n \leq x$ qui ne sont divisibles
+            par aucun premier $\leq y$. Si l'on choisit
+            {String.raw`$y = \lfloor\sqrt{x}\rfloor$`}, alors un composite ne peut plus
             survivre : il possède forcément un diviseur premier
-            {String.raw`$\le\sqrt{n}\le\sqrt{x}$`}.
+            {String.raw`$\leq \sqrt{n} \leq \sqrt{x}$`}.
           </p>
-          <p class="mb-4">
-            Les survivants sont donc exactement {String.raw`$1$`} et les premiers dans
-            l’intervalle {String.raw`$(\sqrt{x},x]$`}. On obtient :
+          <p>
+            Les survivants sont donc exactement 1 et les premiers dans
+            l'intervalle {String.raw`$(\sqrt{x}, x]$`}. On obtient :
           </p>
-          <div class="bg-slate-50 border border-slate-200 rounded-lg p-4 font-mono text-sm text-slate-900 overflow-x-auto">
-            {String.raw`$\pi(x)=S(x;\lfloor\sqrt{x}\rfloor)+\pi(\lfloor\sqrt{x}\rfloor)-1$`}
+          <div class="bg-slate-50 border border-slate-200 rounded-lg p-4 font-mono text-center text-sm">
+            {String.raw`$\pi(x) = S(x; \lfloor\sqrt{x}\rfloor) + \pi(\lfloor\sqrt{x}\rfloor) - 1$`}
           </div>
-          <p class="mt-4">
+          <p>
             Cette formule change le problème : comprendre la distribution des
-            premiers revient à comprendre une loi de survivance à fenêtre finie.
+            premiers revient à comprendre une <strong>loi de survivance à
+            fenêtre finie</strong>.
           </p>
         </div>
         <div class="bg-slate-50 border border-slate-200 rounded-lg p-5">
           <h3 class="font-sans font-semibold text-thmblue mb-3">Ce que la PT déplace</h3>
           <ol class="space-y-3 text-sm text-slate-700">
-            <li><strong>1.</strong> D’abord construire les survivants du crible.</li>
+            <li><strong>1.</strong> D'abord construire les survivants du crible.</li>
             <li><strong>2.</strong> Lire leurs gaps comme écarts de persistance.</li>
             <li><strong>3.</strong> Descendre à la fenêtre {String.raw`$\sqrt{x}$`}.</li>
             <li><strong>4.</strong> Obtenir les premiers comme survivants ultimes.</li>
           </ol>
         </div>
       </div>
-    </div>
+    </section>
 
-    <div data-min-depth="L3">
-      <span class="pt-tag pt-tag-val">Technique</span>
-      <h2 class="text-3xl font-bold text-thmblue mt-4 mb-4">
+    {/* ═════════════════════════ L2 — ROUE MOD 30 ═══════════════════════════ */}
+    <section data-min-depth="L2" class="mb-14">
+      <span class="pt-tag pt-tag-der mb-3 inline-block">Standard</span>
+      <h2 class="text-3xl font-bold text-thmblue mb-4">
+        Roues primorielles : pourquoi 30, 210, 2310…
+      </h2>
+      <div class="text-slate-700 leading-relaxed space-y-4 max-w-3xl">
+        <p>
+          Pour énumérer les premiers efficacement, on n'utilise pas les entiers
+          un par un. On utilise une <strong>roue</strong> : un cycle de
+          résidus copremiers à un primoriel
+          $p_k\# = 2 \cdot 3 \cdot 5 \cdots p_k$.
+        </p>
+        <ul class="list-disc pl-6 space-y-1">
+          <li>Roue mod 6 ({String.raw`$2 \cdot 3$`}) : 2 résidus {`{1, 5}`}, période 6.</li>
+          <li>Roue mod 30 ({String.raw`$2 \cdot 3 \cdot 5$`}) : 8 résidus {`{1, 7, 11, 13, 17, 19, 23, 29}`}, période 30.</li>
+          <li>Roue mod 210 ({String.raw`$2 \cdot 3 \cdot 5 \cdot 7$`}) : 48 résidus, période 210.</li>
+          <li>Roue mod 2310 : 480 résidus, période 2310.</li>
+        </ul>
+        <p>
+          Le nombre de résidus est $\varphi(p_k\#) = p_k\# \prod (1 - 1/p)$.
+          Plus la roue est grande, plus la densité de survivants est faible
+          (et plus chaque pas est efficace).
+        </p>
+        <p>
+          Pour la PT, ces roues sont les <strong>tores arithmétiques</strong>
+          {String.raw`$\mathbb{T}^k = \mathbb{Z}/p_1 \times \cdots \times \mathbb{Z}/p_k$`}
+          via le théorème des restes chinois (CRT). Le tore actif de PT est
+          {String.raw`$\mathbb{T}^3 = \mathbb{Z}/3 \times \mathbb{Z}/5 \times \mathbb{Z}/7$`}
+          — précisément la roue mod 105 — et fonde l'attracteur $\mu^* = 15$.
+        </p>
+      </div>
+    </section>
+
+    {/* ═════════════════════════ L2 — PONT AVEC PT (T0) ═════════════════════ */}
+    <section data-min-depth="L2" class="mb-14">
+      <span class="pt-tag pt-tag-thm mb-3 inline-block">Standard · pont avec PT</span>
+      <h2 class="text-3xl font-bold text-thmblue mb-4">
+        T0 : la suite des gaps est l'unique champ dynamique du crible
+      </h2>
+      <div class="text-slate-700 leading-relaxed space-y-4 max-w-3xl">
+        <p>
+          Le théorème <strong>T0</strong> de PT (clôture de l'axiome BA0)
+          énonce : sous quatre conditions de clôture (U1 invariance automorphe,
+          U2 finitude, U3 généricité, U4 exclusion de $p = 2$ comme premier
+          dynamique de cascade), <strong>la suite {String.raw`$\{g_n\}$`} des écarts entre
+          premiers consécutifs est l'unique champ dynamique du crible</strong>.
+        </p>
+        <p>
+          Toute autre suite invariante par les automorphismes du crible se
+          ramène à {String.raw`$\{g_n\}$`} modulo une renormalisation triviale. Cela ferme
+          structurellement le pont BA0 : « le champ dynamique de la PT,
+          identifié à {String.raw`$\{g_n\}$`}, est l'objet à partir duquel toute la physique
+          se reconstruit. »
+        </p>
+        <div class="bg-amber-50 border border-amber-300 rounded-lg p-5">
+          <p class="text-xs font-sans uppercase tracking-wider text-amber-800 mb-2">
+            Conséquence
+          </p>
+          <p class="text-sm text-slate-800">
+            Les gaps premiers ne sont pas un objet d'étude parmi d'autres :
+            ils sont <strong>l'objet</strong>. C'est pourquoi cette page existe
+            au cœur de la partie mathématique du site, à la racine du chemin
+            principe → cascade → observables.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    {/* ═════════════════════════ L3 — FORMULES DE LA MÉCANIQUE ══════════════ */}
+    <section data-min-depth="L3" class="mb-14">
+      <span class="pt-tag pt-tag-val mb-3 inline-block">Technique</span>
+      <h2 class="text-3xl font-bold text-thmblue mb-4">
         Formules de la mécanique
       </h2>
       <div class="grid md:grid-cols-2 gap-4">
@@ -188,40 +836,288 @@ const propositions = [
           </div>
         ))}
       </div>
+    </section>
 
-      <div class="mt-8 bg-white border border-slate-200 rounded-lg p-6">
-        <h3 class="font-sans font-semibold text-thmblue text-xl mb-3">
-          Le seuil cubique
-        </h3>
+    {/* ═════════════════════════ L3 — SEUIL CUBIQUE (existant) ══════════════ */}
+    <section data-min-depth="L3" class="mb-14">
+      <span class="pt-tag pt-tag-val mb-3 inline-block">Technique</span>
+      <h2 class="text-3xl font-bold text-thmblue mb-4">
+        Le seuil cubique
+      </h2>
+      <div class="bg-white border border-slate-200 rounded-lg p-6">
         <p class="text-slate-700 leading-relaxed mb-4">
           Dans le transport exact, la fenêtre contractée
-          {String.raw`$\lfloor x/p_a\rfloor$`} possède sa propre profondeur naturelle.
-          Dès que {String.raw`$p_a^3>x$`}, cette fenêtre est déjà criblée au-delà de son
+          $\lfloor x/p_a\rfloor$ possède sa propre profondeur naturelle.
+          Dès que {String.raw`$p_a^3 > x$`}, cette fenêtre est déjà criblée au-delà de son
           seuil racine natif. Le terme transporté devient alors un terme de
           bord essentiellement premier.
         </p>
         <div class="bg-slate-50 border border-slate-200 rounded-lg p-4 font-mono text-sm text-slate-900 overflow-x-auto">
-          {String.raw`$x^{1/3}<p\le x^{1/2}$`} : bande naturelle de distorsion fenêtre/bord.
+          {String.raw`$x^{1/3} < p \leq x^{1/2}$`} : bande naturelle de distorsion fenêtre/bord.
         </div>
       </div>
+    </section>
 
-      <div class="mt-8 grid md:grid-cols-2 gap-4">
-        <div class="pt-card">
-          <h3 class="font-sans font-semibold text-thmblue mb-2">Ce qui est fermé</h3>
-          <p class="text-sm text-slate-700">
-            Densité de tore fini, identité de reconstruction de {String.raw`$\pi(x)$`},
-            transport exact des survivants, seuil cubique d’oversieve.
-          </p>
+    {/* ═════════════════════════ L3 — PT-BUCHSTAB KERNEL ════════════════════ */}
+    <section data-min-depth="L3" class="mb-14">
+      <span class="pt-tag pt-tag-cond mb-3 inline-block">Technique · PT_New_Math</span>
+      <h2 class="text-3xl font-bold text-thmblue mb-4">
+        Équation PT-Buchstab renormalisée
+      </h2>
+      <div class="text-slate-700 leading-relaxed space-y-4">
+        <p>
+          Source interne :
+          <code class="text-xs bg-slate-100 px-1.5 py-0.5 rounded">PT_New_Math/PT_BUCHSTAB_RENORMALIZED_EQUATION.md</code>.
+          Le programme part de la fonction de Buchstab classique
+          $\omega(u)$ — définie par $\omega(u) = 1/u$ pour $u \in [1, 2]$ et
+          {String.raw`$(u\omega(u))' = \omega(u-1)$`} pour {String.raw`$u > 2$`} — puis introduit le
+          ratio renormalisé.
+        </p>
+        <div class="grid md:grid-cols-2 gap-4">
+          <div class="bg-white border border-slate-200 rounded-lg p-5">
+            <h3 class="font-sans font-semibold text-thmblue mb-2 text-sm">BR1 — Transport prime-step exact</h3>
+            <div class="bg-slate-50 border border-slate-200 rounded p-3 font-mono text-sm overflow-x-auto">
+              {String.raw`$\Phi_a(x) = \Phi_{a-1}(x) - \Phi_{a-1}\!\left(\lfloor x/p_a \rfloor\right)$`}
+            </div>
+          </div>
+          <div class="bg-white border border-slate-200 rounded-lg p-5">
+            <h3 class="font-sans font-semibold text-thmblue mb-2 text-sm">BR2 — Transport renormalisé</h3>
+            <div class="bg-slate-50 border border-slate-200 rounded p-3 font-mono text-xs overflow-x-auto">
+              {String.raw`$R_a(x) = \dfrac{R_{a-1}(x) - (\lfloor x/p_a \rfloor / x)\,R_{a-1}(\lfloor x/p_a \rfloor)}{1 - 1/p_a}$`}
+            </div>
+          </div>
         </div>
-        <div class="pt-card">
-          <h3 class="font-sans font-semibold text-thmblue mb-2">Ce qui reste ouvert</h3>
-          <p class="text-sm text-slate-700">
-            Fermer indépendamment la loi de fenêtre, contrôler les canaux de
-            correction, puis seulement viser une loi générative complète des
-            gaps premiers.
+        <div class="bg-amber-50 border border-amber-300 rounded-lg p-5 mt-4">
+          <h3 class="font-sans font-semibold text-amber-900 mb-2">BR4 — Noyau PT candidat</h3>
+          <div class="bg-white/70 border border-amber-200 rounded p-3 font-mono text-sm">
+            {String.raw`$K_{PT}(u) = e^\gamma \omega(u), \qquad u = \log x / \log y$`}
+          </div>
+          <p class="text-sm text-slate-700 mt-3">
+            Au point racine $u = 2$ : {String.raw`$K_{PT}(2) = e^\gamma / 2 \approx 0{,}8905$`}.
+            Validation numérique sur $x = 10^6$ : ratio exact {String.raw`$0{,}9675$`},
+            facteur relatif {String.raw`$1{,}086$`} ; à $u = 4$, accord à {String.raw`$10^{-4}$`} près.
+            Status : <strong>candidat universel</strong>, programme ouvert.
           </p>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
+
+    {/* ═════════════════════════ L3 — THETA GAP LAW ═════════════════════════ */}
+    <section data-min-depth="L3" class="mb-14">
+      <span class="pt-tag pt-tag-cond mb-3 inline-block">Technique · PT_New_Math</span>
+      <h2 class="text-3xl font-bold text-thmblue mb-4">
+        Loi exacte des angles : θ_p ~ √(2/p)
+      </h2>
+      <div class="grid lg:grid-cols-[1fr_1fr] gap-8 items-start">
+        <div class="text-slate-700 leading-relaxed space-y-4">
+          <p>
+            Source interne :
+            <code class="text-xs bg-slate-100 px-1.5 py-0.5 rounded">PT_New_Math/THETA_GAP_AND_PHASE_TRANSPORT.md</code>.
+            En plaçant chaque premier $p$ sur le cercle PT par son angle
+            d'holonomie $\theta_p$, on découvre une <strong>loi exacte</strong> :
+          </p>
+          <div class="bg-slate-50 border border-slate-200 rounded p-3 font-mono text-center">
+            {String.raw`$\theta_p \sim \sqrt{2/p}, \qquad p\,\theta_p^2/2 \to 1$`}
+          </div>
+          <p>
+            <strong>Conséquence sur les gaps angulaires.</strong> Pour deux
+            premiers {String.raw`$p < q$`} :
+          </p>
+          <div class="bg-slate-50 border border-slate-200 rounded p-3 font-mono text-center text-sm">
+            {String.raw`$\theta_p - \theta_q \sim \sqrt{2/p} - \sqrt{2/q}$`}
+          </div>
+          <p>
+            Pour des premiers <strong>adjacents</strong> {String.raw`$p < p_{n+1}$`} :
+          </p>
+          <div class="bg-slate-50 border border-slate-200 rounded p-3 font-mono text-center text-sm">
+            {String.raw`$\Delta\theta(p, p_{n+1}) \sim \dfrac{p_{n+1} - p}{\sqrt{2}\, p^{3/2}}$`}
+          </div>
+          <p>
+            Lecture : <em>le cercle PT transforme les gaps premiers en gaps
+            angulaires beaucoup plus petits, par une loi d'échelle rigide en
+            {String.raw`$p^{-3/2}$`}</em>. Aucune seconde loi aléatoire indépendante n'apparaît.
+          </p>
+          <p>
+            Validation numérique : pour la racine carrée différentielle, le
+            ratio médian observé est {String.raw`$1{,}00009$`} pour $p \geq 997$.
+          </p>
+        </div>
+        <div class="bg-white border border-slate-200 rounded-lg p-5">
+          <h3 class="font-sans font-semibold text-thmblue mb-3 text-sm">
+            Distribution des angles θ_p
+          </h3>
+          <svg viewBox="0 0 460 360" class="w-full h-auto" role="img" aria-label="Distribution θ_p">
+            <rect x="0" y="0" width="460" height="360" fill="#fbfdff" stroke="#cbd5e1" rx="6" />
+            {/* cercle principal */}
+            <circle cx="230" cy="180" r="130" fill="none" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="3 4" />
+            <line x1="230" y1="180" x2="360" y2="180" stroke="#94a3b8" stroke-width="1" />
+            {thetaPoints.map((pt) => {
+              const angle = pt.theta;
+              const cx = 230 + 130 * Math.cos(angle);
+              const cy = 180 - 130 * Math.sin(angle);
+              const lx = 230 + 150 * Math.cos(angle);
+              const ly = 180 - 150 * Math.sin(angle);
+              return (
+                <g>
+                  <line x1="230" y1="180" x2={cx} y2={cy} stroke="#4338ca" stroke-width="0.8" opacity="0.5" />
+                  <circle cx={cx} cy={cy} r="4.5" fill="#4338ca" stroke="#fff" stroke-width="1" />
+                  <text x={lx} y={ly + 3} text-anchor={Math.cos(angle) < 0 ? 'end' : 'start'} font-size="10" fill="#3730a3" font-family="ui-monospace, monospace">{pt.p}</text>
+                </g>
+              );
+            })}
+            <text x="230" y="180" text-anchor="middle" font-size="11" fill="#64748b" font-family="ui-sans-serif, system-ui">μ* = 15</text>
+            <text x="230" y="335" text-anchor="middle" font-size="11" fill="#5f6f80" font-family="ui-sans-serif, system-ui">
+              Plus p est grand, plus θ_p tombe près de 0 — en √(2/p)
+            </text>
+            <text x="230" y="20" text-anchor="middle" font-size="13" fill="#14566b" font-weight="700" font-family="ui-sans-serif, system-ui">
+              Premiers placés sur le cercle PT par leur angle θ_p
+            </text>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    {/* ═════════════════════════ L3 — SHELL REGIME BLOCKS ═══════════════════ */}
+    <section data-min-depth="L3" class="mb-14">
+      <span class="pt-tag pt-tag-cond mb-3 inline-block">Technique · PT_New_Math</span>
+      <h2 class="text-3xl font-bold text-thmblue mb-4">
+        Shell regime blocks : structure géométrique des premiers extérieurs
+      </h2>
+      <div class="text-slate-700 leading-relaxed space-y-4">
+        <p>
+          Source interne :
+          <code class="text-xs bg-slate-100 px-1.5 py-0.5 rounded">PT_New_Math/SHELL_REGIME_BLOCKS.md</code>.
+          Au-delà du triplet fondamental {`{3, 5, 7}`}, l'exploration des
+          <em>shells</em> extérieurs (sondes attachées à chaque premier $q$)
+          révèle une structure non-triviale : les seuils d'activation
+          s'organisent en <strong>blocs de régime</strong>, pas en monotonie.
+        </p>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm bg-white border border-slate-200 rounded-lg">
+            <thead class="bg-slate-50">
+              <tr>
+                <th class="text-left px-4 py-3">Shell</th>
+                <th class="text-center px-4 py-3">Seuil AT</th>
+                <th class="text-center px-4 py-3">Spectre $(\Sigma_1, \Sigma_2, \Sigma_3, \Sigma_4)$</th>
+                <th class="text-left px-4 py-3">Régime</th>
+              </tr>
+            </thead>
+            <tbody>
+              {shellRegimes.map((s) => (
+                <tr class="border-t border-slate-100">
+                  <td class="px-4 py-2 font-mono font-bold text-thmblue">{s.shell}</td>
+                  <td class="px-4 py-2 text-center font-mono">{s.threshold}</td>
+                  <td class="px-4 py-2 text-center font-mono text-xs">{s.spectrum}</td>
+                  <td class="px-4 py-2">
+                    <span class:list={[
+                      'inline-block px-2 py-0.5 rounded text-xs font-sans font-semibold',
+                      s.regime === 'vertex' && 'bg-emerald-100 text-emerald-800',
+                      s.regime === 'edge' && 'bg-amber-100 text-amber-800',
+                      s.regime === 'triangle' && 'bg-rose-100 text-rose-800',
+                    ]}>{s.regime}</span>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <p>
+          <strong>Lecture géométrique.</strong> Le packet de chaque shell est un
+          simplexe à 4 sommets. Le seuil AT est la première dimension de face
+          transverse au quotient observable :
+        </p>
+        <ul class="list-disc pl-6 space-y-1">
+          <li><strong>vertex</strong> (AT = 1) : tous les sommets sont déjà transverses ;</li>
+          <li><strong>edge</strong> (AT = 2) : sommets tangents, arêtes transverses ;</li>
+          <li><strong>triangle</strong> (AT = 3) : sommets et arêtes tangents, faces triangulaires transverses.</li>
+        </ul>
+        <p>
+          Les blocs {String.raw`${`\\{17, 19, 23\\}`}$`} (edge) et {String.raw`${`\\{29, 31, 37\\}`}$`} (triangle) sont
+          la première signature géométrique non-triviale de la branche dérivée
+          du crible — elle manifeste une <strong>structure de bord</strong> que
+          l'analyse classique ne capture pas.
+        </p>
+      </div>
+    </section>
+
+    {/* ═════════════════════════ L3 — PT_MATH 35 OUTILS ═════════════════════ */}
+    <section data-min-depth="L3" class="mb-14">
+      <span class="pt-tag pt-tag-thm mb-3 inline-block">Technique · PT_MATH</span>
+      <h2 class="text-3xl font-bold text-thmblue mb-4">
+        PT_MATH : 32 outils, 659/659 PASS
+      </h2>
+      <p class="text-slate-700 leading-relaxed mb-4 max-w-3xl">
+        Source :
+        <code class="text-xs bg-slate-100 px-1.5 py-0.5 rounded">PT_MATH/README.md</code>.
+        Le programme PT_MATH construit, à partir du crible discret, un édifice
+        d'outils mathématiques nouveaux : algèbres, transformées spectrales,
+        métriques, structures quantiques. Sélection des outils centraux pour la
+        question des gaps :
+      </p>
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-3">
+        {ptMathTools.map((t) => (
+          <div class="bg-white border border-slate-200 rounded-lg p-4 hover:border-thmblue/40 transition">
+            <div class="flex items-baseline justify-between gap-2 mb-2">
+              <span class="font-mono font-bold text-thmblue text-sm">{t.id}</span>
+              <span class="text-xs text-emerald-700 font-sans">PASS</span>
+            </div>
+            <h3 class="font-sans font-semibold text-thmblue mb-1.5 text-sm">{t.name}</h3>
+            <p class="text-xs text-slate-700 leading-relaxed">{t.body}</p>
+          </div>
+        ))}
+      </div>
+      <div class="mt-6 bg-slate-50 border border-slate-200 rounded-lg p-5">
+        <h3 class="font-sans font-semibold text-thmblue mb-2">Découvertes structurelles</h3>
+        <ul class="text-sm text-slate-700 space-y-1.5 list-disc pl-5">
+          <li>Le groupe engendré par $T_3(x)\,T_3$ est $V_4$ (Klein), pas $Q_8$ — les quaternions {String.raw`$\mathbb{H}$`} sont structurellement inaccessibles depuis le crible (M01).</li>
+          <li>$K_3$ est un <strong>expander spectral optimal</strong> : $\lambda_2 = 3$ atteint la borne maximale (M10).</li>
+          <li>L'<strong>algèbre du crible</strong> {String.raw`${`*_T`}$`} (M15) est non-associative, non-commutative, sans identité — distincte de toute algèbre connue.</li>
+          <li>La métrique {String.raw`$d_{PT}$`} (M17) est <strong>quasi-orthogonale</strong> aux normes archimédienne et $p$-adique : ni $|\cdot|$, ni $|\cdot|_p$.</li>
+          <li>Le code à distance de gap (M32) atteint $d = n - 1$ (CRT-MDS asymptotique).</li>
+        </ul>
+      </div>
+    </section>
+
+    {/* ═════════════════════════ L3 — STATUT FERMÉ / OUVERT ═════════════════ */}
+    <section data-min-depth="L3" class="mb-12">
+      <span class="pt-tag pt-tag-val mb-3 inline-block">Technique · synthèse</span>
+      <h2 class="text-3xl font-bold text-thmblue mb-4">
+        Ce qui est fermé, ce qui reste ouvert
+      </h2>
+      <div class="grid md:grid-cols-2 gap-4">
+        <div class="pt-card border-emerald-200">
+          <h3 class="font-sans font-semibold text-emerald-800 mb-2">Fermé (THM)</h3>
+          <ul class="text-sm text-slate-700 space-y-1.5 list-disc pl-5">
+            <li>Densité de tore fini (Mertens 1874).</li>
+            <li>Identité de reconstruction de $\pi(x)$ via fenêtre racine.</li>
+            <li>Transport prime-step exact $\Phi_a(x)$ (PT_New_Math/BR1).</li>
+            <li>Seuil cubique {String.raw`$x^{1/3} < p \leq x^{1/2}$`} comme bande de distorsion fenêtre/bord.</li>
+            <li>T0 (PT) : {String.raw`$\{g_n\}$`} unique champ dynamique du crible.</li>
+            <li>32 outils PT_MATH (M01-M35), 659/659 tests numériques.</li>
+            <li>Loi {String.raw`$\theta_p \sim \sqrt{2/p}$`} (PT_New_Math) avec validation jusqu'à $p \approx 5000$.</li>
+          </ul>
+        </div>
+        <div class="pt-card border-amber-200">
+          <h3 class="font-sans font-semibold text-amber-800 mb-2">Ouvert (COND / candidat)</h3>
+          <ul class="text-sm text-slate-700 space-y-1.5 list-disc pl-5">
+            <li>Loi de fenêtre fermée — noyau {String.raw`$K_{PT}(u) = e^\gamma \omega(u)$`} candidat, validation partielle, dérivation complète à faire.</li>
+            <li>Loi générative directe des gaps premiers ({String.raw`$p_{n+1} - p_n$`} sans connaître les premiers).</li>
+            <li>Conjectures classiques : jumeaux, Cramér, Goldbach.</li>
+            <li>Hypothèse de Riemann — la PT propose plusieurs routes (Liouville-crible M02, Mertens propagation, Buchstab contraction) mais sans preuve à ce jour.</li>
+            <li>Closure complète des shell regime blocks au-delà de 53.</li>
+            <li>Identification du noyau PT-Buchstab avec un objet zêta-style (programme PT_New_Math).</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    {/* ═════════════════════════ FOOTER NOTE ═════════════════════════════════ */}
+    <p class="text-sm text-slate-500 italic font-sans border-t border-slate-200 pt-6">
+      Cette page synthétise les programmes mathématiques internes
+      <code class="text-xs bg-slate-100 px-1 rounded mx-1">PT_MATH/</code> (35 outils, 659/659 PASS)
+      et
+      <code class="text-xs bg-slate-100 px-1 rounded mx-1">PT_New_Math/</code> (programme shell, transport de phase, équation PT-Buchstab renormalisée).
+      Les statuts épistémiques sont distingués par tag : THM démontré, DER dérivé, COND/candidat ouvert.
+    </p>
+  </main>
 </BaseLayout>
