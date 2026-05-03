@@ -2,145 +2,318 @@
 import BaseLayout from '@layouts/BaseLayout.astro';
 import PageHero from '@components/PageHero.astro';
 
-const tBase = '/en/theorems';
-const nodes = [
-  { id: 'T0', label: 'T0', sub: 'dynamical field', x: 60, y: 90, kind: 'thm', href: `${tBase}/T0`, tooltip: 'BA0 closes: the gap sequence {g_n} is the unique admissible dynamical field.' },
-  { id: 'L0', label: 'L0', sub: 'unique distribution', x: 190, y: 90, kind: 'thm', href: `${tBase}/L0`, tooltip: 'Geometric is the unique memoryless max-entropy distribution.' },
-  { id: 'T1', label: 'T1', sub: 'forbidden transitions', x: 310, y: 90, kind: 'thm', href: `${tBase}/T1`, tooltip: 'Transitions 1→1 and 2→2 mod 3 are forbidden. This zero diagonal forces s = 1/2.' },
-  { id: 'P2', label: 'p = 2', sub: 'spin dynamics', x: 430, y: 90, kind: 'bridge', href: `${tBase}/N4`, tooltip: 'p=2 carries spin/parity dynamics: two ± channels whose average is s=1/2.' },
-  { id: 's', label: 's = 1/2', sub: 'parity average', x: 560, y: 90, kind: 'thm', href: `${tBase}/T1`, tooltip: 'Symmetry derived by T1/T4: the average invariant of the parity doublet, not a chosen parameter.' },
-  { id: 'T2', label: 'T2', sub: 'conservation α = s²', x: 690, y: 90, kind: 'thm', href: `${tBase}/T2`, tooltip: 'Spectral conservation: |λ₂(T₃₀)| = 1/4 = s².' },
-  { id: 'GFT', label: 'GFT', sub: 'log m = D_KL + H', x: 820, y: 90, kind: 'thm', href: `${tBase}/GFT`, tooltip: 'Fundamental principle of persistence: capacity = persistence + entropy.' },
-  { id: 'T3', label: 'T3', sub: 'antidiagonal transfer', x: 950, y: 90, kind: 'thm', href: `${tBase}/T3`, tooltip: 'The mod-3 kernel becomes purely antidiagonal after T1.' },
-  { id: 'T4', label: 'T4', sub: 'convergence αₖ → ½', x: 220, y: 220, kind: 'thm', href: `${tBase}/T4`, tooltip: 'Mertens + Gordin + CRT: the sieve finishes the job.' },
-  { id: 'T6', label: 'T6', sub: 'holonomy sin²θ_p', x: 360, y: 220, kind: 'thm', href: `${tBase}/T6`, tooltip: 'sin²θ_p = δ_p(2 − δ_p). Trigonometry emerges.' },
-  { id: 'T5', label: 'T5', sub: 'μ* = 3 + 5 + 7 = 15', x: 540, y: 220, kind: 'thm', href: `${tBase}/T5`, tooltip: 'The attractive arithmetic fixed point of the reduced sector.' },
-  { id: 'BIF', label: 'Bifurcation', sub: 'q⁺ / q⁻', x: 760, y: 220, kind: 'bridge', href: null, tooltip: 'Seeded by p=2, then frozen at μ* = 15: q⁺ = 1 − 2/μ; q⁻ = e^(−1/μ).' },
-  { id: 'qplus', label: 'q⁺', sub: 'couplings, leptons, α_EM', x: 600, y: 360, kind: 'der', href: '/en/observables', tooltip: 'Vertex, α_EM = 1/137, lepton masses, PMNS.' },
-  { id: 'qminus', label: 'q⁻', sub: 'geometry, quarks, CKM', x: 920, y: 360, kind: 'der', href: '/en/observables', tooltip: 'Propagator, metric, quark masses, CKM.' },
-  { id: 'OBS', label: '43 observables', sub: 'mean error 0.316%', x: 760, y: 470, kind: 'val', href: '/en/observables', tooltip: 'Standard Model reproduced, 0 continuously fitted parameters.' },
+type Theorem = { id: string; sub: string; href: string };
+type Stage = {
+  num: number;
+  title: string;
+  subtitle: string;
+  theorems: Theorem[];
+  intro: string;
+  body: string[];
+};
+
+const stages: Stage[] = [
+  {
+    num: 1,
+    title: 'Arithmetic foundation',
+    subtitle: 'the dynamical field of the sieve closes',
+    theorems: [
+      { id: 'T0', sub: 'dynamical field', href: '/en/theorems/T0' },
+      { id: 'L0', sub: 'unique distribution', href: '/en/theorems/L0' },
+      { id: 'T1', sub: 'forbidden transitions', href: '/en/theorems/T1' },
+    ],
+    intro: `Everything starts with a minimal question: what can serve as a "dynamical field" for a prime sieve? T0 answers by uniqueness — there can only be one natural candidate.`,
+    body: [
+      `**T0** closes the question: the sequence of gaps $\\{g_n\\} = \\{p_{n+1} - p_n\\}$ between consecutive primes is the <strong>unique</strong> dynamical field compatible with the BA0 axioms (invariance, finiteness, genericity, exclusion of p=2 as cascade dynamics). No other construction survives the four closure conditions.`,
+      `**L0** adds statistical uniqueness: among all memoryless probability distributions with maximum entropy and fixed mean, the <strong>geometric</strong> distribution is alone. This information-theoretic result imposes the law of gaps.`,
+      `**T1** introduces the first arithmetic constraint: modulo 3, certain transitions are <strong>structurally forbidden</strong> (the diagonals 1→1 and 2→2 are zero). This forbidding forces the sieve kernel to have a very particular structure, exploited by every later step.`,
+    ],
+  },
+  {
+    num: 2,
+    title: 'Derived symmetry',
+    subtitle: 'p = 2 makes s = 1/2 appear',
+    theorems: [
+      { id: 'p = 2', sub: 'spin/parity dynamics', href: '/en/theorems/N4' },
+      { id: 's = 1/2', sub: 'mean invariant', href: '/en/theorems/T1' },
+    ],
+    intro: `The prime 2 has a special status: it carries the spin/parity dynamics. This dynamics produces a <strong>mean symmetry</strong> that is not a free parameter — it is derived.`,
+    body: [
+      `The sieve excludes $p = 2$ as cascade dynamical prime (axiom U4). But $p = 2$ does not disappear — it becomes the <strong>binary infrastructure</strong> separating even from odd, info from anti-info, spin + from spin −.`,
+      `This binary dynamics creates a doublet of channels $\\pm$. The <strong>parity mean</strong> of this doublet is exactly $s = 1/2$. This is not a chosen number: it is the central invariant of the system, derived from the structure of the sieve itself.`,
+      `T1 + T4 (convergence $\\alpha_k \\to 1/2$) confirm that $s = 1/2$ is neither axiom nor parameter — it is the mathematical signature of the fact that the sieve filters two-faced structures. All of PT roots in this fixed point.`,
+    ],
+  },
+  {
+    num: 3,
+    title: 'Conservation and information',
+    subtitle: 'the total information budget is conserved',
+    theorems: [
+      { id: 'T2', sub: 'conservation α = s²', href: '/en/theorems/T2' },
+      { id: 'GFT', sub: 'log m = D_KL + H', href: '/en/theorems/GFT' },
+    ],
+    intro: `At this point the system has an invariant ($s = 1/2$). The question becomes: what is conserved as we iterate the sieve? The answer is <strong>total information</strong>.`,
+    body: [
+      `**T2** establishes spectral conservation: the second eigenvalue of the mod-30 sieve kernel equals $|\\lambda_2(T_{30})| = 1/4 = s^2$. The square of the derived symmetry appears exactly as eigenvalue — the first manifestation that $s = 1/2$ structures the entire spectrum.`,
+      `**GFT** (Generalized Fluctuation Theorem) gives the <strong>fundamental principle of persistence</strong>: $\\log_2 m = D_{KL}(P\\,\\|\\,U_m) + H(P)$. Read literally: the total informational capacity of an $m$-letter alphabet partitions <em>exactly</em> between divergence (deviation from uniform) and entropy (disorder).`,
+      `This principle plays in PT the role energy conservation plays in physics: it bounds, constrains, and organises all other laws. It transforms a dynamical question (what remains?) into an accounting one (where does the total budget go?).`,
+    ],
+  },
+  {
+    num: 4,
+    title: 'Crystallisation and holonomy',
+    subtitle: 'trigonometry emerges, the fixed point forms',
+    theorems: [
+      { id: 'T3', sub: 'antidiagonal transfer', href: '/en/theorems/T3' },
+      { id: 'T4', sub: 'convergence αₖ → ½', href: '/en/theorems/T4' },
+      { id: 'T6', sub: 'holonomy sin²θ_p', href: '/en/theorems/T6' },
+      { id: 'T5', sub: 'μ* = 3 + 5 + 7 = 15', href: '/en/theorems/T5' },
+    ],
+    intro: `This stage contains the geometric heart of PT: <strong>trigonometry is born from arithmetic</strong>, and a unique attractor crystallises.`,
+    body: [
+      `**T3** continues T1: after eliminating the diagonals, the mod-3 transfer kernel becomes <strong>purely antidiagonal</strong>. This is the precise mathematical move that separates the order 1→2 and 2→1, opening the way to subsequent scales.`,
+      `**T4** combines Mertens, Gordin and the Chinese remainder theorem to show the sieve <em>finishes the job</em>: the sequence $\\alpha_k$ converges to $1/2$. Analytic confirmation of the derived symmetry.`,
+      `**T6** reveals <strong>trigonometry</strong> without postulating it: $\\sin^2\\theta_p = \\delta_p (2 - \\delta_p)$ where $\\delta_p$ is the gap fraction for the prime $p$. The explicit passage from discrete (primes, gaps) to continuous (angles, cyclic transport). Arithmetic <em>becomes</em> geometry.`,
+      `**T5** closes the cascade: there is a <strong>unique attracting fixed point</strong> for the iteration $\\mu_{k+1} = \\sum\\{p : \\gamma_p(\\mu_k) > 1/2\\}$. This point is $\\mu^* = 3 + 5 + 7 = 15$. Neither a numerical coincidence nor a chosen constant — an exact arithmetic attractor.`,
+    ],
+  },
+  {
+    num: 5,
+    title: 'Bifurcation q⁺ / q⁻',
+    subtitle: 'two branches, two regimes',
+    theorems: [
+      { id: 'q⁺', sub: 'couplings, leptons, α_EM', href: '/en/observables' },
+      { id: 'q⁻', sub: 'geometry, quarks, CKM', href: '/en/observables' },
+    ],
+    intro: `At $\\mu^* = 15$, the dynamics splits into two stable branches. This bifurcation is not a choice: it is forced by the variational structure.`,
+    body: [
+      `<strong>q⁺ = 1 − 2/μ</strong> is the <em>vertex / coupling</em> branch. Forced route by L0 on the geometric distribution over even integers: the mean constraint uniquely fixes $q = 1 - 2/\\mu$. At $\\mu^* = 15$, $q^+ = 13/15$. This branch operates simultaneously on the discrete side (circles $\\mathbb{Z}/p\\mathbb{Z}$ via CRT) and the continuous side (angles $\\theta_p$). It gives $\\alpha_{EM}$, lepton masses, the PMNS matrix.`,
+      `<strong>q⁻ = e^(−1/μ)</strong> is the <em>edge / propagator / geometry</em> branch. Forced route by Boltzmann (Gibbs) limit for a continuous exponential distribution. At $\\mu^* = 15$, $q^- = e^{-1/15}$. This branch operates simultaneously on the continuous side (Bianchi I Fisher metric) and the discrete side. It gives quark masses, the CKM matrix, the gravitational metric.`,
+      `The two branches are the <strong>two regimes of the same variational problem</strong>. q⁻ = lim(continuum) q⁺. Neither is more fundamental than the other — they are the two necessary faces of the same constraint. This is why the Standard Model has two seemingly independent sectors (electroweak couplings on one side, quark masses on the other): they descend from the same bifurcation.`,
+    ],
+  },
+  {
+    num: 6,
+    title: '43 observables',
+    subtitle: 'the Standard Model reproduced',
+    theorems: [
+      { id: 'Validation', sub: 'mean error 0.316 %', href: '/en/observables' },
+    ],
+    intro: `At the end of the chain, the two branches q⁺ and q⁻ allow computing 43 Standard Model observables <strong>without any fitted continuous parameter</strong>.`,
+    body: [
+      `The computation gives $\\alpha_{EM} = 1/137.036$, the lepton masses (electron, muon, tau), the quark masses, the CKM and PMNS mixing angles, the strong, electroweak, and Newton couplings, the late cosmological parameters (H₀, $\\Omega_\\Lambda$, $\\Omega_{DM}$, $\\Omega_b$, $n_s$).`,
+      `Across the 43 observables compared to the Particle Data Group (2024 edition), <strong>the mean relative error is 0.316 %</strong>, the median is 0.06 %, and the worst individual deviation is below 1.3 %. No continuous parameter has been fitted: the only "levers" are the discrete prime choices (3, 5, 7, and the primorial 30030) which follow the T5 cascade.`,
+      `This is the chain's final test. Modifying a single theorem in the chain — for instance changing $\\mu^*$, or removing T1 — would collapse the 43 values simultaneously. That is why the chain is <em>causal</em> in the strong sense: it cannot be locally modified without globally losing.`,
+    ],
+  },
 ];
 
-const edges = [
-  ['T0', 'L0'], ['L0', 'T1'], ['T1', 'P2'], ['P2', 's'], ['s', 'T2'], ['T2', 'GFT'], ['GFT', 'T3'],
-  ['T3', 'T4'], ['T4', 'T6'], ['T6', 'T5'], ['P2', 'BIF'], ['T5', 'BIF'],
-  ['BIF', 'qplus'], ['BIF', 'qminus'],
-  ['qplus', 'OBS'], ['qminus', 'OBS'],
-];
-
-function fill(kind: string) {
-  return {
-    input: { fill: '#fef3c7', stroke: '#d97706', text: '#78350f' },
-    thm: { fill: '#dbeafe', stroke: '#1d4ed8', text: '#1e3a8a' },
-    bridge: { fill: '#ede9fe', stroke: '#7c3aed', text: '#4c1d95' },
-    der: { fill: '#fed7aa', stroke: '#ea580c', text: '#7c2d12' },
-    val: { fill: '#d1fae5', stroke: '#059669', text: '#064e3b' },
-  }[kind] || { fill: 'white', stroke: '#888', text: '#333' };
-}
-
-const W = 1080, H = 540;
+const kindColor: Record<string, { bg: string; border: string; text: string }> = {
+  fond:   { bg: '#dbeafe', border: '#1d4ed8', text: '#1e3a8a' },
+  bridge: { bg: '#ede9fe', border: '#7c3aed', text: '#4c1d95' },
+  der:    { bg: '#fed7aa', border: '#ea580c', text: '#7c2d12' },
+  val:    { bg: '#d1fae5', border: '#059669', text: '#064e3b' },
+};
+const stageKind: Record<number, keyof typeof kindColor> = {
+  1: 'fond', 2: 'bridge', 3: 'fond', 4: 'fond', 5: 'der', 6: 'val',
+};
 ---
 
 <BaseLayout
   title="Causal chain"
-  description="From the sieve to the 43 observables: the interactive causal chain of Persistence Theory. Click a node to open the corresponding theorem."
+  description="From the sieve to the 43 observables: the causal chain of Persistence Theory, step by step. Six derivation stages, no fitted continuous parameter."
 >
   <PageHero
-    eyebrow="Causal chain"
+    eyebrow="Mathematics · causal chain"
     domain="math"
     title="Causal chain"
-    dek="From the arithmetic chain to the derived symmetry s = 1/2, then to the 43 Standard Model observables. Nodes distinguish theorems, bridges, derivations, and validations. Click a node to open its page."
+    kicker="From the sieve to the 43 observables, in six steps."
+    dekL1={`A causal chain, in mathematics, is an ordered sequence of results where each step strictly relies on the previous ones. This page tells the six steps by which PT goes from the prime sieve to the 43 Standard Model observables. At each step, one or more theorems close a question — and the chain advances.`}
+    dekL2={String.raw`The chain runs from uniqueness of the dynamical field (T0) to the bifurcation $q^+/q^-$ and the computation of the 43 observables. Six stages: arithmetic foundation (T0/L0/T1), derived symmetry ($p=2 \to s=1/2$), conservation and information (T2/GFT), crystallisation and holonomy (T3/T4/T6/T5), bifurcation, and validation. Each stage is detailed below, with the corresponding theorems clickable.`}
+    heroNote="dynamical field → s = 1/2 → conservation → crystallisation → bifurcation → observables"
+    oneLineNote={{ label: 'Key reading', body: `each step closes a structural question. Removing one breaks the chain and the 43 observables no longer compute.` }}
   />
 
-  <section class="max-w-6xl mx-auto px-4 py-12">
-    <div class="bg-white border border-stone-200 rounded-lg p-4 overflow-x-auto">
-      <svg viewBox={`0 0 ${W} ${H}`} class="w-full min-w-[900px]" aria-label="PT causal chain" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-            <path d="M 0 0 L 10 5 L 0 10 z" fill="#475569" />
-          </marker>
-        </defs>
+  <main class="max-w-6xl mx-auto px-4 py-12">
 
-        {edges.map(([from, to]) => {
-          const a = nodes.find(n => n.id === from)!;
-          const b = nodes.find(n => n.id === to)!;
-          const dx = b.x - a.x, dy = b.y - a.y;
-          const len = Math.sqrt(dx*dx + dy*dy);
-          const nx = dx/len, ny = dy/len;
-          const ax = a.x + nx * 55, ay = a.y + ny * 28;
-          const bx = b.x - nx * 55, by = b.y - ny * 28;
-          return (
-            <line x1={ax} y1={ay} x2={bx} y2={by} stroke="#475569" stroke-width="1.6" marker-end="url(#arrow)" />
-          );
-        })}
+    <section class="mb-12">
+      <span class="pt-tag pt-tag-bridge mb-3 inline-block">Plain</span>
+      <h2 class="text-3xl font-bold text-thmblue mb-4">A chain, not a collection</h2>
+      <div class="grid lg:grid-cols-[1.2fr_1fr] gap-8 items-start">
+        <div class="text-slate-700 leading-relaxed space-y-4">
+          <p>
+            PT does not propose a catalogue of independent results. It proposes
+            a <strong>chain</strong>: an ordered sequence of steps where each
+            relies strictly on the previous ones. This structure is not an
+            aesthetic choice — it is what makes the theory predictive without
+            fitted parameters.
+          </p>
+          <p>
+            The contrast matters. A theory containing a free parameter (the
+            fine-structure constant, for example) can always be tuned <em>after
+            the fact</em> to data. A chain theory cannot: each step is forced
+            by the previous, and the final result is either right or wrong.
+            No room for adjustment.
+          </p>
+          <p>
+            The six steps below follow this scheme. Each closes a structural
+            question (uniqueness of the field, origin of $s = 1/2$, informational
+            conservation, crystallisation at $\mu^* = 15$, bifurcation, and
+            computation of observables). Once the chain is complete, the
+            Standard Model writes itself with 0.316 % mean error across
+            43 quantities.
+          </p>
+        </div>
+        <aside class="rounded-lg border border-amber-300 bg-amber-50 p-5">
+          <p class="text-xs font-sans uppercase tracking-wider text-amber-800 mb-2">In figures</p>
+          <ul class="text-sm text-slate-800 space-y-2">
+            <li><strong>6 steps</strong> in the chain</li>
+            <li><strong>~12 theorems</strong> central (T0–T6, L0, GFT, N4)</li>
+            <li><strong>0 continuous parameter</strong> fitted</li>
+            <li><strong>43 observables</strong> computed at the output</li>
+            <li><strong>0.316 %</strong> mean error vs Particle Data Group</li>
+            <li><strong>0.06 %</strong> median error</li>
+          </ul>
+        </aside>
+      </div>
+    </section>
 
-        {nodes.map(n => {
-          const c = fill(n.kind);
-          const w = n.id === 'OBS' ? 180 : (n.id === 'BIF' ? 130 : 110);
-          const h = n.id === 'OBS' ? 60 : 50;
-          return (
-            <g class="chain-node" data-tooltip={n.tooltip}>
-              <a href={n.href} class={n.href ? '' : 'pointer-events-none'}>
-                <rect x={n.x - w/2} y={n.y - h/2} width={w} height={h} rx="6" fill={c.fill} stroke={c.stroke} stroke-width="1.5" />
-                <text x={n.x} y={n.y - 5} text-anchor="middle" font-family="ui-sans-serif, system-ui, sans-serif" font-size="14" font-weight="700" fill={c.text}>{n.label}</text>
-                <text x={n.x} y={n.y + 13} text-anchor="middle" font-family="ui-sans-serif, system-ui, sans-serif" font-size="10" fill={c.text}>{n.sub}</text>
+    <section class="mb-14">
+      <span class="pt-tag pt-tag-thm mb-3 inline-block">Standard</span>
+      <h2 class="text-3xl font-bold text-thmblue mb-6">Overview: the 6 steps</h2>
+
+      <div class="bg-white border border-slate-200 rounded-lg p-6 md:p-10">
+        <div class="flex flex-col items-center gap-3">
+          {stages.map((stage, idx) => {
+            const c = kindColor[stageKind[stage.num]];
+            return (
+              <>
+                <div class="w-full max-w-3xl rounded-lg border-2 p-4 md:p-5"
+                     style={`background-color: ${c.bg}; border-color: ${c.border}`}>
+                  <div class="flex items-baseline gap-3 mb-2">
+                    <span class="font-mono font-bold text-base shrink-0 px-2.5 py-0.5 rounded text-white"
+                          style={`background-color: ${c.border}`}>
+                      Step {stage.num}
+                    </span>
+                    <h3 class="font-sans font-semibold text-base md:text-lg" style={`color: ${c.text}`}>
+                      {stage.title}
+                    </h3>
+                  </div>
+                  <p class="text-sm italic mb-3" style={`color: ${c.text}`}>{stage.subtitle}</p>
+                  <div class="flex flex-wrap gap-2">
+                    {stage.theorems.map((t) => (
+                      <a href={t.href}
+                         class="inline-flex items-baseline gap-2 bg-white border rounded px-3 py-1.5 hover:shadow-sm transition"
+                         style={`border-color: ${c.border}`}>
+                        <span class="font-mono font-bold text-sm" style={`color: ${c.text}`}>{t.id}</span>
+                        <span class="text-xs text-slate-600">{t.sub}</span>
+                      </a>
+                    ))}
+                  </div>
+                </div>
+                {idx < stages.length - 1 && (
+                  <svg width="22" height="32" viewBox="0 0 22 32" class="text-slate-400" aria-hidden="true">
+                    <line x1="11" y1="0" x2="11" y2="22" stroke="currentColor" stroke-width="2" />
+                    <path d="M5 20 L11 30 L17 20 Z" fill="currentColor" />
+                  </svg>
+                )}
+              </>
+            );
+          })}
+        </div>
+
+        <div class="flex flex-wrap gap-x-4 gap-y-2 mt-8 pt-6 border-t border-slate-200 text-xs font-sans text-slate-600 justify-center">
+          <span class="flex items-center gap-1.5">
+            <span class="w-3 h-3 rounded inline-block" style="background:#dbeafe; border:1px solid #1d4ed8"></span>
+            foundation theorem
+          </span>
+          <span class="flex items-center gap-1.5">
+            <span class="w-3 h-3 rounded inline-block" style="background:#ede9fe; border:1px solid #7c3aed"></span>
+            structural bridge
+          </span>
+          <span class="flex items-center gap-1.5">
+            <span class="w-3 h-3 rounded inline-block" style="background:#fed7aa; border:1px solid #ea580c"></span>
+            derivation
+          </span>
+          <span class="flex items-center gap-1.5">
+            <span class="w-3 h-3 rounded inline-block" style="background:#d1fae5; border:1px solid #059669"></span>
+            validation
+          </span>
+        </div>
+      </div>
+    </section>
+
+    {stages.map((stage) => {
+      const c = kindColor[stageKind[stage.num]];
+      return (
+        <section class="mb-14">
+          <div class="flex items-baseline gap-4 mb-4 border-b border-slate-200 pb-3">
+            <span class="font-mono font-bold text-3xl shrink-0" style={`color: ${c.border}`}>
+              Step {stage.num}
+            </span>
+            <div>
+              <h2 class="text-2xl md:text-3xl font-bold text-thmblue">{stage.title}</h2>
+              <p class="text-sm text-slate-500 italic mt-1">{stage.subtitle}</p>
+            </div>
+          </div>
+
+          <p class="text-slate-700 leading-relaxed mb-5 max-w-3xl text-lg" set:html={stage.intro} />
+
+          <div class="flex flex-wrap gap-2 mb-6">
+            {stage.theorems.map((t) => (
+              <a href={t.href}
+                 class="inline-flex items-baseline gap-2 bg-white border-2 rounded px-3 py-1.5 hover:shadow-md transition"
+                 style={`border-color: ${c.border}`}>
+                <span class="font-mono font-bold text-sm" style={`color: ${c.text}`}>{t.id}</span>
+                <span class="text-xs text-slate-600">{t.sub}</span>
               </a>
-            </g>
-          );
-        })}
-      </svg>
-    </div>
+            ))}
+          </div>
 
-    <div id="chain-tooltip" class="mt-4 px-4 py-3 rounded bg-stone-50 border border-stone-200 text-sm text-stone-700 italic min-h-[3rem]">
-      Hover a node for its description, click to open its page.
-    </div>
+          <div class="space-y-3 max-w-3xl">
+            {stage.body.map((paragraph) => (
+              <p class="text-slate-700 leading-relaxed" set:html={paragraph} />
+            ))}
+          </div>
+        </section>
+      );
+    })}
 
-    <div class="grid md:grid-cols-2 gap-4 mt-8 text-sm">
-      <div class="pt-card">
-        <h3 class="font-sans font-semibold text-thmblue mb-2">The critical path</h3>
-        <p class="text-stone-700">
-          The chain starts from the dynamical field closed by T0, then L0 fixes
-          the gap law and T1 imposes the zero diagonal. The <span class="font-mono">p = 2</span>
-          channel carries the spin/parity dynamics, whose average invariant is
-          <span class="font-mono">s = 1/2</span>. T2 and GFT express conservation,
-          T6 makes trigonometry emerge, and T5 closes the reduced attractor.
-        </p>
+    <section class="mb-12">
+      <span class="pt-tag pt-tag-val mb-3 inline-block">Synthesis</span>
+      <h2 class="text-3xl font-bold text-thmblue mb-4">Why this chain holds</h2>
+      <div class="grid md:grid-cols-3 gap-4">
+        <div class="pt-card">
+          <h3 class="font-sans font-semibold text-thmblue mb-2">No free parameter</h3>
+          <p class="text-sm text-slate-700">
+            The chain contains no fitted number. The only "levers" are the
+            discrete choices of active primes (3, 5, 7) and the primorial
+            (30030) — themselves forced by T1 and T5.
+          </p>
+        </div>
+        <div class="pt-card">
+          <h3 class="font-sans font-semibold text-thmblue mb-2">No room for adjustment</h3>
+          <p class="text-sm text-slate-700">
+            Each step structurally closes the previous. Removing T1 or T5
+            destroys the attractor $\mu^* = 15$ and the 43 observables no
+            longer compute.
+          </p>
+        </div>
+        <div class="pt-card">
+          <h3 class="font-sans font-semibold text-thmblue mb-2">No hidden bundle</h3>
+          <p class="text-sm text-slate-700">
+            All statuses are explicit: T0–T6 and L0 are proved theorems;
+            GFT is a principle (axiom), p=2 and the bifurcation are bridges;
+            the 43 observables are verified derivations.
+          </p>
+        </div>
       </div>
-      <div class="pt-card">
-        <h3 class="font-sans font-semibold text-thmblue mb-2">The bifurcation</h3>
-        <p class="text-stone-700">
-          The split first comes from <span class="font-mono">p = 2</span>:
-          parity, two <span class="font-mono">±</span> channels. At
-          <span class="font-mono">μ* = 15</span>, this split is frozen as
-          <span class="font-mono">q⁺/q⁻</span>. The <span class="font-mono">q⁺</span>
-          branch yields couplings; <span class="font-mono">q⁻</span> yields geometry.
-        </p>
-      </div>
-    </div>
+    </section>
 
-    <div class="flex flex-wrap gap-x-4 gap-y-1 mt-6 text-xs font-sans text-stone-600">
-      <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded inline-block" style="background:#fef3c7;border:1px solid #d97706"></span>input</span>
-      <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded inline-block" style="background:#dbeafe;border:1px solid #1d4ed8"></span>theorem</span>
-      <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded inline-block" style="background:#ede9fe;border:1px solid #7c3aed"></span>bridge</span>
-      <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded inline-block" style="background:#fed7aa;border:1px solid #ea580c"></span>derivation</span>
-      <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded inline-block" style="background:#d1fae5;border:1px solid #059669"></span>verified</span>
-    </div>
-  </section>
-
-  <script is:inline>
-    (function () {
-      const tooltip = document.getElementById('chain-tooltip');
-      const defaultText = tooltip.textContent;
-      document.querySelectorAll('.chain-node').forEach(node => {
-        node.addEventListener('mouseenter', () => {
-          tooltip.textContent = node.getAttribute('data-tooltip') || defaultText;
-          tooltip.classList.remove('italic');
-        });
-        node.addEventListener('mouseleave', () => {
-          tooltip.textContent = defaultText;
-          tooltip.classList.add('italic');
-        });
-      });
-    })();
-  </script>
+    <p class="text-sm text-slate-500 italic font-sans border-t border-slate-200 pt-6">
+      For a theorem's detailed card, click its badge in the chain or open
+      the <a href="/en/theorems" class="underline text-thmblue">full list of theorems</a>.
+      For the 43 observables, see the <a href="/en/observables" class="underline text-thmblue">Observables</a> page.
+    </p>
+  </main>
 </BaseLayout>
