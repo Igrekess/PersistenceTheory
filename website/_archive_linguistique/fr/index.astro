@@ -1,0 +1,179 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import PageHero from '@components/PageHero.astro';
+
+const sections = [
+  {
+    href: '/linguistique/methode-et-invariants',
+    eyebrow: 'Méthode',
+    title: 'Méthode et invariants PT',
+    summary: 'Extraction des gaps inter-occurrence par caractère, matrices T_m, spectroscopie δ(m), bifurcation q⁺/q⁻, axiomes P1–P7. Tableau S1–S11 : 6/10 invariants survivent (noyau algébrique), 4/10 cassent (périphérie arithmétique propre aux primes).',
+    tag: 'Cœur scientifique',
+  },
+  {
+    href: '/linguistique/diachronie-et-evolvabilite',
+    eyebrow: 'Dynamique',
+    title: 'Diachronie et évolvabilité',
+    summary: 'Évolvabilité PT (E_vol = χ·I·reclosure / (1+τ_norm)) appliquée à trois créoles caraïbéens (2019/2021/2023) et à des paires anciens → modernes (vieux français → français, vieil anglais → anglais). Caveat corpus confound assumé.',
+    tag: 'Évolution',
+  },
+];
+---
+
+<BaseLayout
+  title="Programme PT-Linguistique"
+  description="Crash-test du noyau PT sur la langue naturelle. Méthode (invariants S1–S11, mixture-of-geometrics, bifurcation q⁺/q⁻), bancs d’essai (Voynich, Linear A), diachronie (créoles, anciens vs modernes) et outils interactifs côté client."
+>
+  <PageHero
+    eyebrow="Programme exploratoire"
+    domain="language"
+    title="PT-Linguistique"
+    kicker="Tester le noyau de la PT sur un domaine sans biais de parité, sans crible, à statistique zipfienne."
+    dek="Si la cascade {3, 5, 7} et la bifurcation q⁺/q⁻ sont génériques, la langue naturelle doit en porter la trace. Ce programme n’a pas pour objectif de « déchiffrer » Voynich ou Linear A, mais d’utiliser ces corpus — et 12 langues vivantes ou mortes — comme bancs d’essai stringents du noyau algébrique de PT. Les résultats sont des sorties de pipeline, conditionnelles à PT, et n’engagent pas la communauté philologique."
+    oneLineNote={{ label: 'Statut', body: 'programme exploratoire. Code en cours de release, article en préparation. Ces résultats ne font pas partie de la chaîne déductive principale de PT (conservation informationnelle → crible → cristallisation → attracteur μ* = 15 → observables) ; ils sont des transpositions à valeur cumulative, à confirmer par les spécialistes du domaine.' }}
+    width="wide"
+  />
+
+  <main class="max-w-6xl mx-auto px-4 py-10 md:py-14">
+
+    <!-- 5 SOUS-PAGES -->
+    <section class="mb-12">
+      <p class="pt-tag pt-tag-thm mb-3">Le programme en deux pages publiques</p>
+      <h2 class="text-3xl font-bold text-thmblue mb-6">Méthode et dynamique</h2>
+      <div class="grid md:grid-cols-2 gap-4">
+        {sections.map((s) => (
+          <a href={s.href} class="block rounded-lg border-2 border-cyan-300 bg-cyan-50 p-6 transition hover:shadow-lg hover:bg-cyan-100/60">
+            <div class="flex items-baseline gap-2 mb-2">
+              <span class="text-xs font-sans uppercase tracking-wider text-cyan-700 font-semibold">{s.eyebrow}</span>
+              <span class="text-xs font-sans text-stone-500">· {s.tag}</span>
+            </div>
+            <h3 class="font-sans text-xl font-bold text-slate-900 mb-2">{s.title}</h3>
+            <p class="text-sm text-slate-700 leading-relaxed">{s.summary}</p>
+            <p class="mt-3 font-sans text-sm font-semibold text-cyan-700">→ Ouvrir</p>
+          </a>
+        ))}
+      </div>
+
+      <div class="mt-6 rounded-lg border border-stone-300 bg-stone-50 p-5">
+        <p class="text-xs font-sans uppercase tracking-wider text-stone-500 mb-2">Notes exploratoires internes</p>
+        <p class="text-sm text-slate-700 leading-relaxed">
+          Le pipeline a été appliqué à deux scripts non déchiffrés
+          (manuscrit Voynich, syllabaire Linear A) à titre de bancs
+          d’essai stringents. Les sorties sont préliminaires, dépendent
+          de choix de corpus de référence, et appellent une validation
+          par les philologues spécialistes — elles ne sont pas exposées
+          publiquement à ce stade. Repo et notes accessibles aux
+          chercheurs intéressés via
+          <a href="/contact" class="text-thmblue underline">contact</a>.
+        </p>
+      </div>
+    </section>
+
+    <!-- POURQUOI LA LANGUE -->
+    <section class="mb-12">
+      <p class="pt-tag pt-tag-id mb-3">Pourquoi la langue</p>
+      <h2 class="text-3xl font-bold text-thmblue mb-4">Un terrain de falsification stringent</h2>
+      <div class="rounded-lg border border-slate-200 bg-white p-6 shadow-sm">
+        <p class="text-slate-700 leading-relaxed mb-4">
+          La PT est née sur les gaps de nombres premiers : un domaine qui
+          a un biais de parité (les gaps sont presque tous pairs), une
+          structure de crible, et une régularité arithmétique forte. Le
+          risque, pour une telle théorie, c’est d’<em>extraire ses
+          invariants des spécificités du domaine</em>, sans rien dire
+          ailleurs.
+        </p>
+        <p class="text-slate-700 leading-relaxed mb-4">
+          La langue offre l’opposé&nbsp;:
+        </p>
+        <ul class="space-y-3 text-slate-700 leading-relaxed">
+          <li><strong class="text-cyan-700">Pas de biais de parité</strong> — les gaps inter-occurrence des caractères sont quelconques.</li>
+          <li><strong class="text-cyan-700">Pas de crible</strong> — aucune mécanique d’élimination arithmétique ne structure les positions.</li>
+          <li><strong class="text-cyan-700">Statistique zipfienne</strong> — la distribution des fréquences suit une loi de puissance, très différente d’une distribution arithmétique uniforme.</li>
+        </ul>
+        <p class="text-slate-700 leading-relaxed mt-4">
+          Ce qui survit du noyau PT dans ces conditions, c’est ce qui
+          relève de l’algèbre pure (matrices de transition, identité GFT,
+          Cencov–Fisher, q⁺/q⁻). Ce qui casse, c’est ce qui dépendait
+          spécifiquement du crible. C’est la séparation
+          <strong>noyau algébrique</strong> / <strong>périphérie
+          arithmétique</strong> que ce programme rend mesurable.
+        </p>
+      </div>
+    </section>
+
+    <!-- HONNETETE -->
+    <section class="mb-12">
+      <p class="pt-tag pt-tag-id mb-3">Honnêteté</p>
+      <h2 class="text-3xl font-bold text-thmblue mb-4">Ce que ce programme n’est PAS</h2>
+      <div class="grid md:grid-cols-2 gap-4">
+        <div class="rounded-lg border-2 border-rose-300 bg-rose-50 p-5">
+          <h4 class="font-sans font-semibold text-rose-800 mb-2">✗ Pas un programme de déchiffrement</h4>
+          <p class="text-sm text-rose-900 leading-relaxed">
+            Voynich et Linear A sont utilisés comme <em>bancs d’essai</em>
+            pour la hiérarchie de robustesse PT (L1 ≥ L2 ≥ L3), pas comme
+            des projets de déchiffrement. Les sorties du pipeline sont des
+            candidats que les philologues spécialistes devront valider ou
+            réfuter.
+          </p>
+        </div>
+        <div class="rounded-lg border-2 border-rose-300 bg-rose-50 p-5">
+          <h4 class="font-sans font-semibold text-rose-800 mb-2">✗ Pas une théorie linguistique</h4>
+          <p class="text-sm text-rose-900 leading-relaxed">
+            Aucune prétention à dire ce qu’est la langue. Ce programme
+            mesure des invariants statistiques sur des séquences de
+            caractères ou de syllabes, et compare ces invariants aux
+            prédictions PT.
+          </p>
+        </div>
+        <div class="rounded-lg border-2 border-rose-300 bg-rose-50 p-5">
+          <h4 class="font-sans font-semibold text-rose-800 mb-2">✗ Pas un théorème [THM]</h4>
+          <p class="text-sm text-rose-900 leading-relaxed">
+            Les invariants S1–S11 sont des tests empiriques, pas des
+            théorèmes dérivés depuis s = 1/2. La transposition PT → langue
+            est une analogie validée empiriquement, pas une dérivation
+            rigoureuse.
+          </p>
+        </div>
+        <div class="rounded-lg border-2 border-rose-300 bg-rose-50 p-5">
+          <h4 class="font-sans font-semibold text-rose-800 mb-2">✗ Pas le principe central de PT</h4>
+          <p class="text-sm text-rose-900 leading-relaxed">
+            Le principe central de PT — sous contrainte, une part se
+            disperse en entropie et une autre persiste comme structure
+            compatible avec la logique du filtre — se déploie d’abord en
+            chaîne déductive (conservation informationnelle → dynamique
+            du crible → cristallisation de 2 → attracteur μ* = 15 →
+            observables). Ce programme linguistique est une
+            <em>transposition empirique</em> de cette chaîne à un
+            domaine non arithmétique : il en éprouve la portée, il ne
+            la remplace pas (cf.
+            <a href="/premier-principe" class="underline">principe fondamental</a>).
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- LIENS -->
+    <section class="mb-8">
+      <p class="pt-tag pt-tag-bridge mb-3">Aller plus loin</p>
+      <h2 class="text-3xl font-bold text-thmblue mb-6">Liens</h2>
+      <div class="grid md:grid-cols-3 gap-4">
+        <a href="/recherches" class="pt-card block group">
+          <span class="pt-tag pt-tag-thm">Recherches</span>
+          <h3 class="font-sans font-semibold text-thmblue text-lg mt-3 mb-2 group-hover:underline">Les trois recherches publiques</h3>
+          <p class="text-sm text-slate-700">Biologie, perception couleur, linguistique : trois transpositions de la cascade PT.</p>
+        </a>
+        <a href="/principes-architecturaux" class="pt-card block group">
+          <span class="pt-tag pt-tag-thm">Méta-théorie</span>
+          <h3 class="font-sans font-semibold text-thmblue text-lg mt-3 mb-2 group-hover:underline">7 principes architecturaux</h3>
+          <p class="text-sm text-slate-700">Pourquoi les mêmes patterns réapparaissent dans des domaines aussi différents.</p>
+        </a>
+        <a href="/critique" class="pt-card block group">
+          <span class="pt-tag pt-tag-id">Critique</span>
+          <h3 class="font-sans font-semibold text-thmblue text-lg mt-3 mb-2 group-hover:underline">Discuter ces résultats</h3>
+          <p class="text-sm text-slate-700">Objections, contre-tests, demandes d’accès au code et au corpus.</p>
+        </a>
+      </div>
+    </section>
+
+  </main>
+</BaseLayout>

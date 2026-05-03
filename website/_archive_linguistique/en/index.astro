@@ -1,0 +1,170 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import PageHero from '@components/PageHero.astro';
+
+const sections = [
+  {
+    href: '/en/linguistique/methode-et-invariants',
+    eyebrow: 'Method',
+    title: 'Method and PT invariants',
+    summary: 'Inter-occurrence character gap extraction, T_m matrices, δ(m) spectroscopy, q⁺/q⁻ bifurcation, axioms P1–P7. S1–S11 table: 6/10 invariants survive (algebraic core), 4/10 fail (prime-specific arithmetic periphery).',
+    tag: 'Scientific core',
+  },
+  {
+    href: '/en/linguistique/diachronie-et-evolvabilite',
+    eyebrow: 'Dynamics',
+    title: 'Diachrony and evolvability',
+    summary: 'PT evolvability (E_vol = χ·I·reclosure / (1+τ_norm)) applied to three Caribbean creoles (2019/2021/2023) and to ancient → modern pairs (Old French → French, Old English → English). Corpus confound caveat acknowledged.',
+    tag: 'Evolution',
+  },
+];
+---
+
+<BaseLayout
+  title="PT-Linguistics programme"
+  description="Crash-test of the PT core on natural language. Method (S1–S11 invariants, mixture-of-geometrics, q⁺/q⁻ bifurcation), benchmarks (Voynich, Linear A), diachrony (creoles, ancient vs modern) and client-side interactive tools."
+>
+  <PageHero
+    eyebrow="Exploratory programme"
+    domain="language"
+    title="PT-Linguistics"
+    kicker="Testing the PT core on a domain with no parity bias, no sieve, Zipfian statistics."
+    dek="If the cascade {3, 5, 7} and the q⁺/q⁻ bifurcation are generic, natural language must carry their trace. This programme does not aim to “decipher” the Voynich or Linear A; it uses these corpora — and 12 living or dead languages — as stringent benchmarks for the algebraic core of PT. Results are pipeline outputs, conditional on PT, and do not commit the philology community."
+    oneLineNote={{ label: 'Status', body: 'exploratory programme. Code in release, article in preparation. These results do not belong to PT’s main deductive chain (informational conservation → sieve dynamics → crystallisation → attractor μ* = 15 → observables); they are cumulative transpositions, to be confirmed by domain specialists.' }}
+    width="wide"
+  />
+
+  <main class="max-w-6xl mx-auto px-4 py-10 md:py-14">
+
+    <section class="mb-12">
+      <p class="pt-tag pt-tag-thm mb-3">Two public pages</p>
+      <h2 class="text-3xl font-bold text-thmblue mb-6">Method and dynamics</h2>
+      <div class="grid md:grid-cols-2 gap-4">
+        {sections.map((s) => (
+          <a href={s.href} class="block rounded-lg border-2 border-cyan-300 bg-cyan-50 p-6 transition hover:shadow-lg hover:bg-cyan-100/60">
+            <div class="flex items-baseline gap-2 mb-2">
+              <span class="text-xs font-sans uppercase tracking-wider text-cyan-700 font-semibold">{s.eyebrow}</span>
+              <span class="text-xs font-sans text-stone-500">· {s.tag}</span>
+            </div>
+            <h3 class="font-sans text-xl font-bold text-slate-900 mb-2">{s.title}</h3>
+            <p class="text-sm text-slate-700 leading-relaxed">{s.summary}</p>
+            <p class="mt-3 font-sans text-sm font-semibold text-cyan-700">→ Open</p>
+          </a>
+        ))}
+      </div>
+
+      <div class="mt-6 rounded-lg border border-stone-300 bg-stone-50 p-5">
+        <p class="text-xs font-sans uppercase tracking-wider text-stone-500 mb-2">Internal exploratory notes</p>
+        <p class="text-sm text-slate-700 leading-relaxed">
+          The pipeline has been applied to two undeciphered scripts (the
+          Voynich manuscript, the Linear A syllabary) as stringent
+          benchmarks. Outputs are preliminary, depend on reference corpus
+          choices, and call for validation by specialist philologists —
+          they are not exposed publicly at this stage. Repository and
+          notes available to interested researchers via
+          <a href="/en/contact" class="text-thmblue underline">contact</a>.
+        </p>
+      </div>
+    </section>
+
+    <section class="mb-12">
+      <p class="pt-tag pt-tag-id mb-3">Why language</p>
+      <h2 class="text-3xl font-bold text-thmblue mb-4">A stringent falsification ground</h2>
+      <div class="rounded-lg border border-slate-200 bg-white p-6 shadow-sm">
+        <p class="text-slate-700 leading-relaxed mb-4">
+          PT was born on prime number gaps: a domain with a parity bias
+          (gaps are nearly always even), a sieve structure, and strong
+          arithmetic regularity. The risk for such a theory is to
+          <em>extract its invariants from the specifics of the domain</em>
+          and say nothing elsewhere.
+        </p>
+        <p class="text-slate-700 leading-relaxed mb-4">
+          Language offers the opposite:
+        </p>
+        <ul class="space-y-3 text-slate-700 leading-relaxed">
+          <li><strong class="text-cyan-700">No parity bias</strong> — character inter-occurrence gaps are arbitrary.</li>
+          <li><strong class="text-cyan-700">No sieve</strong> — no arithmetic elimination mechanism structures positions.</li>
+          <li><strong class="text-cyan-700">Zipfian statistics</strong> — frequency distributions follow a power law, very different from a uniform arithmetic distribution.</li>
+        </ul>
+        <p class="text-slate-700 leading-relaxed mt-4">
+          What survives of the PT core under these conditions is what is
+          algebraic by nature (transition matrices, GFT identity,
+          Cencov–Fisher, q⁺/q⁻). What breaks is what depended specifically
+          on the sieve. This is the
+          <strong>algebraic core</strong> /
+          <strong>arithmetic periphery</strong> separation that this
+          programme makes measurable.
+        </p>
+      </div>
+    </section>
+
+    <section class="mb-12">
+      <p class="pt-tag pt-tag-id mb-3">Honesty</p>
+      <h2 class="text-3xl font-bold text-thmblue mb-4">What this programme is NOT</h2>
+      <div class="grid md:grid-cols-2 gap-4">
+        <div class="rounded-lg border-2 border-rose-300 bg-rose-50 p-5">
+          <h4 class="font-sans font-semibold text-rose-800 mb-2">✗ Not a decipherment programme</h4>
+          <p class="text-sm text-rose-900 leading-relaxed">
+            Voynich and Linear A are used as <em>benchmarks</em> for the
+            PT robustness hierarchy (L1 ≥ L2 ≥ L3), not as decipherment
+            projects. Pipeline outputs are candidates that specialist
+            philologists must validate or refute.
+          </p>
+        </div>
+        <div class="rounded-lg border-2 border-rose-300 bg-rose-50 p-5">
+          <h4 class="font-sans font-semibold text-rose-800 mb-2">✗ Not a linguistic theory</h4>
+          <p class="text-sm text-rose-900 leading-relaxed">
+            No claim about what language is. This programme measures
+            statistical invariants on character or syllable sequences and
+            compares them with PT predictions.
+          </p>
+        </div>
+        <div class="rounded-lg border-2 border-rose-300 bg-rose-50 p-5">
+          <h4 class="font-sans font-semibold text-rose-800 mb-2">✗ Not a [THM] theorem</h4>
+          <p class="text-sm text-rose-900 leading-relaxed">
+            S1–S11 invariants are empirical tests, not theorems derived
+            from s = 1/2. The PT → language transposition is an empirically
+            validated analogy, not a rigorous derivation.
+          </p>
+        </div>
+        <div class="rounded-lg border-2 border-rose-300 bg-rose-50 p-5">
+          <h4 class="font-sans font-semibold text-rose-800 mb-2">✗ Not PT’s central principle</h4>
+          <p class="text-sm text-rose-900 leading-relaxed">
+            PT’s central principle — under constraint, part disperses as
+            entropy and part persists as structure compatible with the
+            filter’s logic — first unfolds as a deductive chain
+            (informational conservation → sieve dynamics →
+            crystallisation of 2 → attractor μ* = 15 → observables).
+            This linguistic programme is an <em>empirical
+            transposition</em> of that chain to a non-arithmetic domain:
+            it tests its reach, it does not replace it (cf.
+            <a href="/en/premier-principe" class="underline">fundamental principle</a>).
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="mb-8">
+      <p class="pt-tag pt-tag-bridge mb-3">Going further</p>
+      <h2 class="text-3xl font-bold text-thmblue mb-6">Links</h2>
+      <div class="grid md:grid-cols-3 gap-4">
+        <a href="/en/recherches" class="pt-card block group">
+          <span class="pt-tag pt-tag-thm">Research</span>
+          <h3 class="font-sans font-semibold text-thmblue text-lg mt-3 mb-2 group-hover:underline">All three public programmes</h3>
+          <p class="text-sm text-slate-700">Biology, colour perception, linguistics: three transpositions of the PT cascade.</p>
+        </a>
+        <a href="/en/principes-architecturaux" class="pt-card block group">
+          <span class="pt-tag pt-tag-thm">Meta-theory</span>
+          <h3 class="font-sans font-semibold text-thmblue text-lg mt-3 mb-2 group-hover:underline">7 architectural principles</h3>
+          <p class="text-sm text-slate-700">Why the same patterns recur across very different domains.</p>
+        </a>
+        <a href="/en/critique" class="pt-card block group">
+          <span class="pt-tag pt-tag-id">Critique</span>
+          <h3 class="font-sans font-semibold text-thmblue text-lg mt-3 mb-2 group-hover:underline">Discuss these results</h3>
+          <p class="text-sm text-slate-700">Objections, counter-tests, code and corpus access requests.</p>
+        </a>
+      </div>
+    </section>
+
+  </main>
+</BaseLayout>

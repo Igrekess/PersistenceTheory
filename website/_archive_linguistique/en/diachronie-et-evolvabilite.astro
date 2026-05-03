@@ -1,0 +1,161 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import PageHero from '@components/PageHero.astro';
+---
+
+<BaseLayout
+  title="Diachrony and evolvability — PT-Linguistics"
+  description="PT evolvability (E_vol = χ·I·reclosure / (1+τ_norm)) applied to three Caribbean creoles (2019/2021/2023) and to ancient → modern pairs (Old French → French, Old English → English). Corpus confound caveat acknowledged."
+>
+  <PageHero
+    eyebrow="Dynamics"
+    domain="language"
+    title="Diachrony and evolvability"
+    kicker="Measure linguistic change between two temporal states of the same corpus, and test whether PT invariant conservation (I) holds under evolution."
+    dek="Once PT invariants are measured on static living languages, we can test their evolution over time. Two pair types: Caribbean creoles undergoing standardisation (Wikipedia 2019, 2021, 2023), and long ancient → modern pairs (Old French → modern French, Old English → modern English). The central quantity is PT evolvability, which combines plasticity, conservation, and re-closure time."
+    oneLineNote={{ label: 'Honesty', body: 'the C_adapt living/dead separation is partially confounded with corpus construction (dead languages = medieval manuscripts; living languages = modern Wikipedia). All numbers below are reported with this caveat acknowledged.' }}
+    width="wide"
+  />
+
+  <main class="max-w-5xl mx-auto px-4 py-10 md:py-14 space-y-12">
+
+    <section>
+      <p class="pt-tag pt-tag-thm mb-3">Definition</p>
+      <h2 class="text-2xl font-bold text-thmblue mb-3">PT evolvability</h2>
+      <p class="text-slate-700 leading-relaxed mb-3">
+        PT evolvability measures a language’s ability to evolve without
+        losing its internal structure:
+      </p>
+      <pre class="bg-slate-50 border border-slate-200 rounded p-3 text-sm font-mono mb-3">{`E_vol = χ · I · reclosure / (1 + τ_norm)
+      where  χ = fixed-point plasticity
+             I = PT invariant conservation
+             reclosure = re-closure robustness after perturbation
+             τ_norm = normalised re-closure time`}</pre>
+      <p class="text-slate-700 leading-relaxed">
+        With explicit dynamic term d/dt between two snapshots,
+        E_vol = E_vol_base · dynamic_optimality. An ideally "alive"
+        language has high I (invariants conserved) <em>and</em> non-zero
+        plasticity. A frozen language has χ ~ 0. A language that breaks
+        its invariants (rare) has I &lt; 0.9.
+      </p>
+    </section>
+
+    <section>
+      <p class="pt-tag pt-tag-val mb-3">Test 1 — diachronic creoles</p>
+      <h2 class="text-2xl font-bold text-thmblue mb-3">Three Caribbean creoles, 2019 → 2023</h2>
+      <p class="text-slate-700 leading-relaxed mb-3">
+        OPUS Wikimedia versions its Wikipedia snapshots. We compare
+        2019 → 2021 and 2021 → 2023 for three creoles:
+      </p>
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm font-sans mb-3">
+          <thead class="border-b border-stone-300 text-xs text-stone-600 uppercase">
+            <tr>
+              <th class="text-left py-2 pr-3">Language</th>
+              <th class="text-right py-2 px-2 tabular-nums">E_vol (2019→2021)</th>
+              <th class="text-right py-2 px-2 tabular-nums">E_vol (2021→2023)</th>
+              <th class="text-right py-2 px-2 tabular-nums">Ratio</th>
+              <th class="text-right py-2 px-2 tabular-nums">I (conservation)</th>
+            </tr>
+          </thead>
+          <tbody class="text-slate-700">
+            <tr class="border-b border-stone-100"><td class="py-1.5 pr-3">Haitian (ht)</td><td class="py-1.5 px-2 text-right tabular-nums">1.51·10⁻¹¹</td><td class="py-1.5 px-2 text-right tabular-nums">4.55·10⁻¹²</td><td class="py-1.5 px-2 text-right tabular-nums text-rose-700">0.30 ↓</td><td class="py-1.5 px-2 text-right tabular-nums text-emerald-700">0.989 – 0.992</td></tr>
+            <tr class="border-b border-stone-100"><td class="py-1.5 pr-3">Jamaican (jam)</td><td class="py-1.5 px-2 text-right tabular-nums">2.29·10⁻¹²</td><td class="py-1.5 px-2 text-right tabular-nums">2.05·10⁻¹²</td><td class="py-1.5 px-2 text-right tabular-nums text-amber-700">0.89 ↓</td><td class="py-1.5 px-2 text-right tabular-nums text-emerald-700">0.981 – 0.993</td></tr>
+            <tr class="border-b border-stone-100"><td class="py-1.5 pr-3">Papiamento (pap)</td><td class="py-1.5 px-2 text-right tabular-nums">4.49·10⁻¹²</td><td class="py-1.5 px-2 text-right tabular-nums">3.55·10⁻¹²</td><td class="py-1.5 px-2 text-right tabular-nums text-amber-700">0.79 ↓</td><td class="py-1.5 px-2 text-right tabular-nums text-emerald-700">0.988 – 0.989</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="text-slate-700 leading-relaxed mb-3">
+        <strong>Reading.</strong> All three creoles show <em>decreasing
+        evolvability</em> (E_vol ↓ between the two windows) but
+        <strong>near-perfect invariant conservation</strong> (I &gt; 0.98
+        everywhere). Consistent with a Wikipedia-driven standardisation
+        phase: the written form stabilises (χ drops) but the fundamental
+        PT structure is preserved almost exactly.
+      </p>
+      <p class="text-slate-700 leading-relaxed">
+        Haitian Creole shows the steepest drop (ratio 0.30); Jamaican is
+        the most stable (0.89). Consistent with the respective
+        standardisation states of the three communities (Haitian Creole
+        having seen the fastest Wikipedia growth over the period).
+      </p>
+    </section>
+
+    <section>
+      <p class="pt-tag pt-tag-val mb-3">Test 2 — long pairs</p>
+      <h2 class="text-2xl font-bold text-thmblue mb-3">Old French → modern French, Old English → modern English</h2>
+      <p class="text-slate-700 leading-relaxed mb-3">
+        Two diachronic pairs spanning ~800 to 1,000 years (Open Medieval
+        French + Common Corpus 1950+; OEDT + Common Corpus 1950+):
+      </p>
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm font-sans mb-3">
+          <thead class="border-b border-stone-300 text-xs text-stone-600 uppercase">
+            <tr>
+              <th class="text-left py-2 pr-3">Pair</th>
+              <th class="text-right py-2 px-2 tabular-nums">C_adapt (t₀)</th>
+              <th class="text-right py-2 px-2 tabular-nums">C_adapt (t₁)</th>
+              <th class="text-right py-2 px-2 tabular-nums">Ratio</th>
+            </tr>
+          </thead>
+          <tbody class="text-slate-700">
+            <tr class="border-b border-stone-100"><td class="py-1.5 pr-3">Old French → modern French</td><td class="py-1.5 px-2 text-right tabular-nums">0.072</td><td class="py-1.5 px-2 text-right tabular-nums">0.145</td><td class="py-1.5 px-2 text-right tabular-nums text-emerald-700">×2.0 ↑</td></tr>
+            <tr class="border-b border-stone-100"><td class="py-1.5 pr-3">Old English → modern English</td><td class="py-1.5 px-2 text-right tabular-nums">0.119</td><td class="py-1.5 px-2 text-right tabular-nums">0.141</td><td class="py-1.5 px-2 text-right tabular-nums text-emerald-700">×1.2 ↑</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="text-slate-700 leading-relaxed">
+        Modern French has 2× the C_adapt of Old French; modern English is
+        more stable. <strong>Corpus confound caveat:</strong> Old French
+        is represented by medieval literary manuscripts, modern French by
+        Wikipedia. The observed difference combines genuine linguistic
+        evolution <em>and</em> differences in genre / register /
+        normalisation.
+      </p>
+    </section>
+
+    <section>
+      <p class="pt-tag pt-tag-id mb-3">Honesty</p>
+      <h2 class="text-2xl font-bold text-thmblue mb-4">Acknowledged limits</h2>
+      <div class="grid md:grid-cols-2 gap-4">
+        <div class="rounded-lg border-2 border-rose-300 bg-rose-50 p-5">
+          <h4 class="font-sans font-semibold text-rose-800 mb-2">✗ C_adapt corpus confound</h4>
+          <p class="text-sm text-rose-900 leading-relaxed">
+            The living/dead separation by C_adapt is partially confounded
+            with corpus genre and normalisation (medieval literary vs
+            modern Wikipedia). Resolving this confound requires
+            genre-controlled corpora (modern encyclopedia entries in
+            Latin, modern manuscripts in standardised French…).
+          </p>
+        </div>
+        <div class="rounded-lg border-2 border-rose-300 bg-rose-50 p-5">
+          <h4 class="font-sans font-semibold text-rose-800 mb-2">✗ Limited short diachrony</h4>
+          <p class="text-sm text-rose-900 leading-relaxed">
+            The 2019 → 2023 Wikipedia diachrony measures mostly
+            collective editing and editorial standardisation, not
+            linguistic evolution in the classical phonological or
+            syntactic sense. A real signal but to be interpreted
+            cautiously.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <p class="pt-tag pt-tag-bridge mb-3">Going further</p>
+      <div class="grid md:grid-cols-2 gap-4">
+        <a href="/en/linguistique/methode-et-invariants" class="pt-card block group">
+          <span class="pt-tag pt-tag-thm">Method</span>
+          <h3 class="font-sans font-semibold text-thmblue text-lg mt-3 mb-2 group-hover:underline">S1–S11 invariants</h3>
+          <p class="text-sm text-slate-700">PT primitives measured in evolvability calculations.</p>
+        </a>
+        <a href="/en/linguistique" class="pt-card block group">
+          <span class="pt-tag pt-tag-thm">Programme</span>
+          <h3 class="font-sans font-semibold text-thmblue text-lg mt-3 mb-2 group-hover:underline">Back to portal</h3>
+          <p class="text-sm text-slate-700">PT-Linguistics programme overview.</p>
+        </a>
+      </div>
+    </section>
+
+  </main>
+</BaseLayout>

@@ -1,0 +1,194 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import PageHero from '@components/PageHero.astro';
+
+const invariants = [
+  { id: 'S1',  name: 'Croissance D_KL(p)',         tier: 'arithmétique', status: 'FAIL', why: 'dépend du biais de parité du crible (gaps premiers presque tous pairs).' },
+  { id: 'S2',  name: 'Transitions mod 3',           tier: 'algébrique',   status: 'PASS', why: 'invariant pur de la dynamique modulaire — survit en langue.' },
+  { id: 'S3',  name: 'Balance GFT',                 tier: 'arithmétique', status: 'FAIL', why: 'identité algébrique du crible, pas reproduite hors arithmétique.' },
+  { id: 'S4',  name: 'MI transitionnelle mod 6',    tier: 'algébrique',   status: 'PASS', why: 'couplage informationnel entre projections modulaires — domaine-indépendant.' },
+  { id: 'S5',  name: 'Platitude spectrale',         tier: 'arithmétique', status: 'FAIL', why: 'régularité spectrale héritée de la structure des primes.' },
+  { id: 'S6',  name: 'Forme D_KL(m)',               tier: 'arithmétique', status: 'FAIL', why: 'profil spécifique au crible.' },
+  { id: 'S7',  name: 'ρ(T·D_j) < 1',                 tier: 'algébrique',   status: 'PASS', why: 'analogue linguistique du théorème T6 v6 — contraction des modes croisés.' },
+  { id: 'S8',  name: 'τ_mix universel',              tier: 'algébrique',   status: 'PASS', why: 'temps de mixing 0.17–0.30 sur toutes les langues testées.' },
+  { id: 'S9',  name: 'MI(2,3) ≈ 0',                  tier: 'algébrique',   status: 'PASS', why: 'complémentarité CRT préservée pour le couple (parité, mod 3).' },
+  { id: 'S11', name: 'Branche q⁻ (thermique)',       tier: 'bifurcation',  status: 'PASS', why: 'la langue vit sur la branche thermique : caractères = propagateurs, pas vertex.' },
+];
+---
+
+<BaseLayout
+  title="Méthode et invariants PT (Linguistique)"
+  description="Méthode du programme PT-Linguistique : gaps inter-occurrence, matrices T_m, mixture-of-geometrics, bifurcation q⁺/q⁻, axiomes P1–P7. Tableau S1–S11 : 6/10 invariants survivent (noyau algébrique), 4/10 cassent (périphérie arithmétique)."
+>
+  <PageHero
+    eyebrow="Méthode"
+    domain="language"
+    title="Méthode et invariants PT"
+    kicker="Six invariants PT sur dix survivent en langue. Les quatre qui cassent dépendent spécifiquement du crible."
+    dek="Le programme PT-Linguistique utilise les primitives du module pt_native_core.py : extraction des gaps inter-occurrence par caractère, matrices de transition T_m, décomposition mixture-of-geometrics avec bifurcation q⁺/q⁻, axiomes de persistance P1–P7. Cette page explique la chaîne de mesure et donne le tableau S1–S11 qui sépare le noyau algébrique de PT (universel) de sa périphérie arithmétique (spécifique aux primes)."
+    width="wide"
+  />
+
+  <main class="max-w-5xl mx-auto px-4 py-10 md:py-14 space-y-12">
+
+    <!-- 1 — DU TEXTE AUX GAPS -->
+    <section>
+      <p class="pt-tag pt-tag-thm mb-3">Étape 1</p>
+      <h2 class="text-2xl font-bold text-thmblue mb-3">Du texte aux gaps inter-occurrence</h2>
+      <p class="text-slate-700 leading-relaxed mb-3">
+        Soit un texte vu comme une séquence de caractères c₁, c₂, …, c_N.
+        Pour chaque caractère c apparaissant aux positions i₁, i₂, …,
+        la <strong>séquence de gaps</strong> est :
+      </p>
+      <pre class="bg-slate-50 border border-slate-200 rounded p-3 text-sm font-mono mb-3">{`G_c = { i_{k+1} − i_k : k = 1, 2, … }`}</pre>
+      <p class="text-slate-700 leading-relaxed mb-3">
+        Ces gaps sont l’<em>observable PT-natif</em> : aucun embedding,
+        aucune quantification arbitraire, aucun paramètre ajusté. La
+        séquence agrégée pool tous les caractères et donne une
+        distribution de gaps sur ℕ⁺.
+      </p>
+      <p class="text-slate-700 leading-relaxed">
+        Cette transformation est l’analogue strict de ce que la PT fait
+        sur les primes : remplacer une suite par la suite de ses
+        intervalles, puis projeter modulo m pour révéler la structure.
+      </p>
+    </section>
+
+    <!-- 2 — PROJECTIONS MODULAIRES ET T_m -->
+    <section>
+      <p class="pt-tag pt-tag-thm mb-3">Étape 2</p>
+      <h2 class="text-2xl font-bold text-thmblue mb-3">Projections modulaires et matrice de transition T_m</h2>
+      <p class="text-slate-700 leading-relaxed mb-3">
+        On projette les gaps sur ℤ/mℤ (résidus mod m) et on construit la
+        matrice stochastique des transitions consécutives :
+      </p>
+      <pre class="bg-slate-50 border border-slate-200 rounded p-3 text-sm font-mono mb-3">{`T_m[i,j] = P( C_{t+1} = j | C_t = i )   où   C_t = (gap_t mod m)`}</pre>
+      <p class="text-slate-700 leading-relaxed">
+        Pour les gaps premiers, le théorème T0 force T₃[1,1] = T₃[2,2] = 0
+        (transitions interdites). En langue, on <em>mesure</em> les zéros
+        structurels — qui ne sont pas les mêmes — et on compare le
+        spectre, le τ_mix, et la contraction ρ(T·D_j) à la prédiction PT.
+      </p>
+    </section>
+
+    <!-- 3 — MIXTURE-OF-GEOMETRICS -->
+    <section>
+      <p class="pt-tag pt-tag-thm mb-3">Étape 3</p>
+      <h2 class="text-2xl font-bold text-thmblue mb-3">Mixture-of-geometrics et bifurcation q⁺/q⁻</h2>
+      <p class="text-slate-700 leading-relaxed mb-3">
+        Pour un texte, chaque caractère c a sa propre statistique de gaps,
+        approximativement géométrique de paramètre 1/μ_c. La distribution
+        agrégée est donc une <strong>mélange de géométriques</strong>,
+        pondéré par les fréquences :
+      </p>
+      <pre class="bg-slate-50 border border-slate-200 rounded p-3 text-sm font-mono mb-3">{`P_mix(g) = Σ_c  w_c · f_c · (1 − f_c)^(g−1)`}</pre>
+      <p class="text-slate-700 leading-relaxed mb-3">
+        Sur cette mixture, la PT teste deux branches :
+      </p>
+      <ul class="space-y-2 text-slate-700 leading-relaxed mb-3">
+        <li><strong class="text-thmblue">q⁺ = 1 − 2/μ</strong> — branche statistique (vertex, couplage).</li>
+        <li><strong class="text-thmblue">q⁻ = e^(−1/μ)</strong> — branche thermique (propagateur, géométrie).</li>
+      </ul>
+      <p class="text-slate-700 leading-relaxed">
+        <strong>Résultat S11.</strong> Sur les 19 corpus testés (langues
+        vivantes, mortes, créoles, manuscrits anciens), <em>la branche q⁻
+        l’emporte sans exception</em> avec un facteur 4× à 20×. En PT
+        physique, cela signifie que la langue vit sur la branche thermique :
+        les caractères se comportent comme des <em>propagateurs</em>, pas
+        comme des vertex de couplage. C’est un fait empirique surprenant
+        et reproductible.
+      </p>
+    </section>
+
+    <!-- 4 — TABLEAU S1-S11 -->
+    <section>
+      <p class="pt-tag pt-tag-val mb-3">Résultat principal</p>
+      <h2 class="text-2xl font-bold text-thmblue mb-3">Tableau S1–S11 : ce qui survit, ce qui casse</h2>
+      <p class="text-slate-700 leading-relaxed mb-4">
+        Onze tests formalisés, répartis en deux familles. Le verdict est
+        net : <strong>6/10 PASS</strong> = noyau algébrique, indépendant
+        du domaine ; <strong>4/10 FAIL</strong> = périphérie arithmétique,
+        spécifique aux primes (S1, S3, S5, S6 dépendent du biais de
+        parité, du crible, ou du spectre des entiers).
+      </p>
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm font-sans">
+          <thead class="border-b border-stone-300 text-xs text-stone-600 uppercase">
+            <tr>
+              <th class="text-left py-2 pr-3">Test</th>
+              <th class="text-left py-2 pr-3">Nom</th>
+              <th class="text-left py-2 pr-3">Famille</th>
+              <th class="text-center py-2 px-2">Statut langue</th>
+              <th class="text-left py-2 pl-3">Pourquoi</th>
+            </tr>
+          </thead>
+          <tbody>
+            {invariants.map((s) => (
+              <tr class="border-b border-stone-100">
+                <td class="py-2 pr-3 font-mono text-thmblue font-bold">{s.id}</td>
+                <td class="py-2 pr-3">{s.name}</td>
+                <td class="py-2 pr-3 text-xs text-stone-600">{s.tier}</td>
+                <td class="py-2 px-2 text-center">
+                  <span class={s.status === 'PASS'
+                    ? 'inline-block px-2 py-0.5 rounded text-xs font-bold bg-emerald-100 text-emerald-800'
+                    : 'inline-block px-2 py-0.5 rounded text-xs font-bold bg-rose-100 text-rose-800'}>
+                    {s.status}
+                  </span>
+                </td>
+                <td class="py-2 pl-3 text-xs text-stone-700">{s.why}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p class="mt-3 text-xs font-sans text-stone-500">
+        Les six PASS sont confirmés sur les 12 langues du panel principal
+        (FR, EN, ES, DE, IT, LA, SA, HT, PAP, JAM, FRO, ANG) ainsi que sur
+        les corpus dérivés (textes médiévaux, créoles diachroniques,
+        Voynich, Linear A).
+      </p>
+    </section>
+
+    <!-- 5 — HIERARCHIE DE ROBUSTESSE -->
+    <section>
+      <p class="pt-tag pt-tag-thm mb-3">Principe organisateur</p>
+      <h2 class="text-2xl font-bold text-thmblue mb-3">Hiérarchie de robustesse R(L1) ≥ R(L2) ≥ R(L3)</h2>
+      <p class="text-slate-700 leading-relaxed mb-3">
+        Au-delà des invariants individuels, la PT prédit une <strong>hiérarchie
+        de robustesse</strong> : trois couches de structure dont la persistance
+        décroît de manière strictement ordonnée.
+      </p>
+      <ul class="space-y-2 text-slate-700 leading-relaxed mb-3">
+        <li><strong class="text-cyan-700">L1 — identité / parité</strong> : la couche la plus robuste (détection de famille linguistique).</li>
+        <li><strong class="text-cyan-700">L2 — Fourier / fréquence</strong> : structure modulaire, alphabet, vocalisme.</li>
+        <li><strong class="text-cyan-700">L3 — résidu structurel / sémantique</strong> : la couche la plus fragile (contenu lexical, syntaxe, sens).</li>
+      </ul>
+      <p class="text-slate-700 leading-relaxed">
+        <strong>Résultat majeur.</strong> Cette hiérarchie tient en langue
+        <em>même quand la majorité des invariants individuels cassent</em>.
+        C’est elle, plus que les S_k pris isolément, qui constitue le
+        principe organisateur le plus profond du programme. Elle est
+        utilisée comme grille d’interprétation des bancs d’essai Voynich
+        et Linear A.
+      </p>
+    </section>
+
+    <!-- LIENS -->
+    <section>
+      <p class="pt-tag pt-tag-bridge mb-3">Aller plus loin</p>
+      <div class="grid md:grid-cols-2 gap-4">
+        <a href="/linguistique/diachronie-et-evolvabilite" class="pt-card block group">
+          <span class="pt-tag pt-tag-id">Dynamique</span>
+          <h3 class="font-sans font-semibold text-thmblue text-lg mt-3 mb-2 group-hover:underline">Diachronie et évolvabilité</h3>
+          <p class="text-sm text-slate-700">Évolvabilité PT mesurée sur trois créoles caraïbéens diachroniques et deux paires anciennes/modernes.</p>
+        </a>
+        <a href="/linguistique" class="pt-card block group">
+          <span class="pt-tag pt-tag-thm">Programme</span>
+          <h3 class="font-sans font-semibold text-thmblue text-lg mt-3 mb-2 group-hover:underline">Retour au portail</h3>
+          <p class="text-sm text-slate-700">Vue d’ensemble du programme PT-Linguistique.</p>
+        </a>
+      </div>
+    </section>
+
+  </main>
+</BaseLayout>

@@ -99,7 +99,16 @@ const isChain = heroNoteParts.length > 1;
   <div class:list={['ph-hero-inner', widthClass[width]]}>
     <p class="ph-eyebrow" style={eyebrowStyle}>{eyebrow}</p>
     <h1 class="ph-title">{title}</h1>
-    {kicker && <p class="ph-kicker">{kicker}</p>}
+    {kicker && (
+      <p class="ph-kicker">
+        {kicker.split('\n').map((line, i) => (
+          <>
+            {i > 0 && <br />}
+            {line}
+          </>
+        ))}
+      </p>
+    )}
 
     {dek && <p class="ph-dek">{dek}</p>}
     {dekL1 && <p class="ph-dek" data-max-depth="L1">{dekL1}</p>}

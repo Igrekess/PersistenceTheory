@@ -1,0 +1,168 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import PageHero from '@components/PageHero.astro';
+---
+
+<BaseLayout
+  title="Diachronie et évolvabilité — PT-Linguistique"
+  description="Évolvabilité PT (E_vol = χ·I·reclosure / (1+τ_norm)) appliquée à trois créoles caraïbéens (2019/2021/2023) et à des paires anciens → modernes (vieux français → français, vieil anglais → anglais). Caveat corpus confound assumé."
+>
+  <PageHero
+    eyebrow="Dynamique"
+    domain="language"
+    title="Diachronie et évolvabilité"
+    kicker="Mesurer le changement linguistique entre deux états temporels d’un même corpus, et tester si la conservation des invariants PT (I) tient sous évolution."
+    dek="Une fois les invariants PT mesurés sur des langues vivantes statiques, on peut tester leur évolution dans le temps. Deux types de paires : créoles caraïbéens en cours de standardisation (Wikipedia 2019, 2021, 2023), et paires longues ancien → moderne (vieux français → français moderne, vieil anglais → anglais moderne). La grandeur centrale est l’évolvabilité PT, qui combine plasticité, conservation et temps de re-fermeture."
+    oneLineNote={{ label: 'Honnêteté', body: 'la séparation vivant/mort obtenue par C_adapt est partiellement confondue avec la construction des corpus (langues mortes = manuscrits médiévaux ; langues vivantes = Wikipedia moderne). Tous les chiffres ci-dessous sont rapportés avec ce caveat assumé.' }}
+    width="wide"
+  />
+
+  <main class="max-w-5xl mx-auto px-4 py-10 md:py-14 space-y-12">
+
+    <!-- FORMULE -->
+    <section>
+      <p class="pt-tag pt-tag-thm mb-3">Définition</p>
+      <h2 class="text-2xl font-bold text-thmblue mb-3">Évolvabilité PT</h2>
+      <p class="text-slate-700 leading-relaxed mb-3">
+        L’évolvabilité PT mesure la capacité d’une langue à évoluer sans
+        perdre sa structure interne :
+      </p>
+      <pre class="bg-slate-50 border border-slate-200 rounded p-3 text-sm font-mono mb-3">E_vol = χ · I · reclosure / (1 + τ_norm)
+      où  χ = plasticité du point fixe
+          I = conservation des invariants PT
+          reclosure = robustesse de re-fermeture après perturbation
+          τ_norm = temps normalisé de re-fermeture</pre>
+      <p class="text-slate-700 leading-relaxed">
+        Avec terme dynamique explicite d/dt entre deux snapshots,
+        E_vol = E_vol_base · dynamic_optimality. Une langue « vivante »
+        idéale a I élevé (invariants conservés) <em>et</em> une fenêtre de
+        plasticité non nulle. Une langue figée a χ ~ 0. Une langue qui
+        casse ses invariants (rare) a I &lt; 0,9.
+      </p>
+    </section>
+
+    <!-- CREOLES -->
+    <section>
+      <p class="pt-tag pt-tag-val mb-3">Test 1 — créoles diachroniques</p>
+      <h2 class="text-2xl font-bold text-thmblue mb-3">Trois créoles caraïbéens, 2019 → 2023</h2>
+      <p class="text-slate-700 leading-relaxed mb-3">
+        OPUS Wikimedia versionne ses snapshots Wikipedia. On compare
+        2019 → 2021 et 2021 → 2023 pour trois créoles :
+      </p>
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm font-sans mb-3">
+          <thead class="border-b border-stone-300 text-xs text-stone-600 uppercase">
+            <tr>
+              <th class="text-left py-2 pr-3">Langue</th>
+              <th class="text-right py-2 px-2 tabular-nums">E_vol (2019→2021)</th>
+              <th class="text-right py-2 px-2 tabular-nums">E_vol (2021→2023)</th>
+              <th class="text-right py-2 px-2 tabular-nums">Ratio</th>
+              <th class="text-right py-2 px-2 tabular-nums">I (conservation)</th>
+            </tr>
+          </thead>
+          <tbody class="text-slate-700">
+            <tr class="border-b border-stone-100"><td class="py-1.5 pr-3">Haïtien (ht)</td><td class="py-1.5 px-2 text-right tabular-nums">1,51·10⁻¹¹</td><td class="py-1.5 px-2 text-right tabular-nums">4,55·10⁻¹²</td><td class="py-1.5 px-2 text-right tabular-nums text-rose-700">0,30 ↓</td><td class="py-1.5 px-2 text-right tabular-nums text-emerald-700">0,989 – 0,992</td></tr>
+            <tr class="border-b border-stone-100"><td class="py-1.5 pr-3">Jamaïcain (jam)</td><td class="py-1.5 px-2 text-right tabular-nums">2,29·10⁻¹²</td><td class="py-1.5 px-2 text-right tabular-nums">2,05·10⁻¹²</td><td class="py-1.5 px-2 text-right tabular-nums text-amber-700">0,89 ↓</td><td class="py-1.5 px-2 text-right tabular-nums text-emerald-700">0,981 – 0,993</td></tr>
+            <tr class="border-b border-stone-100"><td class="py-1.5 pr-3">Papiamento (pap)</td><td class="py-1.5 px-2 text-right tabular-nums">4,49·10⁻¹²</td><td class="py-1.5 px-2 text-right tabular-nums">3,55·10⁻¹²</td><td class="py-1.5 px-2 text-right tabular-nums text-amber-700">0,79 ↓</td><td class="py-1.5 px-2 text-right tabular-nums text-emerald-700">0,988 – 0,989</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="text-slate-700 leading-relaxed mb-3">
+        <strong>Lecture.</strong> Les trois créoles montrent une
+        <em>évolvabilité décroissante</em> (E_vol ↓ entre les deux
+        fenêtres) mais une <strong>conservation des invariants
+        quasi-parfaite</strong> (I &gt; 0,98 partout). Cohérent avec une
+        phase de standardisation pilotée par Wikipedia : la forme écrite
+        se stabilise (χ baisse) mais la structure PT fondamentale est
+        préservée presque exactement.
+      </p>
+      <p class="text-slate-700 leading-relaxed">
+        Le créole haïtien montre la baisse la plus forte (ratio 0,30) ; le
+        jamaïcain est le plus stable (0,89). C’est cohérent avec l’état
+        de standardisation respectif des trois communautés (le créole
+        haïtien étant celui qui a vu la croissance Wikipedia la plus
+        rapide sur la période).
+      </p>
+    </section>
+
+    <!-- ANCIENS / MODERNES -->
+    <section>
+      <p class="pt-tag pt-tag-val mb-3">Test 2 — paires longues</p>
+      <h2 class="text-2xl font-bold text-thmblue mb-3">Vieux français → français, vieil anglais → anglais</h2>
+      <p class="text-slate-700 leading-relaxed mb-3">
+        Deux paires diachroniques sur ~800 à 1 000 ans (Open Medieval
+        French + Common Corpus 1950+ ; OEDT + Common Corpus 1950+) :
+      </p>
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm font-sans mb-3">
+          <thead class="border-b border-stone-300 text-xs text-stone-600 uppercase">
+            <tr>
+              <th class="text-left py-2 pr-3">Paire</th>
+              <th class="text-right py-2 px-2 tabular-nums">C_adapt (t₀)</th>
+              <th class="text-right py-2 px-2 tabular-nums">C_adapt (t₁)</th>
+              <th class="text-right py-2 px-2 tabular-nums">Ratio</th>
+            </tr>
+          </thead>
+          <tbody class="text-slate-700">
+            <tr class="border-b border-stone-100"><td class="py-1.5 pr-3">Vieux français → français moderne</td><td class="py-1.5 px-2 text-right tabular-nums">0,072</td><td class="py-1.5 px-2 text-right tabular-nums">0,145</td><td class="py-1.5 px-2 text-right tabular-nums text-emerald-700">×2,0 ↑</td></tr>
+            <tr class="border-b border-stone-100"><td class="py-1.5 pr-3">Vieil anglais → anglais moderne</td><td class="py-1.5 px-2 text-right tabular-nums">0,119</td><td class="py-1.5 px-2 text-right tabular-nums">0,141</td><td class="py-1.5 px-2 text-right tabular-nums text-emerald-700">×1,2 ↑</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="text-slate-700 leading-relaxed">
+        Le français moderne a 2× la C_adapt du vieux français ; l’anglais
+        moderne est plus stable. <strong>Caveat corpus confound :</strong>
+        le vieux français est représenté par des manuscrits littéraires
+        médiévaux, le français moderne par Wikipedia. La différence
+        observée combine l’évolution linguistique réelle <em>et</em> la
+        différence de genre / registre / normalisation.
+      </p>
+    </section>
+
+    <!-- LIMITES -->
+    <section>
+      <p class="pt-tag pt-tag-id mb-3">Honnêteté</p>
+      <h2 class="text-2xl font-bold text-thmblue mb-4">Limites assumées</h2>
+      <div class="grid md:grid-cols-2 gap-4">
+        <div class="rounded-lg border-2 border-rose-300 bg-rose-50 p-5">
+          <h4 class="font-sans font-semibold text-rose-800 mb-2">✗ Confond corpus C_adapt</h4>
+          <p class="text-sm text-rose-900 leading-relaxed">
+            La séparation vivant/mort par C_adapt est partiellement
+            confondue avec le genre et la normalisation des corpus
+            (médiéval littéraire vs Wikipedia moderne). Pour résoudre ce
+            confound, il faudrait des corpus contrôlés en genre
+            (encyclopédies modernes en latin, manuscrits modernes en
+            français standardisé…).
+          </p>
+        </div>
+        <div class="rounded-lg border-2 border-rose-300 bg-rose-50 p-5">
+          <h4 class="font-sans font-semibold text-rose-800 mb-2">✗ Diachronie courte limitée</h4>
+          <p class="text-sm text-rose-900 leading-relaxed">
+            La diachronie 2019 → 2023 sur Wikipedia mesure surtout l’effet
+            d’édition collective et de standardisation rédactionnelle, pas
+            l’évolution linguistique au sens phonologique ou syntaxique
+            classique. C’est un signal réel mais à interprétation prudente.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- LIENS -->
+    <section>
+      <p class="pt-tag pt-tag-bridge mb-3">Aller plus loin</p>
+      <div class="grid md:grid-cols-2 gap-4">
+        <a href="/linguistique/methode-et-invariants" class="pt-card block group">
+          <span class="pt-tag pt-tag-thm">Méthode</span>
+          <h3 class="font-sans font-semibold text-thmblue text-lg mt-3 mb-2 group-hover:underline">Invariants S1–S11</h3>
+          <p class="text-sm text-slate-700">Les primitives PT mesurées dans les calculs d’évolvabilité.</p>
+        </a>
+        <a href="/linguistique" class="pt-card block group">
+          <span class="pt-tag pt-tag-thm">Programme</span>
+          <h3 class="font-sans font-semibold text-thmblue text-lg mt-3 mb-2 group-hover:underline">Retour au portail</h3>
+          <p class="text-sm text-slate-700">Vue d’ensemble du programme PT-Linguistique.</p>
+        </a>
+      </div>
+    </section>
+
+  </main>
+</BaseLayout>
