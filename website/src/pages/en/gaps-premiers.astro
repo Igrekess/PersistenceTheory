@@ -2,6 +2,7 @@
 import BaseLayout from '@layouts/BaseLayout.astro';
 import PageHero from '@components/PageHero.astro';
 
+// ── Sieve mod 30 data ────────────────────────────────────────────────────────
 const survivors = [1, 7, 11, 13, 17, 19, 23, 29];
 const gaps = survivors.map((value, index) => {
   const next = survivors[(index + 1) % survivors.length] + (index === survivors.length - 1 ? 30 : 0);
@@ -9,6 +10,177 @@ const gaps = survivors.map((value, index) => {
 });
 const x = (n: number) => 48 + ((n - 1) / 28) * 704;
 const gapMid = (a: number, b: number) => (x(a) + x(b)) / 2;
+
+// ── Ulam spiral ──────────────────────────────────────────────────────────────
+function sieveOfEratosthenes(n: number): boolean[] {
+  const isPrime = new Array(n + 1).fill(true);
+  isPrime[0] = isPrime[1] = false;
+  for (let i = 2; i * i <= n; i++) {
+    if (isPrime[i]) for (let j = i * i; j <= n; j += i) isPrime[j] = false;
+  }
+  return isPrime;
+}
+function isPrimeSimple(n: number): boolean {
+  if (n < 2) return false;
+  if (n < 4) return true;
+  if (n % 2 === 0) return false;
+  for (let i = 3; i * i <= n; i += 2) if (n % i === 0) return false;
+  return true;
+}
+
+function ulamPrimes(N: number) {
+  const total = N * N;
+  const sieve = sieveOfEratosthenes(total);
+  const cx = Math.floor(N / 2);
+  const cy = Math.floor(N / 2);
+  let gx = cx, gy = cy;
+  let dx = 1, dy = 0;
+  let segLen = 1, stepInSeg = 0, segParity = 0;
+  const primes: { n: number; gx: number; gy: number }[] = [];
+  for (let n = 2; n <= total; n++) {
+    gx += dx;
+    gy += dy;
+    if (sieve[n]) primes.push({ n, gx, gy });
+    stepInSeg++;
+    if (stepInSeg === segLen) {
+      stepInSeg = 0;
+      [dx, dy] = [dy, -dx];
+      segParity++;
+      if (segParity === 2) { segLen++; segParity = 0; }
+    }
+  }
+  return primes;
+}
+
+const isPrime = isPrimeSimple;
+
+const ULAM_N = 100;
+const ulamPrimesList = ulamPrimes(ULAM_N);
+const ulamCellSize = 6;
+const ulamPad = 4;
+const ulamSize = ULAM_N * ulamCellSize + 2 * ulamPad;
+const ulamPrimeCount = ulamPrimesList.length;
+
+function sacksSpiral(maxN: number) {
+  const sieve = sieveOfEratosthenes(maxN);
+  const points: { n: number; x: number; y: number }[] = [];
+  for (let n = 2; n <= maxN; n++) {
+    if (!sieve[n]) continue;
+    const sqrt = Math.sqrt(n);
+    const frac = sqrt - Math.floor(sqrt);
+    const angle = 2 * Math.PI * frac;
+    points.push({ n, x: sqrt * Math.cos(angle), y: sqrt * Math.sin(angle) });
+  }
+  return points;
+}
+
+const SACKS_MAX = 10000;
+const sacksPoints = sacksSpiral(SACKS_MAX);
+const sacksScale = 3;
+const sacksRadius = Math.sqrt(SACKS_MAX) * sacksScale;
+const sacksPad = 8;
+const sacksSize = 2 * sacksRadius + 2 * sacksPad;
+const sacksCenter = sacksRadius + sacksPad;
+const sacksPrimeCount = sacksPoints.length;
+
+const piXData = [
+  { x: 10,        pi: 4,        xOverLogX: 4.34,    li: 6.17 },
+  { x: 100,       pi: 25,       xOverLogX: 21.71,   li: 30.13 },
+  { x: 1000,      pi: 168,      xOverLogX: 144.76,  li: 177.61 },
+  { x: 10000,     pi: 1229,     xOverLogX: 1085.74, li: 1246.14 },
+  { x: 100000,    pi: 9592,     xOverLogX: 8685.89, li: 9629.81 },
+  { x: 1000000,   pi: 78498,    xOverLogX: 72382.41,li: 78627.55 },
+  { x: 10000000,  pi: 664579,   xOverLogX: 620420.69, li: 664917.36 },
+  { x: 100000000, pi: 5761455,  xOverLogX: 5428681.02, li: 5762209.38 },
+];
+
+const primesForTheta = [3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53];
+const thetaPoints = primesForTheta.map(p => ({
+  p,
+  theta: Math.sqrt(2 / p),
+}));
+
+const historyEvents = [
+  {
+    year: '−240',
+    name: 'Eratosthenes',
+    body: 'The sieve: cross out the multiples of 2, 3, 5, 7… The first known algorithm for enumerating primes.',
+    tag: 'origin',
+  },
+  {
+    year: '1737',
+    name: 'Euler',
+    body: 'The identity ζ(s) = ∏(1 − p^{−s})^{−1}: the zeta function as an Eulerian product over primes. The bridge between additive and multiplicative is open.',
+    tag: 'bridge',
+  },
+  {
+    year: '1859',
+    name: 'Riemann',
+    body: 'On the zeros of ζ(s). The Riemann Hypothesis ties the distribution of primes to the critical zeros. Open ever since.',
+    tag: 'conjecture',
+  },
+  {
+    year: '1874',
+    name: 'Mertens',
+    body: '∏_{p≤y}(1 − 1/p) ~ e^{−γ} / log y. Gives the exact rate at which survivors thin out.',
+    tag: 'theorem',
+  },
+  {
+    year: '1896',
+    name: 'Hadamard / de la Vallée Poussin',
+    body: 'Prime Number Theorem: π(x) ~ x / log x. Proved independently, without RH.',
+    tag: 'theorem',
+  },
+  {
+    year: '1919',
+    name: 'Brun',
+    body: 'Modern combinatorial sieve: the sum ∑ 1/p over twin primes converges. Introduction of theoretical sieve methods.',
+    tag: 'sieve',
+  },
+  {
+    year: '1937',
+    name: 'Vinogradov',
+    body: 'Every sufficiently large odd integer is a sum of three primes (weak Goldbach conjecture).',
+    tag: 'theorem',
+  },
+  {
+    year: '1947',
+    name: 'Selberg',
+    body: 'Λ²-sieve and elementary proof of the Prime Number Theorem (Erdős, in parallel).',
+    tag: 'sieve',
+  },
+  {
+    year: '2013',
+    name: 'Zhang / Polymath8',
+    body: 'Bounded gaps between consecutive primes: there exist infinitely many pairs (p, q) of primes with q − p ≤ 246.',
+    tag: 'breakthrough',
+  },
+  {
+    year: '2014',
+    name: 'Maynard / Tao',
+    body: 'Explicit bound in O(m³ exp(4m)) on the minimum gap for m consecutive primes. Admissible m-tuple sieves.',
+    tag: 'breakthrough',
+  },
+];
+
+const openMysteries = [
+  {
+    title: 'Twin primes',
+    body: 'It is conjectured that there exist infinitely many pairs (p, p+2) both prime (3-5, 5-7, 11-13, 17-19, 29-31…). Open since antiquity.',
+    status: 'conjecture',
+  },
+  {
+    title: 'Cramér conjecture',
+    body: 'The largest gap between consecutive primes up to x should be ~ (log x)². Verified up to x ≈ 10^{19}, never proved.',
+    status: 'conjecture',
+  },
+  {
+    title: 'Goldbach conjecture',
+    body: 'Every even integer > 2 is a sum of two primes. Verified up to 4 × 10^{18}, open since 1742.',
+    status: 'conjecture',
+  },
+];
+
 const propositions = [
   {
     tag: 'exact',
@@ -35,125 +207,581 @@ const propositions = [
     text: 'Natural candidate for the universal rough-survivor law, with the square-root endpoint $K_{PT}(2)=e^\\gamma/2$.',
   },
 ];
+
+const shellRegimes = [
+  { shell: 11, threshold: 1, spectrum: '(4, 6, 4, 1)', regime: 'vertex' },
+  { shell: 13, threshold: 1, spectrum: '(4, 6, 4, 1)', regime: 'vertex' },
+  { shell: 17, threshold: 2, spectrum: '(0, 6, 4, 1)', regime: 'edge' },
+  { shell: 19, threshold: 2, spectrum: '(0, 6, 4, 1)', regime: 'edge' },
+  { shell: 23, threshold: 2, spectrum: '(0, 6, 4, 1)', regime: 'edge' },
+  { shell: 29, threshold: 3, spectrum: '(0, 0, 4, 1)', regime: 'triangle' },
+  { shell: 31, threshold: 3, spectrum: '(0, 0, 4, 1)', regime: 'triangle' },
+  { shell: 37, threshold: 3, spectrum: '(0, 0, 4, 1)', regime: 'triangle' },
+  { shell: 41, threshold: 1, spectrum: '(4, 6, 4, 1)', regime: 'vertex' },
+  { shell: 43, threshold: 1, spectrum: '(4, 6, 4, 1)', regime: 'vertex' },
+  { shell: 47, threshold: 1, spectrum: '(4, 6, 4, 1)', regime: 'vertex' },
+  { shell: 53, threshold: 1, spectrum: '(4, 6, 4, 1)', regime: 'vertex' },
+];
+
+// Six PT tools most relevant to prime gaps (English labels)
+const ptTools = [
+  { id: 'M11', name: 'Liouville–sieve transform', short: 'Spectral signature of the Liouville function on sieve survivors.', score: 'high' },
+  { id: 'M15', name: 'Buchstab renormalised iterator', short: 'Renormalised transport equation candidate for the universal window law.', score: 'high' },
+  { id: 'M17', name: 'PT angle map θ_p', short: 'Holonomy angle of each prime on the PT circle, exact law θ_p ~ √(2/p).', score: 'high' },
+  { id: 'M18', name: 'Mertens propagation', short: 'Forward propagation of the Mertens product across primorials.', score: 'high' },
+  { id: 'M32', name: 'Shell regime classifier', short: 'Geometric classification of shell simplices (vertex / edge / triangle).', score: 'high' },
+  { id: 'M34', name: 'Cubic-threshold transport', short: 'Distortion band x^{1/3} < p ≤ x^{1/2} as natural window/boundary regime.', score: 'high' },
+];
 ---
 
 <BaseLayout
   title="PT mechanics of prime gaps"
-  description="A mathematics page on PT survivor-gap mechanics, the exact reduction to primes, and the status of the prime-gap law."
+  description="PT mechanics of survivor gaps: sieve, square-root window, angular laws, PT-Buchstab kernel, regime blocks. A synthesis of the PT mathematical programme."
 >
   <PageHero
-    eyebrow="PT mathematics / sieve and primes"
+    eyebrow="Mathematics · sieve & primes"
     domain="math"
-    title="PT mechanics of gaps: from the sieve to prime numbers"
-    dekL1="The idea is simple: let a sieve act, some numbers survive, and the distances between survivors form a mechanics. At the right depth, those survivors become exactly the prime numbers."
-    dekL2="PT does not treat prime gaps as a mysterious sequence handed in from outside. It starts from a survival dynamics: points persistent under sieve constraints form gaps, and the window $y=\lfloor\sqrt{x}\rfloor$ reduces those survivors exactly to primes."
+    title="PT mechanics of prime gaps: from sieve to prime numbers"
+    kicker="The gaps are the dynamical field of the sieve."
+    dekL1="When you sift the integers by crossing out multiples of 2, then 3, then 5… what survives are the prime numbers. And what we call a gap is simply the distance between two consecutive survivors. This page tells what the sieve teaches us, without assuming any advanced mathematical background."
+    dekL2={String.raw`The PT mathematical programme proposes a new reading: the sequence of gaps $g_n = p_{n+1} - p_n$ is not raw data, but the unique dynamical field of the sieve (theorem T0). From it emerge an exact angular law $\theta_p \sim \sqrt{2/p}$, a universal kernel $K_{PT}(u) = e^\gamma\, \omega(u)$ candidate for the window law, and a family of transforms (spectral, holonomic, decoherence) that reveal the hidden structure.`}
+    heroNote="sieve → survivors → gaps → window √x → primes → angles θ_p"
+    oneLineNote={{ label: 'In one sentence', body: 'prime numbers are not a primitive object — they are the ultimate survivors of a mechanics of constraints, and their gaps are the dynamical field that carries all of its information.' }}
+    technicalNote={{ label: 'Technical reading', body: 'this page distinguishes by badge what belongs to classical mathematics from what is a contribution proper to the PT mathematical programme. Epistemic statuses: THM proved, DER derived, COND open.' }}
   />
 
-  <section class="max-w-6xl mx-auto px-4 py-12">
-    <div class="grid lg:grid-cols-[0.88fr_1.12fr] gap-8 items-center mb-12">
-      <div>
-        <span class="pt-tag pt-tag-bridge">Picture</span>
-        <h2 class="text-3xl font-bold text-thmblue mt-4 mb-4">
-          A gap first means a distance between survivors
-        </h2>
-        <p class="text-slate-700 leading-relaxed mb-4">
-          Remove the multiples of 2, 3, and 5. The positions still alive modulo
-          30 are 1, 7, 11, 13, 17, 19, 23, and 29. The gaps
-          6, 4, 2, 4, 2, 4, 6, 2 are not added by hand: they are the shape left
-          by the sieve.
-        </p>
-        <p class="text-slate-700 leading-relaxed">
-          This is what PT generalizes: the discrete layer is not arbitrary
-          input, but the set of points that persist through a mechanics of
-          constraints.
-        </p>
-      </div>
+  <main class="max-w-6xl mx-auto px-4 py-12">
 
-      <div class="bg-white border border-slate-200 rounded-lg p-5">
-        <h3 class="font-sans font-semibold text-thmblue mb-3">Survivors modulo 30</h3>
-        <svg viewBox="0 0 800 260" class="w-full h-auto" role="img" aria-label="Gaps between sieve survivors modulo 30">
-          <line x1="48" y1="112" x2="752" y2="112" stroke="#d7e1ea" stroke-width="5" stroke-linecap="round" />
-          {[1,5,10,15,20,25,30].map((tick) => (
-            <g>
-              <line x1={x(tick)} x2={x(tick)} y1="102" y2="122" stroke="#94a3b8" />
-              <text x={x(tick)} y="152" text-anchor="middle" font-size="14" fill="#5f6f80" font-family="ui-sans-serif, system-ui">{tick}</text>
-            </g>
-          ))}
-          {survivors.map((n) => (
-            <g>
-              <circle cx={x(n)} cy="112" r="15" fill="#e8f5ee" stroke="#198754" stroke-width="4" />
-              <text x={x(n)} y="84" text-anchor="middle" font-size="14" fill="#14566b" font-weight="700" font-family="ui-sans-serif, system-ui">{n}</text>
-            </g>
-          ))}
-          {survivors.slice(0, -1).map((n, i) => {
-            const next = survivors[i + 1];
-            return (
+    {/* ═════════════════════════ L1 — WHY ═══════════════════════════════════ */}
+    <section class="mb-14">
+      <span class="pt-tag pt-tag-bridge mb-3 inline-block">Plain</span>
+      <h2 class="text-3xl font-bold text-thmblue mb-4">
+        Why talk about gaps?<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-slate-200 text-slate-700 ml-2 align-middle">classical</span>
+      </h2>
+      <div class="grid lg:grid-cols-[1.1fr_0.9fr] gap-8 items-start">
+        <div class="text-slate-700 leading-relaxed space-y-4">
+          <p>
+            <strong>Prime numbers</strong> are the integers that nothing
+            divides except 1 and themselves: 2, 3, 5, 7, 11, 13, 17, 19, 23, 29…
+            They are the multiplicative bricks of the integers. Every integer
+            decomposes uniquely as a product of primes: this is the
+            fundamental theorem of arithmetic.
+          </p>
+          <p>
+            What makes primes fascinating is their <strong>irregular
+            distribution</strong>. Between two consecutive primes, the gap can
+            be 2 (twins: 11–13, 17–19), 4 (7–11), 6 (23–29), or several
+            hundred for very large numbers. No simple formula gives the
+            n-th prime, and nobody knows how to predict the next gap exactly.
+          </p>
+          <p>
+            And yet, on average, primes <em>obey</em> laws. The Prime Number
+            Theorem says that around $x$, the average space between two
+            primes is roughly $\log x$. The gaps grow, but slowly.
+          </p>
+          <p>
+            This tension — local irregularity, global regularity — sits at
+            the heart of number theory. It is also at the heart of modern
+            cryptography: RSA relies entirely on the difficulty of factoring
+            a product of two large primes.
+          </p>
+        </div>
+        <aside class="rounded-lg border border-amber-300 bg-amber-50 p-5">
+          <p class="text-xs font-sans uppercase tracking-wider text-amber-800 mb-2">
+            A few numbers
+          </p>
+          <ul class="text-sm text-slate-800 space-y-2">
+            <li><strong>π(100)</strong> = 25 primes ≤ 100</li>
+            <li><strong>π(10⁶)</strong> = 78,498 primes ≤ 10⁶</li>
+            <li><strong>π(10⁸)</strong> = 5,761,455 primes ≤ 10⁸</li>
+            <li><strong>Largest gap</strong> known below 10¹⁹: 1550</li>
+            <li><strong>Largest twins</strong> known: 2,996,863,034,895 · 2¹²⁹⁰⁰⁰⁰ ± 1</li>
+          </ul>
+        </aside>
+      </div>
+    </section>
+
+    {/* ═════════════════════════ L1 — ERATOSTHENES ══════════════════════════ */}
+    <section class="mb-14">
+      <span class="pt-tag pt-tag-bridge mb-3 inline-block">Plain</span>
+      <h2 class="text-3xl font-bold text-thmblue mb-4">
+        The sieve of Eratosthenes, in practice<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-slate-200 text-slate-700 ml-2 align-middle">classical</span>
+      </h2>
+      <div class="grid lg:grid-cols-[0.85fr_1.15fr] gap-8 items-start">
+        <div class="text-slate-700 leading-relaxed space-y-4">
+          <p>
+            Around 240 BC, Eratosthenes proposed a mechanical recipe to
+            find every prime up to a given number. It is the
+            <strong>first sieve</strong> in history — and the word is taken
+            literally: we are sifting.
+          </p>
+          <ol class="list-decimal pl-5 space-y-2">
+            <li>Write down the integers from 2 to N.</li>
+            <li>Keep 2, cross out its multiples 4, 6, 8…</li>
+            <li>Keep 3, cross out its multiples 9, 15, 21…</li>
+            <li>Keep 5, cross out its multiples 25, 35…</li>
+            <li>Continue with the smallest non-crossed number, up to {String.raw`$\sqrt{N}$`}.</li>
+          </ol>
+          <p>
+            What remains are the primes. The sieve is <strong>exact</strong>,
+            but expensive for large $N$. Above all, it gives no closed
+            formula: you have to "run the sieve" to know.
+          </p>
+        </div>
+        <div class="bg-white border border-slate-200 rounded-lg p-5">
+          <h3 class="font-sans font-semibold text-thmblue mb-3 text-sm">
+            Sieve up to 50 — primes in green, composites in light grey
+          </h3>
+          <div class="grid grid-cols-10 gap-1 text-center font-mono text-xs">
+            {Array.from({ length: 50 }, (_, i) => i + 1).map((n) => (
+              <div class:list={[
+                'rounded py-1.5 border',
+                n === 1 && 'bg-amber-100 border-amber-300 text-amber-800',
+                n !== 1 && isPrime(n) && 'bg-emerald-100 border-emerald-300 text-emerald-800 font-bold',
+                n !== 1 && !isPrime(n) && 'bg-slate-50 border-slate-200 text-slate-400',
+              ]}>{n}</div>
+            ))}
+          </div>
+          <p class="text-xs text-slate-500 mt-3">
+            1 is in orange: neither prime nor really composite — it is the
+            multiplicative unit, the only absolute fixed point of the sieve.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    {/* ═════════════════════════ L1 — A GAP IS A DISTANCE ═══════════════════ */}
+    <section class="mb-14">
+      <span class="pt-tag pt-tag-bridge mb-3 inline-block">Plain</span>
+      <h2 class="text-3xl font-bold text-thmblue mb-4">
+        A gap is first a distance between survivors<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-slate-200 text-slate-700 ml-2 align-middle">classical</span>
+      </h2>
+      <div class="grid lg:grid-cols-[0.88fr_1.12fr] gap-8 items-center">
+        <div class="text-slate-700 leading-relaxed space-y-4">
+          <p>
+            Picture the numbers from 1 to 30 lined up along a road. Erase
+            all multiples of 2: the odd numbers remain. Erase the multiples
+            of 3: there remain 1, 5, 7, 11, 13, 17, 19, 23, 25, 29. Erase
+            the multiples of 5: there remain <strong>1, 7, 11, 13, 17,
+            19, 23, 29</strong>. Eight survivors out of thirty.
+          </p>
+          <p>
+            The <strong>gaps</strong> between them are 6, 4, 2, 4, 2, 4, 6, 2.
+            This sequence was not invented — it is what the sieve has left
+            behind. And it is <strong>palindromic</strong>: read backwards,
+            it gives the same thing. This is the geometric signature left
+            by the three primes 2, 3, 5 acting in parallel.
+          </p>
+          <p class="text-sm text-slate-600 italic">
+            This idea — the discrete as survivance, not as an ingredient
+            placed in advance — is what the PT mathematical programme
+            generalises.
+          </p>
+        </div>
+        <div class="bg-white border border-slate-200 rounded-lg p-5">
+          <h3 class="font-sans font-semibold text-thmblue mb-3">Survivors modulo 30</h3>
+          <svg viewBox="0 0 800 260" class="w-full h-auto" role="img" aria-label="Gaps between sieve survivors modulo 30">
+            <line x1="48" y1="112" x2="752" y2="112" stroke="#d7e1ea" stroke-width="5" stroke-linecap="round" />
+            {[1,5,10,15,20,25,30].map((tick) => (
               <g>
-                <path d={`M ${x(n)} 188 C ${x(n)} 214, ${x(next)} 214, ${x(next)} 188`} fill="none" stroke="#c96f24" stroke-width="3" />
-                <text x={gapMid(n, next)} y="230" text-anchor="middle" font-size="15" fill="#9a4f13" font-weight="700" font-family="ui-sans-serif, system-ui">{gaps[i]}</text>
+                <line x1={x(tick)} x2={x(tick)} y1="102" y2="122" stroke="#94a3b8" />
+                <text x={x(tick)} y="152" text-anchor="middle" font-size="14" fill="#5f6f80" font-family="ui-sans-serif, system-ui">{tick}</text>
               </g>
-            );
-          })}
-          <path d={`M ${x(29)} 42 C ${x(29)} 18, ${x(1)} 18, ${x(1)} 42`} fill="none" stroke="#c96f24" stroke-width="3" />
-          <text x="400" y="26" text-anchor="middle" font-size="15" fill="#9a4f13" font-weight="700" font-family="ui-sans-serif, system-ui">2</text>
-          <text x="400" y="252" text-anchor="middle" font-size="13" fill="#5f6f80" font-family="ui-sans-serif, system-ui">
-            gaps are produced by persistent positions
-          </text>
-        </svg>
+            ))}
+            {survivors.map((n) => (
+              <g>
+                <circle cx={x(n)} cy="112" r="15" fill="#e8f5ee" stroke="#198754" stroke-width="4" />
+                <text x={x(n)} y="84" text-anchor="middle" font-size="14" fill="#14566b" font-weight="700" font-family="ui-sans-serif, system-ui">{n}</text>
+              </g>
+            ))}
+            {survivors.slice(0, -1).map((n, i) => {
+              const next = survivors[i + 1];
+              return (
+                <g>
+                  <path d={`M ${x(n)} 188 C ${x(n)} 214, ${x(next)} 214, ${x(next)} 188`} fill="none" stroke="#c96f24" stroke-width="3" />
+                  <text x={gapMid(n, next)} y="230" text-anchor="middle" font-size="15" fill="#9a4f13" font-weight="700" font-family="ui-sans-serif, system-ui">{gaps[i]}</text>
+                </g>
+              );
+            })}
+            <path d={`M ${x(29)} 42 C ${x(29)} 18, ${x(1)} 18, ${x(1)} 42`} fill="none" stroke="#c96f24" stroke-width="3" />
+            <text x="400" y="26" text-anchor="middle" font-size="15" fill="#9a4f13" font-weight="700" font-family="ui-sans-serif, system-ui">2</text>
+            <text x="400" y="252" text-anchor="middle" font-size="13" fill="#5f6f80" font-family="ui-sans-serif, system-ui">
+              gaps are produced by persistent positions
+            </text>
+          </svg>
+        </div>
       </div>
-    </div>
+    </section>
 
-    <div class="grid md:grid-cols-3 gap-4 mb-12">
+    {/* ═════════════════════════ L1 — SPIRALS ULAM + SACKS ══════════════════ */}
+    <section class="mb-14">
+      <span class="pt-tag pt-tag-bridge mb-3 inline-block">Plain</span>
+      <h2 class="text-3xl font-bold text-thmblue mb-4">
+        Primes are not distributed at random<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-slate-200 text-slate-700 ml-2 align-middle">classical</span>
+      </h2>
+      <div class="text-slate-700 leading-relaxed space-y-4 mb-8 max-w-3xl">
+        <p>
+          In 1963, Stanisław Ulam doodled during a boring conference: he
+          wound the integers in a square spiral starting from 1, and marked
+          the primes. Instead of appearing at random, primes
+          <strong>visibly line up along diagonals</strong>. No theorem says
+          this should happen — the spiral is just an arbitrary way of laying
+          the integers out. And yet, the pattern is there.
+        </p>
+        <p>
+          A few years later, Robert Sacks proposed another layout: wind the
+          integers along an Archimedes spiral, making each perfect square
+          (1, 4, 9, 16, 25…) line up on a single half-line. The result
+          reveals <strong>smooth curves</strong> instead of fragmented
+          diagonals: polynomial families (such as Euler's formula
+          n² + n + 41) become continuous arcs.
+        </p>
+        <p>
+          The fact that the same hidden structure appears under two very
+          different layouts shows that this is no graphical artefact. It is
+          a <strong>real signature</strong> of the primes. The PT
+          mathematical programme proposes several ways to make it readable —
+          turning the sequence of primes into a spectral signal, into angles
+          on a circle, or into an entropy distribution. These transforms
+          are detailed below.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-6">
+        {/* ─── Ulam ─── */}
+        <div class="bg-white border border-slate-200 rounded-lg p-5">
+          <h3 class="font-sans font-semibold text-thmblue mb-1 text-sm">
+            Ulam spiral (1963) — square grid
+          </h3>
+          <p class="text-xs text-slate-500 mb-3">
+            Integers 1 to {(ULAM_N * ULAM_N).toLocaleString('en-US')},
+            of which {ulamPrimeCount.toLocaleString('en-US')} are prime (blue).
+          </p>
+          <svg viewBox={`0 0 ${ulamSize} ${ulamSize}`} class="w-full h-auto block" role="img" aria-label="Ulam spiral">
+            <rect x="0" y="0" width={ulamSize} height={ulamSize} fill="#f8fafc" stroke="#cbd5e1" rx="4" />
+            {ulamPrimesList.map((c) => {
+              const px = ulamPad + c.gx * ulamCellSize;
+              const py = ulamPad + (ULAM_N - 1 - c.gy) * ulamCellSize;
+              return (
+                <rect x={px} y={py} width={ulamCellSize} height={ulamCellSize} fill="#1e40af">
+                  <title>{c.n}</title>
+                </rect>
+              );
+            })}
+          </svg>
+          <p class="text-xs text-slate-500 mt-3 italic">
+            The diagonals reveal that certain quadratic polynomials
+            concentrate an anomalous density of primes.
+          </p>
+        </div>
+
+        {/* ─── Sacks ─── */}
+        <div class="bg-white border border-slate-200 rounded-lg p-5">
+          <h3 class="font-sans font-semibold text-thmblue mb-1 text-sm">
+            Sacks spiral (1994) — Archimedean
+          </h3>
+          <p class="text-xs text-slate-500 mb-3">
+            Same {SACKS_MAX.toLocaleString('en-US')} integers,
+            {' '}{sacksPrimeCount.toLocaleString('en-US')} primes.
+            Each perfect square sits on the right horizontal axis.
+          </p>
+          <svg viewBox={`0 0 ${sacksSize} ${sacksSize}`} class="w-full h-auto block" role="img" aria-label="Sacks spiral">
+            <rect x="0" y="0" width={sacksSize} height={sacksSize} fill="#f8fafc" stroke="#cbd5e1" rx="4" />
+            {sacksPoints.map((p) => (
+              <circle cx={sacksCenter + p.x * sacksScale} cy={sacksCenter - p.y * sacksScale} r="1.6" fill="#1e40af">
+                <title>{p.n}</title>
+              </circle>
+            ))}
+          </svg>
+          <p class="text-xs text-slate-500 mt-3 italic">
+            The smooth curves correspond to polynomial families — the large
+            outer arch is Euler's formula n² + n + 41.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    {/* ═════════════════════════ L1 — 3 SUMMARY CARDS ═══════════════════════ */}
+    <div class="grid md:grid-cols-3 gap-4 mb-14">
       <div class="pt-card">
-        <span class="pt-tag pt-tag-thm">exact</span>
-        <h3 class="font-sans font-semibold text-thmblue text-xl mt-3 mb-2">Sieve gaps</h3>
+        <span class="pt-tag pt-tag-thm">proved</span>
+        <h3 class="font-sans font-semibold text-thmblue text-xl mt-3 mb-2">Gaps are a signature</h3>
         <p class="text-sm text-slate-700">
-          The coprime residues of a primorial give a circular sequence of
-          survivors; their differences give the sieve gaps.
+          Sifting produces a sequence of distances between survivors. This
+          sequence is the <em>trace</em> of the sieve — not an extra object.
         </p>
       </div>
       <div class="pt-card">
-        <span class="pt-tag pt-tag-thm">exact</span>
-        <h3 class="font-sans font-semibold text-thmblue text-xl mt-3 mb-2">Reduction to primes</h3>
+        <span class="pt-tag pt-tag-thm">proved</span>
+        <h3 class="font-sans font-semibold text-thmblue text-xl mt-3 mb-2">At the root, survivors <em>are</em> the primes</h3>
         <p class="text-sm text-slate-700">
-          At the {String.raw`$\sqrt{x}$`} window, every composite has already been removed.
-          The remaining survivors are therefore {String.raw`$1$`} and the primes.
+          If you sift down to the square root of a number, what survives
+          can no longer be composite: it is necessarily 1 or a prime.
         </p>
       </div>
       <div class="pt-card">
         <span class="pt-tag pt-tag-cond">open</span>
-        <h3 class="font-sans font-semibold text-thmblue text-xl mt-3 mb-2">Exact prime gap</h3>
+        <h3 class="font-sans font-semibold text-thmblue text-xl mt-3 mb-2">The mystery of the next gap</h3>
         <p class="text-sm text-slate-700">
-          This is not yet a closed law producing every {String.raw`$p_{n+1}-p_n$`} without
-          already knowing the primes. It is a mechanics of reduction and
-          transport.
+          Nobody, to this day, knows how to say in advance what the next
+          gap between two consecutive primes will be without already knowing
+          those primes. This is the open object of the entire theory.
         </p>
       </div>
     </div>
 
-    <div data-min-depth="L2" class="mb-12">
-      <span class="pt-tag pt-tag-der">Standard</span>
-      <h2 class="text-3xl font-bold text-thmblue mt-4 mb-4">
-        The key point: the square-root window
+    {/* ═════════════════════════ L1 — OPEN MYSTERIES ════════════════════════ */}
+    <section class="mb-14">
+      <span class="pt-tag pt-tag-bridge mb-3 inline-block">Plain</span>
+      <h2 class="text-3xl font-bold text-thmblue mb-4">
+        Three mysteries that remain open<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-slate-200 text-slate-700 ml-2 align-middle">classical</span>
+      </h2>
+      <p class="text-slate-700 leading-relaxed mb-6 max-w-3xl">
+        Despite 2500 years of study and every modern tool — complex
+        analysis, advanced sieves, computers — the simplest questions about
+        prime gaps still resist. Here are the three great open ones.
+      </p>
+      <div class="grid md:grid-cols-3 gap-4">
+        {openMysteries.map((m) => (
+          <div class="rounded-lg border border-rose-200 bg-rose-50/40 p-5">
+            <span class="pt-tag pt-tag-pred">{m.status}</span>
+            <h3 class="font-sans font-semibold text-thmblue text-lg mt-3 mb-2">{m.title}</h3>
+            <p class="text-sm text-slate-700 leading-relaxed">{m.body}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    {/* ═════════════════════════ L2 — HISTORY ═══════════════════════════════ */}
+    <section data-min-depth="L2" class="mb-14">
+      <span class="pt-tag pt-tag-der mb-3 inline-block">Standard</span>
+      <h2 class="text-3xl font-bold text-thmblue mb-4">
+        2,500 years of history in ten milestones<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-slate-200 text-slate-700 ml-2 align-middle">classical</span>
+      </h2>
+      <p class="text-slate-700 leading-relaxed mb-6 max-w-3xl">
+        The problem of primes has shaped a large part of modern
+        mathematics: complex analysis (Riemann), analytic number theory
+        (Hardy–Littlewood), combinatorial sieves (Brun, Selberg), and more
+        recently additive methods (Maynard–Tao, Polymath).
+      </p>
+      <div class="space-y-3">
+        {historyEvents.map((e) => (
+          <div class="grid grid-cols-[80px_1fr] gap-4 items-start py-3 border-b border-slate-100 last:border-0">
+            <div class="text-right">
+              <div class="font-mono font-bold text-thmblue">{e.year}</div>
+              <div class="text-xs uppercase tracking-wider text-slate-500 mt-1">{e.tag}</div>
+            </div>
+            <div>
+              <div class="font-sans font-semibold text-thmblue">{e.name}</div>
+              <p class="text-sm text-slate-700 leading-relaxed mt-1">{e.body}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    {/* ═════════════════════════ L2 — MERTENS ═══════════════════════════════ */}
+    <section data-min-depth="L2" class="mb-14">
+      <span class="pt-tag pt-tag-der mb-3 inline-block">Standard</span>
+      <h2 class="text-3xl font-bold text-thmblue mb-4">
+        Mertens: the rate at which survivors thin out<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-slate-200 text-slate-700 ml-2 align-middle">classical</span>
+      </h2>
+      <div class="grid lg:grid-cols-[1fr_0.9fr] gap-8 items-start">
+        <div class="text-slate-700 leading-relaxed space-y-4">
+          <p>
+            How many integers survive a sieve of depth $y$? The naive
+            density is the truncated Eulerian product:
+          </p>
+          <div class="bg-slate-50 border border-slate-200 rounded-lg p-4 font-mono text-center">
+            {String.raw`$V(y) = \prod_{p \leq y} \left(1 - \dfrac{1}{p}\right)$`}
+          </div>
+          <p>
+            Mertens (1874) proved the exact asymptotic:
+          </p>
+          <div class="bg-slate-50 border border-slate-200 rounded-lg p-4 font-mono text-center">
+            {String.raw`$V(y) \sim \dfrac{e^{-\gamma}}{\log y}$`}
+          </div>
+          <p>
+            where {String.raw`$\gamma \approx 0.5772$`} is the
+            <strong>Euler–Mascheroni constant</strong>. The factor
+            {String.raw`$e^{-\gamma} \approx 0.5615$`} appears everywhere in
+            sieves — it is the fundamental proportionality coefficient
+            between naive and observed density.
+          </p>
+          <p>
+            For PT, $e^\gamma$ is exactly the prefactor of the universal
+            kernel {String.raw`$K_{PT}(u) = e^\gamma \omega(u)$`} (see L3
+            below, PT mathematical programme).
+          </p>
+        </div>
+        <div class="bg-white border border-slate-200 rounded-lg p-5">
+          <h3 class="font-sans font-semibold text-thmblue mb-3">Survival density in practice</h3>
+          <table class="w-full text-sm">
+            <thead>
+              <tr class="border-b border-slate-300">
+                <th class="text-left py-2">$y$</th>
+                <th class="text-right py-2">$V(y)$</th>
+                <th class="text-right py-2">{String.raw`$e^{-\gamma}/\log y$`}</th>
+              </tr>
+            </thead>
+            <tbody class="font-mono text-xs">
+              <tr><td>10</td><td class="text-right">0.2295</td><td class="text-right">0.2438</td></tr>
+              <tr><td>100</td><td class="text-right">0.1203</td><td class="text-right">0.1219</td></tr>
+              <tr><td>1,000</td><td class="text-right">0.0813</td><td class="text-right">0.0813</td></tr>
+              <tr><td>10,000</td><td class="text-right">0.0610</td><td class="text-right">0.0610</td></tr>
+              <tr><td>100,000</td><td class="text-right">0.0488</td><td class="text-right">0.0488</td></tr>
+            </tbody>
+          </table>
+          <p class="text-xs text-slate-500 mt-3 italic">
+            Convergence is fast: at $y = 1000$, the relative error is
+            already below 0.1%.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    {/* ═════════════════════════ L2 — DISTRIBUTION π(x) ═════════════════════ */}
+    <section data-min-depth="L2" class="mb-14">
+      <span class="pt-tag pt-tag-der mb-3 inline-block">Standard</span>
+      <h2 class="text-3xl font-bold text-thmblue mb-4">
+        Distribution π(x): the Prime Number Theorem<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-slate-200 text-slate-700 ml-2 align-middle">classical</span>
+      </h2>
+      <div class="grid lg:grid-cols-[0.8fr_1.2fr] gap-8 items-start">
+        <div class="text-slate-700 leading-relaxed space-y-4">
+          <p>
+            $\pi(x) = $ number of primes $\leq x$. The <strong>Prime
+            Number Theorem</strong> (Hadamard, de la Vallée Poussin, 1896)
+            establishes that:
+          </p>
+          <div class="bg-slate-50 border border-slate-200 rounded-lg p-4 font-mono text-center">
+            {String.raw`$\pi(x) \sim \dfrac{x}{\log x}$`}
+          </div>
+          <p>
+            A much sharper approximation is given by the <strong>logarithmic
+            integral</strong>:
+          </p>
+          <div class="bg-slate-50 border border-slate-200 rounded-lg p-4 font-mono text-center text-sm">
+            {String.raw`$\mathrm{Li}(x) = \int_2^x \dfrac{dt}{\log t}$`}
+          </div>
+          <p>
+            The discrepancy {String.raw`$\pi(x) - \mathrm{Li}(x)$`} changes
+            sign infinitely often (Littlewood, 1914), even though numerically
+            {String.raw`$\pi(x) < \mathrm{Li}(x)$`} for every $x$ up to the
+            first crossover, estimated around {String.raw`$10^{316}$`}
+            (Skewes' number).
+          </p>
+        </div>
+        <div class="bg-white border border-slate-200 rounded-lg p-5">
+          <h3 class="font-sans font-semibold text-thmblue mb-3">π(x), x/log(x), Li(x) — exact values</h3>
+          <svg viewBox="0 0 760 360" class="w-full h-auto" role="img" aria-label="Distribution of pi(x)">
+            <rect x="0" y="0" width="760" height="360" fill="#fbfdff" stroke="#cbd5e1" rx="6" />
+            <g transform="translate(70, 30)">
+              {/* axes */}
+              <line x1="0" y1="280" x2="640" y2="280" stroke="#94a3b8" stroke-width="1.5" />
+              <line x1="0" y1="0" x2="0" y2="280" stroke="#94a3b8" stroke-width="1.5" />
+              {/* x labels (log scale) */}
+              {piXData.map((d, i) => {
+                const xPos = (i / (piXData.length - 1)) * 640;
+                return (
+                  <g>
+                    <line x1={xPos} y1="280" x2={xPos} y2="284" stroke="#94a3b8" />
+                    <text x={xPos} y="298" text-anchor="middle" font-size="10" fill="#5f6f80" font-family="ui-monospace, monospace">10^{i + 1}</text>
+                  </g>
+                );
+              })}
+              {/* y labels */}
+              {[0, 0.25, 0.5, 0.75, 1.0].map((frac) => {
+                const yPos = 280 - frac * 260;
+                return (
+                  <g>
+                    <line x1="-4" y1={yPos} x2="0" y2={yPos} stroke="#94a3b8" />
+                    <text x="-8" y={yPos + 3} text-anchor="end" font-size="10" fill="#5f6f80" font-family="ui-monospace, monospace">{(frac * 100).toFixed(0)}%</text>
+                  </g>
+                );
+              })}
+              {/* π(x) bars */}
+              {piXData.map((d, i) => {
+                const xPos = (i / (piXData.length - 1)) * 640;
+                const ratio = d.pi / d.x;
+                const yPos = 280 - ratio * 260 / 0.5;
+                return (
+                  <g>
+                    <circle cx={xPos} cy={yPos} r="5" fill="#1e3a8a" />
+                  </g>
+                );
+              })}
+              {/* line through pi/x */}
+              <path d={piXData.map((d, i) => {
+                const xPos = (i / (piXData.length - 1)) * 640;
+                const ratio = d.pi / d.x;
+                const yPos = 280 - ratio * 260 / 0.5;
+                return `${i === 0 ? 'M' : 'L'}${xPos} ${yPos}`;
+              }).join(' ')} fill="none" stroke="#1e3a8a" stroke-width="2.5" />
+
+              {/* x/log(x) line */}
+              <path d={piXData.map((d, i) => {
+                const xPos = (i / (piXData.length - 1)) * 640;
+                const ratio = d.xOverLogX / d.x;
+                const yPos = 280 - ratio * 260 / 0.5;
+                return `${i === 0 ? 'M' : 'L'}${xPos} ${yPos}`;
+              }).join(' ')} fill="none" stroke="#c96f24" stroke-width="2" stroke-dasharray="6 4" />
+
+              {/* Li(x) line */}
+              <path d={piXData.map((d, i) => {
+                const xPos = (i / (piXData.length - 1)) * 640;
+                const ratio = d.li / d.x;
+                const yPos = 280 - ratio * 260 / 0.5;
+                return `${i === 0 ? 'M' : 'L'}${xPos} ${yPos}`;
+              }).join(' ')} fill="none" stroke="#16a34a" stroke-width="2" stroke-dasharray="2 4" />
+
+              {/* legend */}
+              <g transform="translate(420, 0)">
+                <line x1="0" y1="6" x2="20" y2="6" stroke="#1e3a8a" stroke-width="2.5" />
+                <text x="26" y="10" font-size="11" fill="#1e3a8a" font-family="ui-sans-serif, system-ui">exact π(x)/x</text>
+                <line x1="0" y1="26" x2="20" y2="26" stroke="#c96f24" stroke-width="2" stroke-dasharray="6 4" />
+                <text x="26" y="30" font-size="11" fill="#9a4f13" font-family="ui-sans-serif, system-ui">x/log(x) / x</text>
+                <line x1="0" y1="46" x2="20" y2="46" stroke="#16a34a" stroke-width="2" stroke-dasharray="2 4" />
+                <text x="26" y="50" font-size="11" fill="#15803d" font-family="ui-sans-serif, system-ui">Li(x)/x</text>
+              </g>
+
+              <text x="320" y="-10" text-anchor="middle" font-size="13" fill="#14566b" font-weight="700" font-family="ui-sans-serif, system-ui">
+                Density of primes: π(x)/x
+              </text>
+              <text x="320" y="328" text-anchor="middle" font-size="11" fill="#5f6f80" font-family="ui-sans-serif, system-ui">
+                Li(x) approximates π(x) far better than x/log(x) — relative gap &lt; 0.01% at 10⁸
+              </text>
+            </g>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    {/* ═════════════════════════ L2 — SQUARE-ROOT WINDOW ════════════════════ */}
+    <section data-min-depth="L2" class="mb-14">
+      <span class="pt-tag pt-tag-der mb-3 inline-block">Standard</span>
+      <h2 class="text-3xl font-bold text-thmblue mb-4">
+        The key point: the square-root window<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-slate-200 text-slate-700 ml-2 align-middle">classical</span>
       </h2>
       <div class="grid lg:grid-cols-[1fr_0.9fr] gap-6 items-start">
-        <div class="text-slate-700 leading-relaxed">
-          <p class="mb-4">
-            Let {String.raw`$S(x;y)$`} count integers {String.raw`$n\le x$`} divisible by no prime
-            {String.raw`$\le y$`}. If {String.raw`$y=\lfloor\sqrt{x}\rfloor$`}, then no composite can
-            survive: it necessarily has a prime divisor
-            {String.raw`$\le\sqrt{n}\le\sqrt{x}$`}.
+        <div class="text-slate-700 leading-relaxed space-y-4">
+          <p>
+            Let $S(x;y)$ denote the number of integers $n \leq x$ divisible
+            by no prime $\leq y$. If we choose
+            {String.raw`$y = \lfloor\sqrt{x}\rfloor$`}, then no composite
+            can survive: it necessarily has a prime divisor
+            {String.raw`$\leq \sqrt{n} \leq \sqrt{x}$`}.
           </p>
-          <p class="mb-4">
-            The survivors are exactly {String.raw`$1$`} and the primes in
-            {String.raw`$(\sqrt{x},x]`}. Hence:
+          <p>
+            The survivors are therefore exactly 1 and the primes in the
+            interval {String.raw`$(\sqrt{x}, x]$`}. We obtain:
           </p>
-          <div class="bg-slate-50 border border-slate-200 rounded-lg p-4 font-mono text-sm text-slate-900 overflow-x-auto">
-            {String.raw`$\pi(x)=S(x;\lfloor\sqrt{x}\rfloor)+\pi(\lfloor\sqrt{x}\rfloor)-1$`}
+          <div class="bg-slate-50 border border-slate-200 rounded-lg p-4 font-mono text-center text-sm">
+            {String.raw`$\pi(x) = S(x; \lfloor\sqrt{x}\rfloor) + \pi(\lfloor\sqrt{x}\rfloor) - 1$`}
           </div>
-          <p class="mt-4">
-            This changes the problem: understanding prime distribution becomes
-            understanding a finite-window survival law.
+          <p>
+            This formula changes the problem: understanding the
+            distribution of primes amounts to understanding a
+            <strong>finite-window survival law</strong>.
           </p>
         </div>
         <div class="bg-slate-50 border border-slate-200 rounded-lg p-5">
@@ -166,12 +794,84 @@ const propositions = [
           </ol>
         </div>
       </div>
-    </div>
+    </section>
 
-    <div data-min-depth="L3">
-      <span class="pt-tag pt-tag-val">Technical</span>
-      <h2 class="text-3xl font-bold text-thmblue mt-4 mb-4">
-        Formulas of the mechanics
+    {/* ═════════════════════════ L2 — WHEEL MOD 30 ══════════════════════════ */}
+    <section data-min-depth="L2" class="mb-14">
+      <span class="pt-tag pt-tag-der mb-3 inline-block">Standard</span>
+      <h2 class="text-3xl font-bold text-thmblue mb-4">
+        Primorial wheels: why 30, 210, 2310…<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-slate-200 text-slate-700 ml-2 align-middle">classical</span>
+      </h2>
+      <div class="text-slate-700 leading-relaxed space-y-4 max-w-3xl">
+        <p>
+          To enumerate primes efficiently, one does not work with the
+          integers one by one. One uses a <strong>wheel</strong>: a cycle
+          of residues coprime to a primorial
+          $p_k\# = 2 \cdot 3 \cdot 5 \cdots p_k$.
+        </p>
+        <ul class="list-disc pl-6 space-y-1">
+          <li>Wheel mod 6 ({String.raw`$2 \cdot 3$`}): 2 residues {`{1, 5}`}, period 6.</li>
+          <li>Wheel mod 30 ({String.raw`$2 \cdot 3 \cdot 5$`}): 8 residues {`{1, 7, 11, 13, 17, 19, 23, 29}`}, period 30.</li>
+          <li>Wheel mod 210 ({String.raw`$2 \cdot 3 \cdot 5 \cdot 7$`}): 48 residues, period 210.</li>
+          <li>Wheel mod 2310: 480 residues, period 2310.</li>
+        </ul>
+        <p>
+          The number of residues is $\varphi(p_k\#) = p_k\# \prod (1 - 1/p)$.
+          The larger the wheel, the lower the survivor density (and the
+          more efficient each step).
+        </p>
+        <p>
+          For PT, these wheels are the <strong>arithmetic tori</strong>
+          {String.raw`$\mathbb{T}^k = \mathbb{Z}/p_1 \times \cdots \times \mathbb{Z}/p_k$`}
+          via the Chinese remainder theorem (CRT). The active PT torus is
+          {String.raw`$\mathbb{T}^3 = \mathbb{Z}/3 \times \mathbb{Z}/5 \times \mathbb{Z}/7$`}
+          — precisely the wheel mod 105 — and underpins the attractor
+          $\mu^* = 15$.
+        </p>
+      </div>
+    </section>
+
+    {/* ═════════════════════════ L2 — BRIDGE WITH PT (T0) ═══════════════════ */}
+    <section data-min-depth="L2" class="mb-14">
+      <span class="pt-tag pt-tag-thm mb-3 inline-block">Standard · bridge with PT</span>
+      <h2 class="text-3xl font-bold text-thmblue mb-4">
+        T0: the gap sequence is the unique dynamical field of the sieve<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-thmblue/10 text-thmblue ml-2 align-middle">PT contribution</span>
+      </h2>
+      <div class="text-slate-700 leading-relaxed space-y-4 max-w-3xl">
+        <p>
+          PT theorem <strong>T0</strong> (closure of axiom BA0) states:
+          under four closure conditions (U1 automorphic invariance,
+          U2 finiteness, U3 genericity, U4 exclusion of $p = 2$ as a
+          dynamical cascade prime), <strong>the sequence
+          {String.raw`$\{g_n\}$`} of gaps between consecutive primes is the
+          unique dynamical field of the sieve</strong>.
+        </p>
+        <p>
+          Any other sequence invariant under the automorphisms of the
+          sieve reduces to {String.raw`$\{g_n\}$`} up to a trivial
+          renormalisation. This structurally closes bridge BA0: "the
+          dynamical field of PT, identified with {String.raw`$\{g_n\}$`},
+          is the object from which all of physics is reconstructed."
+        </p>
+        <div class="bg-amber-50 border border-amber-300 rounded-lg p-5">
+          <p class="text-xs font-sans uppercase tracking-wider text-amber-800 mb-2">
+            Consequence
+          </p>
+          <p class="text-sm text-slate-800">
+            Prime gaps are not one object of study among others: they are
+            <strong>the</strong> object. This is why this page sits at the
+            heart of the mathematical part of the site, at the root of the
+            principle → cascade → observables path.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    {/* ═════════════════════════ L3 — FORMULAS OF THE MECHANICS ═════════════ */}
+    <section data-min-depth="L3" class="mb-14">
+      <span class="pt-tag pt-tag-val mb-3 inline-block">Technical</span>
+      <h2 class="text-3xl font-bold text-thmblue mb-4">
+        Formulas of the mechanics<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-slate-200 text-slate-700 ml-2 align-middle">classical</span>
       </h2>
       <div class="grid md:grid-cols-2 gap-4">
         {propositions.map((item) => (
@@ -187,39 +887,280 @@ const propositions = [
           </div>
         ))}
       </div>
+    </section>
 
-      <div class="mt-8 bg-white border border-slate-200 rounded-lg p-6">
-        <h3 class="font-sans font-semibold text-thmblue text-xl mb-3">
-          The cubic threshold
-        </h3>
+    {/* ═════════════════════════ L3 — CUBIC THRESHOLD ═══════════════════════ */}
+    <section data-min-depth="L3" class="mb-14">
+      <span class="pt-tag pt-tag-val mb-3 inline-block">Technical</span>
+      <h2 class="text-3xl font-bold text-thmblue mb-4">
+        The cubic threshold<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-slate-200 text-slate-700 ml-2 align-middle">classical</span>
+      </h2>
+      <div class="bg-white border border-slate-200 rounded-lg p-6">
         <p class="text-slate-700 leading-relaxed mb-4">
           In the exact transport equation, the contracted window
-          {String.raw`$\lfloor x/p_a\rfloor$`} has its own native depth. Once {String.raw`$p_a^3>x$`},
-          this window is already sieved beyond its native square-root
-          threshold. The transported term then becomes essentially a
-          prime-boundary term.
+          $\lfloor x/p_a\rfloor$ has its own native depth. Once
+          {String.raw`$p_a^3 > x$`}, this window is already sieved beyond
+          its native square-root threshold. The transported term then
+          becomes essentially a prime-boundary term.
         </p>
         <div class="bg-slate-50 border border-slate-200 rounded-lg p-4 font-mono text-sm text-slate-900 overflow-x-auto">
-          {String.raw`$x^{1/3}<p\le x^{1/2}$`}: natural window/boundary distortion band.
+          {String.raw`$x^{1/3} < p \leq x^{1/2}$`}: natural window/boundary distortion band.
         </div>
       </div>
+    </section>
 
-      <div class="mt-8 grid md:grid-cols-2 gap-4">
-        <div class="pt-card">
-          <h3 class="font-sans font-semibold text-thmblue mb-2">What is closed</h3>
-          <p class="text-sm text-slate-700">
-            Finite-torus density, reconstruction identity for {String.raw`$\pi(x)$`}, exact
-            survivor transport, cubic oversieve threshold.
-          </p>
+    {/* ═════════════════════════ L3 — PT-BUCHSTAB KERNEL ════════════════════ */}
+    <section data-min-depth="L3" class="mb-14">
+      <span class="pt-tag pt-tag-cond mb-3 inline-block">Technical · PT contribution</span>
+      <h2 class="text-3xl font-bold text-thmblue mb-4">
+        Renormalised PT-Buchstab equation<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-thmblue/10 text-thmblue ml-2 align-middle">PT contribution</span>
+      </h2>
+      <div class="text-slate-700 leading-relaxed space-y-4">
+        <p>
+          The programme starts from the classical Buchstab function
+          $\omega(u)$ — defined by $\omega(u) = 1/u$ for $u \in [1, 2]$ and
+          {String.raw`$(u\omega(u))' = \omega(u-1)$`} for {String.raw`$u > 2$`}
+          — then introduces the renormalised ratio.
+        </p>
+        <div class="grid md:grid-cols-2 gap-4">
+          <div class="bg-white border border-slate-200 rounded-lg p-5">
+            <h3 class="font-sans font-semibold text-thmblue mb-2 text-sm">BR1 — Exact prime-step transport</h3>
+            <div class="bg-slate-50 border border-slate-200 rounded p-3 font-mono text-sm overflow-x-auto">
+              {String.raw`$\Phi_a(x) = \Phi_{a-1}(x) - \Phi_{a-1}\!\left(\lfloor x/p_a \rfloor\right)$`}
+            </div>
+          </div>
+          <div class="bg-white border border-slate-200 rounded-lg p-5">
+            <h3 class="font-sans font-semibold text-thmblue mb-2 text-sm">BR2 — Renormalised transport</h3>
+            <div class="bg-slate-50 border border-slate-200 rounded p-3 font-mono text-xs overflow-x-auto">
+              {String.raw`$R_a(x) = \dfrac{R_{a-1}(x) - (\lfloor x/p_a \rfloor / x)\,R_{a-1}(\lfloor x/p_a \rfloor)}{1 - 1/p_a}$`}
+            </div>
+          </div>
         </div>
-        <div class="pt-card">
-          <h3 class="font-sans font-semibold text-thmblue mb-2">What remains open</h3>
-          <p class="text-sm text-slate-700">
-            Close the window law independently, control correction channels,
-            and only then target a complete generative law for prime gaps.
+        <div class="bg-amber-50 border border-amber-300 rounded-lg p-5 mt-4">
+          <h3 class="font-sans font-semibold text-amber-900 mb-2">BR4 — Candidate PT kernel</h3>
+          <div class="bg-white/70 border border-amber-200 rounded p-3 font-mono text-sm">
+            {String.raw`$K_{PT}(u) = e^\gamma \omega(u), \qquad u = \log x / \log y$`}
+          </div>
+          <p class="text-sm text-slate-700 mt-3">
+            At the square-root point $u = 2$:
+            {String.raw`$K_{PT}(2) = e^\gamma / 2 \approx 0.8905$`}.
+            Numerical validation at $x = 10^6$: exact ratio
+            {String.raw`$0.9675$`}, relative factor {String.raw`$1.086$`};
+            at $u = 4$, agreement to within {String.raw`$10^{-4}$`}.
+            Status: <strong>universal candidate</strong>, open programme.
           </p>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
+
+    {/* ═════════════════════════ L3 — THETA GAP LAW ═════════════════════════ */}
+    <section data-min-depth="L3" class="mb-14">
+      <span class="pt-tag pt-tag-cond mb-3 inline-block">Technical · PT contribution</span>
+      <h2 class="text-3xl font-bold text-thmblue mb-4">
+        Exact angle law: θ_p ~ √(2/p)<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-thmblue/10 text-thmblue ml-2 align-middle">PT contribution</span>
+      </h2>
+      <div class="grid lg:grid-cols-[1fr_1fr] gap-8 items-start">
+        <div class="text-slate-700 leading-relaxed space-y-4">
+          <p>
+            By placing each prime $p$ on the PT circle through its holonomy
+            angle $\theta_p$, one discovers an <strong>exact law</strong>:
+          </p>
+          <div class="bg-slate-50 border border-slate-200 rounded p-3 font-mono text-center">
+            {String.raw`$\theta_p \sim \sqrt{2/p}, \qquad p\,\theta_p^2/2 \to 1$`}
+          </div>
+          <p>
+            <strong>Consequence on angular gaps.</strong> For two primes
+            {String.raw`$p < q$`}:
+          </p>
+          <div class="bg-slate-50 border border-slate-200 rounded p-3 font-mono text-center text-sm">
+            {String.raw`$\theta_p - \theta_q \sim \sqrt{2/p} - \sqrt{2/q}$`}
+          </div>
+          <p>
+            For <strong>adjacent</strong> primes
+            {String.raw`$p < p_{n+1}$`}:
+          </p>
+          <div class="bg-slate-50 border border-slate-200 rounded p-3 font-mono text-center text-sm">
+            {String.raw`$\Delta\theta(p, p_{n+1}) \sim \dfrac{p_{n+1} - p}{\sqrt{2}\, p^{3/2}}$`}
+          </div>
+          <p>
+            Reading: <em>the PT circle turns prime gaps into much smaller
+            angular gaps, by a rigid scaling law in
+            {String.raw`$p^{-3/2}$`}</em>. No second independent random law
+            appears.
+          </p>
+          <p>
+            Numerical validation: for the differential square root, the
+            observed median ratio is {String.raw`$1.00009$`} for $p \geq 997$.
+          </p>
+        </div>
+        <div class="bg-white border border-slate-200 rounded-lg p-5">
+          <h3 class="font-sans font-semibold text-thmblue mb-3 text-sm">
+            Distribution of angles θ_p
+          </h3>
+          <svg viewBox="0 0 460 360" class="w-full h-auto" role="img" aria-label="θ_p distribution">
+            <rect x="0" y="0" width="460" height="360" fill="#fbfdff" stroke="#cbd5e1" rx="6" />
+            {/* main circle */}
+            <circle cx="230" cy="180" r="130" fill="none" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="3 4" />
+            <line x1="230" y1="180" x2="360" y2="180" stroke="#94a3b8" stroke-width="1" />
+            {thetaPoints.map((pt) => {
+              const angle = pt.theta;
+              const cx = 230 + 130 * Math.cos(angle);
+              const cy = 180 - 130 * Math.sin(angle);
+              const lx = 230 + 150 * Math.cos(angle);
+              const ly = 180 - 150 * Math.sin(angle);
+              return (
+                <g>
+                  <line x1="230" y1="180" x2={cx} y2={cy} stroke="#4338ca" stroke-width="0.8" opacity="0.5" />
+                  <circle cx={cx} cy={cy} r="4.5" fill="#4338ca" stroke="#fff" stroke-width="1" />
+                  <text x={lx} y={ly + 3} text-anchor={Math.cos(angle) < 0 ? 'end' : 'start'} font-size="10" fill="#3730a3" font-family="ui-monospace, monospace">{pt.p}</text>
+                </g>
+              );
+            })}
+            <text x="230" y="180" text-anchor="middle" font-size="11" fill="#64748b" font-family="ui-sans-serif, system-ui">μ* = 15</text>
+            <text x="230" y="335" text-anchor="middle" font-size="11" fill="#5f6f80" font-family="ui-sans-serif, system-ui">
+              The larger p, the closer θ_p falls to 0 — as √(2/p)
+            </text>
+            <text x="230" y="20" text-anchor="middle" font-size="13" fill="#14566b" font-weight="700" font-family="ui-sans-serif, system-ui">
+              Primes placed on the PT circle by their angle θ_p
+            </text>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    {/* ═════════════════════════ L3 — SHELL REGIME BLOCKS ═══════════════════ */}
+    <section data-min-depth="L3" class="mb-14">
+      <span class="pt-tag pt-tag-cond mb-3 inline-block">Technical · PT contribution</span>
+      <h2 class="text-3xl font-bold text-thmblue mb-4">
+        Shell regime blocks: geometric structure of outer primes<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-thmblue/10 text-thmblue ml-2 align-middle">PT contribution</span>
+      </h2>
+      <div class="text-slate-700 leading-relaxed space-y-4">
+        <p>
+          Beyond the fundamental triplet {`{3, 5, 7}`}, the exploration of
+          outer <em>shells</em> (probes attached to each prime $q$) reveals
+          a non-trivial structure: the activation thresholds organise into
+          <strong>regime blocks</strong>, not a monotone sequence.
+        </p>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm bg-white border border-slate-200 rounded-lg">
+            <thead class="bg-slate-50">
+              <tr>
+                <th class="text-left px-4 py-3">Shell</th>
+                <th class="text-center px-4 py-3">AT threshold</th>
+                <th class="text-center px-4 py-3">Spectrum $(\Sigma_1, \Sigma_2, \Sigma_3, \Sigma_4)$</th>
+                <th class="text-left px-4 py-3">Regime</th>
+              </tr>
+            </thead>
+            <tbody>
+              {shellRegimes.map((s) => (
+                <tr class="border-t border-slate-100">
+                  <td class="px-4 py-2 font-mono font-bold text-thmblue">{s.shell}</td>
+                  <td class="px-4 py-2 text-center font-mono">{s.threshold}</td>
+                  <td class="px-4 py-2 text-center font-mono text-xs">{s.spectrum}</td>
+                  <td class="px-4 py-2">
+                    <span class:list={[
+                      'inline-block px-2 py-0.5 rounded text-xs font-sans font-semibold',
+                      s.regime === 'vertex' && 'bg-emerald-100 text-emerald-800',
+                      s.regime === 'edge' && 'bg-amber-100 text-amber-800',
+                      s.regime === 'triangle' && 'bg-rose-100 text-rose-800',
+                    ]}>{s.regime}</span>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <p>
+          <strong>Geometric reading.</strong> Each shell packet is a
+          4-vertex simplex. The AT threshold is the first dimension of
+          face transverse to the observable quotient:
+        </p>
+        <ul class="list-disc pl-6 space-y-1">
+          <li><strong>vertex</strong> (AT = 1): all vertices are already transverse;</li>
+          <li><strong>edge</strong> (AT = 2): vertices tangent, edges transverse;</li>
+          <li><strong>triangle</strong> (AT = 3): vertices and edges tangent, triangular faces transverse.</li>
+        </ul>
+        <p>
+          The blocks {String.raw`${`\\{17, 19, 23\\}`}$`} (edge) and
+          {String.raw`${`\\{29, 31, 37\\}`}$`} (triangle) are the first
+          non-trivial geometric signature of the derived branch of the
+          sieve — they reveal a <strong>boundary structure</strong> that
+          classical analysis does not capture.
+        </p>
+      </div>
+    </section>
+
+    {/* ═════════════════════════ L3 — TEASER PT TOOLS ═══════════════════════ */}
+    <section data-min-depth="L3" class="mb-14">
+      <span class="pt-tag pt-tag-thm mb-3 inline-block">Technical · PT contribution</span>
+      <h2 class="text-3xl font-bold text-thmblue mb-4">
+        PT tools relevant to the question of gaps<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-thmblue/10 text-thmblue ml-2 align-middle">PT contribution</span>
+      </h2>
+      <p class="text-slate-700 leading-relaxed mb-6 max-w-3xl">
+        The PT mathematical programme contains 32 computational tools (M01-M35).
+        Here are the six most directly tied to the mechanics of prime gaps.
+        For the full catalogue with detailed entries, see the
+        <a href="/en/atlas-outils-pt" class="text-thmblue underline font-semibold">PT toolbox atlas</a>.
+      </p>
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-3 mb-6">
+        {ptTools.map((t) => (
+          <a href={`/en/atlas-outils-pt#${t.id}`} class="block bg-white border border-slate-200 rounded-lg p-4 hover:border-thmblue/40 hover:shadow-sm transition">
+            <div class="flex items-baseline justify-between gap-2 mb-2">
+              <span class="font-mono font-bold text-thmblue text-sm">{t.id}</span>
+              <span class="text-xs text-emerald-700 font-sans">{t.score}</span>
+            </div>
+            <h3 class="font-sans font-semibold text-thmblue mb-1.5 text-sm">{t.name}</h3>
+            <p class="text-xs text-slate-700 leading-relaxed">{t.short}</p>
+          </a>
+        ))}
+      </div>
+      <div class="bg-slate-950 text-white rounded-lg p-6 flex items-center justify-between gap-4 flex-wrap">
+        <div>
+          <p class="text-sm text-slate-300 mb-1">Full catalogue</p>
+          <p class="font-sans font-bold text-lg text-white">32 PT mathematical tools, 659/659 tests PASS</p>
+        </div>
+        <a href="/en/atlas-outils-pt" class="px-5 py-3 bg-white text-slate-900 font-sans font-semibold rounded hover:bg-slate-100 transition whitespace-nowrap">
+          Open the PT toolbox atlas →
+        </a>
+      </div>
+    </section>
+
+    {/* ═════════════════════════ L3 — CLOSED / OPEN STATUS ══════════════════ */}
+    <section data-min-depth="L3" class="mb-12">
+      <span class="pt-tag pt-tag-val mb-3 inline-block">Technical · synthesis</span>
+      <h2 class="text-3xl font-bold text-thmblue mb-4">
+        What is closed, what remains open
+      </h2>
+      <div class="grid md:grid-cols-2 gap-4">
+        <div class="pt-card border-emerald-200">
+          <h3 class="font-sans font-semibold text-emerald-800 mb-2">Closed (THM)</h3>
+          <ul class="text-sm text-slate-700 space-y-1.5 list-disc pl-5">
+            <li>Finite-torus density (Mertens 1874).</li>
+            <li>Reconstruction identity for $\pi(x)$ via the square-root window.</li>
+            <li>Exact prime-step transport $\Phi_a(x)$ (PT mathematical programme — transport BR1).</li>
+            <li>Cubic threshold {String.raw`$x^{1/3} < p \leq x^{1/2}$`} as window/boundary distortion band.</li>
+            <li>T0 (PT): {String.raw`$\{g_n\}$`} as unique dynamical field of the sieve.</li>
+            <li>32 tools of the PT mathematical programme (M01-M35), 659/659 numerical tests.</li>
+            <li>Law {String.raw`$\theta_p \sim \sqrt{2/p}$`} (PT mathematical programme), validated up to $p \approx 5000$.</li>
+          </ul>
+        </div>
+        <div class="pt-card border-amber-200">
+          <h3 class="font-sans font-semibold text-amber-800 mb-2">Open (COND / candidate)</h3>
+          <ul class="text-sm text-slate-700 space-y-1.5 list-disc pl-5">
+            <li>Closed window law — kernel {String.raw`$K_{PT}(u) = e^\gamma \omega(u)$`} candidate, partial validation, full derivation to be done.</li>
+            <li>Direct generative law of prime gaps ({String.raw`$p_{n+1} - p_n$`} without knowing the primes).</li>
+            <li>Classical conjectures: twins, Cramér, Goldbach.</li>
+            <li>Riemann Hypothesis — PT proposes several routes (Liouville-sieve M02, Mertens propagation, Buchstab contraction) but no proof to date.</li>
+            <li>Full closure of shell regime blocks beyond 53.</li>
+            <li>Identification of the PT-Buchstab kernel with a zeta-style object (PT mathematical programme).</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    {/* ═════════════════════════ FOOTER NOTE ═════════════════════════════════ */}
+    <p class="text-sm text-slate-500 italic font-sans border-t border-slate-200 pt-6">
+      This page synthesises the <strong>PT mathematical programme</strong>: 35 tools (659/659 numerical tests), the shell programme, phase transport, and the renormalised PT-Buchstab equation. Epistemic statuses are distinguished by tag: THM proved, DER derived, COND/candidate open.
+    </p>
+  </main>
 </BaseLayout>

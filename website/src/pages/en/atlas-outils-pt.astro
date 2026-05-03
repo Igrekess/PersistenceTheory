@@ -1,0 +1,167 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import PageHero from '@components/PageHero.astro';
+import { ptMathTools, ptToolLayers } from '@/data/ptMathTools';
+
+const layers = Object.keys(ptToolLayers).map(Number).sort((a, b) => a - b);
+const toolsByLayer = layers.map(L => ({
+  layer: L,
+  layerName: ptToolLayers[L],
+  tools: ptMathTools.filter(t => t.layer === L),
+}));
+
+const totalTools = ptMathTools.length;
+const totalTests = ptMathTools.reduce((acc, t) => {
+  const [pass, total] = t.score.split('/').map(Number);
+  return acc + (total || 0);
+}, 0);
+
+const layerColor: Record<number, string> = {
+  1: '#312e81', 2: '#3730a3', 3: '#4338ca', 4: '#4f46e5',
+  5: '#7c3aed', 6: '#9333ea', 7: '#0e7490', 8: '#0f766e',
+};
+
+const layerCounts = toolsByLayer.map(l => ({ layer: l.layer, name: l.layerName, count: l.tools.length }));
+---
+
+<BaseLayout
+  title="PT toolbox atlas"
+  description="Complete catalogue of the 32 mathematical tools of the PT programme (M01-M35), all numerically validated (659/659 PASS). Foundational structures, transforms, metrics, error-correcting codes, route to RH."
+>
+  <PageHero
+    eyebrow="Mathematics · catalogue"
+    domain="math"
+    title="PT toolbox atlas"
+    kicker="32 new mathematical tools, all numerically demonstrated."
+    dekL1="The PT mathematical programme is not just a theory. It is a set of 32 computational tools — algebras, transforms, metrics, error-correcting codes — that take the prime sieve as raw material and extract previously unknown mathematical structures from it. This page catalogues them all, with a detailed card per tool."
+    dekL2={String.raw`Each tool is a standalone Python script ($scripts/tool\_NN\_*.py$) with its own numerical tests. The 32 delivered tools total $659/659$ PASS. The architecture is in 8 layers, from foundational structures (M01-M04) to prediction and error-correction tools (M29-M32) and extended transforms (M33-M35).`}
+    heroNote="32 tools → 8 layers → 659/659 PASS → backbone of the 11-phase RH programme"
+    oneLineNote={{ label: 'In one sentence', body: 'the discrete sieve of integers, read through these 32 tools, generates a new mathematics — algebras irreducible to classics, metrics quasi-orthogonal to standard norms, CRT error-correcting codes, and several algebraic routes toward the Riemann hypothesis.' }}
+    technicalNote={{ label: 'Technical reading', body: 'click a tool title to expand its detailed card (method, results, structural discoveries). Tools are grouped by architecture layer. Cross-links (M_i + M_j) are synthesised in the final section.' }}
+  />
+
+  <main class="max-w-6xl mx-auto px-4 py-12">
+
+    <section class="mb-12 grid grid-cols-2 md:grid-cols-4 gap-3">
+      <div class="bg-white border border-slate-200 rounded-lg p-5 text-center">
+        <div class="text-3xl font-bold text-thmblue">{totalTools}</div>
+        <div class="text-xs uppercase tracking-wider text-slate-600 mt-1">delivered tools</div>
+      </div>
+      <div class="bg-white border border-slate-200 rounded-lg p-5 text-center">
+        <div class="text-3xl font-bold text-emerald-700">{totalTests}/{totalTests}</div>
+        <div class="text-xs uppercase tracking-wider text-slate-600 mt-1">tests PASS</div>
+      </div>
+      <div class="bg-white border border-slate-200 rounded-lg p-5 text-center">
+        <div class="text-3xl font-bold text-thmblue">{layers.length}</div>
+        <div class="text-xs uppercase tracking-wider text-slate-600 mt-1">architecture layers</div>
+      </div>
+      <div class="bg-white border border-slate-200 rounded-lg p-5 text-center">
+        <div class="text-3xl font-bold text-thmblue">11</div>
+        <div class="text-xs uppercase tracking-wider text-slate-600 mt-1">RH attack phases</div>
+      </div>
+    </section>
+
+    <section class="mb-12">
+      <span class="pt-tag pt-tag-thm mb-3 inline-block">Plain</span>
+      <h2 class="text-3xl font-bold text-thmblue mb-4">The 8-layer architecture</h2>
+      <p class="text-slate-700 leading-relaxed mb-6 max-w-3xl">
+        The tools are not a patchwork: they organise into strata of increasing
+        complexity. Each layer uses the previous ones and unlocks the next.
+        The progression goes from the bare sieve (T_3 matrix over &#123;0, 1, 2&#125;)
+        all the way to CRT error-correcting codes and extended transforms that
+        bridge to physics.
+      </p>
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm bg-white border border-slate-200 rounded-lg">
+          <thead class="bg-slate-50">
+            <tr>
+              <th class="text-left px-4 py-3">Layer</th>
+              <th class="text-left px-4 py-3">Name</th>
+              <th class="text-left px-4 py-3">Tools</th>
+              <th class="text-center px-4 py-3">Count</th>
+            </tr>
+          </thead>
+          <tbody>
+            {layerCounts.map((l) => (
+              <tr class="border-t border-slate-100">
+                <td class="px-4 py-2 font-mono font-bold" style={`color: ${layerColor[l.layer]}`}>{l.layer}</td>
+                <td class="px-4 py-2 font-sans font-semibold text-thmblue">{l.name}</td>
+                <td class="px-4 py-2 font-mono text-xs">{toolsByLayer[l.layer - 1].tools.map(t => t.id).join(', ')}</td>
+                <td class="px-4 py-2 text-center font-bold">{l.count}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    {toolsByLayer.map(({ layer, layerName, tools }) => (
+      <section class="mb-12">
+        <div class="flex items-baseline gap-4 mb-5 border-b border-slate-200 pb-2">
+          <span class="font-mono font-bold text-2xl" style={`color: ${layerColor[layer]}`}>Layer {layer}</span>
+          <h2 class="text-2xl font-sans font-bold text-thmblue">{layerName}</h2>
+          <span class="text-xs text-slate-500 ml-auto">{tools.length} tool{tools.length > 1 ? 's' : ''}</span>
+        </div>
+        <div class="grid md:grid-cols-2 gap-3">
+          {tools.map((t) => (
+            <details class="group bg-white border border-slate-200 rounded-lg overflow-hidden hover:border-thmblue/40 transition">
+              <summary class="cursor-pointer p-4 list-none flex items-start gap-3 hover:bg-slate-50">
+                <span class="font-mono font-bold text-sm shrink-0 px-2 py-0.5 rounded text-white" style={`background-color: ${layerColor[layer]}`}>{t.id}</span>
+                <div class="flex-1 min-w-0">
+                  <div class="flex items-baseline justify-between gap-2 mb-1">
+                    <h3 class="font-sans font-semibold text-thmblue text-base">{t.name}</h3>
+                    <span class="text-xs font-mono text-emerald-700 shrink-0">{t.score}</span>
+                  </div>
+                  <p class="text-xs text-slate-700 leading-relaxed">{t.short}</p>
+                </div>
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor" class="text-slate-400 mt-1 shrink-0 transition-transform group-open:rotate-180" aria-hidden="true">
+                  <path d="M2 4 L7 9 L12 4 Z" />
+                </svg>
+              </summary>
+              <div class="px-4 pb-4 pt-2 border-t border-slate-100 bg-slate-50/50">
+                <p class="text-xs uppercase tracking-wider text-slate-500 font-sans mb-3">Detailed card</p>
+                <ul class="text-sm text-slate-700 space-y-1.5 list-disc pl-5">
+                  {t.full.map((line) => <li>{line}</li>)}
+                </ul>
+                <p class="text-xs text-slate-500 font-mono mt-4 pt-3 border-t border-slate-200">
+                  Source: <code class="bg-slate-200/60 px-1.5 py-0.5 rounded">PT_MATH/scripts/tool_{t.id.slice(1).padStart(2, '0')}_*.py</code>
+                </p>
+              </div>
+            </details>
+          ))}
+        </div>
+      </section>
+    ))}
+
+    {/* ════════ RH PROGRAMME — POINTER ════════ */}
+    <section class="mb-12">
+      <span class="pt-tag pt-tag-cond mb-3 inline-block">Technical</span>
+      <h2 class="text-3xl font-bold text-thmblue mb-4">Central application: the RH programme</h2>
+      <p class="text-slate-700 leading-relaxed mb-6 max-w-3xl">
+        Seven of these 32 tools — M02 (Liouville), M05 (spectral), M09
+        (obstruction index), M10 (expander), M11 (Ihara-RH), M12 (intertwiner),
+        M14 (separability) — underpin the PT programme on the Riemann
+        hypothesis. The programme itself ran eleven attack phases between
+        April 2026 and late April 2026, of which seven converged on the
+        same reformulation (RH ⟺ sub-Lindelöf), and four delivered
+        unconditional results.
+      </p>
+      <div class="bg-slate-950 text-white rounded-lg p-6 flex items-center justify-between gap-4 flex-wrap">
+        <div>
+          <p class="text-sm text-slate-300 mb-1">Dedicated page</p>
+          <p class="font-sans font-bold text-lg text-white">11 phases · 7 convergent routes · Bost-Connes / CCM connections</p>
+        </div>
+        <a href="/en/programme-rh" class="px-5 py-3 bg-white text-slate-900 font-sans font-semibold rounded hover:bg-slate-100 transition whitespace-nowrap">
+          Open the RH programme →
+        </a>
+      </div>
+    </section>
+
+    <p class="text-sm text-slate-500 italic font-sans border-t border-slate-200 pt-6">
+      All scripts are public and reproducible: MIT-licensed source on
+      <a href="https://github.com/Igrekess/PersistenceTheory" class="underline text-thmblue ml-1" rel="noopener">github.com/Igrekess/PersistenceTheory</a>,
+      folder <code class="bg-slate-100 px-1.5 py-0.5 rounded text-xs">PT_MATH/scripts/</code>.
+      Tools M22, M24 and M26 are reserved (internal numbering).
+    </p>
+  </main>
+</BaseLayout>

@@ -1,0 +1,342 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import PageHero from '@components/PageHero.astro';
+
+type Phase = {
+  num: string;
+  date: string;
+  title: string;
+  short: string;
+  results: string[];
+};
+
+const phases: Phase[] = [
+  
+  {
+    num: '1', date: '2026-04-22',
+    title: 'Cencov + DPI',
+    short: `Première reformulation explorée : reconnecter RH à un critère de pinning spectral via la géométrie de Fisher.`,
+    results: [
+      `thm:rh_equiv : reformulation candidate.`,
+      `thm:rh_finite_pin : pinning fini constaté pour m ≤ 30 030.`,
+      `thm:rh_fisher_monotone : monotonie Cencov sur primoriels.`,
+      `Étape 3 (DPI complexe) : obstruction quantifiée O(|Im(s)|⁻²) — point d'arrêt.`,
+    ],
+  },
+  {
+    num: '2', date: '2026-04-22',
+    title: 'Gaussian + Hermite v2',
+    short: `PT-v2 reproduit numériquement le construit CCM à 10⁻⁴ sans paramètre ajusté — coïncidence frappante à investiguer.`,
+    results: [
+      `|μ_v2 − μ_CCM| < 2×10⁻⁴ observé sur les calculs menés.`,
+      `Les 10 premiers zéros coïncident à 10⁻⁴.`,
+      `Gap α/β réduit à 0.48% via γ_23 = 0.1338 (rationnel exact dérivé du modèle).`,
+      `Lecture : enveloppe Gaussienne ≈ Parseval-GFT.`,
+      `Hypothèse de travail : si une résolution asymptotique existe pour CCM, elle s'appliquerait à PT-v2.`,
+    ],
+  },
+  {
+    num: '3', date: '2026-04-22',
+    title: 'Géométrie Kähler-Hodge',
+    short: `Cadre géométrique exploré : Kähler + Hodge (1,1) + flux spectral = 0. Le 1/19 trouve une lecture cohomologique.`,
+    results: [
+      `thm:kahler_fisher : (𝓜_m^db, g_F⊕g_F, J_PT) candidat Kähler. Potentiel K = −∑ log p_k (Burg).`,
+      `thm:hodge_critical_line : H*(BG_m; ℂ) avec tous x_i en bidegré (1,1). Pas de classes (p,q) hors-diagonale observées.`,
+      `thm:rh_as_index : D_+(s) = (1−s)P_+ − sP_−, flux spectral à travers σ=1/2 nul dans le modèle.`,
+      `thm:one_over_nineteen_class : le 1/19 s'écrit Tr(V_χ₁₉)/19 où V_χ₁₉ est un projecteur rang-1 sur un caractère de Dirichlet de conducteur 19. Lecture cohomologique potentielle.`,
+      `Reformulation suggérée : RH ⟺ (Kähler + Hodge + Index + 1/19) profini.`,
+    ],
+  },
+  {
+    num: '4', date: '2026-04-23',
+    title: 'Profile decomposition Merle-Kenig + Liouville rigidity',
+    short: `Sur 8 premiers impairs, exactement un sous-ensemble (1/255) satisfait l'auto-cohérence — c'est {3, 5, 7}, μ* = 15. Quatre critères convergent.`,
+    results: [
+      `σ₂ thm:pt_liouville : 1/255 ≈ 0.39% — un seul sous-ensemble candidat émerge.`,
+      `σ₃ prop:robustness_c3 : trifurcation stable sous perturbation ±15% des γ_p.`,
+      `σ₄(A) thm:hodge_formal_propagation : Künneth + inclusion préservent (1,1) le long de la tour primorielle.`,
+      `4 validations indépendantes : T1 arithmétique, T2 analytique, T3 géométrique, T4 Liouville rigidity.`,
+    ],
+  },
+  {
+    num: '5', date: '2026-04-24',
+    title: 'CRT Kloosterman dominance diagonale',
+    short: `Une borne sub-Lindelöf est obtenue inconditionnellement pour |t| ≤ m_P^{1/2}, étendant un résultat récent de Gao-Zhao.`,
+    results: [
+      `Thm 10.3.1 : ∑*_χ mod m_P |L(1/2+it,χ)|² ≪_ε m_P^{1+ε} pour |t| ≤ 2√(πm_P) ~ m_P^{1/2}.`,
+      `Mécanisme : pour X = (1+|t|)√m_P/(2√π) < m_P, le terme off-diagonal O(m_P, t) s'annule exactement.`,
+      `Comparaison : Gao-Zhao [2505.19375] mai 2025 obtenaient |t| ≤ q^{1/4}. Jalon 5 étend à q^{1/2}.`,
+      `Toolkit CRT-Weil utilisé sans circularité (à confirmer en revue externe).`,
+    ],
+  },
+  {
+    num: '6', date: '2026-04-24',
+    title: 'Kuznetsov trace formula',
+    short: `Extension de la borne Jalon 5 à |t| ≤ m_P^{2/3} via la formule de Kuznetsov. Le bottleneck identifié devient Kim-Sarnak 7/64.`,
+    results: [
+      `Thm 11.1.1 (sous réserve d'audit externe) : ∑*_χ mod m_P |L(1/2+it,χ)|² ≪_ε m_P^{1+ε} pour |t| ≤ m_P^{2/3}.`,
+      `Décomposition Kuznetsov : 𝒯_hol (Ramanujan-Deligne 1974), 𝒯_Eis (Hadamard-de la VP 1896), 𝒯_Maass (Kim-Sarnak p^{7/64}).`,
+      `Audit Eisenstein : ζ utilisé seulement sur σ = 1 (PNT), donc pas de circularité avec RH.`,
+      `Bottleneck visible : Kim-Sarnak 7/64 sur les valeurs propres Maass — obstacle analytique extérieur, indépendant de RH.`,
+    ],
+  },
+
+];
+
+const connesConnections = [
+  {
+    title: 'Bost-Connes (KMS quantum statistical mechanics)',
+    refs: 'adelic framework, ch29',
+    body: `Le programme PT propose une structure mesure-théorique (Ẑ^×, μ_Haar, ρ_∞^(s), Plancherel) sur laquelle Bost-Connes ajouterait sa dynamique α_t (état KMS à β = 1). L'extension reste une piste à brancher — pas un résultat.`,
+  },
+  {
+    title: 'Connes 2026 (arXiv 2602.04022)',
+    refs: 'Pontryagin reformulation',
+    body: `Connes lui-même écrit en 2026 : "singular relationship between multiplicative and additive Haar measures in the full adèle class space prevents naive application". the PT programme recovers via independent route une obstruction de même forme. Ce n'est pas une preuve, mais un croisement encourageant : deux programmes qui partent de directions différentes se heurtent au même mur.`,
+  },
+  {
+    title: 'Connes-Consani-Moscovici 2026 (arXiv 2511.22755)',
+    refs: 'CCM + Hermite v2',
+    body: `CCM "Zeta Spectral Triples" partagent une structure proche de PT, avec un educated guess k_λ pour ξ_λ comme obstacle central. PT identifie une coïncidence numérique de l'ordre de 95% entre PT et CCM (ratio α/β = 2.68 vs 2√2 = 2.83). PT-v2 reproduit le construit CCM (jalon 2 ci-dessous) à 10⁻⁴ sans paramètre ajusté en utilisant uniquement les primitives PT (γ_p, sin²θ_p, GFT). Lecture proposée : si CCM est sur la bonne voie, PT pourrait fournir une expression close pour k_λ.`,
+  },
+];
+
+const summary = {
+  partial: [
+    `Reformulation : un même critère (sub-Lindelöf uniforme) émerge de 7 routes indépendantes — indice fort qu'il s'agit d'un noyau structurel du problème.`,
+    `Bornes partielles : sub-Lindelöf obtenu pour |t| ≤ m_P^{1/2} (Jalon 5) puis |t| ≤ m_P^{2/3} (Jalon 6). Sous réserve de revue externe.`,
+    `Trifurcation {3, 5, 7} émerge comme unique sous-ensemble auto-cohérent de 8 premiers candidats.`,
+    `Cadre géométrique Kähler-Hodge cohérent à profondeur finie ; le 1/19 trouve une lecture cohomologique potentielle.`,
+    `Coïncidence numérique 95% avec le construit CCM, et reconstruction à 10⁻⁴ sans paramètre ajusté.`,
+    `Cadre adélique Bost-Connes mesure-théorique posé.`,
+  ],
+  open: [
+    `RH n'est pas démontrée — la reformulation sub-Lindelöf reste un problème ouvert.`,
+    `Sub-Lindelöf pour |t| > m_P^{2/3} non atteint.`,
+    `Bottleneck Kim-Sarnak 7/64 sur les valeurs propres Maass — extérieur à PT, attend une avancée analytique indépendante.`,
+    `Convergence Cauchy uniforme ω_PT^(m) falsifiée par les tests numériques internes au cadre Kähler.`,
+    `Enveloppe Gaussienne + Hermite manquante pour fermer ξ_λ CCM.`,
+    `L'ensemble des résultats attend une revue externe par la communauté analytique.`,
+  ],
+};
+---
+
+<BaseLayout
+  title="Programme RH — pistes explorées"
+  description="Pistes du programme PT autour de l'hypothèse de Riemann : 6 jalons d'exploration, reformulation candidate RH ⟺ sub-Lindelöf émergeant de 7 routes indépendantes, connexions avec les programmes de Connes."
+>
+  <PageHero
+    eyebrow="Mathématique · pistes RH"
+    domain="math"
+    title="Programme RH — pistes explorées"
+    kicker="6 jalons d'exploration, 7 routes qui convergent."
+    dekL1={`L'hypothèse de Riemann (RH) reste ouverte depuis 1859. Cette page n'annonce aucune preuve. Elle décrit six jalons d'exploration menées dans le cadre de la PT entre avril 2026 et fin avril 2026. Chaque phase tente une attaque structurelle ; certaines aboutissent à des reformulations candidates, d'autres se heurtent à des obstacles précis. L'intérêt potentiel : sept de ces phases convergent indépendamment vers un même critère, ce qui suggère qu'on touche un noyau structurel du problème — sans pour autant le résoudre.`}
+    dekL2={String.raw`Sept routes indépendantes (Phases 3, 4α, 4α-bis, 4δ, 5, 6, 7) aboutissent à la même reformulation candidate : $\mathrm{RH} \iff \sum_\chi |L(1/2+it,\chi)|^2 \ll_\varepsilon m^{1+\varepsilon}$ uniforme en $t$ (sub-Lindelöf). Quatre phases supplémentaires (8, 9, 10, 11) explorent des directions plus partielles : une trifurcation arithmétique remarquable $\{3,5,7\}$, un cadre adélique compatible avec Bost-Connes, et des bornes sub-Lindelöf inconditionnelles pour $|t| \leq m_P^{2/3}$ (sous réserve de revue externe).`}
+    heroNote="6 jalons → 7 routes convergentes → reformulation sub-Lindelöf → connexions Connes"
+    oneLineNote={{ label: 'En une phrase', body: `cette page propose des pistes potentiellement utiles, pas une preuve. Elle décrit comment plusieurs angles d'attaque indépendants ont abouti à un même critère équivalent à RH, sans réussir à le démontrer.` }}
+    technicalNote={{ label: 'Lecture technique', body: `tous les résultats listés ici sont des constructions internes au programme PT et n'ont pas encore été soumis à revue externe par la communauté de théorie analytique des nombres. Les énoncés "Thm" sont des théorèmes au sein du cadre PT ; leur statut comme contributions à RH dépend d'une validation indépendante.` }}
+  />
+
+  <main class="max-w-6xl mx-auto px-4 py-12">
+
+    <section class="mb-14">
+      <div class="bg-amber-50 border-2 border-amber-300 rounded-lg p-6 max-w-3xl">
+        <p class="text-xs font-sans uppercase tracking-wider text-amber-800 mb-3">
+          À propos de cette page
+        </p>
+        <p class="text-sm text-slate-800 leading-relaxed">
+          Le programme PT n'a pas démontré l'hypothèse de Riemann, et cette
+          page ne le prétend pas. Elle expose, à titre d'<strong>itinéraire de
+          recherche</strong>, les six jalons d'exploration menées entre avril
+          2026 et fin avril 2026. Chaque phase est une <strong>tentative
+          structurée</strong>, dont l'intérêt principal est moins le résultat
+          atteint que la <strong>reformulation</strong> qu'elle livre — soit du
+          problème, soit de l'obstacle. Lecteur familier du programme de
+          Connes : vous reconnaîtrez plusieurs croisements explicites.
+        </p>
+      </div>
+    </section>
+
+    <section class="mb-14">
+      <span class="pt-tag pt-tag-bridge mb-3 inline-block">Vulgarisé · piste centrale</span>
+      <h2 class="text-3xl font-bold text-thmblue mb-4">La piste centrale : une reformulation candidate</h2>
+      <div class="grid lg:grid-cols-[1fr_1fr] gap-8 items-start">
+        <div class="text-slate-700 leading-relaxed space-y-4">
+          <p>
+            L'hypothèse de Riemann est traditionnellement formulée comme :
+            « tous les zéros non-triviaux de la fonction ζ ont partie réelle
+            1/2 ». Cette formulation a résisté pendant 167 ans.
+          </p>
+          <p>
+            Sept routes mathématiques explorées dans le programme PT — partant
+            de directions différentes (géométrie de Fisher, opérateurs de
+            Mosonyi-Petz, dual de Pontryagin, spectral triples de
+            Connes-Consani-Moscovici, enveloppes Gaussiennes, géométrie
+            Kähler, convergence des 2-formes) — convergent toutes vers la
+            même reformulation équivalente.
+          </p>
+          <p>
+            Cette convergence ne résout pas le problème, mais elle suggère
+            que cette reformulation pourrait être un <strong>noyau
+            structurel</strong>. Le problème devient une inégalité analytique
+            précise sur les fonctions L de Dirichlet — la borne dite
+            <strong>sub-Lindelöf</strong>.
+          </p>
+        </div>
+        <div class="bg-slate-50 border-2 border-slate-300 rounded-lg p-6">
+          <p class="text-xs font-sans uppercase tracking-wider text-slate-600 mb-3">
+            Reformulation candidate (Phases 3 → 7)
+          </p>
+          <div class="bg-white border border-slate-200 rounded-md px-4 py-4 font-mono text-center text-base">
+            {String.raw`$\mathrm{RH} \iff \sum_\chi |L(1/2+it, \chi)|^2 \ll_\varepsilon m^{1+\varepsilon}$`}
+          </div>
+          <p class="text-sm text-slate-700 mt-3 italic">
+            uniforme en t, où χ parcourt les caractères de Dirichlet
+            modulo m primorial.
+          </p>
+          <p class="text-xs text-slate-500 mt-4 pt-3 border-t border-slate-200">
+            Émerge indépendamment de 7 phases distinctes. Reste à démontrer.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="mb-14">
+      <span class="pt-tag pt-tag-cond mb-3 inline-block">Standard · résultats partiels</span>
+      <h2 class="text-3xl font-bold text-thmblue mb-4">Bornes partielles obtenues</h2>
+      <p class="text-slate-700 leading-relaxed mb-6 max-w-3xl">
+        Les Les 4 derniers jalons livrent des résultats <strong>partiels</strong> qui
+        ne supposent pas RH. Ces résultats restent à confirmer par revue
+        externe par la communauté analytique. Ils restreignent l'espace des
+        situations où RH pourrait échouer, sans la démontrer.
+      </p>
+      <div class="grid md:grid-cols-2 gap-4">
+        <div class="bg-white border-l-4 border-amber-500 border-t border-r border-b border-slate-200 rounded-lg p-5">
+          <div class="flex items-baseline gap-3 mb-2">
+            <span class="font-mono font-bold text-amber-700">Jalon 6</span>
+            <span class="text-xs text-slate-500">2026-04-24</span>
+          </div>
+          <h3 class="font-sans font-semibold text-thmblue mb-2">Sub-Lindelöf candidat pour |t| ≤ m_P^{`{2/3}`}</h3>
+          <p class="text-sm text-slate-700 mb-3">
+            Décomposition Kuznetsov, terme Eisenstein non-circulaire (ζ sur σ=1).
+            Étendrait Jalon 5 d'un facteur m_P^{`{1/6}`} (~12× pour m₂₃) sous
+            réserve d'audit externe.
+          </p>
+          <p class="text-xs text-slate-500 italic">Bottleneck visible : Kim-Sarnak 7/64.</p>
+        </div>
+        <div class="bg-white border-l-4 border-amber-500 border-t border-r border-b border-slate-200 rounded-lg p-5">
+          <div class="flex items-baseline gap-3 mb-2">
+            <span class="font-mono font-bold text-amber-700">Jalon 5</span>
+            <span class="text-xs text-slate-500">2026-04-24</span>
+          </div>
+          <h3 class="font-sans font-semibold text-thmblue mb-2">Sub-Lindelöf candidat pour |t| ≤ m_P^{`{1/2}`}</h3>
+          <p class="text-sm text-slate-700 mb-3">
+            CRT-Weil + Kloosterman dominance diagonale. Étendrait
+            Gao-Zhao [2505.19375] mai 2025 de q^{`{1/4}`} à q^{`{1/2}`} sous
+            réserve d'audit externe.
+          </p>
+          <p class="text-xs text-slate-500 italic">Aucune circularité apparente.</p>
+        </div>
+        <div class="bg-white border-l-4 border-amber-500 border-t border-r border-b border-slate-200 rounded-lg p-5">
+          <div class="flex items-baseline gap-3 mb-2">
+            <span class="font-mono font-bold text-amber-700">Jalon 4</span>
+            <span class="text-xs text-slate-500">2026-04-23</span>
+          </div>
+          <h3 class="font-sans font-semibold text-thmblue mb-2">Trifurcation {`{3, 5, 7}`} — observation 1/255</h3>
+          <p class="text-sm text-slate-700 mb-3">
+            Sur 8 premiers impairs, exactement UN sous-ensemble (1/255 des
+            sous-ensembles possibles) satisfait l'auto-cohérence A' = A(∑A').
+            C'est {`{3, 5, 7}`} avec μ* = 15.
+          </p>
+          <p class="text-xs text-slate-500 italic">4 critères indépendants pointent vers la même trifurcation.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="mb-14">
+      <span class="pt-tag pt-tag-bridge mb-3 inline-block">Standard · connexions externes</span>
+      <h2 class="text-3xl font-bold text-thmblue mb-4">Croisements avec le programme Connes</h2>
+      <p class="text-slate-700 leading-relaxed mb-6 max-w-3xl">
+        Le programme RH d'Alain Connes (et ses collaborateurs Consani, Moscovici)
+        est l'autre grande direction structurelle attaquant RH par voie
+        géométrique non-commutative. Le programme PT croise ce programme à
+        trois niveaux distincts. Il ne s'agit pas d'une fusion ni d'une
+        validation mutuelle, mais de croisements suffisamment précis pour
+        être notés.
+      </p>
+      <div class="space-y-4">
+        {connesConnections.map((c) => (
+          <div class="bg-white border border-slate-200 rounded-lg p-5">
+            <div class="flex items-baseline justify-between gap-3 mb-2 flex-wrap">
+              <h3 class="font-sans font-semibold text-thmblue text-lg">{c.title}</h3>
+              <span class="text-xs font-mono text-thmblue bg-thmblue/10 px-2 py-0.5 rounded">{c.refs}</span>
+            </div>
+            <p class="text-sm text-slate-700 leading-relaxed">{c.body}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section class="mb-14">
+      <span class="pt-tag pt-tag-val mb-3 inline-block">Technique · chronologie</span>
+      <h2 class="text-3xl font-bold text-thmblue mb-4">Les 6 jalons d'exploration</h2>
+      <p class="text-slate-700 leading-relaxed mb-6 max-w-3xl">
+        Chaque phase a été menée comme un sous-projet autonome avec un
+        compte rendu explicite — résultats obtenus et obstacles rencontrés.
+        Cliquez sur une phase pour déplier le détail.
+      </p>
+      <div class="space-y-2">
+        {phases.map((p) => (
+          <details class="group bg-white border border-slate-200 rounded-lg overflow-hidden hover:border-thmblue/40 transition">
+            <summary class="cursor-pointer p-4 list-none flex items-start gap-4 hover:bg-slate-50 flex-wrap md:flex-nowrap">
+              <div class="flex items-baseline gap-3 shrink-0">
+                <span class="font-mono font-bold text-2xl text-thmblue w-16">P{p.num}</span>
+                <span class="text-xs text-slate-500 font-mono">{p.date}</span>
+              </div>
+              <div class="flex-1 min-w-0">
+                <h3 class="font-sans font-semibold text-thmblue text-base mb-1">{p.title}</h3>
+                <p class="text-sm text-slate-700 leading-relaxed">{p.short}</p>
+              </div>
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor" class="text-slate-400 mt-2 shrink-0 transition-transform group-open:rotate-180" aria-hidden="true">
+                <path d="M2 4 L7 9 L12 4 Z" />
+              </svg>
+            </summary>
+            <div class="px-4 pb-4 pt-2 border-t border-slate-100 bg-slate-50/50">
+              <p class="text-xs uppercase tracking-wider text-slate-500 font-sans mb-3">Compte rendu</p>
+              <ul class="text-sm text-slate-700 space-y-1.5 list-disc pl-5">
+                {p.results.map((r) => <li>{r}</li>)}
+              </ul>
+            </div>
+          </details>
+        ))}
+      </div>
+    </section>
+
+    <section class="mb-14">
+      <span class="pt-tag pt-tag-val mb-3 inline-block">Technique · synthèse</span>
+      <h2 class="text-3xl font-bold text-thmblue mb-4">Bilan honnête</h2>
+      <div class="grid md:grid-cols-2 gap-4">
+        <div class="bg-white border-2 border-amber-200 rounded-lg p-5">
+          <h3 class="font-sans font-semibold text-amber-800 mb-3">Ce que les pistes apportent (à confirmer)</h3>
+          <ul class="text-sm text-slate-700 space-y-2 list-disc pl-5">
+            {summary.partial.map((s) => <li>{s}</li>)}
+          </ul>
+        </div>
+        <div class="bg-white border-2 border-rose-200 rounded-lg p-5">
+          <h3 class="font-sans font-semibold text-rose-800 mb-3">Ce qui reste ouvert</h3>
+          <ul class="text-sm text-slate-700 space-y-2 list-disc pl-5">
+            {summary.open.map((s) => <li>{s}</li>)}
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <p class="text-sm text-slate-500 italic font-sans border-t border-slate-200 pt-6">
+      Cette page est mise à jour à chaque nouvelle phase du programme RH.
+      Toutes les pistes décrites ici sont des constructions internes au
+      programme PT et attendent une revue externe par la communauté de
+      théorie analytique des nombres. Voir l'<a href="/atlas-outils-pt" class="underline text-thmblue">Atlas des outils PT</a>
+      pour les outils computationnels (M01-M35) qui sous-tendent ces explorations.
+    </p>
+  </main>
+</BaseLayout>

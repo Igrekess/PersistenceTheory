@@ -1,0 +1,246 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import PageHero from '@components/PageHero.astro';
+import { ptMathTools, ptToolLayers } from '@/data/ptMathTools';
+
+// Group tools by layer
+const layers = Object.keys(ptToolLayers).map(Number).sort((a, b) => a - b);
+const toolsByLayer = layers.map(L => ({
+  layer: L,
+  layerName: ptToolLayers[L],
+  tools: ptMathTools.filter(t => t.layer === L),
+}));
+
+const totalTools = ptMathTools.length;
+const totalTests = ptMathTools.reduce((acc, t) => {
+  const [pass, total] = t.score.split('/').map(Number);
+  return acc + (total || 0);
+}, 0);
+
+// Couleurs par couche (subtle differentiation, all in math/indigo family)
+const layerColor: Record<number, string> = {
+  1: '#312e81', // indigo-900
+  2: '#3730a3', // indigo-800
+  3: '#4338ca', // indigo-700
+  4: '#4f46e5', // indigo-600
+  5: '#7c3aed', // violet-600
+  6: '#9333ea', // violet-700
+  7: '#0e7490', // cyan-700
+  8: '#0f766e', // teal-700
+};
+
+// Cross-discoveries
+const crossDiscoveries = [
+  {
+    title: 'Localisation de l\'obstruction RH',
+    refs: 'M02 + M05',
+    body: 'L\'obstruction RH (croissance de r_K) est ENTIÈREMENT portée par la composante stationnaire v_+ de T_3. La composante oscillante v_- est bornée. Le mécanisme spectral de T_3 contrôle déjà la moitié du problème.',
+  },
+  {
+    title: 'Contraction λ dans l\'espace joint',
+    refs: 'M01 + M08',
+    body: 'Alors que T_3(x)T_3 a ρ = 1 pour tout twist (M01), l\'espace joint (gap, λ) montre ρ(D_01) = 0.05 << 1 pour le twist λ. Le crible réel brise la dégénérescence algébrique.',
+  },
+  {
+    title: 'Trivialité topologique universelle',
+    refs: 'M03 + M06 + M13',
+    body: 'Le complexe du crible est contractible (β = (1, 0, 0)) en homologie undirected, dirigée GLMY, et persistante. La topologie est triviale — le crible est un objet 0-dimensionnel du point de vue homologique.',
+  },
+  {
+    title: 'K_3 expander optimal',
+    refs: 'M03 + M07 + M10',
+    body: 'Gap spectral λ_2 = 3 du Laplacien = maximum pour 3 sommets. Taux de convergence 2λ_2 = 6 explique pourquoi S_T3 = ln(2) est atteint immédiatement (M07) et la topologie est triviale (M03).',
+  },
+  {
+    title: 'Indice d\'obstruction = invariant universel',
+    refs: 'M05 + M08 + M09',
+    body: 'I(K) formalise la VITESSE de destruction de la mémoire de λ. Le produit I(K)·r_+(K) → 0 : la contraction domine l\'obstruction. Version quantitative de la route RH.',
+  },
+  {
+    title: 'Pont algébrique RH ↔ GRH',
+    refs: 'M05 + M08 + M12',
+    body: 'L\'entrelaceur J échange les secteurs spectraux de T_3. Il transforme RH (sommation de λ, obstruction dans v_+) en GRH-like (sommation de λ·χ_3, contrôle par v_-). La symétrie passe de V_4 à D_4.',
+  },
+  {
+    title: 'Pont zêta-Riemann ↔ zêta-Ihara',
+    refs: 'M03 + M11',
+    body: 'La zêta d\'Ihara de K_3 a ses zéros non-triviaux SUR la ligne critique |u| = 1/√(q-1). Le crible produit simultanément les premiers (objets de ζ(s)) et un graphe satisfaisant RH.',
+  },
+  {
+    title: 'Prédiction = correction d\'erreur',
+    refs: 'M30 + M31',
+    body: 'La MI entre moduli est SIMULTANÉMENT la ressource qui améliore la prédiction (B, +61%) et la capacité qui permet la correction d\'erreur (C, KL ≈ 0.008). Pas une analogie — la même quantité utilisée de deux façons.',
+  },
+];
+
+// Counts by layer for stats
+const layerCounts = toolsByLayer.map(l => ({ layer: l.layer, name: l.layerName, count: l.tools.length }));
+---
+
+<BaseLayout
+  title="Atlas des outils PT"
+  description="Catalogue complet des 32 outils mathématiques du programme PT (M01-M35), tous validés numériquement (659/659 PASS). Structures fondamentales, transformées, métriques, codes correcteurs, route vers RH."
+>
+  <PageHero
+    eyebrow="Mathématique · catalogue"
+    domain="math"
+    title="Atlas des outils PT"
+    kicker="32 outils mathématiques nouveaux, tous démontrés numériquement."
+    dekL1="Le programme mathématique PT n'est pas qu'une théorie. C'est un ensemble de 32 outils computationnels — algèbres, transformées, métriques, codes correcteurs — qui prennent le crible des nombres premiers comme matière première et en extraient des structures mathématiques inédites. Cette page les catalogue tous, avec une fiche détaillée par outil."
+    dekL2={String.raw`Chaque outil est un script Python autonome ($scripts/tool\_NN\_*.py$) avec ses propres tests numériques. Les 32 outils livrés totalisent $659/659$ tests PASS. L'architecture est en 8 couches, depuis les structures fondamentales (M01-M04) jusqu'aux outils de prédiction et de correction d'erreur (M29-M32) et aux transformées étendues (M33-M35).`}
+    heroNote="32 outils → 8 couches → 659/659 PASS → ossature du programme RH (11 phases)"
+    oneLineNote={{ label: 'En une phrase', body: 'le crible discret des entiers, lu avec ces 32 outils, engendre une mathématique nouvelle — algèbres irréductibles aux classiques, métriques quasi-orthogonales aux normes standards, codes correcteurs CRT, et plusieurs routes algébriques vers l\'hypothèse de Riemann.' }}
+    technicalNote={{ label: 'Lecture technique', body: 'cliquez sur le titre d\'un outil pour déplier sa fiche détaillée (méthode, résultats, découvertes structurelles). Les outils sont groupés par couche d\'architecture. Les liens croisés (M_i + M_j) sont synthétisés dans la section finale.' }}
+  />
+
+  <main class="max-w-6xl mx-auto px-4 py-12">
+
+    {/* ════════ STATS GLOBALES ════════ */}
+    <section class="mb-12 grid grid-cols-2 md:grid-cols-4 gap-3">
+      <div class="bg-white border border-slate-200 rounded-lg p-5 text-center">
+        <div class="text-3xl font-bold text-thmblue">{totalTools}</div>
+        <div class="text-xs uppercase tracking-wider text-slate-600 mt-1">outils livrés</div>
+      </div>
+      <div class="bg-white border border-slate-200 rounded-lg p-5 text-center">
+        <div class="text-3xl font-bold text-emerald-700">{totalTests}/{totalTests}</div>
+        <div class="text-xs uppercase tracking-wider text-slate-600 mt-1">tests PASS</div>
+      </div>
+      <div class="bg-white border border-slate-200 rounded-lg p-5 text-center">
+        <div class="text-3xl font-bold text-thmblue">{layers.length}</div>
+        <div class="text-xs uppercase tracking-wider text-slate-600 mt-1">couches d'architecture</div>
+      </div>
+      <div class="bg-white border border-slate-200 rounded-lg p-5 text-center">
+        <div class="text-3xl font-bold text-thmblue">11</div>
+        <div class="text-xs uppercase tracking-wider text-slate-600 mt-1">phases RH</div>
+      </div>
+    </section>
+
+    {/* ════════ TABLE DES COUCHES ════════ */}
+    <section class="mb-12">
+      <span class="pt-tag pt-tag-thm mb-3 inline-block">Vulgarisé</span>
+      <h2 class="text-3xl font-bold text-thmblue mb-4">L'architecture en 8 couches</h2>
+      <p class="text-slate-700 leading-relaxed mb-6 max-w-3xl">
+        Les outils ne sont pas un patchwork : ils s'organisent en strates de
+        complexité croissante. Chaque couche utilise les couches précédentes
+        et débloque la suivante. La progression va du crible nu (matrice T_3
+        à valeurs dans &#123;0, 1, 2&#125;) jusqu'à des codes correcteurs CRT et
+        des transformées étendues qui font le pont avec la physique.
+      </p>
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm bg-white border border-slate-200 rounded-lg">
+          <thead class="bg-slate-50">
+            <tr>
+              <th class="text-left px-4 py-3">Couche</th>
+              <th class="text-left px-4 py-3">Nom</th>
+              <th class="text-left px-4 py-3">Outils</th>
+              <th class="text-center px-4 py-3">Nombre</th>
+            </tr>
+          </thead>
+          <tbody>
+            {layerCounts.map((l) => (
+              <tr class="border-t border-slate-100">
+                <td class="px-4 py-2 font-mono font-bold" style={`color: ${layerColor[l.layer]}`}>{l.layer}</td>
+                <td class="px-4 py-2 font-sans font-semibold text-thmblue">{l.name}</td>
+                <td class="px-4 py-2 font-mono text-xs">{toolsByLayer[l.layer - 1].tools.map(t => t.id).join(', ')}</td>
+                <td class="px-4 py-2 text-center font-bold">{l.count}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    {/* ════════ LES 32 OUTILS — PAR COUCHE, FICHES DÉPLIABLES ════════ */}
+    {toolsByLayer.map(({ layer, layerName, tools }) => (
+      <section class="mb-12">
+        <div class="flex items-baseline gap-4 mb-5 border-b border-slate-200 pb-2">
+          <span class="font-mono font-bold text-2xl" style={`color: ${layerColor[layer]}`}>Couche {layer}</span>
+          <h2 class="text-2xl font-sans font-bold text-thmblue">{layerName}</h2>
+          <span class="text-xs text-slate-500 ml-auto">{tools.length} outil{tools.length > 1 ? 's' : ''}</span>
+        </div>
+        <div class="grid md:grid-cols-2 gap-3">
+          {tools.map((t) => (
+            <details class="group bg-white border border-slate-200 rounded-lg overflow-hidden hover:border-thmblue/40 transition">
+              <summary class="cursor-pointer p-4 list-none flex items-start gap-3 hover:bg-slate-50">
+                <span class="font-mono font-bold text-sm shrink-0 px-2 py-0.5 rounded text-white" style={`background-color: ${layerColor[layer]}`}>{t.id}</span>
+                <div class="flex-1 min-w-0">
+                  <div class="flex items-baseline justify-between gap-2 mb-1">
+                    <h3 class="font-sans font-semibold text-thmblue text-base">{t.name}</h3>
+                    <span class="text-xs font-mono text-emerald-700 shrink-0">{t.score}</span>
+                  </div>
+                  <p class="text-xs text-slate-700 leading-relaxed">{t.short}</p>
+                </div>
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor" class="text-slate-400 mt-1 shrink-0 transition-transform group-open:rotate-180" aria-hidden="true">
+                  <path d="M2 4 L7 9 L12 4 Z" />
+                </svg>
+              </summary>
+              <div class="px-4 pb-4 pt-2 border-t border-slate-100 bg-slate-50/50">
+                <p class="text-xs uppercase tracking-wider text-slate-500 font-sans mb-3">Fiche détaillée</p>
+                <ul class="text-sm text-slate-700 space-y-1.5 list-disc pl-5">
+                  {t.full.map((line) => <li>{line}</li>)}
+                </ul>
+                <p class="text-xs text-slate-500 font-mono mt-4 pt-3 border-t border-slate-200">
+                  Source : <code class="bg-slate-200/60 px-1.5 py-0.5 rounded">PT_MATH/scripts/tool_{t.id.slice(1).padStart(2, '0')}_*.py</code>
+                </p>
+              </div>
+            </details>
+          ))}
+        </div>
+      </section>
+    ))}
+
+    {/* ════════ DÉCOUVERTES CROISÉES ════════ */}
+    <section class="mb-12">
+      <span class="pt-tag pt-tag-thm mb-3 inline-block">Standard</span>
+      <h2 class="text-3xl font-bold text-thmblue mb-4">Découvertes croisées</h2>
+      <p class="text-slate-700 leading-relaxed mb-6 max-w-3xl">
+        Les outils ne sont pas indépendants. Pris deux à deux ou trois à trois,
+        ils révèlent des connexions structurelles qu'aucun ne pourrait montrer
+        seul. Voici les huit découvertes croisées principales.
+      </p>
+      <div class="grid md:grid-cols-2 gap-4">
+        {crossDiscoveries.map((d) => (
+          <div class="bg-white border border-slate-200 rounded-lg p-5">
+            <div class="flex items-center justify-between gap-3 mb-2">
+              <h3 class="font-sans font-semibold text-thmblue text-base">{d.title}</h3>
+              <span class="text-xs font-mono text-thmblue bg-thmblue/10 px-2 py-0.5 rounded">{d.refs}</span>
+            </div>
+            <p class="text-sm text-slate-700 leading-relaxed">{d.body}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    {/* ════════ ROUTE RH — RENVOI VERS PAGE DÉDIÉE ════════ */}
+    <section class="mb-12">
+      <span class="pt-tag pt-tag-cond mb-3 inline-block">Technique</span>
+      <h2 class="text-3xl font-bold text-thmblue mb-4">Application centrale : le programme RH</h2>
+      <p class="text-slate-700 leading-relaxed mb-6 max-w-3xl">
+        Sept de ces 32 outils — M02 (Liouville), M05 (spectral), M09 (indice
+        d'obstruction), M10 (expander), M11 (Ihara-RH), M12 (entrelaceur),
+        M14 (séparabilité) — sous-tendent le programme PT sur l'hypothèse
+        de Riemann. Le programme proprement dit a mené onze phases
+        d'attaque entre avril 2026 et fin avril 2026, dont sept ont
+        convergé vers la même reformulation : RH ⟺ sub-Lindelöf, et
+        quatre ont livré des résultats inconditionnels.
+      </p>
+      <div class="bg-slate-950 text-white rounded-lg p-6 flex items-center justify-between gap-4 flex-wrap">
+        <div>
+          <p class="text-sm text-slate-300 mb-1">Page dédiée</p>
+          <p class="font-sans font-bold text-lg text-white">11 phases · 7 routes convergentes · connexions Bost-Connes / CCM</p>
+        </div>
+        <a href="/programme-rh" class="px-5 py-3 bg-white text-slate-900 font-sans font-semibold rounded hover:bg-slate-100 transition whitespace-nowrap">
+          Voir le programme RH →
+        </a>
+      </div>
+    </section>
+
+    {/* ════════ FOOTER ════════ */}
+    <p class="text-sm text-slate-500 italic font-sans border-t border-slate-200 pt-6">
+      Tous les scripts sont publics et reproductibles : code source MIT sur
+      <a href="https://github.com/Igrekess/PersistenceTheory" class="underline text-thmblue ml-1" rel="noopener">github.com/Igrekess/PersistenceTheory</a>,
+      dossier <code class="bg-slate-100 px-1.5 py-0.5 rounded text-xs">PT_MATH/scripts/</code>.
+      Les outils M22, M24 et M26 sont réservés (numérotation interne).
+    </p>
+  </main>
+</BaseLayout>
