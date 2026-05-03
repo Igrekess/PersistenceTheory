@@ -2,50 +2,235 @@
 import BaseLayout from '@layouts/BaseLayout.astro';
 import PageHero from '@components/PageHero.astro';
 
-const cards = [
-  ['Mathematics', 'GFT + T0–T6 + L0', 'Fundamental principle, arithmetic chain, attractive closure at μ* = 15.', '/en/theorems', 'pt-tag-thm'],
-  ['Physics', '43 observables', 'Announced mean error 0.30%, median 0.06%, under explicit bridges.', '/en/observables', 'pt-tag-der'],
-  ['Chemistry', 'Periodic table', 's/p/d/f blocks and periods 2, 8, 8, 18, 18, 32, 32.', '/en/tableau-periodique', 'pt-tag-id'],
-  ['Chemistry', 'IE', 'Ionization energies: peaks, closures, residuals, and CPR correction.', '/en/energies-ionisation', 'pt-tag-val'],
-  ['Chemistry', 'EA', 'Electron affinities: boundary capture, vacancy, halogen/metal cases.', '/en/affinites-electroniques', 'pt-tag-val'],
-  ['Cosmology', 'Dark sector', 'Visible, dark energy, and informational matter reading.', '/en/cosmologie', 'pt-tag-bridge'],
-  ['QG', 'Fisher → GR → Kerr', 'Geometric chain, covariant amplitude, QNM, and observational limits.', '/en/gravite-quantique', 'pt-tag-bridge'],
-  ['Falsifiability', 'Predictions', 'Experimental windows and breaking points.', '/en/predictions', 'pt-tag-cond'],
-];
-
 const metrics = [
   ['43', 'Standard Model observables'],
-  ['0.30%', 'reported mean deviation'],
-  ['0.06%', 'reported median deviation'],
-  ['0', 'continuously fitted parameters'],
+  ['0.30 %', 'mean error vs PDG'],
+  ['0.06 %', 'median error'],
+  ['0', 'continuous parameter fitted'],
 ];
 
 const lenses = [
-  ['The hard core', 'GFT and the T0–T6/L0 chain form the skeleton. Without that skeleton, physical and chemical results lose their PT-derivation status.', '/en/theorems'],
-  ['The robust showcase', 'Chemistry gives the best first contact: it connects channel geometry, periods, IE, and EA in an inspectable language.', '/en/tableau-periodique'],
-  ['Open edges', 'QG, cosmology, and predictions must stay clear about what is derived, validated, expected, or still to be calibrated.', '/en/limites'],
+  ['The hard core', `GFT and the T0–T6 / L0 chain form the mathematical backbone. Without it, physical and chemical results lose their PT-derivation status.`, '/en/theorems'],
+  ['The robust showcase', `The atomic chemistry + 43 Standard Model observables pair gives the best first contact: measurable numerical MAE, no fitted parameter, direct comparison to PDG.`, '/en/observables'],
+  ['The open edges', `Late cosmology, RH programme, geophysics and applications keep contrasted statuses. The dashboard distinguishes on each card what is proved, derived, validated, or predicted.`, '/en/limites'],
 ];
+
+type Card = {
+  title: string;
+  body: string;
+  href: string;
+  domain: 'math' | 'physics' | 'chemistry' | 'bio' | 'cosmo' | 'geo' | 'meta';
+  metric?: string;
+  status?: 'THM' | 'DER' | 'VAL' | 'PRED' | 'COND';
+  source?: string;
+};
+type Group = { title: string; intro: string; cards: Card[] };
+
+const domainColor: Record<Card['domain'], string> = {
+  math:      '#4338ca',
+  physics:   '#0d9488',
+  chemistry: '#b45309',
+  bio:       '#9333ea',
+  cosmo:     '#1e3a8a',
+  geo:       '#78350f',
+  meta:      '#64748b',
+};
+
+const groups: Group[] = [
+  {
+    title: 'Foundational mathematics',
+    intro: `The theoretical floor: T0–T6 + L0 + GFT chain, the catalogue of PT_MATH computational tools, and the open leads around the Riemann hypothesis.`,
+    cards: [
+      {
+        title: 'T0–T6 + GFT + L0 chain',
+        body: `The demonstrative core. T0 closes uniqueness of the dynamical field, GFT gives the fundamental principle log m = D_KL + H, T5 fixes the attractor μ* = 15.`,
+        href: '/en/theorems', domain: 'math', status: 'THM',
+        metric: '12+ theorems', source: 'ch01–ch08, ch25',
+      },
+      {
+        title: 'PT toolbox atlas',
+        body: `32 computational tools (M01–M35) covering algebras, transforms, metrics, CRT error-correcting codes. Each tool is a standalone Python script.`,
+        href: '/en/atlas-outils-pt', domain: 'math', status: 'VAL',
+        metric: '659/659 PASS', source: 'PT_MATH',
+      },
+      {
+        title: 'Mechanics of prime gaps',
+        body: `From the sieve to the primes: primorial wheels, square-root window, angular law θ_p ~ √(2/p), renormalised PT-Buchstab equation.`,
+        href: '/en/gaps-premiers', domain: 'math', status: 'DER',
+        metric: 'candidate sub-Lindelöf',
+      },
+      {
+        title: 'RH programme — leads',
+        body: `6 exploration milestones leading to a candidate reformulation (sub-Lindelöf), three crossings with the Connes programme (Bost-Connes, CCM).`,
+        href: '/en/programme-rh', domain: 'math', status: 'COND',
+        metric: '7 convergent routes', source: 'ch21, ch37',
+      },
+    ],
+  },
+  {
+    title: 'Foundational physics',
+    intro: `The Standard Model observables reproduced from s = 1/2, with no fitted continuous parameter, and their validation at collider level.`,
+    cards: [
+      {
+        title: '43 Standard Model observables',
+        body: `α_EM, α_s, sin²θ_W, lepton masses, quark masses, CKM/PMNS mixings, cosmological parameters. All derived from s = 1/2 + T0–T6 cascade.`,
+        href: '/en/observables', domain: 'physics', status: 'DER',
+        metric: 'MAE 0.30 %, median 0.06 %', source: 'ch15',
+      },
+      {
+        title: 'LEP / SLC / LHC validation',
+        body: `72 precision observables (Z pole, Higgs sector, top, QCD) tested against experimental data, plus a Monte Carlo parton cascade simulation.`,
+        href: '/en/audit', domain: 'physics', status: 'VAL',
+        metric: '55/72 within 1 %, 72/72 within 5 %', source: 'ch20',
+      },
+      {
+        title: 'Quantum mechanics = amplitude geometry',
+        body: `The six von Neumann axioms (Hilbert space, Born rule, unitary evolution, measurement…) emerge from CRT and the transfer matrix.`,
+        href: '/en/gravite-quantique', domain: 'physics', status: 'DER',
+        source: 'ch12',
+      },
+      {
+        title: 'Nuclear physics',
+        body: `Cascade s=1/2 → N_c → α_s → M_N → V_NN → E_bind. Magic numbers 2,8,20,28,50,82,126 reconstructed, ab initio HF+MBPT2 for ¹⁶O and ⁴⁰Ca.`,
+        href: '/en/nucleaire', domain: 'physics', status: 'VAL',
+        metric: '408/413 PASS', source: 'ch22d',
+      },
+    ],
+  },
+  {
+    title: 'Relativity, gravity and cosmology',
+    intro: `From the sieve's Fisher metric to Lorentzian signature, Hubble expansion and the dark sector.`,
+    cards: [
+      {
+        title: 'Relativity from Fisher',
+        body: `Bianchi I metric, Lorentzian signature g₀₀<0 for μ>μ_c≈6.97, emergent SO(3,1) group, Einstein equations, Newton constant.`,
+        href: '/en/relativite', domain: 'cosmo', status: 'DER',
+        metric: 'SO(3,1): 23/23 PASS', source: 'ch13',
+      },
+      {
+        title: 'Cosmogony: crystallisation of p=2',
+        body: `The Big Bang read as logical order of channel opening. Crystallisation of p=2 into spin/parity boundary, q⁺/q⁻ bifurcation locked at μ*=15.`,
+        href: '/en/big-bang', domain: 'cosmo', status: 'DER',
+        source: 'ch08, ch13',
+      },
+      {
+        title: 'Hubble and dark energy',
+        body: `H₀ = 67.43 km/s/Mpc (Route D), SH0ES tension treated by superposition of KBC local void + Bianchi I anisotropy. 3 routes for w(z) facing DESI DR2.`,
+        href: '/en/cosmologie', domain: 'cosmo', status: 'DER',
+        metric: 'H₀ = 67.43; Ωinfo = 26.48 %', source: 'ch20f',
+      },
+      {
+        title: 'Time and emergence of duration',
+        body: `Proper time is not posited. It appears when g₀₀ changes sign, at μ_c ≈ 6.97. Before that, Euclidean signature — no "before".`,
+        href: '/en/temps', domain: 'cosmo', status: 'DER',
+        source: 'ch13',
+      },
+    ],
+  },
+  {
+    title: 'Chemistry',
+    intro: `From the periodic table to molecular bond energies, via ionisations and electron affinities. All derived from the sieve.`,
+    cards: [
+      {
+        title: 'Periodic table',
+        body: `Shell-size sequence 2, 8, 8, 18, 18, 32, 32 reconstructed from the sieve. s/p/d/f blocks as consequences of primary channels.`,
+        href: '/en/tableau-periodique', domain: 'chemistry', status: 'DER',
+        source: 'ch22',
+      },
+      {
+        title: 'Ionisation energies',
+        body: `Z=1..86 by canonical PTC engine, Z=1..103 by perturbative scheme, Z=104..118 vs FSCC/CCSDT. Peaks, closures, structural residues visible.`,
+        href: '/en/energies-ionisation', domain: 'chemistry', status: 'VAL',
+        metric: '103/103 below 0.3 %', source: 'ch22',
+      },
+      {
+        title: 'Electron affinities',
+        body: `Edge capture, vacancy, halogen/metal cases. All main elements below 10 %.`,
+        href: '/en/affinites-electroniques', domain: 'chemistry', status: 'VAL',
+        metric: 'below 10 %', source: 'ch22',
+      },
+      {
+        title: 'Molecular chemistry',
+        body: `Dissociation energies D₀ (~849 mol), geometry 0.5 % (12 mol), Marcus-PT kinetics 2.1 % (17 reactions), ω_e frequencies Spearman 1.000.`,
+        href: '/en/tableau-periodique', domain: 'chemistry', status: 'DER',
+        metric: 'D₀: low MAE on 849 mol', source: 'ch22b',
+      },
+    ],
+  },
+  {
+    title: 'Application domains',
+    intro: `Beyond the Standard Model and chemistry: applications of the PT cascade to biology, seismic geophysics, and colour perception.`,
+    cards: [
+      {
+        title: 'Biology: 3 biopolymers',
+        body: `Universal q⁺/q⁻ bifurcation across DNA, RNA, proteins. Ramachandran torus reconstructed (20/20 amino acids), allostery tested by 1000× shuffle, A_m = 1 for RNA [THM].`,
+        href: '/en/biologie', domain: 'bio', status: 'VAL',
+        metric: '6/6 shuffle PASS, p=0/1000',
+      },
+      {
+        title: 'Colour — Sieve Color Space',
+        body: `Colour space derived from the sieve. 3 opponent channels forced by {3, 5, 7}, γ_p weights computable without fit, Pythagorean metric via CRT.`,
+        href: '/en/scs', domain: 'bio', status: 'DER',
+        metric: 'MIT, public code',
+      },
+    ],
+  },
+  {
+    title: 'Meta — falsifiability and audit',
+    intro: `How PT is testable, verifiable, and confronted with independent external results.`,
+    cards: [
+      {
+        title: 'Falsifiable predictions',
+        body: `Registry of PT predictions with explicit test criteria: neutrinos, Higgs, g−2, αs, superheavies, chemistry, nuclear, emerging signals.`,
+        href: '/en/predictions', domain: 'meta', status: 'PRED',
+        source: 'ch21',
+      },
+      {
+        title: 'External confirmations',
+        body: `Classical mathematical theorems and recent publications (peer-reviewed and arXiv) compatible with PT — without having been designed to test it.`,
+        href: '/en/confirmations-externes', domain: 'meta', status: 'VAL',
+      },
+      {
+        title: 'Transparent audit',
+        body: `Epistemic status by result (THM, DER, VAL, PRED, COND), regression tests, reproducible companion scripts.`,
+        href: '/en/audit', domain: 'meta', status: 'VAL',
+        source: 'ch23',
+      },
+    ],
+  },
+];
+
+const statusLabel: Record<NonNullable<Card['status']>, { label: string; color: string }> = {
+  THM:  { label: 'proved',     color: '#1d4ed8' },
+  DER:  { label: 'derived',    color: '#ea580c' },
+  VAL:  { label: 'validated',  color: '#059669' },
+  PRED: { label: 'predicted',  color: '#b8323a' },
+  COND: { label: 'conditional', color: '#b7791f' },
+};
 ---
 
 <BaseLayout
   title="Results dashboard"
-  description="Synthetic view of major PT results, validations, and proof pages."
+  description="Synthetic view of PT results by domain: mathematics, physics, relativity-cosmology, chemistry, biology, geophysics, falsifiability. Each card links to its monograph chapter and verification page."
 >
   <PageHero
-    eyebrow="Synthesis"
+    eyebrow="Synthesis · dashboard"
     domain="meta"
     title="Results dashboard"
-    dek="This page is a quick map: where the results are, what they mean, and how to check them inside the site."
-    heroNote="It does not replace statuses: a result can be proof-based, derived under a bridge, numerically validated, or predictive. The dashboard shows the verification route."
+    kicker="One card per result. One door to verification."
+    dekL1={`This page lists all main results of the PT programme, organised in six families: foundational mathematics, Standard Model physics, relativity-cosmology, chemistry, application domains (biology, geophysics, colour), and meta (predictions, confirmations, audit). Each card states its epistemic status and links to the corresponding monograph chapter and to the website verification page.`}
+    heroNote="6 families → ~22 cards → monograph chapters + verification pages"
+    oneLineNote={{ label: 'Reading', body: `each result carries an explicit status (proved, derived, validated, predicted, conditional). The dashboard does not hide the statuses: it makes them readable at a glance via colour-coded badge.` }}
   />
 
   <main class="max-w-6xl mx-auto px-4 py-10 md:py-14">
+
     <section class="mb-12">
       <aside class="rounded-lg border border-slate-200 bg-slate-950 text-white p-6 md:p-8 shadow-sm">
         <p class="text-xs font-sans uppercase tracking-[0.18em] text-amber-300 mb-5">
-          Reported landmarks
+          Global figures
         </p>
-        <div class="grid grid-cols-2 gap-3">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
           {metrics.map(([value, label]) => (
             <div class="rounded-lg border border-white/10 bg-white/10 p-4">
               <strong class="block text-3xl font-sans text-amber-200">{value}</strong>
@@ -56,7 +241,7 @@ const lenses = [
       </aside>
     </section>
 
-    <section class="grid md:grid-cols-3 gap-5 mb-12">
+    <section class="grid md:grid-cols-3 gap-5 mb-14">
       {lenses.map(([title, text, href]) => (
         <a href={href} class="rounded-lg border border-slate-200 bg-white p-5 shadow-sm hover:border-thmblue/40 hover:shadow-md transition group">
           <h2 class="text-xl font-bold text-thmblue mb-3 group-hover:underline">{title}</h2>
@@ -65,25 +250,59 @@ const lenses = [
       ))}
     </section>
 
-    <section>
-      <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-6">
-        <div>
-          <p class="pt-tag pt-tag-der mb-3">Domain map</p>
-          <h2 class="text-3xl font-bold text-thmblue">Where to verify each family</h2>
+    {groups.map((group) => (
+      <section class="mb-14">
+        <div class="mb-6">
+          <h2 class="text-2xl md:text-3xl font-bold text-thmblue mb-2">{group.title}</h2>
+          <p class="text-slate-700 leading-relaxed max-w-3xl text-sm">{group.intro}</p>
         </div>
-        <a href="/en/statuts-resultats" class="text-sm font-sans font-semibold text-thmblue hover:underline">
-          View epistemic statuses
-        </a>
-      </div>
-      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
-        {cards.map(([domain, title, body, href, tagClass]) => (
-          <a href={href} class="pt-card block group">
-            <span class:list={['pt-tag', tagClass]}>{domain}</span>
-            <h2 class="font-sans font-semibold text-thmblue text-xl mt-3 mb-2 group-hover:underline">{title}</h2>
-            <p class="text-sm text-slate-700 leading-relaxed">{body}</p>
-          </a>
-        ))}
-      </div>
-    </section>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {group.cards.map((card) => {
+            const dc = domainColor[card.domain];
+            const sc = card.status ? statusLabel[card.status] : null;
+            return (
+              <a href={card.href}
+                 class="block bg-white border border-slate-200 rounded-lg p-5 hover:border-thmblue/40 hover:shadow-md transition group">
+                <div class="flex items-center gap-2 mb-3 flex-wrap">
+                  <span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider"
+                        style={`background-color: ${dc}1a; color: ${dc}`}>
+                    {card.domain}
+                  </span>
+                  {sc && (
+                    <span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider"
+                          style={`background-color: ${sc.color}1a; color: ${sc.color}`}>
+                      {sc.label}
+                    </span>
+                  )}
+                </div>
+                <h3 class="font-sans font-semibold text-thmblue text-base mb-2 group-hover:underline">{card.title}</h3>
+                <p class="text-sm text-slate-700 leading-relaxed mb-3">{card.body}</p>
+                {(card.metric || card.source) && (
+                  <div class="border-t border-slate-100 pt-3 mt-3 space-y-1 text-xs">
+                    {card.metric && (
+                      <div class="font-mono text-slate-700">
+                        <span class="text-slate-500">→</span> {card.metric}
+                      </div>
+                    )}
+                    {card.source && (
+                      <div class="font-mono text-slate-500">
+                        source: {card.source}
+                      </div>
+                    )}
+                  </div>
+                )}
+              </a>
+            );
+          })}
+        </div>
+      </section>
+    ))}
+
+    <p class="text-sm text-slate-500 italic font-sans border-t border-slate-200 pt-6">
+      Dashboard updated at each new derivation. Primary source:
+      the <a href="/en/monograph" class="underline text-thmblue">PT monograph</a>
+      (chapters ch01–ch37). For detailed epistemic statuses, see
+      <a href="/en/statuts-resultats" class="underline text-thmblue ml-1">Result statuses</a>.
+    </p>
   </main>
 </BaseLayout>

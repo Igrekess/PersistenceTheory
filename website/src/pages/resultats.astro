@@ -2,50 +2,239 @@
 import BaseLayout from '@layouts/BaseLayout.astro';
 import PageHero from '@components/PageHero.astro';
 
-const cards = [
-  ['Mathématique', 'GFT + T0–T6 + L0', 'Principe fondamental, chaîne arithmétique, fermeture attractive μ* = 15.', '/theorems', 'pt-tag-thm'],
-  ['Physique', '43 observables', 'Écart moyen annoncé 0,30 %, médiane 0,06 %, sous ponts explicites.', '/observables', 'pt-tag-der'],
-  ['Chimie', 'Tableau périodique', 'Blocs s/p/d/f et périodes 2, 8, 8, 18, 18, 32, 32.', '/tableau-periodique', 'pt-tag-id'],
-  ['Chimie', 'EI', 'Énergies d’ionisation : pics, fermetures, résidus et correction CPR.', '/energies-ionisation', 'pt-tag-val'],
-  ['Chimie', 'EA', 'Affinités électroniques : capture de bord, vacance, cas halogènes/métaux.', '/affinites-electroniques', 'pt-tag-val'],
-  ['Cosmologie', 'Secteur sombre', 'Lecture visible, énergie sombre, matière informationnelle.', '/cosmologie', 'pt-tag-bridge'],
-  ['QG', 'Fisher → GR → Kerr', 'Chaîne géométrique, amplitude covariante, QNM et limites observationnelles.', '/gravite-quantique', 'pt-tag-bridge'],
-  ['Falsifiabilité', 'Prédictions', 'Fenêtres expérimentales et points de rupture.', '/predictions', 'pt-tag-cond'],
-];
-
+// ── Métriques globales ──────────────────────────────────────────────────────
 const metrics = [
-  ['43', 'observables Standard Model'],
-  ['0,30 %', 'écart moyen annoncé'],
-  ['0,06 %', 'médiane annoncée'],
+  ['43', 'observables Modèle Standard'],
+  ['0,30 %', 'écart moyen vs PDG'],
+  ['0,06 %', 'écart médian'],
   ['0', 'paramètre continu ajusté'],
 ];
 
+// ── Trois lentilles de lecture ──────────────────────────────────────────────
 const lenses = [
-  ['Le noyau dur', 'GFT et la chaîne T0–T6/L0 forment l’ossature. Sans cette ossature, les résultats physiques et chimiques perdent leur statut de dérivation PT.', '/theorems'],
-  ['La vitrine robuste', 'La chimie donne le meilleur premier contact : elle relie géométrie des canaux, périodes, EI et EA dans un langage inspectable.', '/tableau-periodique'],
-  ['Les bords ouverts', 'QG, cosmologie et prédictions doivent rester très clairs sur ce qui est dérivé, validé, attendu ou encore à calibrer.', '/limites'],
+  ['Le noyau dur', `GFT et la chaîne T0–T6 / L0 forment l'ossature mathématique. Sans cette ossature, les résultats physiques et chimiques perdent leur statut de dérivation PT.`, '/theorems'],
+  ['La vitrine robuste', `Le couple chimie atomique + 43 observables du Modèle Standard donne le meilleur premier contact : MAE numérique mesurable, 0 paramètre ajusté, comparaison directe à PDG.`, '/observables'],
+  ['Les bords ouverts', `Cosmologie tardive, programme RH, géophysique et applications restent à statuts contrastés. Le dashboard distingue à chaque carte ce qui est démontré, dérivé, validé ou prédit.`, '/limites'],
 ];
+
+// ── 6 groupes de cartes ─────────────────────────────────────────────────────
+type Card = {
+  title: string;
+  body: string;
+  href: string;
+  domain: 'math' | 'physics' | 'chemistry' | 'bio' | 'cosmo' | 'geo' | 'meta';
+  metric?: string;
+  status?: 'THM' | 'DER' | 'VAL' | 'PRED' | 'COND';
+  source?: string;
+};
+type Group = { title: string; intro: string; cards: Card[] };
+
+const domainColor: Record<Card['domain'], string> = {
+  math:      '#4338ca',
+  physics:   '#0d9488',
+  chemistry: '#b45309',
+  bio:       '#9333ea',
+  cosmo:     '#1e3a8a',
+  geo:       '#78350f',
+  meta:      '#64748b',
+};
+
+const groups: Group[] = [
+  {
+    title: 'Mathématique fondamentale',
+    intro: `Le socle théorique : la chaîne T0–T6 + L0 + GFT, le catalogue des outils computationnels PT_MATH, et les pistes ouvertes autour de l'hypothèse de Riemann.`,
+    cards: [
+      {
+        title: 'Chaîne T0–T6 + GFT + L0',
+        body: `Le noyau démonstratif. T0 ferme l'unicité du champ dynamique, GFT donne le principe fondamental log m = D_KL + H, T5 fixe l'attracteur μ* = 15.`,
+        href: '/theorems', domain: 'math', status: 'THM',
+        metric: '12+ théorèmes', source: 'ch01–ch08, ch25',
+      },
+      {
+        title: 'Atlas des outils PT',
+        body: `32 outils computationnels (M01–M35) couvrant algèbres, transformées, métriques, codes correcteurs CRT. Chaque outil est un script Python autonome.`,
+        href: '/atlas-outils-pt', domain: 'math', status: 'VAL',
+        metric: '659/659 PASS', source: 'PT_MATH',
+      },
+      {
+        title: 'Mécanique des gaps premiers',
+        body: `Du crible aux nombres premiers : roues primorielles, fenêtre racine, loi angulaire θ_p ~ √(2/p), équation PT-Buchstab renormalisée.`,
+        href: '/gaps-premiers', domain: 'math', status: 'DER',
+        metric: 'sub-Lindelöf candidat',
+      },
+      {
+        title: 'Programme RH — pistes',
+        body: `6 jalons d'exploration aboutissant à une reformulation candidate (sub-Lindelöf), trois croisements avec le programme Connes (Bost-Connes, CCM).`,
+        href: '/programme-rh', domain: 'math', status: 'COND',
+        metric: '7 routes convergentes', source: 'ch21, ch37',
+      },
+    ],
+  },
+  {
+    title: 'Physique fondamentale',
+    intro: `Les observables du Modèle Standard reproduites depuis s = 1/2, sans paramètre continu ajusté, et leur validation au niveau collisionneur.`,
+    cards: [
+      {
+        title: '43 observables du Modèle Standard',
+        body: `α_EM, α_s, sin²θ_W, masses leptons, masses quarks, mélanges CKM/PMNS, paramètres cosmologiques. Tout dérivé depuis s = 1/2 + cascade T0–T6.`,
+        href: '/observables', domain: 'physics', status: 'DER',
+        metric: 'MAE 0,30 %, médiane 0,06 %', source: 'ch15',
+      },
+      {
+        title: 'Validation collisionneur LEP / SLC / LHC',
+        body: `72 observables de précision (pôle Z, secteur Higgs, top, QCD) testés contre les données expérimentales, plus simulation Monte Carlo de cascade de partons.`,
+        href: '/audit', domain: 'physics', status: 'VAL',
+        metric: '55/72 à 1 %, 72/72 à 5 %', source: 'ch20',
+      },
+      {
+        title: 'Mécanique quantique = géométrie d\'amplitude',
+        body: `Les six axiomes de von Neumann (espace de Hilbert, règle de Born, évolution unitaire, mesure, etc.) émergent du CRT et de la matrice de transfert.`,
+        href: '/gravite-quantique', domain: 'physics', status: 'DER',
+        source: 'ch12',
+      },
+      {
+        title: 'Physique nucléaire',
+        body: `Cascade s=1/2 → N_c → α_s → M_N → V_NN → E_bind. Nombres magiques 2,8,20,28,50,82,126 reconstruits, ab initio HF+MBPT2 pour ¹⁶O et ⁴⁰Ca.`,
+        href: '/nucleaire', domain: 'physics', status: 'VAL',
+        metric: '408/413 PASS', source: 'ch22d',
+      },
+    ],
+  },
+  {
+    title: 'Relativité, gravité et cosmologie',
+    intro: `De la métrique de Fisher du crible à la signature lorentzienne, l'expansion de Hubble et le secteur sombre.`,
+    cards: [
+      {
+        title: 'Relativité depuis Fisher',
+        body: `Métrique de Bianchi I, signature lorentzienne g₀₀<0 pour μ>μ_c≈6,97, groupe SO(3,1) émergent, équations d'Einstein, constante de Newton.`,
+        href: '/relativite', domain: 'cosmo', status: 'DER',
+        metric: 'SO(3,1) : 23/23 PASS', source: 'ch13',
+      },
+      {
+        title: 'Cosmogonie : cristallisation de p=2',
+        body: `Le Big Bang lu comme ordre logique d'ouverture des canaux. Cristallisation de p=2 en frontière spin/parité, bifurcation q⁺/q⁻ verrouillée à μ*=15.`,
+        href: '/big-bang', domain: 'cosmo', status: 'DER',
+        source: 'ch08, ch13',
+      },
+      {
+        title: 'Hubble et énergie noire',
+        body: `H₀ = 67,43 km/s/Mpc (Route D), tension SH0ES traitée par superposition vide local KBC + anisotropie Bianchi I. 3 routes pour w(z) face à DESI DR2.`,
+        href: '/cosmologie', domain: 'cosmo', status: 'DER',
+        metric: 'H₀ = 67,43 ; Ωinfo = 26,48 %', source: 'ch20f',
+      },
+      {
+        title: 'Temps et émergence de la durée',
+        body: `Le temps propre n'est pas posé. Il apparaît quand g₀₀ change de signe, à μ_c ≈ 6,97. Avant, signature euclidienne — pas de "avant".`,
+        href: '/temps', domain: 'cosmo', status: 'DER',
+        source: 'ch13',
+      },
+    ],
+  },
+  {
+    title: 'Chimie',
+    intro: `Du tableau périodique aux énergies de liaison moléculaires, en passant par les ionisations et affinités électroniques. Tout dérivé du crible.`,
+    cards: [
+      {
+        title: 'Tableau périodique',
+        body: `Suite des tailles de couches 2, 8, 8, 18, 18, 32, 32 reconstruite depuis le crible. Blocs s/p/d/f comme conséquences des canaux primaires.`,
+        href: '/tableau-periodique', domain: 'chemistry', status: 'DER',
+        source: 'ch22',
+      },
+      {
+        title: 'Énergies d\'ionisation',
+        body: `Z=1..86 par moteur PTC canonique, Z=1..103 par schéma perturbatif, Z=104..118 vs FSCC/CCSDT. Pics, fermetures, résidus structurels visibles.`,
+        href: '/energies-ionisation', domain: 'chemistry', status: 'VAL',
+        metric: '103/103 sous 0,3 %', source: 'ch22',
+      },
+      {
+        title: 'Affinités électroniques',
+        body: `Capture de bord, vacance, cas halogènes/métaux. Tous les éléments principaux sous 10 %.`,
+        href: '/affinites-electroniques', domain: 'chemistry', status: 'VAL',
+        metric: 'sous 10 %', source: 'ch22',
+      },
+      {
+        title: 'Chimie moléculaire',
+        body: `Énergies de dissociation D₀ (~849 mol), géométrie 0,5 % (12 mol), cinétique Marcus-PT 2,1 % (17 réactions), fréquences ω_e Spearman 1,000.`,
+        href: '/tableau-periodique', domain: 'chemistry', status: 'DER',
+        metric: 'D₀ : MAE faible 849 mol', source: 'ch22b',
+      },
+    ],
+  },
+  {
+    title: 'Domaines d\'application',
+    intro: `Hors Modèle Standard et chimie : applications de la cascade PT à la biologie, à la géophysique sismique et à la perception colorée.`,
+    cards: [
+      {
+        title: 'Biologie : 3 biopolymères',
+        body: `Bifurcation q⁺/q⁻ universelle sur ADN, ARN, protéines. Tore de Ramachandran reconstruit (20/20 acides aminés), allostérie testée par shuffle 1000×, A_m = 1 pour l'ARN [THM].`,
+        href: '/biologie', domain: 'bio', status: 'VAL',
+        metric: '6/6 shuffle PASS, p=0/1000',
+      },
+      {
+        title: 'Couleur — Sieve Color Space',
+        body: `Espace de couleur dérivé du crible. 3 canaux opposants forcés par {3, 5, 7}, poids γ_p calculables sans fit, métrique pythagorienne par CRT.`,
+        href: '/scs', domain: 'bio', status: 'DER',
+        metric: 'MIT, code public',
+      },
+    ],
+  },
+  {
+    title: 'Méta — falsifiabilité et audit',
+    intro: `Comment la PT est testable, vérifiable, et confrontée aux résultats externes indépendants.`,
+    cards: [
+      {
+        title: 'Prédictions falsifiables',
+        body: `Registre des prédictions PT avec critères de test explicites : neutrinos, Higgs, g−2, αs, superlourds, chimie, nucléaire, signaux émergents.`,
+        href: '/predictions', domain: 'meta', status: 'PRED',
+        source: 'ch21',
+      },
+      {
+        title: 'Confirmations externes',
+        body: `Théorèmes mathématiques classiques et publications récentes (peer-reviewed et arXiv) compatibles avec PT — sans avoir été conçus pour la tester.`,
+        href: '/confirmations-externes', domain: 'meta', status: 'VAL',
+      },
+      {
+        title: 'Audit transparent',
+        body: `Statuts épistémiques par résultat (THM, DER, VAL, PRED, COND), tests de régression, scripts compagnons reproductibles.`,
+        href: '/audit', domain: 'meta', status: 'VAL',
+        source: 'ch23',
+      },
+    ],
+  },
+];
+
+const statusLabel: Record<NonNullable<Card['status']>, { label: string; color: string }> = {
+  THM:  { label: 'démontré',  color: '#1d4ed8' },
+  DER:  { label: 'dérivé',    color: '#ea580c' },
+  VAL:  { label: 'validé',    color: '#059669' },
+  PRED: { label: 'prédit',    color: '#b8323a' },
+  COND: { label: 'conditionnel', color: '#b7791f' },
+};
 ---
 
 <BaseLayout
   title="Dashboard des résultats"
-  description="Vue synthétique des principaux résultats, validations et pages de preuve PT."
+  description="Vue synthétique des résultats PT par domaine : mathématique, physique, relativité-cosmologie, chimie, biologie, géophysique, falsifiabilité. Chaque carte renvoie au chapitre de monographie et à la page de vérification."
 >
   <PageHero
-    eyebrow="Synthèse"
+    eyebrow="Synthèse · dashboard"
     domain="meta"
     title="Dashboard des résultats"
-    dek="Cette page sert de carte rapide : où sont les résultats, à quoi ils correspondent, et comment les vérifier dans le site."
-    heroNote="Elle ne remplace pas les statuts : un résultat peut être démonstratif, dérivé sous pont, validé numériquement, ou prédictif. Le dashboard indique le chemin de vérification."
+    kicker="Une carte par résultat. Une porte vers la vérification."
+    dekL1={`Cette page liste tous les résultats principaux du programme PT, organisés en six familles : mathématique fondamentale, physique du Modèle Standard, relativité-cosmologie, chimie, domaines d'application (biologie, géophysique, couleur) et méta (prédictions, confirmations, audit). Chaque carte précise son statut épistémique et renvoie au chapitre correspondant de la monographie ainsi qu'à la page de vérification du site.`}
+    heroNote="6 familles → ~22 cartes → chapitres monographie + pages de vérification"
+    oneLineNote={{ label: 'Lecture', body: `chaque résultat porte un statut explicite (démontré, dérivé, validé, prédit, conditionnel). Le dashboard ne masque pas les statuts : il les rend lisibles d'un coup d'œil par badge couleur.` }}
   />
 
   <main class="max-w-6xl mx-auto px-4 py-10 md:py-14">
+
+    {/* ════════ MÉTRIQUES GLOBALES ════════ */}
     <section class="mb-12">
       <aside class="rounded-lg border border-slate-200 bg-slate-950 text-white p-6 md:p-8 shadow-sm">
         <p class="text-xs font-sans uppercase tracking-[0.18em] text-amber-300 mb-5">
-          Repères annoncés
+          Repères globaux
         </p>
-        <div class="grid grid-cols-2 gap-3">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
           {metrics.map(([value, label]) => (
             <div class="rounded-lg border border-white/10 bg-white/10 p-4">
               <strong class="block text-3xl font-sans text-amber-200">{value}</strong>
@@ -56,7 +245,8 @@ const lenses = [
       </aside>
     </section>
 
-    <section class="grid md:grid-cols-3 gap-5 mb-12">
+    {/* ════════ 3 LENTILLES ════════ */}
+    <section class="grid md:grid-cols-3 gap-5 mb-14">
       {lenses.map(([title, text, href]) => (
         <a href={href} class="rounded-lg border border-slate-200 bg-white p-5 shadow-sm hover:border-thmblue/40 hover:shadow-md transition group">
           <h2 class="text-xl font-bold text-thmblue mb-3 group-hover:underline">{title}</h2>
@@ -65,25 +255,61 @@ const lenses = [
       ))}
     </section>
 
-    <section>
-      <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-6">
-        <div>
-          <p class="pt-tag pt-tag-der mb-3">Carte des domaines</p>
-          <h2 class="text-3xl font-bold text-thmblue">Où vérifier chaque famille</h2>
+    {/* ════════ 6 GROUPES DE CARTES ════════ */}
+    {groups.map((group) => (
+      <section class="mb-14">
+        <div class="mb-6">
+          <h2 class="text-2xl md:text-3xl font-bold text-thmblue mb-2">{group.title}</h2>
+          <p class="text-slate-700 leading-relaxed max-w-3xl text-sm">{group.intro}</p>
         </div>
-        <a href="/statuts-resultats" class="text-sm font-sans font-semibold text-thmblue hover:underline">
-          Voir les statuts épistémiques
-        </a>
-      </div>
-      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
-        {cards.map(([domain, title, body, href, tagClass]) => (
-          <a href={href} class="pt-card block group">
-            <span class:list={['pt-tag', tagClass]}>{domain}</span>
-            <h2 class="font-sans font-semibold text-thmblue text-xl mt-3 mb-2 group-hover:underline">{title}</h2>
-            <p class="text-sm text-slate-700 leading-relaxed">{body}</p>
-          </a>
-        ))}
-      </div>
-    </section>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {group.cards.map((card) => {
+            const dc = domainColor[card.domain];
+            const sc = card.status ? statusLabel[card.status] : null;
+            return (
+              <a href={card.href}
+                 class="block bg-white border border-slate-200 rounded-lg p-5 hover:border-thmblue/40 hover:shadow-md transition group">
+                <div class="flex items-center gap-2 mb-3 flex-wrap">
+                  <span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider"
+                        style={`background-color: ${dc}1a; color: ${dc}`}>
+                    {card.domain}
+                  </span>
+                  {sc && (
+                    <span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider"
+                          style={`background-color: ${sc.color}1a; color: ${sc.color}`}>
+                      {sc.label}
+                    </span>
+                  )}
+                </div>
+                <h3 class="font-sans font-semibold text-thmblue text-base mb-2 group-hover:underline">{card.title}</h3>
+                <p class="text-sm text-slate-700 leading-relaxed mb-3">{card.body}</p>
+                {(card.metric || card.source) && (
+                  <div class="border-t border-slate-100 pt-3 mt-3 space-y-1 text-xs">
+                    {card.metric && (
+                      <div class="font-mono text-slate-700">
+                        <span class="text-slate-500">→</span> {card.metric}
+                      </div>
+                    )}
+                    {card.source && (
+                      <div class="font-mono text-slate-500">
+                        source : {card.source}
+                      </div>
+                    )}
+                  </div>
+                )}
+              </a>
+            );
+          })}
+        </div>
+      </section>
+    ))}
+
+    {/* ════════ FOOTER ════════ */}
+    <p class="text-sm text-slate-500 italic font-sans border-t border-slate-200 pt-6">
+      Dashboard mis à jour à chaque nouvelle dérivation. Source primaire :
+      la <a href="/monograph" class="underline text-thmblue">monographie PT</a>
+      (chapitres ch01–ch37). Pour les statuts épistémiques détaillés, voir
+      <a href="/statuts-resultats" class="underline text-thmblue ml-1">Statuts des résultats</a>.
+    </p>
   </main>
 </BaseLayout>
