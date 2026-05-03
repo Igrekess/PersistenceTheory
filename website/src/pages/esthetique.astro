@@ -1,0 +1,377 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import PageHero from '@components/PageHero.astro';
+
+const principes = [
+  {
+    id: 'E1',
+    title: 'Trichromie',
+    subtitle: 'Trois portes, pas davantage',
+    source: 'La cascade des trois canaux fondamentaux',
+    enonce: "L'expérience sensible se déploie dans un espace à exactement trois dimensions indépendantes.",
+    contrainte: "Cet espace est tridimensionnel par nécessité, non par convention. Tout canal supplémentaire qu'on imagine ajouter — un sens nouveau, une nuance inédite, un cône surnuméraire — vient enrichir l'un des trois originels sans en créer un quatrième vraiment indépendant.",
+    liberte: "À l'intérieur de cet espace, l'éventail des couleurs, harmonies et compositions n'a pas de fin. Rothko choisit un point, Yves Klein un autre, Malevitch un autre encore. Trois gestes radicalement différents, tous dans le même espace à trois dimensions.",
+    exemples: 'Trois cônes dans la rétine humaine. Trois primaires dans tout système de couleur. Trois générations de particules de matière. Toujours trois.',
+  },
+  {
+    id: 'E2',
+    title: 'Conservation',
+    subtitle: 'Le budget',
+    source: 'Le principe de conservation informationnelle',
+    enonce: "Structure et lumière se partagent un budget fixe. Ce qu'on gagne d'un côté se paie de l'autre.",
+    contrainte: "Aucune œuvre, aucun objet n'atteint simultanément la saturation maximale et la luminance maximale. Le coucher de soleil éclatant assombrit ses couleurs. Le diamant parfaitement coloré perd sa transparence. Le budget est fixe ; le partage seul est libre.",
+    liberte: "Où placer le curseur entre saturation et lumière. Caravage le pousse vers la structure : contrastes violents, fonds noirs. Turner le pousse vers la lumière : formes qui se dissolvent dans le rayonnement. Vermeer trouve le point d'équilibre.",
+    exemples: "L'œil compense en permanence ce partage. La photographie HDR cherche à le repousser. Le coloriste vidéo le manipule chaque jour, parfois sans le nommer.",
+  },
+  {
+    id: 'E3',
+    title: 'Complémentarité',
+    subtitle: 'Le miroir',
+    source: 'La bifurcation entre ce qui est transmis et ce qui est absorbé',
+    enonce: "Toute forme porte en elle son complément. Leur union est l'unité ; leur séparation est l'œuvre.",
+    contrainte: "Une œuvre qui prétendrait dire à la fois elle-même et son contraire dissout sa structure. Le blanc est l'absence de couleur précisément parce qu'il les contient toutes. Vouloir tout montrer, c'est tout effacer.",
+    liberte: "Quelle moitié montrer, et laisser l'autre travailler en creux. Soulages choisit l'absorbé (ce qui ne réfléchit pas), et confie le réfléchi à l'imagination. Delacroix choisit le transmis, et fait vibrer les contrastes par les complémentaires.",
+    exemples: "La sculpture découpe une forme dans l'espace ; l'espace autour est son complément. Le haïku dit trois lignes ; le silence est son complément. La couleur qu'on voit est ce que la matière a refusé d'absorber.",
+  },
+  {
+    id: 'E4',
+    title: 'Alternance',
+    subtitle: "L'identique ne dit rien",
+    source: 'La nécessité de la variation',
+    enonce: "L'identique exact ne porte aucune information. Le similaire, lui, est inépuisable.",
+    contrainte: "Une copie parfaitement identique à son original n'ajoute rien — c'est un document, non une œuvre. Toute répétition véritable demande au moins une variation infime, ne serait-ce que celle du contexte : la même note arrive toujours après la première.",
+    liberte: "Quel état différent vient ensuite. La fugue de Bach, L'Atelier rouge de Matisse, Music for 18 Musicians de Steve Reich — trois manières radicalement différentes d'explorer la frontière entre répétition apparente et variation réelle.",
+    exemples: "Monet peint le même bassin 250 fois — jamais la même lumière. Steve Reich joue les mêmes motifs en boucle — chaque tour est légèrement décalé. L'objet se répète, l'information non.",
+  },
+  {
+    id: 'E5',
+    title: 'Courbure',
+    subtitle: 'Tous les lieux ne se valent pas',
+    source: "La métrique naturelle de l'espace perceptif",
+    enonce: "L'espace sensible n'est pas plat. La sensibilité aux variations dépend du lieu où l'on se trouve.",
+    contrainte: "Le même geste n'a pas le même effet partout. Un demi-ton ajouté dans le silence est un événement ; le même demi-ton ajouté dans le fortissimo est inaudible. Le contexte n'est pas un décor — il est la métrique elle-même.",
+    liberte: "Choisir dans quelle région de la courbure travailler. Mondrian, Webern, Mies van der Rohe travaillent près des sommets — chaque geste y est d'une précision maximale. L'impressionnisme travaille au centre, où les variations s'estompent dans la masse. Cézanne et Debussy travaillent dans les zones de transition.",
+    exemples: "Près des couleurs pures, un infime changement se voit. Près du blanc, il faut un grand changement pour être perçu. Près du silence, le moindre son existe ; en pleine foule, il faut crier.",
+  },
+  {
+    id: 'E6',
+    title: 'Circularité',
+    subtitle: 'Le chemin se ferme',
+    source: "La topologie circulaire de l'espace sensible",
+    enonce: "L'espace des qualités sensibles est fermé. Le parcours complet ramène au point de départ — mais transformé par le voyage.",
+    contrainte: "Une œuvre qui s'élance sans jamais revenir reste ouverte au sens d'inachevée. La clôture n'est pas une prison ; c'est ce qui transforme un trajet en voyage accompli.",
+    liberte: "Combien de tours faire, à quelle vitesse, dans quel sens, où s'arrêter. Le voyage complet est résolution. Le voyage partiel est tension.",
+    exemples: "Le cercle chromatique. Le cycle des quintes. Le pourpre — couleur qui n'existe nulle part dans l'arc-en-ciel, et qui apparaît seulement parce que le rouge et le bleu se rejoignent quand le spectre se referme. La fermeture ajoute de la réalité.",
+  },
+  {
+    id: 'E7',
+    title: 'Harmonie',
+    subtitle: 'Le centre de gravité',
+    source: "Le point d'équilibre de Koide",
+    enonce: "Il existe un point d'équilibre vers lequel tout tend, sans jamais s'y figer.",
+    contrainte: "C'est le seul des sept principes qui n'érige pas de mur — il pose un attracteur. On peut s'en éloigner sans rien rompre ; c'est précisément cet éloignement qui crée la tension, et le retour qui crée la résolution.",
+    liberte: "S'écarter du centre crée la tension. Y revenir crée la résolution. L'harmonie n'est pas l'absence de tension — c'est le point autour duquel tension et résolution s'organisent.",
+    exemples: "Vermeer (l'équilibre comme manière). Bach (les cadences résolutoires). Le jardin japonais (la sérénité de ce qui est à sa place naturelle). Une saturation autour de 70 % — ni le cri, ni le silence.",
+  },
+];
+
+const sourceTagColors: Record<string, string> = {
+  E1: 'bg-violet-100 text-violet-800',
+  E2: 'bg-emerald-100 text-emerald-800',
+  E3: 'bg-rose-100 text-rose-800',
+  E4: 'bg-amber-100 text-amber-800',
+  E5: 'bg-sky-100 text-sky-800',
+  E6: 'bg-indigo-100 text-indigo-800',
+  E7: 'bg-fuchsia-100 text-fuchsia-800',
+};
+
+const modesBeauty = [
+  {
+    nom: 'Économe',
+    desc: "Peu de moyens, beaucoup d'effet. La compression maximale d'information dans le minimum de matériau.",
+    exemples: 'Un haïku. Un Mondrian. Un silence de Miles Davis.',
+  },
+  {
+    nom: 'Surprenante',
+    desc: "Loin du centre de gravité (Koide), sans violer les contraintes. L'étonnement de trouver de l'ordre là où on ne l'attendait pas.",
+    exemples: 'Un Soulages (le noir comme structure maximale dans l\'absence de couleur). Un Ligeti (l\'harmonie poussée au bord de l\'inaudible).',
+  },
+  {
+    nom: 'Équilibrée',
+    desc: 'Proche du centre de gravité, tous les principes satisfaits sans tension visible. La sérénité de ce qui est à sa place naturelle.',
+    exemples: 'Un Vermeer. Une fugue de Bach. Un jardin japonais.',
+  },
+];
+---
+
+<BaseLayout
+  title="Sept principes esthétiques"
+  description="Sept contraintes structurelles dérivées du crible. Chaque principe délimite un possible et laisse libre tout le reste. L'art est l'exploration de cet espace contraint."
+>
+  <PageHero
+    eyebrow="Esthétique structurelle"
+    domain="art"
+    title="Sept principes esthétiques"
+    kicker="Sept contraintes pour un espace libre."
+    dek="Si les principes de la persistance sont génériques, ils imposent des contraintes structurelles à toute expérience sensible. Ces sept principes sont leur traduction esthétique. Chacun délimite un possible, et laisse libre tout le reste. L'art est l'exploration de cet espace contraint. Cette page présente les sept énoncés, leur principe et les libertés qu'ils ouvrent. Les illustrations d'œuvres sont à part — elles relèvent de la lecture, pas de la mesure."
+    oneLineNote={{ label: 'Statut', body: 'cette page est une transposition esthétique du noyau PT, présentée comme cadre structurel et non comme prédiction. Les sept principes se déduisent de théorèmes PT explicitement attribués ; les illustrations d\'œuvres sont des lectures cohérentes, pas des mesures. Pour la dérivation technique de l\'espace de couleur, voir SCS.' }}
+    width="wide"
+  />
+
+  <main class="max-w-6xl mx-auto px-4 py-10 md:py-14 space-y-12">
+
+    <!-- POURQUOI 7 -->
+    <section>
+      <p class="pt-tag pt-tag-thm mb-3">Le principe générateur</p>
+      <h2 class="text-2xl font-bold text-thmblue mb-3">Le cadre du possible, l’infini des choix</h2>
+      <div class="rounded-lg border border-slate-200 bg-white p-6 shadow-sm">
+        <p class="text-slate-700 leading-relaxed mb-3">
+          La PT ne dérive pas <em>chaque</em> configuration de la matière —
+          elle dérive les règles que toute configuration doit respecter.
+          Les lois, pas les faits.
+        </p>
+        <p class="text-slate-700 leading-relaxed mb-3">
+          L'esthétique du crible fonctionne pareillement. Les sept principes
+          ci-dessous définissent les <strong>contraintes</strong> que toute
+          expérience chromatique (et, par extension, esthétique) doit
+          satisfaire. À l'intérieur de ces contraintes, la liberté est
+          totale. Mieux : c'est <em>grâce</em> à ces contraintes que la
+          liberté a un sens. Un choix sans contrainte n'est pas une liberté
+          — c'est du bruit.
+        </p>
+        <blockquote class="border-l-4 border-violet-500 pl-4 italic text-slate-700 leading-relaxed">
+          La liberté n'existe pas malgré les lois. Elle existe <em>entre</em>
+          les lois. Un poème n'est pas libre malgré la grammaire. Il est
+          libre entre les mots que la grammaire rend possibles.
+        </blockquote>
+      </div>
+    </section>
+
+    <!-- LES 7 AXIOMES -->
+    <section>
+      <p class="pt-tag pt-tag-val mb-3">Les sept principes</p>
+      <h2 class="text-3xl font-bold text-thmblue mb-2">E1 — E7</h2>
+      <p class="text-sm text-slate-600 mb-6">
+        Six murs (E1 à E6 : contraintes dures) et un attracteur (E7 :
+        contrainte douce). Chaque principe est tracé à un théorème PT
+        explicite.
+      </p>
+
+      <div class="space-y-6">
+        {principes.map((a) => (
+          <article class="rounded-lg border-2 border-violet-200 bg-white p-6 shadow-sm">
+            <header class="flex flex-wrap items-baseline gap-3 mb-3">
+              <span class={`inline-block px-2.5 py-1 rounded font-mono text-sm font-bold ${sourceTagColors[a.id]}`}>{a.id}</span>
+              <h3 class="font-sans text-2xl font-bold text-slate-900">{a.title}</h3>
+              <span class="text-sm font-sans text-slate-600 italic">— {a.subtitle}</span>
+              <span class="ml-auto text-xs font-mono text-slate-500">{a.source}</span>
+            </header>
+
+            <p class="text-base text-slate-800 leading-relaxed mb-4">
+              <strong>Énoncé.</strong> {a.enonce}
+            </p>
+
+            <div class="grid md:grid-cols-2 gap-4 mb-3">
+              <div class="rounded border border-rose-200 bg-rose-50 p-4">
+                <p class="text-xs font-sans uppercase tracking-wider text-rose-700 font-semibold mb-1">Contrainte</p>
+                <p class="text-sm text-rose-900 leading-relaxed">{a.contrainte}</p>
+              </div>
+              <div class="rounded border border-emerald-200 bg-emerald-50 p-4">
+                <p class="text-xs font-sans uppercase tracking-wider text-emerald-700 font-semibold mb-1">Liberté laissée</p>
+                <p class="text-sm text-emerald-900 leading-relaxed">{a.liberte}</p>
+              </div>
+            </div>
+
+            <p class="text-sm text-slate-600 italic leading-relaxed border-t border-slate-100 pt-3">
+              <strong class="text-slate-700 not-italic">Exemples.</strong> {a.exemples}
+            </p>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <!-- META-PRINCIPE -->
+    <section>
+      <p class="pt-tag pt-tag-thm mb-3">Méta-principe</p>
+      <h2 class="text-2xl font-bold text-thmblue mb-3">La géométrie du possible esthétique</h2>
+      <div class="rounded-lg border border-slate-200 bg-white p-6 shadow-sm">
+        <p class="text-slate-700 leading-relaxed mb-3">
+          Les sept principes définissent une <strong>géométrie</strong> :
+          un espace avec six murs (E1–E6) et un centre de gravité (E7).
+          À l'intérieur de cet espace, la liberté est totale.
+        </p>
+        <p class="text-slate-700 leading-relaxed mb-3">
+          Chaque œuvre est un <em>chemin</em> dans cet espace contraint.
+          Les principes ne déterminent pas le chemin — ils déterminent
+          l'espace dans lequel le chemin est possible. Un chemin sans
+          espace est un point. Un espace sans chemin est vide.
+          <strong>L'art est le chemin dans l'espace.</strong>
+        </p>
+      </div>
+    </section>
+
+    <!-- LUMIERE / MATIERE -->
+    <section>
+      <p class="pt-tag pt-tag-bridge mb-3">Au-delà de l’art</p>
+      <h2 class="text-2xl font-bold text-thmblue mb-3">Lumière, matière, structure</h2>
+      <div class="rounded-lg border border-slate-200 bg-white p-6 shadow-sm">
+        <p class="text-slate-700 leading-relaxed mb-3">
+          Le second principe (Conservation) ne dit pas seulement que
+          saturation et luminance s’opposent dans un tableau. Il dit
+          quelque chose de plus général : <strong>toute information se
+          distribue entre deux pôles</strong> — ce qui s’est concentré,
+          organisé, structuré ; et ce qui reste dispersé, uniforme, non
+          structuré.
+        </p>
+        <p class="text-slate-700 leading-relaxed mb-3">
+          En cosmologie, ces deux pôles ont un nom :
+        </p>
+        <ul class="space-y-2 text-slate-700 leading-relaxed mb-3">
+          <li><strong class="text-amber-700">La lumière</strong> est la
+          part du budget qui reste dispersée — le rayonnement de corps
+          noir, le blanc pur, l’équilibre thermique. <em>Information non
+          structurée.</em></li>
+          <li><strong class="text-thmblue">La matière</strong> est la
+          part du budget qui s’est concentrée — une particule, un cristal,
+          un atome stable. <em>Information structurée.</em></li>
+        </ul>
+        <p class="text-slate-700 leading-relaxed">
+          C’est le même curseur que Caravage ou Turner déplacent dans
+          leurs toiles. La saturation picturale et la matière cosmique
+          relèvent d’une même identité. La lumière n’est pas l’opposé
+          de l’obscurité (absence totale de signal) — elle est l’opposé
+          de la matière (présence indifférenciée contre présence
+          concentrée). Voir la
+          <a href="/big-bang" class="text-thmblue underline">cosmogonie</a>
+          et la
+          <a href="/theorems/GFT" class="text-thmblue underline">page du théorème GFT</a>
+          pour le développement formel.
+        </p>
+      </div>
+    </section>
+
+    <!-- 3 MODES DE BEAUTE -->
+    <section>
+      <p class="pt-tag pt-tag-id mb-3">Trois modes de beauté</p>
+      <h2 class="text-2xl font-bold text-thmblue mb-4">Économe, surprenante, équilibrée</h2>
+      <p class="text-slate-700 leading-relaxed mb-4">
+        La beauté n'est ni subjective (opinion sans fondement) ni objective
+        (propriété de l'objet seul). Elle est <strong>structurelle</strong> :
+        c'est la reconnaissance, par un système à trois canaux soumis aux
+        sept principes, d'une configuration qui satisfait ces principes de
+        manière particulièrement économe, surprenante ou équilibrée.
+      </p>
+      <div class="grid md:grid-cols-3 gap-4">
+        {modesBeauty.map((m) => (
+          <div class="rounded-lg border-2 border-fuchsia-200 bg-fuchsia-50 p-5">
+            <h4 class="font-sans font-bold text-fuchsia-900 text-lg mb-2">{m.nom}</h4>
+            <p class="text-sm text-slate-700 leading-relaxed mb-2">{m.desc}</p>
+            <p class="text-xs text-fuchsia-800 italic leading-relaxed">{m.exemples}</p>
+          </div>
+        ))}
+      </div>
+      <p class="text-sm text-slate-600 leading-relaxed mt-4">
+        Les trois modes ne s'excluent pas. Les plus grandes œuvres
+        combinent les trois — économes dans leurs moyens, surprenantes
+        dans leur position, équilibrées dans leur structure profonde.
+      </p>
+    </section>
+
+    <!-- LAIDEUR -->
+    <section>
+      <p class="pt-tag pt-tag-id mb-3">Versant négatif</p>
+      <h2 class="text-2xl font-bold text-thmblue mb-3">Ce que les principes disent de la laideur</h2>
+      <div class="rounded-lg border border-slate-200 bg-white p-6 shadow-sm">
+        <p class="text-slate-700 leading-relaxed mb-3">
+          La laideur n'est pas le contraire de la beauté. C'est la
+          <strong>violation non assumée</strong> d'un principe, sans
+          compensation par les autres. Chaque violation peut, au contraire,
+          être délibérée et féconde si elle est consciente :
+        </p>
+        <ul class="text-sm text-slate-700 leading-relaxed space-y-1 ml-5">
+          <li>• Violer E1 sans l'assumer : le kitsch accidentel — assumé : Jeff Koons</li>
+          <li>• Violer E2 sans l'assumer : le criard non voulu — assumé : Fauvisme</li>
+          <li>• Violer E3 sans l'assumer : le trop-plein — assumé : Courbet, <em>L'Origine du monde</em></li>
+          <li>• Violer E4 sans l'assumer : la copie servile — assumé : Warhol, Reich</li>
+          <li>• Violer E5 sans l'assumer : le générique — assumé : Fluxus</li>
+          <li>• Violer E6 sans l'assumer : l'inachevé subi — assumé : Schubert, <em>Symphonie inachevée</em></li>
+          <li>• Violer E7 sans l'assumer : le plat — assumé : Cage, <em>4'33"</em></li>
+        </ul>
+        <p class="text-slate-700 leading-relaxed mt-3">
+          La transgression consciente d'un principe est un geste esthétique.
+          La transgression inconsciente est un défaut.
+        </p>
+      </div>
+    </section>
+
+    <!-- HONNETETE -->
+    <section>
+      <p class="pt-tag pt-tag-id mb-3">Honnêteté</p>
+      <h2 class="text-2xl font-bold text-thmblue mb-4">Ce que cette page n'est PAS</h2>
+      <div class="grid md:grid-cols-2 gap-4">
+        <div class="rounded-lg border-2 border-rose-300 bg-rose-50 p-5">
+          <h4 class="font-sans font-semibold text-rose-800 mb-2">✗ Pas une théorie de tout</h4>
+          <p class="text-sm text-rose-900 leading-relaxed">
+            Les sept principes ne <em>prédisent</em> pas quelle œuvre est
+            belle. Ils définissent l'espace dans lequel une œuvre peut être
+            située, et les conséquences structurelles de cette position. Ils
+            ne remplacent ni le jugement esthétique, ni l'histoire de l'art,
+            ni la critique.
+          </p>
+        </div>
+        <div class="rounded-lg border-2 border-rose-300 bg-rose-50 p-5">
+          <h4 class="font-sans font-semibold text-rose-800 mb-2">✗ Pas une mesure quantitative</h4>
+          <p class="text-sm text-rose-900 leading-relaxed">
+            Mesurer ces équilibres sur une œuvre concrète demanderait un
+            protocole précis (quels échantillonnages, quelles projections).
+            Les illustrations données ici sont des <em>lectures</em>
+            cohérentes avec les principes, pas des mesures expérimentales.
+          </p>
+        </div>
+        <div class="rounded-lg border-2 border-rose-300 bg-rose-50 p-5">
+          <h4 class="font-sans font-semibold text-rose-800 mb-2">✗ Pas une prescription</h4>
+          <p class="text-sm text-rose-900 leading-relaxed">
+            Aucun principe ne dit « voici comment faire de l'art ». Ils
+            disent ce qui est <em>impossible</em> et ce qui reste libre.
+            L'art se choisit dans la liberté — pas dans l'obéissance aux
+            contraintes.
+          </p>
+        </div>
+        <div class="rounded-lg border-2 border-rose-300 bg-rose-50 p-5">
+          <h4 class="font-sans font-semibold text-rose-800 mb-2">✗ Pas un théorème [THM]</h4>
+          <p class="text-sm text-rose-900 leading-relaxed">
+            Chaque principe est <em>dérivé</em> d'un théorème PT, mais la
+            transposition au domaine esthétique n'est elle-même pas un
+            théorème. C'est une lecture conséquente du noyau PT, à valeur
+            cumulative. Le cœur déductif de PT reste la chaîne
+            arithmétique → physique.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- LIENS -->
+    <section>
+      <p class="pt-tag pt-tag-bridge mb-3">Aller plus loin</p>
+      <h2 class="text-2xl font-bold text-thmblue mb-6">Liens</h2>
+      <div class="grid md:grid-cols-3 gap-4">
+        <a href="/scs" class="pt-card block group">
+          <span class="pt-tag pt-tag-val">Dérivation technique</span>
+          <h3 class="font-sans font-semibold text-thmblue text-lg mt-3 mb-2 group-hover:underline">SieveColorSpace (SCS)</h3>
+          <p class="text-sm text-slate-700">L'espace de couleur dérivé du crible. Trois canaux opposants imposés par les premiers actifs, métrique cohérente avec la perception.</p>
+        </a>
+        <a href="/premier-principe" class="pt-card block group">
+          <span class="pt-tag pt-tag-thm">Source PT</span>
+          <h3 class="font-sans font-semibold text-thmblue text-lg mt-3 mb-2 group-hover:underline">Principe fondamental</h3>
+          <p class="text-sm text-slate-700">D'où viennent les principes mathématiques qui imposent les sept principes esthétiques.</p>
+        </a>
+        <a href="/contact" class="pt-card block group">
+          <span class="pt-tag pt-tag-bridge">Le livre</span>
+          <h3 class="font-sans font-semibold text-thmblue text-lg mt-3 mb-2 group-hover:underline">De l'esthétique</h3>
+          <p class="text-sm text-slate-700">Manuscrit complet (~180 pages, PDF + EPUB) qui développe les sept principes chapitre par chapitre, avec analyses d'œuvres. Disponible sur demande.</p>
+        </a>
+      </div>
+    </section>
+
+  </main>
+</BaseLayout>

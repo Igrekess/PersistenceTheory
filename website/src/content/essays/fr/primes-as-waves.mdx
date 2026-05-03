@@ -1,0 +1,80 @@
+---
+slug: primes-as-waves
+title: 'Les premiers sont les ondes qui persistent'
+summary: 'Chaque entier est une onde sur les cercles discrets Z/pZ. Les premiers sont les superpositions auto-cohérentes qui survivent à l’interférence du crible. Lecture intuitive de BA5, T1 et L0 — avec un garde-fou contre une erreur courante.'
+level: L1
+reading_minutes: 7
+related_theorems: ['T1', 'L0', 'T6', 'BA5']
+lang: fr
+order: 9
+---
+
+## L’image en une phrase
+
+Si on prend chaque entier comme une **onde discrète** sur les cercles $\mathbb{Z}/p\mathbb{Z}$, alors les nombres premiers sont **les seules superpositions qui survivent à l’interférence du crible**. Tout le reste — les composés — s’annule par destruction de phase.
+
+Cette image n’est pas une métaphore poétique. C’est ce que disent **trois théorèmes canoniques de la PT**, lus ensemble.
+
+## Trois cercles, $p$ positions chacun
+
+L’espace des résidus modulo $p$ est littéralement un **cercle discret de $p$ points** :
+
+- $\mathbb{Z}/3\mathbb{Z}$ = triangle (3 positions)
+- $\mathbb{Z}/5\mathbb{Z}$ = pentagone (5 positions)
+- $\mathbb{Z}/7\mathbb{Z}$ = heptagone (7 positions)
+
+Et le théorème chinois des restes (CRT) donne une **factorisation en produit tensoriel** :
+
+$$
+\mathcal{H}_{210} \;=\; \mathbb{C}^2 \otimes \mathbb{C}^3 \otimes \mathbb{C}^5 \otimes \mathbb{C}^7.
+$$
+
+Chaque entier $n$ vit dans cet espace par sa signature de résidus $(n \bmod 2,\, n \bmod 3,\, n \bmod 5,\, n \bmod 7)$. C’est sa **signature ondulatoire**.
+
+## Pourquoi les premiers persistent : trois théorèmes lus ensemble
+
+**T1 — Transitions interdites.** Les transitions $1 \to 1$ et $2 \to 2$ mod 3 sont **structurellement interdites** entre premiers consécutifs au-delà de 3. Pas par règle ad hoc : par **annulation arithmétique**. Trois entiers en progression dans une même classe modulo 3 contiennent forcément un multiple de 3 — donc un composé. C’est de l’**interférence destructive pure**, écrite dans la matrice de transfert $T_3 = \mathrm{antidiag}(1,1)$, dont les zéros structurels sont les phases qui ne peuvent pas survivre.
+
+**L0 — Distribution maximale.** Sous la contrainte d’écart moyen fixé, la distribution géométrique $P(2k) = (1-q) \cdot q^{k-1}$ est l’**unique** distribution de **maximum d’entropie**. Autrement dit : l’amplitude que les gaps premiers prennent réellement est **la plus grande possible** compatible avec la contrainte. Les premiers ne sont pas une fluctuation parmi d’autres : ils sont à l’**intensité maximale autorisée** par leur propre statistique.
+
+**BA5 — Produit de Pontryagin.** La constante de structure fine s’écrit :
+
+$$
+\alpha_{\rm bare} \;=\; \prod_{p \in \{3,5,7\}} \sin^2(\theta_p) \;=\; 1/136{,}28
+$$
+
+et c’est, **algébriquement**, un produit de **caractères de Fourier sur $\mathbb{Z}/p\mathbb{Z}$**. La théorie n’identifie pas $\alpha$ à quelque chose qui *ressemblerait* à de l’analyse harmonique : $\alpha$ **est** un objet d’analyse harmonique sur les cercles discrets. Ce que la PT calcule, c’est la **résonance** entre trois ondes à 3, 5 et 7 points.
+
+Lus ensemble, ces trois théorèmes disent : le crible d’Eratosthène est l’**unique opérateur d’évolution** dont les modes propres sont les premiers (théorème de naturalité **N2** : $S(G) = G \Leftrightarrow G = \mathbb{P}$). Tout entier non premier est une superposition qui n’est pas auto-cohérente : elle se détruit. Tout premier est une superposition qui **se reproduit elle-même**.
+
+## Le piège à éviter : taille n’est pas force
+
+L’image ondulatoire suggère parfois que **plus le cercle est grand, plus il porte d’information, donc plus il est fort**. C’est faux pour la **force du couplage**. Voici les valeurs canoniques à $\mu^* = 15$ :
+
+$$
+\begin{array}{c|cc}
+p & \text{positions} & \gamma_p(15) \\ \hline
+3 & 3 & 0{,}808 \\
+5 & 5 & 0{,}696 \\
+7 & 7 & 0{,}595 \\
+\end{array}
+$$
+
+La **dimension anomale** $\gamma_p$ — qui mesure la force avec laquelle le canal $p$ contribue à la physique — **décroît** strictement avec $p$. Le cercle $\mathbb{Z}/3\mathbb{Z}$, **plus petit**, donne le couplage le **plus fort**. L’intuition correcte est l’inverse de la première : moins de positions sur le cercle = **plus d’holonomie accumulée par tour**.
+
+> **Distinction essentielle** : la cardinalité $p$ est **extensive** (nombre de positions sur le cercle), la force $\gamma_p$ est **intensive** (couplage par position). Confondre les deux inverse l’ordre des canaux et fait croire que $p = 7$ devrait dominer.
+
+C’est aussi pourquoi le crible **s’arrête** à $\mu^* = 15$ : à partir de $p = 11$, $\gamma_p < 1/2$, et l’onde n’est plus assez intense pour ouvrir un canal physique. Elle reste comme **écho** — c’est la matière noire informationnelle (voir l’essai associé).
+
+## En une phrase
+
+Les premiers sont les **modes propres du crible** : les seules ondes discrètes dont la superposition est auto-cohérente sous filtrage. Ce que la PT appelle « persistance » est, à la racine, **la survie de certaines fréquences à l’interférence d’Eratosthène** — avec une force qui décroît, et non qui croît, avec la taille du cercle.
+
+## Voir aussi
+
+- [Qu’est-ce que la persistance ?](/essays/what-is-persistence) — la définition opératoire
+- [Qu’est-ce qu’un premier d’écho ?](/essays/echo-primes) — ce qui se passe au-delà de $p = 7$
+- [D’où vient $\alpha_{\rm EM}$ ?](/essays/where-alpha-comes-from) — le produit de Pontryagin en détail
+- [Théorème T1 — Transitions interdites](/theorems/T1)
+- [Théorème T6 — Identité d’holonomie](/theorems/T6)
+- [Axiome BA5 — Produit de Pontryagin](/theorems/BA5)

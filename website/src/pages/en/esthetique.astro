@@ -1,0 +1,363 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import PageHero from '@components/PageHero.astro';
+
+const principes = [
+  {
+    id: 'E1',
+    title: 'Trichromacy',
+    subtitle: 'Three doors, no more',
+    source: 'The cascade of three fundamental channels',
+    enonce: 'Sensible experience unfolds in a space of exactly three independent dimensions.',
+    contrainte: "This space is three-dimensional by necessity, not by convention. Any further channel one might imagine adding — a new sense, an unheard-of nuance, an extra cone — enriches one of the three originals without ever creating a truly independent fourth.",
+    liberte: 'Within this space, the range of colours, harmonies and compositions has no end. Rothko picks a point, Yves Klein another, Malevich yet another. Three radically different gestures, all within the same three-dimensional space.',
+    exemples: 'Three cones in the human retina. Three primaries in every colour system. Three generations of matter particles. Always three.',
+  },
+  {
+    id: 'E2',
+    title: 'Conservation',
+    subtitle: 'The budget',
+    source: 'The principle of informational conservation',
+    enonce: "Structure and light share a fixed budget. What is gained on one side is paid on the other.",
+    contrainte: 'No work, no object reaches saturation maximum and luminance maximum at the same time. The blazing sunset darkens its colours. The perfectly coloured diamond loses its transparency. The budget is fixed; only the division is free.',
+    liberte: "Where to set the cursor between saturation and light. Caravaggio pushes it toward structure: violent contrasts, dark grounds. Turner pushes it toward light: forms dissolved in radiance. Vermeer finds the equilibrium point.",
+    exemples: 'The eye constantly compensates for this trade. HDR photography tries to push it back. The video colourist manipulates it daily, sometimes without naming it.',
+  },
+  {
+    id: 'E3',
+    title: 'Complementarity',
+    subtitle: 'The mirror',
+    source: 'The bifurcation between transmitted and absorbed',
+    enonce: "Every form carries its complement. Their union is unity; their separation is the work.",
+    contrainte: "A work that would claim to say both itself and its opposite dissolves its structure. White is the absence of colour precisely because it contains them all. To want to show everything is to erase everything.",
+    liberte: "Which half to show, leaving the other to work negatively. Soulages chooses the absorbed (what does not reflect), and entrusts the reflected to imagination. Delacroix chooses the transmitted, and lets complementaries vibrate the contrasts.",
+    exemples: 'Sculpture cuts a form out of space; the surrounding space is its complement. Haiku says three lines; silence is its complement. The colour you see is what the matter refused to absorb.',
+  },
+  {
+    id: 'E4',
+    title: 'Alternation',
+    subtitle: 'The identical says nothing',
+    source: 'The necessity of variation',
+    enonce: 'The exactly identical carries no information. The similar, by contrast, is inexhaustible.',
+    contrainte: "A copy perfectly identical to its original adds nothing — it is a document, not a work. Any genuine repetition demands at least an infinitesimal variation, if only that of context: the same note always arrives after the first.",
+    liberte: "Which different state comes next. Bach's fugue, Matisse's L'Atelier rouge, Steve Reich's Music for 18 Musicians — three radically different ways to explore the boundary between apparent repetition and real variation.",
+    exemples: 'Monet paints the same pond 250 times — never the same light. Steve Reich loops the same motifs — each cycle slightly offset. The object repeats, the information does not.',
+  },
+  {
+    id: 'E5',
+    title: 'Curvature',
+    subtitle: 'Not all places are equal',
+    source: 'The natural metric of perceptual space',
+    enonce: 'Sensible space is not flat. Sensitivity to variations depends on where one stands.',
+    contrainte: 'The same gesture does not have the same effect everywhere. A semitone added in silence is an event; the same semitone added in fortissimo is inaudible. Context is not decoration — it is the metric itself.',
+    liberte: 'Choosing in which curvature region to work. Mondrian, Webern, Mies van der Rohe work near the vertices — every gesture there is maximally precise. Impressionism works in the centre, where variations dissolve into the mass. Cézanne and Debussy work in the transition zones.',
+    exemples: 'Near pure colours, a tiny change is seen. Near white, a large change is needed to be perceived. Near silence, the slightest sound exists; in a crowd, one must shout.',
+  },
+  {
+    id: 'E6',
+    title: 'Circularity',
+    subtitle: 'The path closes',
+    source: 'The circular topology of sensible space',
+    enonce: 'The space of sensible qualities is closed. The complete journey returns to the starting point — but transformed by the voyage.',
+    contrainte: "A work that launches itself without ever returning remains open in the sense of incomplete. Closure is not a prison; it is what turns a route into a completed voyage.",
+    liberte: 'How many turns to take, at what speed, in what direction, where to stop. The complete journey is resolution. The partial journey is tension.',
+    exemples: 'The colour wheel. The cycle of fifths. Purple — a colour found nowhere in the rainbow, and which appears only because red and blue rejoin when the spectrum closes. Closure adds reality.',
+  },
+  {
+    id: 'E7',
+    title: 'Harmony',
+    subtitle: 'The centre of gravity',
+    source: "Koide's point of equilibrium",
+    enonce: 'There exists a point of equilibrium toward which everything tends, without ever fixing itself there.',
+    contrainte: "It is the only one of the seven principles that does not raise a wall — it places an attractor. One can move away from it without breaking anything; it is precisely this distance that creates tension, and the return that creates resolution.",
+    liberte: "Moving away from the centre creates tension. Returning to it creates resolution. Harmony is not the absence of tension — it is the point around which tension and resolution organise.",
+    exemples: "Vermeer (equilibrium as manner). Bach (resolutory cadences). The Japanese garden (the serenity of what is in its natural place). Saturation around 70% — neither the cry nor the silence.",
+  },
+];
+
+const sourceTagColors: Record<string, string> = {
+  E1: 'bg-violet-100 text-violet-800',
+  E2: 'bg-emerald-100 text-emerald-800',
+  E3: 'bg-rose-100 text-rose-800',
+  E4: 'bg-amber-100 text-amber-800',
+  E5: 'bg-sky-100 text-sky-800',
+  E6: 'bg-indigo-100 text-indigo-800',
+  E7: 'bg-fuchsia-100 text-fuchsia-800',
+};
+
+const modesBeauty = [
+  {
+    nom: 'Economical',
+    desc: 'Few means, much effect. Maximal information compression in minimal material.',
+    exemples: 'A haiku. A Mondrian. A silence by Miles Davis.',
+  },
+  {
+    nom: 'Surprising',
+    desc: 'Far from the centre of gravity (Koide), without violating constraints. The wonder of finding order where one did not expect it.',
+    exemples: 'A Soulages (black as maximal structure within the absence of colour). A Ligeti (harmony pushed to the edge of inaudibility).',
+  },
+  {
+    nom: 'Balanced',
+    desc: 'Close to the centre of gravity, all principles satisfied without visible tension. The serenity of what is in its natural place.',
+    exemples: 'A Vermeer. A Bach fugue. A Japanese garden.',
+  },
+];
+---
+
+<BaseLayout
+  title="Seven aesthetic principles"
+  description="Seven structural constraints derived from the sieve. Each principle defines a limit and leaves the rest free. Art is the exploration of this constrained space."
+>
+  <PageHero
+    eyebrow="Structural aesthetics"
+    domain="art"
+    title="Seven aesthetic principles"
+    kicker="Seven constraints for a free space."
+    dek="If the principles of persistence are generic, they impose structural constraints on every sensible experience. These seven principles are their aesthetic translation. Each defines a limit, and leaves the rest free. Art is the exploration of this constrained space. This page presents the seven statements, their underlying principle, and the freedoms they open. Artwork illustrations are kept separate — they belong to reading, not measurement."
+    oneLineNote={{ label: 'Status', body: "this page is an aesthetic transposition of the PT core, presented as a structural framework, not as prediction. The seven principles derive from PT theorems with explicit attribution; artwork illustrations are coherent readings, not experimental measurements. For the technical derivation of the colour space, see SCS." }}
+    width="wide"
+  />
+
+  <main class="max-w-6xl mx-auto px-4 py-10 md:py-14 space-y-12">
+
+    <section>
+      <p class="pt-tag pt-tag-thm mb-3">The generative principle</p>
+      <h2 class="text-2xl font-bold text-thmblue mb-3">The frame of the possible, the infinity of choices</h2>
+      <div class="rounded-lg border border-slate-200 bg-white p-6 shadow-sm">
+        <p class="text-slate-700 leading-relaxed mb-3">
+          PT does not derive <em>each</em> configuration of matter — it
+          derives the rules every configuration must respect. Laws, not
+          facts.
+        </p>
+        <p class="text-slate-700 leading-relaxed mb-3">
+          Sieve aesthetics works the same way. The seven principles below
+          define the <strong>constraints</strong> any chromatic (and, by
+          extension, aesthetic) experience must satisfy. Within these
+          constraints, freedom is total. Better still: it is <em>thanks
+          to</em> these constraints that freedom has meaning. A choice
+          without constraint is not freedom — it is noise.
+        </p>
+        <blockquote class="border-l-4 border-violet-500 pl-4 italic text-slate-700 leading-relaxed">
+          Freedom does not exist despite the laws. It exists <em>between</em>
+          them. A poem is not free despite grammar. It is free between the
+          words grammar makes possible.
+        </blockquote>
+      </div>
+    </section>
+
+    <section>
+      <p class="pt-tag pt-tag-val mb-3">The seven principles</p>
+      <h2 class="text-3xl font-bold text-thmblue mb-2">E1 — E7</h2>
+      <p class="text-sm text-slate-600 mb-6">
+        Six walls (E1 to E6: hard constraints) and one attractor (E7: soft
+        constraint). Each principle is traced to an explicit PT theorem.
+      </p>
+
+      <div class="space-y-6">
+        {principes.map((a) => (
+          <article class="rounded-lg border-2 border-violet-200 bg-white p-6 shadow-sm">
+            <header class="flex flex-wrap items-baseline gap-3 mb-3">
+              <span class={`inline-block px-2.5 py-1 rounded font-mono text-sm font-bold ${sourceTagColors[a.id]}`}>{a.id}</span>
+              <h3 class="font-sans text-2xl font-bold text-slate-900">{a.title}</h3>
+              <span class="text-sm font-sans text-slate-600 italic">— {a.subtitle}</span>
+              <span class="ml-auto text-xs font-mono text-slate-500">{a.source}</span>
+            </header>
+
+            <p class="text-base text-slate-800 leading-relaxed mb-4">
+              <strong>Statement.</strong> {a.enonce}
+            </p>
+
+            <div class="grid md:grid-cols-2 gap-4 mb-3">
+              <div class="rounded border border-rose-200 bg-rose-50 p-4">
+                <p class="text-xs font-sans uppercase tracking-wider text-rose-700 font-semibold mb-1">Constraint</p>
+                <p class="text-sm text-rose-900 leading-relaxed">{a.contrainte}</p>
+              </div>
+              <div class="rounded border border-emerald-200 bg-emerald-50 p-4">
+                <p class="text-xs font-sans uppercase tracking-wider text-emerald-700 font-semibold mb-1">Freedom</p>
+                <p class="text-sm text-emerald-900 leading-relaxed">{a.liberte}</p>
+              </div>
+            </div>
+
+            <p class="text-sm text-slate-600 italic leading-relaxed border-t border-slate-100 pt-3">
+              <strong class="text-slate-700 not-italic">Examples.</strong> {a.exemples}
+            </p>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section>
+      <p class="pt-tag pt-tag-thm mb-3">Meta-principle</p>
+      <h2 class="text-2xl font-bold text-thmblue mb-3">The geometry of the aesthetic possible</h2>
+      <div class="rounded-lg border border-slate-200 bg-white p-6 shadow-sm">
+        <p class="text-slate-700 leading-relaxed mb-3">
+          The seven principles define a <strong>geometry</strong>: a space
+          with six walls (E1–E6) and a centre of gravity (E7). Within
+          this space, freedom is total.
+        </p>
+        <p class="text-slate-700 leading-relaxed mb-3">
+          Each work is a <em>path</em> in this constrained space. The
+          principles do not determine the path — they determine the space in
+          which a path is possible. A path without space is a point.
+          A space without path is empty.
+          <strong>Art is the path in the space.</strong>
+        </p>
+      </div>
+    </section>
+
+    <section>
+      <p class="pt-tag pt-tag-bridge mb-3">Beyond art</p>
+      <h2 class="text-2xl font-bold text-thmblue mb-3">Light, matter, structure</h2>
+      <div class="rounded-lg border border-slate-200 bg-white p-6 shadow-sm">
+        <p class="text-slate-700 leading-relaxed mb-3">
+          The second principle (Conservation) does not only say that
+          saturation and luminance trade off in a painting. It says
+          something more general: <strong>any information distributes
+          between two poles</strong> — what has concentrated, organised,
+          structured; and what remains dispersed, uniform, unstructured.
+        </p>
+        <p class="text-slate-700 leading-relaxed mb-3">
+          In cosmology, these two poles have a name:
+        </p>
+        <ul class="space-y-2 text-slate-700 leading-relaxed mb-3">
+          <li><strong class="text-amber-700">Light</strong> is the share
+          of the budget that remains dispersed — black-body radiation,
+          pure white, thermal equilibrium. <em>Unstructured information.</em></li>
+          <li><strong class="text-thmblue">Matter</strong> is the share
+          of the budget that has concentrated — a particle, a crystal,
+          a stable atom. <em>Structured information.</em></li>
+        </ul>
+        <p class="text-slate-700 leading-relaxed">
+          It is the same cursor Caravaggio or Turner moves in their
+          canvases. Pictorial saturation and cosmic matter belong to
+          the same identity. Light is not the opposite of darkness
+          (total absence of signal) — it is the opposite of matter
+          (undifferentiated presence vs concentrated presence). See
+          the <a href="/en/big-bang" class="text-thmblue underline">cosmogony</a>
+          and the <a href="/en/theorems/GFT" class="text-thmblue underline">GFT theorem page</a>
+          for the formal development.
+        </p>
+      </div>
+    </section>
+
+    <section>
+      <p class="pt-tag pt-tag-id mb-3">Three modes of beauty</p>
+      <h2 class="text-2xl font-bold text-thmblue mb-4">Economical, surprising, balanced</h2>
+      <p class="text-slate-700 leading-relaxed mb-4">
+        Beauty is neither subjective (opinion without grounds) nor
+        objective (property of the object alone). It is
+        <strong>structural</strong>: the recognition, by a three-channel
+        system subject to the seven principles, of a configuration that
+        satisfies them in a particularly economical, surprising, or
+        balanced way.
+      </p>
+      <div class="grid md:grid-cols-3 gap-4">
+        {modesBeauty.map((m) => (
+          <div class="rounded-lg border-2 border-fuchsia-200 bg-fuchsia-50 p-5">
+            <h4 class="font-sans font-bold text-fuchsia-900 text-lg mb-2">{m.nom}</h4>
+            <p class="text-sm text-slate-700 leading-relaxed mb-2">{m.desc}</p>
+            <p class="text-xs text-fuchsia-800 italic leading-relaxed">{m.exemples}</p>
+          </div>
+        ))}
+      </div>
+      <p class="text-sm text-slate-600 leading-relaxed mt-4">
+        The three modes are not mutually exclusive. The greatest works
+        combine all three — economical in their means, surprising in
+        their position, balanced in their deep structure.
+      </p>
+    </section>
+
+    <section>
+      <p class="pt-tag pt-tag-id mb-3">Negative side</p>
+      <h2 class="text-2xl font-bold text-thmblue mb-3">What the principles say about ugliness</h2>
+      <div class="rounded-lg border border-slate-200 bg-white p-6 shadow-sm">
+        <p class="text-slate-700 leading-relaxed mb-3">
+          Ugliness is not the opposite of beauty. It is the
+          <strong>unassumed violation</strong> of an principle, without
+          compensation by the others. Each violation can, on the contrary,
+          be deliberate and fertile if conscious:
+        </p>
+        <ul class="text-sm text-slate-700 leading-relaxed space-y-1 ml-5">
+          <li>• Violating E1 unassumed: accidental kitsch — assumed: Jeff Koons</li>
+          <li>• Violating E2 unassumed: unintended garishness — assumed: Fauvism</li>
+          <li>• Violating E3 unassumed: overflow — assumed: Courbet, <em>L'Origine du monde</em></li>
+          <li>• Violating E4 unassumed: servile copying — assumed: Warhol, Reich</li>
+          <li>• Violating E5 unassumed: the generic — assumed: Fluxus</li>
+          <li>• Violating E6 unassumed: incompleteness suffered — assumed: Schubert, <em>Unfinished Symphony</em></li>
+          <li>• Violating E7 unassumed: flatness — assumed: Cage, <em>4'33"</em></li>
+        </ul>
+        <p class="text-slate-700 leading-relaxed mt-3">
+          Conscious transgression of an principle is an aesthetic gesture.
+          Unconscious transgression is a defect.
+        </p>
+      </div>
+    </section>
+
+    <section>
+      <p class="pt-tag pt-tag-id mb-3">Honesty</p>
+      <h2 class="text-2xl font-bold text-thmblue mb-4">What this page is NOT</h2>
+      <div class="grid md:grid-cols-2 gap-4">
+        <div class="rounded-lg border-2 border-rose-300 bg-rose-50 p-5">
+          <h4 class="font-sans font-semibold text-rose-800 mb-2">✗ Not a theory of everything</h4>
+          <p class="text-sm text-rose-900 leading-relaxed">
+            The seven principles do not <em>predict</em> which work is
+            beautiful. They define the space in which a work can be
+            located, and the structural consequences of that location.
+            They replace neither aesthetic judgment, nor art history,
+            nor criticism.
+          </p>
+        </div>
+        <div class="rounded-lg border-2 border-rose-300 bg-rose-50 p-5">
+          <h4 class="font-sans font-semibold text-rose-800 mb-2">✗ Not a quantitative measure</h4>
+          <p class="text-sm text-rose-900 leading-relaxed">
+            Measuring these balances on a concrete work would require a
+            precise protocol (which sampling, which projection). The
+            illustrations given here are <em>readings</em> consistent
+            with the principles, not experimental measurements.
+          </p>
+        </div>
+        <div class="rounded-lg border-2 border-rose-300 bg-rose-50 p-5">
+          <h4 class="font-sans font-semibold text-rose-800 mb-2">✗ Not a prescription</h4>
+          <p class="text-sm text-rose-900 leading-relaxed">
+            No principle says "here is how to make art." They say what is
+            <em>impossible</em> and what remains free. Art is chosen in
+            freedom — not in obedience to constraints.
+          </p>
+        </div>
+        <div class="rounded-lg border-2 border-rose-300 bg-rose-50 p-5">
+          <h4 class="font-sans font-semibold text-rose-800 mb-2">✗ Not a [THM] theorem</h4>
+          <p class="text-sm text-rose-900 leading-relaxed">
+            Each principle is <em>derived</em> from a PT theorem, but the
+            transposition to the aesthetic domain is not itself a
+            theorem. It is a consequent reading of the PT core, of
+            cumulative value. The deductive heart of PT remains the
+            arithmetic → physics chain.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <p class="pt-tag pt-tag-bridge mb-3">Going further</p>
+      <h2 class="text-2xl font-bold text-thmblue mb-6">Links</h2>
+      <div class="grid md:grid-cols-3 gap-4">
+        <a href="/en/scs" class="pt-card block group">
+          <span class="pt-tag pt-tag-val">Technical derivation</span>
+          <h3 class="font-sans font-semibold text-thmblue text-lg mt-3 mb-2 group-hover:underline">SieveColorSpace (SCS)</h3>
+          <p class="text-sm text-slate-700">The colour space derived from the sieve. Three opponent channels imposed by the active primes, metric coherent with perception.</p>
+        </a>
+        <a href="/en/premier-principe" class="pt-card block group">
+          <span class="pt-tag pt-tag-thm">PT source</span>
+          <h3 class="font-sans font-semibold text-thmblue text-lg mt-3 mb-2 group-hover:underline">Fundamental principle</h3>
+          <p class="text-sm text-slate-700">Where the mathematical principles that impose the seven aesthetic principles come from.</p>
+        </a>
+        <a href="/en/contact" class="pt-card block group">
+          <span class="pt-tag pt-tag-bridge">The book</span>
+          <h3 class="font-sans font-semibold text-thmblue text-lg mt-3 mb-2 group-hover:underline">De l'esthétique (in French)</h3>
+          <p class="text-sm text-slate-700">Full manuscript (~180 pages, PDF + EPUB) developing the seven principles chapter by chapter, with artwork analyses. Available on request.</p>
+        </a>
+      </div>
+    </section>
+
+  </main>
+</BaseLayout>

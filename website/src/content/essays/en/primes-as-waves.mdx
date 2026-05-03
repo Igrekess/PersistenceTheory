@@ -1,0 +1,80 @@
+---
+slug: primes-as-waves
+title: 'Primes are the waves that persist'
+summary: 'Each integer is a discrete wave on the circles Z/pZ. The primes are the self-coherent superpositions that survive the sieve’s interference. An intuitive reading of BA5, T1 and L0 — with a guard-rail against a common mistake.'
+level: L1
+reading_minutes: 7
+related_theorems: ['T1', 'L0', 'T6', 'BA5']
+lang: en
+order: 9
+---
+
+## The picture in one sentence
+
+If we treat each integer as a **discrete wave** on the circles $\mathbb{Z}/p\mathbb{Z}$, then the primes are **the only superpositions that survive the sieve’s interference**. Everything else — the composites — cancels by destructive phase.
+
+This picture is not a poetic metaphor. It is what **three canonical PT theorems**, read together, actually say.
+
+## Three circles, $p$ positions each
+
+The space of residues modulo $p$ is literally a **discrete circle of $p$ points**:
+
+- $\mathbb{Z}/3\mathbb{Z}$ = triangle (3 positions)
+- $\mathbb{Z}/5\mathbb{Z}$ = pentagon (5 positions)
+- $\mathbb{Z}/7\mathbb{Z}$ = heptagon (7 positions)
+
+The Chinese Remainder Theorem (CRT) gives a **tensor product factorisation**:
+
+$$
+\mathcal{H}_{210} \;=\; \mathbb{C}^2 \otimes \mathbb{C}^3 \otimes \mathbb{C}^5 \otimes \mathbb{C}^7.
+$$
+
+Every integer $n$ lives in this space through its residue signature $(n \bmod 2,\, n \bmod 3,\, n \bmod 5,\, n \bmod 7)$. That is its **wave signature**.
+
+## Why primes persist: three theorems read together
+
+**T1 — Forbidden transitions.** The transitions $1 \to 1$ and $2 \to 2$ mod 3 are **structurally forbidden** between consecutive primes beyond 3. Not by an ad hoc rule: by **arithmetic cancellation**. Three integers in arithmetic progression in the same class modulo 3 must contain a multiple of 3 — a composite. This is **pure destructive interference**, written in the transfer matrix $T_3 = \mathrm{antidiag}(1,1)$, whose structural zeros are the phases that cannot survive.
+
+**L0 — Maximal distribution.** Under the constraint of fixed mean gap, the geometric distribution $P(2k) = (1-q) \cdot q^{k-1}$ is the **unique maximum-entropy** distribution. In other words: the amplitude that the prime gaps actually take is **the largest one possible** consistent with the constraint. The primes are not one fluctuation among many — they sit at the **maximum intensity allowed** by their own statistics.
+
+**BA5 — Pontryagin product.** The fine-structure constant reads:
+
+$$
+\alpha_{\rm bare} \;=\; \prod_{p \in \{3,5,7\}} \sin^2(\theta_p) \;=\; 1/136.28
+$$
+
+and this is, **algebraically**, a product of **Fourier characters on $\mathbb{Z}/p\mathbb{Z}$**. The theory does not identify $\alpha$ with something that *resembles* harmonic analysis: $\alpha$ **is** an object of harmonic analysis on the discrete circles. What PT computes is the **resonance** between three waves of 3, 5 and 7 points.
+
+Read together, these three theorems say: the Eratosthenes sieve is the **unique evolution operator** whose eigenmodes are the primes (naturalness theorem **N2**: $S(G) = G \Leftrightarrow G = \mathbb{P}$). Every non-prime is a superposition that fails self-coherence: it destroys itself. Every prime is a superposition that **reproduces itself**.
+
+## The trap to avoid: size is not strength
+
+The wave picture sometimes suggests that **the larger the circle, the more information it carries, hence the stronger it is**. This is wrong for **coupling strength**. Here are the canonical values at $\mu^* = 15$:
+
+$$
+\begin{array}{c|cc}
+p & \text{positions} & \gamma_p(15) \\ \hline
+3 & 3 & 0.808 \\
+5 & 5 & 0.696 \\
+7 & 7 & 0.595 \\
+\end{array}
+$$
+
+The **anomalous dimension** $\gamma_p$ — which measures how strongly channel $p$ contributes to physics — **decreases** strictly with $p$. The **smaller** circle $\mathbb{Z}/3\mathbb{Z}$ gives the **strongest** coupling. The correct intuition is the opposite of the naive one: fewer positions on the circle = **more holonomy accumulated per turn**.
+
+> **Essential distinction**: cardinality $p$ is **extensive** (number of positions on the circle); strength $\gamma_p$ is **intensive** (coupling per position). Confusing the two inverts the channel ordering and makes it look as though $p = 7$ should dominate.
+
+This is also why the sieve **stops** at $\mu^* = 15$: from $p = 11$ onward, $\gamma_p < 1/2$, and the wave is no longer intense enough to open a physical channel. It remains as an **echo** — that is the informational dark matter (see the related essay).
+
+## In one sentence
+
+Primes are the **eigenmodes of the sieve**: the only discrete waves whose superposition is self-coherent under filtering. What PT calls «persistence» is, at the root, **the survival of certain frequencies through Eratosthenes’ interference** — with a strength that decreases, not increases, with the size of the circle.
+
+## See also
+
+- [What is persistence?](/essays/what-is-persistence) — the operational definition
+- [What is an echo prime?](/essays/echo-primes) — what happens beyond $p = 7$
+- [Where does $\alpha_{\rm EM}$ come from?](/essays/where-alpha-comes-from) — the Pontryagin product in detail
+- [Theorem T1 — Forbidden transitions](/theorems/T1)
+- [Theorem T6 — Holonomy identity](/theorems/T6)
+- [Axiom BA5 — Pontryagin product](/theorems/BA5)
