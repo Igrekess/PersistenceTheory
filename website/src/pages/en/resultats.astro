@@ -266,13 +266,18 @@ const statusLabel: Record<NonNullable<Card['status']>, { label: string; color: s
           All results below — physics, atomic chemistry, molecular chemistry —
           share the same property:
           <strong class="text-amber-200">0 fitting variables</strong>,
+          <strong class="text-amber-200">no degrees of freedom</strong>,
           <strong class="text-amber-200">1 single input parameter s = 1/2</strong>
           (T1, forbidden transitions), and the arithmetic backbone of the
           active primes
           <strong class="text-amber-200">{'{'} 2, 3, 5, 7, 11, 13 {'}'}</strong>
           (parity channel Z/2Z, 3·5·7 cascade, echo primes 11·13). No fits,
-          no coefficients calibrated on the data: everything follows
-          analytically from this input and this structure.
+          no coefficients calibrated on the data, no free choice in the
+          selection of primes nor in the principles: everything follows
+          analytically from this input, this structure, and the PT principles
+          — phase cycles (T6 holonomy), information balance (GFT identity
+          log₂ m = D_KL + H), sequential cascade 3 → 5 → 7, q₊/q₋ bifurcation,
+          anti-double-counting.
         </p>
 
         <p class="text-[10px] font-sans uppercase tracking-wider text-slate-400 mb-2">
