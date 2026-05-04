@@ -78,7 +78,7 @@ export const ui = {
     'footer.preprint_notice':
       'Préimpression — non révisée par les pairs.',
     'footer.dev_notice':
-      'Site en cours de développement : des erreurs, incohérences ou pages incomplètes peuvent subsister.',
+      'Site en cours de développement et moteur PTC en évolution active : des erreurs, incohérences, pages incomplètes ou chiffres datés peuvent subsister.',
     'footer.report_issue': 'Signaler une erreur',
     'depth.label': 'Profondeur',
     'depth.L1': 'Vulgarisé',
@@ -146,7 +146,7 @@ export const ui = {
     'footer.preprint_notice':
       'Preprint — not peer-reviewed.',
     'footer.dev_notice':
-      'This website is under active development: errors, inconsistencies, or incomplete pages may remain.',
+      'Website under active development and PTC engine evolving: errors, inconsistencies, incomplete pages, or stale figures may remain.',
     'footer.report_issue': 'Report an issue',
     'depth.label': 'Depth',
     'depth.L1': 'Plain',

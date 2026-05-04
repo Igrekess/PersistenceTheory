@@ -260,6 +260,22 @@ const statusLabel: Record<NonNullable<Card['status']>, { label: string; color: s
 
   <main class="max-w-6xl mx-auto px-4 py-10 md:py-14">
 
+    {/* ════════ NOTICE — TRAVAIL EN COURS ════════ */}
+    <aside class="mb-8 rounded-lg border-l-4 border-amber-400 bg-amber-50 p-5">
+      <p class="text-xs font-sans uppercase tracking-wider text-amber-800 mb-2">
+        Statut — chantier en cours
+      </p>
+      <p class="text-sm text-stone-700 leading-relaxed max-w-3xl">
+        <strong>La PT et ses moteurs (PTC pour la chimie, scripts physique, etc.)
+        sont en développement actif.</strong> Les chiffres consolidés ci-dessous
+        reflètent l'état du moteur au moment de la dernière régénération
+        (mai 2026) ; ils sont susceptibles d'évoluer. Chaque résultat porte
+        un statut épistémique explicite (démontré, dérivé, validé, prédit,
+        conditionnel) et les classes encore non couvertes — notamment côté
+        chimie — sont déclarées plutôt que masquées.
+      </p>
+    </aside>
+
     {/* ════════ MÉTRIQUES GLOBALES ════════ */}
     <section class="mb-12">
       <aside class="rounded-lg border border-slate-200 bg-slate-950 text-white p-6 md:p-8 shadow-sm">
