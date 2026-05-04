@@ -44,6 +44,9 @@ interface Props {
   title: string;
   kicker?: string;
   epigraph?: string;   // italic line, displayed just above the dek (typically a poetic aphorism)
+  epigraphL1?: string; // depth-specific epigraphs (override `epigraph` for that depth)
+  epigraphL2?: string;
+  epigraphL3?: string;
   dek?: string;        // shown at all depths (alternative to dekL1 + dekL2)
   dekL1?: string;
   dekL2?: string;
@@ -61,6 +64,9 @@ const {
   title,
   kicker,
   epigraph,
+  epigraphL1,
+  epigraphL2,
+  epigraphL3,
   dek,
   dekL1,
   dekL2,
@@ -115,6 +121,9 @@ const isChain = heroNoteParts.length > 1;
     )}
 
     {epigraph && <p class="ph-epigraph">{epigraph}</p>}
+    {epigraphL1 && <p class="ph-epigraph" data-max-depth="L1">{epigraphL1}</p>}
+    {epigraphL2 && <p class="ph-epigraph" data-min-depth="L2" data-max-depth="L2">{epigraphL2}</p>}
+    {epigraphL3 && <p class="ph-epigraph" data-min-depth="L3">{epigraphL3}</p>}
 
     {dek && <p class="ph-dek">{dek}</p>}
     {dekL1 && <p class="ph-dek" data-max-depth="L1">{dekL1}</p>}
