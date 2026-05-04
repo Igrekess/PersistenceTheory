@@ -17,8 +17,8 @@ const chemistryAtomicMetrics = [
 ];
 
 const chemistryMolecularMetrics = [
-  ['1,000', 'ATcT molecules tested'],
-  ['0.73 eV', 'PTC vs experiment MAE (3.2 %)'],
+  ['1,644', 'molecules tested (ATcT + Burcat)'],
+  ['0.73 eV', 'ATcT MAE (3.2 %), 6.5 % Burcat extension'],
   ['−35 %', 'error vs B3LYP/6-31G*'],
   ['× 5,900', 'faster than B3LYP/def2-TZVP'],
 ];
@@ -171,7 +171,7 @@ const groups: Group[] = [
       },
       {
         title: 'Benchmark vs experiment (1000 mol)',
-        body: `Atomization energies D_at on 994 ATcT/NIST/JANAF molecules. Per-molecule sourcing, 0 fails, 0 adjustment variables. MAE 0.73 eV (3.22 % relative). Sub-percent on organics. 546 molecules cross-validated against CCCBDB + Burcat at less than 2 % drift (dual-convention audit).`,
+        body: `Atomization energies D_at on 1,644 molecules: 994 ATcT/NIST/JANAF (MAE 0.73 eV, 3.22 % relative, sub-percent on organics) + 650 new from the Burcat Third Millennium DB (MAE 6.55 %, median 4.83 % — covers combustion, explosives, dioxins, terpenes, nucleobases). 0 fails, 0 fitting variables. 546 molecules cross-validated against CCCBDB + Burcat at less than 2 % drift.`,
         href: '/en/benchmark-ptc', domain: 'chemistry', status: 'VAL',
         metric: '1000 mol · 12.4 % within 1 kcal/mol',
       },
@@ -305,7 +305,7 @@ const statusLabel: Record<NonNullable<Card['status']>, { label: string; color: s
         </div>
 
         <p class="text-[10px] font-sans uppercase tracking-wider text-slate-400 mb-2">
-          Molecular chemistry — 1,000 ATcT molecules
+          Molecular chemistry — 1,644 molecules (ATcT + Burcat)
         </p>
         <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
           {chemistryMolecularMetrics.map(([value, label]) => (

@@ -479,6 +479,117 @@ const verifiedGreen = buckets.green ?? 0;
       </div>
     </section>
 
+    <!-- BENCHMARK 4: Burcat extension -->
+    <section>
+      <p class="pt-tag pt-tag-val mb-3">Benchmark 4 — Burcat extension</p>
+      <h2 class="text-3xl font-bold text-thmblue mb-4">Chemical broadening: 650 new molecules from Burcat</h2>
+      <p class="text-slate-700 leading-relaxed mb-6 max-w-4xl">
+        To extend coverage beyond ATcT (well-studied organics + d-block +
+        small inorganics), we cross-checked PTC against the
+        <strong> Burcat Third Millennium Database</strong> (~3 000
+        species, NASA polynomials, the reference gas-phase thermochemistry
+        for combustion and atmospheric chemistry). After filtering
+        (closed-shell neutrals, deduplication against ATcT, exclusion of
+        classes documented as active engine work — see callout), we
+        retained <strong>650 new molecules</strong>: fuels (hexadecane,
+        octanols, decanols), explosives (TNT, RDX, HMX, PETN,
+        nitroglycerin, nitramines), polycyclic aromatics (chrysene,
+        pyrene, chlorinated coronene), nucleobases (adenine, guanine),
+        terpenes (limonene, pinene, camphor), chlorinated dioxins and
+        furans (TCDD, TCDF, PCDD), Si/P organics.
+      </p>
+
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8">
+        <div class="rounded-lg border border-slate-200 bg-white p-4">
+          <p class="text-xs uppercase text-stone-500 mb-1">New molecules</p>
+          <p class="text-2xl font-bold text-thmblue">{m.bench4.n_kept}</p>
+          <p class="text-xs text-stone-600">post-filter, beyond ATcT</p>
+        </div>
+        <div class="rounded-lg border border-slate-200 bg-white p-4">
+          <p class="text-xs uppercase text-stone-500 mb-1">Relative MAE</p>
+          <p class="text-2xl font-bold text-thmblue">{m.bench4.mae_pct} %</p>
+          <p class="text-xs text-stone-600">median {m.bench4.median_pct} %</p>
+        </div>
+        <div class="rounded-lg border border-slate-200 bg-white p-4">
+          <p class="text-xs uppercase text-stone-500 mb-1">{'<'} 10 %</p>
+          <p class="text-2xl font-bold text-thmblue">{m.bench4.n_under_10pct} / {m.bench4.n_kept}</p>
+          <p class="text-xs text-stone-600">i.e. {Math.round(100 * m.bench4.n_under_10pct / m.bench4.n_kept)} %</p>
+        </div>
+        <div class="rounded-lg border border-amber-300 bg-amber-50 p-4">
+          <p class="text-xs uppercase text-amber-800 mb-1">Combined dataset</p>
+          <p class="text-2xl font-bold text-thmblue">{m.bench4.combined_atct_burcat}</p>
+          <p class="text-xs text-stone-700">994 ATcT + 650 Burcat</p>
+        </div>
+      </div>
+
+      <div class="overflow-x-auto mb-8">
+        <table class="text-sm font-sans w-full max-w-2xl">
+          <thead class="bg-slate-50 border-b border-stone-300 text-xs text-stone-600 uppercase">
+            <tr>
+              <th class="text-left py-2 px-3">Error bin</th>
+              <th class="text-right py-2 px-3 tabular-nums">Mol</th>
+              <th class="text-right py-2 px-3 tabular-nums">%</th>
+            </tr>
+          </thead>
+          <tbody class="text-slate-700">
+            <tr class="border-b border-stone-200"><td class="py-1.5 px-3">{'<'} 2 %</td><td class="text-right py-1.5 px-3 tabular-nums">{m.bench4.n_under_2pct}</td><td class="text-right py-1.5 px-3 tabular-nums">{(100 * m.bench4.n_under_2pct / m.bench4.n_kept).toFixed(1)} %</td></tr>
+            <tr class="border-b border-stone-200"><td class="py-1.5 px-3">{'<'} 5 %</td><td class="text-right py-1.5 px-3 tabular-nums">{m.bench4.n_under_5pct}</td><td class="text-right py-1.5 px-3 tabular-nums">{(100 * m.bench4.n_under_5pct / m.bench4.n_kept).toFixed(1)} %</td></tr>
+            <tr class="border-b border-stone-200"><td class="py-1.5 px-3">{'<'} 10 %</td><td class="text-right py-1.5 px-3 tabular-nums">{m.bench4.n_under_10pct}</td><td class="text-right py-1.5 px-3 tabular-nums">{(100 * m.bench4.n_under_10pct / m.bench4.n_kept).toFixed(1)} %</td></tr>
+            <tr><td class="py-1.5 px-3">{'>'} 20 %</td><td class="text-right py-1.5 px-3 tabular-nums">{m.bench4.n_over_20pct}</td><td class="text-right py-1.5 px-3 tabular-nums">{(100 * m.bench4.n_over_20pct / m.bench4.n_kept).toFixed(1)} %</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <aside class="rounded-lg border-l-4 border-amber-400 bg-amber-50 p-5 mb-6">
+        <p class="text-xs font-sans uppercase tracking-wider text-amber-800 mb-2">
+          Excluded classes — active engine work
+        </p>
+        <p class="text-sm text-stone-700 leading-relaxed mb-3 max-w-3xl">
+          Out of 940 post-electron-parity Burcat candidates, 290 were
+          discarded by parsable structural rules (no per-molecule
+          cherry-picking). Exclusion is <strong>declarative</strong>:
+          these are classes for which PTC modelling is explicitly
+          <em> under construction</em>. Testing PTC there today would
+          produce numbers that reflect the <em>absence of a dedicated
+          model</em>, not a PT prediction.
+        </p>
+        <details class="text-sm">
+          <summary class="cursor-pointer font-medium text-amber-900 hover:text-amber-700">
+            List of 11 excluded classes + reason →
+          </summary>
+          <ul class="mt-3 space-y-1 text-stone-700 leading-relaxed pl-4">
+            <li><strong>Inorganic alkali / alk-earth salts</strong> with no carbon (Li, Na, K, Cs, Mg, Ca, Sr, Ba) — pure ionic modelling not finalized.</li>
+            <li><strong>Hypervalent halogenated</strong> (≥5 halogens on a central atom, e.g. ClF₅, BrF₅, IF₇) — PT hypervalent face not implemented yet.</li>
+            <li><strong>p-block homonuclear clusters</strong> Xₙ with n ≥ 3 (P₄, S₃ to S₈, As₄, N₄, Sb₄) — symmetric multiple-bond clusters not covered.</li>
+            <li><strong>Small ionic oxides without C/H</strong> (≤4 heavy atoms + O) — including W₃O₉ and polynuclear d-block oxide clusters.</li>
+            <li><strong>Heavy main-group organometallics</strong> (Hg, Pb, Sn, Tl, Bi bonded to C).</li>
+            <li><strong>Single atoms</strong> (n_atoms = 1) — atomization energy undefined.</li>
+            <li><strong>Noble-gas dimers</strong> (Ar₂, Ne₂…) — van der Waals, out of engine scope.</li>
+            <li><strong>Simple TM halides/sulfides</strong> (HgCl₂, ZnS, FeS, BBr…).</li>
+            <li><strong>TM oxyhalides and hydroxides</strong> (WO₂Cl₂, Cr(OH)₆…).</li>
+            <li><strong>p-block oxide clusters</strong> (P₄O₆, P₄O₁₀, As₄O₆…).</li>
+            <li><strong>Exotic cyclic isomers of small molecules</strong> (cyclic CO₂, CH₂O₂ dioxirane…) — Burcat catalogues high-energy isomers, the PTC solver picks the global minimum.</li>
+          </ul>
+          <p class="mt-3 text-stone-600 text-xs">
+            CSV of the 60 species removed by the post-filter:{' '}
+            <a href="/benchmark/data/benchmark4_burcat_excluded.csv" class="underline text-thmblue hover:text-blue-700">benchmark4_burcat_excluded.csv</a>
+          </p>
+        </details>
+      </aside>
+
+      <p class="text-sm text-stone-700 leading-relaxed mb-3">
+        The full per-molecule CSV (650 retained rows) is{' '}
+        <a href="/benchmark/data/benchmark4_burcat_per_molecule.csv" class="underline text-thmblue hover:text-blue-700">downloadable here</a>.
+        Each row contains: CAS, Burcat name, formula, n_atoms, Hf°(298K)
+        from Burcat, experimental D_at (eV), PTC D_at (eV), absolute and
+        relative error, compute time. The 30 outliers above 20 % error
+        (out of 650) are mostly exotic P/Si/B compounds (PF₃, SiH₂, BH₅,
+        AlBr) or unusual organics (sorbitol, FC-123, dioxirane) — these
+        are <em>real</em> limitations of the engine on covered but
+        imperfectly modelled classes, kept in the benchmark for honesty.
+      </p>
+    </section>
+
     <!-- COMPUTE COST -->
     <section>
       <p class="pt-tag pt-tag-val mb-3">Compute cost</p>

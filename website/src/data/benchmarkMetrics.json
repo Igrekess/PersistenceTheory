@@ -131,7 +131,7 @@
         "params": 0
       },
       {
-        "bin": "A+B+C (n≤12)",
+        "bin": "A+B+C (n\u226412)",
         "n": 536,
         "method": "B3LYP/6-31G*",
         "mae_eV": 0.7193,
@@ -141,7 +141,7 @@
         "params": 3
       },
       {
-        "bin": "A+B+C (n≤12)",
+        "bin": "A+B+C (n\u226412)",
         "n": 536,
         "method": "B3LYP/def2-TZVP",
         "mae_eV": 0.6685,
@@ -151,7 +151,7 @@
         "params": 3
       },
       {
-        "bin": "A+B+C (n≤12)",
+        "bin": "A+B+C (n\u226412)",
         "n": 536,
         "method": "PTC",
         "mae_eV": 0.4889,
@@ -193,7 +193,7 @@
         "p631gs_3way_best": 31.14
       },
       {
-        "bin": "A+B+C (n≤12)",
+        "bin": "A+B+C (n\u226412)",
         "n": 536,
         "ptc_vs_631gs": 66.6,
         "ptc_vs_def2tzvp": 65.86,
@@ -205,7 +205,7 @@
     ]
   },
   "timing": {
-    "subset": "536 mol, n ≤ 12 (Bin A+B+C from 3-way benchmark)",
+    "subset": "536 mol, n \u2264 12 (Bin A+B+C from 3-way benchmark)",
     "machine_note": "Apple M1 Max (single-thread for both methods)",
     "ptc": {
       "n": 536,
@@ -223,7 +223,7 @@
           "n": 189,
           "total_s": 0.493
         },
-        "A+B (n≤8)": {
+        "A+B (n\u22648)": {
           "n": 369,
           "total_s": 0.652
         },
@@ -238,7 +238,7 @@
       "fails": 0,
       "total_s": 6970.8,
       "per_bin": {
-        "A+B (n≤8)": {
+        "A+B (n\u22648)": {
           "n": 369,
           "total_s": 1853.4
         },
@@ -249,5 +249,30 @@
       },
       "source": "User CLI logs from `benchmark_b3lyp_def2tzvp_n4` runs, 2026-05-03"
     }
+  },
+  "bench4": {
+    "n_kept": 650,
+    "n_excluded": 60,
+    "mae_pct": 6.55,
+    "mae_eV": 2.79,
+    "median_pct": 4.83,
+    "n_under_2pct": 159,
+    "n_under_5pct": 336,
+    "n_under_10pct": 513,
+    "n_over_20pct": 30,
+    "excluded_classes": {
+      "atom (n=1)": 16,
+      "simple TM halide/sulfide": 9,
+      "exotic cyclic isomer (small)": 8,
+      "p-block oxide cluster": 7,
+      "polynuclear d-block oxide": 3,
+      "TM oxyhalide": 3,
+      "simple boron monohalide": 2,
+      "hypervalent halogenated (>=5 X)": 2,
+      "TM hydroxide / oxohydroxide": 2,
+      "p-block cluster (P4, S3-S8)": 7,
+      "noble-gas dimer": 1
+    },
+    "combined_atct_burcat": 1644
   }
 }

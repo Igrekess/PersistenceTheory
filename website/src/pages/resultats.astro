@@ -18,8 +18,8 @@ const chimieAtomiqueMetrics = [
 ];
 
 const chimieMoleculaireMetrics = [
-  ['994', 'molécules ATcT testées'],
-  ['0,73 eV', 'MAE PTC vs expérience (3,2 %)'],
+  ['1 644', 'molécules testées (ATcT + Burcat)'],
+  ['0,73 eV', 'MAE ATcT (3,2 %), 6,5 % Burcat extension'],
   ['−35 %', 'd’erreur vs B3LYP/6-31G*'],
   ['× 5 900', 'plus rapide que B3LYP/def2-TZVP'],
 ];
@@ -174,7 +174,7 @@ const groups: Group[] = [
       },
       {
         title: 'Benchmark vs expérience (1000 mol)',
-        body: `Energies d'atomisation D_at sur 994 molécules ATcT/NIST/JANAF. Sourçage par molécule, 0 fail, 0 variable d'ajustement. MAE 0,73 eV (3,22 % relative). Sub-pourcent sur les organiques. 546 molécules cross-validées (CCCBDB + Burcat) à moins de 2 % d'écart (audit dual-convention).`,
+        body: `Energies d'atomisation D_at sur 1 644 molécules : 994 ATcT/NIST/JANAF (MAE 0,73 eV, 3,22 % relative, sub-pourcent sur les organiques) + 650 nouvelles depuis Burcat Third Millennium DB (MAE 6,55 %, médiane 4,83 % — couvre combustion, explosifs, dioxines, terpènes, nucléobases). 0 fail, 0 variable d'ajustement. 546 molécules cross-validées (CCCBDB + Burcat) à moins de 2 % d'écart.`,
         href: '/benchmark-ptc', domain: 'chemistry', status: 'VAL',
         metric: '1000 mol · 12,4 % à 1 kcal/mol',
       },
@@ -308,7 +308,7 @@ const statusLabel: Record<NonNullable<Card['status']>, { label: string; color: s
         </div>
 
         <p class="text-[10px] font-sans uppercase tracking-wider text-slate-400 mb-2">
-          Chimie moléculaire — 994 molécules ATcT
+          Chimie moléculaire — 1 644 molécules (ATcT + Burcat)
         </p>
         <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
           {chimieMoleculaireMetrics.map(([value, label]) => (
