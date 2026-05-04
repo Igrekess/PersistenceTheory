@@ -1,0 +1,253 @@
+{
+  "bench1": {
+    "n": 994,
+    "mae_eV": 0.728,
+    "mae_kcal": 16.78,
+    "mae_pct": 3.22,
+    "chem_acc_pct": 11.8,
+    "per_category": {
+      "Organique": {
+        "n": 689,
+        "mae_pct": 1.64
+      },
+      "Inorganique": {
+        "n": 208,
+        "mae_pct": 2.62
+      },
+      "d-block": {
+        "n": 97,
+        "mae_pct": 15.78
+      }
+    }
+  },
+  "bench2": {
+    "n": 855,
+    "ptc": {
+      "mae_eV": 0.604,
+      "median_eV": 0.424,
+      "chem_acc_pct": 11.7,
+      "within_5kcal": 35.4,
+      "max_eV": 6.4
+    },
+    "b3lyp": {
+      "mae_eV": 0.928,
+      "median_eV": 0.848,
+      "chem_acc_pct": 3.9,
+      "within_5kcal": 13.8,
+      "max_eV": 4.49
+    },
+    "ptc_win_rate_pct": 70.8
+  },
+  "bench3": {
+    "summary": [
+      {
+        "bin": "A (n=2-4)",
+        "n": 180,
+        "method": "B3LYP/6-31G*",
+        "mae_eV": 0.7899,
+        "mae_kcal": 18.214,
+        "mean_signed_eV": -0.7526,
+        "within_1kcal_pct": 6.11,
+        "params": 3
+      },
+      {
+        "bin": "A (n=2-4)",
+        "n": 180,
+        "method": "B3LYP/def2-TZVP",
+        "mae_eV": 0.613,
+        "mae_kcal": 14.136,
+        "mean_signed_eV": -0.5551,
+        "within_1kcal_pct": 11.67,
+        "params": 3
+      },
+      {
+        "bin": "A (n=2-4)",
+        "n": 180,
+        "method": "PTC",
+        "mae_eV": 0.2267,
+        "mae_kcal": 5.229,
+        "mean_signed_eV": -0.0101,
+        "within_1kcal_pct": 33.33,
+        "params": 0
+      },
+      {
+        "bin": "B (n=5-8)",
+        "n": 189,
+        "method": "B3LYP/6-31G*",
+        "mae_eV": 0.5617,
+        "mae_kcal": 12.952,
+        "mean_signed_eV": -0.5012,
+        "within_1kcal_pct": 8.99,
+        "params": 3
+      },
+      {
+        "bin": "B (n=5-8)",
+        "n": 189,
+        "method": "B3LYP/def2-TZVP",
+        "mae_eV": 0.4974,
+        "mae_kcal": 11.471,
+        "mean_signed_eV": -0.4391,
+        "within_1kcal_pct": 6.35,
+        "params": 3
+      },
+      {
+        "bin": "B (n=5-8)",
+        "n": 189,
+        "method": "PTC",
+        "mae_eV": 0.4825,
+        "mae_kcal": 11.127,
+        "mean_signed_eV": 0.0161,
+        "within_1kcal_pct": 8.47,
+        "params": 0
+      },
+      {
+        "bin": "C (n=9-12)",
+        "n": 167,
+        "method": "B3LYP/6-31G*",
+        "mae_eV": 0.8216,
+        "mae_kcal": 18.946,
+        "mean_signed_eV": -0.8133,
+        "within_1kcal_pct": 1.8,
+        "params": 3
+      },
+      {
+        "bin": "C (n=9-12)",
+        "n": 167,
+        "method": "B3LYP/def2-TZVP",
+        "mae_eV": 0.9219,
+        "mae_kcal": 21.259,
+        "mean_signed_eV": -0.9158,
+        "within_1kcal_pct": 1.2,
+        "params": 3
+      },
+      {
+        "bin": "C (n=9-12)",
+        "n": 167,
+        "method": "PTC",
+        "mae_eV": 0.7786,
+        "mae_kcal": 17.954,
+        "mean_signed_eV": -0.0556,
+        "within_1kcal_pct": 5.99,
+        "params": 0
+      },
+      {
+        "bin": "A+B+C (n≤12)",
+        "n": 536,
+        "method": "B3LYP/6-31G*",
+        "mae_eV": 0.7193,
+        "mae_kcal": 16.587,
+        "mean_signed_eV": -0.6829,
+        "within_1kcal_pct": 5.78,
+        "params": 3
+      },
+      {
+        "bin": "A+B+C (n≤12)",
+        "n": 536,
+        "method": "B3LYP/def2-TZVP",
+        "mae_eV": 0.6685,
+        "mae_kcal": 15.416,
+        "mean_signed_eV": -0.6266,
+        "within_1kcal_pct": 6.53,
+        "params": 3
+      },
+      {
+        "bin": "A+B+C (n≤12)",
+        "n": 536,
+        "method": "PTC",
+        "mae_eV": 0.4889,
+        "mae_kcal": 11.273,
+        "mean_signed_eV": -0.015,
+        "within_1kcal_pct": 16.04,
+        "params": 0
+      }
+    ],
+    "winrates": [
+      {
+        "bin": "A (n=2-4)",
+        "n": 180,
+        "ptc_vs_631gs": 86.67,
+        "ptc_vs_def2tzvp": 77.78,
+        "def2tzvp_vs_631gs": 79.44,
+        "ptc_3way_best": 76.11,
+        "def2tzvp_3way_best": 20.0,
+        "p631gs_3way_best": 3.89
+      },
+      {
+        "bin": "B (n=5-8)",
+        "n": 189,
+        "ptc_vs_631gs": 53.44,
+        "ptc_vs_def2tzvp": 52.91,
+        "def2tzvp_vs_631gs": 60.32,
+        "ptc_3way_best": 47.09,
+        "def2tzvp_3way_best": 30.16,
+        "p631gs_3way_best": 22.75
+      },
+      {
+        "bin": "C (n=9-12)",
+        "n": 167,
+        "ptc_vs_631gs": 59.88,
+        "ptc_vs_def2tzvp": 67.66,
+        "def2tzvp_vs_631gs": 27.54,
+        "ptc_3way_best": 59.28,
+        "def2tzvp_3way_best": 9.58,
+        "p631gs_3way_best": 31.14
+      },
+      {
+        "bin": "A+B+C (n≤12)",
+        "n": 536,
+        "ptc_vs_631gs": 66.6,
+        "ptc_vs_def2tzvp": 65.86,
+        "def2tzvp_vs_631gs": 56.53,
+        "ptc_3way_best": 60.63,
+        "def2tzvp_3way_best": 20.34,
+        "p631gs_3way_best": 19.03
+      }
+    ]
+  },
+  "timing": {
+    "subset": "536 mol, n ≤ 12 (Bin A+B+C from 3-way benchmark)",
+    "machine_note": "Apple M1 Max (single-thread for both methods)",
+    "ptc": {
+      "n": 536,
+      "fails": 0,
+      "total_s": 0.954,
+      "median_ms": 1.76,
+      "mean_ms": 1.78,
+      "max_ms": 27.2,
+      "per_bin": {
+        "A (n=2-4)": {
+          "n": 180,
+          "total_s": 0.159
+        },
+        "B (n=5-8)": {
+          "n": 189,
+          "total_s": 0.493
+        },
+        "A+B (n≤8)": {
+          "n": 369,
+          "total_s": 0.652
+        },
+        "C (n=9-12)": {
+          "n": 167,
+          "total_s": 0.302
+        }
+      }
+    },
+    "b3lyp_def2tzvp": {
+      "n": 536,
+      "fails": 0,
+      "total_s": 6970.8,
+      "per_bin": {
+        "A+B (n≤8)": {
+          "n": 369,
+          "total_s": 1853.4
+        },
+        "C (n=9-12)": {
+          "n": 167,
+          "total_s": 5117.4
+        }
+      },
+      "source": "User CLI logs from `benchmark_b3lyp_def2tzvp_n4` runs, 2026-05-03"
+    }
+  }
+}

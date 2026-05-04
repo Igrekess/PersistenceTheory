@@ -3,17 +3,31 @@ import BaseLayout from '@layouts/BaseLayout.astro';
 import PageHero from '@components/PageHero.astro';
 
 // ── Métriques globales ──────────────────────────────────────────────────────
-const metrics = [
+const physiqueMetrics = [
   ['43', 'observables Modèle Standard'],
   ['0,30 %', 'écart moyen vs PDG'],
   ['0,06 %', 'écart médian'],
   ['0', 'paramètre continu ajusté'],
 ];
 
+const chimieAtomiqueMetrics = [
+  ['118', 'éléments couverts (IE)'],
+  ['0,046 %', 'MAE IE Z = 1 → 118'],
+  ['73', 'éléments couverts (EA)'],
+  ['0,98 %', 'MAE EA atomes neutres'],
+];
+
+const chimieMoleculaireMetrics = [
+  ['994', 'molécules ATcT testées'],
+  ['0,73 eV', 'MAE PTC vs expérience (3,2 %)'],
+  ['−35 %', 'd’erreur vs B3LYP/6-31G*'],
+  ['× 5 900', 'plus rapide que B3LYP/def2-TZVP'],
+];
+
 // ── Trois lentilles de lecture ──────────────────────────────────────────────
 const lenses = [
   ['Le noyau dur', `GFT et la chaîne T0–T6 / L0 forment l'ossature mathématique. Sans cette ossature, les résultats physiques et chimiques perdent leur statut de dérivation PT.`, '/theorems'],
-  ['La vitrine robuste', `Le couple chimie atomique + 43 observables du Modèle Standard donne le meilleur premier contact : MAE numérique mesurable, 0 paramètre ajusté, comparaison directe à PDG.`, '/observables'],
+  ['La vitrine robuste', `Le couple chimie atomique + 43 observables du Modèle Standard donne le meilleur premier contact : MAE numérique mesurable, 0 variable d'ajustement, comparaison directe à PDG.`, '/observables'],
   ['Les bords ouverts', `Cosmologie tardive, programme RH, géophysique et applications restent à statuts contrastés. Le dashboard distingue à chaque carte ce qui est démontré, dérivé, validé ou prédit.`, '/limites'],
 ];
 
@@ -158,6 +172,24 @@ const groups: Group[] = [
         href: '/tableau-periodique', domain: 'chemistry', status: 'DER',
         metric: 'D₀ : MAE faible 849 mol', source: 'ch22b',
       },
+      {
+        title: 'Benchmark vs expérience (1000 mol)',
+        body: `Energies d'atomisation D_at sur 994 molécules ATcT/NIST/JANAF. Sourçage par molécule, 0 fail, 0 variable d'ajustement. MAE 0,73 eV (3,22 % relative). Sub-pourcent sur les organiques. 546 molécules cross-validées (CCCBDB + Burcat) à moins de 2 % d'écart (audit dual-convention).`,
+        href: '/benchmark-ptc', domain: 'chemistry', status: 'VAL',
+        metric: '1000 mol · 12,4 % à 1 kcal/mol',
+      },
+      {
+        title: 'Benchmark vs B3LYP/6-31G* (855 mol)',
+        body: `Comparaison appariée sur les 855 mol où B3LYP converge. PTC bat B3LYP avec MAE 0,60 eV vs 0,93 eV (gain −35 %), win rate 70,8 %. PTC sans biais signé, B3LYP biaisé négativement.`,
+        href: '/benchmark-ptc', domain: 'chemistry', status: 'VAL',
+        metric: '−35 % MAE · win 70,8 %',
+      },
+      {
+        title: 'Benchmark 3-voies vs def2-TZVP (536 mol)',
+        body: `Test sur la base "moderne" de DFT. PTC reste meilleur partout. def2-TZVP régresse derrière 6-31G* sur le bin 9-12 atomes — défaut structurel à B3LYP, pas guérissable par meilleure base.`,
+        href: '/benchmark-ptc', domain: 'chemistry', status: 'VAL',
+        metric: 'PTC win 65,9 %',
+      },
     ],
   },
   {
@@ -234,8 +266,36 @@ const statusLabel: Record<NonNullable<Card['status']>, { label: string; color: s
         <p class="text-xs font-sans uppercase tracking-[0.18em] text-amber-300 mb-5">
           Repères globaux
         </p>
+
+        <p class="text-[10px] font-sans uppercase tracking-wider text-slate-400 mb-2">
+          Physique — 43 observables Modèle Standard
+        </p>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-5">
+          {physiqueMetrics.map(([value, label]) => (
+            <div class="rounded-lg border border-white/10 bg-white/10 p-4">
+              <strong class="block text-3xl font-sans text-amber-200">{value}</strong>
+              <span class="text-xs text-slate-300 leading-snug">{label}</span>
+            </div>
+          ))}
+        </div>
+
+        <p class="text-[10px] font-sans uppercase tracking-wider text-slate-400 mb-2">
+          Chimie atomique — IE et EA Z = 1 → 118
+        </p>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-5">
+          {chimieAtomiqueMetrics.map(([value, label]) => (
+            <div class="rounded-lg border border-white/10 bg-white/10 p-4">
+              <strong class="block text-3xl font-sans text-amber-200">{value}</strong>
+              <span class="text-xs text-slate-300 leading-snug">{label}</span>
+            </div>
+          ))}
+        </div>
+
+        <p class="text-[10px] font-sans uppercase tracking-wider text-slate-400 mb-2">
+          Chimie moléculaire — 994 molécules ATcT
+        </p>
         <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-          {metrics.map(([value, label]) => (
+          {chimieMoleculaireMetrics.map(([value, label]) => (
             <div class="rounded-lg border border-white/10 bg-white/10 p-4">
               <strong class="block text-3xl font-sans text-amber-200">{value}</strong>
               <span class="text-xs text-slate-300 leading-snug">{label}</span>

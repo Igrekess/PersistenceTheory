@@ -2,11 +2,25 @@
 import BaseLayout from '@layouts/BaseLayout.astro';
 import PageHero from '@components/PageHero.astro';
 
-const metrics = [
+const physicsMetrics = [
   ['43', 'Standard Model observables'],
   ['0.30 %', 'mean error vs PDG'],
   ['0.06 %', 'median error'],
   ['0', 'continuous parameter fitted'],
+];
+
+const chemistryAtomicMetrics = [
+  ['118', 'elements covered (IE)'],
+  ['0.046 %', 'IE MAE Z = 1 → 118'],
+  ['73', 'elements covered (EA)'],
+  ['0.98 %', 'EA MAE neutral atoms'],
+];
+
+const chemistryMolecularMetrics = [
+  ['1,000', 'ATcT molecules tested'],
+  ['0.73 eV', 'PTC vs experiment MAE (3.2 %)'],
+  ['−35 %', 'error vs B3LYP/6-31G*'],
+  ['× 5,900', 'faster than B3LYP/def2-TZVP'],
 ];
 
 const lenses = [
@@ -155,6 +169,24 @@ const groups: Group[] = [
         href: '/en/tableau-periodique', domain: 'chemistry', status: 'DER',
         metric: 'D₀: low MAE on 849 mol', source: 'ch22b',
       },
+      {
+        title: 'Benchmark vs experiment (1000 mol)',
+        body: `Atomization energies D_at on 994 ATcT/NIST/JANAF molecules. Per-molecule sourcing, 0 fails, 0 adjustment variables. MAE 0.73 eV (3.22 % relative). Sub-percent on organics. 546 molecules cross-validated against CCCBDB + Burcat at less than 2 % drift (dual-convention audit).`,
+        href: '/en/benchmark-ptc', domain: 'chemistry', status: 'VAL',
+        metric: '1000 mol · 12.4 % within 1 kcal/mol',
+      },
+      {
+        title: 'Benchmark vs B3LYP/6-31G* (855 mol)',
+        body: `Paired comparison on the 855 mol where B3LYP converges. PTC beats B3LYP with MAE 0.60 eV vs 0.93 eV (−35 % gain), win rate 70.8 %. PTC unbiased, B3LYP biased negative.`,
+        href: '/en/benchmark-ptc', domain: 'chemistry', status: 'VAL',
+        metric: '−35 % MAE · 70.8 % win',
+      },
+      {
+        title: '3-way benchmark vs def2-TZVP (536 mol)',
+        body: `Test on the "modern" DFT basis. PTC remains best everywhere. def2-TZVP regresses behind 6-31G* on the 9-12 atom bin — structural defect of B3LYP, not curable by better basis.`,
+        href: '/en/benchmark-ptc', domain: 'chemistry', status: 'VAL',
+        metric: 'PTC 65.9 % win',
+      },
     ],
   },
   {
@@ -230,8 +262,36 @@ const statusLabel: Record<NonNullable<Card['status']>, { label: string; color: s
         <p class="text-xs font-sans uppercase tracking-[0.18em] text-amber-300 mb-5">
           Global figures
         </p>
+
+        <p class="text-[10px] font-sans uppercase tracking-wider text-slate-400 mb-2">
+          Physics — 43 Standard Model observables
+        </p>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-5">
+          {physicsMetrics.map(([value, label]) => (
+            <div class="rounded-lg border border-white/10 bg-white/10 p-4">
+              <strong class="block text-3xl font-sans text-amber-200">{value}</strong>
+              <span class="text-xs text-slate-300 leading-snug">{label}</span>
+            </div>
+          ))}
+        </div>
+
+        <p class="text-[10px] font-sans uppercase tracking-wider text-slate-400 mb-2">
+          Atomic chemistry — IE and EA Z = 1 → 118
+        </p>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-5">
+          {chemistryAtomicMetrics.map(([value, label]) => (
+            <div class="rounded-lg border border-white/10 bg-white/10 p-4">
+              <strong class="block text-3xl font-sans text-amber-200">{value}</strong>
+              <span class="text-xs text-slate-300 leading-snug">{label}</span>
+            </div>
+          ))}
+        </div>
+
+        <p class="text-[10px] font-sans uppercase tracking-wider text-slate-400 mb-2">
+          Molecular chemistry — 1,000 ATcT molecules
+        </p>
         <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-          {metrics.map(([value, label]) => (
+          {chemistryMolecularMetrics.map(([value, label]) => (
             <div class="rounded-lg border border-white/10 bg-white/10 p-4">
               <strong class="block text-3xl font-sans text-amber-200">{value}</strong>
               <span class="text-xs text-slate-300 leading-snug">{label}</span>

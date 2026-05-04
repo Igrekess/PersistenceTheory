@@ -1,0 +1,780 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import PageHero from '@components/PageHero.astro';
+import metricsData from '@data/benchmarkMetrics.json';
+import bench1Data from '@data/benchmark1000.json';
+
+const m = metricsData as any;
+const b1 = m.bench1;
+const b2 = m.bench2;
+const b3 = m.bench3;
+
+const heroMetrics = [
+  { label: '0 variable d\'ajustement', value: '0', sub: 'Aucun coefficient ajusté' },
+  { label: 'Molécules testées', value: b1.n.toLocaleString('fr-FR'), sub: 'ATcT 0K · expérience' },
+  { label: 'MAE PTC vs expérience', value: `${b1.mae_eV} eV`, sub: `${b1.mae_pct} % relative` },
+  { label: 'Win rate vs B3LYP', value: `${b2.ptc_win_rate_pct} %`, sub: 'sur 855 mol appariées' },
+];
+
+// Pre-format bench3 summary into a table-ready structure
+const b3Bins = ['A (n=2-4)', 'B (n=5-8)', 'C (n=9-12)', 'A+B+C (n≤12)'];
+const b3Methods = ['B3LYP/6-31G*', 'B3LYP/def2-TZVP', 'PTC'];
+const b3Cell = (bin: string, method: string) =>
+  b3.summary.find((r: any) => r.bin === bin && r.method === method);
+
+// Categories for bench1 table
+const cat1 = b1.per_category;
+
+// Stats for the 1000-mol table
+const totalRows = bench1Data.rows.length;
+const buckets = (bench1Data as any).reliability_buckets ?? {};
+const tiers = (bench1Data as any).tiers ?? {};
+const verifiedGreen = buckets.green ?? 0;
+---
+
+<BaseLayout
+  title="Benchmark PTC"
+  description="Benchmark de PTC sur 994 molécules ATcT (MAE 0,73 eV, 0 variable d'ajustement), comparaison vs B3LYP/6-31G* (gain −35 %, win rate 70,8 %), et comparaison 3-voies vs B3LYP/def2-TZVP. Données traçables, sources NIST/ATcT/JANAF, CSV téléchargeables, code MIT public."
+>
+  <PageHero
+    eyebrow="Chimie · benchmark"
+    domain="chemistry"
+    title="Benchmark PTC"
+    kicker="0 variable d'ajustement, −35 % d’erreur vs B3LYP/6-31G* sur 855 molécules ATcT."
+    dek="Trois benchmarks distincts présentés ici : (1) PTC face aux mesures expérimentales sur 994 molécules ; (2) PTC vs B3LYP/6-31G* sur 855 molécules appariées ; (3) PTC vs B3LYP/def2-TZVP sur 536 molécules de taille n ≤ 12. Toutes les données sont sourcées (NIST WebBook, ATcT v1.130, JANAF, etc.), traçables au niveau de la molécule, et reproductibles depuis le code MIT public."
+    oneLineNote={{ label: 'Statut', body: 'tous les calculs PTC dérivent analytiquement de l’unique input s = 1/2 (cf. principe fondamental). B3LYP utilise trois paramètres ajustés calibrés sur G2. Aucune comparaison n’est faite ici contre G4 / W1 / CCSD(T) — méthodes composites à ~0,04 eV de précision mais avec ~10 variables d'ajustement.' }}
+    width="normal"
+  />
+
+  <main class="max-w-6xl mx-auto px-4 py-10 md:py-14 space-y-14">
+
+    <!-- HERO METRICS -->
+    <section>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+        {heroMetrics.map((m) => (
+          <div class="rounded-lg border-2 border-amber-300 bg-amber-50 p-5">
+            <p class="text-xs font-sans uppercase tracking-wider text-amber-800 mb-1">{m.label}</p>
+            <p class="text-3xl md:text-4xl font-bold text-thmblue tabular-nums">{m.value}</p>
+            <p class="text-xs text-stone-600 mt-1">{m.sub}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- ============================================== -->
+    <!-- BENCHMARK 1 : PTC vs expérience (994 mol)     -->
+    <!-- ============================================== -->
+    <section>
+      <p class="pt-tag pt-tag-val mb-3">Benchmark 1 — Test absolu</p>
+      <h2 class="text-3xl font-bold text-thmblue mb-4">PTC face aux mesures expérimentales</h2>
+      <p class="text-slate-700 leading-relaxed mb-6 max-w-4xl">
+        994 molécules issues de Active Thermochemical Tables (ATcT), NIST
+        WebBook, JANAF et autres bases thermochimiques de référence.
+        Pour chaque molécule, l’énergie d’atomisation D_at calculée par
+        PTC est comparée à la valeur expérimentale. <strong>0 fail</strong>
+        — PTC produit un nombre pour chaque molécule, y compris les
+        complexes de métaux de transition que B3LYP ne peut pas calculer
+        en base 6-31G*. Chaque valeur expérimentale est cross-validée
+        automatiquement contre la convention duale CCCBDB
+        (ΔfH°(0 K) et ΔfH°(298 K)) — <strong>{verifiedGreen} molécules sur {totalRows}</strong>
+        passent l’audit à moins de 2 % d’écart, le reste est marqué
+        soit drift modéré, soit non auditable (pas de CAS résolu ou
+        pas d’entrée CCCBDB).
+      </p>
+
+      <!-- Bench 1 metric cards -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8">
+        <div class="rounded-lg border border-slate-200 bg-white p-4">
+          <p class="text-xs uppercase text-stone-500 mb-1">MAE absolue</p>
+          <p class="text-2xl font-bold text-thmblue">{b1.mae_eV} eV</p>
+          <p class="text-xs text-stone-600">{b1.mae_kcal} kcal/mol</p>
+        </div>
+        <div class="rounded-lg border border-slate-200 bg-white p-4">
+          <p class="text-xs uppercase text-stone-500 mb-1">MAE relative</p>
+          <p class="text-2xl font-bold text-thmblue">{b1.mae_pct} %</p>
+          <p class="text-xs text-stone-600">sur D_at total</p>
+        </div>
+        <div class="rounded-lg border border-slate-200 bg-white p-4">
+          <p class="text-xs uppercase text-stone-500 mb-1">Précision chimique</p>
+          <p class="text-2xl font-bold text-thmblue">{b1.chem_acc_pct} %</p>
+          <p class="text-xs text-stone-600">|err| &lt; 1 kcal/mol</p>
+        </div>
+        <div class="rounded-lg border border-slate-200 bg-white p-4">
+          <p class="text-xs uppercase text-stone-500 mb-1">Échecs SCF/géométrie</p>
+          <p class="text-2xl font-bold text-thmblue">0</p>
+          <p class="text-xs text-stone-600">sur 994 mol</p>
+        </div>
+      </div>
+
+      <!-- Per-category breakdown -->
+      <h3 class="font-sans text-base font-semibold text-thmblue mb-2">Par catégorie chimique</h3>
+      <div class="overflow-x-auto mb-6">
+        <table class="text-sm font-sans w-full">
+          <thead class="border-b border-stone-300 text-xs text-stone-600 uppercase">
+            <tr>
+              <th class="text-left py-2 pr-3">Catégorie</th>
+              <th class="text-right py-2 px-3 tabular-nums">Molécules</th>
+              <th class="text-right py-2 px-3 tabular-nums">MAE relative</th>
+              <th class="text-left py-2 pl-3">Lecture</th>
+            </tr>
+          </thead>
+          <tbody class="text-slate-700">
+            {Object.entries(cat1).map(([cat, d]: [string, any]) => (
+              <tr class="border-b border-stone-100">
+                <td class="py-2 pr-3 font-medium">{cat}</td>
+                <td class="py-2 px-3 text-right tabular-nums">{d.n}</td>
+                <td class="py-2 px-3 text-right tabular-nums font-bold">{d.mae_pct} %</td>
+                <td class="py-2 pl-3 text-xs text-stone-600">
+                  {cat === 'Organique' && 'Composés CHNOPS-halogène · MAE proche du sub-pourcent'}
+                  {cat === 'Inorganique' && 'Composés sans liaison C-H · zone difficile pour la DFT'}
+                  {cat === 'd-block' && 'Complexes de métaux de transition · chantier identifié'}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Charts -->
+      <h3 class="font-sans text-base font-semibold text-thmblue mb-2">Graphiques</h3>
+
+      <!-- Scatter en pleine largeur, c'est le chart le plus parlant -->
+      <figure class="rounded border border-slate-200 bg-white p-3 mb-4">
+        <img src="/benchmark/charts/bench1_scatter_dat.svg"
+             alt="Scatter D_at PTC vs expérience, coloré par catégorie"
+             class="w-full max-w-2xl mx-auto" />
+        <figcaption class="text-xs text-stone-600 mt-2 text-center max-w-2xl mx-auto">
+          Énergies d’atomisation calculées par PTC (axe vertical) contre
+          mesures expérimentales (axe horizontal). La diagonale en
+          pointillé est la prédiction parfaite. Plus un point s’en
+          écarte, plus l’erreur est grande. Les organiques (bleu)
+          collent à la diagonale ; les inorganiques (orange) s’en
+          écartent davantage ; les complexes d-block (vert) sont les
+          plus dispersés.
+        </figcaption>
+      </figure>
+
+      <div class="grid md:grid-cols-2 gap-4 mb-4">
+        <figure class="rounded border border-slate-200 bg-white p-3">
+          <img src="/benchmark/charts/bench1_error_bins.svg"
+               alt="Distribution des erreurs relatives par bin de %"
+               class="w-full" />
+          <figcaption class="text-xs text-stone-600 mt-2">
+            Bins d’erreur relative |D_PTC − D_exp| / D_exp. Vert = sous
+            le pourcent, jaune = entre 1 et 5 %, orange/rouge = au-delà.
+            Le gros du benchmark tombe dans les bins faibles ; la queue
+            droite est portée par les complexes d-block.
+          </figcaption>
+        </figure>
+        <figure class="rounded border border-slate-200 bg-white p-3">
+          <img src="/benchmark/charts/bench1_mae_by_category.svg"
+               alt="MAE relative par catégorie chimique"
+               class="w-full" />
+          <figcaption class="text-xs text-stone-600 mt-2">
+            La MAE relative passe de 1,7 % sur les organiques à 26 % sur
+            les complexes d-block, reflétant la difficulté croissante
+            des métaux de transition pour toute méthode ab initio
+            analytique.
+          </figcaption>
+        </figure>
+      </div>
+
+      <figure class="rounded border border-slate-200 bg-white p-3 mb-8">
+        <img src="/benchmark/charts/bench1_histogram_errors.svg"
+             alt="Histogramme des erreurs absolues PTC vs expérience"
+             class="w-full" />
+        <figcaption class="text-xs text-stone-600 mt-2">
+          Distribution des erreurs absolues (en eV) sur 994 molécules.
+          Le pic à gauche montre la concentration des erreurs faibles ;
+          la queue droite est portée par les complexes d-block.
+        </figcaption>
+      </figure>
+
+      <!-- 1000-mol searchable table -->
+      <h3 id="bench1-table" class="font-sans text-base font-semibold text-thmblue mb-2">
+        Tableau des {totalRows} molécules
+      </h3>
+      <p class="text-sm text-slate-600 mb-3">
+        Chaque ligne est traçable. La colonne « Source » indique la base
+        d’origine de la valeur expérimentale (NIST WebBook, ATcT v1.130,
+        JANAF, Huber-Herzberg…). La colonne « Fiabilité » résume le
+        cross-check automatique contre la convention duale CCCBDB
+        (ΔfH°(0K) et ΔfH°(298K)). La colonne « Lien » pointe vers la
+        fiche officielle.
+      </p>
+
+      <!-- Reliability distribution (mirrors PTC streamlit panel) -->
+      <div class="rounded-lg border border-slate-200 bg-slate-50 p-4 mb-3">
+        <p class="text-xs font-sans uppercase text-stone-600 mb-2">Distribution fiabilité (audit dual-convention CCCBDB)</p>
+        <div class="grid grid-cols-2 md:grid-cols-5 gap-2 text-sm">
+          <div class="bg-white rounded p-2 border border-emerald-200">
+            <span class="font-bold tabular-nums">🟢 {verifiedGreen}</span>
+            <span class="text-xs text-stone-600 block">cross-validé &lt; 2 %</span>
+          </div>
+          <div class="bg-white rounded p-2 border border-yellow-200">
+            <span class="font-bold tabular-nums">🟡 {buckets.yellow ?? 0}</span>
+            <span class="text-xs text-stone-600 block">drift 2–5 %</span>
+          </div>
+          <div class="bg-white rounded p-2 border border-orange-200">
+            <span class="font-bold tabular-nums">🟠 {buckets.orange ?? 0}</span>
+            <span class="text-xs text-stone-600 block">drift 5–15 %</span>
+          </div>
+          <div class="bg-white rounded p-2 border border-rose-200">
+            <span class="font-bold tabular-nums">🔴 {buckets.red ?? 0}</span>
+            <span class="text-xs text-stone-600 block">divergence &gt; 15 %</span>
+          </div>
+          <div class="bg-white rounded p-2 border border-stone-200">
+            <span class="font-bold tabular-nums">⚪ {buckets.white ?? 0}</span>
+            <span class="text-xs text-stone-600 block">non auditable</span>
+          </div>
+        </div>
+      </div>
+      <details class="mb-3 rounded border border-slate-200 bg-slate-50 p-3">
+        <summary class="text-sm font-sans font-semibold text-thmblue cursor-pointer">
+          Comment vérifier une valeur de D_at en cliquant sur un lien
+        </summary>
+        <div class="text-sm text-slate-700 leading-relaxed mt-2 space-y-2">
+          <p>
+            <strong>Aucune base publie D_at directement</strong> — toutes
+            publient l’enthalpie de formation ΔH_f. Les deux sont reliées
+            par <code class="bg-white px-1 rounded">D_at(M) = Σ ΔH_f(atomes) − ΔH_f(M)</code>.
+            Selon la base sur laquelle on tombe :
+          </p>
+          <ul class="space-y-1 ml-4">
+            <li>
+              <strong>CCCBDB</strong> (cccbdb.nist.gov) — la plus
+              directe : la page expose <code class="bg-white px-1 rounded">ΔfH°(0 K)</code>
+              et <code class="bg-white px-1 rounded">ΔfH°(298 K)</code>
+              côte à côte, donc le recalcul
+              <code class="bg-white px-1 rounded">D_at = Σ ΔfH°(atomes) − ΔfH°(molécule)</code>
+              ne demande qu'un appoint avec les ΔfH° atomiques tabulés.
+              Liens activés dès que notre dataset a un CAS.
+            </li>
+            <li>
+              <strong>NIST WebBook</strong> (webbook.nist.gov) — montre
+              ΔH_f de formation (souvent uniquement à 298 K), à compléter
+              par les ΔH_f atomiques pour recalculer D_at.
+            </li>
+            <li>
+              <strong>PubChem</strong> (pubchem.ncbi.nlm.nih.gov) —
+              confirme l’identité de la molécule (structure, formule).
+              Section « Chemical and Physical Properties » contient
+              parfois ΔH_f, sinon cross-link vers NIST WebBook.
+            </li>
+          </ul>
+          <p>
+            Pour télécharger le tableau complet (avec sources et CAS) en
+            CSV, voir <a href="#reproductibilite" class="text-thmblue underline">section reproductibilité</a>.
+          </p>
+        </div>
+      </details>
+
+      <details class="mb-3 rounded border border-slate-200 bg-slate-50 p-3">
+        <summary class="text-sm font-sans font-semibold text-thmblue cursor-pointer">
+          Code couleur de fiabilité — comment chaque D_exp a été vérifié
+        </summary>
+        <div class="text-sm text-slate-700 leading-relaxed mt-2 space-y-2">
+          <p>
+            Chaque valeur expérimentale est cross-vérifiée
+            automatiquement contre une seconde estimation D_at recalculée
+            depuis les enthalpies de formation CCCBDB, en deux conventions
+            (ΔfH°(0 K) et ΔfH°(298 K) avec correction H(298)−H(0)). On
+            garde le meilleur écart des deux. Le badge encode le drift
+            relatif :
+          </p>
+          <ul class="space-y-1 ml-4">
+            <li>🟢 <strong>&lt; 2 %</strong> — confiance élevée, cross-validé. {verifiedGreen} mol.</li>
+            <li>🟡 <strong>2–5 %</strong> — drift modéré (souvent atomes Hf de référence légèrement différents). {buckets.yellow ?? 0} mol.</li>
+            <li>🟠 <strong>5–15 %</strong> — drift significatif (typiquement esters, carbonates, anhydrides — convention thermochimique sensible). {buckets.orange ?? 0} mol.</li>
+            <li>🔴 <strong>&gt; 15 %</strong> — divergence majeure (presque toujours diatomiques de métaux de transition où la spectroscopie Huber-Herzberg est préférée à la table thermochimique CCCBDB). {buckets.red ?? 0} mol.</li>
+            <li>⚪ <strong>Non auditable</strong> — pas de CAS résolu ou pas de ΔfH° CCCBDB disponible (composé exotique, radical, etc.). {buckets.white ?? 0} mol. Le tier de la source primaire est affiché à la place (A = ATcT, B = compendium, C = papier individuel).</li>
+          </ul>
+          <p class="text-xs text-stone-600 italic mt-2">
+            Tiers source : A = {tiers.A ?? 0} (ATcT-grade) · B = {tiers.B ?? 0} (NIST/JANAF/HH/CRC/Gurvich/CCCBDB) · C = {tiers.C ?? 0} (papier individuel) · ? = {tiers['?'] ?? 0} (inconnu).
+          </p>
+        </div>
+      </details>
+
+      <div class="mb-3 flex gap-2 flex-wrap items-center">
+        <input id="bench1-filter" type="search" placeholder="Filtrer par nom, SMILES, source…"
+               class="flex-1 min-w-[200px] px-3 py-2 border border-slate-300 rounded-md text-sm focus:border-thmblue focus:ring-1 focus:ring-thmblue" />
+        <label class="text-xs text-stone-700 inline-flex items-center gap-1.5 select-none">
+          <input id="bench1-verified-only" type="checkbox" class="rounded border-slate-400" />
+          Cross-validé CCCBDB seulement (🟢)
+        </label>
+        <span id="bench1-count" class="text-xs text-stone-500 font-mono">{totalRows}</span>
+      </div>
+
+      <div class="overflow-x-auto rounded-lg border border-slate-200 bg-white max-h-[600px] overflow-y-auto">
+        <table class="text-sm font-sans w-full">
+          <thead class="bg-slate-50 sticky top-0 text-xs text-stone-600 uppercase">
+            <tr>
+              <th class="text-left py-2 px-3">Molécule</th>
+              <th class="text-left py-2 px-2">Catégorie</th>
+              <th class="text-right py-2 px-2 tabular-nums">D_exp (eV)</th>
+              <th class="text-right py-2 px-2 tabular-nums">D_PTC (eV)</th>
+              <th class="text-right py-2 px-2 tabular-nums">|err| (eV)</th>
+              <th class="text-right py-2 px-2 tabular-nums">% rel</th>
+              <th class="text-left py-2 px-2">Source</th>
+              <th class="text-left py-2 px-2 whitespace-nowrap">Fiabilité</th>
+              <th class="text-left py-2 px-2">Lien</th>
+            </tr>
+          </thead>
+          <tbody id="bench1-tbody" class="text-slate-700">
+            {bench1Data.rows.map((r: any) => {
+              const badge = (r.reliability || '').split(' ')[0];
+              const isGreen = badge === '🟢';
+              return (
+                <tr class="border-b border-stone-100 hover:bg-slate-50"
+                    data-search={`${r.name} ${r.smiles} ${r.source} ${r.category}`.toLowerCase()}
+                    data-green={isGreen ? '1' : '0'}>
+                  <td class="py-1.5 px-3 max-w-[160px]">
+                    <div class="font-medium leading-tight truncate" title={r.name}>{r.name}</div>
+                    <div class="font-mono text-xs text-stone-500 truncate" title={r.smiles}>{r.smiles}</div>
+                  </td>
+                  <td class="py-1.5 px-2 text-xs text-stone-600 whitespace-nowrap">{r.category}</td>
+                  <td class="py-1.5 px-2 text-right tabular-nums">{r.d_exp?.toFixed(3)}</td>
+                  <td class="py-1.5 px-2 text-right tabular-nums">{r.d_ptc !== null ? r.d_ptc.toFixed(3) : '—'}</td>
+                  <td class="py-1.5 px-2 text-right tabular-nums">{r.err_eV !== null ? r.err_eV.toFixed(3) : '—'}</td>
+                  <td class="py-1.5 px-2 text-right tabular-nums">{r.rel_pct !== null ? r.rel_pct.toFixed(2) : '—'}</td>
+                  <td class="py-1.5 px-2 text-xs"><span class="font-mono">{r.source}</span></td>
+                  <td class="py-1.5 px-2 text-xs whitespace-nowrap" title={r.audit_status === 'n/a' ? `Tier source ${r.tier}` : `Audit ${r.audit_convention} : ${r.audit_diff_pct}%`}>{r.reliability || '—'}</td>
+                  <td class="py-1.5 px-2 text-xs">
+                    {r.url ? <a href={r.url} target="_blank" rel="noopener" class="text-thmblue hover:underline">→</a> : '—'}
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
+
+    </section>
+
+    <!-- ============================================== -->
+    <!-- BENCHMARK 2 : PTC vs B3LYP/6-31G* (855 mol)    -->
+    <!-- ============================================== -->
+    <section>
+      <p class="pt-tag pt-tag-val mb-3">Benchmark 2 — Comparaison directe</p>
+      <h2 class="text-3xl font-bold text-thmblue mb-4">PTC vs B3LYP/6-31G*</h2>
+      <p class="text-slate-700 leading-relaxed mb-6 max-w-4xl">
+        Comparaison appariée sur les <strong>855 molécules</strong> où
+        B3LYP/6-31G* converge (124 mol contenant des éléments lourds —
+        Ag, Au, métaux de transition, I — sont exclues côté B3LYP, ainsi
+        que 9 échecs SCF et 8 outliers pathologiques |err| &gt; 5 eV
+        comme S₂F₁₀ à −114 eV). Géométries identiques (RDKit MMFF +
+        tables diatomiques), ZPE Scott-Radom × 0,9806.
+      </p>
+
+      <!-- Bench 2 metric cards : side-by-side comparison -->
+      <div class="grid md:grid-cols-2 gap-3 mb-6">
+        <div class="rounded-lg border-2 border-thmblue/30 bg-thmblue/5 p-5">
+          <p class="text-xs uppercase text-thmblue font-semibold mb-2">PTC (0 variable d'ajustement)</p>
+          <p class="text-3xl font-bold text-thmblue">{b2.ptc.mae_eV} eV</p>
+          <p class="text-xs text-stone-700 mt-2">
+            MAE · médiane {b2.ptc.median_eV} eV · max |err| {b2.ptc.max_eV} eV<br />
+            Précision chimique : {b2.ptc.chem_acc_pct} % · &lt;5 kcal/mol : {b2.ptc.within_5kcal} %
+          </p>
+        </div>
+        <div class="rounded-lg border-2 border-amber-300 bg-amber-50 p-5">
+          <p class="text-xs uppercase text-amber-800 font-semibold mb-2">B3LYP/6-31G* (3 variables d'ajustement)</p>
+          <p class="text-3xl font-bold text-amber-900">{b2.b3lyp.mae_eV} eV</p>
+          <p class="text-xs text-stone-700 mt-2">
+            MAE · médiane {b2.b3lyp.median_eV} eV · max |err| {b2.b3lyp.max_eV} eV<br />
+            Précision chimique : {b2.b3lyp.chem_acc_pct} % · &lt;5 kcal/mol : {b2.b3lyp.within_5kcal} %
+          </p>
+        </div>
+      </div>
+
+      <div class="rounded-lg border-2 border-emerald-300 bg-emerald-50 p-4 mb-6">
+        <p class="text-sm text-emerald-900 leading-relaxed">
+          <strong>Tête-à-tête :</strong> PTC gagne sur <strong>{b2.ptc_win_rate_pct} %</strong>
+          des 855 paires (605 victoires PTC vs 250 victoires B3LYP). Gain
+          MAE : {((1 - b2.ptc.mae_eV / b2.b3lyp.mae_eV) * 100).toFixed(0)} %.
+          Précision chimique : {(b2.ptc.chem_acc_pct / b2.b3lyp.chem_acc_pct).toFixed(1)}× meilleure.
+        </p>
+      </div>
+
+      <!-- Charts -->
+      <div class="grid md:grid-cols-2 gap-4">
+        <figure class="rounded border border-slate-200 bg-white p-3">
+          <img src="/benchmark/charts/bench2_overlay_errors.svg"
+               alt="Distribution superposée des erreurs signées PTC et B3LYP"
+               class="w-full" />
+          <figcaption class="text-xs text-stone-600 mt-2">
+            Erreurs signées superposées : B3LYP (orange) montre un biais
+            net vers les valeurs négatives (sous-estimation de D_at) ;
+            PTC (bleu) est centré, sans biais systématique.
+          </figcaption>
+        </figure>
+        <figure class="rounded border border-slate-200 bg-white p-3">
+          <img src="/benchmark/charts/bench2_mae_by_size.svg"
+               alt="MAE par bin de taille moléculaire"
+               class="w-full" />
+          <figcaption class="text-xs text-stone-600 mt-2">
+            La MAE de B3LYP croît significativement avec la taille
+            moléculaire ; PTC dégrade aussi mais moins fort.
+            Sur les molécules &gt; 8 atomes, l’écart devient flagrant.
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- ============================================== -->
+    <!-- BENCHMARK 3 : 3-way contre def2-TZVP            -->
+    <!-- ============================================== -->
+    <section>
+      <p class="pt-tag pt-tag-val mb-3">Benchmark 3 — Comparaison 3-voies</p>
+      <h2 class="text-3xl font-bold text-thmblue mb-4">PTC vs B3LYP/def2-TZVP</h2>
+      <p class="text-slate-700 leading-relaxed mb-6 max-w-4xl">
+        Pour répondre à l’objection « 6-31G* est la base low-cost »,
+        comparaison 3-voies sur les <strong>536 molécules de taille
+        n ≤ 12</strong> où B3LYP converge dans les deux bases. La
+        def2-TZVP est la base « moderne » de DFT, ~5× plus chère
+        en temps de calcul. <strong>PTC reste meilleur partout.</strong>
+      </p>
+
+      <!-- 3-way summary table -->
+      <div class="overflow-x-auto mb-6">
+        <table class="text-sm font-sans w-full">
+          <thead class="bg-slate-50 border-b border-stone-300 text-xs text-stone-600 uppercase">
+            <tr>
+              <th class="text-left py-2 px-3">Bin (n_atoms)</th>
+              <th class="text-right py-2 px-3 tabular-nums">N</th>
+              <th class="text-right py-2 px-3 tabular-nums text-amber-800">B3LYP/6-31G*</th>
+              <th class="text-right py-2 px-3 tabular-nums text-violet-800">B3LYP/def2-TZVP</th>
+              <th class="text-right py-2 px-3 tabular-nums text-thmblue">PTC</th>
+            </tr>
+          </thead>
+          <tbody class="text-slate-700">
+            {b3Bins.map((bin) => {
+              const r631 = b3Cell(bin, 'B3LYP/6-31G*');
+              const rdef2 = b3Cell(bin, 'B3LYP/def2-TZVP');
+              const rptc = b3Cell(bin, 'PTC');
+              return (
+                <tr class={`border-b border-stone-100 ${bin === 'A+B+C (n≤12)' ? 'font-semibold bg-slate-50' : ''}`}>
+                  <td class="py-2 px-3">{bin}</td>
+                  <td class="py-2 px-3 text-right tabular-nums">{rptc?.n}</td>
+                  <td class="py-2 px-3 text-right tabular-nums">{r631?.mae_eV.toFixed(3)} eV</td>
+                  <td class="py-2 px-3 text-right tabular-nums">{rdef2?.mae_eV.toFixed(3)} eV</td>
+                  <td class="py-2 px-3 text-right tabular-nums font-bold">{rptc?.mae_eV.toFixed(3)} eV</td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Surprise callout -->
+      <div class="rounded-lg border-2 border-rose-300 bg-rose-50 p-5 mb-6">
+        <h4 class="font-sans font-semibold text-rose-800 mb-2">
+          Surprise : def2-TZVP régresse derrière 6-31G* sur les molécules moyennes
+        </h4>
+        <p class="text-sm text-rose-900 leading-relaxed">
+          Sur les 167 molécules de 9-12 atomes (Bin C), B3LYP/def2-TZVP
+          atteint MAE = 0,92 eV contre 0,82 eV pour 6-31G*.
+          Phénomène DFT connu : annulation d’erreur entre BSIE
+          (basis set incompleteness error) et erreur intrinsèque de la
+          fonctionnelle dans 6-31G*, qui disparaît avec def2-TZVP et
+          expose le défaut de B3LYP. PTC reste meilleure (0,78 eV) et
+          <strong>non biaisée</strong> (biais signé −0,06 eV vs −0,92 eV
+          pour def2-TZVP) — démontrant que le défaut B3LYP est
+          <em>structurel à la fonctionnelle</em>, pas guérissable par
+          meilleure base.
+        </p>
+      </div>
+
+      <!-- Charts -->
+      <div class="grid md:grid-cols-2 gap-4">
+        <figure class="rounded border border-slate-200 bg-white p-3">
+          <img src="/benchmark/charts/bench3_mae_3way.svg"
+               alt="MAE par bin de taille, comparaison 3-voies"
+               class="w-full" />
+          <figcaption class="text-xs text-stone-600 mt-2">
+            MAE des 3 méthodes sur les 4 bins de taille. Sur le Bin C,
+            def2-TZVP est moins bonne que 6-31G* — anomalie DFT
+            classique. PTC est en tête sur tous les bins.
+          </figcaption>
+        </figure>
+        <figure class="rounded border border-slate-200 bg-white p-3">
+          <img src="/benchmark/charts/bench3_winrates.svg"
+               alt="Win rate 3-voies par bin de taille"
+               class="w-full" />
+          <figcaption class="text-xs text-stone-600 mt-2">
+            Pourcentage de molécules pour lesquelles chaque méthode est
+            la meilleure. PTC domine sur tous les bins, avec une marge
+            particulièrement forte sur Bin A (petites molécules).
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- ============================================== -->
+    <!-- COÛT DE CALCUL                                   -->
+    <!-- ============================================== -->
+    <section>
+      <p class="pt-tag pt-tag-val mb-3">Coût de calcul</p>
+      <h2 class="text-3xl font-bold text-thmblue mb-4">PTC est analytique — pas de SCF, pas d’itération</h2>
+      <p class="text-slate-700 leading-relaxed mb-6 max-w-4xl">
+        À précision comparable, PTC est plusieurs ordres de grandeur
+        plus rapide que la DFT. Mesures faites sur le même sous-ensemble
+        de <strong>{m.timing.ptc.n} molécules</strong> (Bin A+B+C, n ≤ 12)
+        et sur la même machine ({m.timing.machine_note}). Single-thread
+        pour les deux méthodes. PTC dérive ses observables analytiquement
+        depuis s = 1/2, sans cycle SCF, sans diagonalisation Hartree-Fock,
+        sans intégrales d’échange-corrélation à évaluer.
+      </p>
+
+      <!-- Timing summary table -->
+      <div class="overflow-x-auto mb-6">
+        <table class="text-sm font-sans w-full">
+          <thead class="bg-slate-50 border-b border-stone-300 text-xs text-stone-600 uppercase">
+            <tr>
+              <th class="text-left py-2 px-3">Périmètre</th>
+              <th class="text-right py-2 px-3 tabular-nums">N mol</th>
+              <th class="text-right py-2 px-3 tabular-nums text-violet-800">B3LYP / def2-TZVP</th>
+              <th class="text-right py-2 px-3 tabular-nums text-thmblue">PTC</th>
+              <th class="text-right py-2 px-3 tabular-nums">Speedup</th>
+            </tr>
+          </thead>
+          <tbody class="text-slate-700">
+            <tr class="border-b border-stone-100">
+              <td class="py-2 px-3">A+B (n ≤ 8)</td>
+              <td class="py-2 px-3 text-right tabular-nums">{m.timing.b3lyp_def2tzvp.per_bin['A+B (n≤8)'].n}</td>
+              <td class="py-2 px-3 text-right tabular-nums">{Math.round(m.timing.b3lyp_def2tzvp.per_bin['A+B (n≤8)'].total_s / 60)} min {m.timing.b3lyp_def2tzvp.per_bin['A+B (n≤8)'].total_s % 60 | 0} s</td>
+              <td class="py-2 px-3 text-right tabular-nums font-bold text-thmblue">{m.timing.ptc.per_bin['A+B (n≤8)'].total_s.toFixed(2)} s</td>
+              <td class="py-2 px-3 text-right tabular-nums font-bold">× {Math.round(m.timing.b3lyp_def2tzvp.per_bin['A+B (n≤8)'].total_s / m.timing.ptc.per_bin['A+B (n≤8)'].total_s).toLocaleString('fr-FR')}</td>
+            </tr>
+            <tr class="border-b border-stone-100">
+              <td class="py-2 px-3">C (n = 9-12)</td>
+              <td class="py-2 px-3 text-right tabular-nums">{m.timing.b3lyp_def2tzvp.per_bin['C (n=9-12)'].n}</td>
+              <td class="py-2 px-3 text-right tabular-nums">{Math.floor(m.timing.b3lyp_def2tzvp.per_bin['C (n=9-12)'].total_s / 3600)} h {Math.round(m.timing.b3lyp_def2tzvp.per_bin['C (n=9-12)'].total_s % 3600 / 60)} min</td>
+              <td class="py-2 px-3 text-right tabular-nums font-bold text-thmblue">{m.timing.ptc.per_bin['C (n=9-12)'].total_s.toFixed(2)} s</td>
+              <td class="py-2 px-3 text-right tabular-nums font-bold">× {Math.round(m.timing.b3lyp_def2tzvp.per_bin['C (n=9-12)'].total_s / m.timing.ptc.per_bin['C (n=9-12)'].total_s).toLocaleString('fr-FR')}</td>
+            </tr>
+            <tr class="font-semibold bg-slate-50 border-b border-stone-200">
+              <td class="py-2 px-3">Total (n ≤ 12)</td>
+              <td class="py-2 px-3 text-right tabular-nums">{m.timing.ptc.n}</td>
+              <td class="py-2 px-3 text-right tabular-nums">{Math.floor(m.timing.b3lyp_def2tzvp.total_s / 3600)} h {Math.round(m.timing.b3lyp_def2tzvp.total_s % 3600 / 60)} min</td>
+              <td class="py-2 px-3 text-right tabular-nums font-bold text-thmblue">{m.timing.ptc.total_s.toFixed(2)} s</td>
+              <td class="py-2 px-3 text-right tabular-nums font-bold">× {Math.round(m.timing.b3lyp_def2tzvp.total_s / m.timing.ptc.total_s).toLocaleString('fr-FR')}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="rounded-lg border-2 border-emerald-300 bg-emerald-50 p-4 mb-6">
+        <p class="text-sm text-emerald-900 leading-relaxed">
+          <strong>Lecture en un coup d’œil :</strong> ce que B3LYP/def2-TZVP
+          fait en <strong>1 h 56 min</strong> sur 536 molécules, PTC le
+          fait en <strong>{m.timing.ptc.total_s.toFixed(1)} secondes</strong>
+          sur la même machine. Médiane PTC : <strong>{m.timing.ptc.median_ms} ms par molécule</strong>.
+          Le speedup augmente avec la taille — × 2 130 sur les petites
+          molécules, × 16 000 sur les molécules de 9-12 atomes — parce
+          que la complexité de la DFT croît en O(N³ à N⁴) tandis que
+          PTC reste quasi-linéaire.
+        </p>
+      </div>
+
+      <figure class="rounded border border-slate-200 bg-white p-3 mb-6">
+        <img src="/benchmark/charts/timing_log.svg"
+             alt="Coût de calcul PTC vs B3LYP/def2-TZVP, échelle log"
+             class="w-full" />
+        <figcaption class="text-xs text-stone-600 mt-2">
+          Temps total par périmètre, échelle log (le rapport est trop
+          grand pour un linéaire). Les facteurs de speedup sont annotés
+          en rouge sur chaque paire de barres.
+        </figcaption>
+      </figure>
+
+      <div class="rounded-lg border border-slate-200 bg-white p-4">
+        <h4 class="font-sans font-semibold text-thmblue mb-2">Pourquoi un tel écart ?</h4>
+        <ul class="text-sm text-slate-700 leading-relaxed space-y-2">
+          <li><strong>B3LYP/def2-TZVP</strong> demande pour chaque
+          molécule : construction de la base (~30 fonctions par atome
+          lourd avec def2-TZVP), itération SCF jusqu’à convergence
+          (~15-30 cycles), évaluation des intégrales d’échange-corrélation
+          sur grille radiale, calcul du Hessien pour la ZPE harmonique.
+          Coût en O(N³) à O(N⁴) avec le nombre d’atomes.</li>
+          <li><strong>PTC</strong> évalue directement une expression
+          analytique fermée pour chaque liaison (cap Shannon × screening
+          modulaire), assemble le D_at par sommation graphique sur le
+          tore Z/3 × Z/5 × Z/7. Pas de SCF, pas de cycle itératif,
+          pas de grille. Coût quasi-linéaire en nombre d’atomes.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============================================== -->
+    <!-- CAVEATS                                          -->
+    <!-- ============================================== -->
+    <section>
+      <p class="pt-tag pt-tag-id mb-3">Honnêteté</p>
+      <h2 class="text-3xl font-bold text-thmblue mb-4">Caveats et méthodologie</h2>
+      <div class="grid md:grid-cols-2 gap-4">
+        <div class="rounded-lg border border-slate-200 bg-white p-5">
+          <h4 class="font-sans font-semibold text-thmblue mb-2">Pas de comparaison contre G4 / W1 / CCSD(T)</h4>
+          <p class="text-sm text-slate-700 leading-relaxed">
+            Les méthodes composites atteignent ~0,04 eV de précision —
+            mais avec ~10 variables d'ajustement calibrés sur G2 / G3.
+            B3LYP est l’étalon DFT le plus utilisé en chimie de
+            production ; c’est lui qu’il était pertinent de battre.
+          </p>
+        </div>
+        <div class="rounded-lg border border-slate-200 bg-white p-5">
+          <h4 class="font-sans font-semibold text-thmblue mb-2">Géométries</h4>
+          <p class="text-sm text-slate-700 leading-relaxed">
+            RDKit MMFF (3+ atomes) ou table diatomique fixe pour les
+            diatomiques. Géométries identiques entre 6-31G* et def2-TZVP
+            pour permettre une comparaison apples-to-apples.
+          </p>
+        </div>
+        <div class="rounded-lg border border-slate-200 bg-white p-5">
+          <h4 class="font-sans font-semibold text-thmblue mb-2">Énergie de point zéro (ZPE)</h4>
+          <p class="text-sm text-slate-700 leading-relaxed">
+            ZPE harmoniques B3LYP/6-31G* × 0,9806 (Scott & Radom 1996).
+            Pour def2-TZVP, ZPE recyclée du 6-31G* (différence &lt; 2 %
+            entre bases, négligeable devant l’erreur D₀).
+          </p>
+        </div>
+        <div class="rounded-lg border border-slate-200 bg-white p-5">
+          <h4 class="font-sans font-semibold text-thmblue mb-2">Échecs B3LYP exclus</h4>
+          <p class="text-sm text-slate-700 leading-relaxed">
+            9 échecs SCF/Hessian (NO₂, ClF₃, B₂H₆, fullerène…) et
+            8 outliers pathologiques |err| &gt; 5 eV (S₂F₁₀ −114 eV,
+            PCl₅, SF₆, SF₄, HBO₂, phenanthrène, SO₃) ont été exclus
+            côté B3LYP pour rendre la comparaison équitable.
+            <strong>PTC les calcule sans problème</strong> et leurs
+            valeurs sont incluses dans le benchmark 1 (994 mol).
+          </p>
+        </div>
+        <div class="rounded-lg border border-slate-200 bg-white p-5">
+          <h4 class="font-sans font-semibold text-thmblue mb-2">Régressions PTC connues</h4>
+          <p class="text-sm text-slate-700 leading-relaxed">
+            N-hétérocycles aromatiques (pyrrole, indazole, pyridazine,
+            triazine), siloxanes : PTC sur-estime ou sous-estime
+            systématiquement. Chantiers identifiés, à fixer dans
+            les prochaines versions.
+          </p>
+        </div>
+        <div class="rounded-lg border border-slate-200 bg-white p-5">
+          <h4 class="font-sans font-semibold text-thmblue mb-2">Éléments lourds</h4>
+          <p class="text-sm text-slate-700 leading-relaxed">
+            Les complexes contenant Ag, Au, métaux de transition lourds
+            ou I sont calculés par PTC mais pas par B3LYP/6-31G*
+            (124 mol concernées). Présents dans le benchmark 1, exclus
+            des benchmarks 2 et 3.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================== -->
+    <!-- REPRODUCTIBILITÉ                                 -->
+    <!-- ============================================== -->
+    <section id="reproductibilite">
+      <p class="pt-tag pt-tag-bridge mb-3">Reproductibilité</p>
+      <h2 class="text-3xl font-bold text-thmblue mb-4">Code, données, références</h2>
+      <div class="grid md:grid-cols-2 gap-4 mb-6">
+        <div class="rounded-lg border border-slate-200 bg-white p-5">
+          <h4 class="font-sans font-semibold text-thmblue mb-2">Code source PTC</h4>
+          <p class="text-sm text-slate-700 leading-relaxed mb-2">
+            Repository MIT public, prêt à cloner et tester :
+          </p>
+          <p class="font-mono text-sm">
+            <a href="https://github.com/Igrekess/PT_CHEMISTRY" target="_blank" rel="noopener"
+               class="text-thmblue hover:underline">
+              github.com/Igrekess/PT_CHEMISTRY
+            </a>
+          </p>
+        </div>
+        <div class="rounded-lg border border-slate-200 bg-white p-5">
+          <h4 class="font-sans font-semibold text-thmblue mb-2">Données expérimentales</h4>
+          <ul class="text-sm text-slate-700 leading-relaxed space-y-1">
+            <li>• <a href="https://atct.anl.gov/" target="_blank" rel="noopener" class="text-thmblue hover:underline">ATcT (Active Thermochemical Tables)</a></li>
+            <li>• <a href="https://webbook.nist.gov/chemistry/" target="_blank" rel="noopener" class="text-thmblue hover:underline">NIST WebBook</a></li>
+            <li>• <a href="https://janaf.nist.gov/" target="_blank" rel="noopener" class="text-thmblue hover:underline">JANAF Thermochemical Tables</a></li>
+            <li>• <a href="https://cccbdb.nist.gov/" target="_blank" rel="noopener" class="text-thmblue hover:underline">NIST CCCBDB</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <h3 class="font-sans text-base font-semibold text-thmblue mb-3">Téléchargement direct des CSV</h3>
+      <div class="grid md:grid-cols-2 gap-3">
+        <a href="/benchmark/data/benchmark1_per_molecule.csv" download
+           class="rounded border border-slate-300 bg-slate-50 hover:bg-slate-100 p-3 text-sm">
+          <span class="font-sans font-semibold text-thmblue">benchmark1_per_molecule.csv</span>
+          <span class="block text-xs text-stone-600 mt-1">994 mol · D_exp, D_PTC, source, CAS, URL</span>
+        </a>
+        <a href="/benchmark/data/benchmark2_per_molecule.csv" download
+           class="rounded border border-slate-300 bg-slate-50 hover:bg-slate-100 p-3 text-sm">
+          <span class="font-sans font-semibold text-thmblue">benchmark2_per_molecule.csv</span>
+          <span class="block text-xs text-stone-600 mt-1">855 mol · PTC vs B3LYP/6-31G*</span>
+        </a>
+        <a href="/benchmark/data/benchmark3_3way_per_molecule.csv" download
+           class="rounded border border-slate-300 bg-slate-50 hover:bg-slate-100 p-3 text-sm">
+          <span class="font-sans font-semibold text-thmblue">benchmark3_3way_per_molecule.csv</span>
+          <span class="block text-xs text-stone-600 mt-1">536 mol · PTC vs deux bases B3LYP</span>
+        </a>
+        <a href="/benchmark/data/benchmark3_3way_summary.csv" download
+           class="rounded border border-slate-300 bg-slate-50 hover:bg-slate-100 p-3 text-sm">
+          <span class="font-sans font-semibold text-thmblue">benchmark3_3way_summary.csv</span>
+          <span class="block text-xs text-stone-600 mt-1">12 lignes · MAE × 4 bins × 3 méthodes</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- ============================================== -->
+    <!-- LINKS                                            -->
+    <!-- ============================================== -->
+    <section class="pt-2">
+      <p class="pt-tag pt-tag-bridge mb-3">Aller plus loin</p>
+      <div class="grid md:grid-cols-3 gap-4">
+        <a href="/tableau-periodique" class="pt-card block group">
+          <span class="pt-tag pt-tag-val">Application</span>
+          <h3 class="font-sans font-semibold text-thmblue text-lg mt-3 mb-2 group-hover:underline">Tableau périodique PT</h3>
+          <p class="text-sm text-slate-700">Les 7 périodes exactes, dérivées de la même chaîne PT que ce benchmark.</p>
+        </a>
+        <a href="/premier-principe" class="pt-card block group">
+          <span class="pt-tag pt-tag-thm">Source PT</span>
+          <h3 class="font-sans font-semibold text-thmblue text-lg mt-3 mb-2 group-hover:underline">Principe fondamental</h3>
+          <p class="text-sm text-slate-700">D’où vient l’unique input s = 1/2 dont dérivent tous les calculs PTC présentés ici.</p>
+        </a>
+        <a href="/resultats" class="pt-card block group">
+          <span class="pt-tag pt-tag-id">Résultats</span>
+          <h3 class="font-sans font-semibold text-thmblue text-lg mt-3 mb-2 group-hover:underline">Tableau de bord</h3>
+          <p class="text-sm text-slate-700">Toutes les sorties PT, tous domaines confondus.</p>
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <script is:inline>
+    // Table filter — vanilla JS, no dependency
+    (function () {
+      const input = document.getElementById('bench1-filter');
+      const verifiedOnly = document.getElementById('bench1-verified-only');
+      const tbody = document.getElementById('bench1-tbody');
+      const counter = document.getElementById('bench1-count');
+      if (!input || !tbody || !counter) return;
+      const rows = Array.from(tbody.querySelectorAll('tr'));
+      const total = rows.length;
+      function applyFilter() {
+        const q = input.value.trim().toLowerCase();
+        const greenOnly = verifiedOnly && verifiedOnly.checked;
+        let visible = 0;
+        for (const r of rows) {
+          const matchText = !q || (r.dataset.search || '').includes(q);
+          const matchGreen = !greenOnly || r.dataset.green === '1';
+          const show = matchText && matchGreen;
+          r.style.display = show ? '' : 'none';
+          if (show) visible++;
+        }
+        counter.textContent = visible === total ? String(total) : `${visible} / ${total}`;
+      }
+      input.addEventListener('input', applyFilter);
+      if (verifiedOnly) verifiedOnly.addEventListener('change', applyFilter);
+    })();
+  </script>
+</BaseLayout>
