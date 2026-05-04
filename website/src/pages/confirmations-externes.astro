@@ -499,7 +499,7 @@ const featured = confirmations.filter((c) => c.status === 'published');
               </div>
               <h3 class="font-sans font-bold text-emerald-900 text-base mb-2">{c.label}</h3>
               <p class="text-xs text-emerald-800 italic mb-3">{c.statusLabel}</p>
-              <p class="text-sm text-emerald-900 leading-relaxed mb-3" set:html={c.role.replace(/\$([^$]+)\$/g, '<em>$1</em>')} />
+              <p class="text-sm text-emerald-900 leading-relaxed mb-3" set:html={c.role.replace(/\$([^$]+)\$/g, '<em>$1</em>').replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')} />
               <div class="flex flex-wrap gap-2 mt-3">
                 {c.links.doi && (
                   <a href={c.links.doi} target="_blank" rel="noopener noreferrer" class="text-xs font-sans font-semibold text-emerald-800 bg-white border border-emerald-400 rounded-full px-3 py-1 hover:bg-emerald-100">
@@ -561,7 +561,7 @@ const featured = confirmations.filter((c) => c.status === 'published');
                       </div>
                     </div>
                     <p class="text-sm text-slate-800 leading-relaxed mb-2">
-                      <strong class="text-derorange">Énoncé :</strong> <span set:html={c.role.replace(/\$([^$]+)\$/g, '<em>$1</em>')} />
+                      <strong class="text-derorange">Énoncé :</strong> <span set:html={c.role.replace(/\$([^$]+)\$/g, '<em>$1</em>').replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')} />
                     </p>
                     <p class="text-sm text-slate-700 leading-relaxed mb-3">
                       <strong class="text-emerald-700">Lien PT :</strong> <span set:html={c.why.replace(/\$([^$]+)\$/g, '<em>$1</em>').replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\*(.*?)\*/g, '<em>$1</em>')} />

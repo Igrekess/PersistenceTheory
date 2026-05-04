@@ -25,9 +25,9 @@ const stages: Stage[] = [
     ],
     intro: `Tout commence par une question minimale : qu'est-ce qui peut servir de "champ dynamique" pour un crible des nombres premiers ? T0 répond par l'unicité — il ne peut y avoir qu'un seul candidat naturel.`,
     body: [
-      `**T0** ferme la question : la suite des écarts $\\{g_n\\} = \\{p_{n+1} - p_n\\}$ entre premiers consécutifs est l'<strong>unique</strong> champ dynamique compatible avec les axiomes BA0 (invariance, finitude, généricité, exclusion de p=2 comme dynamique de cascade). Aucune autre construction ne survit aux quatre conditions de clôture.`,
-      `**L0** ajoute l'unicité statistique : parmi toutes les distributions de probabilité sans mémoire à entropie maximale et moyenne fixée, la <strong>géométrique</strong> est seule. Ce résultat de théorie de l'information impose la loi des écarts.`,
-      `**T1** introduit la première contrainte arithmétique : modulo 3, certaines transitions sont <strong>structurellement interdites</strong> (les diagonales 1→1 et 2→2 sont nulles). Cette interdiction force le noyau du crible à avoir une structure très particulière, qui sera exploitée par toutes les étapes suivantes.`,
+      `<strong>T0</strong> ferme la question : la suite des écarts $\\{g_n\\} = \\{p_{n+1} - p_n\\}$ entre premiers consécutifs est l'<strong>unique</strong> champ dynamique compatible avec les axiomes BA0 (invariance, finitude, généricité, exclusion de p=2 comme dynamique de cascade). Aucune autre construction ne survit aux quatre conditions de clôture.`,
+      `<strong>L0</strong> ajoute l'unicité statistique : parmi toutes les distributions de probabilité sans mémoire à entropie maximale et moyenne fixée, la <strong>géométrique</strong> est seule. Ce résultat de théorie de l'information impose la loi des écarts.`,
+      `<strong>T1</strong> introduit la première contrainte arithmétique : modulo 3, certaines transitions sont <strong>structurellement interdites</strong> (les diagonales 1→1 et 2→2 sont nulles). Cette interdiction force le noyau du crible à avoir une structure très particulière, qui sera exploitée par toutes les étapes suivantes.`,
     ],
   },
   {
@@ -55,8 +55,8 @@ const stages: Stage[] = [
     ],
     intro: `À ce stade le système possède un invariant ($s = 1/2$). La question devient : qu'est-ce qui se conserve quand on itère le crible ? La réponse est <strong>l'information totale</strong>.`,
     body: [
-      `**T2** établit la conservation spectrale : la deuxième valeur propre du noyau du crible mod 30 vaut $|\\lambda_2(T_{30})| = 1/4 = s^2$. Le carré de la symétrie dérivée apparaît exactement comme valeur propre — première manifestation que $s = 1/2$ structure tout le spectre.`,
-      `**GFT** (Generalized Fluctuation Theorem) donne le <strong>premier principe de la persistance</strong> : $\\log_2 m = D_{KL}(P\\,\\|\\,U_m) + H(P)$. Lu mot à mot : la capacité informationnelle totale d'un alphabet à $m$ lettres se répartit <em>exactement</em> entre divergence (mesure de la déviation par rapport à l'uniforme) et entropie (mesure du désordre).`,
+      `<strong>T2</strong> établit la conservation spectrale : la deuxième valeur propre du noyau du crible mod 30 vaut $|\\lambda_2(T_{30})| = 1/4 = s^2$. Le carré de la symétrie dérivée apparaît exactement comme valeur propre — première manifestation que $s = 1/2$ structure tout le spectre.`,
+      `<strong>GFT</strong> (Generalized Fluctuation Theorem) donne le <strong>premier principe de la persistance</strong> : $\\log_2 m = D_{KL}(P\\,\\|\\,U_m) + H(P)$. Lu mot à mot : la capacité informationnelle totale d'un alphabet à $m$ lettres se répartit <em>exactement</em> entre divergence (mesure de la déviation par rapport à l'uniforme) et entropie (mesure du désordre).`,
       `Ce principe joue en PT le rôle que joue la conservation de l'énergie en physique : il borne, contraint, et organise toutes les autres lois. Il transforme une question dynamique (que reste-t-il ?) en question comptable (où va le budget total ?).`,
     ],
   },
@@ -72,10 +72,10 @@ const stages: Stage[] = [
     ],
     intro: `Cette étape contient le cœur géométrique de la PT : <strong>la trigonométrie naît de l'arithmétique</strong>, et un attracteur unique se cristallise.`,
     body: [
-      `**T3** poursuit T1 : après élimination des diagonales, le noyau de transfert mod 3 devient <strong>purement antidiagonal</strong>. C'est le geste mathématique précis qui sépare le passage de l'ordre 1→2 et 2→1, et qui ouvre la voie aux échelles suivantes.`,
-      `**T4** combine Mertens, Gordin et le théorème des restes chinois pour montrer que le crible <em>finit le travail</em> : la suite des $\\alpha_k$ converge vers $1/2$. C'est la confirmation analytique de la symétrie dérivée.`,
-      `**T6** fait apparaître la <strong>trigonométrie</strong> sans la postuler : $\\sin^2\\theta_p = \\delta_p (2 - \\delta_p)$ où $\\delta_p$ est la fraction de gap pour le premier $p$. C'est le passage explicite du discret (premiers, gaps) au continu (angles, transport cyclique). L'arithmétique <em>devient</em> géométrie.`,
-      `**T5** ferme la cascade : il existe un <strong>unique point fixe attractif</strong> pour l'itération $\\mu_{k+1} = \\sum\\{p : \\gamma_p(\\mu_k) > 1/2\\}$. Ce point est $\\mu^* = 3 + 5 + 7 = 15$. Ni une coïncidence numérique, ni une constante choisie — un attracteur arithmétique exact.`,
+      `<strong>T3</strong> poursuit T1 : après élimination des diagonales, le noyau de transfert mod 3 devient <strong>purement antidiagonal</strong>. C'est le geste mathématique précis qui sépare le passage de l'ordre 1→2 et 2→1, et qui ouvre la voie aux échelles suivantes.`,
+      `<strong>T4</strong> combine Mertens, Gordin et le théorème des restes chinois pour montrer que le crible <em>finit le travail</em> : la suite des $\\alpha_k$ converge vers $1/2$. C'est la confirmation analytique de la symétrie dérivée.`,
+      `<strong>T6</strong> fait apparaître la <strong>trigonométrie</strong> sans la postuler : $\\sin^2\\theta_p = \\delta_p (2 - \\delta_p)$ où $\\delta_p$ est la fraction de gap pour le premier $p$. C'est le passage explicite du discret (premiers, gaps) au continu (angles, transport cyclique). L'arithmétique <em>devient</em> géométrie.`,
+      `<strong>T5</strong> ferme la cascade : il existe un <strong>unique point fixe attractif</strong> pour l'itération $\\mu_{k+1} = \\sum\\{p : \\gamma_p(\\mu_k) > 1/2\\}$. Ce point est $\\mu^* = 3 + 5 + 7 = 15$. Ni une coïncidence numérique, ni une constante choisie — un attracteur arithmétique exact.`,
     ],
   },
   {

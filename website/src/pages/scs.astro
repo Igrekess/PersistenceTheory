@@ -79,7 +79,7 @@ const currentLimits = [
 const scsFeatures = [
   {
     title: 'Trois canaux structurels (pas plus, pas moins)',
-    why: 'Le théorème T5 de la PT sélectionne exactement trois primaires actifs à l’attracteur réduit μ* = 15 : {3, 5, 7}. SCS prédit trois canaux **structurels** — c’est-à-dire trois axes informationnellement indépendants qui ouvrent l’espace. Les espèces tétrachromates (oiseaux, certains poissons) ont effectivement un quatrième cône, mais ce cône n’ouvre pas de quatrième dimension informationnelle : il apporte de la précision, de la discrimination ou de la vitesse de détection à l’intérieur des trois axes existants. SCS reste compatible.',
+    why: 'Le théorème T5 de la PT sélectionne exactement trois primaires actifs à l’attracteur réduit μ* = 15 : {3, 5, 7}. SCS prédit trois canaux <strong>structurels</strong> — c’est-à-dire trois axes informationnellement indépendants qui ouvrent l’espace. Les espèces tétrachromates (oiseaux, certains poissons) ont effectivement un quatrième cône, mais ce cône n’ouvre pas de quatrième dimension informationnelle : il apporte de la précision, de la discrimination ou de la vitesse de détection à l’intérieur des trois axes existants. SCS reste compatible.',
   },
   {
     title: 'Poids γ_p calculables sans fit',
@@ -382,7 +382,7 @@ for name, dEs in results.items():
         {scsFeatures.map((f) => (
           <div class="rounded-lg border-2 border-emerald-300 bg-emerald-50 p-5">
             <h4 class="font-sans font-semibold text-emerald-800 mb-2">→ {f.title}</h4>
-            <p class="text-sm text-emerald-900 leading-relaxed">{f.why}</p>
+            <p class="text-sm text-emerald-900 leading-relaxed" set:html={f.why} />
           </div>
         ))}
       </div>

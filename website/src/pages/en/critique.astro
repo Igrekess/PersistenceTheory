@@ -36,7 +36,7 @@ const objections = [
   {
     cat: 'Physics',
     title: 'The F(2) dressing looks like an ad hoc candle.',
-    answer: 'F(2) = 0.758 272 782 6 is a closed-form **99.96 % rational** formula derived in monograph chapter 10 (R51, "Binary Leakage Dressing"). Its value is fully constrained by the channel structure. It contains no free parameter — it is computable from μ* and γ_p without choice.',
+    answer: 'F(2) = 0.758 272 782 6 is a closed-form <strong>99.96 % rational</strong> formula derived in monograph chapter 10 (R51, "Binary Leakage Dressing"). Its value is fully constrained by the channel structure. It contains no free parameter — it is computable from μ* and γ_p without choice.',
     severity: 'medium',
   },
   {
@@ -103,7 +103,7 @@ const severityClasses: Record<string, string> = {
                   <span class="text-xs font-mono opacity-60">severity {o.severity}</span>
                 </div>
                 <h3 class="font-sans text-xl font-bold mb-3 text-slate-900 italic">"{o.title}"</h3>
-                <p class="text-slate-800 leading-relaxed">{o.answer}</p>
+                <p class="text-slate-800 leading-relaxed" set:html={o.answer} />
               </div>
             </div>
           </div>
@@ -126,7 +126,7 @@ const severityClasses: Record<string, string> = {
           <li><strong class="text-rose-700">Experimental measurement</strong> contradicting a Tier-1 prediction at &gt;5σ.</li>
         </ul>
         <p class="text-slate-700 leading-relaxed mt-4">
-          **Philosophical** ("it cannot be that") or **rhetorical** ("you
+          <strong>Philosophical</strong> ("it cannot be that") or <strong>rhetorical</strong> ("you
           claim to explain everything") objections are less useful because
           they pinpoint nothing technically falsifiable. PT prefers precise
           technical objections, even when they hurt.

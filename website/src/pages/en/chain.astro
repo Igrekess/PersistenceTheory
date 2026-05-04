@@ -24,9 +24,9 @@ const stages: Stage[] = [
     ],
     intro: `Everything starts with a minimal question: what can serve as a "dynamical field" for a prime sieve? T0 answers by uniqueness — there can only be one natural candidate.`,
     body: [
-      `**T0** closes the question: the sequence of gaps $\\{g_n\\} = \\{p_{n+1} - p_n\\}$ between consecutive primes is the <strong>unique</strong> dynamical field compatible with the BA0 axioms (invariance, finiteness, genericity, exclusion of p=2 as cascade dynamics). No other construction survives the four closure conditions.`,
-      `**L0** adds statistical uniqueness: among all memoryless probability distributions with maximum entropy and fixed mean, the <strong>geometric</strong> distribution is alone. This information-theoretic result imposes the law of gaps.`,
-      `**T1** introduces the first arithmetic constraint: modulo 3, certain transitions are <strong>structurally forbidden</strong> (the diagonals 1→1 and 2→2 are zero). This forbidding forces the sieve kernel to have a very particular structure, exploited by every later step.`,
+      `<strong>T0</strong> closes the question: the sequence of gaps $\\{g_n\\} = \\{p_{n+1} - p_n\\}$ between consecutive primes is the <strong>unique</strong> dynamical field compatible with the BA0 axioms (invariance, finiteness, genericity, exclusion of p=2 as cascade dynamics). No other construction survives the four closure conditions.`,
+      `<strong>L0</strong> adds statistical uniqueness: among all memoryless probability distributions with maximum entropy and fixed mean, the <strong>geometric</strong> distribution is alone. This information-theoretic result imposes the law of gaps.`,
+      `<strong>T1</strong> introduces the first arithmetic constraint: modulo 3, certain transitions are <strong>structurally forbidden</strong> (the diagonals 1→1 and 2→2 are zero). This forbidding forces the sieve kernel to have a very particular structure, exploited by every later step.`,
     ],
   },
   {
@@ -54,8 +54,8 @@ const stages: Stage[] = [
     ],
     intro: `At this point the system has an invariant ($s = 1/2$). The question becomes: what is conserved as we iterate the sieve? The answer is <strong>total information</strong>.`,
     body: [
-      `**T2** establishes spectral conservation: the second eigenvalue of the mod-30 sieve kernel equals $|\\lambda_2(T_{30})| = 1/4 = s^2$. The square of the derived symmetry appears exactly as eigenvalue — the first manifestation that $s = 1/2$ structures the entire spectrum.`,
-      `**GFT** (Generalized Fluctuation Theorem) gives the <strong>fundamental principle of persistence</strong>: $\\log_2 m = D_{KL}(P\\,\\|\\,U_m) + H(P)$. Read literally: the total informational capacity of an $m$-letter alphabet partitions <em>exactly</em> between divergence (deviation from uniform) and entropy (disorder).`,
+      `<strong>T2</strong> establishes spectral conservation: the second eigenvalue of the mod-30 sieve kernel equals $|\\lambda_2(T_{30})| = 1/4 = s^2$. The square of the derived symmetry appears exactly as eigenvalue — the first manifestation that $s = 1/2$ structures the entire spectrum.`,
+      `<strong>GFT</strong> (Generalized Fluctuation Theorem) gives the <strong>fundamental principle of persistence</strong>: $\\log_2 m = D_{KL}(P\\,\\|\\,U_m) + H(P)$. Read literally: the total informational capacity of an $m$-letter alphabet partitions <em>exactly</em> between divergence (deviation from uniform) and entropy (disorder).`,
       `This principle plays in PT the role energy conservation plays in physics: it bounds, constrains, and organises all other laws. It transforms a dynamical question (what remains?) into an accounting one (where does the total budget go?).`,
     ],
   },
@@ -71,10 +71,10 @@ const stages: Stage[] = [
     ],
     intro: `This stage contains the geometric heart of PT: <strong>trigonometry is born from arithmetic</strong>, and a unique attractor crystallises.`,
     body: [
-      `**T3** continues T1: after eliminating the diagonals, the mod-3 transfer kernel becomes <strong>purely antidiagonal</strong>. This is the precise mathematical move that separates the order 1→2 and 2→1, opening the way to subsequent scales.`,
-      `**T4** combines Mertens, Gordin and the Chinese remainder theorem to show the sieve <em>finishes the job</em>: the sequence $\\alpha_k$ converges to $1/2$. Analytic confirmation of the derived symmetry.`,
-      `**T6** reveals <strong>trigonometry</strong> without postulating it: $\\sin^2\\theta_p = \\delta_p (2 - \\delta_p)$ where $\\delta_p$ is the gap fraction for the prime $p$. The explicit passage from discrete (primes, gaps) to continuous (angles, cyclic transport). Arithmetic <em>becomes</em> geometry.`,
-      `**T5** closes the cascade: there is a <strong>unique attracting fixed point</strong> for the iteration $\\mu_{k+1} = \\sum\\{p : \\gamma_p(\\mu_k) > 1/2\\}$. This point is $\\mu^* = 3 + 5 + 7 = 15$. Neither a numerical coincidence nor a chosen constant — an exact arithmetic attractor.`,
+      `<strong>T3</strong> continues T1: after eliminating the diagonals, the mod-3 transfer kernel becomes <strong>purely antidiagonal</strong>. This is the precise mathematical move that separates the order 1→2 and 2→1, opening the way to subsequent scales.`,
+      `<strong>T4</strong> combines Mertens, Gordin and the Chinese remainder theorem to show the sieve <em>finishes the job</em>: the sequence $\\alpha_k$ converges to $1/2$. Analytic confirmation of the derived symmetry.`,
+      `<strong>T6</strong> reveals <strong>trigonometry</strong> without postulating it: $\\sin^2\\theta_p = \\delta_p (2 - \\delta_p)$ where $\\delta_p$ is the gap fraction for the prime $p$. The explicit passage from discrete (primes, gaps) to continuous (angles, cyclic transport). Arithmetic <em>becomes</em> geometry.`,
+      `<strong>T5</strong> closes the cascade: there is a <strong>unique attracting fixed point</strong> for the iteration $\\mu_{k+1} = \\sum\\{p : \\gamma_p(\\mu_k) > 1/2\\}$. This point is $\\mu^* = 3 + 5 + 7 = 15$. Neither a numerical coincidence nor a chosen constant — an exact arithmetic attractor.`,
     ],
   },
   {

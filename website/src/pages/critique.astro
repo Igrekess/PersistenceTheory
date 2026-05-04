@@ -36,7 +36,7 @@ const objections = [
   {
     cat: 'Physique',
     title: 'L’habillage F(2) ressemble à une bougie ad hoc.',
-    answer: 'F(2) = 0,758 272 782 6 est une formule **fermée à 99,96 % rationnelle**, dérivée chapitre 10 de la monographie (R51, "Binary Leakage Dressing"). Sa valeur est complètement contrainte par la structure des canaux. Elle ne contient pas de paramètre libre — elle est calculable depuis μ* et γ_p sans choix.',
+    answer: 'F(2) = 0,758 272 782 6 est une formule <strong>fermée à 99,96 % rationnelle</strong>, dérivée chapitre 10 de la monographie (R51, "Binary Leakage Dressing"). Sa valeur est complètement contrainte par la structure des canaux. Elle ne contient pas de paramètre libre — elle est calculable depuis μ* et γ_p sans choix.',
     severity: 'moyenne',
   },
   {
@@ -104,7 +104,7 @@ const severityClasses: Record<string, string> = {
                   <span class="text-xs font-mono opacity-60">sévérité {o.severity}</span>
                 </div>
                 <h3 class="font-sans text-xl font-bold mb-3 text-slate-900 italic">« {o.title} »</h3>
-                <p class="text-slate-800 leading-relaxed">{o.answer}</p>
+                <p class="text-slate-800 leading-relaxed" set:html={o.answer} />
               </div>
             </div>
           </div>
@@ -129,8 +129,8 @@ const severityClasses: Record<string, string> = {
           <li><strong class="text-rose-700">Mesure expérimentale</strong> qui contredit une prédiction Tier-1 à plus de 5σ.</li>
         </ul>
         <p class="text-slate-700 leading-relaxed mt-4">
-          Les objections de **type philosophique** (« ça ne peut pas être ça »)
-          ou **rhétorique** (« vous prétendez tout expliquer ») sont moins
+          Les objections de <strong>type philosophique</strong> (« ça ne peut pas être ça »)
+          ou <strong>rhétorique</strong> (« vous prétendez tout expliquer ») sont moins
           utiles parce qu’elles ne pointent rien de réfutable techniquement.
           La PT préfère les objections techniques précises, même quand elles
           font mal.
