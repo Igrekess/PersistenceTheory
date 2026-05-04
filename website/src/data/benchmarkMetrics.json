@@ -131,7 +131,7 @@
         "params": 0
       },
       {
-        "bin": "A+B+C (n\u226412)",
+        "bin": "A+B+C (n≤12)",
         "n": 536,
         "method": "B3LYP/6-31G*",
         "mae_eV": 0.7193,
@@ -141,7 +141,7 @@
         "params": 3
       },
       {
-        "bin": "A+B+C (n\u226412)",
+        "bin": "A+B+C (n≤12)",
         "n": 536,
         "method": "B3LYP/def2-TZVP",
         "mae_eV": 0.6685,
@@ -151,7 +151,7 @@
         "params": 3
       },
       {
-        "bin": "A+B+C (n\u226412)",
+        "bin": "A+B+C (n≤12)",
         "n": 536,
         "method": "PTC",
         "mae_eV": 0.4889,
@@ -193,7 +193,7 @@
         "p631gs_3way_best": 31.14
       },
       {
-        "bin": "A+B+C (n\u226412)",
+        "bin": "A+B+C (n≤12)",
         "n": 536,
         "ptc_vs_631gs": 66.6,
         "ptc_vs_def2tzvp": 65.86,
@@ -205,31 +205,31 @@
     ]
   },
   "timing": {
-    "subset": "536 mol, n \u2264 12 (Bin A+B+C from 3-way benchmark)",
+    "subset": "536 mol, n ≤ 12 (Bin A+B+C from 3-way benchmark)",
     "machine_note": "Apple M1 Max (single-thread for both methods)",
     "ptc": {
       "n": 536,
       "fails": 0,
-      "total_s": 0.954,
+      "total_s": 0.964,
       "median_ms": 1.76,
-      "mean_ms": 1.78,
-      "max_ms": 27.2,
+      "mean_ms": 1.8,
+      "max_ms": 27.1,
       "per_bin": {
         "A (n=2-4)": {
           "n": 180,
-          "total_s": 0.159
+          "total_s": 0.162
         },
         "B (n=5-8)": {
           "n": 189,
-          "total_s": 0.493
+          "total_s": 0.499
         },
-        "A+B (n\u22648)": {
+        "A+B (n≤8)": {
           "n": 369,
-          "total_s": 0.652
+          "total_s": 0.661
         },
         "C (n=9-12)": {
           "n": 167,
-          "total_s": 0.302
+          "total_s": 0.303
         }
       }
     },
@@ -238,7 +238,7 @@
       "fails": 0,
       "total_s": 6970.8,
       "per_bin": {
-        "A+B (n\u22648)": {
+        "A+B (n≤8)": {
           "n": 369,
           "total_s": 1853.4
         },

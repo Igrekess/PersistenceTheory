@@ -796,6 +796,19 @@ def write_metrics_json(fresh, b2_metrics, b3_summary, b3_winrates, timing,
         "timing": timing,
     }
     out_path = DATA_OUT_SRC / "benchmarkMetrics.json"
+
+    # Preserve any keys already present in the existing JSON that this
+    # generator does not produce (e.g. bench4 = Burcat extension, which is
+    # written by a separate pipeline in PT_PROJECTS/PTC). Without this,
+    # every run would silently wipe those sections and break pages that
+    # reference them.
+    if out_path.exists():
+        existing = json.loads(out_path.read_text())
+        produced_keys = set(out.keys())
+        for k, v in existing.items():
+            if k not in produced_keys:
+                out[k] = v
+
     out_path.write_text(json.dumps(out, ensure_ascii=False, indent=2))
     print(f"  ✓ {out_path.relative_to(WEB_ROOT)}")
 
