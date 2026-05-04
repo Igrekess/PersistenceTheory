@@ -1,1 +1,360 @@
-<svg height="630" viewBox="0 0 1200 630" width="1200" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><linearGradient id="a" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#0c2330"/><stop offset="1" stop-color="#14566b"/></linearGradient><radialGradient id="b" cx="0" cy="0" gradientUnits="userSpaceOnUse" r="100"><stop offset="0" stop-color="#fff8d8" stop-opacity=".95"/><stop offset=".12" stop-color="#ffd96a" stop-opacity=".65"/><stop offset=".32" stop-color="#fecc00" stop-opacity=".3"/><stop offset=".65" stop-color="#fecc00" stop-opacity=".1"/><stop offset="1" stop-color="#fecc00" stop-opacity="0"/></radialGradient><radialGradient id="c" cx="0" cy="0" gradientUnits="userSpaceOnUse" r="14.17"><stop offset="0" stop-color="#ffeba9"/><stop offset=".5" stop-color="#fecc00"/><stop offset="1" stop-color="#f8ae00"/></radialGradient><radialGradient id="d" cx=".5" cy=".5" fx=".35" fy=".35" gradientUnits="objectBoundingBox" r=".55"><stop offset="0" stop-color="#ef7b5a"/><stop offset=".5" stop-color="#e30613"/><stop offset="1" stop-color="#cb181a"/></radialGradient><radialGradient id="e" cx=".5" cy=".5" fx=".35" fy=".35" gradientUnits="objectBoundingBox" r=".55"><stop offset="0" stop-color="#6cbb83"/><stop offset=".5" stop-color="#009640"/><stop offset="1" stop-color="#00863e"/></radialGradient><radialGradient id="f" cx=".5" cy=".5" fx=".35" fy=".35" gradientUnits="objectBoundingBox" r=".55"><stop offset="0" stop-color="#44afcd"/><stop offset=".5" stop-color="#008eb4"/><stop offset="1" stop-color="#00747d"/></radialGradient><path d="m0 0h1200v630h-1200z" fill="url(#a)"/><g transform="matrix(.7 0 0 .7 1010 155)"><circle fill="url(#b)" r="100"/><g fill="none" opacity=".35"><circle r="105.03" stroke="#7dc2e3" stroke-dasharray="3 3"/><circle r="71.03" stroke="#9bc3a2" stroke-dasharray="3 3"/><circle r="43.35" stroke="#e4a78c" stroke-dasharray="2 2"/></g><g fill="url(#f)"><circle cy="-105.45" r="9.92"/><circle cx="82.44" cy="-65.74" r="9.92"/><circle cx="102.8" cy="23.46" r="9.92"/><circle cx="45.75" cy="95" r="9.92"/><circle cx="-45.75" cy="95" r="9.92"/><circle cx="-102.8" cy="23.46" r="9.92"/><circle cx="-82.44" cy="-65.74" r="9.92"/></g><g fill="url(#e)"><circle cy="-71.42" r="7.09"/><circle cx="67.93" cy="-22.07" r="7.09"/><circle cx="41.98" cy="57.78" r="7.09"/><circle cx="-41.98" cy="57.78" r="7.09"/><circle cx="-67.93" cy="-22.07" r="7.09"/></g><g fill="url(#d)"><circle cy="-43.36" r="4.25"/><circle cx="37.55" cy="21.68" r="4.25"/><circle cx="-37.55" cy="21.68" r="4.25"/></g><circle fill="url(#c)" r="14.17"/></g><g font-family="ui-sans-serif, system-ui, sans-serif"><text fill="#fff" font-size="76" font-weight="900" x="80" y="180">La Théorie</text><text fill="#fff" font-size="76" font-weight="900" x="80" y="270">de la Persistance</text><text fill="#c7661f" font-size="28" font-style="italic" font-weight="400" x="80" y="325">Toute structure dit ce qu’elle est</text><text fill="#c7661f" font-size="28" font-style="italic" font-weight="400" x="80" y="362">en révélant ce qu’elle a dû abandonner.</text><text fill="#fecc00" font-size="36" font-weight="700" x="80" y="420">43 observables · 1644 molécules · 0 paramètre ajusté</text></g><g font-family="ui-monospace, monospace" font-size="22" transform="translate(80 480)"><text fill="#fecc00">s = 1/2</text><text fill="#a3b8c8" x="120">→</text><text fill="#a3b8c8" x="160">{</text><text fill="#fecc00" x="178">2</text><text fill="#a3b8c8" x="195">,</text><text fill="#e30613" x="210">3</text><text fill="#a3b8c8" x="225">,</text><text fill="#009640" x="240">5</text><text fill="#a3b8c8" x="255">,</text><text fill="#008eb4" x="270">7</text><g fill="#a3b8c8"><text x="287">, 11, 13</text><text x="375">}</text><text x="395">→</text></g><text fill="#fecc00" x="430">α_EM = 1/137,036</text></g><text fill="#fff" font-family="ui-sans-serif, system-ui, sans-serif" font-size="22" font-weight="600" opacity=".9" x="80" y="570">www.persistencetheory.org</text><text fill="#fff" font-family="ui-sans-serif, system-ui, sans-serif" font-size="18" opacity=".7" text-anchor="end" x="1120" y="570">Yan Senez · 2026</text></svg>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Calque_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 1200 630">
+  <!-- Generator: Adobe Illustrator 30.3.0, SVG Export Plug-In . SVG Version: 2.1.3 Build 182)  -->
+  <defs>
+    <style>
+      .st0 {
+        font-size: 76px;
+      }
+
+      .st0, .st1, .st2, .st3, .st4, .st5, .st6, .st7, .st8, .st9, .st10 {
+        isolation: isolate;
+      }
+
+      .st0, .st1, .st4 {
+        fill: #fff;
+      }
+
+      .st0, .st2, .st3, .st4, .st6, .st8, .st9, .st10 {
+        font-weight: 700;
+      }
+
+      .st0, .st4, .st9 {
+        font-family: Helvetica-Bold, Helvetica;
+      }
+
+      .st1 {
+        font-family: Helvetica, Helvetica;
+        font-size: 18px;
+      }
+
+      .st11 {
+        fill: url(#Dégradé_sans_nom_9);
+      }
+
+      .st12 {
+        fill: url(#Dégradé_sans_nom_6);
+      }
+
+      .st13 {
+        fill: url(#Dégradé_sans_nom_7);
+      }
+
+      .st14 {
+        fill: url(#Dégradé_sans_nom_4);
+      }
+
+      .st15 {
+        fill: url(#Dégradé_sans_nom_5);
+      }
+
+      .st16 {
+        fill: url(#Dégradé_sans_nom_2);
+      }
+
+      .st17 {
+        fill: url(#Dégradé_sans_nom_3);
+      }
+
+      .st18 {
+        fill: url(#Dégradé_sans_nom_8);
+      }
+
+      .st19 {
+        stroke: #7dc2e3;
+      }
+
+      .st19, .st20, .st21 {
+        fill: none;
+        stroke-miterlimit: 2.8;
+        stroke-width: .7px;
+      }
+
+      .st19, .st21 {
+        stroke-dasharray: 2.1 2.1;
+      }
+
+      .st2 {
+        fill: #009640;
+      }
+
+      .st2, .st3, .st4, .st6, .st7, .st8, .st10 {
+        font-size: 22px;
+      }
+
+      .st2, .st3, .st6, .st8, .st10 {
+        font-family: DINAlternate-Bold, 'DIN Alternate';
+      }
+
+      .st3, .st7 {
+        fill: #a3b8c8;
+      }
+
+      .st20 {
+        stroke: #e4a78c;
+        stroke-dasharray: 1.4 1.4;
+      }
+
+      .st4 {
+        letter-spacing: .1em;
+      }
+
+      .st6 {
+        fill: #e30613;
+      }
+
+      .st7 {
+        font-family: CourierNewPSMT, 'Courier New';
+      }
+
+      .st8 {
+        fill: #008eb4;
+      }
+
+      .st9 {
+        fill: #c7661f;
+        font-size: 28px;
+      }
+
+      .st22 {
+        fill: url(#Dégradé_sans_nom);
+      }
+
+      .st23 {
+        opacity: .35;
+      }
+
+      .st24 {
+        fill: url(#Dégradé_sans_nom_18);
+      }
+
+      .st25 {
+        fill: url(#Dégradé_sans_nom_13);
+      }
+
+      .st26 {
+        fill: url(#Dégradé_sans_nom_10);
+      }
+
+      .st27 {
+        fill: url(#Dégradé_sans_nom_12);
+      }
+
+      .st28 {
+        fill: url(#Dégradé_sans_nom_15);
+      }
+
+      .st29 {
+        fill: url(#Dégradé_sans_nom_11);
+      }
+
+      .st30 {
+        fill: url(#Dégradé_sans_nom_17);
+      }
+
+      .st31 {
+        fill: url(#Dégradé_sans_nom_14);
+      }
+
+      .st32 {
+        fill: url(#Dégradé_sans_nom_16);
+      }
+
+      .st21 {
+        stroke: #9bc3a2;
+      }
+
+      .st10 {
+        fill: #fecc00;
+      }
+    </style>
+    <linearGradient id="Dégradé_sans_nom" data-name="Dégradé sans nom" x1="603.5" y1=".34" x2="604.5" y2="1.34" gradientTransform="translate(-724196 -212) scale(1200 630)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#0c2330"/>
+      <stop offset="1" stop-color="#14566b"/>
+    </linearGradient>
+    <radialGradient id="Dégradé_sans_nom_2" data-name="Dégradé sans nom 2" cx="-323.81" cy="481.52" fx="-323.81" fy="481.52" r="219.39" gradientTransform="translate(1191.2 -57) scale(.7)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#fff8d8" stop-opacity=".95"/>
+      <stop offset=".12" stop-color="#ffd96a" stop-opacity=".65"/>
+      <stop offset=".32" stop-color="#fecc00" stop-opacity=".3"/>
+      <stop offset=".65" stop-color="#fecc00" stop-opacity=".1"/>
+      <stop offset="1" stop-color="#fecc00" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="Dégradé_sans_nom_3" data-name="Dégradé sans nom 3" cx="557.74" cy="18.42" fx="557.74" fy="18.42" r="1.21" gradientTransform="translate(-6781.9 -139.23) scale(13.89)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#44afcd"/>
+      <stop offset=".5" stop-color="#008eb4"/>
+      <stop offset="1" stop-color="#00747d"/>
+    </radialGradient>
+    <radialGradient id="Dégradé_sans_nom_4" data-name="Dégradé sans nom 4" cx="562.7" cy="20.81" fx="562.7" fy="20.81" r="1.21" gradientTransform="translate(-6724.19 -111.43) scale(13.89)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#44afcd"/>
+      <stop offset=".5" stop-color="#008eb4"/>
+      <stop offset="1" stop-color="#00747d"/>
+    </radialGradient>
+    <radialGradient id="Dégradé_sans_nom_5" data-name="Dégradé sans nom 5" cx="563.93" cy="26.18" fx="563.93" fy="26.18" r="1.21" gradientTransform="translate(-6709.94 -48.99) scale(13.89)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#44afcd"/>
+      <stop offset=".5" stop-color="#008eb4"/>
+      <stop offset="1" stop-color="#00747d"/>
+    </radialGradient>
+    <radialGradient id="Dégradé_sans_nom_6" data-name="Dégradé sans nom 6" cx="560.49" cy="30.48" fx="560.49" fy="30.48" r="1.21" gradientTransform="translate(-6749.87 1.08) scale(13.89)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#44afcd"/>
+      <stop offset=".5" stop-color="#008eb4"/>
+      <stop offset="1" stop-color="#00747d"/>
+    </radialGradient>
+    <radialGradient id="Dégradé_sans_nom_7" data-name="Dégradé sans nom 7" cx="554.99" cy="30.48" fx="554.99" fy="30.48" r="1.21" gradientTransform="translate(-6813.92 1.08) scale(13.89)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#44afcd"/>
+      <stop offset=".5" stop-color="#008eb4"/>
+      <stop offset="1" stop-color="#00747d"/>
+    </radialGradient>
+    <radialGradient id="Dégradé_sans_nom_8" data-name="Dégradé sans nom 8" cx="551.55" cy="26.18" fx="551.55" fy="26.18" r="1.21" gradientTransform="translate(-6853.86 -48.99) scale(13.89)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#44afcd"/>
+      <stop offset=".5" stop-color="#008eb4"/>
+      <stop offset="1" stop-color="#00747d"/>
+    </radialGradient>
+    <radialGradient id="Dégradé_sans_nom_9" data-name="Dégradé sans nom 9" cx="552.78" cy="20.81" fx="552.78" fy="20.81" r="1.21" gradientTransform="translate(-6839.61 -111.43) scale(13.89)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#44afcd"/>
+      <stop offset=".5" stop-color="#008eb4"/>
+      <stop offset="1" stop-color="#00747d"/>
+    </radialGradient>
+    <radialGradient id="Dégradé_sans_nom_10" data-name="Dégradé sans nom 10" cx="539.08" cy="28.44" fx="539.08" fy="28.44" r="1.21" gradientTransform="translate(-4387.48 -114.9) scale(9.93)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#6cbb83"/>
+      <stop offset=".5" stop-color="#009640"/>
+      <stop offset="1" stop-color="#00863e"/>
+    </radialGradient>
+    <radialGradient id="Dégradé_sans_nom_11" data-name="Dégradé sans nom 11" cx="544.8" cy="32.59" fx="544.8" fy="32.59" r="1.21" gradientTransform="translate(-4339.92 -80.36) scale(9.93)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#6cbb83"/>
+      <stop offset=".5" stop-color="#009640"/>
+      <stop offset="1" stop-color="#00863e"/>
+    </radialGradient>
+    <radialGradient id="Dégradé_sans_nom_12" data-name="Dégradé sans nom 12" cx="542.62" cy="39.31" fx="542.62" fy="39.31" r="1.21" gradientTransform="translate(-4358.09 -24.46) scale(9.93)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#6cbb83"/>
+      <stop offset=".5" stop-color="#009640"/>
+      <stop offset="1" stop-color="#00863e"/>
+    </radialGradient>
+    <radialGradient id="Dégradé_sans_nom_13" data-name="Dégradé sans nom 13" cx="535.55" cy="39.31" fx="535.55" fy="39.31" r="1.21" gradientTransform="translate(-4416.86 -24.46) scale(9.93)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#6cbb83"/>
+      <stop offset=".5" stop-color="#009640"/>
+      <stop offset="1" stop-color="#00863e"/>
+    </radialGradient>
+    <radialGradient id="Dégradé_sans_nom_14" data-name="Dégradé sans nom 14" cx="533.36" cy="32.59" fx="533.36" fy="32.59" r="1.21" gradientTransform="translate(-4435.03 -80.36) scale(9.93)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#6cbb83"/>
+      <stop offset=".5" stop-color="#009640"/>
+      <stop offset="1" stop-color="#00863e"/>
+    </radialGradient>
+    <radialGradient id="Dégradé_sans_nom_15" data-name="Dégradé sans nom 15" cx="495.34" cy="51.05" fx="495.34" fy="51.05" r="1.21" gradientTransform="translate(-1982.77 -90.32) scale(5.95)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ef7b5a"/>
+      <stop offset=".5" stop-color="#e30613"/>
+      <stop offset="1" stop-color="#cb181a"/>
+    </radialGradient>
+    <radialGradient id="Dégradé_sans_nom_16" data-name="Dégradé sans nom 16" cx="500.62" cy="60.19" fx="500.62" fy="60.19" r="1.21" gradientTransform="translate(213.2 -2575.65) rotate(67.5) scale(5.95)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ef7b5a"/>
+      <stop offset=".5" stop-color="#e30613"/>
+      <stop offset="1" stop-color="#cb181a"/>
+    </radialGradient>
+    <radialGradient id="Dégradé_sans_nom_17" data-name="Dégradé sans nom 17" cx="490.07" cy="60.19" fx="490.07" fy="60.19" r="1.21" gradientTransform="translate(-2009.06 -44.79) scale(5.95)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ef7b5a"/>
+      <stop offset=".5" stop-color="#e30613"/>
+      <stop offset="1" stop-color="#cb181a"/>
+    </radialGradient>
+    <radialGradient id="Dégradé_sans_nom_18" data-name="Dégradé sans nom 18" cx="-323.81" cy="481.52" fx="-323.81" fy="481.52" r="31.09" gradientTransform="translate(1191.2 -57) scale(.7)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ffeba9"/>
+      <stop offset=".5" stop-color="#fecc00"/>
+      <stop offset="1" stop-color="#f8ae00"/>
+    </radialGradient>
+  </defs>
+  <path class="st22" d="M0,0h1200v630H0V0Z"/>
+  <g>
+    <circle class="st16" cx="964.53" cy="280.06" r="153.57"/>
+    <g class="st23">
+      <circle class="st19" cx="964.53" cy="280.06" r="161.29"/>
+      <circle class="st21" cx="964.53" cy="280.06" r="109.08" transform="translate(84.47 764.05) rotate(-45)"/>
+      <circle class="st20" cx="964.53" cy="280.06" r="66.57" transform="translate(533.59 1187.27) rotate(-80.78)"/>
+    </g>
+    <g>
+      <circle class="st17" cx="964.53" cy="118.12" r="15.23"/>
+      <circle class="st14" cx="1091.13" cy="179.11" r="15.23"/>
+      <circle class="st15" cx="1122.4" cy="316.09" r="15.23"/>
+      <circle class="st12" cx="1034.79" cy="425.95" r="15.23"/>
+      <circle class="st13" cx="894.27" cy="425.95" r="15.23"/>
+      <circle class="st18" cx="806.66" cy="316.09" r="15.23"/>
+      <circle class="st11" cx="837.93" cy="179.11" r="15.23"/>
+    </g>
+    <g>
+      <circle class="st26" cx="964.53" cy="170.38" r="10.89"/>
+      <circle class="st29" cx="1068.85" cy="246.17" r="10.89"/>
+      <circle class="st27" cx="1029" cy="368.8" r="10.89"/>
+      <circle class="st25" cx="900.06" cy="368.8" r="10.89"/>
+      <circle class="st31" cx="860.21" cy="246.17" r="10.89"/>
+    </g>
+    <g>
+      <circle class="st28" cx="964.53" cy="213.48" r="6.53"/>
+      <circle class="st32" cx="1022.2" cy="313.36" r="6.53" transform="translate(341.51 1137.83) rotate(-67.5)"/>
+      <circle class="st30" cx="906.87" cy="313.36" r="6.53"/>
+    </g>
+    <circle class="st24" cx="964.53" cy="280.06" r="21.76"/>
+  </g>
+  <g>
+    <g class="st5">
+      <text class="st0" transform="translate(80 180)"><tspan x="0" y="0">La Théorie</tspan></text>
+    </g>
+    <g class="st5">
+      <text class="st0" transform="translate(80 270)"><tspan x="0" y="0">de la Persistance</tspan></text>
+    </g>
+    <g class="st5">
+      <text class="st9" transform="translate(80 355)"><tspan x="0" y="0">Toute structure dit ce qu’elle est</tspan></text>
+    </g>
+    <g class="st5">
+      <text class="st9" transform="translate(80 392)"><tspan x="0" y="0">en révélant ce qu’elle a dû abandonner.</tspan></text>
+    </g>
+  </g>
+  <g>
+    <g class="st5">
+      <text class="st10" transform="translate(80 480)"><tspan x="0" y="0">s = 1/2</tspan></text>
+    </g>
+    <g class="st5">
+      <text class="st7" transform="translate(200 480)"><tspan x="0" y="0">→</tspan></text>
+    </g>
+    <g class="st5">
+      <text class="st3" transform="translate(240 480)"><tspan x="0" y="0">{</tspan></text>
+    </g>
+    <g class="st5">
+      <text class="st10" transform="translate(258 480)"><tspan x="0" y="0">2</tspan></text>
+    </g>
+    <g class="st5">
+      <text class="st3" transform="translate(275 480)"><tspan x="0" y="0">,</tspan></text>
+    </g>
+    <g class="st5">
+      <text class="st6" transform="translate(290 480)"><tspan x="0" y="0">3</tspan></text>
+    </g>
+    <g class="st5">
+      <text class="st3" transform="translate(305 480)"><tspan x="0" y="0">,</tspan></text>
+    </g>
+    <g class="st5">
+      <text class="st2" transform="translate(320 480)"><tspan x="0" y="0">5</tspan></text>
+    </g>
+    <g class="st5">
+      <text class="st3" transform="translate(335 480)"><tspan x="0" y="0">,</tspan></text>
+    </g>
+    <g class="st5">
+      <text class="st8" transform="translate(350 480)"><tspan x="0" y="0">7</tspan></text>
+    </g>
+    <g>
+      <g class="st5">
+        <text class="st3" transform="translate(367 480)"><tspan x="0" y="0">, 11, 13</tspan></text>
+      </g>
+      <g class="st5">
+        <text class="st3" transform="translate(455 480)"><tspan x="0" y="0">}</tspan></text>
+      </g>
+      <g class="st5">
+        <text class="st7" transform="translate(475 480)"><tspan x="0" y="0">→</tspan></text>
+      </g>
+    </g>
+    <g class="st5">
+      <text class="st10" transform="translate(510 480)"><tspan x="0" y="0">α_EM = 1/137,036</tspan></text>
+    </g>
+  </g>
+  <g class="st5">
+    <text class="st4" transform="translate(190 570)"><tspan x="0" y="0">www.persistencetheory.org</tspan></text>
+  </g>
+  <g class="st5">
+    <text class="st1" transform="translate(898.21 570)"><tspan x="0" y="0">Yan Senez · 2026</tspan></text>
+  </g>
+</svg>
