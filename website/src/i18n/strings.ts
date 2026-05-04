@@ -64,7 +64,7 @@ export const ui = {
     'site.title': 'Théorie de la Persistance',
     'site.tagline': 'Du crible au Modèle Standard.',
     'site.description':
-      "La Théorie de la Persistance dérive 43 observables du Modèle Standard depuis la symétrie dérivée s = 1/2, sans paramètre continu ajusté. Monographie, preuves complètes, scripts de vérification.",
+      "La théorie de la persistance (PT) part d’une idée simple : sous contrainte, une part se disperse en entropie et une autre persiste comme structure. Ce qui persiste n’est pas ce qui est le plus fort. C’est ce qui est le plus compatible avec la logique du filtre. La persistance n’est pas une victoire. C’est un accord. La forme n’est pas décorative : c’est la structure que la contrainte rend visible. Cette idée se déploie en chaîne : principe de conservation informationnelle, dynamique du crible, cristallisation de 2, glissement vers l’attracteur réduit μ* = 15, puis dérivation des observables avec statut épistémique explicite.",
     // Buttons / actions
     'action.read_monograph': 'Lire la monographie',
     'action.download_pdf': 'Télécharger le PDF',
@@ -134,7 +134,7 @@ export const ui = {
     'site.title': 'The Theory of Persistence',
     'site.tagline': 'From the sieve to the Standard Model.',
     'site.description':
-      'The Theory of Persistence derives 43 Standard Model observables from the derived symmetry s = 1/2, with no fitted continuous parameter. Monograph, full proofs, verification scripts.',
+      'Persistence Theory (PT) starts from a simple idea: under constraint, one part disperses as entropy while another persists as structure. What persists is not what is strongest. It is what is most compatible with the logic of the filter. Persistence is not a victory. It is an agreement. Form is not decoration: it is the structure made visible by constraint. That idea unfolds as a chain: informational conservation principle, sieve dynamics, crystallisation of 2, slide toward the reduced attractor μ* = 15, then derivation of observables with explicit epistemic status.',
     'action.read_monograph': 'Read the monograph',
     'action.download_pdf': 'Download PDF',
     'action.contact': 'Contact',
