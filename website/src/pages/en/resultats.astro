@@ -6,7 +6,7 @@ const physicsMetrics = [
   ['43', 'Standard Model observables'],
   ['0.30 %', 'mean error vs PDG'],
   ['0.06 %', 'median error'],
-  ['0', 'continuous parameter fitted'],
+  ['0', 'fitting variables'],
 ];
 
 const chemistryAtomicMetrics = [
@@ -259,8 +259,16 @@ const statusLabel: Record<NonNullable<Card['status']>, { label: string; color: s
 
     <section class="mb-12">
       <aside class="rounded-lg border border-slate-200 bg-slate-950 text-white p-6 md:p-8 shadow-sm">
-        <p class="text-xs font-sans uppercase tracking-[0.18em] text-amber-300 mb-5">
+        <p class="text-xs font-sans uppercase tracking-[0.18em] text-amber-300 mb-3">
           Global figures
+        </p>
+        <p class="text-sm text-slate-200 leading-relaxed mb-5 max-w-3xl">
+          All results below — physics, atomic chemistry, molecular chemistry —
+          share the same property:
+          <strong class="text-amber-200">0 fitting variables</strong>,
+          <strong class="text-amber-200">1 single input parameter s = 1/2</strong>
+          (T1, forbidden transitions). No fits, no coefficients calibrated on
+          the data. Everything follows analytically from this unique input.
         </p>
 
         <p class="text-[10px] font-sans uppercase tracking-wider text-slate-400 mb-2">

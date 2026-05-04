@@ -7,7 +7,7 @@ const physiqueMetrics = [
   ['43', 'observables Modèle Standard'],
   ['0,30 %', 'écart moyen vs PDG'],
   ['0,06 %', 'écart médian'],
-  ['0', 'paramètre continu ajusté'],
+  ['0', 'variable d’ajustement'],
 ];
 
 const chimieAtomiqueMetrics = [
@@ -263,8 +263,16 @@ const statusLabel: Record<NonNullable<Card['status']>, { label: string; color: s
     {/* ════════ MÉTRIQUES GLOBALES ════════ */}
     <section class="mb-12">
       <aside class="rounded-lg border border-slate-200 bg-slate-950 text-white p-6 md:p-8 shadow-sm">
-        <p class="text-xs font-sans uppercase tracking-[0.18em] text-amber-300 mb-5">
+        <p class="text-xs font-sans uppercase tracking-[0.18em] text-amber-300 mb-3">
           Repères globaux
+        </p>
+        <p class="text-sm text-slate-200 leading-relaxed mb-5 max-w-3xl">
+          L’ensemble des résultats ci-dessous — physique, chimie atomique,
+          chimie moléculaire — partage la même propriété :
+          <strong class="text-amber-200">0 variable d’ajustement</strong>,
+          <strong class="text-amber-200">1 seul paramètre d’entrée s = 1/2</strong>
+          (T1, transitions interdites). Aucun fit, aucun coefficient calibré sur
+          les données. Tout dérive analytiquement de cet unique input.
         </p>
 
         <p class="text-[10px] font-sans uppercase tracking-wider text-slate-400 mb-2">
