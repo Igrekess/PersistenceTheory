@@ -208,10 +208,11 @@ const verifiedGreen = buckets.green ?? 0;
               <th class="text-center py-2 px-1">D_at</th>
               <th class="text-center py-2 px-1">r<sub>e</sub></th>
               <th class="text-center py-2 px-1">ω<sub>e</sub></th>
-              <th class="text-center py-2 px-1">IE / EA</th>
+              <th class="text-center py-2 px-1">IE/EA</th>
               <th class="text-center py-2 px-1">NICS</th>
               <th class="text-center py-2 px-1">σ_NMR</th>
-              <th class="text-left py-2 px-2">Input</th>
+              <th class="text-left py-2 px-2">D_at accuracy</th>
+              <th class="text-left py-2 px-2">Time / mol</th>
               <th class="text-left py-2 px-2">Fitted parameters</th>
             </tr>
           </thead>
@@ -224,19 +225,33 @@ const verifiedGreen = buckets.green ?? 0;
               <td class="text-center text-emerald-700">✓</td>
               <td class="text-center text-emerald-700">✓</td>
               <td class="text-center text-emerald-700">✓</td>
-              <td class="py-2 px-2"><span class="font-mono text-xs">s = 1/2</span> + active primes</td>
-              <td class="py-2 px-2 font-bold text-emerald-700">0</td>
+              <td class="py-2 px-2 tabular-nums"><strong>0.73 eV (3.2 %)</strong> on 994 ATcT</td>
+              <td class="py-2 px-2 tabular-nums">~0.1 s (analytic)</td>
+              <td class="py-2 px-2 font-bold text-emerald-700">0 <span class="font-normal text-xs text-stone-500">(s = 1/2 + active primes)</span></td>
             </tr>
             <tr class="border-b border-stone-200">
-              <td class="py-2 px-2 font-medium">B3LYP/DFT (hybrid functional)</td>
+              <td class="py-2 px-2 font-medium">B3LYP/6-31G*</td>
               <td class="text-center">✓</td>
               <td class="text-center">✓</td>
               <td class="text-center">✓</td>
               <td class="text-center">✓</td>
               <td class="text-center">✓</td>
               <td class="text-center">✓</td>
-              <td class="py-2 px-2">basis set + functional</td>
-              <td class="py-2 px-2"><strong>3</strong> coefficients (B88, Becke, LYP) calibrated on G2</td>
+              <td class="py-2 px-2 tabular-nums">~0.93 eV (measured, 855 mol overlap)</td>
+              <td class="py-2 px-2 tabular-nums">~minutes</td>
+              <td class="py-2 px-2"><strong>3</strong> calibrated on G2 (B88, Becke, LYP)</td>
+            </tr>
+            <tr class="border-b border-stone-200">
+              <td class="py-2 px-2 font-medium">B3LYP/def2-TZVP</td>
+              <td class="text-center">✓</td>
+              <td class="text-center">✓</td>
+              <td class="text-center">✓</td>
+              <td class="text-center">✓</td>
+              <td class="text-center">✓</td>
+              <td class="text-center">✓</td>
+              <td class="py-2 px-2 tabular-nums">~0.15–0.3 eV typical</td>
+              <td class="py-2 px-2 tabular-nums">~30 min – several hours</td>
+              <td class="py-2 px-2"><strong>3</strong> (same as B3LYP)</td>
             </tr>
             <tr class="border-b border-stone-200">
               <td class="py-2 px-2 font-medium">Modern DFT (M06-2X, ωB97X, …)</td>
@@ -246,8 +261,9 @@ const verifiedGreen = buckets.green ?? 0;
               <td class="text-center">✓</td>
               <td class="text-center">✓</td>
               <td class="text-center">✓</td>
-              <td class="py-2 px-2">basis + functional</td>
-              <td class="py-2 px-2"><strong>10 to 50</strong> parameters calibrated on large thermochemistry sets</td>
+              <td class="py-2 px-2 tabular-nums">~0.1–0.2 eV</td>
+              <td class="py-2 px-2 tabular-nums">~minutes – hours</td>
+              <td class="py-2 px-2"><strong>10–50</strong> calibrated on thermochemistry sets</td>
             </tr>
             <tr class="border-b border-stone-200">
               <td class="py-2 px-2 font-medium">Hartree-Fock</td>
@@ -257,19 +273,21 @@ const verifiedGreen = buckets.green ?? 0;
               <td class="text-center">✓</td>
               <td class="text-center text-stone-400">~</td>
               <td class="text-center">✓</td>
-              <td class="py-2 px-2">basis set</td>
-              <td class="py-2 px-2"><strong>0</strong> fitted <span class="text-stone-500">(but no correlation → low accuracy)</span></td>
+              <td class="py-2 px-2 tabular-nums">~2 eV <span class="text-stone-500">(no correlation)</span></td>
+              <td class="py-2 px-2 tabular-nums">~minutes</td>
+              <td class="py-2 px-2"><strong>0</strong> <span class="text-stone-500">(parameterised basis)</span></td>
             </tr>
             <tr class="border-b border-stone-200">
-              <td class="py-2 px-2 font-medium">MP2, CCSD, CCSD(T)</td>
+              <td class="py-2 px-2 font-medium">MP2 / CCSD / CCSD(T)</td>
               <td class="text-center">✓</td>
               <td class="text-center">✓</td>
               <td class="text-center">✓</td>
               <td class="text-center">✓</td>
               <td class="text-center text-stone-400">~</td>
               <td class="text-center">✓</td>
-              <td class="py-2 px-2">basis set</td>
-              <td class="py-2 px-2"><strong>0</strong> fitted <span class="text-stone-500">(cost ~N⁷, out of reach on large molecules)</span></td>
+              <td class="py-2 px-2 tabular-nums">0.02–0.2 eV <em>(gold standard)</em></td>
+              <td class="py-2 px-2 tabular-nums">~hours – days <span class="text-stone-500">(N⁵ to N⁷)</span></td>
+              <td class="py-2 px-2"><strong>0</strong> <span class="text-stone-500">(parameterised basis)</span></td>
             </tr>
             <tr class="border-b border-stone-200">
               <td class="py-2 px-2 font-medium">G4 / W1 (composite)</td>
@@ -279,8 +297,9 @@ const verifiedGreen = buckets.green ?? 0;
               <td class="text-center">✓</td>
               <td class="text-center text-stone-400">~</td>
               <td class="text-center text-stone-400">~</td>
-              <td class="py-2 px-2">extrapolations</td>
-              <td class="py-2 px-2"><strong>~10</strong> calibrated extrapolation coefficients</td>
+              <td class="py-2 px-2 tabular-nums">~0.01 eV <em>(chemical accuracy +)</em></td>
+              <td class="py-2 px-2 tabular-nums">~hours</td>
+              <td class="py-2 px-2"><strong>~10</strong> extrapolation coefficients</td>
             </tr>
             <tr class="border-b border-stone-200">
               <td class="py-2 px-2 font-medium">Force fields (UFF, MMFF, GAFF)</td>
@@ -290,8 +309,9 @@ const verifiedGreen = buckets.green ?? 0;
               <td class="text-center text-red-600">✗</td>
               <td class="text-center text-red-600">✗</td>
               <td class="text-center text-red-600">✗</td>
-              <td class="py-2 px-2">atom / bond classes</td>
-              <td class="py-2 px-2"><strong>100 to 1,000</strong> force constants / partial charges</td>
+              <td class="py-2 px-2 text-stone-500">not applicable <span class="text-stone-500">(relative energies only)</span></td>
+              <td class="py-2 px-2 tabular-nums">~ms</td>
+              <td class="py-2 px-2"><strong>100–1,000</strong> force constants / partial charges</td>
             </tr>
             <tr>
               <td class="py-2 px-2 font-medium">ML potentials (ANI, AIMNet, MACE, NequIP)</td>
@@ -301,8 +321,9 @@ const verifiedGreen = buckets.green ?? 0;
               <td class="text-center text-stone-400">~</td>
               <td class="text-center text-red-600">✗</td>
               <td class="text-center text-red-600">✗</td>
-              <td class="py-2 px-2">pre-computed DFT/CCSD dataset</td>
-              <td class="py-2 px-2"><strong>10⁵ to 10⁸</strong> trained neural-network weights</td>
+              <td class="py-2 px-2 tabular-nums">~0.04–0.1 eV <em>(in-distribution)</em></td>
+              <td class="py-2 px-2 tabular-nums">~ms – s</td>
+              <td class="py-2 px-2"><strong>10⁵–10⁸</strong> trained neural-network weights</td>
             </tr>
           </tbody>
         </table>

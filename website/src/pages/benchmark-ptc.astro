@@ -218,10 +218,11 @@ const verifiedGreen = buckets.green ?? 0;
               <th class="text-center py-2 px-1">D_at</th>
               <th class="text-center py-2 px-1">r<sub>e</sub></th>
               <th class="text-center py-2 px-1">ω<sub>e</sub></th>
-              <th class="text-center py-2 px-1">IE / EA</th>
+              <th class="text-center py-2 px-1">IE/EA</th>
               <th class="text-center py-2 px-1">NICS</th>
               <th class="text-center py-2 px-1">σ_RMN</th>
-              <th class="text-left py-2 px-2">Input</th>
+              <th class="text-left py-2 px-2">Précision D_at</th>
+              <th class="text-left py-2 px-2">Temps / mol</th>
               <th class="text-left py-2 px-2">Paramètres ajustés</th>
             </tr>
           </thead>
@@ -234,19 +235,33 @@ const verifiedGreen = buckets.green ?? 0;
               <td class="text-center text-emerald-700">✓</td>
               <td class="text-center text-emerald-700">✓</td>
               <td class="text-center text-emerald-700">✓</td>
-              <td class="py-2 px-2"><span class="font-mono text-xs">s = 1/2</span> + premiers actifs</td>
-              <td class="py-2 px-2 font-bold text-emerald-700">0</td>
+              <td class="py-2 px-2 tabular-nums"><strong>0,73 eV (3,2 %)</strong> sur 994 ATcT</td>
+              <td class="py-2 px-2 tabular-nums">~0,1 s (analytique)</td>
+              <td class="py-2 px-2 font-bold text-emerald-700">0 <span class="font-normal text-xs text-stone-500">(s = 1/2 + premiers)</span></td>
             </tr>
             <tr class="border-b border-stone-200">
-              <td class="py-2 px-2 font-medium">B3LYP/DFT (fonctionnel hybride)</td>
+              <td class="py-2 px-2 font-medium">B3LYP/6-31G*</td>
               <td class="text-center">✓</td>
               <td class="text-center">✓</td>
               <td class="text-center">✓</td>
               <td class="text-center">✓</td>
               <td class="text-center">✓</td>
               <td class="text-center">✓</td>
-              <td class="py-2 px-2">base atomique + fonctionnel</td>
-              <td class="py-2 px-2"><strong>3</strong> coefficients (B88, Becke, LYP) calibrés sur G2</td>
+              <td class="py-2 px-2 tabular-nums">~0,93 eV (mesuré, 855 mol overlap)</td>
+              <td class="py-2 px-2 tabular-nums">~minutes</td>
+              <td class="py-2 px-2"><strong>3</strong> calibrés sur G2 (B88, Becke, LYP)</td>
+            </tr>
+            <tr class="border-b border-stone-200">
+              <td class="py-2 px-2 font-medium">B3LYP/def2-TZVP</td>
+              <td class="text-center">✓</td>
+              <td class="text-center">✓</td>
+              <td class="text-center">✓</td>
+              <td class="text-center">✓</td>
+              <td class="text-center">✓</td>
+              <td class="text-center">✓</td>
+              <td class="py-2 px-2 tabular-nums">~0,15–0,3 eV typique</td>
+              <td class="py-2 px-2 tabular-nums">~30 min – plusieurs heures</td>
+              <td class="py-2 px-2"><strong>3</strong> (idem B3LYP)</td>
             </tr>
             <tr class="border-b border-stone-200">
               <td class="py-2 px-2 font-medium">DFT moderne (M06-2X, ωB97X, …)</td>
@@ -256,8 +271,9 @@ const verifiedGreen = buckets.green ?? 0;
               <td class="text-center">✓</td>
               <td class="text-center">✓</td>
               <td class="text-center">✓</td>
-              <td class="py-2 px-2">base + fonctionnel</td>
-              <td class="py-2 px-2"><strong>10 à 50</strong> paramètres calibrés sur grands jeux thermochimiques</td>
+              <td class="py-2 px-2 tabular-nums">~0,1–0,2 eV</td>
+              <td class="py-2 px-2 tabular-nums">~minutes – heures</td>
+              <td class="py-2 px-2"><strong>10–50</strong> calibrés sur jeux thermochimiques</td>
             </tr>
             <tr class="border-b border-stone-200">
               <td class="py-2 px-2 font-medium">Hartree-Fock</td>
@@ -267,19 +283,21 @@ const verifiedGreen = buckets.green ?? 0;
               <td class="text-center">✓</td>
               <td class="text-center text-stone-400">~</td>
               <td class="text-center">✓</td>
-              <td class="py-2 px-2">base atomique</td>
-              <td class="py-2 px-2"><strong>0</strong> ajusté <span class="text-stone-500">(mais corrélation absente → précision faible)</span></td>
+              <td class="py-2 px-2 tabular-nums">~2 eV <span class="text-stone-500">(pas de corrélation)</span></td>
+              <td class="py-2 px-2 tabular-nums">~minutes</td>
+              <td class="py-2 px-2"><strong>0</strong> <span class="text-stone-500">(base atomique paramétrée)</span></td>
             </tr>
             <tr class="border-b border-stone-200">
-              <td class="py-2 px-2 font-medium">MP2, CCSD, CCSD(T)</td>
+              <td class="py-2 px-2 font-medium">MP2 / CCSD / CCSD(T)</td>
               <td class="text-center">✓</td>
               <td class="text-center">✓</td>
               <td class="text-center">✓</td>
               <td class="text-center">✓</td>
               <td class="text-center text-stone-400">~</td>
               <td class="text-center">✓</td>
-              <td class="py-2 px-2">base atomique</td>
-              <td class="py-2 px-2"><strong>0</strong> ajusté <span class="text-stone-500">(coût ~N⁷, hors d’atteinte sur grosse molécule)</span></td>
+              <td class="py-2 px-2 tabular-nums">0,02–0,2 eV <em>(gold standard)</em></td>
+              <td class="py-2 px-2 tabular-nums">~heures – jours <span class="text-stone-500">(N⁵ à N⁷)</span></td>
+              <td class="py-2 px-2"><strong>0</strong> <span class="text-stone-500">(base atomique paramétrée)</span></td>
             </tr>
             <tr class="border-b border-stone-200">
               <td class="py-2 px-2 font-medium">G4 / W1 (composites)</td>
@@ -289,8 +307,9 @@ const verifiedGreen = buckets.green ?? 0;
               <td class="text-center">✓</td>
               <td class="text-center text-stone-400">~</td>
               <td class="text-center text-stone-400">~</td>
-              <td class="py-2 px-2">extrapolations</td>
-              <td class="py-2 px-2"><strong>~10</strong> coefficients d’extrapolation calibrés</td>
+              <td class="py-2 px-2 tabular-nums">~0,01 eV <em>(chemical accuracy +)</em></td>
+              <td class="py-2 px-2 tabular-nums">~heures</td>
+              <td class="py-2 px-2"><strong>~10</strong> coefficients d’extrapolation</td>
             </tr>
             <tr class="border-b border-stone-200">
               <td class="py-2 px-2 font-medium">Champs de force (UFF, MMFF, GAFF)</td>
@@ -300,8 +319,9 @@ const verifiedGreen = buckets.green ?? 0;
               <td class="text-center text-red-600">✗</td>
               <td class="text-center text-red-600">✗</td>
               <td class="text-center text-red-600">✗</td>
-              <td class="py-2 px-2">classes d’atomes / liaisons</td>
-              <td class="py-2 px-2"><strong>100 à 1 000</strong> constantes de force / partial charges</td>
+              <td class="py-2 px-2 text-stone-500">non applicable <span class="text-stone-500">(énergies relatives uniquement)</span></td>
+              <td class="py-2 px-2 tabular-nums">~ms</td>
+              <td class="py-2 px-2"><strong>100–1 000</strong> constantes / partial charges</td>
             </tr>
             <tr>
               <td class="py-2 px-2 font-medium">Potentiels ML (ANI, AIMNet, MACE, NequIP)</td>
@@ -311,8 +331,9 @@ const verifiedGreen = buckets.green ?? 0;
               <td class="text-center text-stone-400">~</td>
               <td class="text-center text-red-600">✗</td>
               <td class="text-center text-red-600">✗</td>
-              <td class="py-2 px-2">dataset DFT/CCSD pré-calculé</td>
-              <td class="py-2 px-2"><strong>10⁵ à 10⁸</strong> poids neuronaux entraînés</td>
+              <td class="py-2 px-2 tabular-nums">~0,04–0,1 eV <em>(in-distribution)</em></td>
+              <td class="py-2 px-2 tabular-nums">~ms – s</td>
+              <td class="py-2 px-2"><strong>10⁵–10⁸</strong> poids neuronaux entraînés</td>
             </tr>
           </tbody>
         </table>
