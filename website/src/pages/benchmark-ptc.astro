@@ -62,6 +62,279 @@ const verifiedGreen = buckets.green ?? 0;
     </section>
 
     <!-- ============================================== -->
+    <!-- WHAT PTC COMPUTES                              -->
+    <!-- ============================================== -->
+    <section>
+      <p class="pt-tag pt-tag-val mb-3">Ce que PTC calcule</p>
+      <h2 class="text-3xl font-bold text-thmblue mb-4">Toutes ces observables — un seul moteur, un seul input</h2>
+      <p class="text-slate-700 leading-relaxed mb-6 max-w-4xl">
+        PTC n’est pas spécialisé sur l’énergie d’atomisation : c’est un
+        calculateur ab initio PT qui dérive analytiquement <strong>toutes
+        les observables moléculaires</strong> depuis l’unique input
+        s = 1/2 + l’ossature des premiers actifs {'{2, 3, 5, 7, 11, 13}'}.
+        Le tableau ci-dessous récapitule les observables couvertes, leur
+        précision actuelle et leur statut. La suite de la page se concentre
+        sur D_atomisation — l’observable la plus testée à grande échelle —
+        mais le moteur produit aussi r_e, ω_e, IE, EA, NICS, σ_RMN, etc.
+        sans le moindre paramètre ajusté à des données.
+      </p>
+
+      <div class="overflow-x-auto">
+        <table class="text-sm font-sans w-full">
+          <thead class="bg-slate-50 border-b border-stone-300 text-xs text-stone-600 uppercase">
+            <tr>
+              <th class="text-left py-2 px-3">Niveau</th>
+              <th class="text-left py-2 px-3">Observable</th>
+              <th class="text-left py-2 px-3">Précision actuelle</th>
+              <th class="text-left py-2 px-3">Statut</th>
+            </tr>
+          </thead>
+          <tbody class="text-slate-700">
+            <tr class="border-b border-stone-200 bg-amber-50/40">
+              <td class="py-2 px-3 font-medium" rowspan="2">Atomique<br/><span class="text-xs text-stone-500">Z = 1 → 118</span></td>
+              <td class="py-2 px-3">IE — énergie d’ionisation</td>
+              <td class="py-2 px-3 tabular-nums">MAE <strong>0,046 %</strong></td>
+              <td class="py-2 px-3"><span class="text-emerald-700">production</span> · 118 éléments</td>
+            </tr>
+            <tr class="border-b border-stone-200 bg-amber-50/40">
+              <td class="py-2 px-3">EA — affinité électronique</td>
+              <td class="py-2 px-3 tabular-nums">MAE <strong>0,98 %</strong></td>
+              <td class="py-2 px-3"><span class="text-emerald-700">production</span> · 73 atomes neutres</td>
+            </tr>
+            <tr class="border-b border-stone-200">
+              <td class="py-2 px-3 font-medium" rowspan="4">Liaison<br/><span class="text-xs text-stone-500">BondResult</span></td>
+              <td class="py-2 px-3">D₀ — énergie de dissociation</td>
+              <td class="py-2 px-3 tabular-nums">cf. D_at moléculaire</td>
+              <td class="py-2 px-3"><span class="text-emerald-700">production</span></td>
+            </tr>
+            <tr class="border-b border-stone-200">
+              <td class="py-2 px-3">r<sub>e</sub> — distance d’équilibre</td>
+              <td class="py-2 px-3 text-stone-600">métrique Bianchi I, sans table de rayons covalents</td>
+              <td class="py-2 px-3"><span class="text-emerald-700">production</span></td>
+            </tr>
+            <tr class="border-b border-stone-200">
+              <td class="py-2 px-3">ω<sub>e</sub> — fréquence vibrationnelle harmonique</td>
+              <td class="py-2 px-3 text-stone-600">~10 % typique sur diatomiques</td>
+              <td class="py-2 px-3"><span class="text-emerald-700">production</span></td>
+            </tr>
+            <tr class="border-b border-stone-200">
+              <td class="py-2 px-3">θ — angles de liaison</td>
+              <td class="py-2 px-3 text-stone-600">fraction de face × angle solide, sans VSEPR</td>
+              <td class="py-2 px-3"><span class="text-emerald-700">production</span></td>
+            </tr>
+            <tr class="border-b border-stone-200 bg-amber-50/40">
+              <td class="py-2 px-3 font-medium" rowspan="2">Moléculaire<br/><span class="text-xs text-stone-500">TransferResult</span></td>
+              <td class="py-2 px-3"><strong>D_at — énergie d’atomisation totale</strong></td>
+              <td class="py-2 px-3 tabular-nums">
+                MAE <strong>3,22 %</strong> (994 ATcT) ·{' '}
+                <strong>6,55 %</strong> (650 Burcat)
+              </td>
+              <td class="py-2 px-3"><span class="text-emerald-700">production</span> · objet de cette page</td>
+            </tr>
+            <tr class="border-b border-stone-200 bg-amber-50/40">
+              <td class="py-2 px-3">Décomposition per-face P₁/P₂/P₃ + spectral T<sub>P₁</sub></td>
+              <td class="py-2 px-3 text-stone-600">contribution σ+π / d-back / ionique par liaison</td>
+              <td class="py-2 px-3"><span class="text-emerald-700">production</span></td>
+            </tr>
+            <tr class="border-b border-stone-200">
+              <td class="py-2 px-3 font-medium" rowspan="2">Aromaticité<br/><span class="text-xs text-stone-500">nics.py · NICSResult</span></td>
+              <td class="py-2 px-3">NICS — Nucleus-Independent Chemical Shift</td>
+              <td class="py-2 px-3 text-stone-600">Pauling-London PT, ~3 ppm sur benzène</td>
+              <td class="py-2 px-3"><span class="text-emerald-700">production</span></td>
+            </tr>
+            <tr class="border-b border-stone-200">
+              <td class="py-2 px-3">Classification σ/π — règle de Hückel signée</td>
+              <td class="py-2 px-3 text-stone-600">aromatique / antiaromatique / radical</td>
+              <td class="py-2 px-3"><span class="text-emerald-700">production</span></td>
+            </tr>
+            <tr class="border-b border-stone-200 bg-amber-50/40">
+              <td class="py-2 px-3 font-medium" rowspan="3">Magnétique<br/><span class="text-xs text-stone-500">lcao/ · GIAO + CPHF</span></td>
+              <td class="py-2 px-3">σ — tenseur de blindage chimique RMN</td>
+              <td class="py-2 px-3 text-stone-600">¹H MAE 1,4 ppm sur le set de Haan</td>
+              <td class="py-2 px-3"><span class="text-amber-700">production partielle</span> · ¹H ✓</td>
+            </tr>
+            <tr class="border-b border-stone-200 bg-amber-50/40">
+              <td class="py-2 px-3">Cascade post-HF : MP2, CCD, CCSD, Λ-CCSD</td>
+              <td class="py-2 px-3 text-stone-600">σ_p^CCSD-Λ-GIAO complet</td>
+              <td class="py-2 px-3"><span class="text-amber-700">production partielle</span></td>
+            </tr>
+            <tr class="border-b border-stone-200 bg-amber-50/40">
+              <td class="py-2 px-3">Densité de courant induite (GIMIC PT-pur)</td>
+              <td class="py-2 px-3 text-stone-600">flux à travers la liaison · NICS via Biot-Savart</td>
+              <td class="py-2 px-3"><span class="text-amber-700">recherche</span></td>
+            </tr>
+            <tr class="border-b border-stone-200">
+              <td class="py-2 px-3 font-medium" rowspan="2">Topologie<br/><span class="text-xs text-stone-500">utilitaire moteur</span></td>
+              <td class="py-2 px-3">SMILES → topologie</td>
+              <td class="py-2 px-3 text-stone-600">parser RDKit + reconstruction PT</td>
+              <td class="py-2 px-3"><span class="text-emerald-700">production</span></td>
+            </tr>
+            <tr>
+              <td class="py-2 px-3">Formule → topologie (crible variationnel)</td>
+              <td class="py-2 px-3 text-stone-600">choisit l’isomère minimum sans SMILES</td>
+              <td class="py-2 px-3"><span class="text-emerald-700">production</span> · base du test Burcat</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p class="text-xs text-stone-600 mt-3 leading-relaxed max-w-4xl">
+        <strong>Note méthodologique.</strong> Toutes les précisions
+        ci-dessus sont mesurées avec exactement la même contrainte :
+        <strong> 0 variable d’ajustement, aucun degré de liberté</strong>,
+        l’unique input s = 1/2 et l’ossature {'{2, 3, 5, 7, 11, 13}'} avec
+        les principes PT (cycle de phase, bilan informationnel, cascade,
+        bifurcation q₊/q₋, anti-double-comptage). Le moteur ne reçoit
+        jamais de paramètre calibré sur l’expérience.
+      </p>
+    </section>
+
+    <!-- ============================================== -->
+    <!-- COVERAGE COMPARISON                            -->
+    <!-- ============================================== -->
+    <section>
+      <p class="pt-tag pt-tag-val mb-3">Comparaison de couverture</p>
+      <h2 class="text-3xl font-bold text-thmblue mb-4">PTC face aux autres calculateurs : qui produit quoi, et avec combien de paramètres ?</h2>
+      <p class="text-slate-700 leading-relaxed mb-6 max-w-4xl">
+        Reproduire des observables ab initio est un sport courant. Le faire
+        <em>sans aucun paramètre ajusté à des données</em> est plus rare —
+        et le faire pour D_at, géométrie, IE, EA, NICS, σ_RMN <em>en même
+        temps</em>, depuis un seul input mathématique, à notre
+        connaissance, n’existe pas ailleurs. Le tableau ci-dessous
+        confronte PTC aux familles de méthodes les plus utilisées en
+        chimie quantique. Une coche signifie que la méthode produit
+        l’observable couramment ; une coche grise = en principe possible
+        mais peu utilisée. La dernière colonne distingue ce qui est{' '}
+        <em>strictement non-empirique</em> (issu de premiers principes,
+        pas calibré sur les observables qu’on cherche à reproduire) du
+        reste.
+      </p>
+
+      <div class="overflow-x-auto">
+        <table class="text-xs md:text-sm font-sans w-full">
+          <thead class="bg-slate-50 border-b border-stone-300 text-xs text-stone-600 uppercase">
+            <tr>
+              <th class="text-left py-2 px-2">Méthode</th>
+              <th class="text-center py-2 px-1">D_at</th>
+              <th class="text-center py-2 px-1">r<sub>e</sub></th>
+              <th class="text-center py-2 px-1">ω<sub>e</sub></th>
+              <th class="text-center py-2 px-1">IE / EA</th>
+              <th class="text-center py-2 px-1">NICS</th>
+              <th class="text-center py-2 px-1">σ_RMN</th>
+              <th class="text-left py-2 px-2">Input</th>
+              <th class="text-left py-2 px-2">Paramètres ajustés</th>
+            </tr>
+          </thead>
+          <tbody class="text-slate-700">
+            <tr class="border-b border-stone-200 bg-amber-50">
+              <td class="py-2 px-2 font-bold text-thmblue">PTC</td>
+              <td class="text-center text-emerald-700">✓</td>
+              <td class="text-center text-emerald-700">✓</td>
+              <td class="text-center text-emerald-700">✓</td>
+              <td class="text-center text-emerald-700">✓</td>
+              <td class="text-center text-emerald-700">✓</td>
+              <td class="text-center text-emerald-700">✓</td>
+              <td class="py-2 px-2"><span class="font-mono text-xs">s = 1/2</span> + premiers actifs</td>
+              <td class="py-2 px-2 font-bold text-emerald-700">0</td>
+            </tr>
+            <tr class="border-b border-stone-200">
+              <td class="py-2 px-2 font-medium">B3LYP/DFT (fonctionnel hybride)</td>
+              <td class="text-center">✓</td>
+              <td class="text-center">✓</td>
+              <td class="text-center">✓</td>
+              <td class="text-center">✓</td>
+              <td class="text-center">✓</td>
+              <td class="text-center">✓</td>
+              <td class="py-2 px-2">base atomique + fonctionnel</td>
+              <td class="py-2 px-2"><strong>3</strong> coefficients (B88, Becke, LYP) calibrés sur G2</td>
+            </tr>
+            <tr class="border-b border-stone-200">
+              <td class="py-2 px-2 font-medium">DFT moderne (M06-2X, ωB97X, …)</td>
+              <td class="text-center">✓</td>
+              <td class="text-center">✓</td>
+              <td class="text-center">✓</td>
+              <td class="text-center">✓</td>
+              <td class="text-center">✓</td>
+              <td class="text-center">✓</td>
+              <td class="py-2 px-2">base + fonctionnel</td>
+              <td class="py-2 px-2"><strong>10 à 50</strong> paramètres calibrés sur grands jeux thermochimiques</td>
+            </tr>
+            <tr class="border-b border-stone-200">
+              <td class="py-2 px-2 font-medium">Hartree-Fock</td>
+              <td class="text-center">✓</td>
+              <td class="text-center">✓</td>
+              <td class="text-center">✓</td>
+              <td class="text-center">✓</td>
+              <td class="text-center text-stone-400">~</td>
+              <td class="text-center">✓</td>
+              <td class="py-2 px-2">base atomique</td>
+              <td class="py-2 px-2"><strong>0</strong> ajusté <span class="text-stone-500">(mais corrélation absente → précision faible)</span></td>
+            </tr>
+            <tr class="border-b border-stone-200">
+              <td class="py-2 px-2 font-medium">MP2, CCSD, CCSD(T)</td>
+              <td class="text-center">✓</td>
+              <td class="text-center">✓</td>
+              <td class="text-center">✓</td>
+              <td class="text-center">✓</td>
+              <td class="text-center text-stone-400">~</td>
+              <td class="text-center">✓</td>
+              <td class="py-2 px-2">base atomique</td>
+              <td class="py-2 px-2"><strong>0</strong> ajusté <span class="text-stone-500">(coût ~N⁷, hors d’atteinte sur grosse molécule)</span></td>
+            </tr>
+            <tr class="border-b border-stone-200">
+              <td class="py-2 px-2 font-medium">G4 / W1 (composites)</td>
+              <td class="text-center">✓</td>
+              <td class="text-center text-stone-400">~</td>
+              <td class="text-center text-stone-400">~</td>
+              <td class="text-center">✓</td>
+              <td class="text-center text-stone-400">~</td>
+              <td class="text-center text-stone-400">~</td>
+              <td class="py-2 px-2">extrapolations</td>
+              <td class="py-2 px-2"><strong>~10</strong> coefficients d’extrapolation calibrés</td>
+            </tr>
+            <tr class="border-b border-stone-200">
+              <td class="py-2 px-2 font-medium">Champs de force (UFF, MMFF, GAFF)</td>
+              <td class="text-center">✓</td>
+              <td class="text-center">✓</td>
+              <td class="text-center">✓</td>
+              <td class="text-center text-red-600">✗</td>
+              <td class="text-center text-red-600">✗</td>
+              <td class="text-center text-red-600">✗</td>
+              <td class="py-2 px-2">classes d’atomes / liaisons</td>
+              <td class="py-2 px-2"><strong>100 à 1 000</strong> constantes de force / partial charges</td>
+            </tr>
+            <tr>
+              <td class="py-2 px-2 font-medium">Potentiels ML (ANI, AIMNet, MACE, NequIP)</td>
+              <td class="text-center">✓</td>
+              <td class="text-center">✓</td>
+              <td class="text-center text-stone-400">~</td>
+              <td class="text-center text-stone-400">~</td>
+              <td class="text-center text-red-600">✗</td>
+              <td class="text-center text-red-600">✗</td>
+              <td class="py-2 px-2">dataset DFT/CCSD pré-calculé</td>
+              <td class="py-2 px-2"><strong>10⁵ à 10⁸</strong> poids neuronaux entraînés</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p class="text-xs text-stone-600 mt-4 leading-relaxed max-w-4xl">
+        <strong>Lecture.</strong> HF et CCSD(T) atteignent aussi
+        techniquement « 0 paramètre ajusté » mais reposent sur le choix
+        d’une base atomique (un objet contenant lui-même des paramètres
+        gaussiens optimisés numériquement, et dont le choix conditionne
+        fortement la précision). PTC ne fait pas ce choix : la
+        connectivité et les amplitudes émergent du crible variationnel et
+        des dimensions de la cascade {'{3, 5, 7}'}. Les méthodes DFT
+        usuelles intègrent le choix d’un fonctionnel (B3LYP, M06-2X, etc.)
+        dont les coefficients sont eux-mêmes calibrés contre des jeux
+        thermochimiques expérimentaux — c’est la définition d’un
+        paramètre ajusté. Les potentiels ML sont entraînés sur des
+        millions de points DFT, donc dérivés d’une cascade de calibrations.
+      </p>
+    </section>
+
+    <!-- ============================================== -->
     <!-- BENCHMARK 1 : PTC vs expérience (994 mol)     -->
     <!-- ============================================== -->
     <section>
