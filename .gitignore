@@ -14,3 +14,7 @@ venv/
 build/
 dist/
 *.egg-info/
+
+# Local design source files (Illustrator + working copies — not tracked)
+*.ai
+website/public/pt-symbol_*.svg
