@@ -12,34 +12,36 @@
   </defs>
   <rect width="1200" height="630" fill="url(#bg)"/>
 
-  <!-- Polygones canaux p=3, p=5, p=7 décoratifs -->
-  <g transform="translate(820, 200)" opacity="0.12">
+  <!-- Polygones canaux p=3, p=5, p=7 décoratifs (resserrés et remontés) -->
+  <g transform="translate(820, 130)" opacity="0.12">
     <!-- Triangle p=3 -->
     <polygon points="0,-90 78,45 -78,45" fill="none" stroke="#fff" stroke-width="3"/>
     <!-- Pentagone p=5 -->
-    <polygon points="0,-100 95,-31 59,81 -59,81 -95,-31" fill="none" stroke="#fff" stroke-width="3" transform="translate(0,170)"/>
+    <polygon points="0,-100 95,-31 59,81 -59,81 -95,-31" fill="none" stroke="#fff" stroke-width="3" transform="translate(0,140)"/>
     <!-- Heptagone p=7 -->
-    <polygon points="0,-110 86,-69 105,40 47,103 -47,103 -105,40 -86,-69" fill="none" stroke="#fff" stroke-width="3" transform="translate(0,360)"/>
+    <polygon points="0,-110 86,-69 105,40 47,103 -47,103 -105,40 -86,-69" fill="none" stroke="#fff" stroke-width="3" transform="translate(0,300)"/>
   </g>
 
   <!-- TITRE -->
-  <text x="80" y="200" font-family="ui-sans-serif, system-ui, sans-serif" font-size="76" font-weight="900" fill="#fff">La Théorie</text>
-  <text x="80" y="290" font-family="ui-sans-serif, system-ui, sans-serif" font-size="76" font-weight="900" fill="#fff">de la Persistance</text>
+  <text x="80" y="180" font-family="ui-sans-serif, system-ui, sans-serif" font-size="76" font-weight="900" fill="#fff">La Théorie</text>
+  <text x="80" y="270" font-family="ui-sans-serif, system-ui, sans-serif" font-size="76" font-weight="900" fill="#fff">de la Persistance</text>
+
+  <!-- KICKER (signature poétique de l'index) -->
+  <text x="80" y="325" font-family="ui-sans-serif, system-ui, sans-serif" font-style="italic" font-size="28" font-weight="400" fill="#fff" opacity="0.85">Toute structure dit ce qu’elle est</text>
+  <text x="80" y="362" font-family="ui-sans-serif, system-ui, sans-serif" font-style="italic" font-size="28" font-weight="400" fill="#fff" opacity="0.85">en révélant ce qu’elle a dû abandonner.</text>
 
   <!-- SOUSTITRE orange -->
-  <text x="80" y="380" font-family="ui-sans-serif, system-ui, sans-serif" font-size="36" font-weight="700" fill="url(#orange)">
-    43 observables · 0 paramètre · 28 prédictions
+  <text x="80" y="420" font-family="ui-sans-serif, system-ui, sans-serif" font-size="36" font-weight="700" fill="url(#orange)">
+    43 observables · 1644 molécules · 0 paramètre ajusté
   </text>
 
   <!-- BANDEAU CHAINE LOGIQUE -->
-  <g transform="translate(80, 460)">
+  <g transform="translate(80, 480)">
     <text x="0" y="0" font-family="ui-monospace, monospace" font-size="22" fill="#a3b8c8">s = 1/2</text>
     <text x="120" y="0" font-family="ui-monospace, monospace" font-size="22" fill="#a3b8c8">→</text>
-    <text x="160" y="0" font-family="ui-monospace, monospace" font-size="22" fill="#a3b8c8">μ* = 15</text>
-    <text x="290" y="0" font-family="ui-monospace, monospace" font-size="22" fill="#a3b8c8">→</text>
-    <text x="330" y="0" font-family="ui-monospace, monospace" font-size="22" fill="#a3b8c8">{3, 5, 7}</text>
-    <text x="460" y="0" font-family="ui-monospace, monospace" font-size="22" fill="#a3b8c8">→</text>
-    <text x="500" y="0" font-family="ui-monospace, monospace" font-size="22" fill="#a3b8c8">α_EM = 1/137,036</text>
+    <text x="160" y="0" font-family="ui-monospace, monospace" font-size="22" fill="#a3b8c8">{2, 3, 5, 7, 11, 13}</text>
+    <text x="500" y="0" font-family="ui-monospace, monospace" font-size="22" fill="#a3b8c8">→</text>
+    <text x="540" y="0" font-family="ui-monospace, monospace" font-size="22" fill="#a3b8c8">α_EM = 1/137,036</text>
   </g>
 
   <!-- URL -->
