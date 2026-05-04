@@ -700,7 +700,7 @@ def compute_timing() -> dict:
 
     return {
         "subset": "536 mol, n ≤ 12 (Bin A+B+C from 3-way benchmark)",
-        "machine_note": "Apple M1 Max (single-thread for both methods)",
+        "machine_note": "Apple M1 Max",
         "ptc": {
             "n": len(all_t),
             "fails": fails,
