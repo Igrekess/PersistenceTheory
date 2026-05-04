@@ -38,7 +38,7 @@ const verifiedGreen = buckets.green ?? 0;
     title="PTC Benchmark"
     kicker="0 fitted parameters, −35 % error vs B3LYP/6-31G* on 860 ATcT molecules."
     dek="Three distinct benchmarks here: (1) PTC against experimental measurements on 1000 molecules; (2) PTC vs B3LYP/6-31G* on 860 paired molecules; (3) PTC vs B3LYP/def2-TZVP on 536 molecules with n ≤ 12. All data is sourced (NIST WebBook, ATcT v1.130, JANAF, etc.), traceable at the molecule level, and reproducible from the public MIT code."
-    oneLineNote={{ label: 'Status', body: 'all PTC values derive analytically from the single input s = 1/2 (cf. fundamental principle). B3LYP uses three fitted parameters calibrated on G2. No comparison is made here against G4 / W1 / CCSD(T) — composite methods at ~0.04 eV accuracy but with ~10 fitted parameters.' }}
+    oneLineNote={{ label: 'Status', body: `all PTC values derive analytically from the single input s = 1/2 (T1, forbidden transitions), the arithmetic backbone of the active primes {2, 3, 5, 7, 11, 13} (parity channel Z/2Z, 3·5·7 cascade, echo primes 11·13), and the PT principles — phase cycles (T6 holonomy), information balance (GFT identity log₂ m = D_KL + H), sequential cascade 3 → 5 → 7, q₊/q₋ bifurcation, anti-double-counting. 0 fitting variables, no degrees of freedom, no free choice in the selection of primes nor in the principles. B3LYP uses three fitted parameters calibrated on G2. No comparison is made here against G4 / W1 / CCSD(T) — composite methods at ~0.04 eV accuracy but with ~10 fitted parameters.` }}
     width="normal"
   />
 
