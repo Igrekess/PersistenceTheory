@@ -367,7 +367,7 @@ def chart_bench1_scatter(rows):
 
     ax.set_xlabel("D_at expérimental (eV)")
     ax.set_ylabel("D_at PTC (eV)")
-    ax.set_title("PTC vs expérience — 1000 molécules (ligne y = x = parfaite)",
+    ax.set_title(f"PTC vs expérience — {len(all_d)} molécules (ligne y = x = parfaite)",
                  fontsize=12, color="#1e293b", pad=10)
     ax.legend(loc="upper left", frameon=False, fontsize=10)
     ax.set_xlim(lo, hi)
@@ -412,12 +412,16 @@ def chart_bench1_error_bins(rows):
     save_svg("bench1_error_bins")
 
 
-def chart_bench1_by_category(fresh):
-    """Bench 1 — MAE par catégorie chimique."""
-    pc = fresh["per_category"]
-    cats = list(pc.keys())
-    vals = [pc[c]["mae"] for c in cats]
-    counts = [pc[c]["n"] for c in cats]
+def chart_bench1_by_category(rows):
+    """Bench 1 — MAE par catégorie chimique (recalculé depuis rows pour être à jour)."""
+    by_cat: dict[str, list[float]] = {}
+    for r in rows:
+        if r.get("rel_pct") is None:
+            continue
+        by_cat.setdefault(r["category"], []).append(abs(r["rel_pct"]))
+    cats = list(by_cat.keys())
+    vals = [round(sum(arr) / len(arr), 3) if arr else 0 for arr in by_cat.values()]
+    counts = [len(arr) for arr in by_cat.values()]
 
     fig, ax = plt.subplots(figsize=(7, 4))
     bars = ax.bar(cats, vals, color=[COLOR_PTC, COLOR_B3LYP, COLOR_DEF2], alpha=0.85, width=0.55)
@@ -426,7 +430,8 @@ def chart_bench1_by_category(fresh):
                 f"{val:.2f} %\n(n={cnt})",
                 ha="center", va="bottom", fontsize=10, color="#334155")
     ax.set_ylabel("MAE relative (%)")
-    ax.set_title("PTC — MAE relative par catégorie chimique (1000 mol)",
+    total_n = sum(counts)
+    ax.set_title(f"PTC — MAE relative par catégorie chimique ({total_n} mol)",
                  fontsize=12, color="#1e293b", pad=10)
     ax.set_ylim(0, max(vals) * 1.25)
     save_svg("bench1_mae_by_category")
@@ -845,7 +850,7 @@ def main() -> int:
     chart_bench1_histogram(bench1_rows)
     chart_bench1_scatter(bench1_rows)
     chart_bench1_error_bins(bench1_rows)
-    chart_bench1_by_category(fresh)
+    chart_bench1_by_category(bench1_rows)
     chart_bench2_overlay(bench2_rows)
     chart_bench2_mae_by_size(b2_metrics)
     chart_bench3_3way(b3_summary)
