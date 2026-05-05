@@ -58,6 +58,10 @@ const plainScenes = [
     title: 'Measurement becomes possible',
     text: 'Observables are no longer fitted knobs: they measure the persistent part, the dispersed part, and their modes of coupling.',
   },
+  {
+    title: 'Continuous and discrete reconcile',
+    text: 'General relativity and quantum mechanics looked incompatible — one describes a smooth spacetime, the other discrete levels. PT shows that they share the same arithmetic sieve: the discrete is the primitive structure, the continuous emerges as its limit. The old opposition dissolves.',
+  },
 ];
 
 const domainCards = [
@@ -214,9 +218,9 @@ const groupedLinks = [
     <section class="mb-12">
       <p class="pt-tag pt-tag-id mb-3">Plain</p>
       <h2 class="text-3xl md:text-4xl font-bold text-thmblue mb-6">
-        The idea in three scenes
+        The idea in four scenes
       </h2>
-      <div class="grid md:grid-cols-3 gap-4">
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
         {plainScenes.map((scene, index) => (
           <div class="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
             <span class="font-mono text-sm text-derorange">0{index + 1}</span>
