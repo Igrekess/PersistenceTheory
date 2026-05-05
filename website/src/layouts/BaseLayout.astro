@@ -197,7 +197,7 @@ const currentPath = Astro.url.pathname;
               <path d="M3 6h16M3 11h16M3 16h16" stroke-linecap="round"/>
             </svg>
           </summary>
-          <div class="absolute right-0 mt-2 w-64 bg-white border border-slate-200 rounded-md shadow-xl shadow-slate-900/10 py-2 text-sm font-sans">
+          <div class="absolute right-0 mt-2 w-64 max-h-[calc(100vh-5rem)] overflow-y-auto overscroll-contain bg-white border border-slate-200 rounded-md shadow-xl shadow-slate-900/10 py-2 text-sm font-sans">
             <a href={lang === 'fr' ? '/commencer-ici' : '/en/commencer-ici'} class="block px-4 py-2 hover:bg-stone-50">{t('nav.start')}</a>
             <a href={lang === 'fr' ? '/essays' : '/en/essays'} class="block px-4 py-2 hover:bg-stone-50">{t('nav.essays')}</a>
             <a href={lang === 'fr' ? '/resultats' : '/en/resultats'} class="block px-4 py-2 hover:bg-stone-50">{t('nav.results')}</a>
