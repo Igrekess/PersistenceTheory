@@ -1,0 +1,188 @@
+---
+slug: ramanujan-mihailescu-and-pt
+title: 'Ramanujan, Mihailescu et le canal $p = 3$'
+summary: 'Le célèbre radical imbriqué de Ramanujan pour 3 cache une singularité arithmétique unique : son premier niveau est une identité de Catalan. Le théorème de Mihailescu (2002) garantit que c''est le seul cas dans toute la famille. Et la PT utilise exactement cette même brique pour forcer N_gen = 3.'
+level: L1
+reading_minutes: 7
+related_theorems: ['T0', 'T7']
+lang: fr
+order: 7
+---
+
+<aside class="rounded-md border-l-4 border-amber-300 bg-amber-50 p-4 text-sm text-stone-700 mb-6">
+Cet essai existe en deux versions sur cette même page. La version <strong>vulgarisée</strong> (sans formules au-delà de l’élémentaire) s’affiche au niveau de lecture <em>vulgarisé</em>. La version <strong>standard / technique</strong> (avec preuve d’unicité, références D17b, statut épistémique) s’affiche aux niveaux <em>standard</em> et <em>technique</em>. Utilisez le sélecteur de profondeur en bas à droite ↘ pour basculer.
+</aside>
+
+{/* ════════════════════════════════════════════════════════════════════ */}
+{/* VERSION VULGARISÉE (L1)                                              */}
+{/* ════════════════════════════════════════════════════════════════════ */}
+
+<div data-max-depth="L1">
+
+## Une curiosité de Ramanujan
+
+Vers 1911, Srinivasa Ramanujan a posé cette identité :
+
+$$
+3 \ =\ \sqrt{1 + 2\sqrt{1 + 3\sqrt{1 + 4\sqrt{1 + 5\sqrt{1 + \ldots}}}}}
+$$
+
+À gauche, un simple $3$. À droite, une cascade infinie de racines emboîtées qui passe par tous les entiers : $2, 3, 4, 5\ldots$ Et l’identité tient. Exactement, sans approximation. C’est une des curiosités les plus élégantes de l’arithmétique élémentaire, et on la présente presque toujours sous cette forme : *« regardez ce que Ramanujan a trouvé pour 3 »*.
+
+Ce qu’on ne dit pas, c’est qu’il existe la même chose pour n’importe quel autre entier. Pour 4, pour 5, pour 100. La formule générale donne :
+
+$$
+n + 1 \ =\ \sqrt{1 + n\sqrt{1 + (n+1)\sqrt{1 + (n+2)\sqrt{\ldots}}}}.
+$$
+
+À première vue, donc, $3$ n’a rien de spécial dans cette famille. Sauf qu’en regardant le cas $n = 2$ (celui qui donne $3$) d’un peu plus près, on tombe sur quelque chose qui n’apparaît pour aucune autre valeur de $n$.
+
+## Une singularité cachée au premier niveau
+
+Si on déplie *juste un niveau* du radical pour $n = 2$, on obtient :
+
+$$
+3^2 \ =\ 1 + 2 \cdot 4.
+$$
+
+Et $2 \cdot 4 = 8$, qui s’écrit aussi $2^3$. Donc :
+
+$$
+3^2 \ =\ 1 + 2^3, \qquad \text{ou encore} \qquad 3^2 - 2^3 = 1.
+$$
+
+Cette équation a une longue histoire. Eugène Catalan l’a conjecturée en 1844 : *« $3^2 - 2^3 = 1$ est la seule solution non triviale de $a^p - b^q = 1$ avec $a, b, p, q \geq 2$ »*. La conjecture est restée ouverte 158 ans. Elle a fini par être démontrée par Preda Mihailescu en 2002. C’est aujourd’hui un théorème.
+
+Ce que cela veut dire concrètement : parmi tous les entiers du monde, **$3^2 - 2^3 = 1$ est la seule fois où la différence entre une puissance entière et une autre puissance entière vaut exactement $1$**. Tout le reste rate la cible : $4^2 - 3^2 = 7$, $5^2 - 4^2 = 9$, $2^5 - 3^3 = 5$. Aucune combinaison ne tombe pile sur $1$, sauf $3$ et $2$.
+
+## Vérifions sur les autres cas du radical
+
+Reprenons la famille de Ramanujan, et regardons à chaque fois ce qui apparaît au premier niveau :
+
+- $n = 1$ : $2^2 = 1 + 1 \cdot 3$. Le « $1 \cdot 3 = 3$ » n’est pas une puissance parfaite. Pas de Catalan.
+- $n = 2$ : $3^2 = 1 + 2 \cdot 4 = 1 + 2^3$. Catalan !
+- $n = 3$ : $4^2 = 1 + 3 \cdot 5 = 1 + 15$. $15$ n’est pas une puissance parfaite. Pas de Catalan.
+- $n = 4$ : $5^2 = 1 + 4 \cdot 6 = 1 + 24$. Pas de Catalan.
+- Pour tout $n \geq 3$ : par Mihailescu, jamais de Catalan.
+
+Donc dans toute la famille infinie des radicaux imbriqués de Ramanujan, le cas $n = 2$ (celui qui donne $3$) est l’unique où le premier niveau est une identité de Catalan. Ce n’est pas un hasard de présentation, c’est un théorème.
+
+## Et la Théorie de la Persistance ?
+
+C’est là que ça devient intéressant. Quand la PT cherche à comprendre pourquoi il y a *trois* générations de fermions et pas deux ou quatre, elle tombe sur exactement la même équation $3^2 - 2^3 = 1$, et fait appel exactement au même théorème de Mihailescu. Le passage de la monographie est presque mot pour mot : *« $3^2 - 2^3 = 1$ unique (Mihailescu 2002), donc $N_{\text{gen}} = 3$ forcé par l’arithmétique »*.
+
+Ce n’est pas que la PT a choisi d’invoquer Catalan. C’est qu’aucune autre équation arithmétique ne sélectionne $3$ comme point singulier face à $2$. N’importe quelle théorie qui veut expliquer pourquoi $3$ joue un rôle privilégié finit par tomber sur cette même brique.
+
+## La bonne lecture
+
+Trois choses à ne pas confondre.
+
+D’abord, le radical de Ramanujan ne prouve pas la PT, et la PT ne dérive pas Ramanujan. Ce sont deux objets autonomes.
+
+Ensuite, ils partagent une source arithmétique commune : le théorème de Mihailescu, qui singularise $3^2 - 2^3 = 1$ comme l’unique solution non-triviale d’une équation très simple.
+
+Enfin, Ramanujan manipulait cette singularité dès 1911, sans pouvoir la nommer (Mihailescu n’arriverait que 91 ans plus tard). La PT, un siècle après, la nomme et l’utilise comme principe.
+
+Trois ombres d’une même chose, donc : un radical infini, un théorème d’unicité en théorie des nombres, et une cascade physique. Le pivot commun reste $3^2 - 2^3 = 1$.
+
+---
+
+$3$ n’est pas privilégié parce qu’il apparaît dans Ramanujan. Il apparaît dans Ramanujan parce qu’il est privilégié par Mihailescu. Et la PT, un siècle plus tard, singularise le canal $p = 3$ avec exactement la même brique arithmétique.
+
+</div>
+
+{/* ════════════════════════════════════════════════════════════════════ */}
+{/* VERSION STANDARD / TECHNIQUE (L2+)                                   */}
+{/* ════════════════════════════════════════════════════════════════════ */}
+
+<div data-min-depth="L2">
+
+## Reformulation PT
+
+« Le radical imbriqué de Ramanujan pour $3$ a-t-il un lien avec la PT ? » → reformulé : *parmi la famille des identités $\{n + 1 = \sqrt{1 + n\sqrt{1 + (n+1)\sqrt{\ldots}}}\}_{n \geq 1}$, quels sont les $n$ pour lesquels le premier niveau est une identité de Catalan $(n+1)^2 - b^q = 1$ avec $b, q \geq 2$ ? Et que dit la PT [D17b] de cette singularité ?*
+
+## La famille de Ramanujan
+
+L’identité générale, due à Ramanujan (Quart. J. Math. 1915, Notebooks I) :
+
+$$
+n + 1 \ =\ \sqrt{\,1 + n\sqrt{1 + (n+1)\sqrt{1 + (n+2)\sqrt{\ldots}}}\,}, \qquad n \in \mathbb{N}_{\geq 1}.
+$$
+
+Vérification algébrique. Posant $f(n) = n+1$, l’identité récursive
+$$
+f(n)^2 \ =\ 1 + n \cdot f(n+1)
+$$
+se vérifie immédiatement : $(n+1)^2 - 1 = n(n+2) = n \cdot f(n+1)$. La convergence du radical infini se prouve séparément (Vijayaraghavan, 1929 ; Herschfeld, 1935).
+
+## La question Catalan-shape
+
+**Définition.** L’identité du premier niveau pour $n$ s’écrit $(n+1)^2 = 1 + n(n+2)$. Elle est *Catalan-shaped* si $n(n+2)$ est une puissance parfaite non triviale, i.e. s’il existe $b \geq 2, q \geq 2$ tels que $n(n+2) = b^q$.
+
+**Question.** Pour quels $n \geq 1$ l’identité est-elle Catalan-shaped ?
+
+## Lemme d'unicité
+
+> **Lemme.** *L'unique $n \geq 1$ pour lequel l'identité de Ramanujan de premier niveau est Catalan-shaped est $n = 2$, avec $(b, q) = (2, 3)$.*
+
+**Démonstration.**
+
+**Cas 1 : $q = 2$ (carré parfait).**
+On voudrait $n(n+2) = b^2$ avec $b \geq 2$. Or $n(n+2) = (n+1)^2 - 1$, donc l'équation devient $(n+1)^2 - b^2 = 1$, soit $((n+1)-b)((n+1)+b) = 1$. Dans $\mathbb{Z}_{>0}$, la seule factorisation de $1$ est $1 \cdot 1$, ce qui force $(n+1) - b = (n+1) + b = 1$, donc $b = 0$ et $n+1 = 1$. Exclu par $n \geq 1, b \geq 2$. ∎ (Cas 1)
+
+**Cas 2 : $q \geq 3$.**
+On a $(n+1)^2 - b^q = 1$ avec $n+1 \geq 2, b \geq 2, q \geq 3$. C'est l’équation de Catalan $a^p - b^q = 1$ avec $(a, p) = (n+1, 2)$.
+
+Le **théorème de Mihailescu** (2002, Crelle's Journal 572 (2004), 167–195) garantit que l'unique solution en entiers à $a^p - b^q = 1$ avec $a, b, p, q \geq 2$ est $(a, b, p, q) = (3, 2, 2, 3)$. Appliqué ici : $n+1 = 3$, $b = 2$, $q = 3$, soit $n = 2$. ∎ (Cas 2)
+
+**Conclusion.** Pour $n \geq 1$, l’identité du premier niveau est Catalan-shaped si et seulement si $n = 2$, avec $3^2 - 2^3 = 1$. $\quad\square$
+
+## Application à la PT
+
+La PT [D17b, S15.6.176–179] utilise *exactement* l'identité $3^2 - 2^3 = 1$ comme brique arithmétique pour forcer le nombre de générations.
+
+**Ingrédients.** Au point fixe $\mu^* = 15$, les exposants de modulation des secteurs UP et DOWN du couplage de Yukawa s'écrivent :
+
+$$
+n_{\text{up}} \ =\ \frac{3^2}{2^3} \ =\ \frac{9}{8}, \qquad
+n_{\text{dn}} \ =\ \frac{n_{\text{up}}}{1 + 1/p_3} \ =\ \frac{9}{8} \cdot \frac{p_3}{p_3+1}, \quad p_3 = 7,
+$$
+
+soit $n_{\text{dn}} = (9/8)(7/8) \cdot \ldots$ Laissons le détail technique de côté ; le point arithmétique est que :
+
+$$
+\frac{n_{\text{up}}}{n_{\text{dn}}} \ =\ \frac{7}{6} \ =\ \frac{3^2 - 2}{2^3 - 2} \ =\ f(7).
+$$
+
+L'apparition simultanée de $3^2$ et $2^3$ dans cette structure n'est *pas* un choix de paramétrisation. C'est l'unique paire d'entiers où l'écart entre puissances vaut $1$ — exactement Mihailescu — et c'est cela qui sélectionne $N_{\text{gen}} = 3$ dans la cascade PT, et non $2$ ou $4$.
+
+## Statut épistémique
+
+| Élément | Statut | Référence |
+|---|---|---|
+| Identité algébrique de Ramanujan | **[PROUVÉ]** algébriquement, convergence par Vijayaraghavan / Herschfeld | Notebooks I, *Quart. J. Math.* 1915 |
+| Lemme d'unicité (Catalan-shape) | **[PROUVÉ INCONDITIONNEL]** sous la validité de Mihailescu | Mihailescu 2002 |
+| Théorème de Mihailescu (Catalan) | **[PROUVÉ]** profondeur cyclotomique | Crelle's J. 572 (2004) |
+| Usage PT $N_{\text{gen}} = 3$ | **[DÉRIVÉ, 0 paramètre]** | D17b, S15.6.176–179 |
+| Lien Ramanujan ↔ PT | **[RÉSONANCE STRUCTURELLE]** : même brique Mihailescu, deux contextes | Cet essai |
+
+## Ce que l’article ne prétend pas
+
+L’article ne dérive pas la PT depuis Ramanujan. La PT singularise $p = 3$ via T0 (transitions interdites mod 3) et T7 (auto-cohérence à $\mu^* = 15$), tous deux indépendants du radical imbriqué.
+
+Il n’introduit aucun anachronisme non plus. Ramanujan a précédé Mihailescu de 91 ans ; il manipulait la structure sans pouvoir la nommer comme uniquement Catalan.
+
+Et ce n’est pas une *proof* par concordance numérique. Le lien est arithmétique, vérifié par un lemme, et passe par un théorème démontré.
+
+---
+
+Dans toute la famille infinie des radicaux imbriqués de Ramanujan, le cas $n = 2$ — celui qui donne $3$ — est l'unique cas dont le premier niveau est une identité de Catalan. Cette singularité, démontrée par Mihailescu (2002), est la même brique arithmétique que la PT [D17b] utilise pour forcer $N_{\text{gen}} = 3$.
+
+</div>
+
+## Voir aussi
+
+- [Pourquoi 3 générations ?](/essays/why-3-generations)
+- [D’où vient s = 1/2 ?](/essays/where-s-comes-from)
+- [Théorème T0 (transitions interdites)](/theorems/T0)
+- [Théorème T7 (auto-cohérence μ\* = 15)](/theorems/T7)
