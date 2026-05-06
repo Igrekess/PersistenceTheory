@@ -153,6 +153,21 @@ const groupedLinks = [
 ---
 
 <BaseLayout>
+  <figure class="w-full max-w-6xl mx-auto px-4">
+    <img
+      src="/images/banniere.png"
+      alt="Lumière filtrée par des stores, démultipliée par des miroirs sur parquet — photographie de la série De Rerum Natura, illustration des principes de filtrage et de persistance"
+      class="w-full h-auto block max-h-[55vh] object-cover"
+      width="1920"
+      height="640"
+      loading="eager"
+      fetchpriority="high"
+    />
+    <figcaption class="text-xs text-stone-500 mt-1 text-right italic">
+      crédit photo : Yan Senez — <a href="https://www.yansenez.com" target="_blank" rel="noopener" class="hover:underline hover:text-stone-700">www.yansenez.com</a>
+    </figcaption>
+  </figure>
+
   <PageHero
     eyebrow="Vulgarisé · préimpression ouverte"
     domain="meta"
@@ -387,7 +402,20 @@ const groupedLinks = [
 
     <Citation lang="fr" />
 
-    <p class="mt-12 text-sm text-stone-500 italic font-sans">
+    <aside class="mt-12 pt-6 border-t border-stone-200 max-w-3xl text-xs text-stone-500 leading-relaxed">
+      <p class="font-sans font-semibold text-stone-600 mb-1">Pourquoi cette photo en bannière ?</p>
+      <p>
+        Une lumière continue traverse des stores et se résout en bandes discrètes — c'est un tamis.
+        Plusieurs miroirs reçoivent ces bandes et les démultiplient en versions partielles : chaque
+        miroir est un filtre qui sélectionne, transforme, conserve. Et quelques miroirs se reflètent
+        entre eux — la scène contient sa propre image. C'est ce que la PT décrit, en arithmétique :
+        du continu se résout en discret, des motifs persistent sous filtrage, et au sommet de la
+        hiérarchie le filtre devient capable de se modéliser lui-même. Photo issue de la série
+        <em>De Rerum Natura</em>.
+      </p>
+    </aside>
+
+    <p class="mt-8 text-sm text-stone-500 italic font-sans">
       Préimpression — non révisée par les pairs. Toute critique scrupuleuse est bienvenue.
     </p>
   </main>

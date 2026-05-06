@@ -153,6 +153,21 @@ const groupedLinks = [
 ---
 
 <BaseLayout>
+  <figure class="w-full max-w-6xl mx-auto px-4">
+    <img
+      src="/images/banniere.png"
+      alt="Light filtered through blinds, multiplied across mirrors on a wooden parquet floor — photograph from the De Rerum Natura series, illustrating the principles of filtering and persistence"
+      class="w-full h-auto block max-h-[55vh] object-cover"
+      width="1920"
+      height="640"
+      loading="eager"
+      fetchpriority="high"
+    />
+    <figcaption class="text-xs text-stone-500 mt-1 text-right italic">
+      photo credit: Yan Senez — <a href="https://www.yansenez.com" target="_blank" rel="noopener" class="hover:underline hover:text-stone-700">www.yansenez.com</a>
+    </figcaption>
+  </figure>
+
   <PageHero
     eyebrow="Plain · open preprint"
     domain="meta"
@@ -385,7 +400,20 @@ const groupedLinks = [
 
     <Citation lang="en" />
 
-    <p class="mt-12 text-sm text-stone-500 italic font-sans">
+    <aside class="mt-12 pt-6 border-t border-stone-200 max-w-3xl text-xs text-stone-500 leading-relaxed">
+      <p class="font-sans font-semibold text-stone-600 mb-1">Why this banner photograph?</p>
+      <p>
+        A continuous light passes through blinds and resolves into discrete bands — a sieve.
+        Several mirrors receive those bands and multiply them into partial versions: each mirror
+        is a filter that selects, transforms, conserves. And some mirrors reflect each other —
+        the scene contains its own image. This is what PT describes, in arithmetic: the continuous
+        resolves into the discrete, patterns persist under filtering, and at the top of the
+        hierarchy the filter becomes able to model itself. Photograph from the
+        <em>De Rerum Natura</em> series.
+      </p>
+    </aside>
+
+    <p class="mt-8 text-sm text-stone-500 italic font-sans">
       Preprint — not peer-reviewed. Critical scrutiny is welcomed.
     </p>
   </main>
