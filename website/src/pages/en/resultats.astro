@@ -28,6 +28,7 @@ const predictionsMetrics = [
   ['m_ν3 = 0.0505 eV', 'KATRIN/JUNO/cosmology'],
   ['Dirac', 'not Majorana · nEXO/LEGEND ~2030'],
   ['sin²θ₂₃ = 0.5733', 'upper octant · DUNE ~2032'],
+  ['No g-shell', 'superheavy chemistry Z ≥ 121'],
 ];
 
 const lenses = [
@@ -339,9 +340,9 @@ const statusLabel: Record<NonNullable<Card['status']>, { label: string; color: s
         </div>
 
         <p class="text-[10px] font-sans uppercase tracking-wider text-slate-400 mb-2">
-          Falsifiable predictions — neutrinos and the PMNS sector
+          Falsifiable predictions — neutrinos, PMNS sector, superheavy chemistry
         </p>
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-3">
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 mb-3">
           {predictionsMetrics.map(([value, label]) => (
             <div class="rounded-lg border border-white/10 bg-white/10 p-4">
               <strong class="block text-lg md:text-xl font-sans text-amber-200">{value}</strong>
