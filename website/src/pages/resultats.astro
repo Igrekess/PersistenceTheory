@@ -24,6 +24,13 @@ const chimieMoleculaireMetrics = [
   ['× 5 900', 'plus rapide que B3LYP/def2-TZVP'],
 ];
 
+const predictionsMetrics = [
+  ['δ_CP = 197,358°', 'PMNS · DUNE ~2032'],
+  ['m_ν3 = 0,0505 eV', 'KATRIN/JUNO/cosmologie'],
+  ['Dirac', 'pas Majorana · nEXO/LEGEND ~2030'],
+  ['sin²θ₂₃ = 0,5733', 'octant supérieur · DUNE ~2032'],
+];
+
 // ── Trois lentilles de lecture ──────────────────────────────────────────────
 const lenses = [
   ['Le noyau dur', `GFT et la chaîne T0–T6 / L0 forment l'ossature mathématique. Sans cette ossature, les résultats physiques et chimiques perdent leur statut de dérivation PT.`, '/theorems'],
@@ -326,7 +333,7 @@ const statusLabel: Record<NonNullable<Card['status']>, { label: string; color: s
         <p class="text-[10px] font-sans uppercase tracking-wider text-slate-400 mb-2">
           Chimie moléculaire — 1 644 molécules (ATcT + Burcat)
         </p>
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-5">
           {chimieMoleculaireMetrics.map(([value, label]) => (
             <div class="rounded-lg border border-white/10 bg-white/10 p-4">
               <strong class="block text-3xl font-sans text-amber-200">{value}</strong>
@@ -334,6 +341,23 @@ const statusLabel: Record<NonNullable<Card['status']>, { label: string; color: s
             </div>
           ))}
         </div>
+
+        <p class="text-[10px] font-sans uppercase tracking-wider text-slate-400 mb-2">
+          Prédictions falsifiables — neutrinos et secteur PMNS
+        </p>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-3">
+          {predictionsMetrics.map(([value, label]) => (
+            <div class="rounded-lg border border-white/10 bg-white/10 p-4">
+              <strong class="block text-lg md:text-xl font-sans text-amber-200">{value}</strong>
+              <span class="text-xs text-slate-300 leading-snug">{label}</span>
+            </div>
+          ))}
+        </div>
+        <p class="text-xs text-slate-300">
+          <a href="/predictions" class="underline decoration-amber-300/60 hover:decoration-amber-300 hover:text-amber-100 transition">
+            Voir toutes les prédictions PT (P1–P7, statuts épistémiques, critères de falsification) →
+          </a>
+        </p>
       </aside>
     </section>
 
