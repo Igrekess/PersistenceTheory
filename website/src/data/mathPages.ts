@@ -742,7 +742,7 @@ export const mathPages: MathPage[] = [
       ],
       l2: [
         'Une spirale ne prouve pas une loi. Elle transforme une suite arithmétique en image et révèle des corrélations que l’œil saisit vite.',
-        'Pour la section mathématique du site, c’est un excellent pont vulgarisé : on voit avant de calculer pourquoi les survivants ont une géométrie.',
+        'Pour la section mathématique du site, c’est un excellent pont simple : on voit avant de calculer pourquoi les survivants ont une géométrie.',
       ],
       l3: [
         'Le projet PT_SPIRALS peut fournir des figures comparant Ulam, Sacks et Archimède, avec contrôles par classes modulaires.',
@@ -753,7 +753,7 @@ export const mathPages: MathPage[] = [
         String.raw`\text{classe modulaire}\rightarrow\text{alignement visuel}`,
       ],
       takeaways: [
-        'Très fort pour vulgariser.',
+        'Très bon support pour expliquer simplement.',
         'Ne pas confondre visualisation et preuve.',
         'Bon pont vers gaps, crible et classes modulaires.',
       ],

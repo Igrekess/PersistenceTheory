@@ -61,7 +61,7 @@ const articles = defineCollection({
   }),
 });
 
-/* ---------- Essays (V0.5 vulgarisation) -------------------------------- */
+/* ---------- Essays (V0.5 — version simple) ----------------------------- */
 
 const essaySchema = z.object({
   slug: z.string(),

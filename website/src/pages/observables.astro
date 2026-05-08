@@ -69,7 +69,7 @@ const barY = (count: number) => chart.bottom - (count / maxCount) * (chart.botto
   description={`Les 43 observables du Modèle Standard dérivés depuis s = 1/2 et μ* = 15. Erreur moyenne ${pctFr(mean(errors), 3)} %, médiane ${pctFr(median(errors), 3)} %, zéro paramètre continu ajusté.`}
 >
   <DashboardHero
-    eyebrow="Vulgarisé · validation quantitative"
+    eyebrow="Simple · validation quantitative"
     title="43 observables, 0 paramètre continu ajusté"
     plain="Toutes les valeurs sont dérivées de la symétrie s = 1/2 (théorème T1), à l’attracteur physique du secteur réduit μ* = 15 (T5). Aucun paramètre continu n’est ajusté."
     standard={`Sur 43 observables comparés au PDG, l’erreur moyenne est de ${pctFr(mean(errors), 3)} %, la médiane de ${pctFr(median(errors), 3)} %. L’agrégat conservateur hors auto-cohérences et entiers exacts contient ${nonStructural.length} entrées réelles indépendantes.`}
@@ -92,7 +92,7 @@ const barY = (count: number) => chart.bottom - (count / maxCount) * (chart.botto
 
     <!-- METRIQUES CLES -->
     <section class="mb-12">
-      <p class="pt-tag pt-tag-thm mb-3">Vulgarisé</p>
+      <p class="pt-tag pt-tag-thm mb-3">Simple</p>
       <h2 class="text-3xl font-bold text-thmblue mb-6">Six chiffres à retenir</h2>
       <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
         {benchmarks.map((b) => (

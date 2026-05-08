@@ -81,7 +81,7 @@ export const ui = {
       'Site en cours de développement et moteur PTC en évolution active : des erreurs, incohérences, pages incomplètes ou chiffres datés peuvent subsister.',
     'footer.report_issue': 'Signaler une erreur',
     'depth.label': 'Profondeur',
-    'depth.L1': 'Vulgarisé',
+    'depth.L1': 'Simple',
     'depth.L2': 'Standard',
     'depth.L3': 'Technique',
     'nav.more': 'Plus',
