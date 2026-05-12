@@ -1,0 +1,430 @@
+---
+slug: quasi-perelman-time-as-soliton-deficit
+title: 'Quasi-Perelman: Time as Soliton Deficit'
+summary: 'PT is not a perfect Perelman soliton, and that is precisely what makes time possible. The geometric residue $\lambda(\mu) \sim -1/\mu^4$ is the signature of the temporal branch $q^-$ — a slow-roll forced by arithmetic.'
+level: L2
+reading_minutes: 14
+related_theorems: ['T5', 'T7', 'BT13', 'BT17', 'BT18']
+lang: en
+order: 9
+---
+
+## The question
+
+Hamilton (1982) introduced the **Ricci flow**: an equation that deforms
+a geometry to gradually bring it toward an equilibrium shape. Perelman
+(2002) showed that this machinery resolves the **Poincaré conjecture** —
+a century-old open problem, which earned him the Fields medal (declined).
+At the heart of the proof: the notion of **soliton**, a state of absolute
+equilibrium where the geometry no longer changes.
+
+PT (Persistence Theory) also describes a geometry that evolves with a
+parameter $\mu$ and approaches a stable configuration at $\mu^* = 15$.
+The natural question:
+
+> **Is PT a Perelman soliton?**
+
+The short answer: *almost, but not quite*. The Fisher-Bianchi metric of
+PT at the fixed point $\mu^* = 15$ satisfies the Ricci-soliton equation
+up to a residue that crushes down as $1/\mu^4$ at large scales. This
+residue **co-occurs** with the entropic arrow of PT-time — two
+independent signatures of the same dynamical non-triviality of the
+sieve.
+
+<section data-max-depth="L1">
+
+## The picture
+
+Imagine a ball of clay deformed slowly according to a well-defined rule.
+Perelman proved that under certain conditions, the evolution makes the
+clay perfectly spherical: it reaches its **soliton**, its absolute
+equilibrium form where nothing moves anymore.
+
+PT is not a flow toward a soliton; it is a family of geometries
+parameterized by $\mu$, with a fixed point at $\mu^* = 15$. At that
+point, the PT metric **satisfies the Ricci-soliton equation up to a
+residue**. This residue is measurable, structured, and **nonzero**. It
+crushes as $1/\mu^4$ at large scales, but at $\mu^* = 15$ it remains
+small yet significant ($\sim 10^{-5}$).
+
+This difference is not an error. **It co-occurs** with the entropic
+arrow of PT-time (the $q^-$ branch). A perfect soliton would correspond
+to a geometry without this dynamical signature. PT *avoids* this fate by
+not quite closing its soliton equation.
+
+> *A perfect soliton is a frozen ball. PT is a ball that never quite
+> manages to freeze. This residual gap is time.*
+
+### The slow-roll analogy
+
+In cosmology, we know a similar situation: inflation. The primordial
+universe was nearly in equilibrium — nearly, but not exactly. This
+*"nearly"* — a tiny parameter called *slow-roll* — is precisely what
+allowed the universe to expand. Exact equilibrium would have been
+sterile: nothing would have happened.
+
+PT works the same way, but the slow-roll parameter is **forced by
+arithmetic**: it comes directly from the structure of the prime number
+sieve.
+
+### Two branches of the sieve
+
+PT explicitly distinguishes two readings at $\mu^* = 15$:
+- **$q^+$**: the static branch, which measures forces (vertex,
+  couplings, $\alpha_{\rm EM}$).
+- **$q^-$**: the dynamic branch, which measures flow (propagation,
+  dissipation, arrow of time).
+
+If PT were a perfect soliton, $\lambda(\mu) \equiv 0$ and the anisotropy
+between $\gamma_3, \gamma_5, \gamma_7$ would have to vanish. The entropic
+arrow on $q^-$ (BT13) remains independently true, but it *co-occurs* with
+the residue: the two say, from two different angles, that PT is
+dynamically non-trivial.
+
+### Why this matters
+
+If the PT–Perelman correspondence were strictly exact, PT would be a
+particular case of a theory that has already earned a Fields medal.
+That would be encouraging but not distinctive. The fact that there is
+a residual gap — **with a precise, computable mathematical form** —
+makes PT a theory that dialogues with Perelman while retaining its
+arithmetic specificity.
+
+</section>
+
+<section data-min-depth="L2">
+
+## Why almost, and why it matters
+
+### What an exact soliton would do
+
+If PT were a Ricci soliton in the strict sense, its geometry at
+$\mu^* = 15$ would be in absolute equilibrium. No evolution, no
+fluctuation, no possible trajectory. Mathematically attractive;
+physically sterile.
+
+Yet PT explicitly possesses two natural branches at $\mu^* = 15$:
+
+- **$q^+ = 1 - 2/\mu$**: the static branch (couplings, $\alpha_{\rm EM}$,
+  PMNS). The **frozen**.
+- **$q^- = e^{-1/\mu}$**: the dynamic branch (propagator, dissipation,
+  arrow of time). The **flow**.
+
+Theorem BT13 (EML closure) states strict monotonicity of the Shannon
+entropy $H$ on $q^-$:
+
+$$
+\frac{dH}{d\mu} > 0 \quad \text{strictly}.
+$$
+
+This property is **independently true** on the $q^-$ branch (it does not
+depend on the Perelman analysis). But it **co-occurs** with the
+non-triviality of the Perelman residue: both properties are jointly true
+in PT, and together they express the dynamical non-triviality of the
+sieve.
+
+### The computation
+
+We write Perelman's equation for PT:
+
+$$
+\mathrm{Ric}[g_{\rm PT}] + \mathrm{Hess}(f) = \lambda(\mu)\, g_{\rm PT}
+$$
+
+with $g_{\rm PT}$ the Fisher-Bianchi metric and $f = -\ln\alpha$ the
+potential. For a perfect soliton, $\lambda \equiv 0$. For PT,
+numerically:
+
+$$
+\lambda(15) \approx -2.5 \times 10^{-5},
+$$
+
+a tiny but nonzero value. And crucially, when $\mu$ grows large:
+
+$$
+\lambda(\mu) = -\frac{1}{\mu^4} + O\!\left(\frac{1}{\mu^5}\right).
+$$
+
+The coefficient $-1$ is **exact**. Verified at $\mu = 30{,}000$ in 60-digit
+arithmetic: $\lambda \cdot \mu^4 = -1.00011$.
+
+### The conceptual inversion
+
+The initial reading would be: "PT misses the perfect soliton, too bad."
+The correct reading is opposite:
+
+> *The fact that $\lambda \neq 0$ IS the geometric condition that makes
+> PT time possible. An exact soliton would correspond to a frozen
+> universe, with no temporal arrow, no dynamics.*
+
+**Proposition** (proved in Appendix U): the following two properties are
+equivalent in PT:
+
+1. $\lambda(\mu) \neq 0$: the Perelman residue is non-trivial (measured
+   by the spread between the three lambdas extracted by pair
+   compatibility of $(pp)$ equations).
+2. The amplitudes $\gamma_p$ are not all equal: residual anisotropy
+   between the three active directions.
+
+**Proof intuition**: if all $\gamma_p$ were identical
+($\gamma_3 = \gamma_5 = \gamma_7$), the three scale factors
+$a_p = \gamma_p/\mu$ would be equal, the system would become isotropic,
+and the Hubble parameters $H_p$ would coincide. The spread between the
+three values of $\lambda$ extracted by pairs would then trivially
+vanish.
+
+**Co-occurrence with BT13.** A third property is jointly verified in PT,
+but it is **independent** of the previous two:
+
+- (BT13) $dH/d\mu > 0$ strictly on the $q^-$ branch: the entropic
+  temporal arrow is carried by $q^-$ independently of the anisotropy of
+  the $\gamma_p$.
+
+The three properties (1)–(2)–(BT13) are thus **jointly true in PT**, but
+their strict equivalence is not proved: (1) ⟺ (2) holds, while (BT13)
+holds for its own reason. It is this co-occurrence that legitimizes the
+reading *"the residue is the geometric signature of the $q^-$ branch"*,
+without making it a formal equivalence.
+
+### The basin of stability
+
+We work inside the **reduced stable basin** of the odd sieve:
+$$(\mu_7, \mu_{11}) \approx (11.63,\, 17.98)$$
+which contains the fixed point $\mu^* = 15$. In this interval, the
+three active primes are exactly $\{3, 5, 7\}$, and the reduced map sends
+all integers $\{12, 13, 14, 15, 16, 17\}$ to $15$ (theorems BT17 and
+BT18 of the bridge program). All numerical results are systematically
+verified on this basin.
+
+### Three convergent readings
+
+The deviation from the perfect soliton can be read in three complementary
+ways:
+
+**Cosmological reading (slow-roll)**. In inflation, an exact de Sitter
+universe would be sterile: one needs a small parameter
+$\epsilon_{\rm sr} \neq 0$ that generates the dynamics. PT's residue
+$|\lambda| \sim 1/\mu^4$ plays a **role analogous** to inflationary
+slow-roll, with the nuance that it is **forced by arithmetic** rather
+than by a free scalar potential.
+
+**Perelman reading**. Perelman studies flows that *converge toward* a
+soliton. PT is not a flow: it is a family of geometries parameterized
+by $\mu$, with a fixed point at $\mu^* = 15$. The metric
+$g_{\rm PT}(\mu^*)$ satisfies the Ricci soliton equation up to a residue
+$|\lambda| \sim 10^{-5}$. So this is not an "unfinished convergence",
+but a static metric that deviates moderately from the perfect soliton,
+with that deviation crushing down at large scales.
+
+**Connes reading (NCG)**. In noncommutative geometry, time emerges from
+the modular flow of a KMS state. No modular flow $\Leftrightarrow$ no
+time. The PT residue is the arithmetic analogue of the intrinsic
+frequency of the modular flow — *the internal clock of the sieve*.
+
+### Closure of the temporal triptych
+
+Three independent results, one mechanism:
+
+| Result | Time signature |
+|---|---|
+| Chapter 13 ($g_{00} < 0$ for $\mu > \mu_c$) | Time **exists** (Lorentzian signature) |
+| Appendix R, BT13 | Time **is oriented** ($q^-$ carries the arrow) |
+| Appendix U, $\lambda \neq 0$ | Time **is never frozen** (arithmetic slow-roll) |
+
+</section>
+
+<section data-min-depth="L3">
+
+## Technical proof
+
+### Metric, gauge, and method
+
+We work in the Euclidean Fisher-Bianchi metric (after Wick rotation):
+
+$$
+g_{\rm PT}(\mu) = N(\mu)^2\, d\mu^2 + \sum_{p \in \{3,5,7\}} a_p(\mu)^2\, dx_p^2,
+$$
+
+where $a_p(\mu) := \gamma_p(\mu) / \mu$ and $\gamma_p$ is the anomalous
+dimension at prime $p$. We choose the gauge $N(\mu) = \mu$ (technically
+favorable).
+
+**Pair-compatibility method**: the soliton equation
+$\mathrm{Ric} + \mathrm{Hess}(f) = \lambda g$ has 4 diagonal components
+(1 temporal $(\tau\tau)$ + 3 spatial $(pp)$ for $p \in \{3,5,7\}$), for
+2 unknowns $(\lambda, f')$. The system is overdetermined. We extract
+$\lambda$ via the **3 pairs** $(3,5), (5,7), (3,7)$ of the spatial
+equations. If all three yield the same value, we have a soliton;
+otherwise, the spread measures the defect.
+
+### Asymptotic expansion of $\gamma_p$
+
+For large $\mu$, $q^+ = 1 - 2/\mu \to 1$. The expansion proceeds in four
+steps:
+
+1. **Binomial**: $q^p = 1 - 2p/\mu + 2p(p-1)/\mu^2 + O(1/\mu^3)$.
+2. **Deficit**: $\delta_p := (1-q^p)/p = 2/\mu - 2(p-1)/\mu^2 + O(1/\mu^3)$.
+3. **Holonomy T6**: $\sin^2\theta_p = \delta_p(2-\delta_p) = 4/\mu -
+   4p/\mu^2 + O(1/\mu^3)$.
+4. **Logarithm and derivation**: $\ln\sin^2\theta_p = \ln 4 - \ln\mu -
+   p/\mu + (p^2-4)/(6\mu^2) + O(1/\mu^3)$, then
+   $\gamma_p = -\mu\, d(\ln\sin^2\theta_p)/d\mu$:
+
+$$
+\gamma_p(\mu) = 1 - \frac{p}{\mu} + \frac{p^2 - 4}{3\mu^2} +
+  O\!\left(\frac{1}{\mu^3}\right).
+$$
+
+Asymptotically, $\gamma_p \to 1$ for every active prime: **the
+$p$-dependence disappears in the limit**.
+
+### Kinematics in gauge $N = \mu$
+
+From $\ln a_p = -\ln\mu + \ln\gamma_p$ we derive (gauge $\tau$,
+$d/d\tau = (1/\mu)\,d/d\mu$):
+
+$$
+H_p(\mu) := \frac{d(\ln a_p)}{d\tau} = \mu^{-1}\, \frac{d(\ln a_p)}{d\mu}
+= -\frac{1}{\mu^2} + \frac{p}{\mu^3} + O\!\left(\frac{1}{\mu^4}\right),
+$$
+
+$$
+\dot H_p := \frac{dH_p}{d\tau} = \mu^{-1}\, \frac{dH_p}{d\mu}
+= \frac{2}{\mu^4} - \frac{3p}{\mu^5} + O\!\left(\frac{1}{\mu^6}\right).
+$$
+
+And the useful combination:
+
+$$
+A_p(\mu) := \dot H_p + H_p\, \sum_k H_k = \frac{5}{\mu^4} -
+  \frac{15 + 6p}{\mu^5} + O\!\left(\frac{1}{\mu^6}\right).
+$$
+
+### Key step: the coefficient -1
+
+For a pair $(p_1, p_2)$, the compatibility of the $(pp)$ equation gives:
+
+$$
+\lambda_{p_1 p_2} = \frac{H_{p_2} A_{p_1} - H_{p_1} A_{p_2}}{H_{p_2} - H_{p_1}}.
+$$
+
+We compute the numerator, keeping all terms up to $1/\mu^7$:
+
+$$
+\begin{aligned}
+H_{p_2} A_{p_1} - H_{p_1} A_{p_2}
+&= \Big(-\tfrac{1}{\mu^2} + \tfrac{p_2}{\mu^3}\Big)\Big(\tfrac{5}{\mu^4} - \tfrac{15+6p_1}{\mu^5}\Big) \\
+&\quad - \Big(-\tfrac{1}{\mu^2} + \tfrac{p_1}{\mu^3}\Big)\Big(\tfrac{5}{\mu^4} - \tfrac{15+6p_2}{\mu^5}\Big) + O(1/\mu^8).
+\end{aligned}
+$$
+
+The $1/\mu^6$ terms cancel (the factor $-5/\mu^6$ appears in both).
+Remaining terms in $1/\mu^7$:
+
+$$
+\frac{15+6p_1 + 5p_2}{\mu^7} - \frac{15+6p_2 + 5p_1}{\mu^7}
+= \frac{p_1 - p_2}{\mu^7} + O\!\left(\frac{1}{\mu^8}\right).
+$$
+
+And the denominator:
+
+$$
+H_{p_2} - H_{p_1} = \frac{p_2 - p_1}{\mu^3} + O\!\left(\frac{1}{\mu^4}\right).
+$$
+
+The quotient thus gives:
+
+$$
+\boxed{\;\lambda_{p_1 p_2}(\mu) = -\frac{1}{\mu^4} + O\!\left(\frac{1}{\mu^5}\right).\;}
+$$
+
+The coefficient $-1$ is **independent of the choice of pair** among the
+three active primes $\{3, 5, 7\}$. This is what makes the value
+consistent — without this independence, the pair decomposition would
+not be well-defined.
+
+### The correction term (numerical conjecture)
+
+Numerically (mpmath 60 digits),
+
+$$
+\lambda(\mu) = -\frac{1}{\mu^4} - \frac{10}{3\mu^5} +
+  O\!\left(\frac{1}{\mu^6}\right),
+$$
+
+with the factor $-10/3$ observed at $\mu = 10{,}000$ and $30{,}000$.
+This is a **numerical conjecture** not yet analytically proved: the
+analytic derivation requires extending the $\gamma_p$ expansion to
+order $1/\mu^3$, a heavy but elementary calculation.
+
+### At the fixed point $\mu^* = 15$
+
+At $\mu = 15$ we are far from the asymptotic regime. The approximation
+$-1/\mu^4$ gives $-1.975 \times 10^{-5}$, whereas the exact value is
+$-2.5215 \times 10^{-5}$. The gap is $22\%$ relative to the exact value
+(or $28\%$ relative to the approximation $-1/\mu^4$). The
+$1/\mu^{k\geq 5}$ terms exactly account for this gap.
+
+Temptation: a local fit gives $\lambda \approx -(12/5)\, \mu^{-127/30}$
+with rel\_RMS of 0.07 % on the basin. **Rejected as an exact identity**:
+the mpmath calculation shows that the logarithmic derivative
+$d \ln|\lambda| / d \ln\mu$ varies from $-4.244$ to $-4.211$ across the
+basin (not constant). The fit is a local artifact of the expansion
+$\lambda = -\mu^{-4}(1 + 10/(3\mu) + \ldots)$, which looks like an
+effective power law in a limited $\mu$ range but is not one.
+
+### What remains open
+
+- **Exact closed form of $\lambda(\mu)$ at finite $\mu$**: the function
+  is rational (all PT operations are) but its symbolic expressions
+  explode in size. CRT decomposition modulo $3 \cdot 5 \cdot 7$ or
+  factorization in $\sin^2\theta_p$ factors.
+
+- **Analytic confirmation of $-10/3$** in the correction term.
+
+- **Global bound** $|\lambda(\mu)| \leq C/\mu^4$ on the entire basin
+  with explicit $C$.
+
+- **Mirzakhani link**: the non-power-law form of $\lambda$ suggests a
+  multi-parameter recursion, which is exactly the territory of
+  Eynard-Orantin topological recursion.
+
+</section>
+
+## To close
+
+The gap between PT and the perfect Perelman soliton is not a margin of
+error, nor an artifact of our formulation. It is a geometric invariant,
+measurable and computable, whose dominant coefficient $-1$ is proved
+exact. Its structure — the $p$-dependence that vanishes only
+asymptotically — is the direct trace of the fact that PT operates on a
+finite number of active directions, $\{3, 5, 7\}$.
+
+The residual gap is thus not the thickness of an error margin: **it is
+the thickness of time itself**, measured in units of the arithmetic
+sieve. Where Perelman proves convergence toward a soliton, PT proves
+the **controlled non-realization** of that same soliton, and finds in
+it the condition for a temporally living geometry.
+
+## Related readings
+
+- **Appendix U of the monograph**: complete proof and open program.
+- **Appendix R**: the $q^-$ branch and the entropic arrow (BT13).
+- **Chapter 13**: Lorentzian signature and time emergence.
+- **Essay [bifurcation $q^+/q^-$](/essays/bifurcation-q-plus-q-minus)**:
+  the two branches of the sieve.
+- **Code**: `PT_PROJECTS/PT_GeoFlow/` — 12 reproducible Python scripts.
+
+## References
+
+- R. S. Hamilton, *Three-manifolds with positive Ricci curvature*,
+  J. Differential Geom. 17 (1982), 255–306. (Introduction of the Ricci
+  flow.)
+- G. Perelman, *The entropy formula for the Ricci flow and its geometric
+  applications*, arXiv:math/0211159 (2002). (Proof of the Poincaré
+  conjecture.)
+- A. Connes, *Noncommutative Geometry*, Academic Press (1994). (General
+  framework; KMS states and Tomita–Takesaki modular flow.)
+- A. R. Liddle, D. H. Lyth, *Cosmological Inflation and Large-Scale
+  Structure*, Cambridge University Press (2000). (Inflationary
+  slow-roll.)

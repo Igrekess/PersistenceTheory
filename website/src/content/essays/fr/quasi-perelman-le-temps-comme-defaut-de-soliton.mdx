@@ -1,0 +1,433 @@
+---
+slug: quasi-perelman-le-temps-comme-defaut-de-soliton
+title: 'Quasi-Perelman : le temps comme défaut de soliton'
+summary: 'PT n''est pas un soliton parfait de Perelman, et c''est exactement ce qui rend le temps possible. Le résidu géométrique $\lambda(\mu) \sim -1/\mu^4$ est la signature de la branche temporelle $q^-$ — un slow-roll forcé par l''arithmétique.'
+level: L2
+reading_minutes: 14
+related_theorems: ['T5', 'T7', 'BT13', 'BT17', 'BT18']
+lang: fr
+order: 9
+---
+
+## La question
+
+Hamilton (1982) a introduit le **flot de Ricci** : une équation qui déforme
+une géométrie pour la rapprocher progressivement d'une forme d'équilibre.
+Perelman (2002) a démontré que cette machinerie permet de résoudre la
+**conjecture de Poincaré** — un problème ouvert depuis un siècle, qui lui
+a valu la médaille Fields (refusée). Au cœur de la preuve : la notion de
+**soliton**, un état d'équilibre absolu où la géométrie ne change plus.
+
+PT (la théorie de la persistance) décrit aussi une géométrie qui évolue
+avec un paramètre $\mu$ et s'approche d'une configuration stable à
+$\mu^* = 15$. La question naturelle :
+
+> **PT est-il un soliton de Perelman ?**
+
+La réponse courte : *presque, mais pas tout à fait*. La métrique
+Fisher-Bianchi de PT au point fixe $\mu^* = 15$ satisfait l'équation de
+soliton de Ricci à un résidu près, qui s'écrase comme $1/\mu^4$ aux
+grandes échelles. Ce résidu **co-occurre** avec la flèche entropique du
+temps PT — deux signatures indépendantes d'une même non-trivialité
+dynamique du crible.
+
+<section data-max-depth="L1">
+
+## L'image
+
+Imaginez une boule de pâte à modeler qu'on déforme lentement selon une
+règle bien définie. Perelman a prouvé que dans certaines conditions,
+l'évolution rend la pâte parfaitement sphérique : elle arrive à son
+**soliton**, sa forme d'équilibre absolu où plus rien ne bouge.
+
+PT n'est pas un flot vers un soliton ; c'est une famille de géométries
+paramétrée par $\mu$, avec un point fixe à $\mu^* = 15$. À ce point, la
+métrique de PT **vérifie l'équation de soliton de Ricci à un résidu près**.
+Ce résidu est mesurable, structuré, et **non nul**. Il s'écrase comme
+$1/\mu^4$ aux grandes échelles, mais à $\mu^* = 15$ il reste petit mais
+significatif ($\sim 10^{-5}$).
+
+Cette différence n'est pas une erreur. **Elle co-occurre** avec la flèche
+entropique du temps PT (la branche $q^-$). Un soliton parfait
+correspondrait à une géométrie sans cette signature dynamique. PT *évite*
+ce sort en ne fermant pas tout à fait son équation de soliton.
+
+> *Un soliton parfait est une boule figée. PT est une boule qui ne se
+> fige jamais tout à fait. Cet écart résiduel, c'est le temps.*
+
+### L'analogie du slow-roll
+
+En cosmologie, on connaît une situation similaire : l'inflation.
+L'univers primordial était presque en équilibre — presque, mais pas
+exactement. Ce *« presque »* — un paramètre minuscule appelé *slow-roll*
+— est précisément ce qui a permis à l'univers de s'étendre. Un équilibre
+exact aurait été stérile : rien ne se serait passé.
+
+PT fonctionne de la même manière, mais où le paramètre de slow-roll est
+**forcé par l'arithmétique** : il vient directement de la structure du
+crible des nombres premiers.
+
+### Deux branches du crible
+
+PT distingue explicitement deux lectures au point $\mu^* = 15$ :
+- **$q^+$** : la branche statique, qui mesure les forces (vertex,
+  couplages, $\alpha_{\rm EM}$).
+- **$q^-$** : la branche dynamique, qui mesure l'écoulement (propagation,
+  dissipation, flèche du temps).
+
+Si PT était un soliton parfait, $\lambda(\mu) \equiv 0$ et l'anisotropie
+entre $\gamma_3, \gamma_5, \gamma_7$ devrait disparaître. La flèche
+entropique sur $q^-$ (BT13) reste indépendamment vraie, mais elle
+*co-occurre* avec le résidu : les deux disent, sous deux angles
+différents, que PT est dynamiquement non-trivial.
+
+### Pourquoi c'est important
+
+Si la correspondance entre PT et Perelman était strictement exacte, PT
+serait un cas particulier d'une théorie qui a déjà valu une médaille
+Fields. C'est encourageant, mais pas distinctif. Le fait qu'il y ait un
+écart résiduel — **avec une forme mathématique précise et calculable** —
+fait de PT une théorie qui dialogue avec Perelman tout en gardant sa
+spécificité arithmétique.
+
+</section>
+
+<section data-min-depth="L2">
+
+## Pourquoi presque, et pourquoi c'est précieux
+
+### Ce que ferait un soliton exact
+
+Si PT était un soliton de Ricci au sens strict, sa géométrie en
+$\mu^* = 15$ serait en équilibre absolu. Aucune évolution, aucune
+fluctuation, aucune trajectoire possible. Mathématiquement séduisant ;
+physiquement stérile.
+
+Or PT possède explicitement deux branches naturelles à $\mu^* = 15$ :
+
+- **$q^+ = 1 - 2/\mu$** : la branche statique (couplages,
+  $\alpha_{\rm EM}$, PMNS). Le **figé**.
+- **$q^- = e^{-1/\mu}$** : la branche dynamique (propagateur, dissipation,
+  flèche du temps). Le **flux**.
+
+Le théorème BT13 (clôture EML) affirme la stricte monotonicité de
+l'entropie de Shannon $H$ sur $q^-$ :
+
+$$
+\frac{dH}{d\mu} > 0 \quad \text{strictement}.
+$$
+
+Cette propriété est **indépendamment vraie** sur la branche $q^-$ (elle
+ne dépend pas de l'analyse Perelman). Mais elle **co-occurre** avec la
+non-trivialité du résidu Perelman : les deux propriétés sont conjointement
+vraies en PT, et exprimées toutes deux la non-trivialité dynamique du
+crible.
+
+### Le calcul
+
+On écrit l'équation de Perelman pour PT :
+
+$$
+\mathrm{Ric}[g_{\rm PT}] + \mathrm{Hess}(f) = \lambda(\mu)\, g_{\rm PT}
+$$
+
+avec $g_{\rm PT}$ la métrique Fisher-Bianchi et $f = -\ln\alpha$ le
+potentiel. Pour un soliton parfait, $\lambda \equiv 0$. Pour PT,
+numériquement
+
+$$
+\lambda(15) \approx -2{,}5 \times 10^{-5},
+$$
+
+une valeur minuscule mais non-nulle. Et surtout, quand $\mu$ devient
+grand :
+
+$$
+\lambda(\mu) = -\frac{1}{\mu^4} + O\!\left(\frac{1}{\mu^5}\right).
+$$
+
+Le coefficient $-1$ est **exact**. Vérifié à $\mu = 30\,000$ en
+arithmétique 60 chiffres : $\lambda \cdot \mu^4 = -1{,}00011$.
+
+### L'inversion conceptuelle
+
+La lecture initiale serait : "PT rate le soliton parfait, dommage". La
+lecture juste est inverse :
+
+> *Le fait que $\lambda \neq 0$ EST la condition géométrique qui rend
+> le temps PT possible. Un soliton exact correspondrait à un univers
+> gelé, sans flèche temporelle, sans dynamique.*
+
+**Proposition** (démontrée dans l'annexe U) : les deux propriétés
+suivantes sont équivalentes en PT :
+
+1. $\lambda(\mu) \neq 0$ : le résidu Perelman est non-trivial (mesuré
+   par l'écart entre les trois lambdas extraits par compatibilité des
+   paires $(pp)$).
+2. Les amplitudes $\gamma_p$ ne sont pas toutes égales : anisotropie
+   résiduelle entre les trois directions actives.
+
+**Intuition de la preuve** : si tous les $\gamma_p$ étaient identiques
+($\gamma_3 = \gamma_5 = \gamma_7$), les trois facteurs d'échelle
+$a_p = \gamma_p/\mu$ seraient égaux, le système deviendrait isotrope, et
+les paramètres de Hubble $H_p$ seraient identiques. Dans ce cas, le spread
+des 3 valeurs de $\lambda$ extraites par paires s'annulerait
+trivialement.
+
+**Co-occurrence avec BT13.** Une troisième propriété est conjointement
+vérifiée en PT, mais elle est **indépendante** des deux précédentes :
+
+- (BT13) $dH/d\mu > 0$ strictement sur la branche $q^-$ : la flèche
+  temporelle entropique est portée par $q^-$ indépendamment de
+  l'anisotropie des $\gamma_p$.
+
+Les trois propriétés (1)–(2)–(BT13) sont donc **conjointement vraies en
+PT**, mais leur équivalence stricte n'est pas démontrée : (1) ⟺ (2) oui,
+(BT13) tient pour sa propre raison. C'est cette co-occurrence qui légitime
+la lecture *« le résidu est la signature géométrique de la branche
+$q^-$ »*, sans en faire une équivalence formelle.
+
+### Le bassin de stabilité
+
+On travaille à l'intérieur du **bassin réduit stable** du crible impair :
+$$(\mu_7, \mu_{11}) \approx (11{,}63\,;\,17{,}98)$$
+qui contient le point fixe $\mu^* = 15$. Dans cet intervalle, les trois
+primes actives sont exactement $\{3, 5, 7\}$, et la carte réduite renvoie
+tous les entiers $\{12, 13, 14, 15, 16, 17\}$ sur $15$ (théorèmes BT17 et
+BT18 du programme de bridge). C'est sur ce bassin que les résultats
+numériques sont systématiquement vérifiés.
+
+### Trois lectures convergentes
+
+L'écart au soliton parfait peut se lire de trois manières complémentaires :
+
+**Lecture cosmologique (slow-roll)**. En inflation, un univers de Sitter
+exact serait stérile : il faut un petit paramètre
+$\epsilon_{\rm sr} \neq 0$ qui engendre la dynamique. Le résidu PT
+$|\lambda| \sim 1/\mu^4$ joue un **rôle analogue** au slow-roll
+inflationnaire, à la nuance près qu'il est **forcé par l'arithmétique**
+plutôt que par un potentiel scalaire libre.
+
+**Lecture Perelman**. Perelman étudie des flots qui *convergent vers*
+un soliton. PT n'est pas un flot : c'est une famille de géométries
+paramétrée par $\mu$, avec un point fixe à $\mu^* = 15$. La métrique
+$g_{\rm PT}(\mu^*)$ satisfait l'équation de soliton de Ricci à un résidu
+$|\lambda| \sim 10^{-5}$ près. Ce n'est donc pas une "convergence
+inachevée", c'est une métrique statique qui dévie modérément du soliton
+parfait, et dont la déviation s'écrase à grande échelle.
+
+**Lecture Connes (NCG)**. En géométrie non commutative, le temps émerge
+du flot modulaire d'un état KMS. Pas de flot modulaire $\Leftrightarrow$
+pas de temps. Le résidu PT est l'analogue arithmétique de la fréquence
+intrinsèque du flot modulaire — *l'horloge interne du crible*.
+
+### Clôture du triptyque temporel
+
+Trois résultats indépendants, un même mécanisme :
+
+| Résultat | Signature du temps |
+|---|---|
+| Chapitre 13 ($g_{00} < 0$ pour $\mu > \mu_c$) | Le temps **existe** (signature lorentzienne) |
+| Annexe R, BT13 | Le temps **est orienté** ($q^-$ porte la flèche) |
+| Annexe U, $\lambda \neq 0$ | Le temps **n'est jamais figé** (slow-roll arithmétique) |
+
+</section>
+
+<section data-min-depth="L3">
+
+## Démonstration technique
+
+### Métrique, jauge et méthode
+
+On travaille dans la métrique Fisher-Bianchi euclidienne (après rotation
+de Wick) :
+
+$$
+g_{\rm PT}(\mu) = N(\mu)^2\, d\mu^2 + \sum_{p \in \{3,5,7\}} a_p(\mu)^2\, dx_p^2,
+$$
+
+où $a_p(\mu) := \gamma_p(\mu) / \mu$ et $\gamma_p$ est la dimension
+anomale au prime $p$. Jauge $N(\mu) = \mu$ (techniquement favorable).
+
+**Méthode de compatibilité par paires** : l'équation soliton
+$\mathrm{Ric} + \mathrm{Hess}(f) = \lambda g$ possède 4 composantes
+diagonales (1 temporelle $(\tau\tau)$ + 3 spatiales $(pp)$ pour
+$p \in \{3,5,7\}$), pour 2 inconnues $(\lambda, f')$. Le système est
+surdéterminé. On extrait $\lambda$ via les **3 paires** $(3,5), (5,7),
+(3,7)$ des équations spatiales. Si les trois donnent la même valeur, on
+a un soliton ; sinon, l'écart mesure le défaut.
+
+### Développement asymptotique des $\gamma_p$
+
+Pour $\mu$ grand, $q^+ = 1 - 2/\mu \to 1$. Le développement procède en
+quatre étapes :
+
+1. **Binôme** : $q^p = 1 - 2p/\mu + 2p(p-1)/\mu^2 + O(1/\mu^3)$.
+2. **Déficit** : $\delta_p := (1-q^p)/p = 2/\mu - 2(p-1)/\mu^2 + O(1/\mu^3)$.
+3. **Holonomie T6** : $\sin^2\theta_p = \delta_p(2-\delta_p) = 4/\mu -
+   4p/\mu^2 + O(1/\mu^3)$.
+4. **Logarithme et dérivation** : $\ln\sin^2\theta_p = \ln 4 - \ln\mu -
+   p/\mu + (p^2-4)/(6\mu^2) + O(1/\mu^3)$, puis
+   $\gamma_p = -\mu\, d(\ln\sin^2\theta_p)/d\mu$ :
+
+$$
+\gamma_p(\mu) = 1 - \frac{p}{\mu} + \frac{p^2 - 4}{3\mu^2} +
+  O\!\left(\frac{1}{\mu^3}\right).
+$$
+
+Asymptotiquement, $\gamma_p \to 1$ pour toute prime active : **la
+dépendance en $p$ disparaît à la limite**.
+
+### Cinématique en jauge $N = \mu$
+
+À partir de $\ln a_p = -\ln\mu + \ln\gamma_p$ on dérive (jauge $\tau$,
+$d/d\tau = (1/\mu)\,d/d\mu$) :
+
+$$
+H_p(\mu) := \frac{d(\ln a_p)}{d\tau} = \mu^{-1}\, \frac{d(\ln a_p)}{d\mu}
+= -\frac{1}{\mu^2} + \frac{p}{\mu^3} + O\!\left(\frac{1}{\mu^4}\right),
+$$
+
+$$
+\dot H_p := \frac{dH_p}{d\tau} = \mu^{-1}\, \frac{dH_p}{d\mu}
+= \frac{2}{\mu^4} - \frac{3p}{\mu^5} + O\!\left(\frac{1}{\mu^6}\right).
+$$
+
+Et la combinaison utile :
+
+$$
+A_p(\mu) := \dot H_p + H_p\, \sum_k H_k = \frac{5}{\mu^4} -
+  \frac{15 + 6p}{\mu^5} + O\!\left(\frac{1}{\mu^6}\right).
+$$
+
+### Étape clé : le coefficient -1
+
+Pour une paire $(p_1, p_2)$, la compatibilité de l'équation $(pp)$ donne :
+
+$$
+\lambda_{p_1 p_2} = \frac{H_{p_2} A_{p_1} - H_{p_1} A_{p_2}}{H_{p_2} - H_{p_1}}.
+$$
+
+Calculons le numérateur, en gardant tous les termes jusqu'à $1/\mu^7$ :
+
+$$
+\begin{aligned}
+H_{p_2} A_{p_1} - H_{p_1} A_{p_2}
+&= \Big(-\tfrac{1}{\mu^2} + \tfrac{p_2}{\mu^3}\Big)\Big(\tfrac{5}{\mu^4} - \tfrac{15+6p_1}{\mu^5}\Big) \\
+&\quad - \Big(-\tfrac{1}{\mu^2} + \tfrac{p_1}{\mu^3}\Big)\Big(\tfrac{5}{\mu^4} - \tfrac{15+6p_2}{\mu^5}\Big) + O(1/\mu^8).
+\end{aligned}
+$$
+
+Les termes en $1/\mu^6$ s'annulent (le facteur $-5/\mu^6$ apparaît dans
+les deux). Restent les termes en $1/\mu^7$ :
+
+$$
+\frac{15+6p_1 + 5p_2}{\mu^7} - \frac{15+6p_2 + 5p_1}{\mu^7}
+= \frac{p_1 - p_2}{\mu^7} + O\!\left(\frac{1}{\mu^8}\right).
+$$
+
+Et le dénominateur :
+
+$$
+H_{p_2} - H_{p_1} = \frac{p_2 - p_1}{\mu^3} + O\!\left(\frac{1}{\mu^4}\right).
+$$
+
+Le quotient donne donc :
+
+$$
+\boxed{\;\lambda_{p_1 p_2}(\mu) = -\frac{1}{\mu^4} + O\!\left(\frac{1}{\mu^5}\right).\;}
+$$
+
+Le coefficient $-1$ est **indépendant du choix de paire** parmi les trois
+primes actives $\{3, 5, 7\}$. C'est ce qui rend la valeur cohérente —
+sans cette indépendance, la décomposition par paires ne serait pas bien
+définie.
+
+### Le terme correctif (conjecture numérique)
+
+Numériquement (mpmath 60 chiffres),
+
+$$
+\lambda(\mu) = -\frac{1}{\mu^4} - \frac{10}{3\mu^5} +
+  O\!\left(\frac{1}{\mu^6}\right),
+$$
+
+avec le facteur $-10/3$ observé à $\mu = 10\,000$ et $30\,000$. C'est une
+**conjecture numérique** non encore démontrée analytiquement : la
+dérivation analytique demande l'extension à l'ordre $1/\mu^3$ des
+$\gamma_p$, calcul lourd mais élémentaire.
+
+### Au point fixe $\mu^* = 15$
+
+À $\mu = 15$ on est loin du régime asymptotique. L'approximation
+$-1/\mu^4$ donne $-1{,}975 \times 10^{-5}$, alors que la valeur exacte
+est $-2{,}521\,5 \times 10^{-5}$. L'écart est de $22\%$ en valeur
+relative à l'exact (ou $28\%$ si l'on mesure relativement à
+l'approximation $-1/\mu^4$). Les termes $1/\mu^{k\geq 5}$ comblent
+exactement cet écart.
+
+Tentation : un fit local donne $\lambda \approx -(12/5)\, \mu^{-127/30}$
+avec rel\_RMS de 0,07 % sur le bassin. **Rejeté comme identité exacte** :
+le calcul mpmath montre que la dérivée logarithmique
+$d \ln|\lambda| / d \ln\mu$ varie de $-4{,}244$ à $-4{,}211$ sur le
+bassin (donc pas constante). Le fit est un artefact local du
+développement $\lambda = -\mu^{-4}(1 + 10/(3\mu) + \ldots)$, qui
+ressemble à une loi de puissance effective dans un intervalle limité de
+$\mu$ mais n'en est pas une.
+
+### Ce qui reste ouvert
+
+- **Forme close exacte de $\lambda(\mu)$ à $\mu$ fini** : la fonction
+  est rationnelle (toutes les opérations PT le sont) mais ses expressions
+  symboliques explosent en taille. Décomposition CRT modulo
+  $3 \cdot 5 \cdot 7$ ou factorisation en facteurs de $\sin^2\theta_p$.
+
+- **Confirmation analytique du $-10/3$** au terme correctif.
+
+- **Borne globale** $|\lambda(\mu)| \leq C/\mu^4$ sur le bassin entier
+  avec $C$ explicite.
+
+- **Lien Mirzakhani** : la forme non-puissance de $\lambda$ suggère une
+  récurrence multi-paramétrique, qui est exactement le territoire
+  topological recursion d'Eynard-Orantin.
+
+</section>
+
+## Pour finir
+
+L'écart entre PT et le soliton parfait de Perelman n'est pas une marge
+d'erreur, ni un artefact de notre formulation. C'est un invariant
+géométrique, mesurable et calculable, dont le coefficient dominant
+$-1$ est démontré exact. Sa structure — la dépendance en $p$ qui ne
+disparaît qu'asymptotiquement — est la trace directe du fait que PT
+opère sur un nombre fini de directions actives, $\{3, 5, 7\}$.
+
+L'écart résiduel n'est donc pas l'épaisseur d'une marge d'erreur :
+**c'est l'épaisseur du temps lui-même**, mesurée en unités du crible
+arithmétique. La où Perelman démontre la convergence vers un soliton,
+PT démontre la **non-réalisation contrôlée** de ce même soliton, et y
+trouve la condition d'une géométrie temporellement vivante.
+
+## Lectures liées
+
+- **Annexe U de la monographie** : démonstration complète et programme
+  ouvert.
+- **Annexe R** : la branche $q^-$ et la flèche entropique (BT13).
+- **Chapitre 13** : signature lorentzienne et émergence du temps.
+- **Essay [bifurcation $q^+/q^-$](/essays/bifurcation-q-plus-q-minus)** :
+  les deux branches du crible.
+- **Code** : `PT_PROJECTS/PT_GeoFlow/` — 12 scripts Python reproductibles.
+
+## Références
+
+- R. S. Hamilton, *Three-manifolds with positive Ricci curvature*,
+  J. Differential Geom. 17 (1982), 255–306. (Introduction du flot de
+  Ricci.)
+- G. Perelman, *The entropy formula for the Ricci flow and its geometric
+  applications*, arXiv:math/0211159 (2002). (Démonstration de la
+  conjecture de Poincaré.)
+- A. Connes, *Noncommutative Geometry*, Academic Press (1994). (Cadre
+  général ; états KMS et flot modulaire de Tomita–Takesaki.)
+- A. R. Liddle, D. H. Lyth, *Cosmological Inflation and Large-Scale
+  Structure*, Cambridge University Press (2000). (Slow-roll
+  inflationnaire.)
