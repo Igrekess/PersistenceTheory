@@ -1,0 +1,698 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{geometry}
+\usepackage{hyperref}
+\usepackage{url}
+\usepackage{booktabs}
+\usepackage{microtype}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usetikzlibrary{patterns}
+
+\geometry{margin=2.5cm}
+\hypersetup{colorlinks=true, linkcolor=blue, urlcolor=blue, citecolor=blue,
+            pdftitle={Une dérivation arithmétique du coefficient de Casimir},
+            pdfauthor={Yan Senez}}
+
+\newtheorem{theoreme}{Théorème}
+\newtheorem{proposition}{Proposition}
+\newtheorem{lemme}{Lemme}
+\newtheorem{definition}{Définition}
+\newtheorem{remarque}{Remarque}
+\newtheorem{conjecture}{Conjecture}
+
+\newcommand{\zetaR}{\zeta_R}
+\newcommand{\actives}{\{3,5,7\}}
+\newcommand{\PTset}{\{2,3,5,7\}}
+\newcommand{\echoes}{\{p \geq 11\}}
+\newcommand{\Nspatial}{N_{\rm spatial}}
+\newcommand{\Ntrans}{N_{\rm transverse}}
+\newcommand{\IPT}{I_{\rm PT}}
+
+\title{\textbf{Une dérivation arithmétique du coefficient de Casimir}\\
+       {\large depuis la Théorie de la Persistance, et une signature falsifiable des nombres premiers d'écho}}
+\author{Yan Senez \\ {\small Recherche indépendante \quad \texttt{yan.senez@protonmail.com}}}
+\date{Mai 2026}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+Nous montrons que le coefficient standard de la pression de Casimir entre deux plaques parfaitement
+conductrices, $P/a^{-4} = -\pi^{2}/240$, admet une dérivation arithmétique complète depuis le cadre
+de la Théorie de la Persistance (PT)~\cite{Senez2026}, sans paramètre ajusté. La dérivation
+factorise le coefficient en deux objets PT-natifs~: un préfacteur géométrique
+$\Nspatial / (2 \cdot (2\pi)^{\Ntrans})$ identifié entièrement par le décompte dimensionnel
+de la cascade des nombres premiers actifs, et un facteur eulérien
+$\zeta(4) = \prod_{p}(1-p^{-4})^{-1}$ tronqué à l'ensemble premier PT-naturel
+$\PTset$. La troncature reproduit le coefficient standard à $131$~ppm près~; le résidu
+est rigoureusement égal à la queue eulérienne sur les nombres premiers d'écho $\echoes$. La
+construction est universelle~: pour les dimensions spatiales $d \in \{1,\dots,5\}$, le résidu de
+troncature égale $\prod_{p \geq 11}(1-p^{-(d+1)})^{-1}$ à la précision machine pour $d \geq 3$.
+Nous formulons une conjecture quantitative falsifiable~: une mesure différentielle de Casimir à
+mieux que $100$~ppm doit révéler une déviation de $1{,}31 \times 10^{-4}$ par rapport à la
+prédiction QED standard. Une section finale précise ce que la lecture PT permet d'exclure
+mécaniquement~: aucune extraction nette d'énergie d'une cavité Casimir statique n'est compatible
+avec l'identité fondamentale du cadre.
+\end{abstract}
+
+\section{Introduction}
+
+L'effet Casimir est la force macroscopique entre deux plaques métalliques non chargées prédite
+par Casimir en 1948~\cite{Casimir1948} et confirmée expérimentalement à mieux que le pour-cent par
+Lamoreaux~\cite{Lamoreaux1997}, Mohideen et Roy~\cite{Mohideen1998},
+Bressi \emph{et al.}~\cite{Bressi2002}, et Decca \emph{et al.}~\cite{Decca2003,Decca2007}. Dans la
+limite plaques idéales (parfaitement conductrices, température nulle, sans dispersion matérielle),
+la pression prédite est
+\begin{equation}
+P_{\rm Casimir}(a) = -\frac{\pi^{2}}{240\,a^{4}},
+\label{eq:standard-coefficient}
+\end{equation}
+où $a$ est la séparation entre plaques en unités naturelles $\hbar = c = 1$. Le coefficient
+$\pi^{2}/240$ provient traditionnellement de la sommation régularisée des modes de point zéro
+\emph{via} $\zetaR(-3) = 1/120$~\cite{Mostepanenko2009,Milton2001}.
+
+Cette dérivation est interprétée habituellement comme la manifestation du vide quantique~: une
+somme sur les modes dont la différence entre configurations bornée et libre donne une force finie
+attractive. La somme infinie d'énergie de point zéro est traitée par continuation analytique ou
+régularisation zêta, méthodes qui présupposent un spectre continu.
+
+La Théorie de la Persistance (PT)~\cite{Senez2026} reformule ce cadre sans recours au vide
+quantique. En PT, chaque observable du Modèle Standard est dérivé d'un unique axiome arithmétique
+$s = 1/2$ et du point fixe structurel $\mu^{*} = 15$ du crible d'Ératosthène. Les
+$43$~observables du Modèle Standard sont reproduits depuis les seuls
+$\{\gamma_{p}, \sin^{2}\theta_{p}, \mu^{*}\}$ avec une précision médiane de $0{,}06\%$ et zéro
+paramètre ajusté.
+
+Une question naturelle se pose~: le coefficient \eqref{eq:standard-coefficient} admet-il la même
+dérivation~? Nous répondons positivement. Le coefficient se factorise en un préfacteur géométrique
+identifié en termes PT et un facteur eulérien tronqué à l'ensemble premier PT-naturel. Le résidu
+de troncature est exactement la queue eulérienne sur les primes d'écho, fournissant une
+signature falsifiable.
+
+L'article est structuré comme suit. La Section~\ref{sec:standard} rappelle la dérivation standard
+en dimension quelconque. La Section~\ref{sec:pt-decomposition} introduit la classification PT des
+nombres premiers. La Section~\ref{sec:c3} démontre le résultat principal de troncature
+(Proposition~\ref{prop:c3-residue}) et l'unicité PT-naturelle (Théorème~\ref{thm:c3-uniqueness}). La Section~\ref{sec:prefactor} identifie le préfacteur
+géométrique en termes PT-natifs. La Section~\ref{sec:universality} étend le résultat à des
+dimensions arbitraires. La Section~\ref{sec:falsifiability} formule la conjecture falsifiable et
+propose un protocole expérimental. La Section~\ref{sec:no-extraction} précise pourquoi la lecture
+PT exclut toute extraction d'énergie nette d'une cavité Casimir statique. Une discussion
+(Section~\ref{sec:discussion}) replace ces résultats dans le programme PT.
+
+\section{La dérivation standard~: le squelette analytique}
+\label{sec:standard}
+
+La pression de Casimir idéale entre deux plaques parfaitement conductrices séparées de $a$ en
+$d+1$~dimensions d'espace-temps ($d$~spatiales), pour un champ massless avec $\nu$ modes
+indépendants par fréquence et conditions de bord de Dirichlet, est~\cite{Mostepanenko2009,Klimchitskaya2009}
+\begin{equation}
+|P_{d}^{(\nu)}| = \nu \cdot \frac{d \cdot \Gamma\bigl((d+1)/2\bigr) \cdot \zeta(d+1)}{2 \cdot 2^{d}\,\pi^{(d+1)/2}\,a^{d+1}}.
+\label{eq:dim-d-coefficient}
+\end{equation}
+Le facteur $\nu$ compte les modes indépendants~: $\nu = 1$ pour un scalaire simple, $\nu = 2$ pour
+le champ électromagnétique en $d = 3$ (polarisations TE et TM). Le facteur $1/2$ est la
+demi-différence de Casimir entre spectres bornés et libres (ce \emph{n'est pas} une normalisation
+de point zéro dans la lecture PT~; voir Section~\ref{sec:no-extraction}). Le compte de modes $\nu$
+en dimension supérieure dépend de la convention et n'affecte pas l'analyse de troncature C3
+ci-dessous.
+
+Pour $d = 3$, $\nu = 2$ redonne~\eqref{eq:standard-coefficient}. Pour $d = 1$, $\nu = 1$ donne
+$|P_1| = \pi/(24\,a^2)$. Pour présenter un tableau dimensionnel uniforme en
+Section~\ref{sec:universality}, nous adoptons la convention $\nu = 2$ partout (multiplicité
+généralisée ``EM-like''), ce qui ne modifie aucun énoncé PT~: le facteur de multiplicité s'annule
+dans le résidu relatif~\eqref{eq:c3-residue}.
+
+Le coefficient \eqref{eq:dim-d-coefficient} contient deux structures distinctes~:
+\begin{enumerate}
+  \item Un \emph{préfacteur géométrique}
+  $\mathcal{G}_{d} = d \cdot \Gamma((d+1)/2) / (2^{d}\,\pi^{(d+1)/2})$.
+  \item Un \emph{facteur arithmétique} $\zeta(d+1)$.
+\end{enumerate}
+
+Le facteur arithmétique admet le développement eulérien
+\begin{equation}
+\zeta(s) = \prod_{p \text{ premier}} \frac{1}{1 - p^{-s}}.
+\label{eq:euler-product}
+\end{equation}
+C'est le point d'entrée de l'analyse PT~: le coefficient \eqref{eq:dim-d-coefficient} est
+structurellement un produit sur tous les premiers, modulé par un préfacteur géométrique fini.
+
+\section{Décomposition PT du crible}
+\label{sec:pt-decomposition}
+
+PT classifie les nombres premiers selon leur rôle dans la cascade du crible
+$\mu_{k+1} = \sum \{p : \gamma_{p}(\mu_{k}) > 1/2 \}$. L'unique point fixe auto-cohérent est
+$\mu^{*} = 3 + 5 + 7 = 15$, avec la structure suivante~\cite{Senez2026}~:
+
+\begin{itemize}
+  \item $p = 2$~: \emph{canal de parité}. Cinématique uniquement ($T_{2} = (1)$). Porte la symétrie
+  binaire $s = 1/2$.
+  \item $p \in \actives$~: \emph{nombres premiers actifs dimensionnels}. $\gamma_{p}(\mu^{*}) > 1/2$
+  pour $p \in \actives$, contribuant aux trois dimensions spatiales de $\mathrm{SU}(N_{c}=3)$ et
+  aux observables actives.
+  \item $p \in \echoes$~: \emph{nombres premiers d'écho}. $\gamma_{p}(\mu^{*}) < 1/2$.
+  Contribuent aux corrections virtuelles (\emph{e.g.} VP d'écho dans $\alpha_{\rm EM}$) et aux
+  observables du secteur sombre.
+\end{itemize}
+
+L'ensemble premier PT-naturel est donc $\PTset$. Nous décomposons le produit eulérien
+\eqref{eq:euler-product} le long de cette classification~:
+\begin{equation}
+\zeta(s) = \zeta_{\rm parit\acute{e}}(s) \cdot \zeta_{\rm actifs}(s) \cdot \zeta_{\rm echo}(s),
+\label{eq:pt-split}
+\end{equation}
+où $\zeta_{\rm parit\acute{e}}(s) = (1 - 2^{-s})^{-1}$,
+$\zeta_{\rm actifs}(s) = \prod_{p \in \actives}(1-p^{-s})^{-1}$, et
+$\zeta_{\rm echo}(s) = \prod_{p \geq 11}(1-p^{-s})^{-1}$.
+
+\section{La troncature C3~: prédiction sans paramètre}
+\label{sec:c3}
+
+\begin{definition}[Troncature C3 PT-naturelle]
+On définit la fonction zêta PT-tronquée
+\begin{equation}
+\zeta_{\rm PT}(s) := \zeta_{\rm parit\acute{e}}(s) \cdot \zeta_{\rm actifs}(s)
+                   = \prod_{p \in \PTset}\frac{1}{1 - p^{-s}}.
+\end{equation}
+Le coefficient de pression de Casimir PT-natif C3 est
+\begin{equation}
+|P_{d}^{\rm PT}| := \mathcal{G}_{d} \cdot \zeta_{\rm PT}(d+1) \cdot a^{-(d+1)}.
+\end{equation}
+\end{definition}
+
+\begin{proposition}[Résidu de troncature C3]
+\label{prop:c3-residue}
+L'erreur relative de la troncature C3 est exactement la correction multiplicative de queue
+d'écho~:
+\begin{equation}
+\frac{|P_{d}^{(\nu)}| - |P_{d}^{{\rm PT},(\nu)}|}{|P_{d}^{(\nu)}|}
+\;=\; 1 - \frac{1}{\zeta_{\rm echo}(d+1)}
+\;=\; 1 - \prod_{p \geq 11}\bigl(1 - p^{-(d+1)}\bigr).
+\label{eq:c3-residue}
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+Par \eqref{eq:pt-split}, $\zeta(d+1) = \zeta_{\rm PT}(d+1) \cdot \zeta_{\rm echo}(d+1)$. En
+substituant dans le coefficient standard~\eqref{eq:dim-d-coefficient}~:
+\[
+|P_{d}^{(\nu)}| = \nu\,\mathcal{G}_{d} \cdot \zeta_{\rm PT}(d+1) \cdot \zeta_{\rm echo}(d+1) \cdot a^{-(d+1)} = |P_{d}^{{\rm PT},(\nu)}| \cdot \zeta_{\rm echo}(d+1).
+\]
+Donc $|P_{d}^{{\rm PT},(\nu)}|/|P_{d}^{(\nu)}| = 1/\zeta_{\rm echo}(d+1) = \prod_{p \geq 11}(1-p^{-(d+1)})$, et
+l'erreur relative \eqref{eq:c3-residue} en découle. La multiplicité $\nu$ se simplifie.
+\end{proof}
+
+La Proposition~\ref{prop:c3-residue} est une identité algébrique. Le contenu substantif de cet
+article est plutôt l'énoncé structurel suivant, qui justifie pourquoi $\PTset$ est l'\emph{unique}
+troncature PT-naturelle~:
+
+\begin{theoreme}[Unicité de l'ensemble premier C3]
+\label{thm:c3-uniqueness}
+Soit $S \subset \mathbb{N}$ un ensemble fini de premiers tel que le coefficient tronqué
+$\mathcal{G}_{d} \cdot \prod_{p \in S}(1-p^{-(d+1)})^{-1}$ approxime le coefficient
+standard~\eqref{eq:dim-d-coefficient} avec une erreur relative décroissant en
+$\sum_{p \notin S} p^{-(d+1)}$ uniformément pour $d \in \{1,\ldots,5\}$. Alors $S = \PTset$ est
+l'unique tel ensemble engendré par la classification PT des nombres premiers
+de~\cite{Senez2026} (Théorèmes T5 et T6).
+\end{theoreme}
+
+\begin{proof}[Esquisse]
+La classification PT (\cite{Senez2026}, T5) sépare les premiers en $\{p : \gamma_p(\mu^*) > 1/2\}
+= \actives$ (actifs dimensionnels), $\{2\}$ (parité, cinématique), et $\{p \geq 11\}$ (primes d'écho).
+T6 prouve que $\gamma_p$ est strictement monotone décroissant en $p$ à $\mu^* = 15$ (preuve
+algébrique avec rationnel exact $q_+ = 13/15$), donc l'ensemble actif est exactement
+$\{3, 5, 7\}$. Le premier de parité $p = 2$ entre dans la somme spectrale cinématiquement (il
+détermine l'existence des modes, non leur contribution dimensionnelle). Donc la troncature
+PT-naturelle ``physiquement présente'' est $\PTset$, et tout ensemble plus grand incorpore des
+primes d'écho que PT classifie comme non-dimensionnels.
+
+Réciproquement, tout sous-ensemble strict $S \subsetneq \PTset$ soit omet la parité (et le
+résidu acquiert un facteur $1/15$ supplémentaire), soit omet un premier actif (le résidu
+acquiert $\sim 1/p^{d+1}$ à $d$ fixé, brisant le scaling uniforme en~$d$).
+\end{proof}
+
+\begin{remarque}
+Le Théorème~\ref{thm:c3-uniqueness} est le résultat structurel substantif. L'accord numérique
+de la Section~\ref{sec:c3} en découle alors par application de la
+Proposition~\ref{prop:c3-residue} à l'unique troncature PT-naturelle $S = \PTset$.
+\end{remarque}
+
+\subsection{Évaluation numérique en 3D}
+
+Pour $d = 3$, on calcule
+\begin{align*}
+\zeta_{\rm parit\acute{e}}(4) &= (1 - 2^{-4})^{-1} = 16/15,\\
+\zeta_{\rm actifs}(4) &= \tfrac{81}{80} \cdot \tfrac{625}{624} \cdot \tfrac{2401}{2400} \approx 1{,}014542,\\
+\zeta_{\rm PT}(4) &= 16/15 \cdot 81/80 \cdot 625/624 \cdot 2401/2400 \approx 1{,}082091,\\
+\zeta(4) &= \pi^{4}/90 \approx 1{,}082323.
+\end{align*}
+Le préfacteur géométrique en $d = 3$ vaut
+$\mathcal{G}_{3} = 3 \Gamma(2)/(8\pi^{2}) = 3/(8\pi^{2})$. Donc
+\[
+|P_{3}^{\rm PT}| = \frac{3}{8\pi^{2}} \cdot 1{,}082091 \cdot a^{-4}
+\;\approx\; 0{,}041118 \cdot a^{-4},
+\]
+contre la valeur standard $|P_{3}| = \pi^{2}/240 \cdot a^{-4} \approx 0{,}041123 \cdot a^{-4}$.
+
+L'erreur relative est de $131$~ppm, identique à $1/\zeta_{\rm echo}(4) - 1 = -\sum_{p \geq 11}\log(1-p^{-4}) \approx 1{,}31 \times 10^{-4}$, exactement comme prédit par la Proposition~\ref{prop:c3-residue}.
+
+\section{Le préfacteur géométrique en termes PT}
+\label{sec:prefactor}
+
+Le préfacteur $\mathcal{G}_{3} = 3/(8\pi^{2})$ admet une identification complète en termes
+PT-natifs~:
+\begin{equation}
+\frac{3}{8\pi^{2}} \;=\; \frac{\Nspatial}{2 \cdot (2\pi)^{\Ntrans}},
+\label{eq:prefactor-pt}
+\end{equation}
+avec $\Nspatial = 3$ (le nombre de premiers actifs, équivalent au nombre de dimensions spatiales~;
+voir~\cite{Senez2026}, Théorème T5) et $\Ntrans = 2$ (le nombre de directions de modes transverses
+aux plaques). Le facteur $1/2$ est la normalisation standard de l'énergie de point zéro, et
+$(2\pi)^{\Ntrans}$ correspond à deux copies du périmètre cyclique de $S^{1}$, limite continue de
+$\mathbb{Z}/p\mathbb{Z}$ dans la construction PT.
+
+L'identification \eqref{eq:prefactor-pt} est exacte et ne contient aucun apport analytique
+au-delà de la structure PT. Le coefficient de Casimir en 3D est donc entièrement PT-natif modulo
+le produit eulérien universel $\zeta(4)$, lui-même décomposé selon la classification PT.
+
+\section{Universalité dimensionnelle}
+\label{sec:universality}
+
+Nous testons la Proposition~\ref{prop:c3-residue} pour les dimensions $d = 1$ à $d = 5$ \emph{via}
+la formule~\eqref{eq:dim-d-coefficient}.
+
+\begin{table}[ht]
+\centering
+\caption{Troncature C3 selon la dimension. Le résidu de troncature égale la correction
+multiplicative de queue d'écho à la précision machine pour $d \geq 3$ et avec une précision
+limitée par l'expansion logarithmique pour $d = 1, 2$.}
+\label{tab:dimensional-scan}
+\begin{tabular}{cccccc}
+\toprule
+$d$ & $|P_{d}| \cdot a^{d+1}$ standard & $|P_{d}^{\rm PT}| \cdot a^{d+1}$ C3 & Résidu (ppm) & Queue d'écho (ppm) & Accord \\
+\midrule
+$1$ & $0{,}26180$ & $0{,}25386$ & $30\,325$ & $31\,272$ & $\sim$3\% \\
+$2$ & $0{,}09566$ & $0{,}09548$ & $1\,809$ & $1\,812$ & $0{,}2\%$ \\
+$3$ & $0{,}04112$ & $0{,}04112$ & $131{,}0$ & $131{,}0$ & exact \\
+$4$ & $0{,}01970$ & $0{,}01970$ & $10{,}3$ & $10{,}3$ & exact \\
+$5$ & $0{,}01025$ & $0{,}01025$ & $0{,}84$ & $0{,}84$ & exact \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+La pureté de la prédiction croît exponentiellement avec~$d$. C'est une conséquence quantitative
+de la Proposition~\ref{prop:c3-residue}~: la correction de queue d'écho est bornée par
+$\sum_{p \geq 11} p^{-(d+1)}$, qui converge super-exponentiellement à mesure que $d$ croît.
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}
+\begin{semilogyaxis}[
+    width=12cm, height=7cm,
+    xlabel={dimension spatiale $d$},
+    ylabel={résidu (ppm)},
+    xmin=0.5, xmax=5.5,
+    ymin=0.3, ymax=100000,
+    xtick={1,2,3,4,5},
+    grid=major,
+    legend pos=north east,
+    legend cell align={left},
+]
+\addplot[thick, blue, mark=*, mark size=3pt] coordinates {
+    (1, 30325) (2, 1809) (3, 131.0) (4, 10.3) (5, 0.84)
+};
+\addlegendentry{Résidu de troncature C3}
+\addplot[thick, red, dashed, mark=square*, mark size=3pt] coordinates {
+    (1, 31272) (2, 1812) (3, 131.0) (4, 10.3) (5, 0.84)
+};
+\addlegendentry{Queue d'écho $\prod_{p\geq11}(1-p^{-(d+1)})^{-1}-1$}
+\addplot[thick, green!60!black, dotted] coordinates {
+    (1, 90909) (2, 8264) (3, 751) (4, 68.3) (5, 6.21)
+};
+\addlegendentry{Borne $\sum_{p \geq 11} p^{-(d+1)}$}
+\node[anchor=south west, fill=yellow!30, inner sep=2pt] at (axis cs:2.7,200) {point d'équilibre expérimental};
+\draw[thick, ->, gray] (axis cs:3.05,300) -- (axis cs:3,140);
+\end{semilogyaxis}
+\end{tikzpicture}
+\caption{Résidu de troncature C3 (en ppm) selon la dimension spatiale $d$. Trait bleu plein~:
+résidu de troncature observé $1 - |P_d^{\rm PT}|/|P_d|$. Trait rouge tireté~: correction
+multiplicative de queue d'écho prédite $\zeta_{\rm echo}(d+1) - 1$. Les deux courbes coïncident
+à la précision machine pour $d \geq 3$. Trait vert pointillé~: la borne supérieure simple de
+la Proposition~\ref{prop:asymptotic}. Le point 3D ($131$~ppm) est au point d'équilibre
+expérimental~: suffisamment petit pour constituer une prédiction propre, suffisamment grand
+pour être testable par les techniques différentielles actuelles.}
+\label{fig:c3-vs-d}
+\end{figure}
+
+\begin{proposition}[Pureté asymptotique]
+\label{prop:asymptotic}
+La prédiction C3 approche le coefficient exact à la vitesse
+\begin{equation}
+\frac{|P_{d}^{(\nu)}| - |P_{d}^{{\rm PT},(\nu)}|}{|P_{d}^{(\nu)}|} \;\leq\; \sum_{p \geq 11} p^{-(d+1)} \;\sim\; 11^{-(d+1)}\;\text{quand}\;d \to \infty.
+\end{equation}
+\end{proposition}
+
+La dimension physique $d = 3$ se trouve dans le \emph{point d'équilibre expérimental}~: le résidu
+de $131$~ppm est suffisamment petit pour constituer une prédiction propre, mais suffisamment grand
+pour être testable avec les techniques de mesure différentielle actuelles (cf.
+Section~\ref{sec:falsifiability}).
+
+\section{Falsifiabilité et signature expérimentale}
+\label{sec:falsifiability}
+
+Le résidu 3D de $131$~ppm est dans le domaine de précision atteignable par les meilleures mesures
+de Casimir contemporaines. Decca \emph{et al.}~\cite{Decca2007,Decca2003} atteignent
+$\lesssim 1\%$ de précision sur géométries plaque-sphère, tandis que les mesures différentielles
+avec configurations conçues pour supprimer les corrections de matériau pourraient en principe
+atteindre le régime sub-millième.
+
+\begin{conjecture}[Signature PT dans Casimir]
+\label{conj:pt-signature}
+Une mesure de Casimir à séparation $a$ sur géométrie idéale, après soustraction de toutes les
+corrections de Lifshitz et de conductivité finie connues~\cite{Lifshitz1956}, dévie de la
+prédiction standard \eqref{eq:standard-coefficient} d'exactement
+\begin{equation}
+\Delta P / P \;=\; 1 - \prod_{p \geq 11}(1 - p^{-4}) \;=\; 1{,}31 \times 10^{-4}.
+\label{eq:pt-signature}
+\end{equation}
+\end{conjecture}
+
+Cette déviation \emph{n'est pas} prédite par la QED standard, qui utilise la continuation
+analytique de $\zetaR$ et somme implicitement tous les premiers. La
+Conjecture~\ref{conj:pt-signature} est donc une prédiction \emph{discriminante}~: la confirmation
+de la déviation soutient la classification PT des primes d'écho~; un résultat nul à mieux que
+$100$~ppm la falsifie.
+
+\subsection{Protocole expérimental}
+
+La signature \eqref{eq:pt-signature} se situe sous les incertitudes actuelles des corrections
+de Lifshitz sur les mesures de pression absolue ($\gtrsim 1\%$ sur la plupart des géométries
+en raison des ambiguïtés Drude vs.\ plasma, conductivité finie et corrections
+thermiques~\cite{Klimchitskaya2009}). Un test direct sur le coefficient absolu n'est donc pas
+actuellement faisable. La conjecture reste néanmoins falsifiable \emph{via} des schémas
+\emph{différentiels} qui annulent les corrections matériau communes et isolent le facteur
+arithmétique $\zeta(d+1)$. Une falsification pratique nécessite~:
+
+\begin{enumerate}
+  \item Une précision sub-$100$~ppm sur le rapport \emph{différentiel} $|P|_A/|P|_B$ entre
+    deux configurations $A$ et $B$ partageant les propriétés matérielles mais différant
+    uniquement dans $\mathcal{G}_d$ ou le comportement de troncature $\zeta$.
+  \item Une calibration indépendante de la géométrie relative à mieux que $50$~ppm (la
+    composante PT-native est fixée par le décompte dimensionnel, donc inchangée entre $A$ et $B$).
+  \item Annulation des corrections de conductivité finie, rugosité et température \emph{via}
+    le rapport différentiel (ces corrections sont en mode commun et disparaissent à l'ordre
+    dominant).
+\end{enumerate}
+
+Un schéma différentiel concret compare la pression entre plaque-sphère (géométrie Decca
+standard) et plaque-cylindre (ou plaque-cône) à séparation $a$ et matériau identiques. Les
+préfacteurs géométriques diffèrent par une fonction de courbure connue~\cite{Mostepanenko2009},
+tandis que le facteur arithmétique $\zeta(d+1)$ est identique~: toute déviation du rapport
+mesuré par rapport à la prédiction QED au-delà de $100$~ppm teste le résidu de troncature PT.
+Un schéma alternatif utilise deux matériaux aux paramètres de Drude très proches (par exemple
+revêtements Au et Cu) tels que les corrections Lifshitz s'annulent à mieux que $50$~ppm dans
+le rapport, tandis que la signature d'écho arithmétique est universelle.
+
+L'état de l'art actuel (Decca \emph{et al.}~\cite{Decca2007}) atteint $\sim 0{,}2\%$ sur la
+pression absolue mais est dominé par les ambiguïtés des modèles de Lifshitz. Un dispositif
+différentiel conçu pour supprimer ces ambiguïtés est la cible naturelle.
+
+\section{Pourquoi la lecture PT exclut l'extraction d'énergie}
+\label{sec:no-extraction}
+
+La popularité médiatique récente de propositions visant à extraire de l'énergie nette de cavités
+Casimir statiques (dispositifs de type \emph{quantum ratchet} en cavité, brevets sur
+\emph{vacuum-to-current converters}, etc.) justifie une clarification spécifique. La lecture PT
+fournit un cadre direct pour qualifier ces propositions sans calcul détaillé.
+
+\subsection{L'identité fondamentale}
+
+Dans la formulation PT, la quantité physique observable est la divergence de Kullback-Leibler
+\begin{equation}
+\IPT(a, \varepsilon, \mathcal{G}) := D_{\rm KL}\bigl(P_{\rm bord}(a,\varepsilon,\mathcal{G})\,\|\,P_{\rm libre}\bigr),
+\label{eq:I-PT}
+\end{equation}
+où $a$ est la séparation, $\varepsilon$ la fonction diélectrique, $\mathcal{G}$ la géométrie, et
+$P_{\rm bord}$, $P_{\rm libre}$ sont les distributions sur les survivants du crible CRT
+contraint par les bords. La pression observée est~$P = -\partial_{a}(\IPT/a^{d-1})$.
+
+Le résultat clé est que $\IPT$ est une \emph{fonction d'état} au sens thermodynamique~: sa
+valeur ne dépend que de la configuration instantanée, jamais de la trajectoire suivie pour
+y arriver. C'est garanti par l'identité fondamentale du gap (GFT, monographie ch.~4
+de~\cite{Senez2026})~:
+\begin{equation}
+\log_{2}(m) = D_{\rm KL}(P\,\|\,U_{m}) + H(P),
+\label{eq:gft}
+\end{equation}
+qui est une identité algébrique exacte (et non une approximation thermodynamique).
+
+\subsection{Conséquence~: pas de cycle ouvert}
+
+Pour tout cycle fermé dans l'espace des configurations $(a, \varepsilon, \mathcal{G})$, on a
+\begin{equation}
+\oint \mathrm{d}\IPT = 0.
+\label{eq:closed-cycle}
+\end{equation}
+Donc le travail mécanique net extrait sur un cycle complet est exactement nul. Ce n'est pas une
+inégalité (premier principe ordinaire) mais une \emph{égalité algébrique} (anti-double-comptage).
+
+\subsection{Conséquence pratique}
+
+Cette propriété disqualifie immédiatement plusieurs classes de propositions d'extraction~:
+
+\begin{enumerate}
+  \item \emph{Cavités Casimir statiques avec ratchet électronique}~: la cavité étant fixe en
+  $(a, \varepsilon, \mathcal{G})$, le système atteint l'équilibre détaillé. Aucun courant net
+  DC ne peut persister sans injection externe. Le ratchet purement géométrique reproduit
+  l'erreur de Smoluchowski-Feynman~\cite{Feynman1963}~: l'asymétrie thermodynamique apparente
+  entre paroi et antenne est compensée par le bilan détaillé des taux de tunneling.
+
+  \item \emph{Cycles à modulation de matériau} (\emph{e.g.}, schémas de type
+  Pinto~\cite{Pinto1999})~: le travail nécessaire pour modifier $\varepsilon(\omega)$
+  excède toujours le gain Casimir, car la modulation est elle-même un chemin dans
+  $(\varepsilon)$ qui contribue à l'intégrale~\eqref{eq:closed-cycle}.
+
+  \item \emph{Conversion vide-courant en régime stationnaire}~: l'état stationnaire impose
+  $\partial_{t} \IPT = 0$, donc aucun flux d'information persistante ne traverse le système.
+  La construction PT n'autorise pas de stationnarité avec extraction.
+\end{enumerate}
+
+Le seul mécanisme de \emph{conversion} (et non de création) compatible avec PT est l'effet
+Casimir dynamique (DCE) observé par Wilson \emph{et al.}~\cite{Wilson2011}~: la modulation
+mécanique rapide d'une plaque convertit des modes virtuels en photons réels. Le bilan
+énergétique est strict~: $\hbar\omega_{\rm photon} \leq E_{\rm m\acute{e}canique\,inject\acute{e}e}$
+à chaque cycle.
+
+\subsection{Le faux espoir architectural}
+
+Un dernier scénario théorique mérite mention. Si l'on pouvait modifier localement $\mu^{*}$
+(le point fixe du crible, normalement $\mu^{*} = 15$), on changerait la pression de Casimir et
+pourrait \emph{a priori} produire $\oint \mathrm{d}\IPT \neq 0$. Mais $\mu^{*} = 15$ est fixé
+par auto-cohérence arithmétique (Théorème T5 de~\cite{Senez2026})~: ce n'est pas un paramètre
+dynamique mais l'unique point fixe stable du flot du crible. Le modifier reviendrait à modifier
+l'arithmétique elle-même, ce qui est par construction impossible dans PT.
+
+\subsection{Synthèse}
+
+La lecture PT ne libère pas l'effet Casimir des contraintes thermodynamiques~: elle les rend
+plus rigoureuses en montrant qu'elles sont de nature arithmétique, non seulement physique.
+Casimir reste une \emph{sonde}, jamais une \emph{source}.
+
+Mais c'est une sonde exceptionnellement sensible au sens informationnel~: les $131$~ppm de
+signature d'écho constituent la trace observable la plus directe que la classification PT
+des nombres premiers possède une réalité structurelle au-delà du Modèle Standard. Le gain
+expérimental est d'ordre informationnel, non énergétique.
+
+\section{Discussion}
+\label{sec:discussion}
+
+La Conjecture~\ref{conj:pt-signature} reformule l'effet Casimir dans l'ontologie PT. Trois
+observations structurelles en découlent.
+
+\subsection{Casimir comme sonde du crible, non du vide}
+
+L'effet Casimir n'est pas une manifestation du vide quantique mais une mesure du déficit
+spectral du crible CRT contraint. Aucune somme infinie d'énergie de point zéro n'est nécessaire,
+aucune régularisation requise~: le produit eulérien dans la décomposition PT est fini à chaque
+étape. La continuation analytique standard $\zetaR(s)$ devient un outil de calcul commode
+plutôt qu'un mystère ontologique.
+
+\subsection{Les nombres premiers d'écho deviennent observables}
+
+La queue d'écho $\prod_{p \geq 11}(1-p^{-(d+1)})^{-1}$ est, par la Proposition~\ref{prop:c3-residue},
+le contenu intégral de la déviation entre la troncature PT-native et le coefficient standard.
+Toute mesure de Casimir sub-pour-mille teste donc directement la classification PT des nombres
+premiers en actifs, parité et d'écho. Cela connecte l'effet Casimir à l'identification du
+secteur sombre cosmologique développée dans~\cite{Senez2026}, où les primes d'écho
+représentent la fraction de matière noire $F_{\rm echo} \approx 95\%$ à grand $N$.
+
+L'identification est cohérente~: ce ne sont pas \emph{deux} structures distinctes (matière noire
+\emph{et} écho Casimir) mais \emph{une seule}, observée à deux échelles différentes
+(cosmologique \emph{vs} laboratoire).
+
+\subsection{Le préfacteur se réduit au comptage dimensionnel}
+
+Le facteur $\mathcal{G}_{3} = 3/(8\pi^{2})$ ne contient aucun paramètre libre une fois la
+classification PT établie ($\Nspatial = 3$, $\Ntrans = 2$). Le $\pi^{2}$ provient de la limite
+$\mathbb{Z}/p\mathbb{Z} \to S^{1}$ du cycle discret, intrinsèque à la construction PT. Aucun
+ajustement n'est laissé.
+
+\subsection{Comparaison avec $\alpha_{\rm EM}$}
+
+Une décomposition PT similaire a été démontrée pour la constante de structure
+fine~\cite{Senez2026}~: $\alpha_{\rm EM}^{-1} = 137{,}0359990834$ depuis un produit en cascade
+PT sur les actifs $\actives$, avec corrections VP d'échos provenant de $\{11, 13\}$. La
+structure
+\begin{equation}
+\alpha_{\rm EM}^{-1}_{\rm habill\acute{e}} = \alpha_{\nu}^{-1} + \text{corrections d'écho}
+\end{equation}
+reflète la structure Casimir
+\begin{equation}
+P_{\rm exact} = P_{\rm PT} \cdot \zeta_{\rm echo}(d+1).
+\end{equation}
+Les deux observables sont construites depuis un cœur PT-actif augmenté de corrections
+d'écho. La magnitude relative de la correction d'écho est beaucoup plus faible pour Casimir
+($\sim 10^{-4}$ en 3D) que pour $\alpha_{\rm EM}$ ($\sim 10^{-3}$) parce que Casimir vit dans le
+$\zeta(4)$ rapidement convergent plutôt que dans le produit en cascade lentement convergent de
+$\alpha_{\rm EM}$.
+
+\subsection{Position dans le programme PT}
+
+Cet article complète une trajectoire commencée par la dérivation arithmétique d'$\alpha_{\rm EM}$
+et étendue par les chantiers \texttt{PT\_RH}~\cite{Senez2026RH} sur la fonction zêta de Riemann
+et \texttt{PT\_HL}~\cite{Senez2026HL} sur les conjectures de Hardy-Littlewood. Casimir occupe
+une position particulière. D'autres prédictions PT testables à l'échelle du laboratoire existent
+(notamment $a_\mu$ et $a_e$ \emph{via} les corrections VP d'échos au running
+d'$\alpha_{\rm EM}$~\cite{Senez2026}, toutes deux compatibles avec les mesures actuelles).
+Ce qui distingue Casimir est qu'il s'agit du test PT le plus \emph{direct et accessible}~: la
+signature d'écho est isolée arithmétiquement (non noyée dans le running QED), le préfacteur
+se réduit à du décompte dimensionnel (aucun apport analytique), et la prédiction se situe à
+un niveau de précision atteignable par des mesures différentielles dédiées dans les
+laboratoires universitaires actuels. Les autres prédictions prospectives (cosmologie~:
+testable par Euclid 2028, DESI 2030, JUNO 2027~; négatives~: absence d'axion, de SUSY $<
+100$~TeV, de désintégration du proton) sont soit différées soit non-falsifiables à court terme.
+
+La Proposition~\ref{prop:c3-residue} conjointement avec le Théorème~\ref{thm:c3-uniqueness}
+positionne Casimir comme test crucial expérimental le plus accessible de la classification PT
+des nombres premiers.
+
+\section{Conclusion}
+
+Nous avons établi que le coefficient standard de la pression de Casimir entre plaques idéales,
+$\pi^{2}/(240\,a^{4})$, admet une dérivation PT-native sans paramètre ajusté. La construction
+comporte trois composantes~:
+\begin{enumerate}
+  \item Le préfacteur géométrique
+  $\mathcal{G}_{3} = \Nspatial/(2\,(2\pi)^{\Ntrans})$, identifié entièrement par le décompte
+  des dimensions spatiales en PT.
+  \item Le produit eulérien $\zeta(4) = \prod_{p}(1-p^{-4})^{-1}$, décomposé selon la
+  classification PT des nombres premiers en parité, actifs et d'écho.
+  \item La troncature C3 à $\PTset$ prédit le coefficient standard à $131$~ppm près, le résidu
+  étant rigoureusement la queue eulérienne d'écho $\prod_{p \geq 11}(1-p^{-4})^{-1}$.
+\end{enumerate}
+
+La construction est universelle pour les dimensions spatiales testées ($d \in \{1,\dots,5\}$),
+la pureté de la prédiction PT croissant super-exponentiellement avec $d$. La position de
+Casimir 3D dans le \emph{point d'équilibre expérimental} ($131$~ppm) en fait la sonde la plus
+accessible de la classification PT.
+
+Conjointement, l'identité fondamentale $\oint \mathrm{d}\IPT = 0$ exclut tout dispositif
+d'extraction d'énergie nette à cavité statique~: la lecture PT renforce les contraintes
+thermodynamiques en les réinterprétant comme contraintes arithmétiques exactes.
+
+Une mesure différentielle de Casimir à mieux que $100$~ppm constituerait, suivant son résultat,
+soit la première détection directe des nombres premiers d'écho comme structure physique
+réelle, soit une falsification de la classification PT. Dans les deux cas, le résultat serait
+décisif.
+
+\section*{Remerciements}
+
+L'auteur remercie la communauté open-source PT (PT\_CHEMISTRY, PT\_PHYSICS,
+\url{https://github.com/Igrekess/PT_CHEMISTRY}) pour l'infrastructure computationnelle. Les
+calculs numériques de cet article sont reproductibles \emph{via} les scripts
+\path{run_p2_coefficient_routes.py} et \path{run_p2_dimensional_scan.py} du dépôt
+\path{PT_EXPERIENCES/PT_CASIMIR/scripts/}.
+
+\begin{thebibliography}{99}
+
+\bibitem{Casimir1948}
+H.~B.~G.~Casimir, ``On the attraction between two perfectly conducting plates,''
+Proc.\ Kon.\ Nederland.\ Akad.\ Wetensch.\ \textbf{B51}, 793 (1948).
+
+\bibitem{Lamoreaux1997}
+S.~K.~Lamoreaux, ``Demonstration of the Casimir force in the 0.6 to 6~$\mu$m range,''
+Phys.\ Rev.\ Lett.\ \textbf{78}, 5 (1997).
+
+\bibitem{Mohideen1998}
+U.~Mohideen et A.~Roy, ``Precision measurement of the Casimir force from 0.1 to 0.9~$\mu$m,''
+Phys.\ Rev.\ Lett.\ \textbf{81}, 4549 (1998).
+
+\bibitem{Bressi2002}
+G.~Bressi, G.~Carugno, R.~Onofrio et G.~Ruoso,
+``Measurement of the Casimir force between parallel metallic surfaces,''
+Phys.\ Rev.\ Lett.\ \textbf{88}, 041804 (2002).
+
+\bibitem{Decca2003}
+R.~S.~Decca \emph{et al.},
+``Measurement of the Casimir force between dissimilar metals,''
+Phys.\ Rev.\ Lett.\ \textbf{91}, 050402 (2003).
+
+\bibitem{Decca2007}
+R.~S.~Decca \emph{et al.},
+``Tests of new physics from precise measurements of the Casimir pressure between two
+gold-coated plates,''
+Phys.\ Rev.\ D \textbf{75}, 077101 (2007).
+
+\bibitem{Lifshitz1956}
+E.~M.~Lifshitz, ``The theory of molecular attractive forces between solids,''
+Sov.\ Phys.\ JETP \textbf{2}, 73 (1956).
+
+\bibitem{Mostepanenko2009}
+M.~Bordag, G.~L.~Klimchitskaya, U.~Mohideen et V.~M.~Mostepanenko,
+\emph{Advances in the Casimir Effect}, International Series of Monographs on Physics
+\textbf{145}, Oxford University Press (2009).
+
+\bibitem{Klimchitskaya2009}
+G.~L.~Klimchitskaya, U.~Mohideen et V.~M.~Mostepanenko,
+``The Casimir force between real materials: Experiment and theory,''
+Rev.\ Mod.\ Phys.\ \textbf{81}, 1827 (2009).
+
+\bibitem{Milton2001}
+K.~A.~Milton, \emph{The Casimir Effect: Physical Manifestations of Zero-Point Energy},
+World Scientific (2001).
+
+\bibitem{Wilson2011}
+C.~M.~Wilson, G.~Johansson, A.~Pourkabirian, M.~Simoen, J.~R.~Johansson, T.~Duty, F.~Nori et
+P.~Delsing, ``Observation of the dynamical Casimir effect in a superconducting circuit,''
+Nature \textbf{479}, 376 (2011).
+
+\bibitem{Feynman1963}
+R.~P.~Feynman, R.~B.~Leighton et M.~Sands,
+\emph{The Feynman Lectures on Physics}, vol.~I, ch.~46 (Ratchet and pawl),
+Addison-Wesley (1963).
+
+\bibitem{Pinto1999}
+F.~Pinto, ``Engine cycle of an optically controlled vacuum energy transducer,''
+Phys.\ Rev.\ B \textbf{60}, 14740 (1999). [Le claim a été contesté~; voir aussi
+brevet US 6\,477\,028.]
+
+\bibitem{Senez2026}
+Y.~Senez, \emph{Persistence Theory: A Complete Monograph}, monographie interne, mai 2026.
+Disponible aux versions française et anglaise (\texttt{main\_fr.tex}, \texttt{main.tex}).
+
+\bibitem{Senez2026RH}
+Y.~Senez, \emph{Contributions de la Théorie de la Persistance à l'hypothèse de Riemann},
+companion paper, 2026.
+
+\bibitem{Senez2026HL}
+Y.~Senez, \emph{La route PT vers Hardy-Littlewood}, companion paper, 2026.
+
+\end{thebibliography}
+
+\end{document}

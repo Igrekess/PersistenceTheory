@@ -1,0 +1,270 @@
+% =====================================================================
+% PT_RH_HP_CANONICAL — Reformulation canonique de Hilbert-Polya via PT
+% Auteur : Yan Senez
+% Date : 2026-05-16
+% Version : v5 (Phases A + B + C complétées, annexe Kähler-Fisher incluse)
+%
+% Source : draft_fr.md (markdown authoritative)
+% Conversion en LaTeX pour soumission.
+% =====================================================================
+
+\documentclass[11pt, a4paper]{article}
+
+% Préambule commun PT français
+\usepackage{../shared/pt-common-fr}
+
+% Spécifiques à cet article
+\usepackage{geometry}
+\geometry{margin=2.5cm}
+
+% Numérotation des équations par section
+\numberwithin{equation}{section}
+
+% Métadonnées
+\title{Reformulation canonique de Hilbert-Polya \\
+       via la Théorie de la Persistance}
+\author{Yan Senez}
+\date{\today}
+
+% =====================================================================
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+L'apport principal de cet article est de \textbf{dériver toutes les constantes
+structurelles du programme Hilbert-Polya depuis un unique théorème
+d'arithmétique élémentaire}. Plus précisément, on établit la chaîne
+\[
+  \underbrace{\text{T1 (transitions interdites mod 3)}}_{[\mathrm{THM}]\text{ classique}}
+  \xrightarrow{\text{Th. 5.2}}
+  \underbrace{c_1(\mathbb{S}_+) = s = 1/2}_{[\mathrm{THM}]\text{ mod Kähler-Fisher}}
+  \xrightarrow{\text{Th. 3.13}}
+  \underbrace{\theta_{\mathrm{PT}} = \pi}_{[\mathrm{THM}]}
+\]
+qui détermine canoniquement l'opérateur de Berry-Keating-PT
+$\tilde H_{\mathrm{PT}} = -i\partial_\xi$ sur $L^2([0, r], d\xi)$ avec
+condition aux bords antipériodique forcée par la cohomologie spinorielle.
+
+\textbf{Théorème principal} : Inconditionnellement sous T1 et le théorème
+de Kähler-Fisher (Annexe A), la conjecture de Riemann est équivalente à
+la propriété spectrale : la fonction $T(s) = -d\log R/ds$ (où
+$R(s) = \zeta(s)/(\zeta_+(s)\zeta_-(s))$) est holomorphe sur
+$\{0 < \mathrm{Re}(s) < 1,\; \mathrm{Re}(s) \neq 1/2\}$.
+
+L'équivalence est rigoureuse et \emph{inconditionnelle}. Elle ne prouve pas RH —
+elle le \emph{reformule canoniquement} dans un cadre où tous les ingrédients
+du programme Hilbert-Polya sont dérivés sans constante ad hoc.
+
+À la connaissance de l'auteur, c'est la première formulation du programme
+Hilbert-Polya où aucune constante n'est postulée \emph{ad hoc}, et où RH
+apparaît comme propriété spectrale d'un opérateur canoniquement déterminé.
+\end{abstract}
+
+\tableofcontents
+\bigskip
+\hrule
+\bigskip
+
+% =====================================================================
+\section{Introduction}
+\label{sec:intro}
+
+\subsection{Le programme Hilbert-Polya}
+
+L'observation de Hilbert et Pólya, vers 1920, que les zéros non triviaux de la
+fonction zêta de Riemann pourraient être les valeurs propres d'un opérateur
+auto-adjoint sur un espace de Hilbert reste, plus d'un siècle après, la
+direction la plus suggestive vers une démonstration spectrale de l'hypothèse
+de Riemann (RH).
+
+Le formalisme a reçu deux avancées majeures. Berry et Keating \cite{BerryKeating1999},
+en 1999, ont proposé un candidat semi-classique explicite : l'opérateur de
+dilatation $H = (xp + px)/2$ sur la demi-droite. Connes \cite{Connes1999}
+a généralisé ce cadre à un opérateur de scaling sur l'espace adélique des
+classes d'idèles. Ces deux approches laissent plusieurs ingrédients
+\textbf{postulés ad hoc} : cellule de Planck $2\pi$, régularisation, condition
+aux bords, scattering matrix, résidu cohomologique $1/8$, spin $s = 1/2$.
+
+% TODO: Convertir §1.2-§1.4 du draft_fr.md
+
+% =====================================================================
+\section{Prérequis classiques}
+\label{sec:prerequis}
+
+% TODO: Convertir §2.1, §2.2, §2.3 du draft_fr.md
+% Théorèmes : 2.2 (T1), 2.4 ($s=1/2$), 2.6 (non-annulation), 2.8 (Lemme bornes), 2.10 (Fredholm)
+
+% =====================================================================
+\section{L'opérateur canonique $H_{\mathrm{PT\text{-}BK}}$}
+\label{sec:operateur}
+
+% TODO: Convertir §3.1 à §3.6 du draft_fr.md
+% Théorèmes : 3.2 (indices), 3.6 (spectre), 3.9 (anticommutation), 3.10 (sélection BC), 3.13 (Hyp 3.11 promu)
+
+% =====================================================================
+\section{Quatre mécanismes équivalents pour $\mathrm{Re}(s) = 1/2$}
+\label{sec:mecanismes}
+
+% TODO: Convertir §4.1 à §4.5 du draft_fr.md
+
+% =====================================================================
+\section{Sur-détermination cohomologique du résidu $1/8$}
+\label{sec:cohomologie}
+
+% TODO: Convertir §5.1 à §5.5 du draft_fr.md
+% Théorèmes : 5.2 (c_1 = 1/2), 5.6 (sur-détermination)
+
+% =====================================================================
+\section{Construction du résidu et de la trace régularisée}
+\label{sec:trace}
+
+% TODO: Convertir §6.1 à §6.6 du draft_fr.md
+% Théorèmes : 6.2 (formule de trace), 6.7 (existence prolongement distributionnel)
+
+% =====================================================================
+\section{Reformulation rigoureuse de RH}
+\label{sec:rh-reformulation}
+
+% TODO: Convertir §7.1 à §7.5 du draft_fr.md
+% Théorème principal : 7.1
+
+% =====================================================================
+\section{Comparaison avec Berry-Keating et Connes}
+\label{sec:comparaison}
+
+% TODO: Convertir §8.1 à §8.4 du draft_fr.md
+
+% =====================================================================
+\section{Validation numérique sommaire}
+\label{sec:validation}
+
+Détails complets dans l'article séparé \texttt{PT\_RH\_VALIDATION/}.
+Résumé :
+\begin{itemize}
+  \item 75/79 zéros de $\zeta$ captés à $|\Delta| < 0.5$ sur $t \in [10, 200]$
+        (régularisation R1, $\varepsilon = 0.2$)
+  \item 267/269 zéros captés à $|\Delta| < 1.5$ sur $t \in [10, 500]$ (99.3\,\%)
+  \item Test de chance Weyl rejeté à $25\sigma$ sur les 13 premiers zéros
+\end{itemize}
+
+% =====================================================================
+\section{Limites et ouvertures}
+\label{sec:limites}
+
+% TODO: Convertir §10.1 à §10.4 du draft_fr.md
+
+% =====================================================================
+\section{Conclusion}
+\label{sec:conclusion}
+
+% TODO: Convertir §11 du draft_fr.md
+
+% =====================================================================
+\appendix
+
+\section{Théorème de Kähler-Fisher}
+\label{app:kahler-fisher}
+
+% TODO: Convertir Annexe A du draft_fr.md (A.1 à A.6)
+% Théorème A.6 : Kähler-Fisher complet
+
+% =====================================================================
+\bibliographystyle{alpha}
+\begin{thebibliography}{99}
+
+\bibitem{BerryKeating1999}
+M.~V. Berry and J.~P. Keating.
+\newblock $H = xp$ and the Riemann zeros.
+\newblock In \emph{Supersymmetry and Trace Formulae: Chaos and Disorder},
+NATO ASI Series B 370, Plenum Press, 1999, pp. 355--367.
+
+\bibitem{Connes1999}
+A.~Connes.
+\newblock Trace formula in noncommutative geometry and the zeros of the
+Riemann zeta function.
+\newblock \emph{Selecta Mathematica}, 5:29--106, 1999.
+
+\bibitem{Riemann1859}
+B.~Riemann.
+\newblock Über die Anzahl der Primzahlen unter einer gegebenen Grösse.
+\newblock \emph{Monatsberichte der Berliner Akademie}, 671--680, 1859.
+
+\bibitem{Titchmarsh1986}
+E.~C. Titchmarsh.
+\newblock \emph{The Theory of the Riemann Zeta-Function}.
+\newblock 2nd edition, ed. D.~R. Heath-Brown, Oxford University Press, 1986.
+
+\bibitem{Landau1909}
+E.~Landau.
+\newblock \emph{Handbuch der Lehre von der Verteilung der Primzahlen}.
+\newblock Teubner, Leipzig, 1909.
+
+\bibitem{LandauWalfisz1920}
+E.~Landau and A.~Walfisz.
+\newblock Über die Nichtfortsetzbarkeit einiger durch Dirichletsche Reihen
+definierter Funktionen.
+\newblock \emph{Rendiconti del Circolo Matematico di Palermo}, 44:82--86, 1920.
+
+\bibitem{Cohen2007}
+H.~Cohen.
+\newblock \emph{Number Theory Vol. II: Analytic and Modern Tools}.
+\newblock Springer GTM 240, 2007.
+
+\bibitem{ReedSimon1980}
+M.~Reed and B.~Simon.
+\newblock \emph{Methods of Modern Mathematical Physics II: Fourier Analysis,
+Self-Adjointness}.
+\newblock Academic Press, 1980.
+
+\bibitem{AtiyahSinger1968}
+M.~F. Atiyah and I.~M. Singer.
+\newblock The index of elliptic operators on compact manifolds.
+\newblock \emph{Bulletin of the AMS}, 69:422--433, 1968.
+
+\bibitem{APS1975}
+M.~F. Atiyah, V.~K. Patodi, and I.~M. Singer.
+\newblock Spectral asymmetry and Riemannian geometry.
+\newblock \emph{Mathematical Proceedings of the Cambridge Philosophical Society},
+77:43--69 (I); 78:405--432 (II); 79:71--99 (III), 1975.
+
+\bibitem{Berry1984}
+M.~V. Berry.
+\newblock Quantal phase factors accompanying adiabatic changes.
+\newblock \emph{Proceedings of the Royal Society A}, 392:45--57, 1984.
+
+\bibitem{Hadamard1896}
+J.~Hadamard.
+\newblock Sur la distribution des zéros de la fonction $\zeta(s)$ et ses
+conséquences arithmétiques.
+\newblock \emph{Bulletin de la SMF}, 24:199--220, 1896.
+
+\bibitem{Cencov1982}
+N.~N. Čencov.
+\newblock \emph{Statistical Decision Rules and Optimal Inference}.
+\newblock AMS Translations of Mathematical Monographs 53, 1982.
+
+\bibitem{NewlanderNirenberg1957}
+A.~Newlander and L.~Nirenberg.
+\newblock Complex analytic coordinates in almost complex manifolds.
+\newblock \emph{Annals of Mathematics}, 65:391--404, 1957.
+
+\bibitem{GriffithsHarris}
+P.~Griffiths and J.~Harris.
+\newblock \emph{Principles of Algebraic Geometry}.
+\newblock Wiley, 1978.
+
+\bibitem{LMFDB2024}
+LMFDB Collaboration.
+\newblock \emph{The L-functions and Modular Forms Database}.
+\newblock \url{https://www.lmfdb.org/}, 2024.
+
+\bibitem{SenezMonographie2026}
+Y.~Senez.
+\newblock \emph{Théorie de la Persistance : du paramètre arithmétique
+$s = 1/2$ aux observables du Modèle Standard}.
+\newblock Monographie en cours, 2026.
+
+\end{thebibliography}
+
+\end{document}

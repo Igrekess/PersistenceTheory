@@ -10,9 +10,16 @@ scripted, and the physical interpretation is presented as a hypothesis exposed
 to future tests.
 
 - English monograph: [TheTheoryOfPersistence.pdf](TheTheoryOfPersistence.pdf)
-  (883 pages)
+  (967 pages)
 - French monograph: [TheorieDeLaPersistance_FR.pdf](TheorieDeLaPersistance_FR.pdf)
-  (913 pages)
+  (995 pages)
+- Lean 4 formalisation: [`pt_lean/`](pt_lean) — 22 foundational
+  theorems on the critical path T1 → T7 → W7-1 kernel-verified,
+  plus ~150 secondary modules.
+- Research notes: [`research_notes/`](research_notes) — six
+  standalone working drafts cited by the monograph (Hilbert–Pólya
+  map, $p$-adic PT–Ramanujan, Casimir P29 prediction, Berry–Keating
+  cusp, $A_{\mathrm{PT}}$ algebra, spectral model of zeros of $\zeta$).
 - Website source: [`website/`](website)
 - Companion scripts: [`scripts/`](scripts)
 
@@ -137,6 +144,8 @@ major chemical regularities have the shapes they do.
 ├── README.md                           This file
 ├── requirements.txt                    Top-level Python dependencies
 ├── scripts/                            Companion verification scripts
+├── pt_lean/                            Lean 4 formalisation
+├── research_notes/                     Standalone working drafts
 ├── website/                            Astro website source
 └── _images/                            Repository images
 ```
@@ -144,6 +153,21 @@ major chemical regularities have the shapes they do.
 The `scripts/` directory contains the companion checks used to audit the
 monograph. They are organised by chapter and write machine-readable reports
 under `scripts/reports/`.
+
+The `pt_lean/` directory is a Lean 4 + Mathlib package. The 22
+foundational theorems on the PT critical path
+(T1 → T3 → `s=1/2` → T2 → L0 → T7 → W7-1) are kernel-verified
+without `sorry`; about 150 additional modules cover downstream
+material. Build with `lake build` after installing Lean via
+`elan` (the `lean-toolchain` file pins the exact version). See
+[`pt_lean/README.md`](pt_lean/README.md) for the per-module status
+table.
+
+The `research_notes/` directory collects six standalone drafts that
+the monograph cites as companion artifacts (notably for the
+Hilbert–Pólya map of Part III and for the Casimir P29 prediction).
+None are published yet; each is a working document, status-tagged
+on its own. See [`research_notes/README.md`](research_notes/README.md).
 
 The public repository currently includes the clean script tree for the current
 monograph, including arithmetic, physics, chemistry, audit, and registered
