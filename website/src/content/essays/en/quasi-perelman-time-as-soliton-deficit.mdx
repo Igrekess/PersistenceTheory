@@ -1,10 +1,10 @@
 ---
 slug: quasi-perelman-time-as-soliton-deficit
-title: 'Quasi-Perelman: Time as Soliton Deficit'
-summary: 'PT is not a perfect Perelman soliton, and that is precisely what makes time possible. The geometric residue $\lambda(\mu) \sim -1/\mu^4$ is the signature of the temporal branch $q^-$ — a slow-roll forced by arithmetic.'
+title: 'Quasi-Perelman: PT as Asymptotic Expanding Soliton'
+summary: 'PT''s Fisher–Bianchi metric is a quasi-soliton expanding Ricci soliton whose constant $\lambda(\mu) = -1/\mu^4 + O(1/\mu^5)$ vanishes asymptotically (coefficient $-1$ exact, pair-independent). This nonzero residue co-occurs with the entropic arrow of PT-time — two independent signatures of the same dynamical non-triviality of the sieve.'
 level: L2
-reading_minutes: 14
-related_theorems: ['T5', 'T7', 'BT13', 'BT17', 'BT18']
+reading_minutes: 16
+related_theorems: ['T5', 'T6', 'BT13', 'BT17', 'BT18']
 lang: en
 order: 9
 ---
@@ -24,12 +24,13 @@ The natural question:
 
 > **Is PT a Perelman soliton?**
 
-The short answer: *almost, but not quite*. The Fisher-Bianchi metric of
-PT at the fixed point $\mu^* = 15$ satisfies the Ricci-soliton equation
-up to a residue that crushes down as $1/\mu^4$ at large scales. This
-residue **co-occurs** with the entropic arrow of PT-time — two
-independent signatures of the same dynamical non-triviality of the
-sieve.
+The short answer: *PT is an **asymptotic expanding** quasi-soliton*
+of Ricci. The Fisher–Bianchi metric satisfies the soliton equation with
+constant $\lambda(\mu) < 0$ that vanishes as $-1/\mu^4$ at large scales,
+but is never exactly zero at finite $\mu$. A *steady* soliton in the
+strict sense would require $\lambda \equiv 0$ — PT is not one. This
+nonzero residue **co-occurs** with the entropic arrow of PT-time — two
+independent signatures of the same dynamical non-triviality of the sieve.
 
 <section data-max-depth="L1">
 
@@ -75,8 +76,8 @@ PT explicitly distinguishes two readings at $\mu^* = 15$:
 - **$q^-$**: the dynamic branch, which measures flow (propagation,
   dissipation, arrow of time).
 
-If PT were a perfect soliton, $\lambda(\mu) \equiv 0$ and the anisotropy
-between $\gamma_3, \gamma_5, \gamma_7$ would have to vanish. The entropic
+If PT were a steady soliton ($\lambda \equiv 0$), the anisotropy between
+the three Hubble rates $H_3, H_5, H_7$ would have to vanish. The entropic
 arrow on $q^-$ (BT13) remains independently true, but it *co-occurs* with
 the residue: the two say, from two different angles, that PT is
 dynamically non-trivial.
@@ -157,21 +158,26 @@ The correct reading is opposite:
 > PT time possible. An exact soliton would correspond to a frozen
 > universe, with no temporal arrow, no dynamics.*
 
-**Proposition** (proved in Appendix U): the following two properties are
-equivalent in PT:
+**Proposition** (proved in Appendix U and in the transversal chapter on
+spectral geometry): for the PT Fisher–Bianchi metric, the following two
+properties are equivalent:
 
-1. $\lambda(\mu) \neq 0$: the Perelman residue is non-trivial (measured
-   by the spread between the three lambdas extracted by pair
-   compatibility of $(pp)$ equations).
-2. The amplitudes $\gamma_p$ are not all equal: residual anisotropy
-   between the three active directions.
+1. **Effective anisotropy of Hubble rates**: there exist two active
+   primes $p_1 \neq p_2$ with $H_{p_1}(\mu) \neq H_{p_2}(\mu)$.
+2. **Unique determination of $\lambda$**: the system of $(pp)$ equations
+   for $p \in \{3,5,7\}$ admits a unique solution $\lambda$.
 
-**Proof intuition**: if all $\gamma_p$ were identical
-($\gamma_3 = \gamma_5 = \gamma_7$), the three scale factors
-$a_p = \gamma_p/\mu$ would be equal, the system would become isotropic,
-and the Hubble parameters $H_p$ would coincide. The spread between the
-three values of $\lambda$ extracted by pairs would then trivially
-vanish.
+**Proof intuition**: with two independent equations $(p_1 p_1)$ and
+$(p_2 p_2)$ in two unknowns $(\dot f, \lambda)$, Cramer's method gives a
+unique solution if and only if the determinant $H_{p_2} - H_{p_1}$ is
+nonzero. If all $H_p$ are equal to a common $H$, the system degenerates
+into a single equation in two unknowns: $\lambda$ becomes a free degree
+of freedom, undetermined.
+
+**Asymptotic corollary**: as $\mu \to \infty$, the anisotropy
+$H_{p_1} - H_{p_2} = (p_2 - p_1)/\mu^3 + O(1/\mu^4) \neq 0$ is
+automatic (active primes are distinct in $\Z$), so the unique value of
+$\lambda$ satisfies $\lambda(\mu) = -1/\mu^4 + O(1/\mu^5)$, nonzero.
 
 **Co-occurrence with BT13.** A third property is jointly verified in PT,
 but it is **independent** of the previous two:
@@ -196,30 +202,33 @@ all integers $\{12, 13, 14, 15, 16, 17\}$ to $15$ (theorems BT17 and
 BT18 of the bridge program). All numerical results are systematically
 verified on this basin.
 
-### Three convergent readings
+### Three complementary readings
 
-The deviation from the perfect soliton can be read in three complementary
-ways:
+The deviation from a steady soliton can be read in three complementary
+ways. Only one (the Perelman reading) is a strict mathematical
+description; the other two are **analogies** (qualified below).
 
-**Cosmological reading (slow-roll)**. In inflation, an exact de Sitter
+**Perelman reading (strict mathematical)**. Perelman studies flows that
+*converge toward* a soliton. PT is not a flow: it is a family of
+geometries parameterized by $\mu$, with a fixed point at $\mu^* = 15$.
+The metric $g_{\rm PT}(\mu^*)$ satisfies the soliton equation with a
+constant $\lambda \neq 0$ that vanishes as $1/\mu^4$ at large scales.
+PT is therefore an **expanding** quasi-soliton ($\lambda < 0$ in the
+Perelman convention) whose constant tends to zero asymptotically.
+
+**Cosmological analogy (slow-roll)**. In inflation, an exact de Sitter
 universe would be sterile: one needs a small parameter
 $\epsilon_{\rm sr} \neq 0$ that generates the dynamics. PT's residue
-$|\lambda| \sim 1/\mu^4$ plays a **role analogous** to inflationary
-slow-roll, with the nuance that it is **forced by arithmetic** rather
-than by a free scalar potential.
+$|\lambda| \sim 1/\mu^4$ plays **qualitatively the same structural role**
+as a slow-roll parameter: without residue, no dynamics. *The analogy is
+purely structural*, not a formal identification (the two parameters do
+not match term-for-term).
 
-**Perelman reading**. Perelman studies flows that *converge toward* a
-soliton. PT is not a flow: it is a family of geometries parameterized
-by $\mu$, with a fixed point at $\mu^* = 15$. The metric
-$g_{\rm PT}(\mu^*)$ satisfies the Ricci soliton equation up to a residue
-$|\lambda| \sim 10^{-5}$. So this is not an "unfinished convergence",
-but a static metric that deviates moderately from the perfect soliton,
-with that deviation crushing down at large scales.
-
-**Connes reading (NCG)**. In noncommutative geometry, time emerges from
-the modular flow of a KMS state. No modular flow $\Leftrightarrow$ no
-time. The PT residue is the arithmetic analogue of the intrinsic
-frequency of the modular flow — *the internal clock of the sieve*.
+**Speculative analogy (Connes, NCG)**. In noncommutative geometry, time
+emerges from the modular flow of a KMS state. No modular flow
+$\Leftrightarrow$ no time. PT's residue plays a qualitatively comparable
+role: without residue, no proper dynamics. *This analogy remains
+speculative and is not formalized in the present work*.
 
 ### Closure of the temporal triptych
 
@@ -239,23 +248,36 @@ Three independent results, one mechanism:
 
 ### Metric, gauge, and method
 
-We work in the Euclidean Fisher-Bianchi metric (after Wick rotation):
+We work in the Fisher–Bianchi metric in Lorentzian signature
+$(-,+,+,+)$ — the component $g_{\mu\mu}$ becomes negative for
+$\mu > \mu_c \approx 6.97$, the Lorentz frontier determined by the
+vanishing of $d^2(\ln\alpha)/d\mu^2 = 0$ (signature theorem 12.4 of
+Chapter 13):
 
 $$
-g_{\rm PT}(\mu) = N(\mu)^2\, d\mu^2 + \sum_{p \in \{3,5,7\}} a_p(\mu)^2\, dx_p^2,
+g_{\rm PT}(\mu) = -N(\mu)^2\, d\mu^2 + \sum_{p \in \{3,5,7\}} a_p(\mu)^2\, dx_p^2,
 $$
 
 where $a_p(\mu) := \gamma_p(\mu) / \mu$ and $\gamma_p$ is the anomalous
 dimension at prime $p$. We choose the gauge $N(\mu) = \mu$ (technically
-favorable).
+favorable), giving proper time $\tau = \mu^2/2$. The basin
+$(\mu_7, \mu_{11}) \approx (11.63,\, 17.98)$ is strictly above $\mu_c$,
+hence in the Lorentzian regime.
 
 **Pair-compatibility method**: the soliton equation
 $\mathrm{Ric} + \mathrm{Hess}(f) = \lambda g$ has 4 diagonal components
 (1 temporal $(\tau\tau)$ + 3 spatial $(pp)$ for $p \in \{3,5,7\}$), for
-2 unknowns $(\lambda, f')$. The system is overdetermined. We extract
-$\lambda$ via the **3 pairs** $(3,5), (5,7), (3,7)$ of the spatial
-equations. If all three yield the same value, we have a soliton;
-otherwise, the spread measures the defect.
+2 unknowns $(\lambda, \dot f)$. The system is overdetermined. The
+$(pp)$ components read
+
+$$
+A_p - H_p\,\dot f = \lambda \quad \text{(minus sign in Lorentzian signature)},
+$$
+
+with $A_p := \dot H_p + H_p \sum_k H_k$ and $H_p := \mu^{-1} d\ln a_p/d\mu$.
+We extract $\lambda$ via the **3 pairs** $(3,5), (5,7), (3,7)$ by
+elimination of $\dot f$. If all three yield the same value, we have a
+soliton; otherwise, the spread measures the defect.
 
 ### Asymptotic expansion of $\gamma_p$
 
@@ -393,24 +415,30 @@ effective power law in a limited $\mu$ range but is not one.
 
 ## To close
 
-The gap between PT and the perfect Perelman soliton is not a margin of
+The gap between PT and a steady Ricci soliton is not a margin of
 error, nor an artifact of our formulation. It is a geometric invariant,
 measurable and computable, whose dominant coefficient $-1$ is proved
-exact. Its structure — the $p$-dependence that vanishes only
-asymptotically — is the direct trace of the fact that PT operates on a
-finite number of active directions, $\{3, 5, 7\}$.
+exact (and pair-independent). Its structure — the $p$-dependence that
+vanishes only asymptotically — is the direct trace of the fact that PT
+operates on a finite number of active directions, $\{3, 5, 7\}$.
 
 The residual gap is thus not the thickness of an error margin: **it is
 the thickness of time itself**, measured in units of the arithmetic
 sieve. Where Perelman proves convergence toward a soliton, PT proves
-the **controlled non-realization** of that same soliton, and finds in
-it the condition for a temporally living geometry.
+the **controlled non-realization** of that same soliton (in the sense
+of an expanding soliton whose constant tends to zero), and finds in it
+the condition for a temporally living geometry.
 
 ## Related readings
 
-- **Appendix U of the monograph**: complete proof and open program.
+- **Transversal chapter on spectral geometry**
+  (`ch_geometrie_spectrale`): complete proof assembling this result with
+  the persistence curve (PT_GeoFlow Phase 2c), 949 self-contained lines.
+- **Companion paper** (`ricci_soliton_fr.tex`, 20 pages): rigorous
+  proof in 4 autonomous lemmas for CNTP submission.
 - **Appendix R**: the $q^-$ branch and the entropic arrow (BT13).
-- **Chapter 13**: Lorentzian signature and time emergence.
+- **Chapter 13**: Lorentzian signature and time emergence
+  ($\mu_c \approx 6.97$).
 - **Essay [bifurcation $q^+/q^-$](/essays/bifurcation-q-plus-q-minus)**:
   the two branches of the sieve.
 - **Code**: `PT_PROJECTS/PT_GeoFlow/` — 12 reproducible Python scripts.

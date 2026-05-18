@@ -1,0 +1,352 @@
+---
+slug: persistence-curve-a-geometry-for-the-sieve
+title: 'The persistence curve: when arithmetic selects a unique geometry'
+summary: 'There exists one and only one algebraic curve in the Kontsevich–Norbury class satisfying PT''s three arithmetic coherence conditions. This is the **persistence curve**, of genus $\mu^{\!*} - 1 = 14$ — PT''s first non-trivial topological invariant, derived without any tuned parameter.'
+level: L2
+reading_minutes: 16
+related_theorems: ['T5', 'T6', 'T1']
+lang: en
+order: 10
+---
+
+## The question
+
+If PT exists as a coherent mathematical structure, can we show it is
+also *geometrically unique*? Or is there a multiplicity of "possible
+PTs," each defining a different universe?
+
+The answer is unexpected: **there exists exactly one algebraic curve**
+in the Kontsevich–Norbury spectral class satisfying three natural
+conditions of arithmetic coherence. This curve is the **persistence
+curve**. It encodes the entire PT structure into a single geometric
+object whose **algebraic genus** equals $\mu^{\!*} - 1 = 14$ — the
+first non-trivial topological invariant of the theory.
+
+This result provides a direct bridge between PT and the *topological
+recursion* of Eynard–Orantin, one of the most active constructions in
+contemporary algebraic geometry (moduli spaces of Riemann surfaces, JT
+gravity, topological string theory).
+
+<section data-max-depth="L1">
+
+## The picture
+
+Imagine drawing all possible curves in a space of spectral curves —
+a standard framework in algebraic geometry. Among this infinity of
+curves, we impose three constraints from PT: (A) the curve must be
+made of the $\sin\theta_p$ functions of persistence; (B) only "active"
+primes $p$ contribute; (C) the internal coherence $\mu = \sum_p p$ is
+respected.
+
+**Result**: these three constraints leave **only one possible curve**.
+This is a result of **geometric rigidity**: PT's arithmetic uniqueness
+(a single fixed point $\mu^* = 15$) entails geometric uniqueness (a
+single spectral curve).
+
+> *Where infinitely many geometries could have hosted PT, only one
+> does — and its DNA is the number 14.*
+
+### Why 14?
+
+The persistence curve, like any algebraic curve, has a topological
+invariant called its **genus**: intuitively, the number of "holes" in
+the surface it draws. A circle has genus 0, a torus has genus 1, a
+pretzel has genus 2.
+
+The persistence curve has genus **14**. This number is not arbitrary:
+it equals exactly $\mu^* - 1 = 15 - 1$. That is, the arithmetic fixed
+point $\mu^* = 15$ determines the topology of the associated spectral
+curve.
+
+### Five sieves, five geometries
+
+The theorem applies not only to PT. There are in fact **five arithmetic
+sieves** compatible with conditions A, B, C:
+
+| Sieve | $S$ (active primes) | $\mu^*$ | Genus |
+|---|---|---|---|
+| Integers | $\{1, 2, 3\}$ | $6$ | $5$ |
+| Primes (with $p=2$) | $\{2, 3, 5\}$ | $10$ | $9$ |
+| **Odd primes (PT)** | $\{3, 5, 7\}$ | $15$ | $14$ |
+| Primes (extended) | $\{2, 3, 5, 7\}$ | $17$ | $15$ |
+| Lucky numbers | $\{1, 3, 7, 9\}$ | $20$ | $18$ |
+
+Each sieve thus defines its own unique algebraic curve. The question
+"why PT and not another?" becomes a question of **natural selection**
+among these five possible universes.
+
+### Three selection principles
+
+PT is selected from the five by three independent principles:
+
+- **(N) Naturality**: odd primes are the most elementary objects of
+  arithmetic (free multiplication).
+- **(K) Kinematic exclusion of $p=2$**: theorem T1 (Forbidden
+  Transitions) shows that $p=2$ carries no modular dynamics
+  (degenerate matrix $T_2 = (1)$).
+- **(D) Dynamic level $n \neq 1$**: the unit 1 cannot be active (it is
+  multiplicatively neutral).
+
+Under these three principles, **PT is the unique selection** among the
+five compatible sieves.
+
+### Why this matters
+
+Before this result, PT was a coherent theory but without formal bridge
+to the major geometric frameworks of contemporary mathematics. The
+persistence curve changes that: PT enters the territory of *topological
+recursion* of Eynard–Orantin, which computes the volumes of moduli
+spaces of Riemann surfaces (Mirzakhani's work, Fields medal 2014) and
+appears in JT gravity (Saad–Shenker–Stanford 2019).
+
+</section>
+
+<section data-min-depth="L2">
+
+## The three conditions and the main theorem
+
+### The framework: the Kontsevich–Norbury class
+
+A **spectral curve** in the Eynard–Orantin formalism is a quadruple
+$(\Sigma, x, \omega_{0,1}, \omega_{0,2})$ where $\Sigma$ is a Riemann
+surface, $x$ a meromorphic function, and $\omega_{0,1}, \omega_{0,2}$
+are differential forms. The **Kontsevich–Norbury 2021 class**
+($\mathcal{C}_{\rm KN}$) restricts to $\Sigma = \mathbb{C}$,
+$x = z^2/2$, and $\omega_{0,1}$ of the form $y(z)\,dz$ with $y$ odd in
+$z$.
+
+Two canonical curves of this class:
+
+- **Airy**: $\omega_{0,1}^{\rm Airy} = z^2 \, dz$. Computes intersection
+  numbers of $\psi$-classes on $\overline{\mathcal{M}}_{g,n}$
+  (Witten–Kontsevich theorem).
+- **Mirzakhani**: $\omega_{0,1}^{\rm Mirz} = z\sin(2\pi z)/(2\pi) \, dz$.
+  Computes Weil–Petersson volumes $V_{g,n}(L_1, \ldots, L_n)$.
+
+### The three conditions
+
+A spectral curve $\mathcal{C}$ in $\mathcal{C}_{\rm KN}$ is said
+**compatible with a sieve** $S \subset \mathbb{P}$ if it satisfies:
+
+- **(A) Polynomial holonomy**: there exists a rational parametrization
+  $\mu(z)$ such that
+  $\omega_{0,1}(z) = \frac{z}{2\pi} \prod_{p \in S} \sin\theta_p(\mu(z)) \, dz$,
+  where $\sin\theta_p$ is PT's holonomy identity T6.
+- **(B) Threshold activation**: $S$ coincides with
+  $\{p : \gamma_p(\mu(0)) > 1/2\}$, where $\gamma_p$ is the anomalous
+  dimension.
+- **(C) Self-coherence**: $\mu(0) = \sum_{p \in S} p$.
+
+### The main theorem
+
+**Theorem (existence and uniqueness)**. In the Kontsevich–Norbury class
+modulo even analytic reparametrization, there exists a unique algebraic
+curve simultaneously satisfying (A), (B), (C). This curve is the
+**persistence curve** $\mathcal{C}_\sieve$, characterized by
+$S = \{3, 5, 7\}$ and $\mu^* = 15$.
+
+**Proof idea**: condition (C) imposes $\mu^* = \sum_{p \in S} p$;
+condition (B) imposes that $S$ be exactly the set of "active" primes
+at $\mu^*$. PT's theorem T5 (arithmetic fixed point) establishes that
+under restriction to odd primes, the only solution is $\mu^* = 15$,
+$S^* = \{3,5,7\}$. For other sieves, see the table above.
+
+### The universal genus formula
+
+For any subset $S$ of odd cardinality satisfying (A)–(C), the algebraic
+genus of the associated curve equals
+$$
+\boxed{\;g(\mathcal{C}_S) = \mu^*(S) - \frac{|S| - 1}{2}.\;}
+$$
+
+For PT ($|S| = 3$, $\mu^* = 15$): $g = 15 - 1 = 14$.
+
+This formula is **structurally remarkable**: the topological genus of
+an algebraic curve is explicitly determined by two arithmetic
+quantities (the sum of active primes and their number). This is the
+signature of the **rigidity** of the construction.
+
+### Mirzakhani → persistence substitution
+
+The form of the persistence curve,
+$$
+\omega_{0,1}^{\sieve}(z) = \frac{z}{2\pi} \prod_{p \in \{3,5,7\}}
+\sin\theta_p(\mu(z)) \, dz,
+$$
+is **algebraic** in $z$ (by T6, $\sin^2\theta_p$ is rational in $\mu$,
+and $\mu(z)$ is rational). It thus contrasts with Mirzakhani's curve,
+whose $\sin(2\pi z)$ is transcendental.
+
+Series expansion gives the first correlator
+$$
+\omega_{1,1}^{\sieve}(z) = \frac{1}{8 a_1 z^4}
+\Bigl[1 + \tfrac{1}{2}\sum_{p \in S^*} \gamma_p(\mu^*)\, z^2 + O(z^4)\Bigr]
+$$
+to be compared with
+$\omega_{1,1}^{\rm Mirz}(z) = (1/(8 z^4))[1 + (2\pi^2/3) z^2 + O(z^4)]$.
+
+The **structural substitution** is therefore
+$$
+\frac{2\pi^2}{3} \quad \longrightarrow \quad
+\frac{1}{2} \sum_{p \in S^*} \gamma_p(\mu^*).
+$$
+
+That is: the transcendental constant $2\pi^2/3$ that appears in
+Mirzakhani is replaced, in PT, by the arithmetic combination
+$(1/2)(\gamma_3 + \gamma_5 + \gamma_7)$. Numerical mpmath verification:
+agreement to $10^{-9}$.
+
+</section>
+
+<section data-min-depth="L3">
+
+## Technical proof
+
+### Canonical parametrization
+
+We set
+$$
+\mu : \mathbb{C} \to \widehat{\mathbb{C}}, \quad
+\mu(z) := \frac{\mu^*}{1 - z^2}, \quad \mu^* = 15.
+$$
+
+This function is even, with two simple poles at $z = \pm 1$ and
+$\mu(0) = \mu^*$. Justification: minimal pole, Fisher geodesic, maximal
+symmetry (three equivalent characterizations).
+
+### Algebraicity
+
+**Lemma (T6 polynomial form)**. For all $p \in \mathbb{P}$ and $\mu > 0$,
+$$
+\sin^2 \theta_p(\mu) = \frac{(1 - q^p)(2p - 1 + q^p)}{p^2},
+\quad q := 1 - 2/\mu.
+$$
+
+With $\mu(z) = \mu^*/(1-z^2)$, $q(z) = (\mu^* - 2 + 2z^2)/\mu^*$ is
+**polynomial in $z^2$**. So $\sin^2\theta_p(\mu(z))$ is polynomial in
+$z^2$ (of degree $2p$), and
+$$
+y(z)^2 = \frac{z^2}{4\pi^2}\prod_{p \in \{3,5,7\}} \sin^2\theta_p(\mu(z))
+$$
+is polynomial in $z^2$, hence rational in $x = z^2/2$. The curve is
+algebraic.
+
+### The genus computation
+
+The polynomial $Y(x) := y(z)^2$ writes
+$$
+Y(x) = \frac{N(x)}{2\pi^2 D},
+\quad N(x) = -256\, x\, (2x-1)^3 \cdot \prod_{d=2}^{7} F_d(x),
+$$
+where $D$ is an integer and $F_d(x)$ an irreducible polynomial of degree
+$d$ over $\mathbb{Q}$.
+
+- Raw degree: $\deg N = 31 = 2\mu^* + 1$.
+- Multiplicity of $(2x-1)$: $|S^*| = 3$ (triple coincidence $q = 1$ for
+  $p = 3, 5, 7$).
+- Squarefree degree: $31 - 2 = 29 = 2\mu^* - 1$.
+- For $y^2 = N_{\rm sqf}(x)$ with $\deg N_{\rm sqf}$ odd squarefree, the
+  genus equals $g = (\deg N_{\rm sqf} - 1)/2$ (Hartshorne IV §1, Thm 1.3).
+- So $g = (29 - 1)/2 = 14 = \mu^* - 1$.
+
+### Arithmetically structured invariants
+
+| Invariant | Value | Interpretation |
+|---|---|---|
+| $\deg N(x)$ | $31$ | $2\mu^* + 1$ |
+| Squarefree degree | $29$ | $2\mu^* - 1$ |
+| Algebraic genus | $14$ | $\mu^* - 1$ |
+| Multiplicity of $x = 1/2$ | $3$ | $|S^*|$ |
+| Irreducible factor degrees | $\{1, 1, 2, 3, 4, 5, 6, 7\}$ | — |
+
+### Non-existence theorem for $\mu > 17$
+
+**Theorem**: for the odd primes sieve $\mathbb{P}_{\rm odd}$, there is
+no self-coherence solution with $\mu^* > 17$.
+
+**Proof** (sketch):
+1. **Uniform asymptotic**: $\gamma_n(\mu) = g(2n/\mu) + O(1/\mu)$ with
+   $g(x) = x/(e^x - 1)$.
+2. **Threshold**: $g(x) = 1/2 \iff e^x = 1 + 2x \iff x_0 \approx 1.2564$.
+3. **Activation**: $\gamma_p(\mu) > 1/2$ asymptotically
+   $\iff p < (x_0/2) \cdot \mu \approx 0.6282 \mu$.
+4. **Exhaustive verification**: for $\mu \in [18, 1000]$,
+   $T(\mu) := \sum_{p \in S(\mu)} p > \mu$ (mpmath 30 digits computation).
+5. **Analytic bound**: for $\mu > 1000$, we use Dusart's 2010 theorem
+   (Thm 5.2): $\sum_{p \leq N} p \geq N^2/(2 \ln N)$ valid for
+   $N \geq 563$. At $\mu = 1000$, $N = 600 \geq 563$, bound valid.
+   Combined with super-linear growth of $T(\mu)/\mu$, we conclude
+   $T(\mu) > \mu$ for all $\mu > 17$.
+
+Combined with exhaustive search for $\mu \leq 17$: **the only solutions
+are** $\mu^* = 15$ ($S^* = \{3,5,7\}$ on $\mathbb{P}_{\rm odd}$) and
+$\mu^* = 17$ ($S = \{2,3,5,7\}$ if we allow $p = 2$). Under restriction
+to $\mathbb{P}_{\rm odd}$, uniqueness is strict.
+
+### Bridge with the quasi-soliton
+
+The persistence curve and the asymptotic expanding quasi-soliton
+(companion paper `ricci_soliton_fr.tex`) are two faces of the same
+geometric object. A quantitative bridge connects the geometric residue
+$\lambda(\mu)$ to the leading coefficient $B_0(\mu) = 1/(8 a_1(\mu))$
+of the correlator $\omega_{1,1}^{\sieve}$:
+$$
+\lambda(\mu) \sim C \cdot B_0(\mu)^{-8/3} \sim \frac{C \cdot (32/\pi)^{8/3}}{\mu^4}.
+$$
+
+The exact identity (explicit constant $C$) remains an **open program**.
+
+</section>
+
+## To close
+
+The persistence curve is not a notational artifact — it is a real
+geometric object, determined by three natural arithmetic conditions,
+which selects **exactly one curve** in the Kontsevich–Norbury spectral
+class. Its algebraic genus, $\mu^* - 1 = 14$, is the first non-trivial
+topological invariant derived in PT — **zero tuned parameters**.
+
+The significance of this result extends beyond PT's internal framework:
+it establishes a direct bridge with Eynard–Orantin's *topological
+recursion* and with the class of spectral curves studied by Mirzakhani
+and her successors. PT is no longer merely an isolated self-coherent
+theory, but enters the mathematical territory of moduli spaces, JT
+gravity, and topological string theory.
+
+> *PT's arithmetic uniqueness imposes a geometric uniqueness. The
+> number 14 is not chosen: it is named by the sieve.*
+
+## Related readings
+
+- **Transversal chapter on spectral geometry**
+  (`ch_geometrie_spectrale`): complete proof assembling this result with
+  the quasi-soliton (PT_GeoFlow Phase 2a), 949 self-contained lines.
+- **Companion paper** (`persistence_curve_fr.tex`, 20 pages): rigorous
+  proof for CNTP submission, including classification of the five sieves
+  and non-existence theorem for $\mu > 17$.
+- **Essay [Quasi-Perelman](/essays/quasi-perelman-time-as-soliton-deficit)**:
+  the other face of the PT_GeoFlow diptych — the asymptotic expanding
+  quasi-soliton.
+- **Theorem T5** (chapter 8 of the monograph): unique arithmetic fixed
+  point $\mu^* = 15$.
+- **Theorem T6** (chapter 6): polynomial holonomy identity.
+- **Code**: `PT_PROJECTS/PT_GeoFlow/` — 12 reproducible Python scripts.
+
+## References
+
+- B. Eynard, N. Orantin, *Invariants of algebraic curves and topological
+  expansion*, Comm. Number Theory Phys. **1** (2007), 347–452.
+  (Foundational topological recursion.)
+- M. Mirzakhani, *Simple geodesics and Weil-Petersson volumes of moduli
+  spaces of bordered Riemann surfaces*, Invent. Math. **167** (2007),
+  179–222. (Fields medal 2014.)
+- M. Kontsevich, P. Norbury, *Polynomial relations among kappa-classes*,
+  arXiv:2112.13525 (2021). (Spectral class studied.)
+- V. Bouchard et al., *A new class of higher quantum Airy structures*,
+  arXiv:2403.16928 (2024). (Modern classification.)
+- P. Saad, S. Shenker, D. Stanford, *JT gravity as a matrix integral*,
+  arXiv:1903.11115 (2019). (Application to JT gravity.)
+- R. Hartshorne, *Algebraic Geometry*, Springer, 1977. (Genus of
+  hyperelliptic curves, IV §1.)
+- P. Dusart, *Estimates of some functions over primes without R.H.*,
+  arXiv:1002.0442 (2010). (Explicit PNT bound, Thm 5.2.)

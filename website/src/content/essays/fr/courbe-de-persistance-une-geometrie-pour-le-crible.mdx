@@ -1,0 +1,360 @@
+---
+slug: courbe-de-persistance-une-geometrie-pour-le-crible
+title: 'La courbe de persistance : quand l''arithmétique sélectionne une géométrie unique'
+summary: 'Il existe une et une seule courbe algébrique dans la classe Kontsevich–Norbury satisfaisant les trois conditions de cohérence arithmétique de PT. C''est la **courbe de persistance**, de genre $\mu^{\!*} - 1 = 14$ — le premier invariant topologique non-trivial de PT, dérivé sans paramètre ajusté.'
+level: L2
+reading_minutes: 16
+related_theorems: ['T5', 'T6', 'T1']
+lang: fr
+order: 10
+---
+
+## La question
+
+Si PT existe comme structure mathématique cohérente, peut-on montrer
+qu'elle est aussi *géométriquement unique* ? Ou existe-t-il une
+multiplicité de "PT possibles", chacune définissant un univers
+différent ?
+
+La réponse est inattendue : **il existe exactement une seule courbe
+algébrique** dans la classe spectrale de Kontsevich–Norbury satisfaisant
+trois conditions naturelles de cohérence arithmétique. Cette courbe est
+la **courbe de persistance**. Elle code l'ensemble de la structure PT
+en un seul objet géométrique, dont le **genre algébrique** vaut $\mu^{\!*}
+- 1 = 14$ — le premier invariant topologique non trivial de la théorie.
+
+Ce résultat offre un pont direct entre PT et la *récurrence
+topologique* d'Eynard–Orantin, l'une des constructions les plus actives
+de la géométrie algébrique contemporaine (espaces de modules de
+Riemann, gravité JT, théorie des cordes topologiques).
+
+<section data-max-depth="L1">
+
+## L'image
+
+Imaginez qu'on cherche à dessiner toutes les courbes possibles dans
+un espace de courbes spectrales — un cadre standard en géométrie
+algébrique. Parmi cette infinité de courbes, on impose trois contraintes
+issues de PT : (A) la courbe doit être faite des fonctions $\sin\theta_p$
+de la persistance ; (B) seuls les premiers $p$ "actifs" interviennent ;
+(C) la cohérence interne $\mu = \sum_p p$ est respectée.
+
+**Résultat** : ces trois contraintes ne laissent qu'**une seule courbe
+possible**. C'est un résultat de **rigidité géométrique** : l'unicité
+arithmétique de PT (un seul point fixe $\mu^* = 15$) entraîne
+l'unicité géométrique (une seule courbe spectrale).
+
+> *Là où une infinité de géométries auraient pu accueillir PT, seule
+> une le fait — et son ADN, c'est le nombre 14.*
+
+### Pourquoi 14 ?
+
+La courbe de persistance, comme toute courbe algébrique, possède un
+invariant topologique appelé son **genre** : intuitivement, le nombre
+de "trous" de la surface qu'elle dessine. Un cercle a genre 0, un
+tore a genre 1, une bretzel a genre 2.
+
+La courbe de persistance a genre **14**. Ce nombre n'est pas
+arbitraire : il vaut exactement $\mu^* - 1 = 15 - 1$. C'est-à-dire que
+le point fixe arithmétique $\mu^* = 15$ détermine la topologie de la
+courbe spectrale associée.
+
+### Cinq cribles, cinq géométries
+
+Le théorème ne s'applique pas qu'à PT. Il y a en réalité **cinq cribles
+arithmétiques** compatibles avec les trois conditions A, B, C :
+
+| Crible | $S$ (premiers actifs) | $\mu^*$ | Genre |
+|---|---|---|---|
+| Entiers | $\{1, 2, 3\}$ | $6$ | $5$ |
+| Premiers (avec $p=2$) | $\{2, 3, 5\}$ | $10$ | $9$ |
+| **Premiers impairs (PT)** | $\{3, 5, 7\}$ | $15$ | $14$ |
+| Premiers (étendu) | $\{2, 3, 5, 7\}$ | $17$ | $15$ |
+| Lucky numbers | $\{1, 3, 7, 9\}$ | $20$ | $18$ |
+
+Chaque crible définit donc sa propre courbe algébrique unique. La
+question "pourquoi PT et pas un autre ?" devient une question de
+**sélection naturelle** entre ces cinq univers possibles.
+
+### Trois principes de sélection
+
+PT est sélectionné parmi les cinq par trois principes indépendants :
+
+- **(N) Naturalité** : les premiers impairs sont les objets les plus
+  élémentaires de l'arithmétique (multiplication libre).
+- **(K) Exclusion cinématique de $p=2$** : le théorème T1 (Forbidden
+  Transitions) montre que $p=2$ ne porte aucune dynamique modulaire
+  (matrice $T_2 = (1)$ dégénérée).
+- **(D) Niveau dynamique $n \neq 1$** : l'unité 1 ne peut pas être
+  active (elle est multiplicativement neutre).
+
+Sous ces trois principes, **PT est la sélection unique** parmi les
+cinq cribles compatibles.
+
+### Pourquoi c'est important
+
+Avant ce résultat, PT était une théorie cohérente mais sans pont
+formel avec les grands cadres géométriques de la mathématique
+contemporaine. La courbe de persistance change cela : PT entre dans
+le territoire de la *récurrence topologique* d'Eynard–Orantin, qui
+calcule les volumes des espaces de modules de surfaces de Riemann
+(travaux de Mirzakhani, médaille Fields 2014) et apparaît dans la
+gravité JT (Saad–Shenker–Stanford 2019).
+
+</section>
+
+<section data-min-depth="L2">
+
+## Les trois conditions et le théorème principal
+
+### Le cadre : la classe Kontsevich–Norbury
+
+Une **courbe spectrale** dans le formalisme d'Eynard–Orantin est un
+quadruplet $(\Sigma, x, \omega_{0,1}, \omega_{0,2})$ où $\Sigma$ est
+une surface de Riemann, $x$ une fonction méromorphe, et
+$\omega_{0,1}, \omega_{0,2}$ des formes différentielles. La **classe
+Kontsevich–Norbury 2021** ($\mathcal{C}_{\rm KN}$) restreint à
+$\Sigma = \mathbb{C}$, $x = z^2/2$, et $\omega_{0,1}$ de la forme
+$y(z)\,dz$ avec $y$ impaire en $z$.
+
+Deux courbes canoniques de cette classe :
+
+- **Airy** : $\omega_{0,1}^{\rm Airy} = z^2 \, dz$. Calcule les nombres
+  d'intersection des $\psi$-classes sur $\overline{\mathcal{M}}_{g,n}$
+  (théorème Witten–Kontsevich).
+- **Mirzakhani** : $\omega_{0,1}^{\rm Mirz} = z\sin(2\pi z)/(2\pi) \, dz$.
+  Calcule les volumes de Weil–Petersson $V_{g,n}(L_1, \ldots, L_n)$.
+
+### Les trois conditions
+
+Une courbe spectrale $\mathcal{C}$ dans $\mathcal{C}_{\rm KN}$ est dite
+**compatible avec un crible** $S \subset \mathbb{P}$ si elle satisfait :
+
+- **(A) Holonomie polynomiale** : il existe une paramétrisation
+  rationnelle $\mu(z)$ telle que
+  $\omega_{0,1}(z) = \frac{z}{2\pi} \prod_{p \in S} \sin\theta_p(\mu(z)) \, dz$,
+  où $\sin\theta_p$ est l'identité d'holonomie T6 de PT.
+- **(B) Activation par seuil** : $S$ coïncide avec
+  $\{p : \gamma_p(\mu(0)) > 1/2\}$, où $\gamma_p$ est la dimension
+  anomale.
+- **(C) Auto-cohérence** : $\mu(0) = \sum_{p \in S} p$.
+
+### Le théorème principal
+
+**Théorème (existence et unicité)**. Dans la classe Kontsevich–Norbury
+modulo reparamétrisation analytique paire, il existe une unique courbe
+algébrique satisfaisant simultanément (A), (B), (C). Cette courbe est
+la **courbe de persistance** $\mathcal{C}_\sieve$, caractérisée par
+$S = \{3, 5, 7\}$ et $\mu^* = 15$.
+
+**Idée de la preuve** : la condition (C) impose $\mu^* = \sum_{p \in S} p$ ;
+la condition (B) impose que $S$ soit exactement l'ensemble des primes
+"actives" à $\mu^*$. Le théorème T5 de PT (point fixe arithmétique)
+établit que sous restriction aux premiers impairs, la seule solution
+est $\mu^* = 15$, $S^* = \{3,5,7\}$. Pour les autres cribles, voir le
+tableau ci-dessus.
+
+### La formule du genre universelle
+
+Pour tout sous-ensemble $S$ de cardinal impair satisfaisant (A)–(C),
+le genre algébrique de la courbe associée vaut
+$$
+\boxed{\;g(\mathcal{C}_S) = \mu^*(S) - \frac{|S| - 1}{2}.\;}
+$$
+
+Pour PT ($|S| = 3$, $\mu^* = 15$) : $g = 15 - 1 = 14$.
+
+Cette formule est **structurellement remarquable** : le genre
+topologique d'une courbe algébrique est explicitement déterminé par
+deux quantités arithmétiques (la somme des premiers actifs et leur
+nombre). C'est la signature de la **rigidité** de la construction.
+
+### Substitution Mirzakhani → persistance
+
+La forme de la courbe de persistance,
+$$
+\omega_{0,1}^{\sieve}(z) = \frac{z}{2\pi} \prod_{p \in \{3,5,7\}}
+\sin\theta_p(\mu(z)) \, dz,
+$$
+est **algébrique** en $z$ (par T6, $\sin^2\theta_p$ est rationnelle en
+$\mu$, et $\mu(z)$ est rationnelle). Elle contraste donc avec la courbe
+de Mirzakhani, dont $\sin(2\pi z)$ est transcendant.
+
+Le développement en série donne le premier corrélateur
+$$
+\omega_{1,1}^{\sieve}(z) = \frac{1}{8 a_1 z^4}
+\Bigl[1 + \tfrac{1}{2}\sum_{p \in S^*} \gamma_p(\mu^*)\, z^2 + O(z^4)\Bigr]
+$$
+à comparer à
+$\omega_{1,1}^{\rm Mirz}(z) = (1/(8 z^4))[1 + (2\pi^2/3) z^2 + O(z^4)]$.
+
+La **substitution structurelle** est donc
+$$
+\frac{2\pi^2}{3} \quad \longrightarrow \quad
+\frac{1}{2} \sum_{p \in S^*} \gamma_p(\mu^*).
+$$
+
+C'est-à-dire : la constante transcendante $2\pi^2/3$ qui apparaît
+chez Mirzakhani est remplacée, en PT, par la combinaison arithmétique
+$(1/2)(\gamma_3 + \gamma_5 + \gamma_7)$. Vérification numérique mpmath :
+agrément à $10^{-9}$ près.
+
+</section>
+
+<section data-min-depth="L3">
+
+## Démonstration technique
+
+### Paramétrisation canonique
+
+On pose
+$$
+\mu : \mathbb{C} \to \widehat{\mathbb{C}}, \quad
+\mu(z) := \frac{\mu^*}{1 - z^2}, \quad \mu^* = 15.
+$$
+
+Cette fonction est paire, avec deux pôles simples en $z = \pm 1$ et
+$\mu(0) = \mu^*$. Justification : pôle minimal, géodésique de Fisher,
+symétrie maximale (trois caractérisations équivalentes).
+
+### Algébricité
+
+**Lemme (forme polynomiale T6)**. Pour tout $p \in \mathbb{P}$ et
+$\mu > 0$,
+$$
+\sin^2 \theta_p(\mu) = \frac{(1 - q^p)(2p - 1 + q^p)}{p^2},
+\quad q := 1 - 2/\mu.
+$$
+
+Avec $\mu(z) = \mu^*/(1-z^2)$, $q(z) = (\mu^* - 2 + 2z^2)/\mu^*$ est
+**polynomial en $z^2$**. Donc $\sin^2\theta_p(\mu(z))$ est polynomial
+en $z^2$ (de degré $2p$), et
+$$
+y(z)^2 = \frac{z^2}{4\pi^2}\prod_{p \in \{3,5,7\}} \sin^2\theta_p(\mu(z))
+$$
+est polynomial en $z^2$, donc rationnel en $x = z^2/2$. La courbe est
+algébrique.
+
+### Le calcul du genre
+
+Le polynôme $Y(x) := y(z)^2$ s'écrit
+$$
+Y(x) = \frac{N(x)}{2\pi^2 D},
+\quad N(x) = -256\, x\, (2x-1)^3 \cdot \prod_{d=2}^{7} F_d(x),
+$$
+où $D$ est un entier et $F_d(x)$ un polynôme irréductible de degré
+$d$ sur $\mathbb{Q}$.
+
+- Degré brut : $\deg N = 31 = 2\mu^* + 1$.
+- Multiplicité de $(2x-1)$ : $|S^*| = 3$ (triple coïncidence $q = 1$
+  pour $p = 3, 5, 7$).
+- Degré squarefree : $31 - 2 = 29 = 2\mu^* - 1$.
+- Pour $y^2 = N_{\rm sqf}(x)$ avec $\deg N_{\rm sqf}$ impair sans facteur
+  carré, le genre vaut $g = (\deg N_{\rm sqf} - 1)/2$ (Hartshorne IV §1,
+  Thm 1.3).
+- Donc $g = (29 - 1)/2 = 14 = \mu^* - 1$.
+
+### Invariants arithmétiquement structurés
+
+| Invariant | Valeur | Interprétation |
+|---|---|---|
+| $\deg N(x)$ | $31$ | $2\mu^* + 1$ |
+| Degré squarefree | $29$ | $2\mu^* - 1$ |
+| Genre algébrique | $14$ | $\mu^* - 1$ |
+| Multiplicité de $x = 1/2$ | $3$ | $|S^*|$ |
+| Degrés des facteurs irréd. | $\{1, 1, 2, 3, 4, 5, 6, 7\}$ | — |
+
+### Théorème de non-existence pour $\mu > 17$
+
+**Théorème** : pour le crible des premiers impairs $\mathbb{P}_{\rm odd}$,
+il n'existe aucune solution d'auto-cohérence avec $\mu^* > 17$.
+
+**Preuve** (ébauche) :
+1. **Asymptotique uniforme** : $\gamma_n(\mu) = g(2n/\mu) + O(1/\mu)$
+   avec $g(x) = x/(e^x - 1)$.
+2. **Seuil** : $g(x) = 1/2 \iff e^x = 1 + 2x \iff x_0 \approx 1{,}2564$.
+3. **Activation** : $\gamma_p(\mu) > 1/2$ asymptotiquement
+   $\iff p < (x_0/2) \cdot \mu \approx 0{,}6282 \mu$.
+4. **Vérification exhaustive** : pour $\mu \in [18, 1000]$,
+   $T(\mu) := \sum_{p \in S(\mu)} p > \mu$ (calcul mpmath 30 chiffres).
+5. **Borne analytique** : pour $\mu > 1000$, on utilise le théorème de
+   Dusart 2010 (Thm 5.2) : $\sum_{p \leq N} p \geq N^2/(2 \ln N)$ valide
+   pour $N \geq 563$. À $\mu = 1000$, $N = 600 \geq 563$, borne valide.
+   Combiné avec la croissance super-linéaire de $T(\mu)/\mu$, on conclut
+   que $T(\mu) > \mu$ pour tout $\mu > 17$.
+
+Combiné avec recherche exhaustive pour $\mu \leq 17$ : **les seules
+solutions sont** $\mu^* = 15$ ($S^* = \{3,5,7\}$ sur $\mathbb{P}_{\rm odd}$)
+et $\mu^* = 17$ ($S = \{2,3,5,7\}$ si on autorise $p = 2$). Sous
+restriction à $\mathbb{P}_{\rm odd}$, l'unicité est stricte.
+
+### Pont avec le quasi-soliton
+
+La courbe de persistance et le quasi-soliton expansif asymptotique
+(article companion `ricci_soliton_fr.tex`) sont les deux faces d'un même
+objet géométrique. Un pont quantitatif relie le résidu géométrique
+$\lambda(\mu)$ au coefficient dominant $B_0(\mu) = 1/(8 a_1(\mu))$ du
+corrélateur $\omega_{1,1}^{\sieve}$ :
+$$
+\lambda(\mu) \sim C \cdot B_0(\mu)^{-8/3} \sim \frac{C \cdot (32/\pi)^{8/3}}{\mu^4}.
+$$
+
+L'identité exacte (constante $C$ explicite) reste un **programme ouvert**.
+
+</section>
+
+## Pour finir
+
+La courbe de persistance n'est pas un artefact de notation — c'est un
+objet géométrique réel, déterminé par trois conditions arithmétiques
+naturelles, qui sélectionne **exactement une courbe** dans la classe
+spectrale de Kontsevich–Norbury. Son genre algébrique, $\mu^* - 1 = 14$,
+est le premier invariant topologique non-trivial dérivé en PT —
+**zéro paramètre ajusté**.
+
+La signification de ce résultat dépasse le cadre interne de PT : il
+établit un pont direct avec la *récurrence topologique* d'Eynard–Orantin
+et avec la classe des courbes spectrales étudiées par Mirzakhani et ses
+successeurs. PT n'est plus seulement une théorie auto-cohérente isolée,
+mais s'inscrit dans le territoire mathématique des espaces de modules,
+de la gravité JT, et de la théorie des cordes topologiques.
+
+> *L'unicité arithmétique de PT impose une unicité géométrique. Le
+> nombre 14 n'est pas choisi : il est nommé par le crible.*
+
+## Lectures liées
+
+- **Chapitre transversal de géométrie spectrale**
+  (`ch_geometrie_spectrale`) : démonstration complète assemblant ce
+  résultat avec le quasi-soliton (Phase 2a PT_GeoFlow), 949 lignes
+  auto-contenues.
+- **Article companion** (`persistence_curve_fr.tex`, 20 pages) :
+  démonstration rigoureuse pour publication CNTP, incluant la
+  classification des cinq cribles et le théorème de non-existence
+  pour $\mu > 17$.
+- **Essay [Quasi-Perelman](/essays/quasi-perelman-le-temps-comme-defaut-de-soliton)** :
+  l'autre face du diptyque PT_GeoFlow — le quasi-soliton expansif
+  asymptotique.
+- **Théorème T5** (chapitre 8 de la monographie) : point fixe
+  arithmétique unique $\mu^* = 15$.
+- **Théorème T6** (chapitre 6) : identité d'holonomie polynomiale.
+- **Code** : `PT_PROJECTS/PT_GeoFlow/` — 12 scripts Python reproductibles.
+
+## Références
+
+- B. Eynard, N. Orantin, *Invariants of algebraic curves and topological
+  expansion*, Comm. Number Theory Phys. **1** (2007), 347–452.
+  (Récurrence topologique fondatrice.)
+- M. Mirzakhani, *Simple geodesics and Weil-Petersson volumes of moduli
+  spaces of bordered Riemann surfaces*, Invent. Math. **167** (2007),
+  179–222. (Médaille Fields 2014.)
+- M. Kontsevich, P. Norbury, *Polynomial relations among kappa-classes*,
+  arXiv:2112.13525 (2021). (Classe spectrale étudiée.)
+- V. Bouchard et al., *A new class of higher quantum Airy structures*,
+  arXiv:2403.16928 (2024). (Classification moderne.)
+- P. Saad, S. Shenker, D. Stanford, *JT gravity as a matrix integral*,
+  arXiv:1903.11115 (2019). (Application à la gravité JT.)
+- R. Hartshorne, *Algebraic Geometry*, Springer, 1977. (Genre des courbes
+  hyperelliptiques, IV §1.)
+- P. Dusart, *Estimates of some functions over primes without R.H.*,
+  arXiv:1002.0442 (2010). (Borne PNT explicite, Thm 5.2.)

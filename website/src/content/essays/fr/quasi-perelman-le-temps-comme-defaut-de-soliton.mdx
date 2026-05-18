@@ -1,10 +1,10 @@
 ---
 slug: quasi-perelman-le-temps-comme-defaut-de-soliton
-title: 'Quasi-Perelman : le temps comme défaut de soliton'
-summary: 'PT n''est pas un soliton parfait de Perelman, et c''est exactement ce qui rend le temps possible. Le résidu géométrique $\lambda(\mu) \sim -1/\mu^4$ est la signature de la branche temporelle $q^-$ — un slow-roll forcé par l''arithmétique.'
+title: 'Quasi-Perelman : PT comme soliton expansif asymptotique'
+summary: 'La métrique Fisher–Bianchi de PT est un quasi-soliton expansif de Ricci dont la constante $\lambda(\mu) = -1/\mu^4 + O(1/\mu^5)$ tend vers zéro asymptotiquement (coefficient $-1$ exact, indépendant de la paire de canaux). Ce résidu non nul co-occure avec la flèche entropique du temps PT — deux signatures indépendantes d''une même non-trivialité dynamique du crible.'
 level: L2
-reading_minutes: 14
-related_theorems: ['T5', 'T7', 'BT13', 'BT17', 'BT18']
+reading_minutes: 16
+related_theorems: ['T5', 'T6', 'BT13', 'BT17', 'BT18']
 lang: fr
 order: 9
 ---
@@ -24,11 +24,13 @@ $\mu^* = 15$. La question naturelle :
 
 > **PT est-il un soliton de Perelman ?**
 
-La réponse courte : *presque, mais pas tout à fait*. La métrique
-Fisher-Bianchi de PT au point fixe $\mu^* = 15$ satisfait l'équation de
-soliton de Ricci à un résidu près, qui s'écrase comme $1/\mu^4$ aux
-grandes échelles. Ce résidu **co-occurre** avec la flèche entropique du
-temps PT — deux signatures indépendantes d'une même non-trivialité
+La réponse courte : *PT est un quasi-soliton **expansif asymptotique***
+de Ricci. La métrique Fisher–Bianchi vérifie l'équation soliton avec
+une constante $\lambda(\mu) < 0$ qui tend vers zéro comme $-1/\mu^4$
+aux grandes échelles, mais n'est jamais exactement nulle à $\mu$ fini.
+Un soliton *steady* au sens strict aurait $\lambda \equiv 0$ — PT n'en
+est pas un. Ce résidu non nul **co-occure** avec la flèche entropique
+du temps PT — deux signatures indépendantes d'une même non-trivialité
 dynamique du crible.
 
 <section data-max-depth="L1">
@@ -75,10 +77,10 @@ PT distingue explicitement deux lectures au point $\mu^* = 15$ :
 - **$q^-$** : la branche dynamique, qui mesure l'écoulement (propagation,
   dissipation, flèche du temps).
 
-Si PT était un soliton parfait, $\lambda(\mu) \equiv 0$ et l'anisotropie
-entre $\gamma_3, \gamma_5, \gamma_7$ devrait disparaître. La flèche
+Si PT était un soliton steady ($\lambda \equiv 0$), l'anisotropie entre
+les trois taux de Hubble $H_3, H_5, H_7$ devrait disparaître. La flèche
 entropique sur $q^-$ (BT13) reste indépendamment vraie, mais elle
-*co-occurre* avec le résidu : les deux disent, sous deux angles
+*co-occure* avec le résidu : les deux disent, sous deux angles
 différents, que PT est dynamiquement non-trivial.
 
 ### Pourquoi c'est important
@@ -158,21 +160,27 @@ lecture juste est inverse :
 > le temps PT possible. Un soliton exact correspondrait à un univers
 > gelé, sans flèche temporelle, sans dynamique.*
 
-**Proposition** (démontrée dans l'annexe U) : les deux propriétés
-suivantes sont équivalentes en PT :
+**Proposition** (démontrée dans l'annexe U et dans le chapitre transversal
+de géométrie spectrale) : pour la métrique Fisher–Bianchi de PT, les
+deux propriétés suivantes sont équivalentes :
 
-1. $\lambda(\mu) \neq 0$ : le résidu Perelman est non-trivial (mesuré
-   par l'écart entre les trois lambdas extraits par compatibilité des
-   paires $(pp)$).
-2. Les amplitudes $\gamma_p$ ne sont pas toutes égales : anisotropie
-   résiduelle entre les trois directions actives.
+1. **Anisotropie effective des taux de Hubble** : il existe deux primes
+   actives $p_1 \neq p_2$ avec $H_{p_1}(\mu) \neq H_{p_2}(\mu)$.
+2. **Détermination unique de $\lambda$** : le système des équations
+   $(pp)$ pour $p \in \{3,5,7\}$ admet une unique solution $\lambda$.
 
-**Intuition de la preuve** : si tous les $\gamma_p$ étaient identiques
-($\gamma_3 = \gamma_5 = \gamma_7$), les trois facteurs d'échelle
-$a_p = \gamma_p/\mu$ seraient égaux, le système deviendrait isotrope, et
-les paramètres de Hubble $H_p$ seraient identiques. Dans ce cas, le spread
-des 3 valeurs de $\lambda$ extraites par paires s'annulerait
-trivialement.
+**Intuition de la preuve** : avec deux équations indépendantes $(p_1 p_1)$
+et $(p_2 p_2)$ en deux inconnues $(\dot f, \lambda)$, la méthode de
+Cramer donne une unique solution si et seulement si le déterminant
+$H_{p_2} - H_{p_1}$ est non nul. Si tous les $H_p$ sont égaux à un
+$H$ commun, le système dégénère en une seule équation à deux inconnues :
+$\lambda$ devient un degré de liberté libre, non déterminé.
+
+**Corollaire asymptotique** : pour $\mu \to \infty$, l'anisotropie
+$H_{p_1} - H_{p_2} = (p_2 - p_1)/\mu^3 + O(1/\mu^4) \neq 0$ est
+automatique (les premiers actifs sont distincts dans $\Z$), donc la
+valeur unique de $\lambda$ vérifie $\lambda(\mu) = -1/\mu^4 + O(1/\mu^5)$,
+non nulle.
 
 **Co-occurrence avec BT13.** Une troisième propriété est conjointement
 vérifiée en PT, mais elle est **indépendante** des deux précédentes :
@@ -197,29 +205,35 @@ tous les entiers $\{12, 13, 14, 15, 16, 17\}$ sur $15$ (théorèmes BT17 et
 BT18 du programme de bridge). C'est sur ce bassin que les résultats
 numériques sont systématiquement vérifiés.
 
-### Trois lectures convergentes
+### Trois lectures complémentaires
 
-L'écart au soliton parfait peut se lire de trois manières complémentaires :
+L'écart au soliton steady peut se lire de trois manières
+complémentaires. Une seule (la lecture Perelman) est une description
+mathématique stricte ; les deux autres sont des **analogies** (qualifiées
+ci-dessous).
 
-**Lecture cosmologique (slow-roll)**. En inflation, un univers de Sitter
-exact serait stérile : il faut un petit paramètre
+**Lecture Perelman (mathématique stricte)**. Perelman étudie des flots
+qui *convergent vers* un soliton. PT n'est pas un flot : c'est une
+famille de géométries paramétrée par $\mu$, avec un point fixe à
+$\mu^* = 15$. La métrique $g_{\rm PT}(\mu^*)$ satisfait l'équation
+soliton avec une constante $\lambda \neq 0$ qui s'écrase comme $1/\mu^4$
+à grande échelle. PT est donc un quasi-soliton **expansif** ($\lambda < 0$
+dans la convention Perelman) dont la constante tend vers zéro
+asymptotiquement.
+
+**Analogie cosmologique (slow-roll)**. En inflation, un univers de
+Sitter exact serait stérile : il faut un petit paramètre
 $\epsilon_{\rm sr} \neq 0$ qui engendre la dynamique. Le résidu PT
-$|\lambda| \sim 1/\mu^4$ joue un **rôle analogue** au slow-roll
-inflationnaire, à la nuance près qu'il est **forcé par l'arithmétique**
-plutôt que par un potentiel scalaire libre.
+$|\lambda| \sim 1/\mu^4$ joue **qualitativement le même rôle structurel**
+qu'un slow-roll : sans résidu, pas de dynamique. *L'analogie est
+purement structurelle*, non une identification formelle (les deux
+paramètres ne se correspondent pas terme à terme).
 
-**Lecture Perelman**. Perelman étudie des flots qui *convergent vers*
-un soliton. PT n'est pas un flot : c'est une famille de géométries
-paramétrée par $\mu$, avec un point fixe à $\mu^* = 15$. La métrique
-$g_{\rm PT}(\mu^*)$ satisfait l'équation de soliton de Ricci à un résidu
-$|\lambda| \sim 10^{-5}$ près. Ce n'est donc pas une "convergence
-inachevée", c'est une métrique statique qui dévie modérément du soliton
-parfait, et dont la déviation s'écrase à grande échelle.
-
-**Lecture Connes (NCG)**. En géométrie non commutative, le temps émerge
-du flot modulaire d'un état KMS. Pas de flot modulaire $\Leftrightarrow$
-pas de temps. Le résidu PT est l'analogue arithmétique de la fréquence
-intrinsèque du flot modulaire — *l'horloge interne du crible*.
+**Analogie spéculative (Connes, NCG)**. En géométrie non commutative,
+le temps émerge du flot modulaire d'un état KMS. Pas de flot modulaire
+$\Leftrightarrow$ pas de temps. Le résidu PT joue qualitativement un
+rôle comparable : sans résidu, pas de dynamique propre. *Cette analogie
+reste spéculative et n'est pas formalisée dans le présent travail*.
 
 ### Clôture du triptyque temporel
 
@@ -239,23 +253,36 @@ Trois résultats indépendants, un même mécanisme :
 
 ### Métrique, jauge et méthode
 
-On travaille dans la métrique Fisher-Bianchi euclidienne (après rotation
-de Wick) :
+On travaille dans la métrique Fisher–Bianchi en signature lorentzienne
+$(-,+,+,+)$ — la composante $g_{\mu\mu}$ devient négative pour
+$\mu > \mu_c \approx 6{,}97$, frontière de Lorentz déterminée par
+l'annulation de $d^2(\ln\alpha)/d\mu^2 = 0$ (théorème de signature
+12.4 du chapitre 13) :
 
 $$
-g_{\rm PT}(\mu) = N(\mu)^2\, d\mu^2 + \sum_{p \in \{3,5,7\}} a_p(\mu)^2\, dx_p^2,
+g_{\rm PT}(\mu) = -N(\mu)^2\, d\mu^2 + \sum_{p \in \{3,5,7\}} a_p(\mu)^2\, dx_p^2,
 $$
 
 où $a_p(\mu) := \gamma_p(\mu) / \mu$ et $\gamma_p$ est la dimension
-anomale au prime $p$. Jauge $N(\mu) = \mu$ (techniquement favorable).
+anomale au prime $p$. Jauge $N(\mu) = \mu$ (techniquement favorable),
+soit temps propre $\tau = \mu^2/2$. Le bassin
+$(\mu_7, \mu_{11}) \approx (11{,}63\,;\,17{,}98)$ est strictement
+au-dessus de $\mu_c$, donc en régime lorentzien.
 
 **Méthode de compatibilité par paires** : l'équation soliton
 $\mathrm{Ric} + \mathrm{Hess}(f) = \lambda g$ possède 4 composantes
 diagonales (1 temporelle $(\tau\tau)$ + 3 spatiales $(pp)$ pour
-$p \in \{3,5,7\}$), pour 2 inconnues $(\lambda, f')$. Le système est
-surdéterminé. On extrait $\lambda$ via les **3 paires** $(3,5), (5,7),
-(3,7)$ des équations spatiales. Si les trois donnent la même valeur, on
-a un soliton ; sinon, l'écart mesure le défaut.
+$p \in \{3,5,7\}$), pour 2 inconnues $(\lambda, \dot f)$. Le système
+est surdéterminé. Les composantes $(pp)$ s'écrivent
+
+$$
+A_p - H_p\,\dot f = \lambda \quad \text{(signe } - \text{ en signature lorentzienne)},
+$$
+
+où $A_p := \dot H_p + H_p \sum_k H_k$ et $H_p := \mu^{-1} d\ln a_p/d\mu$.
+On extrait $\lambda$ via les **3 paires** $(3,5), (5,7), (3,7)$ par
+élimination de $\dot f$. Si les trois donnent la même valeur, on a un
+soliton ; sinon, l'écart mesure le défaut.
 
 ### Développement asymptotique des $\gamma_p$
 
@@ -395,25 +422,32 @@ $\mu$ mais n'en est pas une.
 
 ## Pour finir
 
-L'écart entre PT et le soliton parfait de Perelman n'est pas une marge
+L'écart entre PT et un soliton steady de Ricci n'est pas une marge
 d'erreur, ni un artefact de notre formulation. C'est un invariant
 géométrique, mesurable et calculable, dont le coefficient dominant
-$-1$ est démontré exact. Sa structure — la dépendance en $p$ qui ne
-disparaît qu'asymptotiquement — est la trace directe du fait que PT
-opère sur un nombre fini de directions actives, $\{3, 5, 7\}$.
+$-1$ est démontré exact (et indépendant du choix de paire de canaux).
+Sa structure — la dépendance en $p$ qui ne disparaît qu'asymptotiquement
+— est la trace directe du fait que PT opère sur un nombre fini de
+directions actives, $\{3, 5, 7\}$.
 
 L'écart résiduel n'est donc pas l'épaisseur d'une marge d'erreur :
 **c'est l'épaisseur du temps lui-même**, mesurée en unités du crible
-arithmétique. La où Perelman démontre la convergence vers un soliton,
-PT démontre la **non-réalisation contrôlée** de ce même soliton, et y
+arithmétique. Là où Perelman démontre la convergence vers un soliton,
+PT démontre la **non-réalisation contrôlée** de ce même soliton (au
+sens d'un soliton expansif dont la constante tend vers zéro), et y
 trouve la condition d'une géométrie temporellement vivante.
 
 ## Lectures liées
 
-- **Annexe U de la monographie** : démonstration complète et programme
-  ouvert.
-- **Annexe R** : la branche $q^-$ et la flèche entropique (BT13).
-- **Chapitre 13** : signature lorentzienne et émergence du temps.
+- **Chapitre transversal de géométrie spectrale** (`ch_geometrie_spectrale`) :
+  démonstration complète assemblant ce résultat avec la courbe de
+  persistance (Phase 2c PT_GeoFlow), 949 lignes auto-contenues.
+- **Article companion** (`ricci_soliton_fr.tex`, 20 pages) : démonstration
+  rigoureuse en 4 lemmes autonomes pour publication CNTP.
+- **Annexe R de la monographie** : la branche $q^-$ et la flèche
+  entropique (BT13).
+- **Chapitre 13** : signature lorentzienne et émergence du temps
+  ($\mu_c \approx 6{,}97$).
 - **Essay [bifurcation $q^+/q^-$](/essays/bifurcation-q-plus-q-minus)** :
   les deux branches du crible.
 - **Code** : `PT_PROJECTS/PT_GeoFlow/` — 12 scripts Python reproductibles.
