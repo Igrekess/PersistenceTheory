@@ -13,6 +13,10 @@ export async function getStaticPaths() {
 
 const { thm } = Astro.props;
 const { Content } = await render(thm);
+const lean = thm.data.lean;
+const leanUrl = lean
+  ? `https://github.com/Igrekess/PersistenceTheory/blob/main/${lean.path}`
+  : null;
 ---
 
 <BaseLayout title={thm.data.name}>
@@ -21,6 +25,17 @@ const { Content } = await render(thm);
       <Tag level={thm.data.status} />
       <h1 class="text-3xl md:text-4xl font-bold text-thmblue mt-3 mb-2">{thm.data.name}</h1>
       <p class="text-stone-700 italic">{thm.data.short}</p>
+      {lean && (
+        <aside class="not-prose mt-4 rounded-md border-l-4 border-thmblue/40 bg-thmblue/5 p-3 text-sm text-stone-700">
+          <span class="font-sans font-semibold text-thmblue">Formalisation Lean :</span>{' '}
+          <a href={leanUrl} target="_blank" rel="noopener" class="font-mono text-thmblue hover:underline">
+            {lean.module}
+          </a>{' '}
+          <span class="text-stone-500">
+            ({lean.status === 'kernel-verified' ? 'kernel-vérifié, 0 sorry' : 'scaffold, sorrys documentés'})
+          </span>
+        </aside>
+      )}
     </header>
 
     <Content />

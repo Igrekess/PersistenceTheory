@@ -22,8 +22,8 @@ The full Markov-chain machinery (needed for the operational characterisation)
 is not yet adequately developed in Mathlib for this 2-state finite case, so we
 take the algebraic identity `α_cons := s²` as definition and prove the
 elementary identity `α_cons = 1/4`. The Markov-chain interpretation is left as
-a `[BRIDGE]` comment and will be added in Vague 2 once `MeasureTheory.Markov`
-matures.
+a `[BRIDGE]` comment and will be added once `MeasureTheory.Markov`
+matures in Mathlib.
 
 ## Reference
 

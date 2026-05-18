@@ -33,7 +33,7 @@ This file formalises the *positive* direction of N3a: `(ℕ, ×)` actually has
 all the required structural properties. The minimality direction (no smaller
 monoid suffices) is a meta-theorem, recorded as a docstring claim because
 Lean cannot quantify over arbitrary monoid carriers without category-theoretic
-overhead beyond the scope of Vague 4.
+overhead beyond the scope of this file.
 
 ## Mathlib lemmas used
 

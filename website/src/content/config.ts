@@ -26,6 +26,15 @@ const theoremSchema = z.object({
   order: z.number().int(),
   tier: z.enum(['fundamental', 'secondary']).default('fundamental'),
   lang,
+  // Optional Lean 4 formalisation pointer.
+  //   module : Lean module name, e.g. 'PT.Sieve.T1ForbiddenTransitions'
+  //   path   : repo-relative path, e.g. 'pt_lean/PT/Sieve/T1ForbiddenTransitions.lean'
+  //   status : 'kernel-verified' (0 sorry) | 'scaffold' (documented sorrys)
+  lean: z.object({
+    module: z.string(),
+    path: z.string(),
+    status: z.enum(['kernel-verified', 'scaffold']).default('kernel-verified'),
+  }).optional(),
 });
 
 const theorems_fr = defineCollection({

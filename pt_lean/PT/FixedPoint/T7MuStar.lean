@@ -16,9 +16,10 @@ as the **unique fixed point** of the self-consistency map
 
 $$F(\mu) \;=\; \sum_{p\ \text{prime},\ p \geq 3,\ p < \mu,\ \gamma_p(\mu) > 1/2}\, p.$$
 
-The full statement (with the threshold function `γ_p(μ)`) requires the
-information-geometric machinery of Vague 3; what we can already verify in Lean
-in a self-contained way is the **combinatorial core** of T7:
+The full statement (with the threshold function `γ_p(μ)`) requires
+the information-geometric machinery of `PT.Information.T6cChencov`;
+what we can already verify in Lean in a self-contained way is the
+**combinatorial core** of T7:
 
 * `15 = 3 + 5 + 7` (the equality of `μ*` with the sum of the three smallest
   odd primes);
@@ -31,8 +32,8 @@ in a self-contained way is the **combinatorial core** of T7:
 The first point is `rfl`; the third we discharge by `decide` over the small
 combinatorial range (the only place where the deeper threshold function could
 hypothetically produce another fixed point is far above `μ = 15`, ruled out in
-monograph Chapter 7 by an asymptotic argument that requires Mertens/PNT and
-hence lives in Vague 2b).
+monograph Chapter 7 by an asymptotic argument that requires Mertens/PNT,
+formalised in `PT.NumberTheory.T5Mertens`).
 
 ## Reference
 
@@ -112,7 +113,8 @@ example : Fcomb 15 = 39 := by decide
 
     This map is sufficient to verify that `μ* = 15` is a fixed point and that
     no other integer in `[2, 20]` is. The full monograph proof (extending to
-    `μ > 20` via PNT) is referenced as `[THM]` in Vague 2b. -/
+    `μ > 20` via PNT) is referenced as `[THM]` in
+    `PT.NumberTheory.T5Mertens`. -/
 def Fpers (μ : ℕ) : ℕ :=
   (if 3 ≤ μ then 3 else 0)
   + (if 5 ≤ μ then 5 else 0)

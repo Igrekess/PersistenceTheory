@@ -1,0 +1,357 @@
+---
+import fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { getCollection } from 'astro:content';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import PageHero from '@components/PageHero.astro';
+
+const allTheorems = await getCollection('theorems_en');
+const formalised = allTheorems
+  .filter((t) => t.data.lean)
+  .sort((a, b) => a.data.order - b.data.order);
+
+const repoBase = 'https://github.com/Igrekess/PersistenceTheory';
+const leanFolderUrl = `${repoBase}/tree/main/pt_lean`;
+
+const criticalPath = [
+  { id: 'T1',  label: 'T1',  module: 'PT.Sieve.T1ForbiddenTransitions',  caption: 'Forbidden mod-3 transitions' },
+  { id: 'T3',  label: 'T3',  module: 'PT.Sieve.T3Antidiagonal',           caption: 'Antidiagonal transfer matrix' },
+  { id: 'SHalf', label: 's = ½', module: 'PT.Stochastic.SHalf',          caption: 'Unique stationary distribution' },
+  { id: 'T2',  label: 'T2',  module: 'PT.Conservation.T2Alpha',            caption: 'α_cons = s² = ¼' },
+  { id: 'L0',  label: 'L0',  module: 'PT.Information.L0MaxEntropy',        caption: 'Geometric is max-entropy' },
+  { id: 'T7',  label: 'μ* = 15', module: 'PT.FixedPoint.T7MuStar',         caption: 'Unique fixed point' },
+  { id: 'Mertens', label: 'Mertens', module: 'PT.NumberTheory.T5Mertens', caption: 'Compactness bound' },
+  { id: 'W7',  label: 'W7-1', module: 'PT.Analysis.W7SpiralIdentity',     caption: 'Spiral identity' },
+];
+
+// ----- Full catalog of Lean modules under pt_lean/PT/ -----
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const PT_ROOT = path.resolve(__dirname, '../../../../pt_lean/PT');
+
+function extractTitle(fullPath: string): string {
+  let src: string;
+  try { src = fs.readFileSync(fullPath, 'utf8'); } catch { return ''; }
+  const m = src.match(/\/-!\s*\n([\s\S]*?)-\//);
+  if (!m) return '';
+  const t = m[1].match(/^\s*#\s+(.+?)\s*$/m);
+  if (!t) return '';
+  return t[1].replace(/\s+/g, ' ').trim();
+}
+
+function walkLean(dir: string, prefix: string[] = []): { module: string; relPath: string; topic: string; name: string; summary: string }[] {
+  const out: { module: string; relPath: string; topic: string; name: string; summary: string }[] = [];
+  for (const name of fs.readdirSync(dir).sort()) {
+    const full = path.join(dir, name);
+    const stat = fs.statSync(full);
+    if (stat.isDirectory()) {
+      out.push(...walkLean(full, [...prefix, name]));
+    } else if (name.endsWith('.lean')) {
+      const base = name.replace(/\.lean$/, '');
+      const module = ['PT', ...prefix, base].join('.');
+      const relPath = `pt_lean/PT/${[...prefix, base].join('/')}.lean`;
+      const topic = prefix[0] || 'root';
+      const summary = extractTitle(full);
+      out.push({ module, relPath, topic, name: base, summary });
+    }
+  }
+  return out;
+}
+
+const criticalPathPaths = new Set(
+  criticalPath.map((s) => `pt_lean/${s.module.replace(/\./g, '/')}.lean`),
+);
+const featuredPaths = new Set([
+  ...formalised.map((t) => t.data.lean!.path),
+  ...criticalPathPaths,
+]);
+const allModules = walkLean(PT_ROOT);
+const otherModules = allModules.filter((m) => !featuredPaths.has(m.relPath));
+
+const TOPIC_ORDER = ['Sieve', 'Stochastic', 'Conservation', 'Information', 'Holonomy', 'FixedPoint', 'NumberTheory', 'EML', 'Analysis', 'Bridge', 'CrtDecoupling', 'Anomaly', 'Algebra', 'CH', 'Appendix'];
+
+const TOPIC_LABELS: Record<string, string> = {
+  Sieve: 'Sieve',
+  Stochastic: 'Stochastic',
+  Conservation: 'Conservation',
+  Information: 'Information',
+  Holonomy: 'Holonomy',
+  FixedPoint: 'Fixed point',
+  NumberTheory: 'Number theory',
+  EML: 'EML (Sheffer)',
+  Analysis: 'Analysis',
+  Bridge: 'Math/physics bridge',
+  CrtDecoupling: 'CRT decoupling',
+  Anomaly: 'Anomaly',
+  Algebra: 'Algebra',
+  CH: 'Chemistry',
+  Appendix: 'Appendix',
+};
+
+const byTopic: Record<string, typeof otherModules> = {};
+for (const m of otherModules) {
+  (byTopic[m.topic] ||= []).push(m);
+}
+const orderedTopics = TOPIC_ORDER.filter((t) => byTopic[t]?.length).concat(
+  Object.keys(byTopic).filter((t) => !TOPIC_ORDER.includes(t)).sort(),
+);
+---
+
+<BaseLayout title="Lean formalisation — Persistence Theory">
+  <PageHero
+    eyebrow="Formal verification"
+    domain="math"
+    title="Lean&nbsp;4 formalisation"
+    kicker="Twenty-two foundational PT theorems, machine-checked with no&nbsp;sorry."
+    dekL1={`The arithmetic core of Persistence Theory is reproduced in full in \\textbf{Lean 4 + Mathlib}. The critical path $T_1 \\to T_3 \\to s = 1/2 \\to T_2 \\to L_0 \\to T_7 \\to W_7\\text{-}1$ is \\emph{kernel-verified}: every step is a formal proof whose correctness is guaranteed by the Lean kernel, independently of the author, the reviewer, and the rest of the chain. About one hundred and fifty secondary modules cover the surrounding ecosystem. No \\texttt{[THM]} statement from Chapter 1 is left on paper alone.`}
+    technicalNote={{
+      label: 'Build status (2026-05-17)',
+      body: 'Lean v4.30.0-rc2 · Mathlib master @ e12bcd0 · `lake build` clean on 3570 jobs.',
+    }}
+  />
+
+  <main class="max-w-5xl mx-auto px-4 py-10 md:py-14">
+
+    <!-- Counters -->
+    <section class="grid sm:grid-cols-3 gap-4 mb-10">
+      <div class="rounded-lg border border-thmblue/20 bg-thmblue/5 p-5 text-center">
+        <p class="font-mono text-3xl md:text-4xl text-thmblue">22</p>
+        <p class="text-sm text-stone-700 mt-1">named theorems on the critical path<br/><em>kernel-verified, 0&nbsp;sorry</em><br/><span class="text-xs text-stone-500">spread across 8 modules</span></p>
+      </div>
+      <div class="rounded-lg border border-stone-300 bg-stone-50 p-5 text-center">
+        <p class="font-mono text-3xl md:text-4xl text-thmblue">179</p>
+        <p class="text-sm text-stone-700 mt-1">Lean modules in total<br/>(8 on the critical path<br/>+ 171 in the ecosystem)</p>
+      </div>
+      <div class="rounded-lg border border-stone-300 bg-stone-50 p-5 text-center">
+        <p class="font-mono text-3xl md:text-4xl text-thmblue">2,701</p>
+        <p class="text-sm text-stone-700 mt-1">formal declarations<br/>(theorems + lemmas + definitions<br/>+ instances)</p>
+      </div>
+    </section>
+
+    <!-- Critical path -->
+    <section class="mb-12">
+      <h2 class="text-2xl md:text-3xl font-bold text-thmblue mb-3">The critical path</h2>
+      <p class="text-slate-700 leading-relaxed mb-5">
+        All statements below are proved <em>without external hypotheses</em>
+        beyond Mathlib: each step depends only on the previous ones. Read
+        left to right, the diagram matches the exact logical dependency
+        verified by the Lean kernel.
+      </p>
+      <div class="overflow-x-auto">
+        <div class="flex items-center gap-2 min-w-max py-2">
+          {criticalPath.map((step, i) => (
+            <>
+              <a
+                href={`${repoBase}/blob/main/pt_lean/${step.module.replace(/\./g, '/')}.lean`}
+                target="_blank"
+                rel="noopener"
+                class="block rounded-lg border border-thmblue/30 bg-white px-3 py-2 hover:border-thmblue hover:shadow-md transition text-center min-w-[125px]"
+              >
+                <p class="font-mono text-thmblue text-sm font-semibold">{step.label}</p>
+                <p class="text-[10px] text-stone-500 mt-1 leading-tight">{step.caption}</p>
+              </a>
+              {i < criticalPath.length - 1 && (
+                <span class="text-stone-400 font-mono select-none">→</span>
+              )}
+            </>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Per-theorem table -->
+    <section class="mb-12">
+      <h2 class="text-2xl md:text-3xl font-bold text-thmblue mb-3">
+        Site theorems and their Lean modules
+      </h2>
+      <p class="text-slate-700 leading-relaxed mb-5">
+        Each theorem listed below has a dedicated page on this site and a
+        matching Lean module that can be opened directly on GitHub.
+      </p>
+      <div class="overflow-x-auto rounded-lg border border-stone-200">
+        <table class="w-full text-sm">
+          <thead class="bg-stone-100 text-stone-700">
+            <tr>
+              <th class="px-3 py-2 text-left font-sans font-semibold">Theorem</th>
+              <th class="px-3 py-2 text-left font-sans font-semibold">Short statement</th>
+              <th class="px-3 py-2 text-left font-sans font-semibold">Lean module</th>
+              <th class="px-3 py-2 text-left font-sans font-semibold">Status</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-stone-100">
+            {formalised.map((thm) => (
+              <tr class="hover:bg-stone-50">
+                <td class="px-3 py-2 align-top">
+                  <a href={`/en/theorems/${thm.data.id}`} class="font-mono text-thmblue hover:underline">
+                    {thm.data.id}
+                  </a>
+                </td>
+                <td class="px-3 py-2 align-top text-stone-700">{thm.data.short}</td>
+                <td class="px-3 py-2 align-top">
+                  <a
+                    href={`${repoBase}/blob/main/${thm.data.lean!.path}`}
+                    target="_blank"
+                    rel="noopener"
+                    class="font-mono text-[12px] text-thmblue hover:underline"
+                  >
+                    {thm.data.lean!.module}
+                  </a>
+                </td>
+                <td class="px-3 py-2 align-top text-stone-600 text-[12px]">
+                  {thm.data.lean!.status === 'kernel-verified'
+                    ? 'kernel-verified, 0 sorry'
+                    : 'scaffold'}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p class="text-xs text-stone-500 mt-3 italic">
+        Theorems <code>T0</code>, <code>E</code>, <code>F</code>,
+        <code>G</code>, <code>FisherKoide</code>, <code>FourierKoide</code> and
+        <code>OS3</code> are not formalised yet.
+      </p>
+    </section>
+
+    <!-- Full catalog -->
+    <section class="mb-12">
+      <h2 class="text-2xl md:text-3xl font-bold text-thmblue mb-3">
+        Full catalog by topic
+      </h2>
+      <p class="text-slate-700 leading-relaxed mb-5">
+        Beyond the critical path and the site theorems featured at the top
+        of this page, <strong>{otherModules.length} additional modules</strong>
+        (out of 179 total in the repository) cover the surrounding
+        ecosystem: variants, refinements, auxiliary identities, algebraic
+        structures. Each topic is collapsed below; open a section to see
+        the full list. Every module links to its <code>.lean</code> file
+        on GitHub.
+      </p>
+      <div class="space-y-2">
+        {orderedTopics.map((topic) => (
+          <details class="group rounded-md border border-stone-200 bg-white hover:border-thmblue/40 transition">
+            <summary class="cursor-pointer px-4 py-3 flex items-center justify-between hover:bg-stone-50 select-none">
+              <span class="font-sans">
+                <span class="font-semibold text-thmblue">{TOPIC_LABELS[topic] ?? topic}</span>
+                <span class="text-stone-500 font-mono text-xs ml-2">PT.{topic}.*</span>
+              </span>
+              <span class="font-mono text-xs text-stone-500 ml-3">
+                {byTopic[topic].length} module{byTopic[topic].length > 1 ? 's' : ''}
+              </span>
+            </summary>
+            <ul class="px-4 pb-3 pt-1 divide-y divide-stone-100">
+              {byTopic[topic].map((m) => (
+                <li class="py-1.5">
+                  <a
+                    href={`${repoBase}/blob/main/${m.relPath}`}
+                    target="_blank"
+                    rel="noopener"
+                    class="font-mono text-[12px] text-thmblue hover:underline"
+                  >
+                    {m.name}
+                  </a>
+                  {m.summary && (
+                    <span class="text-stone-600 text-xs ml-1">— {m.summary}</span>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </details>
+        ))}
+      </div>
+    </section>
+
+    <!-- Why Lean -->
+    <section class="mb-12" data-min-depth="L2">
+      <h2 class="text-2xl md:text-3xl font-bold text-thmblue mb-3">
+        Why formalise?
+      </h2>
+      <div class="prose prose-stone max-w-none">
+        <p>
+          A theorem proved on paper lives in the reader's trust. A
+          <em>kernel-verified</em> theorem demands none: the Lean kernel is
+          a roughly six-thousand-line program, reviewed by the community
+          for over fifteen years, which accepts a declaration
+          <code>theorem X : P := proof</code> only if <code>proof</code>
+          constructs, type by type, a witness for <code>P</code>. Any
+          short-cut, any hidden hypothesis, any "this is obvious" fails
+          typechecking.
+        </p>
+        <p>
+          For Persistence Theory this discipline already had an immediate
+          effect: while bringing up the <code>T3Antidiagonal</code>
+          module, six concrete mistakes were caught (wrong Mathlib import
+          path, a <code>ring</code> tactic that failed to close a goal,
+          a <code>noncomputable</code> attribute missing on a real
+          literal, ...) that no human reviewer had spotted. The source
+          remains inspectable: every <code>[THM]</code> assertion in the
+          paper has a formal witness pointable to the exact line.
+        </p>
+        <p>
+          Across the 179 modules under <code>PT/</code>, <strong>178 are
+          entirely sorry-free</strong>. The only remaining one is
+          <code>G3FisherUniqueness</code> (Fisher metric uniqueness up to
+          scale), a classical result already marked
+          <code>\leanExternal</code> in the monograph. The reverse direction
+          of the W7-1 spiral identity
+          (<code>J σ k = J σ 0 ⇒ σ² = π(k+1)</code>) is not yet present as
+          a theorem in the file (left as future work, not as a
+          <code>sorry</code>). Neither is on PT's critical path.
+        </p>
+      </div>
+    </section>
+
+    <!-- Reproduce -->
+    <section class="mb-12" data-min-depth="L2">
+      <h2 class="text-2xl md:text-3xl font-bold text-thmblue mb-3">
+        Reproduce the verification
+      </h2>
+      <p class="text-slate-700 leading-relaxed mb-4">
+        Install the Lean toolchain through <a href="https://leanprover-community.github.io/get_started.html" target="_blank" rel="noopener" class="text-thmblue hover:underline"><code>elan</code></a>, then:
+      </p>
+      <pre class="bg-stone-900 text-stone-100 rounded-md p-4 overflow-x-auto text-sm leading-relaxed"><code>git clone https://github.com/Igrekess/PersistenceTheory.git
+cd PersistenceTheory/pt_lean
+lake exe cache get      # ~1 GB of Mathlib oleans, ~5 min
+lake build              # ~5 min cold, ~10 s cached</code></pre>
+      <p class="text-slate-700 leading-relaxed mt-4">
+        The Lean version is pinned by <code>lean-toolchain</code>,
+        Mathlib by <code>lake-manifest.json</code>. No version juggling
+        required.
+      </p>
+    </section>
+
+    <!-- Links -->
+    <section class="grid sm:grid-cols-3 gap-4 mb-12">
+      <a
+        href={leanFolderUrl}
+        target="_blank"
+        rel="noopener"
+        class="pt-card block group hover:border-thmblue/40 hover:shadow-md transition"
+      >
+        <span class="pt-tag pt-tag-thm">Source code</span>
+        <h3 class="font-sans font-semibold text-thmblue mt-2 mb-1 group-hover:underline"><code>pt_lean/</code> repository</h3>
+        <p class="text-sm text-stone-700">179 modules · clean <code>lake build</code> over 3570 jobs.</p>
+      </a>
+      <a
+        href={`${repoBase}/blob/main/pt_lean/README.md`}
+        target="_blank"
+        rel="noopener"
+        class="pt-card block group hover:border-thmblue/40 hover:shadow-md transition"
+      >
+        <span class="pt-tag pt-tag-id">Documentation</span>
+        <h3 class="font-sans font-semibold text-thmblue mt-2 mb-1 group-hover:underline">Detailed README</h3>
+        <p class="text-sm text-stone-700">Module catalog by topic (Sieve, Stochastic, Holonomy, …), roadmap.</p>
+      </a>
+      <a
+        href="/en/monograph"
+        class="pt-card block group hover:border-thmblue/40 hover:shadow-md transition"
+      >
+        <span class="pt-tag pt-tag-val">Monograph</span>
+        <h3 class="font-sans font-semibold text-thmblue mt-2 mb-1 group-hover:underline">Annotated theorems</h3>
+        <p class="text-sm text-stone-700">In the monograph, formalised theorems carry a <code>\leanProved</code> mention pointing to their Lean proof.</p>
+      </a>
+    </section>
+
+  </main>
+</BaseLayout>

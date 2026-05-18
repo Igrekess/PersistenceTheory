@@ -8,8 +8,8 @@ import Mathlib.Tactic
 /-!
 # CRT Tensor Factorization and Ruelle Factorization
 
-Phase 1 — abstract (matrix-level) formalisation of the central algebraic
-results of the companion paper
+Abstract (matrix-level) formalisation of the central algebraic results
+of the companion paper
 `PUBLICATION/11_PT_CRT_Decoupling/main.pdf`:
 
 * **Theorem 3.1 (CRT Tensor Factorization)** — the transfer matrix

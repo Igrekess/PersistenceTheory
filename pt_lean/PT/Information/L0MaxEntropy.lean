@@ -189,8 +189,8 @@ that already encodes the parameter relation `q = 1 - 1/μ`). The remaining
 content — that the geometric distribution genuinely maximises entropy among
 ALL distributions of given mean (not just among one-parameter families) —
 is the place where the proof requires `strictConcaveOn_negMulLog` and a
-Lagrange / Gibbs argument; this is left as a `sorry` to be discharged in
-Vague 2b alongside the Mertens / Čencov machinery.
+Lagrange / Gibbs argument; this is left as a `sorry` to be discharged
+alongside the Mertens / Čencov machinery.
 -/
 
 /-! ### Pointwise Gibbs bound (the heart of the proof)

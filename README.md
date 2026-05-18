@@ -15,7 +15,7 @@ to future tests.
   (995 pages)
 - Lean 4 formalisation: [`pt_lean/`](pt_lean) — 22 foundational
   theorems on the critical path T1 → T7 → W7-1 kernel-verified,
-  plus ~150 secondary modules.
+  spread across 8 modules, plus 171 additional secondary modules (179 modules in total).
 - Research notes: [`research_notes/`](research_notes) — six
   standalone working drafts cited by the monograph (Hilbert–Pólya
   map, $p$-adic PT–Ramanujan, Casimir P29 prediction, Berry–Keating

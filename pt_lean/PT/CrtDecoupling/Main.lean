@@ -9,7 +9,7 @@ import Mathlib.Tactic
 /-!
 # Geometric Decoupling Theorem, Ruelle form (Theorem 6.2)
 
-Phase 1 — abstract formalisation of the **Ruelle form** of the Geometric
+Abstract formalisation of the **Ruelle form** of the Geometric
 Decoupling Theorem from the companion paper
 `PUBLICATION/11_PT_CRT_Decoupling/main.pdf`, Theorem 6.2.
 

@@ -128,7 +128,7 @@ const groupedLinks = [
       ['/predictions', 'Prédictions falsifiables'],
       ['/scripts', 'Scripts'],
       ['/preuve-interactive', 'Preuve interactive'],
-      ['https://github.com/Igrekess/PersistenceTheory/tree/main/pt_lean', 'Formalisation Lean'],
+      ['/lean', 'Formalisation Lean'],
       ['/difficile-a-rejeter', 'Difficile à rejeter'],
     ],
   },
@@ -198,6 +198,28 @@ const groupedLinks = [
         Si tu y trouves une faille, signale-la. Le travail n’a de valeur que s’il survit à l’épreuve.
       </p>
     </aside>
+
+    <!-- Bande de mise en avant : formalisation Lean -->
+    <a
+      href="/lean"
+      class="mb-8 flex flex-col md:flex-row md:items-center gap-4 rounded-lg border-2 border-thmblue/30 bg-gradient-to-r from-thmblue/5 to-thmblue/0 p-5 md:p-6 hover:border-thmblue/60 hover:shadow-md transition group"
+    >
+      <div class="flex-shrink-0 flex items-center justify-center w-12 h-12 md:w-14 md:h-14 rounded-full bg-thmblue/10 border border-thmblue/20 text-thmblue text-2xl md:text-3xl font-mono font-bold">
+        ✓
+      </div>
+      <div class="flex-1">
+        <p class="pt-tag pt-tag-thm mb-1">Vérification formelle</p>
+        <h2 class="font-sans font-bold text-thmblue text-lg md:text-xl mb-1 group-hover:underline">
+          22 théorèmes fondationnels de PT, <em>kernel-vérifiés</em> en Lean&nbsp;4
+        </h2>
+        <p class="text-sm text-stone-700 leading-snug">
+          Le chemin critique <span class="font-mono">T1&nbsp;→&nbsp;T3&nbsp;→&nbsp;s&nbsp;=&nbsp;½&nbsp;→&nbsp;T2&nbsp;→&nbsp;L0&nbsp;→&nbsp;T7&nbsp;→&nbsp;W7-1</span>
+          est formellement vérifié par le noyau Lean, sans aucun <code>sorry</code>,
+          pour un total de 179 modules (22 théorèmes fondationnels dans 8 modules + 171 secondaires) et 2 701 déclarations formelles.
+          <span class="text-thmblue font-medium">Voir la formalisation →</span>
+        </p>
+      </div>
+    </a>
 
     <!-- Notice profondeurs -->
     <aside class="mb-10 rounded-lg border border-thmblue/20 bg-thmblue/5 p-4 md:p-5">
@@ -364,14 +386,12 @@ const groupedLinks = [
         </p>
       </div>
       <a
-        href="https://github.com/Igrekess/PersistenceTheory/tree/main/pt_lean"
-        target="_blank"
-        rel="noopener"
+        href="/lean"
         class="pt-card block group hover:border-thmblue/40 hover:shadow-md transition"
       >
         <span class="pt-tag pt-tag-thm">Formalisation Lean</span>
         <p class="mt-2 text-stone-700">
-          22 théorèmes fondationnels du chemin critique T1 → T7 → W7-1 <em>kernel-vérifiés</em> en Lean 4 + Mathlib, et ~150 modules secondaires. <span class="group-hover:underline text-thmblue">Voir le dépôt →</span>
+          22 théorèmes fondationnels du chemin critique T1 → T7 → W7-1 <em>kernel-vérifiés</em> en Lean 4 + Mathlib, plus 171 modules secondaires (179 modules au total). <span class="group-hover:underline text-thmblue">Voir la page dédiée →</span>
         </p>
       </a>
     </div>

@@ -25,7 +25,8 @@ All proofs are short telescoping / `induction` arguments resting on
 ## Reference
 
 Monograph Chapter 3, §3.1, follow-up to `\label{thm:conservation-id}`.
-Audit follow-up to Vague 4 Phase 1 EASY.
+Extends `PT.Conservation.ConservationID` with corollaries that emerged
+from the May 2026 monograph audit.
 -/
 
 namespace PT.Conservation

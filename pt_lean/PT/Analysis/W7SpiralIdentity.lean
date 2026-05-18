@@ -68,7 +68,7 @@ The continuum identity is empirically validated to <1 % at three orders:
 - Y. Senez, *Modèle spectral canonique des zéros de ζ via la dynamique
   de persistance PT* (`PT_New_Math_Consolidation_FR/article_PT_zeta_FR.md`),
   §7.7.
-- Session log `PT_RH_JUIN/analysis/HP_WEIL_POSITIVITY_SPIRAL.md`.
+- Session log `PT_RH_WEIL_SPIRAL/analysis/HP_WEIL_POSITIVITY_SPIRAL.md`.
 - Weil, A., 1952, *Sur les "formules explicites" de la théorie des
   nombres premiers*, Comm. Sém. Math. Univ. Lund.
 - Iwaniec, H., Kowalski, E., 2004, *Analytic Number Theory*, AMS Coll. 53.

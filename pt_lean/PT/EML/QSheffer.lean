@@ -33,7 +33,7 @@ App O records:
 The depth lower bound for `q_+` (Prop O.2: any depth-1 EML tree fails) is a
 structural claim about EML syntactic trees and is **left as a comment** —
 it would require formalising the syntactic algebra of EML expressions, out
-of scope for Vague 4.
+of scope for this file.
 
 ## Reference
 

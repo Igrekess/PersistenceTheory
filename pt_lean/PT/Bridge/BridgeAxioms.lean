@@ -47,7 +47,7 @@ provides a final summary theorem `bridge_axioms_summary` conjuncting all six.
   `R_p = {0}` and the unique-Eratosthenes consequence) coincides with the
   prime-gap sequence. The structural conditions are *abstracted*, not
   inlined; the inlining to concrete Sieve / FixedPoint / Information
-  theorems is part of Vague 5+ and is logged below.
+  theorems is future work, logged below.
 
 * **BA1 (gauge connection)** is the affine recurrence
   `r_{n+1} = (r_n + g_n) mod m`. We define the gauge transport explicitly
@@ -303,7 +303,7 @@ def U4_FixedPoint : Prop :=
     ∧ ∀ μ : ℕ, 8 ≤ μ → μ ≤ 20 →
       PT.FixedPoint.Fpers μ = μ → μ = PT.FixedPoint.muStar
 
-/-- **U4 holds unconditionally** (Wave-4 Easy theorem `T7MuStar`). -/
+/-- **U4 holds unconditionally** via `T7MuStar`. -/
 theorem U4_holds : U4_FixedPoint :=
   ⟨PT.FixedPoint.T7_muStar_isFixed,
    fun μ h₁ h₂ hfix => PT.FixedPoint.T7_muStar_unique μ h₁ h₂ hfix⟩
@@ -354,7 +354,7 @@ def primeGap : ℕ → ℕ := fun _ => 0
     ideal `{0}`), `PT.Sieve.T6bAxiomsC1C4` (ring-congruence axioms),
     `PT.Sieve.N1AtomicUniqueness` (primes are unique atoms of `(ℕ, ×)`),
     and an explicit `T_SC` self-construction theorem (not yet
-    formalised — *Vague 5 follow-up*).
+    formalised — future work).
 
     Here we record T0 in the form most useful for downstream consumers:
     a *conditional* statement parameterised by an explicit "closure"

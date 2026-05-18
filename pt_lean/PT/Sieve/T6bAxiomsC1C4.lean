@@ -78,7 +78,7 @@ The paper records *four* independent counter-models showing that each of
 C1, C2, C3, C4 is necessary. Each counter-model is a small structural
 theorem about a specific deviation from the canonical sieve. We do *not*
 formalise the four counter-models here — they each require an
-independent setup, and their formalisation is left to future Vagues.
+independent setup, and their formalisation is left as future work.
 
 * `¬C1`: a non-symmetric removal set (distinguishing the residue `1` from
   its negative) violates bilateral symmetry, hence does not yield an ideal.
