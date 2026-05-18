@@ -128,6 +128,7 @@ const groupedLinks = [
       ['/en/predictions', 'Falsifiable predictions'],
       ['/en/scripts', 'Scripts'],
       ['/en/preuve-interactive', 'Interactive proof'],
+      ['https://github.com/Igrekess/PersistenceTheory/tree/main/pt_lean', 'Lean formalisation'],
       ['/en/difficile-a-rejeter', 'Hard to dismiss'],
     ],
   },
@@ -341,7 +342,7 @@ const groupedLinks = [
       ))}
     </section>
 
-    <div class="grid md:grid-cols-3 gap-4 text-sm mb-10" data-min-depth="L2">
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4 text-sm mb-10" data-min-depth="L2">
       <div class="pt-card">
         <span class="pt-tag pt-tag-thm">Theorems</span>
         <p class="mt-2 text-stone-700">
@@ -360,6 +361,17 @@ const groupedLinks = [
           Canonical registry: 45 companion script entries, 2,522/2,523 passing checks — flagship scripts runnable in the browser.
         </p>
       </div>
+      <a
+        href="https://github.com/Igrekess/PersistenceTheory/tree/main/pt_lean"
+        target="_blank"
+        rel="noopener"
+        class="pt-card block group hover:border-thmblue/40 hover:shadow-md transition"
+      >
+        <span class="pt-tag pt-tag-thm">Lean formalisation</span>
+        <p class="mt-2 text-stone-700">
+          22 foundational theorems on the critical path T1 → T7 → W7-1 <em>kernel-verified</em> in Lean 4 + Mathlib, plus ~150 secondary modules. <span class="group-hover:underline text-thmblue">Open the repository →</span>
+        </p>
+      </a>
     </div>
 
     <SubProjects lang="en" />

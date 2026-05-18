@@ -128,6 +128,7 @@ const groupedLinks = [
       ['/predictions', 'Prédictions falsifiables'],
       ['/scripts', 'Scripts'],
       ['/preuve-interactive', 'Preuve interactive'],
+      ['https://github.com/Igrekess/PersistenceTheory/tree/main/pt_lean', 'Formalisation Lean'],
       ['/difficile-a-rejeter', 'Difficile à rejeter'],
     ],
   },
@@ -343,7 +344,7 @@ const groupedLinks = [
       ))}
     </section>
 
-    <div class="grid md:grid-cols-3 gap-4 text-sm mb-10" data-min-depth="L2">
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4 text-sm mb-10" data-min-depth="L2">
       <div class="pt-card">
         <span class="pt-tag pt-tag-thm">Théorèmes</span>
         <p class="mt-2 text-stone-700">
@@ -362,6 +363,17 @@ const groupedLinks = [
           Registre canonique : 45 entrées de scripts compagnons, 2 522/2 523 contrôles passants — scripts emblématiques exécutables en navigateur.
         </p>
       </div>
+      <a
+        href="https://github.com/Igrekess/PersistenceTheory/tree/main/pt_lean"
+        target="_blank"
+        rel="noopener"
+        class="pt-card block group hover:border-thmblue/40 hover:shadow-md transition"
+      >
+        <span class="pt-tag pt-tag-thm">Formalisation Lean</span>
+        <p class="mt-2 text-stone-700">
+          22 théorèmes fondationnels du chemin critique T1 → T7 → W7-1 <em>kernel-vérifiés</em> en Lean 4 + Mathlib, et ~150 modules secondaires. <span class="group-hover:underline text-thmblue">Voir le dépôt →</span>
+        </p>
+      </a>
     </div>
 
     <SubProjects lang="fr" />
