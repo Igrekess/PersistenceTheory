@@ -3,6 +3,14 @@
 Public repository for the monograph, website, and companion scripts of
 **Persistence Theory**.
 
+I have worked hard for a year, aided by modern tools, to formalize a theory 
+I have been thinking about ever since reading Mark A. Ludwig and seeing the Ulam spiral thirty years ago. 
+I have tried to be as rigorous and scrupulous as possible while remaining pedagogical, within the limits of my modest means. 
+It is with humility that I add my stone to the edifice of human understanding, without claiming it is perfectly carved. 
+Above all, I hope that some of my avenues of thought may inspire others, and that my work will persist in one form or another.
+
+Here is the Theory of Persistence.
+
 The monograph is a preprint. It has not yet been peer reviewed. The repository
 is therefore meant to make the work readable, reproducible, and criticisable:
 the mathematics is stated with explicit status tags, the numerical checks are
