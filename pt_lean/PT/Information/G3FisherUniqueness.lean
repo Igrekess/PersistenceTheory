@@ -48,14 +48,11 @@ This file therefore lays down the **structure** for G3:
 
 ## Sorry inventory
 
-| Name                  | Strategy                                | Status         |
-|-----------------------|-----------------------------------------|----------------|
-| `G3_fisher_unique`    | External import: Čencov 1982            | 1 sorry, documented |
-
-All algebraic / analytic sub-lemmas (`fisherWeight_pos`,
-`fisherWeight_continuous`, `fisherWeight_symmetric`,
-`fisherWeight_eq_inv_p_mul_one_sub_p`, `fisherArcSpeed_*`,
-`fisherWeight_at_half`) are sorry-free.
+The headline `G3_fisher_unique` contains a single documented `sorry`
+imported from Čencov 1982 (Theorem 11.1). All algebraic and analytic
+auxiliaries (`fisherWeight_pos`, `fisherWeight_continuous`,
+`fisherWeight_symmetric`, `fisherWeight_eq_inv_p_mul_one_sub_p`,
+`fisherArcSpeed_*`, `fisherWeight_at_half`) are sorry-free.
 
 ## References
 

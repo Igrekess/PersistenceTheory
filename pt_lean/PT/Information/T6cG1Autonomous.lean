@@ -34,11 +34,11 @@ The divergence-based formulation is mathematically correct because Rényi
   via Csiszár 1967 functional-equation chase; `cauchy_log_equation` (in
   `T6cChencov.lean`) is the workhorse.
 
-## Sorry inventory (2026-05-17 state) — **0 sorries** in this file.
+## Proof architecture
 
-The Csiszár 1967 §3 step 1 (binary product expansion + Pexider
-isolation) was closed by splitting the residual identity into four
-quadrants of `(0, ∞)²`:
+This file is sorry-free. The Csiszár 1967 §3 step 1 (binary product
+expansion + Pexider isolation) is closed by splitting the residual
+identity into four quadrants of `(0, ∞)²`:
 
 * `residual_anchor_gt_one` — anchor on `(1, ∞)²`, via `p₁ = p₂ = 0`.
 * `residual_left_lt_one` — extension to `[0, 1) × (1, ∞)`, via
@@ -49,9 +49,9 @@ quadrants of `(0, ∞)²`:
   `q₁ = q₂ = 1/2` symmetric specialisation, substituting the three
   already-proven residuals at `(u, \bar v), (\bar u, v), (\bar u, \bar v)`.
 
-Resolved (now sorry-free):
+Supporting lemmas:
 
-* `klDivergence_additive` — closed via `kl_term_factor` reindex.
+* `klDivergence_additive` — via `kl_term_factor` reindex.
 * `cauchy_log_from_pexider` — pure algebra, divides Pexider by `uv`.
 * `csiszar_residual_from_binary_additivity` — assembled from the four
   quadrant lemmas above + boundary cases `u = 1` or `v = 1` (trivial).
@@ -61,7 +61,7 @@ Resolved (now sorry-free):
   `continuous_mul_log` + `tendsto_nhds_unique` on `nhdsGT 0`.
 * `csiszar_c1_nonneg` — convex-secant slope monotonicity on `1 < e < e²`.
 * `fDivergence_of_csiszar_form` — case split on `P i = 0` vs `> 0`.
-* `G1_autonomous_DKL_unique` — assembled from the sub-lemmas above.
+* `G1_autonomous_DKL_unique` — assembled from the components above.
 
 ## References
 
@@ -320,17 +320,13 @@ lemma fDivergence_linear_term_vanishes {m : ℕ} (c : ℝ)
   rw [← Finset.mul_sum, Finset.sum_sub_distrib,
       P.sums_to_one, Q.sums_to_one, sub_self, mul_zero]
 
-/-! ## Csiszár factorisation: fine-grained sub-lemmas
+/-! ## Csiszár factorisation: components
 
 The headline theorem `G1_autonomous_DKL_unique` (below) is assembled
-from three sub-lemmas and one technical residual, each encapsulating
-one tractable sub-task of the Csiszár 1967 functional-equation chase.
-The current state factorises the former monolithic sorry into three
-fine-grained sorries (`csiszar_generator_decomposition`,
-`csiszar_c1_nonneg`, and the boundary residual at the bottom of the
-headline theorem).
+from several components encapsulating tractable sub-tasks of the
+Csiszár 1967 functional-equation chase.
 
-Sorry-free sub-lemmas (already kernel-verified):
+Components used:
 
 * `binary_prod_components_at` (step 1 helper): explicit formula for the
   four components of `(binary p₁ _).prod (binary p₂ _) : Simplex 4`.
@@ -341,30 +337,23 @@ Sorry-free sub-lemmas (already kernel-verified):
   strictly positive `Q`, the f-divergence equals `c₁ · D_KL(P‖Q)`.
   Uses `fDivergence_linear_term_vanishes` for the affine summand.
 
-Sorried sub-lemmas (fine-grained, each with a clear strategy):
-
 * `csiszar_generator_decomposition` (steps 1–3): if `f` generates a
   continuous f-divergence additive on products, then there exist
   constants `c₁, c₂` such that `f(t) = c₁ · t · log t + c₂ · (t − 1)`
-  for every `t > 0`, and `f 0 = -c₂` (continuity at the boundary).
-  Proof outline: specialise additivity to binary product distributions
-  via `binary_prod_components_at` to obtain a Pexider-type functional
+  for every `t > 0`, with `f 0 = -c₂` at the boundary. Proof: specialise
+  additivity to binary product distributions via
+  `binary_prod_components_at` to obtain a Pexider-type functional
   equation in `f`, reduce to Cauchy's logarithmic equation, apply
-  `cauchy_log_equation`, back-substitute. Effort: ~2 sessions.
+  `cauchy_log_equation`, back-substitute.
 
 * `csiszar_c1_nonneg` (step 5): given the generator form, the leading
-  coefficient `c₁` is non-negative. Proof outline: evaluate at a
-  non-uniform binary pair where `t · log t` contributes strictly
-  positive mass; additivity-derived constraints force `c₁ ≥ 0`.
-  Effort: ~1 session.
+  coefficient `c₁` is non-negative. Evaluation at a non-uniform binary
+  pair where `t · log t` contributes strictly positive mass.
 
-* Boundary residual in `G1_autonomous_DKL_unique` (the only sorry left
-  in the headline theorem body): when some `Q i = 0`, the strictly
-  positive branch of `fDivergence_of_csiszar_form` does not apply
-  directly; the standard fix is to either restrict to the strictly
-  positive support of `Q` (and use the f-divergence convention
-  `Q i · f(P i / 0) = 0`) or to derive `c₂ = 0` from a second
-  specialisation of additivity. Effort: ~0.5 session. -/
+* Boundary handling in `G1_autonomous_DKL_unique`: when some `Q i = 0`,
+  the strictly positive branch of `fDivergence_of_csiszar_form` does
+  not apply directly; restrict to the strictly positive support of `Q`
+  via the f-divergence convention `Q i · f(P i / 0) = 0`. -/
 
 /-- **Csiszár step 1 helper.** Components of the product of two binary
     distributions, indexed by `Fin (2 * 2) ≃ Fin 2 × Fin 2`.
@@ -1383,7 +1372,7 @@ private lemma fDivergence_of_csiszar_form
 
     ## Proof strategy (Csiszár 1967)
 
-    The proof is **assembled** from three private sub-lemmas:
+    The proof is assembled from three private components:
 
     * `csiszar_generator_decomposition` (steps 1–3): produces
       constants `c₁, c₂` such that `f(t) = c₁ · t log t + c₂ · (t − 1)`
@@ -1395,9 +1384,6 @@ private lemma fDivergence_of_csiszar_form
     * `fDivergence_of_csiszar_form` (step 4): collapses the generator
       decomposition into `c₁ · D_KL`, using
       `fDivergence_linear_term_vanishes` for the affine summand.
-
-    The headline theorem is sorry-free modulo these sub-lemmas; the
-    sorries are now confined to fine-grained, tractable sub-tasks.
 
     **Statement scope.** The conclusion `D m P Q = c · klDivergence P Q`
     is restricted to pairs `(P, Q)` with `Q` strictly positive. This is

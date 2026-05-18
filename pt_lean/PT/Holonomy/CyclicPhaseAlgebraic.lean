@@ -159,8 +159,8 @@ proved in `CouplingReconstruction.sinSq_{3,5,7}_bracket`. -/
 /-- Exact rational value of `δ_3(qPT)` in power-form representation:
     `δ_3 = (1 - (13/15)^3)/3 = (15^3 - 13^3)/(3 · 15^3) = 1178/(3·3375) = 1178/10125`.
 
-    Renamed from `deltaQ_3_eq` (2026-05-17) to avoid namespace collision
-    with the decimal-form `deltaQ_3_eq` in `CyclicPhaseTable.lean`. -/
+    Named `_pow_form` to avoid a namespace collision with the decimal-form
+    `deltaQ_3_eq` in `CyclicPhaseTable.lean`. -/
 theorem deltaQ_3_eq_pow_form : deltaQ 3 = 1178 / 10125 := by
   unfold deltaQ qPT
   norm_num

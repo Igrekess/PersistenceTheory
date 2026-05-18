@@ -87,8 +87,7 @@ Mathlib. What we do close cleanly here:
 * Lemmas showing `shannon` **satisfies** each of the four axioms (the
   "easy direction": Shannon is a valid candidate). Permutation
   invariance is closed cleanly; the others are stubbed with documented
-  TODOs for the next session (they require routine `Fintype` /
-  `negMulLog_mul` calculations).
+  TODOs that reduce to routine `Fintype` / `negMulLog_mul` calculations.
 * The **headline theorem** `T6c_chencov_characterisation` — typechecked,
   body `sorry`.
 * The 2-state warm-up `T6c_binary_characterisation` — also `sorry`
@@ -97,18 +96,13 @@ Mathlib. What we do close cleanly here:
 
 ## Sorry budget
 
-| Name                                  | Strategy                                                | Effort      |
-|---------------------------------------|---------------------------------------------------------|-------------|
-| `shannon_symmetric`                   | `Equiv.sum_comp` over `Finset.univ`                     | 0.5 session |
-| `shannon_max_uniform`                 | Jensen on `negMulLog` (concave) + `∑ = 1`               | 1 session   |
-| `shannon_additive_product`            | `negMulLog_mul` + `Fintype.sum_prod_type`               | 1 session   |
-| `T6c_binary_characterisation`         | Shore–Johnson axiom chain in dimension 2                | 4 sessions  |
-| `T6c_chencov_characterisation`        | Full Shore–Johnson; sieve `Δ_m` satisfies A1–A5         | 10 sessions |
+Open items in this file are:
 
-Total realistic remaining effort: **~16 sessions** for the full theorem,
-or **~6 sessions** if one only wants the binary case plus the three
-"easy direction" lemmas (i.e. a complete proof that Shannon is a
-*candidate*, with the *uniqueness* direction admitted as an import).
+* `shannon_symmetric` — `Equiv.sum_comp` over `Finset.univ`.
+* `shannon_max_uniform` — Jensen on `negMulLog` (concave) plus `∑ = 1`.
+* `shannon_additive_product` — `negMulLog_mul` plus `Fintype.sum_prod_type`.
+* `T6c_binary_characterisation` — Shore–Johnson axiom chain in dimension 2.
+* `T6c_chencov_characterisation` — full Shore–Johnson; sieve `Δ_m` satisfies A1–A5.
 
 The binary case is what the PT G3 (Čencov) statement actually uses:
 the sieve state space at the elementary level is `Δ_2 = {(p, 1-p)}`

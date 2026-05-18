@@ -108,8 +108,8 @@ private theorem gammaRatio_gt_one_of_gt
   rw [gt_iff_lt, lt_div_iff₀ hpos, one_mul]
   exact h
 
--- `γ_5 > 0`, `γ_7 > 0`, `γ_{11} > 0`, `γ_{13} > 0` viennent de `GammaProduct`
--- (déduplication 2026-05-17 audit). Seul `γ_{17} > 0` reste local ici.
+-- `γ_5 > 0`, `γ_7 > 0`, `γ_{11} > 0`, `γ_{13} > 0` viennent de `GammaProduct`.
+-- Seul `γ_{17} > 0` reste local ici.
 
 /-- `γ_{17} > 0`. -/
 theorem gammaQ_17_pos : gammaQ 17 > 0 := by

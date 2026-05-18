@@ -111,8 +111,7 @@ theorem gamma_13_margin :
 /-! ### Strict ordering chain
 
 Les théorèmes `gamma_3_gt_gamma_5`, `gamma_5_gt_gamma_7`, `gamma_11_gt_gamma_13`
-sont importés depuis `PT.Holonomy.GammaMonotonicity` (déduplication 2026-05-17
-audit). -/
+sont importés depuis `PT.Holonomy.GammaMonotonicity`. -/
 
 /-! ### Extension to `p = 17` -/
 

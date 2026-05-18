@@ -45,33 +45,10 @@ oscillation** statement: `mertensSum x - log log x` is *bounded* for `x ≥ 2`.
 The full asymptotic with the explicit constant `M₃` is the headline; the
 weaker bounded-oscillation corollary is what PT actually needs.
 
-## Sorry budget (scaffolding pass)
+## Sorry budget
 
-This file is **sorry-free** for all classical Mertens results (M1, M3-existence,
-M3-quantitative, compactness alias).
-
-| Name                              | Strategy                       | Status     |
-|-----------------------------------|--------------------------------|------------|
-| `log_factorial_eq_sum_vonMangoldt_mul_floor` | Induction via `Nat.succ_div` + `vonMangoldt_sum` | **closed** (foundation for M1) |
-| `stirling_log_factorial_effective` | `Stirling.log_stirlingSeq_formula` + antitone + bounded constant | **closed** (Sub-lemma 1 for M1) |
-| `mertensLog_eq_mertensLog_floor`  | Direct from `mertensLog` def    | **closed** (Sub-lemma 4 prep) |
-| `abs_log_sub_log_floor_le`        | `Nat.floor_le` + `Nat.lt_floor_add_one` + `log_le_log`     | **closed** (Sub-lemma 4 prep) |
-| `mertens_M1_of_nat`               | Real-to-integer reduction via floor | **closed** (Sub-lemma 4) |
-| `summable_vonMangoldt_prime_power_tail` | Re-derivation of Mathlib's `summable_F''` (private) via `Real.log_le_rpow_div` + geometric + p-series + `prodNatEquiv` | **closed** (Sub-lemma 2, 2026-05-17) |
-| `mertensLog_floor_eq_log_floor_add_bounded` | Legendre + Stirling + ψ-bound + prime-power tail, decomposition `⌊N/d⌋ = N/d − {N/d}` | **closed** (Sub-lemma 3, 2026-05-17) |
-| `mertens_M1`                      | `mertens_M1_of_nat ∘ mertensLog_floor_eq_log_floor_add_bounded` | **closed** (2026-05-17) |
-| `mertensSum_eq_mertensLog_div_log_add_integral` | Abel pivot for M3, `f(t) = (log t)⁻¹` | **closed** (Sub-lemma 5, 2026-05-17) |
-| `integral_one_div_t_log_t`        | Antiderivative `∫ 1/(t log t) = log log t` via FTC | **closed** (Sub-lemma 6, 2026-05-17) |
-| `integral_one_div_t_log_sq`       | Antiderivative `∫ 1/(t log²t) = -1/log t` via FTC | **closed** (Sub-lemma 7, 2026-05-17) |
-| `mertensLog_monotone`             | `Finset.sum_le_sum_of_subset_of_nonneg` on `primesBelow` | **closed** (helper for M3, 2026-05-17) |
-| `mertensLog_div_intervalIntegrable` | `Monotone.intervalIntegrable` + `mul_continuousOn` | **closed** (helper for M3, 2026-05-17) |
-| `mertensSum_sub_log_log_oscillation` | Abel pivot + M1 + closed-form integrals, `|F(x) - F(y)| ≤ 3C/log y` | **closed** (Cauchy step for M3, 2026-05-17) |
-| `mertens_M3_exists`               | Cauchy criterion via oscillation bound + `cauchySeq_tendsto_of_complete` | **closed** (2026-05-17) |
-| `mertens_M3`                      | Quantitative refinement: oscillation between `x` and `z → ∞` | **closed** (2026-05-17) |
-| `mertensSum_sub_log_log_bounded`  | Boundedness from `mertens_M3_exists` + monotonicity on `[2, X]` | **closed** |
-| `pt_T5_mertens_compactness`       | Direct alias of `_bounded`     | **closed** (alias) |
-
-Total: T5Mertens **entirely sorry-free**.
+This file is sorry-free: every classical Mertens statement used by PT
+(M1, M3-existence, M3-quantitative, the compactness alias) is fully proved.
 
 ## Main definitions
 
@@ -83,12 +60,12 @@ Total: T5Mertens **entirely sorry-free**.
 ## Main theorems
 
 * `mertens_M1` — Mertens' First Theorem: `∑_{p ≤ x} (log p)/p = log x + O(1)`.
-* `mertens_M3_exists` *[closed]* — the limit defining `M₃` exists.
-* `mertens_M3` *[closed]* — headline asymptotic with rate `O(1/log x)`.
-* `mertensSum_sub_log_log_bounded` *[closed]* — the PT-needed compactness
-  corollary (proved from `mertens_M3_exists` + finite-range monotonicity).
-* `pt_T5_mertens_compactness` *[closed]* — alias used by the PT corpus,
-  refers to `mertensSum_sub_log_log_bounded`.
+* `mertens_M3_exists` — the limit defining `M₃` exists.
+* `mertens_M3` — headline asymptotic with rate `O(1/log x)`.
+* `mertensSum_sub_log_log_bounded` — the PT-needed compactness corollary
+  (proved from `mertens_M3_exists` + finite-range monotonicity).
+* `pt_T5_mertens_compactness` — alias used by the PT corpus, refers to
+  `mertensSum_sub_log_log_bounded`.
 
 ## References
 
@@ -446,7 +423,7 @@ either:
 **Route B (Legendre + Stirling, Mertens' original 1874 proof)** is viable but
 unimplemented. Building blocks available in Mathlib + this file:
 
-1. `log_factorial_eq_sum_vonMangoldt_mul_floor` (this file, **closed**):
+1. `log_factorial_eq_sum_vonMangoldt_mul_floor` (this file):
    `log N! = ∑_{d ≤ N} Λ(d) · ⌊N/d⌋`.
 2. `Stirling.le_log_factorial_stirling` (Mathlib, effective lower bound):
    `n·log n - n + log n / 2 + log(2π)/2 ≤ log n!`.
@@ -466,15 +443,12 @@ The proof then runs:
       which is `O(1)` (bounded by `∑_p (log p)/(p(p-1))`, convergent).
   (d) Divide by `n`, take `n = ⌊x⌋`, control `log x - log ⌊x⌋ ≤ log 2`.
 
-Estimated effort: ~2 focused sessions (Stirling effective, fractional-part
-identity, prime-power tail bound, real-to-integer reduction).
-
-#### Sub-lemma 1: Stirling's approximation in effective form
+#### Stirling's approximation in effective form
 
 We extract an effective version of Stirling's approximation from Mathlib's
 `Stirling.log_stirlingSeq_formula`, `log_stirlingSeq_bounded_by_constant`, and
 `log_stirlingSeq'_antitone`. The bound `|log n! − (n log n − n)| ≤ C · (1 + log n)`
-is what Sub-lemma 3 (the Legendre+Stirling floor identity) consumes.
+is what the Legendre + Stirling floor identity below consumes.
 -/
 
 /-- **Effective Stirling bound (PT form).** There exists a constant `C ≥ 0`
@@ -601,7 +575,7 @@ lemma stirling_log_factorial_effective :
         have hL2 : 0 ≤ Real.log 2 := le_of_lt hlog2_pos
         nlinarith [h_log_n_nonneg, hL2, hM_nonneg]
 
-/-! #### Sub-lemma 4: real-to-integer reduction
+/-! #### Real-to-integer reduction
 
 Reduces the real form of Mertens M1 to its integer form via the identity
 `mertensLog x = mertensLog ⌊x⌋₊` (immediate from the definition) and the
@@ -680,7 +654,7 @@ lemma mertens_M1_of_nat
         rw [h1]
         linarith
 
-/-! ### Sub-lemma 2: prime-power tail bounded
+/-! ### Prime-power tail is absolutely summable
 
 The prime-power tail (the contribution of `Λ(p^k) = log p` for `k ≥ 2`)
 to `∑ Λ(n)/n` is **absolutely summable**. This is the second analytic
@@ -867,8 +841,8 @@ private lemma summable_primePowerTailFn : Summable primePowerTailFn := by
   rw [div_eq_mul_inv, inv_pow]
 
 set_option maxHeartbeats 400000 in
-/-- **Sub-lemma 2 (public form):** the prime-power tail of `∑ Λ(n)/n` is absolutely
-    summable. Concretely, `Λ(n)/n − [n prime] · log n / n` is summable. -/
+/-- The prime-power tail of `∑ Λ(n)/n` is absolutely summable.
+    Concretely, `Λ(n)/n − [n prime] · log n / n` is summable. -/
 theorem summable_vonMangoldt_prime_power_tail :
     Summable (fun n : ℕ =>
       (ArithmeticFunction.vonMangoldt n
@@ -884,7 +858,7 @@ theorem summable_vonMangoldt_prime_power_tail :
       zero_div]
   · simp only [h, ↓reduceIte, sub_zero]
 
-/-! #### Sub-lemma 3: Legendre + Stirling floor identity (integer form)
+/-! #### Legendre + Stirling floor identity (integer form)
 
 Combines `log_factorial_eq_sum_vonMangoldt_mul_floor` (Legendre),
 `stirling_log_factorial_effective`, `Chebyshev.psi_le_const_mul_self`, and
@@ -909,7 +883,7 @@ private lemma cast_nat_div_eq_real_div_sub_mod (N d : ℕ) (hd : 1 ≤ d) :
   linarith
 
 set_option maxHeartbeats 800000 in
-/-- **Sub-lemma 3 (integer form).** There exists a constant `C ≥ 0` such that
+/-- **Mertens M1 (integer form).** There exists a constant `C ≥ 0` such that
     for every natural `N ≥ 2`,
 
     `|mertensLog N − log N| ≤ C`.
@@ -920,7 +894,7 @@ set_option maxHeartbeats 800000 in
     tail of `∑ Λ(n)/n`. -/
 lemma mertensLog_floor_eq_log_floor_add_bounded :
     ∃ C : ℝ, ∀ N : ℕ, 2 ≤ N → |mertensLog ((N : ℕ) : ℝ) - Real.log ((N : ℕ) : ℝ)| ≤ C := by
-  -- Set up the constants from the closed sub-lemmas.
+  -- Set up the constants from the auxiliary lemmas above.
   obtain ⟨C_S, hC_S_nn, hStirling⟩ := stirling_log_factorial_effective
   set T : ℝ := ∑' n : ℕ,
       (ArithmeticFunction.vonMangoldt n
@@ -2028,15 +2002,9 @@ theorem mertensM3_spec :
 
 $$\sum_{p \le x} \frac{1}{p} \;=\; \log\log x \,+\, M_3 \,+\, O\!\left(\frac{1}{\log x}\right).$$
 
-TODO (estimated effort: ~1 session after `mertens_M3_exists`):
-* This is a refinement of `mertens_M3_exists`: replace the qualitative
-  Cauchy-criterion form with the quantitative big-O bound.
-* The rate comes from the error term in `mertens_M1` (`O(1)` becomes
-  `O(1/log x)` after the Abel integration by parts because of the
-  `1/(t log² t)` weight).
-* Mathlib idiom: use `Asymptotics.IsBigO` with filter `Filter.atTop`:
-  `(fun x => mertensSum x - Real.log (Real.log x) - mertensM3)
-     =O[atTop] (fun x => 1 / Real.log x)`.
+The rate comes from the error term in `mertens_M1` (`O(1)` becomes
+`O(1/log x)` after the Abel integration by parts because of the
+`1/(t log² t)` weight).
 -/
 theorem mertens_M3 :
     ∃ C : ℝ, ∀ x : ℝ, 2 ≤ x →
@@ -2122,11 +2090,9 @@ of this dependency is that `mertensSum x - log log x` is **bounded** as
 `x → ∞`. This is strictly weaker than `mertens_M3` (no rate needed) and is
 all that the PT pipeline consumes.
 
-TODO (estimated effort: trivial after `mertens_M3`):
-* Direct consequence of `mertens_M3`: `|f(x)| ≤ |M₃| + C / log x` on `x ≥ 2`,
-  and the RHS is bounded for `x ≥ e` (where `log x ≥ 1`).
-* The cheap proof is `|f(x)| ≤ |M₃| + C` for `x ≥ e` and a finite case-split
-  on `x ∈ [2, e]`.
+Direct consequence of `mertens_M3`: `|f(x)| ≤ |M₃| + C / log x` on `x ≥ 2`,
+and the RHS is bounded for `x ≥ e` (where `log x ≥ 1`); the head segment
+`x ∈ [2, e]` is finite.
 -/
 theorem mertensSum_sub_log_log_bounded :
     ∃ K : ℝ, ∀ x : ℝ, 2 ≤ x →
@@ -2222,8 +2188,6 @@ self-consistency theorem `μ* = 15`; its analytic prerequisite is precisely
 `mertensSum_sub_log_log_bounded`. We expose it here under the PT name so that
 downstream PT modules can `import PT.NumberTheory.T5Mertens` and `apply
 pt_T5_mertens_compactness` without thinking about Mertens.
-
-TODO (estimated effort: trivial — direct alias).
 -/
 theorem pt_T5_mertens_compactness :
     ∃ K : ℝ, ∀ x : ℝ, 2 ≤ x →
