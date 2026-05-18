@@ -9,27 +9,32 @@ Twenty-two foundational theorems on the critical path
 T1 → T3 → s = 1/2 → T2 → L0 → T7 → pt_T5_mertens_compactness → W7-1
 ```
 
-are *kernel-verified without `sorry`*. Around 150 additional secondary
+are *kernel-verified without `sorry`*. Around 160 additional secondary
 modules cover the surrounding ecosystem (conservation identities, GFT,
 Bekenstein bound, cyclic phase, active-prime criterion, EML, CRT
-decoupling, …). Across the whole tree, **178 of 179 modules are entirely
+decoupling, …). Across the whole tree, **186 of 187 modules are entirely
 sorry-free** — a single module (`G3FisherUniqueness`) keeps one
 documented `sorry` for a classical uniqueness result that the monograph
 already marks as an external dependency (`\leanExternal`).
 
 ## Status
 
-Last verified build: **2026-05-17**, Lean `v4.30.0-rc2`,
+Last verified build: **2026-05-18**, Lean `v4.30.0-rc2`,
 Mathlib `e12bcd0ff19fedc29dbd4dbbab360ea3a0f47a0a`.
 
-- Foundational count (critical path T1 → T7 → W7-1): **22 named theorems**
-  formally proved without `sorry`.
-- Full ecosystem: **179 modules / 2 701 declarations** across the `PT/`
+- Foundational count (critical path T1 → T7 → W7-1, both directions):
+  **30 named theorems** formally proved without `sorry`, including the
+  extensions added on 2026-05-18: N2 uniqueness, T6b under the full C1-C4
+  axiom system, L0 strict uniqueness, Bekenstein equality case, T2
+  spectral bridge via Kronecker factorisation, W7-1 reverse direction,
+  and active-prime monotonicity for all primes `p ≥ 11`.
+- Full ecosystem: **187 modules / ~2 850 declarations** across the `PT/`
   sub-directories. **One** documented `sorry` remains, in
   `PT/Information/G3FisherUniqueness.lean` (Fisher metric uniqueness up
   to scale — a classical result, marked `\leanExternal` in the
   monograph).
-- Build status: `lake build` completes successfully (3570 jobs).
+- Build status: `lake build` completes successfully (3343 jobs on the
+  newly-extended tree).
 
 ## Module catalog by topic
 
@@ -111,13 +116,14 @@ The full asymptotic is now also formalised end-to-end.
 
 | Theorem | File | Statement |
 |---|---|---|
-| **W7-1 (spiral identity, forward direction)** | `PT/Analysis/W7SpiralIdentity.lean` | Spiral identity of the Weil prime sum: under the PNT continuum density, the integral over the `k`-th turn of the log-polar Archimedean spiral equals the integral over turn 0 iff `σ² = π(k+1)`. Yields the cascade `σ_crit^(k) = √(π(k+1))`. |
+| **W7-1 (spiral identity, forward)** | `PT/Analysis/W7SpiralIdentity.lean` | Spiral identity of the Weil prime sum: under the PNT continuum density, the integral over the `k`-th turn of the log-polar Archimedean spiral equals the integral over turn 0 iff `σ² = π(k+1)`. Yields the cascade `σ_crit^(k) = √(π(k+1))`. |
+| **W7-1 (reverse, `k ≥ 1`)** | `PT/Analysis/W7SpiralIdentityReverse.lean` | The converse: `J σ k = J σ 0 ⟹ σ² = π(k+1)` for `k ≥ 1`, proved via strict monotonicity (mean-value theorem on the Gaussian window). The `k = 0` case is degenerate and excluded explicitly. |
 
-The proof (~10 tactic lines) uses substitution `v = x − σ²`, parity of
-the centred Gaussian, an `intervalIntegral.integral_congr` swap, and
-reflection `v ↦ −v`. The reverse direction
-(`J σ k = J σ 0 ⟹ σ² = π(k+1)`) is left as future work; it requires
-a monotonicity argument and is not on the PT critical path.
+The forward proof (~10 tactic lines) uses substitution `v = x − σ²`,
+parity of the centred Gaussian, an `intervalIntegral.integral_congr`
+swap, and reflection `v ↦ −v`. The reverse direction (333 lines) uses
+`gaussWindow σ a := ∫_a^{a+2π} gaussKer σ v`, FTC for the derivative,
+and `strictMonoOn` / `strictAntiOn` on the two half-lines around `a = -π`.
 
 Source paper: `PT_PROJECTS/PT_CH/paper_phase1/preprint1_cusp_fr.md`
 §6.6 (Theorem 6.3). Numerical validation (out of Lean): k = 1, 2, 3 at
@@ -167,15 +173,22 @@ lake build PT           # umbrella import
 
 ## Roadmap
 
-Across 179 modules, a single documented `sorry` remains. PT's core
+Across 187 modules, a single documented `sorry` remains. PT's core
 derivation chain is unaffected.
 
 | Open goal | File | Note |
 |---|---|---|
 | Fisher metric uniqueness up to scale (classical) | `PT/Information/G3FisherUniqueness.lean` | The monograph already marks this result `\leanExternal` (a classical theorem). Closing it would internalise the only remaining external dependency. |
-| W7-1 reverse direction (monotonicity) | `PT/Analysis/W7SpiralIdentity.lean` | Currently the file proves the forward direction `σ² = π(k+1) ⟹ J σ k = J σ 0`. The reverse implication is left as future work (not present as a `sorry`, simply absent). Not on the PT critical path. |
 
-Closing either does not affect the PT derivation chain itself.
+The W7-1 reverse direction, previously listed as open, was formalised
+on 2026-05-18 in `PT/Analysis/W7SpiralIdentityReverse.lean` (strict
+monotonicity via MVT). Other gaps that the monograph still flags but
+that are not on the critical path: N1 part 2 (uniqueness of the
+constructive Eratosthenes procedure — meta-mathematical), and the
+asymptotic equidistribution step of the bimodality theorem (likely
+conditional on Hardy–Littlewood, marked `[COND]`-style if formalised).
+
+Closing G3 does not affect the PT derivation chain itself.
 
 ### Downstream physics and chemistry
 

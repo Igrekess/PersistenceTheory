@@ -14,8 +14,12 @@ divides `n`. Then `ℙ` (the set of primes) is **self-coherent**:
 `S(ℙ) = ℙ`. Moreover, `ℙ` is the *unique* self-coherent subset of
 `ℕ_{≥2}` (case analysis on `G ⊊ ℙ`, `G ⊋ ℙ`).
 
-This file formalises the *existence* part `S(ℙ) = ℙ` cleanly; the unique-
-ness statement is recorded in `S_unique_fixed_point`.
+This file formalises the *existence* part `S(ℙ) = ℙ` cleanly. The
+uniqueness statement (case analysis on `G ⊊ ℙ`, `G ⊋ ℙ`, `G ∦ ℙ`)
+is **not yet formalised here**: it is treated informally in the
+monograph (ch02 §N2, three-case argument) and tagged
+`\leanProvedScope{existence ; unicité informelle}` accordingly.
+Closing it would yield a `S_unique_fixed_point` companion lemma.
 
 ## Reference
 

@@ -102,11 +102,11 @@ const orderedTopics = TOPIC_ORDER.filter((t) => byTopic[t]?.length).concat(
     eyebrow="Formal verification"
     domain="math"
     title="Lean&nbsp;4 formalisation"
-    kicker="Twenty-two foundational PT theorems, machine-checked with no&nbsp;sorry."
-    dekL1={`The arithmetic core of Persistence Theory is reproduced in full in \\textbf{Lean 4 + Mathlib}. The critical path $T_1 \\to T_3 \\to s = 1/2 \\to T_2 \\to L_0 \\to T_7 \\to W_7\\text{-}1$ is \\emph{kernel-verified}: every step is a formal proof whose correctness is guaranteed by the Lean kernel, independently of the author, the reviewer, and the rest of the chain. About one hundred and fifty secondary modules cover the surrounding ecosystem. No \\texttt{[THM]} statement from Chapter 1 is left on paper alone.`}
+    kicker="Thirty foundational PT theorems, machine-checked with no&nbsp;sorry."
+    dekL1={`The arithmetic core of Persistence Theory is reproduced in full in \\textbf{Lean 4 + Mathlib}. The critical path $T_1 \\to T_3 \\to s = 1/2 \\to T_2 \\to L_0 \\to T_7 \\to W_7\\text{-}1$ is \\emph{kernel-verified in both directions}: every step is a formal proof whose correctness is guaranteed by the Lean kernel, and the W7-1 spiral identity now carries both directions. About one hundred and sixty secondary modules cover the surrounding ecosystem. No \\texttt{[THM]} statement from Chapter 1 is left on paper alone.`}
     technicalNote={{
-      label: 'Build status (2026-05-17)',
-      body: 'Lean v4.30.0-rc2 · Mathlib master @ e12bcd0 · `lake build` clean on 3570 jobs.',
+      label: 'Build status (2026-05-18)',
+      body: 'Lean v4.30.0-rc2 · Mathlib master @ e12bcd0 · `lake build` clean on 3343 jobs.',
     }}
   />
 
@@ -115,15 +115,15 @@ const orderedTopics = TOPIC_ORDER.filter((t) => byTopic[t]?.length).concat(
     <!-- Counters -->
     <section class="grid sm:grid-cols-3 gap-4 mb-10">
       <div class="rounded-lg border border-thmblue/20 bg-thmblue/5 p-5 text-center">
-        <p class="font-mono text-3xl md:text-4xl text-thmblue">22</p>
-        <p class="text-sm text-stone-700 mt-1">named theorems on the critical path<br/><em>kernel-verified, 0&nbsp;sorry</em><br/><span class="text-xs text-stone-500">spread across 8 modules</span></p>
+        <p class="font-mono text-3xl md:text-4xl text-thmblue">30</p>
+        <p class="text-sm text-stone-700 mt-1">named theorems on the critical path<br/><em>kernel-verified, 0&nbsp;sorry</em><br/><span class="text-xs text-stone-500">including W7-1 reverse, T6b full 4-axiom, T2 spectral bridge</span></p>
       </div>
       <div class="rounded-lg border border-stone-300 bg-stone-50 p-5 text-center">
-        <p class="font-mono text-3xl md:text-4xl text-thmblue">179</p>
-        <p class="text-sm text-stone-700 mt-1">Lean modules in total<br/>(8 on the critical path<br/>+ 171 in the ecosystem)</p>
+        <p class="font-mono text-3xl md:text-4xl text-thmblue">187</p>
+        <p class="text-sm text-stone-700 mt-1">Lean modules in total<br/>(8 on the critical path<br/>+ 179 in the ecosystem)</p>
       </div>
       <div class="rounded-lg border border-stone-300 bg-stone-50 p-5 text-center">
-        <p class="font-mono text-3xl md:text-4xl text-thmblue">2,701</p>
+        <p class="font-mono text-3xl md:text-4xl text-thmblue">~2,850</p>
         <p class="text-sm text-stone-700 mt-1">formal declarations<br/>(theorems + lemmas + definitions<br/>+ instances)</p>
       </div>
     </section>
@@ -289,15 +289,12 @@ const orderedTopics = TOPIC_ORDER.filter((t) => byTopic[t]?.length).concat(
           paper has a formal witness pointable to the exact line.
         </p>
         <p>
-          Across the 179 modules under <code>PT/</code>, <strong>178 are
+          Across the 187 modules under <code>PT/</code>, <strong>186 are
           entirely sorry-free</strong>. The only remaining one is
           <code>G3FisherUniqueness</code> (Fisher metric uniqueness up to
           scale), a classical result already marked
-          <code>\leanExternal</code> in the monograph. The reverse direction
-          of the W7-1 spiral identity
-          (<code>J σ k = J σ 0 ⇒ σ² = π(k+1)</code>) is not yet present as
-          a theorem in the file (left as future work, not as a
-          <code>sorry</code>). Neither is on PT's critical path.
+          <code>\leanExternal</code> in the monograph. It is off PT's
+          critical path.
         </p>
       </div>
     </section>
@@ -331,7 +328,7 @@ lake build              # ~5 min cold, ~10 s cached</code></pre>
       >
         <span class="pt-tag pt-tag-thm">Source code</span>
         <h3 class="font-sans font-semibold text-thmblue mt-2 mb-1 group-hover:underline"><code>pt_lean/</code> repository</h3>
-        <p class="text-sm text-stone-700">179 modules · clean <code>lake build</code> over 3570 jobs.</p>
+        <p class="text-sm text-stone-700">187 modules · clean <code>lake build</code> over 3343 jobs.</p>
       </a>
       <a
         href={`${repoBase}/blob/main/pt_lean/README.md`}

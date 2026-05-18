@@ -108,11 +108,11 @@ const orderedTopics = TOPIC_ORDER.filter((t) => byTopic[t]?.length).concat(
     eyebrow="Vérification formelle"
     domain="math"
     title="Formalisation Lean&nbsp;4"
-    kicker="Vingt-deux théorèmes fondationnels de PT, vérifiés sans aucun&nbsp;sorry."
-    dekL1={`Le cœur arithmétique de la Théorie de la Persistance est entièrement reproduit dans \\textbf{Lean 4 + Mathlib}. Le chemin critique $T_1 \\to T_3 \\to s = 1/2 \\to T_2 \\to L_0 \\to T_7 \\to W_7\\text{-}1$ est \\emph{kernel-vérifié} : chaque étape est une preuve formelle dont l'exactitude est garantie par le noyau de Lean, indépendamment de l'auteur, du relecteur et du reste de la chaîne. Cent cinquante modules secondaires couvrent l'écosystème environnant. Aucune affirmation \\texttt{[THM]} du chapitre 1 n'est laissée à la charge du papier.`}
+    kicker="Trente théorèmes fondationnels de PT, vérifiés sans aucun&nbsp;sorry."
+    dekL1={`Le cœur arithmétique de la Théorie de la Persistance est entièrement reproduit dans \\textbf{Lean 4 + Mathlib}. Le chemin critique $T_1 \\to T_3 \\to s = 1/2 \\to T_2 \\to L_0 \\to T_7 \\to W_7\\text{-}1$ est \\emph{kernel-vérifié bidirectionnellement} : chaque étape est une preuve formelle dont l'exactitude est garantie par le noyau de Lean, et l'identité de spirale W7-1 admet désormais ses deux directions. Cent soixante modules secondaires couvrent l'écosystème environnant. Aucune affirmation \\texttt{[THM]} du chapitre 1 n'est laissée à la charge du papier.`}
     technicalNote={{
-      label: 'Build status (2026-05-17)',
-      body: 'Lean v4.30.0-rc2 · Mathlib master @ e12bcd0 · `lake build` complet sans erreur (3570 jobs).',
+      label: 'Build status (2026-05-18)',
+      body: 'Lean v4.30.0-rc2 · Mathlib master @ e12bcd0 · `lake build` complet sans erreur (3343 jobs).',
     }}
   />
 
@@ -121,15 +121,15 @@ const orderedTopics = TOPIC_ORDER.filter((t) => byTopic[t]?.length).concat(
     <!-- Compteurs en avant -->
     <section class="grid sm:grid-cols-3 gap-4 mb-10">
       <div class="rounded-lg border border-thmblue/20 bg-thmblue/5 p-5 text-center">
-        <p class="font-mono text-3xl md:text-4xl text-thmblue">22</p>
-        <p class="text-sm text-stone-700 mt-1">théorèmes nommés du chemin critique<br/><em>kernel-vérifiés, 0&nbsp;sorry</em><br/><span class="text-xs text-stone-500">répartis dans 8&nbsp;modules</span></p>
+        <p class="font-mono text-3xl md:text-4xl text-thmblue">30</p>
+        <p class="text-sm text-stone-700 mt-1">théorèmes nommés du chemin critique<br/><em>kernel-vérifiés, 0&nbsp;sorry</em><br/><span class="text-xs text-stone-500">incluant W7-1 réciproque, T6b 4&nbsp;axiomes, T2 spectral bridge</span></p>
       </div>
       <div class="rounded-lg border border-stone-300 bg-stone-50 p-5 text-center">
-        <p class="font-mono text-3xl md:text-4xl text-thmblue">179</p>
-        <p class="text-sm text-stone-700 mt-1">modules Lean au total<br/>(8 sur le chemin critique<br/>+ 171 dans l'écosystème)</p>
+        <p class="font-mono text-3xl md:text-4xl text-thmblue">187</p>
+        <p class="text-sm text-stone-700 mt-1">modules Lean au total<br/>(8 sur le chemin critique<br/>+ 179 dans l'écosystème)</p>
       </div>
       <div class="rounded-lg border border-stone-300 bg-stone-50 p-5 text-center">
-        <p class="font-mono text-3xl md:text-4xl text-thmblue">2&nbsp;701</p>
+        <p class="font-mono text-3xl md:text-4xl text-thmblue">~2&nbsp;850</p>
         <p class="text-sm text-stone-700 mt-1">déclarations formelles<br/>(théorèmes + lemmes + définitions<br/>+ instances)</p>
       </div>
     </section>
@@ -297,16 +297,12 @@ const orderedTopics = TOPIC_ORDER.filter((t) => byTopic[t]?.length).concat(
           du papier admet un témoin formel pointable à la ligne près.
         </p>
         <p>
-          Sur les 179 modules sous <code>PT/</code>, <strong>178 sont
+          Sur les 187 modules sous <code>PT/</code>, <strong>186 sont
           entièrement sans <code>sorry</code></strong>. Le seul module qui en
           contient encore un est <code>G3FisherUniqueness</code> (unicité à
           un facteur près de la métrique de Fisher), un résultat classique
-          déjà signalé <code>\leanExternal</code> dans la monographie. La
-          direction réciproque de l'identité de spirale W7-1
-          (<code>J σ k = J σ 0 ⇒ σ² = π(k+1)</code>) n'est pas encore présente
-          comme théorème dans le fichier (laissée en travail futur, pas en
-          <code>sorry</code>). Ni l'une ni l'autre ne sont sur le chemin
-          critique de PT.
+          déjà signalé <code>\leanExternal</code> dans la monographie. Il
+          n'est pas sur le chemin critique de PT.
         </p>
       </div>
     </section>
@@ -340,7 +336,7 @@ lake build              # ~5 min à froid, ~10 s en chaud</code></pre>
       >
         <span class="pt-tag pt-tag-thm">Code source</span>
         <h3 class="font-sans font-semibold text-thmblue mt-2 mb-1 group-hover:underline">Dépôt <code>pt_lean/</code></h3>
-        <p class="text-sm text-stone-700">179 modules · <code>lake build</code> propre sur 3570 jobs.</p>
+        <p class="text-sm text-stone-700">187 modules · <code>lake build</code> propre sur 3343 jobs.</p>
       </a>
       <a
         href={`${repoBase}/blob/main/pt_lean/README.md`}

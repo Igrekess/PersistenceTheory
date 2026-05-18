@@ -2,3 +2,10 @@
 build/
 *.olean
 *.ilean
+
+# Internal working notes — kept locally, not published
+LEAN_MONOGRAPHIE_GAPS.md
+AUDIT_FORMALISABLE.md
+AUDIT_FORMALISABLE_PT_CH.md
+PROMPT_CLOSURE_COMPLETE.md
+PROMPT_CONTINUATION_CATEGORIE_A.md
