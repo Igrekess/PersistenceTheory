@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
 import PageHero from '@components/PageHero.astro';
+import Citation from '@components/Citation.astro';
 
 // Short history of colour spaces
 const history = [
@@ -594,6 +595,8 @@ for name, dEs in results.items():
         </a>
       </div>
     </section>
+
+    <Citation lang="en" variant="scs" />
 
   </main>
 </BaseLayout>

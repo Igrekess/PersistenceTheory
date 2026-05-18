@@ -244,6 +244,18 @@ would not have been noticed without Lean's strict import resolution.
 - Mathlib (`master` @ `e12bcd0`) —
   https://github.com/leanprover-community/mathlib4
 
+## How to cite
+
+If you cite this Lean formalisation, please cite both the monograph and the
+Mathematics articles bundle on Zenodo:
+
+- Monograph — [`10.5281/zenodo.18726591`](https://doi.org/10.5281/zenodo.18726591)
+- Mathematics articles (includes M1, the headline paper for T1, T3, `s = 1/2`,
+  T2) — [`10.5281/zenodo.19443954`](https://doi.org/10.5281/zenodo.19443954)
+
+See the [root README](../README.md#citation) for the recommended BibTeX
+entries.
+
 ## License
 
 Apache 2.0, matching Mathlib's convention.

@@ -21,3 +21,11 @@ and should be read with the same epistemic discipline as the monograph.
 
 The Lean 4 formalisation of the foundational theorems on the critical
 path T1 → T7 → W7-1 lives in [`../pt_lean/`](../pt_lean).
+
+## How to cite
+
+When citing one of these notes, please also cite the Mathematics articles
+bundle on Zenodo: [`10.5281/zenodo.19443954`](https://doi.org/10.5281/zenodo.19443954).
+The full theory is documented in the monograph:
+[`10.5281/zenodo.18726591`](https://doi.org/10.5281/zenodo.18726591). See the
+[root README](../README.md#citation) for recommended BibTeX entries.

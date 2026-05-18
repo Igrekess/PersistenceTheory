@@ -252,6 +252,48 @@ Known-value agreements in the Standard Model, chemistry, and cosmology are
 reported in the monograph as validations or explanations, not automatically as
 new predictions.
 
+## Citation
+
+Each main artefact has a permanent Zenodo DOI. Please use the DOI corresponding
+to what you actually cite.
+
+| Artefact | DOI |
+|---|---|
+| Monograph (FR + EN PDFs) | [`10.5281/zenodo.18726591`](https://doi.org/10.5281/zenodo.18726591) |
+| Mathematics articles | [`10.5281/zenodo.19443954`](https://doi.org/10.5281/zenodo.19443954) |
+| SCS — Sieve Color Space | [`10.5281/zenodo.19458652`](https://doi.org/10.5281/zenodo.19458652) |
+
+Recommended BibTeX entries:
+
+```bibtex
+@book{senez2026persistencemonograph,
+  author    = {Senez, Yan},
+  title     = {The Theory of Persistence: From the Sieve to the Standard Model},
+  year      = {2026},
+  publisher = {Zenodo},
+  doi       = {10.5281/zenodo.18726591},
+  url       = {https://doi.org/10.5281/zenodo.18726591}
+}
+
+@misc{senez2026persistencemathematics,
+  author    = {Senez, Yan},
+  title     = {Persistence Theory --- Mathematics articles},
+  year      = {2026},
+  publisher = {Zenodo},
+  doi       = {10.5281/zenodo.19443954},
+  url       = {https://doi.org/10.5281/zenodo.19443954}
+}
+
+@software{senez2026persistencescs,
+  author    = {Senez, Yan},
+  title     = {SCS --- Sieve Color Space},
+  year      = {2026},
+  publisher = {Zenodo},
+  doi       = {10.5281/zenodo.19458652},
+  url       = {https://doi.org/10.5281/zenodo.19458652}
+}
+```
+
 ## Companion Projects
 
 Focused companion repositories:

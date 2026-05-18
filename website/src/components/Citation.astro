@@ -5,32 +5,89 @@ interface Props {
   lang: Lang;
   /** Heading level: 'h2' (default) or 'h3'. */
   level?: 'h2' | 'h3';
+  /**
+   * Which Zenodo-archived artefact(s) to display.
+   * 'monograph' (default) — the full book.
+   * 'mathematics' — the math articles / preprints bundle.
+   * 'scs' — the Sieve Color Space project.
+   * 'all' — show the three blocks together (used on /about).
+   */
+  variant?: 'monograph' | 'mathematics' | 'scs' | 'all';
 }
 
-const { lang, level = 'h2' } = Astro.props;
+const { lang, level = 'h2', variant = 'monograph' } = Astro.props;
 
 const labels = {
   fr: {
     title: 'Citer ce travail',
-    intro: 'Si vous citez la PT dans un article, un mémoire ou un billet, voici l’entrée BibTeX recommandée.',
+    intro: 'Si vous citez la PT dans un article, un mémoire ou un billet, voici les entrées BibTeX recommandées. Chaque artefact possède un DOI Zenodo permanent.',
     copy: 'Copier',
     copied: 'Copié',
+    headings: {
+      monograph: 'Monographie',
+      mathematics: 'Articles mathématiques',
+      scs: 'SCS — Sieve Color Space',
+    },
+    doiLabel: 'DOI :',
   },
   en: {
     title: 'Cite this work',
-    intro: 'If you cite PT in a paper, thesis, or post, the recommended BibTeX entry is below.',
+    intro: 'If you cite PT in a paper, thesis, or post, the recommended BibTeX entries are below. Each artefact has a permanent Zenodo DOI.',
     copy: 'Copy',
     copied: 'Copied',
+    headings: {
+      monograph: 'Monograph',
+      mathematics: 'Mathematics articles',
+      scs: 'SCS — Sieve Color Space',
+    },
+    doiLabel: 'DOI:',
   },
 }[lang];
 
-const bibtex = `@book{senez2026persistence,
+// Zenodo DOIs (canonical, concept DOIs that resolve to the latest version).
+const DOI_MONOGRAPH = '10.5281/zenodo.18726591';
+const DOI_MATHEMATICS = '10.5281/zenodo.19443954';
+const DOI_SCS = '10.5281/zenodo.19458652';
+
+const bibtexMonograph = `@book{senez2026persistencemonograph,
   author    = {Senez, Yan},
   title     = {The Theory of Persistence: From the Sieve to the Standard Model},
   year      = {2026},
-  publisher = {Self-published preprint},
-  url       = {https://www.persistencetheory.org}
+  publisher = {Zenodo},
+  doi       = {${DOI_MONOGRAPH}},
+  url       = {https://doi.org/${DOI_MONOGRAPH}}
 }`;
+
+const bibtexMathematics = `@misc{senez2026persistencemathematics,
+  author    = {Senez, Yan},
+  title     = {Persistence Theory --- Mathematics articles},
+  year      = {2026},
+  publisher = {Zenodo},
+  doi       = {${DOI_MATHEMATICS}},
+  url       = {https://doi.org/${DOI_MATHEMATICS}}
+}`;
+
+const bibtexScs = `@software{senez2026persistencescs,
+  author    = {Senez, Yan},
+  title     = {SCS --- Sieve Color Space},
+  year      = {2026},
+  publisher = {Zenodo},
+  doi       = {${DOI_SCS}},
+  url       = {https://doi.org/${DOI_SCS}}
+}`;
+
+type Block = { key: string; heading: string; doi: string; bibtex: string };
+
+const allBlocks: Block[] = [
+  { key: 'monograph',   heading: labels.headings.monograph,   doi: DOI_MONOGRAPH,   bibtex: bibtexMonograph },
+  { key: 'mathematics', heading: labels.headings.mathematics, doi: DOI_MATHEMATICS, bibtex: bibtexMathematics },
+  { key: 'scs',         heading: labels.headings.scs,         doi: DOI_SCS,         bibtex: bibtexScs },
+];
+
+const blocks: Block[] =
+  variant === 'all'
+    ? allBlocks
+    : allBlocks.filter((b) => b.key === variant);
 
 const headingClass =
   level === 'h2'
@@ -45,40 +102,60 @@ const headingClass =
     <h3 class={headingClass}>{labels.title}</h3>
   )}
   <p class="text-sm text-stone-700 mb-3">{labels.intro}</p>
-  <div class="relative">
-    <pre class="text-xs bg-stone-50 border border-stone-200 rounded p-4 overflow-x-auto"><code data-pt-bibtex>{bibtex}</code></pre>
-    <button
-      type="button"
-      data-pt-copy
-      data-label-copy={labels.copy}
-      data-label-copied={labels.copied}
-      class="absolute top-2 right-2 text-xs px-2 py-1 bg-white border border-stone-300 rounded hover:bg-stone-100 font-sans"
-    >
-      {labels.copy}
-    </button>
-  </div>
+
+  {blocks.map((block) => (
+    <div class="mb-5">
+      {variant === 'all' && (
+        <h3 class="text-base font-semibold text-thmblue mb-1 font-sans">{block.heading}</h3>
+      )}
+      <p class="text-xs text-stone-700 mb-2">
+        {labels.doiLabel}{' '}
+        <a
+          href={`https://doi.org/${block.doi}`}
+          class="underline text-thmblue font-mono"
+          rel="noopener noreferrer"
+        >
+          https://doi.org/{block.doi}
+        </a>
+      </p>
+      <div class="relative">
+        <pre class="text-xs bg-stone-50 border border-stone-200 rounded p-4 overflow-x-auto"><code data-pt-bibtex>{block.bibtex}</code></pre>
+        <button
+          type="button"
+          data-pt-copy
+          data-label-copy={labels.copy}
+          data-label-copied={labels.copied}
+          aria-label={`${labels.copy} BibTeX: ${block.heading}`}
+          class="absolute top-2 right-2 text-xs px-2 py-1 bg-white border border-stone-300 rounded hover:bg-stone-100 font-sans"
+        >
+          {labels.copy}
+        </button>
+      </div>
+    </div>
+  ))}
 </section>
 
 <script is:inline>
   (function () {
     document.querySelectorAll('[data-pt-citation]').forEach((root) => {
-      const btn = root.querySelector('[data-pt-copy]');
-      const code = root.querySelector('[data-pt-bibtex]');
-      if (!btn || !code) return;
-      const labelCopy = btn.getAttribute('data-label-copy') || 'Copy';
-      const labelCopied = btn.getAttribute('data-label-copied') || 'Copied';
-      btn.addEventListener('click', async () => {
-        try {
-          await navigator.clipboard.writeText(code.textContent || '');
-          btn.textContent = labelCopied;
-          setTimeout(() => { btn.textContent = labelCopy; }, 1600);
-        } catch (_) {
-          // Fallback: select the text so user can Ctrl+C
-          const range = document.createRange();
-          range.selectNode(code);
-          const sel = window.getSelection();
-          if (sel) { sel.removeAllRanges(); sel.addRange(range); }
-        }
+      root.querySelectorAll('[data-pt-copy]').forEach((btn) => {
+        const wrap = btn.parentElement;
+        const code = wrap ? wrap.querySelector('[data-pt-bibtex]') : null;
+        if (!btn || !code) return;
+        const labelCopy = btn.getAttribute('data-label-copy') || 'Copy';
+        const labelCopied = btn.getAttribute('data-label-copied') || 'Copied';
+        btn.addEventListener('click', async () => {
+          try {
+            await navigator.clipboard.writeText(code.textContent || '');
+            btn.textContent = labelCopied;
+            setTimeout(() => { btn.textContent = labelCopy; }, 1600);
+          } catch (_) {
+            const range = document.createRange();
+            range.selectNode(code);
+            const sel = window.getSelection();
+            if (sel) { sel.removeAllRanges(); sel.addRange(range); }
+          }
+        });
       });
     });
   })();
