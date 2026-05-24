@@ -261,7 +261,7 @@ const clickable  = columns.reduce((n, c) => n + c.nodes.filter(x => x.href).leng
 
     <!-- Hint hover -->
     <p class="text-xs italic text-stone-500 mb-4 text-center">
-      Passez la souris sur une carte pour voir sa chaîne de dépendances (ancêtres + descendants). Sur mobile : tapez une carte pour basculer la mise en évidence.
+      Passez la souris sur une carte pour voir ses voisins immédiats : ce dont elle dépend directement (juste avant) et ce qu'elle permet directement (juste après). Sur mobile : tapez une carte pour basculer la mise en évidence.
     </p>
 
     <!-- Grille principale : 4 colonnes desktop, 2 tablet, 1 mobile -->
@@ -376,7 +376,7 @@ const clickable  = columns.reduce((n, c) => n + c.nodes.filter(x => x.href).leng
   .cp-card {
     min-height: 96px;
   }
-  /* Hover-highlight des dépendances (chaîne complète : ancêtres + descendants) */
+  /* Hover-highlight : voisins directs uniquement (prédécesseurs + successeurs immédiats) */
   [data-node-id] {
     transition: opacity 0.2s ease, transform 0.2s ease, border-width 0.2s ease, box-shadow 0.2s ease;
   }
@@ -435,24 +435,14 @@ const clickable  = columns.reduce((n, c) => n + c.nodes.filter(x => x.href).leng
       predecessors.get(dst).add(src);
     }
 
-    function bfs(start, neighbours) {
-      const visited = new Set();
-      const queue = [start];
-      while (queue.length) {
-        const n = queue.shift();
-        const nb = neighbours.get(n);
-        if (nb) for (const x of nb) {
-          if (!visited.has(x)) { visited.add(x); queue.push(x); }
-        }
-      }
-      return visited;
-    }
-
     const cards = document.querySelectorAll('[data-node-id]');
     let activeId = null;
 
     function applyHighlight(id) {
-      const chain = new Set([id, ...bfs(id, predecessors), ...bfs(id, successors)]);
+      // Voisins directs uniquement : prédécesseurs + successeurs immédiats
+      const directPreds = predecessors.get(id) || new Set();
+      const directSuccs = successors.get(id) || new Set();
+      const chain = new Set([id, ...directPreds, ...directSuccs]);
       cards.forEach((c) => {
         if (chain.has(c.dataset.nodeId)) {
           c.classList.add('chain-active');
