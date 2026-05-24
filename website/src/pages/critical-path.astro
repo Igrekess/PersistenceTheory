@@ -1,0 +1,376 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import PageHero from '@components/PageHero.astro';
+import { MONOGRAPH_PDF_FR } from '@/lib/repo';
+
+/* -----------------------------------------------------------------------
+ * Carte du chemin critique (FR)
+ *
+ * Réplique web de la figure pleine-page TikZ
+ *   PT_MONOGRAPHY/figures/critical_path_map.tex
+ * 31 nœuds répartis en 4 colonnes :
+ *   I.   Cœur arithmétique
+ *   II.  Convergence et point fixe
+ *   III. Pont (Bridge)
+ *   IV.  Reconstruction et sortie
+ *
+ * Chaque carte est cliquable lorsqu'une fiche dédiée existe sur le site,
+ * et neutre (avec tooltip pointant vers la monographie) sinon.
+ * --------------------------------------------------------------------- */
+
+type Status =
+  | 'THM' | 'ID' | 'DER' | 'BRIDGE' | 'VAL' | 'COND' | 'CONJ' | 'PRED' | 'AXIOM';
+type Lean = 'ok' | 'partial' | 'ext' | 'none';
+
+interface Node {
+  id: string;
+  label: string;           // titre court (gras)
+  status: Status;
+  formula?: string;        // énoncé court (KaTeX inline OK)
+  lean: Lean;
+  href?: string;           // URL si cliquable
+  tip: string;             // tooltip (module Lean / chapitre monographie)
+}
+
+interface Column {
+  title: string;
+  nodes: Node[];
+}
+
+const columns: Column[] = [
+  {
+    title: 'I. Cœur arithmétique',
+    nodes: [
+      { id: 'axiom', label: 'Axiomes U1–U4', status: 'AXIOM',
+        formula: 'primitives génératives {1, +, ×, ≠ 0}', lean: 'none',
+        href: '/premier-principe',
+        tip: 'Monographie ch. 1 — Principes fondamentaux' },
+      { id: 'T1', label: 'T1', status: 'THM',
+        formula: 'Transitions interdites : $T_3$ a $T_{11}=T_{22}=0$', lean: 'ok',
+        href: '/theorems/T1',
+        tip: 'Lean : PT.Sieve.T1ForbiddenTransitions — ch. 1' },
+      { id: 'T3', label: 'T3', status: 'THM',
+        formula: '$T_3$ antidiagonal, forme stochastique unique', lean: 'ok',
+        href: '/theorems/T3',
+        tip: 'Lean : PT.Sieve.T3Antidiagonal — ch. 1' },
+      { id: 'sh', label: 's = 1/2', status: 'ID',
+        formula: 'mesure stationnaire de $T_3$ (le théorème)', lean: 'ok',
+        href: '/theorems/T2',
+        tip: 'Lean : PT.Stochastic.SHalf — ch. 2' },
+      { id: 'T2', label: 'T2-α', status: 'ID',
+        formula: 'Conservation $s^2 = 1/4$', lean: 'ok',
+        href: '/theorems/T2',
+        tip: 'Lean : PT.Conservation.T2Alpha — ch. 2' },
+      { id: 'L0', label: 'L0', status: 'THM',
+        formula: 'Verrou max-entropie sur les classes résiduelles', lean: 'ok',
+        href: '/theorems/L0',
+        tip: 'Lean : PT.Information.L0MaxEntropy — ch. 2' },
+      { id: 'T6', label: 'T6 a/b/c', status: 'THM',
+        formula: 'Unicité d’Ératosthène (corps + axiomes + Čencov)', lean: 'ok',
+        href: '/theorems/T6',
+        tip: 'Lean : PT.Sieve.T6 — ch. 3' },
+      { id: 'GFT', label: 'GFT-ID', status: 'ID',
+        formula: '$\\log_2 m = D_{KL} + H$', lean: 'ok',
+        href: '/theorems/GFT',
+        tip: 'GFT — théorème fondamental des écarts, ch. 4' },
+      { id: 'G1', label: 'G1', status: 'THM',
+        formula: '$D_{KL}$ divergence unique (Shore–Johnson)', lean: 'ok',
+        tip: 'Monographie ch. 4 — Information, pas de fiche dédiée' },
+      { id: 'G3', label: 'G3', status: 'THM',
+        formula: 'métrique de Fisher unique (Čencov 1982, étendu)', lean: 'ext',
+        tip: 'Lean externe : Mathlib — ch. 4' },
+      { id: 'sin', label: 'sin²θ_p, γ_p', status: 'ID',
+        formula: '$\\sin^2\\theta_p = \\delta_p(2-\\delta_p)$', lean: 'ok',
+        href: '/theorems/T6',
+        tip: 'Phase cyclique / marge, ch. 6' },
+    ],
+  },
+  {
+    title: 'II. Convergence et point fixe',
+    nodes: [
+      { id: 'T4', label: 'T4', status: 'THM',
+        formula: 'Convergence spectrale : $\\alpha_k \\to 1/2$', lean: 'ok',
+        href: '/theorems/T4',
+        tip: 'Lean : PT.Sieve.T4 — ch. 7' },
+      { id: 'Mert', label: 'Mertens', status: 'THM',
+        formula: 'Compacité : $\\|M(x) - \\log\\log x\\| < \\infty$', lean: 'partial',
+        tip: 'Lean : PT.NumberTheory.T5Mertens (partiel) — ch. 7' },
+      { id: 'apc', label: 'Premiers actifs', status: 'THM',
+        formula: 'critère $\\gamma_p > s \\Leftrightarrow p \\in \\{3,5,7\\}$', lean: 'ok',
+        tip: 'Lean : PT.FixedPoint.ActivePrimes — ch. 8' },
+      { id: 'T7', label: 'T5', status: 'THM',
+        formula: 'Point fixe maître : $\\mu^* = \\sum_{\\text{actifs}} p = 15$', lean: 'ok',
+        href: '/theorems/T5',
+        tip: 'Lean : PT.FixedPoint.T7MuStar — ch. 8' },
+      { id: 'Nc', label: 'N_c = 3', status: 'THM',
+        formula: '$N_c = N_{\\text{gen}} = N_{\\text{spatial}} = 3$', lean: 'ok',
+        tip: 'Monographie ch. 8 — Identification combinatoire' },
+      { id: 'T0', label: 'T0 / BA0', status: 'THM',
+        formula: 'Suite des espacements unique (lifting U1–U4)', lean: 'ok',
+        href: '/theorems/T0',
+        tip: 'Lean : PT.Sieve.T0BA0 — ch. 8' },
+      { id: 'W7', label: 'W7-1', status: 'THM',
+        formula: 'Identité de spirale : $\\sigma^2 = \\pi(k+1)$', lean: 'ok',
+        href: '/programme-rh',
+        tip: 'Lean : PT.Analysis.W7SpiralIdentity — ch. 37b' },
+      { id: 'PTd', label: 'PT-derivation', status: 'THM',
+        formula: 'chaîne $s \\to \\alpha_{\\text{bare}}$', lean: 'partial',
+        href: '/lean',
+        tip: 'Lean : PTGrandUnifiedTheorem (partiel) — ch. conclusion' },
+      { id: 'T2b', label: 'T2-b', status: 'COND',
+        formula: 'borne sous-dominante (sous axiome T5Like)', lean: 'ok',
+        href: '/theorems/T2',
+        tip: 'Lean : PT.Conservation.T2Beta — conditionnel, ch. 2' },
+      { id: 'PTl', label: 'PT-structural', status: 'THM',
+        formula: 'théorème premier (spectre actif ⇒ $N_{\\text{gen}}$)', lean: 'ok',
+        href: '/lean',
+        tip: 'Lean : PT.FixedPoint.PTStructural — ch. 8' },
+    ],
+  },
+  {
+    title: 'III. Pont',
+    nodes: [
+      { id: 'BA5a', label: 'BA5a', status: 'THM',
+        formula: 'Produit de Pontryagin : $\\widehat{\\mathbb{Z}/P} = \\prod \\widehat{\\mathbb{Z}/p}$', lean: 'ok',
+        href: '/theorems/BA5',
+        tip: 'Lean : PT.Bridge.BA5a — ch. 10' },
+      { id: 'BA5b', label: 'BA5b', status: 'BRIDGE',
+        formula: 'identification physique : $\\alpha_{\\text{crible}} = \\alpha_{\\text{EM}}$', lean: 'none',
+        href: '/theorems/BA5',
+        tip: 'Pont ontologique central — ch. 10' },
+      { id: 'LemE', label: 'Lemme E', status: 'THM',
+        formula: 'Reconstruction OS (positivité)', lean: 'ok',
+        href: '/theorems/E',
+        tip: 'Lean : PT.Bridge.LemmaE — ch. 11' },
+      { id: 'LemF', label: 'Lemme F', status: 'THM',
+        formula: 'Reconstruction métrique (Fisher → Riemann)', lean: 'partial',
+        href: '/theorems/F',
+        tip: 'Lean : PT.Bridge.MetricReconstruction (partiel) — ch. 11' },
+      { id: 'LemG', label: 'Lemme G', status: 'THM',
+        formula: 'limite inductive (Wightman W1–W4)', lean: 'ok',
+        href: '/theorems/G',
+        tip: 'Lean : PT.Bridge.LemmaG — ch. 11' },
+      { id: 'recT', label: 'Reconstruction', status: 'THM',
+        formula: 'théorème (4 unicités T6 + G1 + G3 + T5)', lean: 'ok',
+        href: '/audit',
+        tip: 'Théorème de reconstruction — ch. 11' },
+      { id: 'CRT', label: 'Découplage CRT', status: 'THM',
+        formula: '$\\mathbb{Z}/P \\cong \\bigoplus \\mathbb{Z}/p$ — invariance de jauge causale', lean: 'ok',
+        tip: 'Lean : PT.CrtDecoupling — ch. 12' },
+      { id: 'BC', label: 'Bost–Connes', status: 'DER',
+        formula: '$C^*$-dynamique : $Z(\\beta) \\to \\zeta(\\beta)$, $\\beta_c = 1$', lean: 'none',
+        tip: 'Monographie ch. 26 — non formalisé' },
+      { id: 'Buch', label: 'Buchstab', status: 'DER',
+        formula: 'borne d’erreur (Lee–Yang tail)', lean: 'partial',
+        tip: 'Lean : PT.Bridge.Buchstab (partiel) — ch. 27' },
+      { id: 'Stat', label: 'Graphe de statut', status: 'THM',
+        formula: 'DAG de dépendances', lean: 'ok',
+        href: '/statuts-resultats',
+        tip: 'Lean : StatusGraphFormalisation — ch. audit' },
+    ],
+  },
+  {
+    title: 'IV. Reconstruction et sortie',
+    nodes: [
+      { id: 'QM', label: 'QM / Born', status: 'DER',
+        formula: 'axiomes vN1–vN6 ; règle de Born depuis $|w_p|^2$', lean: 'none',
+        href: '/gravite-quantique',
+        tip: 'Monographie ch. 13 — Reconstruction quantique' },
+      { id: 'GR', label: 'GR / Einstein', status: 'DER',
+        formula: 'Bianchi I + signature lorentzienne ; Friedmann depuis Fisher', lean: 'none',
+        href: '/relativite',
+        tip: 'Monographie ch. 14 — Reconstruction relativiste' },
+      { id: 'Thrm', label: 'Thermodynamique', status: 'ID',
+        formula: 'GFT = premier principe ; $Z_F = Z_R = Z_P$', lean: 'none',
+        tip: 'Monographie ch. 9 — Thermodynamique' },
+      { id: 'aEM', label: 'α_EM', status: 'DER',
+        formula: '$\\alpha_{\\text{bare}} = \\prod \\sin^2\\theta_p$ + habillage → 0,004 ppb', lean: 'none',
+        href: '/observables',
+        tip: 'Monographie ch. 17 — Constante de structure fine' },
+      { id: 'asW', label: 'sin²θ_W, α_s', status: 'DER',
+        formula: '$\\sin^2\\theta_W = \\gamma_7^2 / \\sum \\gamma_p^2$, 0,01–0,05 %', lean: 'none',
+        href: '/observables',
+        tip: 'Monographie ch. 18 — Couplages électrofaible et fort' },
+      { id: 'Gnt', label: 'G, m_e', status: 'DER',
+        formula: '$G/\\alpha = 2\\pi$ (Friedmann) ; $m_e = s$ (calibration SCU)', lean: 'none',
+        href: '/observables',
+        tip: 'Monographie ch. 19 — Constantes gravitationnelles et calibration' },
+      { id: 'Obs', label: '43 observables', status: 'VAL',
+        formula: 'moyenne 0,30 % (0 paramètre ajusté)', lean: 'none',
+        href: '/observables',
+        tip: 'Page « 43 observables » — ch. validation' },
+      { id: 'Pred', label: '28 Tier-1', status: 'PRED',
+        formula: 'prédictions P1–P28 (falsifiables)', lean: 'none',
+        href: '/predictions',
+        tip: 'Page « Prédictions » — ch. prédictions' },
+      { id: 'DM', label: 'Secteur sombre', status: 'COND',
+        formula: 'géométrique ($F_{\\text{inactive}}$) ; programme DM/DE', lean: 'none',
+        href: '/cosmologie',
+        tip: 'Conditionnel — programme cosmologique ouvert' },
+      { id: 'RH', label: 'RH (Weil)', status: 'CONJ',
+        formula: 'via spirale W7 — non réduite', lean: 'none',
+        href: '/programme-rh',
+        tip: 'Conjectural — programme RH géométrique, ch. 26' },
+    ],
+  },
+];
+
+/* ---------- Style tokens (status → couleurs / patterns) ---------------- */
+const statusStyle: Record<Status, { bg: string; border: string; text: string; pattern?: string }> = {
+  THM:    { bg: 'bg-thmblue/10',      border: 'border-thmblue',      text: 'text-thmblue' },
+  ID:     { bg: 'bg-idgreen/10',      border: 'border-idgreen',      text: 'text-idgreen' },
+  DER:    { bg: 'bg-derorange/10',    border: 'border-derorange',    text: 'text-derorange' },
+  BRIDGE: { bg: 'bg-bridgepurple/10', border: 'border-bridgepurple', text: 'text-bridgepurple' },
+  VAL:    { bg: 'bg-valgray/10',      border: 'border-valgray',      text: 'text-valgray' },
+  COND:   { bg: 'bg-condorange/10',   border: 'border-condorange',   text: 'text-condorange', pattern: 'cp-pattern-hatched' },
+  CONJ:   { bg: 'bg-predred/10',      border: 'border-predred',      text: 'text-predred',    pattern: 'cp-pattern-crosshatched' },
+  PRED:   { bg: 'bg-predred/10',      border: 'border-predred',      text: 'text-predred' },
+  AXIOM:  { bg: 'bg-yellow-100',      border: 'border-yellow-500',   text: 'text-yellow-900' },
+};
+
+const statusLabel: Record<Status, string> = {
+  THM: '[THM]', ID: '[ID]', DER: '[DER]', BRIDGE: '[BRIDGE]',
+  VAL: '[VAL]', COND: '[COND]', CONJ: '[CONJ]', PRED: '[PRED]', AXIOM: 'axiome',
+};
+
+const leanGlyph: Record<Lean, { mark: string; cls: string; label: string }> = {
+  ok:      { mark: '✓L', cls: 'text-green-700',  label: 'kernel-vérifié, 0 sorry' },
+  partial: { mark: '∼L', cls: 'text-orange-700', label: 'partiel (quelques sorrys)' },
+  ext:     { mark: '⋆L', cls: 'text-blue-700',   label: 'externe (Mathlib / classique)' },
+  none:    { mark: '◦L', cls: 'text-stone-400',  label: 'non formalisé' },
+};
+
+const totalNodes = columns.reduce((n, c) => n + c.nodes.length, 0);
+const clickable  = columns.reduce((n, c) => n + c.nodes.filter(x => x.href).length, 0);
+---
+
+<BaseLayout title="Carte du chemin critique">
+  <PageHero
+    eyebrow="Navigation"
+    domain="meta"
+    title="Carte du chemin critique"
+    kicker={`${totalNodes} théorèmes du crible au Modèle Standard, chacun cliquable vers sa fiche.`}
+    dek={`Réplique interactive de la figure pleine-page de la monographie : axiomes U1–U4 → T1 → T3 → s = ½ → T2 → L0 → T6 → GFT → G1/G3 → T4 → Mertens → T5 (μ* = 15) → T0 → W7-1 → BA5 → Lemmes E/F/G → α_EM, sin²θ_W, α_s, G, m_e → 43 observables. Chaque boîte est colorée par classe épistémique (THM bleu, ID vert, DER orange, BRIDGE violet, VAL gris, COND hachuré, CONJ crosshatché) et porte sa marque de formalisation Lean.`}
+    technicalNote={{
+      label: 'Couverture',
+      body: `${clickable}/${totalNodes} cartes pointent vers une fiche dédiée du site ; les autres renvoient à la monographie via le lien de bas de page.`,
+    }}
+  />
+
+  <main class="max-w-7xl mx-auto px-4 py-10 md:py-14">
+
+    <!-- Grille principale : 4 colonnes desktop, 2 tablet, 1 mobile -->
+    <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5 mb-12">
+      {columns.map((col, ci) => (
+        <div class="space-y-3">
+          <header class="border-b border-stone-300 pb-2 mb-3">
+            <p class="text-[11px] uppercase tracking-wider text-stone-500 font-semibold">Colonne {ci + 1}</p>
+            <h2 class="text-base md:text-lg font-bold text-thmblue">{col.title}</h2>
+          </header>
+          {col.nodes.map((node) => {
+            const s = statusStyle[node.status];
+            const lg = leanGlyph[node.lean];
+            const isLink = !!node.href;
+            const cardClasses = [
+              'cp-card', 'block', 'rounded-md', 'border-2', 'p-3',
+              s.bg, s.border, s.pattern ?? '',
+              isLink
+                ? 'transition hover:shadow-md hover:scale-[1.01] cursor-pointer'
+                : 'opacity-90 cursor-help',
+            ].filter(Boolean).join(' ');
+            const inner = (
+              <>
+                <div class="flex items-baseline justify-between gap-2 mb-1">
+                  <span class={`font-bold text-sm leading-tight ${s.text}`}>{node.label}</span>
+                  <span class="text-[10px] uppercase tracking-wide text-stone-600 font-mono">{statusLabel[node.status]}</span>
+                </div>
+                {node.formula && (
+                  <p class="text-[11px] text-stone-700 leading-snug mb-2">{node.formula}</p>
+                )}
+                <div class="flex items-center justify-between text-[10px] mt-1">
+                  <span class={`font-mono font-semibold ${lg.cls}`} title={lg.label}>{lg.mark}</span>
+                  {isLink ? (
+                    <span class="text-stone-500 italic">fiche →</span>
+                  ) : (
+                    <span class="text-stone-400 italic">monographie</span>
+                  )}
+                </div>
+              </>
+            );
+            return isLink
+              ? <a href={node.href} class={cardClasses} title={node.tip} data-tooltip={node.tip}>{inner}</a>
+              : <div class={cardClasses} title={node.tip} data-tooltip={node.tip}>{inner}</div>;
+          })}
+        </div>
+      ))}
+    </section>
+
+    <!-- Légende -->
+    <section class="rounded-lg border border-stone-200 bg-white p-5 md:p-6 mb-10">
+      <h2 class="text-lg font-bold text-thmblue mb-4">Légende</h2>
+
+      <h3 class="text-sm font-semibold text-stone-700 uppercase tracking-wider mb-2">Classes épistémiques</h3>
+      <ul class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs mb-5">
+        <li class="flex items-center gap-2"><span class="inline-block w-4 h-4 rounded border-2 bg-thmblue/10 border-thmblue"></span><span><strong>[THM]</strong> prouvé inconditionnel</span></li>
+        <li class="flex items-center gap-2"><span class="inline-block w-4 h-4 rounded border-2 bg-idgreen/10 border-idgreen"></span><span><strong>[ID]</strong> identité algébrique</span></li>
+        <li class="flex items-center gap-2"><span class="inline-block w-4 h-4 rounded border-2 bg-derorange/10 border-derorange"></span><span><strong>[DER]</strong> dérivation</span></li>
+        <li class="flex items-center gap-2"><span class="inline-block w-4 h-4 rounded border-2 bg-bridgepurple/10 border-bridgepurple"></span><span><strong>[BRIDGE]</strong> identification physique</span></li>
+        <li class="flex items-center gap-2"><span class="inline-block w-4 h-4 rounded border-2 bg-valgray/10 border-valgray"></span><span><strong>[VAL]</strong> validation empirique</span></li>
+        <li class="flex items-center gap-2"><span class="inline-block w-4 h-4 rounded border-2 bg-condorange/10 border-condorange cp-pattern-hatched"></span><span><strong>[COND]</strong> conditionnel (hachuré)</span></li>
+        <li class="flex items-center gap-2"><span class="inline-block w-4 h-4 rounded border-2 bg-predred/10 border-predred cp-pattern-crosshatched"></span><span><strong>[CONJ]</strong> conjectural (crosshatché)</span></li>
+        <li class="flex items-center gap-2"><span class="inline-block w-4 h-4 rounded border-2 bg-yellow-100 border-yellow-500"></span><span><strong>axiome</strong> primitives U1–U4</span></li>
+      </ul>
+
+      <h3 class="text-sm font-semibold text-stone-700 uppercase tracking-wider mb-2">Statut Lean</h3>
+      <ul class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
+        <li><span class="font-mono font-semibold text-green-700">✓L</span> &nbsp;kernel-vérifié, 0 sorry</li>
+        <li><span class="font-mono font-semibold text-orange-700">∼L</span> &nbsp;partiel (sorrys documentés)</li>
+        <li><span class="font-mono font-semibold text-blue-700">⋆L</span> &nbsp;externe (Mathlib)</li>
+        <li><span class="font-mono font-semibold text-stone-400">◦L</span> &nbsp;non formalisé</li>
+      </ul>
+    </section>
+
+    <!-- Footer / lien monographie -->
+    <section class="rounded-lg border border-thmblue/30 bg-thmblue/5 p-5 md:p-6 mb-6">
+      <h2 class="text-lg font-bold text-thmblue mb-2">Aller plus loin</h2>
+      <p class="text-sm text-stone-700 leading-relaxed mb-3">
+        Cette carte est la traduction web d’une figure pleine page de la monographie.
+        Pour voir les flèches de dépendance complètes (intra-colonne, inter-colonnes,
+        court-circuits du résultat phare α_EM) ainsi que le contexte de chaque résultat,
+        consultez la <strong>monographie</strong>. Pour le détail des modules formalisés,
+        voir la page <a href="/lean" class="text-thmblue underline hover:no-underline">Formalisation Lean</a> ;
+        pour le statut épistémique fin, voir <a href="/statuts-resultats" class="text-thmblue underline hover:no-underline">Statuts des résultats</a> et <a href="/audit" class="text-thmblue underline hover:no-underline">Audit</a>.
+      </p>
+      <p class="text-sm">
+        <a href={MONOGRAPH_PDF_FR} class="inline-block px-4 py-2 bg-thmblue text-white rounded-md font-semibold hover:bg-thmblue/90 transition" target="_blank" rel="noopener">
+          Télécharger la monographie (PDF)
+        </a>
+      </p>
+    </section>
+
+  </main>
+</BaseLayout>
+
+<style>
+  /* Hachurage pour [COND] */
+  .cp-pattern-hatched {
+    background-image: repeating-linear-gradient(
+      45deg,
+      rgba(183, 121, 31, 0.08) 0,
+      rgba(183, 121, 31, 0.08) 4px,
+      transparent 4px,
+      transparent 8px
+    );
+  }
+  /* Crosshatch pour [CONJ] */
+  .cp-pattern-crosshatched {
+    background-image:
+      repeating-linear-gradient(45deg, rgba(184, 50, 58, 0.08) 0, rgba(184, 50, 58, 0.08) 3px, transparent 3px, transparent 8px),
+      repeating-linear-gradient(-45deg, rgba(184, 50, 58, 0.08) 0, rgba(184, 50, 58, 0.08) 3px, transparent 3px, transparent 8px);
+  }
+  .cp-card {
+    min-height: 96px;
+  }
+</style>
+</content>
+</invoke>

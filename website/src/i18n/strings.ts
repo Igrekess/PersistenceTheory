@@ -87,6 +87,7 @@ export const ui = {
     'depth.L3': 'Technique',
     'nav.more': 'Plus',
     'nav.menu': 'Menu',
+    'nav.critical_path': 'Carte du chemin critique',
   },
   en: {
     'nav.monograph': 'Monograph',
@@ -156,6 +157,7 @@ export const ui = {
     'depth.L3': 'Technical',
     'nav.more': 'More',
     'nav.menu': 'Menu',
+    'nav.critical_path': 'Critical-path map',
   },
 } as const;
 
