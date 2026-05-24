@@ -4,7 +4,7 @@ import PageHero from '@components/PageHero.astro';
 import { MONOGRAPH_PDF_FR } from '@/lib/repo';
 
 /* -----------------------------------------------------------------------
- * Carte du chemin critique (FR)
+ * Atlas des théorèmes (FR)
  *
  * Réplique web de la figure pleine-page TikZ
  *   PT_MONOGRAPHY/figures/critical_path_map.tex
@@ -251,11 +251,11 @@ const totalNodes = columns.reduce((n, c) => n + c.nodes.length, 0);
 const clickable  = columns.reduce((n, c) => n + c.nodes.filter(x => x.href).length, 0);
 ---
 
-<BaseLayout title="Carte du chemin critique">
+<BaseLayout title="Atlas des théorèmes">
   <PageHero
     eyebrow="Navigation"
     domain="meta"
-    title="Carte du chemin critique"
+    title="Atlas des théorèmes"
     kicker={`${totalNodes} théorèmes du crible au Modèle Standard, chacun cliquable vers sa fiche.`}
     dek={`Réplique interactive de la figure pleine-page de la monographie : axiomes U1–U4 → T1 → T3 → s = ½ → T2 → L0 → T6 → GFT → G1/G3 → T4 → Mertens → T5 (μ* = 15) → T0 → W7-1 → BA5 → Lemmes E/F/G → α_EM, sin²θ_W, α_s, G, m_e → 43 observables. Chaque boîte est colorée par classe épistémique (THM bleu, ID vert, DER orange, BRIDGE violet, VAL gris, COND hachuré, CONJ crosshatché) et porte sa marque de formalisation Lean.`}
     technicalNote={{

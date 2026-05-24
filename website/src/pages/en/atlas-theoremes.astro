@@ -4,7 +4,7 @@ import PageHero from '@components/PageHero.astro';
 import { MONOGRAPH_PDF_EN } from '@/lib/repo';
 
 /* -----------------------------------------------------------------------
- * Critical-path map (EN)
+ * Theorem atlas (EN)
  *
  * Interactive web replica of the full-page TikZ figure
  *   PT_MONOGRAPHY/figures/critical_path_map.tex
@@ -251,11 +251,11 @@ const totalNodes = columns.reduce((n, c) => n + c.nodes.length, 0);
 const clickable  = columns.reduce((n, c) => n + c.nodes.filter(x => x.href).length, 0);
 ---
 
-<BaseLayout title="Critical-path map">
+<BaseLayout title="Theorem atlas">
   <PageHero
     eyebrow="Navigation"
     domain="meta"
-    title="Critical-path map"
+    title="Theorem atlas"
     kicker={`${totalNodes} theorems from the sieve to the Standard Model, each clickable to its full proof.`}
     dek={`Interactive replica of the monograph's full-page figure: axioms U1–U4 → T1 → T3 → s = ½ → T2 → L0 → T6 → GFT → G1/G3 → T4 → Mertens → T5 (μ* = 15) → T0 → W7-1 → BA5 → Lemmas E/F/G → α_EM, sin²θ_W, α_s, G, m_e → 43 observables. Each box is colour-coded by epistemic class (THM blue, ID green, DER orange, BRIDGE purple, VAL grey, COND hatched, CONJ crosshatched) and carries its Lean formalisation mark.`}
     technicalNote={{
