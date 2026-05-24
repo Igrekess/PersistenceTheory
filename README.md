@@ -18,12 +18,15 @@ scripted, and the physical interpretation is presented as a hypothesis exposed
 to future tests.
 
 - English monograph: [TheTheoryOfPersistence.pdf](TheTheoryOfPersistence.pdf)
-  (967 pages)
+  (902 pages)
 - French monograph: [TheorieDeLaPersistance_FR.pdf](TheorieDeLaPersistance_FR.pdf)
-  (995 pages)
-- Lean 4 formalisation: [`pt_lean/`](pt_lean) — 22 foundational
-  theorems on the critical path T1 → T7 → W7-1 kernel-verified,
-  spread across 8 modules, plus 171 additional secondary modules (179 modules in total).
+  (920 pages)
+- Lean 4 formalisation: [`pt_lean/`](pt_lean) — foundational theorems
+  on the critical path T1 → T7 → W7-1 kernel-verified, plus structural
+  skeletons for Lemma F (metric reconstruction, reduced to G3) and
+  Buchstab inductive limit (per-step Frobenius bound + Lee-Yang tail
+  summability proven, ITPS/OS axioms remain external). 181 modules
+  in total, full `lake build` 3585/3585 jobs PASS.
 - Research notes: [`research_notes/`](research_notes) — six
   standalone working drafts cited by the monograph (Hilbert–Pólya
   map, $p$-adic PT–Ramanujan, Casimir P29 prediction, Berry–Keating

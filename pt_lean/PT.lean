@@ -178,9 +178,14 @@ import PT.EML.QSheffer
 -- formula, forward direction
 import PT.Analysis.W7SpiralIdentity
 
--- Bridge (3 modules) — math/physics dissolution, derivation chain,
--- status graph
+-- Bridge (5 modules) — math/physics dissolution, derivation chain,
+-- status graph, Buchstab inductive limit (skeleton), Lemma F metric
+-- reconstruction (skeleton)
+import PT.Bridge.Buchstab
+import PT.Bridge.HilbertReconstruction
 import PT.Bridge.MathPhysicsDissolution
+import PT.Bridge.MetricReconstruction
+import PT.Bridge.OS3Uniform
 import PT.Bridge.PTCascadeDerivationChain
 import PT.Bridge.StatusGraphFormalisation
 
@@ -195,6 +200,10 @@ import PT.CrtDecoupling.Phase4
 import PT.CrtDecoupling.Phase4Instance
 import PT.CrtDecoupling.SpectralReduction
 import PT.CrtDecoupling.Tensor
+
+-- NashDeGiorgi (3 modules + umbrella) — Z1-Z4 + BK-PT consolidated,
+-- formalisation of `PT_PROJECTS/PT_NASH_DEGIORGI/`
+import PT.NashDeGiorgi
 
 -- Top-level / unified (1 module) — meta-theorem assembling the
 -- master results into a single citation-ready statement
