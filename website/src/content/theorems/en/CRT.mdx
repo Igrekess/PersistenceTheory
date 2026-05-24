@@ -1,0 +1,86 @@
+---
+id: CRT
+name: 'CRT — Sieve decoupling and causal invariance'
+short: 'The sieve factors additively: $\mathbb{Z}/P \cong \bigoplus_p \mathbb{Z}/p$. Operations at different primes commute.'
+statement: 'For any square-free modulus $m = q_1 \cdots q_k$, the Chinese remainder theorem gives the ring isomorphism $\mathbb{Z}/m\mathbb{Z} \cong \bigoplus_{i=1}^k \mathbb{Z}/q_i\mathbb{Z}$. Sieving at different primes acts on independent factors: the projections commute, and the removal order of primes affects no observable.'
+status: THM
+monograph_chapter: chap:bridge
+order: 105
+tier: secondary
+lean:
+  module: 'PT.Stochastic.CRTFactorizationT2'
+  path: 'pt_lean/PT/Stochastic/CRTFactorizationT2.lean'
+  status: 'kernel-verified'
+lang: en
+---
+
+import Tag from '@components/Tag.astro';
+
+## Statement
+
+Let $m = q_1 \cdots q_k$ be a square-free modulus. The Chinese
+remainder theorem (CRT) gives the ring isomorphism
+
+$$
+\mathbb{Z}/m\mathbb{Z} \;\cong\; \bigoplus_{i=1}^k \mathbb{Z}/q_i\mathbb{Z}.
+$$
+
+Let $\pi_p$ denote the sieve projection removing the class $0 \bmod p$.
+Then projections at distinct primes **commute**:
+
+$$
+\pi_p \circ \pi_q = \pi_q \circ \pi_p, \qquad \forall\, p \neq q.
+$$
+
+The order in which primes are removed affects neither the survivor
+set, nor the gap statistics, nor the transfer matrix.
+
+<Tag level="THM" />
+
+## Why it matters
+
+CRT decoupling is the structural **gauge invariance** of PT. It plays
+several converging roles:
+
+- **Locality of the sieve.** Sieving at prime $p$ acts only on the
+  factor $\mathbb{Z}/p\mathbb{Z}$; other factors are invariant. This
+  is the exact arithmetic analogue of spatial locality.
+- **BA5 product form.** Combined with Pontryagin duality (characters
+  of direct sums are multiplicative products), it forces the product
+  form $\alpha_{\text{sieve}} = \prod_p \sin^2\theta_p$ of the gauge
+  coupling.
+- **Causal invariance.** Permutation $\sigma \in S_k$ of the active
+  primes $\Rightarrow$ same final set, same observables. This is the
+  discrete arithmetic analogue of general covariance (Wolfram,
+  Gorard).
+- **KL uniqueness** (G1) and **Fisher product structure** inherit
+  directly from this decomposition.
+
+Without CRT, neither the product form nor gauge invariance would be
+forced: they would have to be postulated.
+
+## Proof — outline
+
+**Step 1.** CRT is a classical theorem of ring theory:
+$\mathbb{Z}/m\mathbb{Z} \to \prod_i \mathbb{Z}/q_i\mathbb{Z}$,
+$r \mapsto (r \bmod q_1, \ldots, r \bmod q_k)$ is a ring isomorphism
+whenever the $q_i$ are pairwise coprime.
+
+**Step 2.** The projection $\pi_p$ removes exactly $1/p$ of the
+elements uniformly in each class $\mathbb{Z}/q\mathbb{Z}$ ($q \neq p$).
+Hence $\pi_p$ and $\pi_q$ act on disjoint factors and commute.
+
+**Step 3.** All observables ($n_2$, $T$, $D$, $\alpha$) depend only on
+the final survivor set and the gap structure — not on removal order.
+They are therefore $S_k$-invariant.
+
+**Statistical independence** of components (to leading order in
+$1/\ln N$) follows from the prime number theorem for arithmetic
+progressions.
+
+## See also
+
+- [BA5 — Pontryagin product](/en/theorems/BA5) — product form of the coupling
+- [G1 — Uniqueness of $D_{KL}$](/en/theorems/G1) — uses CRT for additivity
+- [T2 — Spectral conservation](/en/theorems/T2) — uses the factorisation $T_{30} \cong T_3 \otimes T_5$
+- [All theorems](/en/theorems)

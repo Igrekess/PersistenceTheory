@@ -1,0 +1,69 @@
+---
+id: G1
+name: 'G1 — Uniqueness of $D_{KL}$ (Shore–Johnson)'
+short: 'On the CRT-structured sieve simplex, $D_{KL}$ is the unique consistent divergence.'
+statement: 'On the sieve state space $\Delta_m$ equipped with the CRT product structure, the Kullback–Leibler divergence $D_{KL}$ is the unique $f$-divergence satisfying the Shore–Johnson axioms SJ1–SJ5 and invariant under CRT factorisation.'
+status: THM
+monograph_chapter: chap:geometry
+order: 100
+tier: secondary
+lean:
+  module: 'PT.Information.T6cG1Autonomous'
+  path: 'pt_lean/PT/Information/T6cG1Autonomous.lean'
+  status: 'kernel-verified'
+lang: en
+---
+
+import Tag from '@components/Tag.astro';
+
+## Statement
+
+Let $\Delta_m$ be the simplex of probability distributions on
+$\mathbb{Z}/m\mathbb{Z}$, equipped with the CRT product decomposition
+$\Delta_m \cong \prod_{p \mid m} \Delta_p$. Then the Kullback–Leibler
+divergence
+
+$$
+D_{KL}(P \| Q) = \sum_i p_i \ln \frac{p_i}{q_i}
+$$
+
+is the **unique** $f$-divergence that satisfies the five Shore–Johnson
+axioms (consistency, invariance, system independence, subset
+independence, scaling) and that respects CRT factorisation.
+
+<Tag level="THM" />
+
+## Why it matters
+
+G1 is one of the **four uniqueness theorems** that close the physical
+reconstruction chain: G1 ($D_{KL}$), G3 (Fisher metric), T6 (holonomy
+$\sin^2\theta_p$), T5 ($\mu^* = 15$). Without G1, the informational
+content of the sieve would be defined only up to choice of divergence
+— and the whole chain `GFT → entropy → first law → couplings` would
+lose its **forced** character.
+
+G1 guarantees that the decomposition `bit = D_KL + H` (GFT theorem) is
+not a notational choice but the unique decomposition compatible with
+CRT factorisation of the sieve.
+
+## Proof — outline
+
+PT verifies that the simplex $\Delta_m$ with CRT structure satisfies
+SJ1–SJ5 (7/7 numerical tests); Shore and Johnson's 1980 theorem
+(external import, IEEE Trans. Inf. Theory) concludes uniqueness.
+
+**Eliminating alternatives** (all numerically verified): $\chi^2$,
+Hellinger, total variation and Rényi $D_\alpha$ ($\alpha \neq 1$)
+each violate one of the axioms — typically additivity under CRT (SJ3).
+
+An **autonomous** proof (G1$'$, $thm:G1\_autonomous$) reconstructs the
+same result without Shore–Johnson via Csiszár's characterisation of
+additive $f$-divergences: $f(t) = c_1\,t\ln t + c_2(t-1)$, and the
+second term vanishes on normalised distributions.
+
+## See also
+
+- [GFT — Fundamental gap theorem](/en/theorems/GFT) — uses $D_{KL}$
+- [G3 — Fisher metric uniqueness](/en/theorems/G3) — second uniqueness pillar
+- [Lemma F — Metric reconstruction](/en/theorems/F) — uses G3
+- [All theorems](/en/theorems)

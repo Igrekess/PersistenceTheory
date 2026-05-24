@@ -1,0 +1,70 @@
+---
+id: Mertens
+name: 'Mertens — Compacité de la fonction $M(x)$'
+short: 'La fonction $M(x) - \log\log x$ est bornée — classique, importée dans la PT.'
+statement: 'Théorème classique de Mertens (1874) : la somme $M(x) = \sum_{p \leq x} 1/p$ vérifie $M(x) = \log\log x + B + O(1/\log x)$ ; en particulier $\|M(x) - \log\log x\|_\infty < \infty$. La PT l’utilise comme import externe pour la compacité spectrale dans T4.'
+status: THM
+monograph_chapter: chap:convergence
+order: 102
+tier: secondary
+lean:
+  module: 'PT.NumberTheory.T5Mertens'
+  path: 'pt_lean/PT/NumberTheory/T5Mertens.lean'
+  status: 'scaffold'
+lang: fr
+---
+
+import Tag from '@components/Tag.astro';
+
+## Énoncé
+
+Le théorème de Mertens (1874) affirme que la somme des inverses des
+premiers vérifie
+
+$$
+M(x) := \sum_{p \leq x} \frac{1}{p} = \log\log x + B + O\!\left(\frac{1}{\log x}\right),
+$$
+
+où $B \approx 0{,}26149\ldots$ est la constante de Mertens. En
+particulier, la fonction $M(x) - \log\log x$ reste **uniformément
+bornée** sur $x \geq 2$.
+
+<Tag level="THM" />
+
+## Pourquoi ça compte (rôle dans la PT)
+
+Mertens est un théorème **classique** (théorie analytique des nombres,
+indépendant de PT). La PT l’importe pour un usage précis : la
+**compacité** des matrices de transfert du crible.
+
+À chaque niveau $k$ du crible, le taux d’auto-transition $\alpha_k$
+satisfait $\alpha_k \to 1/2$ par Mertens (ou de façon équivalente par
+le théorème des nombres premiers). Les matrices stochastiques $T(k)$
+restent donc dans un **ensemble compact**, et toute fonctionnelle
+continue de $T(k)$ converge.
+
+C’est exactement ce que demande la preuve du théorème **T4**
+(convergence spectrale) : sans Mertens, on ne pourrait pas conclure
+que les vecteurs propres et le rayon spectral convergent.
+
+**Pas de circularité.** Mertens fournit l’asymptotique de fond
+$\alpha_k = 1/2 - O(1/\ln p_k)$ — valable pour *tout* crible
+multiplicatif. T4 prouve le contenu structurel spécifique à PT
+(annihilation spectrale $r_2(0) = 0$, dilution CRT) ; les deux briques
+sont logiquement indépendantes.
+
+## Démonstration — schéma
+
+Preuve classique (élémentaire). Sommer
+$\sum_{p \leq x} \log p \cdot 1/p$ par parties de l’estimée de
+Tchebychev $\sum_{p \leq x} \log p / p = \log x + O(1)$ ; on en déduit
+$M(x) = \log\log x + B + O(1/\log x)$. Voir
+Tenenbaum, *Introduction à la théorie analytique et probabiliste
+des nombres*, chap. I.1.
+
+## Voir aussi
+
+- [T4 — Convergence spectrale](/theorems/T4) — utilisateur principal de Mertens
+- [T5 — Attracteur $\mu^* = 15$](/theorems/T5) — utilise T4
+- [Premiers actifs](/theorems/ActivePrime) — discrimination $\gamma_p \gtrless s$
+- [Tous les théorèmes](/theorems)

@@ -1,0 +1,67 @@
+---
+id: Mertens
+name: 'Mertens — Compactness of $M(x)$'
+short: 'The function $M(x) - \log\log x$ is bounded — classical, imported into PT.'
+statement: 'Classical Mertens theorem (1874): the sum $M(x) = \sum_{p \leq x} 1/p$ satisfies $M(x) = \log\log x + B + O(1/\log x)$; in particular $\|M(x) - \log\log x\|_\infty < \infty$. PT uses it as an external import for spectral compactness in T4.'
+status: THM
+monograph_chapter: chap:convergence
+order: 102
+tier: secondary
+lean:
+  module: 'PT.NumberTheory.T5Mertens'
+  path: 'pt_lean/PT/NumberTheory/T5Mertens.lean'
+  status: 'scaffold'
+lang: en
+---
+
+import Tag from '@components/Tag.astro';
+
+## Statement
+
+Mertens' theorem (1874) states that the sum of reciprocals of primes
+satisfies
+
+$$
+M(x) := \sum_{p \leq x} \frac{1}{p} = \log\log x + B + O\!\left(\frac{1}{\log x}\right),
+$$
+
+where $B \approx 0.26149\ldots$ is Mertens' constant. In particular,
+the function $M(x) - \log\log x$ remains **uniformly bounded** for
+$x \geq 2$.
+
+<Tag level="THM" />
+
+## Why it matters (role in PT)
+
+Mertens is a **classical** theorem (analytic number theory, independent
+of PT). PT imports it for a precise purpose: **compactness** of the
+sieve transfer matrices.
+
+At each sieve level $k$, the auto-transition rate $\alpha_k$ satisfies
+$\alpha_k \to 1/2$ by Mertens (equivalently by the prime number
+theorem). The stochastic matrices $T(k)$ therefore remain in a
+**compact set**, and any continuous functional of $T(k)$ converges.
+
+This is exactly what the proof of **T4** (spectral convergence)
+requires: without Mertens, one could not conclude that eigenvectors
+and the spectral radius converge.
+
+**No circularity.** Mertens provides the background asymptotic
+$\alpha_k = 1/2 - O(1/\ln p_k)$ — valid for *any* multiplicative
+sieve. T4 proves the PT-specific structural content (spectral
+annihilation $r_2(0) = 0$, CRT dilution); the two bricks are
+logically independent.
+
+## Proof — outline
+
+Classical (elementary) proof. Partial summation against Chebyshev's
+estimate $\sum_{p \leq x} \log p / p = \log x + O(1)$ yields
+$M(x) = \log\log x + B + O(1/\log x)$. See Tenenbaum, *Introduction
+to Analytic and Probabilistic Number Theory*, ch. I.1.
+
+## See also
+
+- [T4 — Spectral convergence](/en/theorems/T4) — main user of Mertens
+- [T5 — Attractor $\mu^* = 15$](/en/theorems/T5) — uses T4
+- [Active prime criterion](/en/theorems/ActivePrime) — discriminates $\gamma_p \gtrless s$
+- [All theorems](/en/theorems)

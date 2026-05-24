@@ -1,0 +1,89 @@
+---
+id: CRT
+name: 'CRT — Découplage du crible et invariance causale'
+short: 'Le crible se factorise additivement : $\mathbb{Z}/P \cong \bigoplus_p \mathbb{Z}/p$. Les opérations à différents premiers commutent.'
+statement: 'Pour tout modulus sans facteur carré $m = q_1 \cdots q_k$, le théorème des restes chinois donne l’isomorphisme d’anneaux $\mathbb{Z}/m\mathbb{Z} \cong \bigoplus_{i=1}^k \mathbb{Z}/q_i\mathbb{Z}$. Le crible aux différents premiers agit sur des facteurs indépendants : les projections commutent, et l’ordre de retrait des premiers n’affecte aucun observable.'
+status: THM
+monograph_chapter: chap:bridge
+order: 105
+tier: secondary
+lean:
+  module: 'PT.Stochastic.CRTFactorizationT2'
+  path: 'pt_lean/PT/Stochastic/CRTFactorizationT2.lean'
+  status: 'kernel-verified'
+lang: fr
+---
+
+import Tag from '@components/Tag.astro';
+
+## Énoncé
+
+Soit $m = q_1 \cdots q_k$ un modulus sans facteur carré. Le théorème
+des restes chinois (CRT) donne l’isomorphisme d’anneaux
+
+$$
+\mathbb{Z}/m\mathbb{Z} \;\cong\; \bigoplus_{i=1}^k \mathbb{Z}/q_i\mathbb{Z}.
+$$
+
+Soit $\pi_p$ la projection du crible retirant la classe $0 \bmod p$.
+Alors les projections aux premiers distincts **commutent** :
+
+$$
+\pi_p \circ \pi_q = \pi_q \circ \pi_p, \qquad \forall\, p \neq q.
+$$
+
+L’ordre dans lequel les premiers sont retirés n’affecte ni l’ensemble
+des survivants, ni les statistiques d’écarts, ni la matrice de
+transfert.
+
+<Tag level="THM" />
+
+## Pourquoi ça compte
+
+Le découplage CRT est l’**invariance de jauge** structurelle de la PT.
+Il a plusieurs rôles convergents :
+
+- **Localité du crible.** Cribler au premier $p$ agit uniquement sur
+  le facteur $\mathbb{Z}/p\mathbb{Z}$ ; les autres facteurs sont
+  invariants. C’est l’analogue arithmétique exact de la localité
+  spatiale.
+- **Forme produit BA5.** Combiné à la dualité de Pontryagin (les
+  caractères des sommes directes sont des produits multiplicatifs), il
+  force la forme produit $\alpha_{\text{crible}} = \prod_p \sin^2\theta_p$
+  du couplage de jauge.
+- **Invariance causale.** Permutation $\sigma \in S_k$ des premiers
+  actifs $\Rightarrow$ même ensemble final, mêmes observables. C’est
+  l’analogue arithmétique discret de la covariance générale (Wolfram,
+  Gorard).
+- **Unicité KL** (G1) et **structure produit Fisher** héritent
+  directement de cette décomposition.
+
+Sans CRT, ni la forme produit ni l’invariance de jauge ne seraient
+forcées : il faudrait les postuler.
+
+## Démonstration — schéma
+
+**Étape 1.** Le CRT est un théorème classique de théorie des anneaux :
+$\mathbb{Z}/m\mathbb{Z} \to \prod_i \mathbb{Z}/q_i\mathbb{Z}$,
+$r \mapsto (r \bmod q_1, \ldots, r \bmod q_k)$ est un isomorphisme
+d’anneaux lorsque les $q_i$ sont coprimes deux à deux.
+
+**Étape 2.** La projection $\pi_p$ retire exactement $1/p$ des
+éléments uniformément dans chaque classe $\mathbb{Z}/q\mathbb{Z}$
+($q \neq p$). Donc $\pi_p$ et $\pi_q$ agissent sur des facteurs
+disjoints et commutent.
+
+**Étape 3.** Tous les observables ($n_2$, $T$, $D$, $\alpha$) ne
+dépendent que de l’ensemble final des survivants et de la structure
+des écarts — non de l’ordre de retrait. Ils sont donc $S_k$-invariants.
+
+**Indépendance statistique** des composantes (à l’ordre principal en
+$1/\ln N$) découle du théorème des nombres premiers pour les
+progressions arithmétiques.
+
+## Voir aussi
+
+- [BA5 — Produit de Pontryagin](/theorems/BA5) — forme produit du couplage
+- [G1 — Unicité de $D_{KL}$](/theorems/G1) — utilise CRT pour l’additivité
+- [T2 — Conservation spectrale](/theorems/T2) — utilise la factorisation $T_{30} \cong T_3 \otimes T_5$
+- [Tous les théorèmes](/theorems)

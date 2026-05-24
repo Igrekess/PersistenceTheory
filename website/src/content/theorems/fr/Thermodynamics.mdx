@@ -1,0 +1,86 @@
+---
+id: Thermodynamics
+name: 'Thermodynamique — GFT = première loi'
+short: 'L’identité GFT $\log_2 m = D_{KL} + H$ est la première loi de la thermodynamique du crible.'
+statement: 'L’identité GFT $\log_2 m = D_{KL}(P \| U_m) + H(P)$, exacte au niveau algébrique ($< 10^{-15}$ bits à $m = 210$), exprime la conservation de l’information totale dans le crible. C’est la première loi de la thermodynamique du crible : $U = F + TS$ à $T = 1$, où $F = D_{KL}$ (énergie libre) et $S = H$ (entropie).'
+status: IDENTITY
+monograph_chapter: chap:thermodynamics
+order: 106
+tier: secondary
+lang: fr
+---
+
+import Tag from '@components/Tag.astro';
+
+## Énoncé
+
+L’identité GFT (théorème fondamental des écarts) :
+
+$$
+\log_2 m \;=\; D_{KL}(P \| U_m) \;+\; H(P)
+$$
+
+est une identité algébrique exacte (vérifiée à $< 10^{-15}$ bits à
+$m = 210$). Elle s’interprète comme la **première loi de la
+thermodynamique du crible** :
+
+$$
+\underbrace{\log_2 m}_{\text{énergie interne } U}
+\;=\;
+\underbrace{D_{KL}}_{\text{énergie libre } F}
+\;+\;
+\underbrace{T \cdot H}_{TS,\ T = 1}.
+$$
+
+Le crible ne peut ni gagner ni perdre $\log_2 m$ unités lors de son
+traitement : il ne peut que les redistribuer entre une partie ordonnée
+($D_{KL}$) et une partie désordonnée ($H$).
+
+<Tag level="ID" />
+
+## Pourquoi ça compte
+
+Cette identification est l’une des plus fortes de la PT : la
+thermodynamique entière du crible (première loi, seconde loi, flèche
+du temps, conditions KMS, borne de Bekenstein) est **dérivée** de la
+seule identité GFT et de la structure de Gibbs du crible — **sans
+importer de concept thermodynamique**.
+
+- **Première loi** : GFT lui-même (cette fiche).
+- **Seconde loi** ($D_{KL}$ strictement décroissant, $H$ strictement
+  croissant) : conséquence de la convergence T4 et de l’inégalité de
+  Pinsker.
+- **Flèche du temps** : différentiation de GFT à $m$ constant.
+- **Bekenstein** : borne entropique géométrique sur les surfaces de
+  crible.
+
+Trois fonctions de partition $Z_F = Z_R = Z_P$ (Fisher, Riemann,
+prime) coïncident — ce qui ancre l’identification thermodynamique au
+sens fort.
+
+## Démonstration — schéma
+
+**Identité GFT.** Par définition,
+$D_{KL}(P \| U_m) = \sum_i p_i \log_2(m\, p_i) = \log_2 m + \sum_i p_i \log_2 p_i = \log_2 m - H(P)$.
+
+Donc $\log_2 m = D_{KL} + H$, identité **algébrique exacte** sur toute
+distribution $P$ et toute uniforme $U_m$.
+
+**Identification thermodynamique** (rôle BRIDGE) :
+$U \leftrightarrow \log_2 m$ (capacité totale fixée par le modulus),
+$F \leftrightarrow D_{KL}$ (information persistante = travail
+extractible), $S \leftrightarrow H$ (entropie résiduelle), $T = 1$
+(température naturelle en bits/nat). À cette identification,
+$U = F + TS$ est la **première loi**.
+
+**Raffinement épiplexique** (Finzi et al. 2026) : pour un observateur
+borné en temps $T$, GFT devient
+$S_T(X) + H_T(X) \leq n + c$ — séparation structurelle/entropique
+épistémique. L’identité PT est la limite $T \to \infty$.
+
+## Voir aussi
+
+- [GFT — Théorème fondamental des écarts](/theorems/GFT) — identité-source
+- [G1 — Unicité de $D_{KL}$](/theorems/G1) — fixe le contenu informationnel
+- [L0 — Distribution géométrique unique](/theorems/L0) — entropie maximale
+- [Tous les théorèmes](/theorems)

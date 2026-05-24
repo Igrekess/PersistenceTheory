@@ -1,0 +1,70 @@
+---
+id: G1
+name: 'G1 — Unicité de $D_{KL}$ (Shore–Johnson)'
+short: 'Sur le simplexe de crible avec structure CRT, $D_{KL}$ est l’unique divergence cohérente.'
+statement: 'Sur l’espace d’état du crible $\Delta_m$ muni de la structure produit CRT, la divergence de Kullback–Leibler $D_{KL}$ est l’unique $f$-divergence satisfaisant les axiomes Shore–Johnson SJ1–SJ5 et invariante sous la factorisation CRT.'
+status: THM
+monograph_chapter: chap:geometry
+order: 100
+tier: secondary
+lean:
+  module: 'PT.Information.T6cG1Autonomous'
+  path: 'pt_lean/PT/Information/T6cG1Autonomous.lean'
+  status: 'kernel-verified'
+lang: fr
+---
+
+import Tag from '@components/Tag.astro';
+
+## Énoncé
+
+Soit $\Delta_m$ le simplexe des distributions de probabilité sur
+$\mathbb{Z}/m\mathbb{Z}$, muni de la décomposition produit CRT
+$\Delta_m \cong \prod_{p \mid m} \Delta_p$. Alors la divergence de
+Kullback–Leibler
+
+$$
+D_{KL}(P \| Q) = \sum_i p_i \ln \frac{p_i}{q_i}
+$$
+
+est l’**unique** $f$-divergence qui satisfait les cinq axiomes de
+Shore–Johnson (cohérence, invariance, indépendance de système,
+indépendance de sous-ensemble, mise à l’échelle) et qui respecte la
+factorisation CRT.
+
+<Tag level="THM" />
+
+## Pourquoi ça compte
+
+G1 est l’une des **quatre unicités** qui ferment la chaîne de
+reconstruction physique : G1 ($D_{KL}$), G3 (métrique de Fisher), T6
+(holonomie $\sin^2\theta_p$), T5 ($\mu^* = 15$). Sans G1, le contenu
+informationnel du crible serait défini à la divergence près — et toute
+la chaîne `GFT → entropie → première loi → couplages` perdrait son
+caractère **forcé**.
+
+G1 garantit que la décomposition `bit = D_KL + H` (théorème GFT) n’est
+pas un choix de notation mais l’unique décomposition compatible avec la
+factorisation CRT du crible.
+
+## Démonstration — schéma
+
+PT vérifie que le simplexe $\Delta_m$ avec structure CRT satisfait
+SJ1–SJ5 (7/7 tests numériques) ; le théorème de Shore–Johnson 1980
+(import externe, IEEE Trans. Inf. Theory) conclut l’unicité.
+
+**Élimination des alternatives** (toutes vérifiées numériquement) :
+$\chi^2$, Hellinger, variation totale et Rényi $D_\alpha$ ($\alpha \neq 1$)
+violent l’un des axiomes — typiquement l’additivité sous CRT (SJ3).
+
+Une preuve **autonome** (G1$'$, $thm:G1\_autonomous$) reconstruit le
+même résultat sans Shore–Johnson via la caractérisation de Csiszár des
+$f$-divergences additives : $f(t) = c_1\,t\ln t + c_2(t-1)$, et le
+second terme s’annule sur les distributions normalisées.
+
+## Voir aussi
+
+- [GFT — Théorème fondamental des écarts](/theorems/GFT) — utilise $D_{KL}$
+- [G3 — Unicité de la métrique de Fisher](/theorems/G3) — second pilier d’unicité
+- [Lemme F — Reconstruction métrique](/theorems/F) — utilise G3
+- [Tous les théorèmes](/theorems)

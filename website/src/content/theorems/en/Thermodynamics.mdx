@@ -1,0 +1,84 @@
+---
+id: Thermodynamics
+name: 'Thermodynamics — GFT = first law'
+short: 'The GFT identity $\log_2 m = D_{KL} + H$ is the first law of sieve thermodynamics.'
+statement: 'The GFT identity $\log_2 m = D_{KL}(P \| U_m) + H(P)$, exact at the algebraic level ($< 10^{-15}$ bits at $m = 210$), expresses total information conservation in the sieve. It is the first law of sieve thermodynamics: $U = F + TS$ at $T = 1$, where $F = D_{KL}$ (free energy) and $S = H$ (entropy).'
+status: IDENTITY
+monograph_chapter: chap:thermodynamics
+order: 106
+tier: secondary
+lang: en
+---
+
+import Tag from '@components/Tag.astro';
+
+## Statement
+
+The GFT identity (fundamental gap theorem):
+
+$$
+\log_2 m \;=\; D_{KL}(P \| U_m) \;+\; H(P)
+$$
+
+is an exact algebraic identity (verified to $< 10^{-15}$ bits at
+$m = 210$). It reads as the **first law of sieve thermodynamics**:
+
+$$
+\underbrace{\log_2 m}_{\text{internal energy } U}
+\;=\;
+\underbrace{D_{KL}}_{\text{free energy } F}
+\;+\;
+\underbrace{T \cdot H}_{TS,\ T = 1}.
+$$
+
+The sieve can neither gain nor lose $\log_2 m$ units during its
+processing: it can only redistribute them between an ordered part
+($D_{KL}$) and a disordered part ($H$).
+
+<Tag level="ID" />
+
+## Why it matters
+
+This identification is one of the strongest in PT: the entire sieve
+thermodynamics (first law, second law, arrow of time, KMS conditions,
+Bekenstein bound) is **derived** from the single GFT identity and the
+Gibbs structure of the sieve — **without importing any thermodynamic
+concept**.
+
+- **First law**: GFT itself (this card).
+- **Second law** ($D_{KL}$ strictly decreasing, $H$ strictly
+  increasing): consequence of T4 convergence and Pinsker's
+  inequality.
+- **Arrow of time**: differentiation of GFT at fixed $m$.
+- **Bekenstein**: geometric entropy bound on sieve surfaces.
+
+Three partition functions $Z_F = Z_R = Z_P$ (Fisher, Riemann, prime)
+coincide — anchoring the thermodynamic identification in the strong
+sense.
+
+## Proof — outline
+
+**GFT identity.** By definition,
+$D_{KL}(P \| U_m) = \sum_i p_i \log_2(m\, p_i) = \log_2 m + \sum_i p_i \log_2 p_i = \log_2 m - H(P)$.
+
+Hence $\log_2 m = D_{KL} + H$, an **exact algebraic identity** on
+every distribution $P$ and every uniform $U_m$.
+
+**Thermodynamic identification** (BRIDGE role):
+$U \leftrightarrow \log_2 m$ (total capacity fixed by the modulus),
+$F \leftrightarrow D_{KL}$ (persistent information = extractable
+work), $S \leftrightarrow H$ (residual entropy), $T = 1$ (natural
+temperature in bits/nat). Under this identification, $U = F + TS$ is
+the **first law**.
+
+**Epiplectic refinement** (Finzi et al. 2026): for an observer
+time-bounded by $T$, GFT becomes
+$S_T(X) + H_T(X) \leq n + c$ — epistemic structural/entropic
+separation. The PT identity is the $T \to \infty$ limit.
+
+## See also
+
+- [GFT — Fundamental gap theorem](/en/theorems/GFT) — source identity
+- [G1 — Uniqueness of $D_{KL}$](/en/theorems/G1) — pins the informational content
+- [L0 — Unique geometric distribution](/en/theorems/L0) — maximum entropy
+- [All theorems](/en/theorems)

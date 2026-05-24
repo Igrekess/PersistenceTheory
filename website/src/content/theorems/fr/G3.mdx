@@ -1,0 +1,74 @@
+---
+id: G3
+name: 'G3 — Unicité de la métrique de Fisher (Čencov)'
+short: 'La métrique de Fisher est l’unique métrique riemannienne Markov-monotone sur le simplexe.'
+statement: 'Sur l’espace d’état du crible $\Delta_2$, la métrique de Fisher $g^F$ est l’unique métrique riemannienne monotone sous toutes les applications de Markov du crible, à une constante positive près (théorème de Čencov 1982, importé).'
+status: THM
+monograph_chapter: chap:geometry
+order: 101
+tier: secondary
+lean:
+  module: 'PT.Information.G3FisherUniqueness'
+  path: 'pt_lean/PT/Information/G3FisherUniqueness.lean'
+  status: 'kernel-verified'
+lang: fr
+---
+
+import Tag from '@components/Tag.astro';
+
+## Énoncé
+
+Sur l’espace d’état du crible $\Delta_2 = \{(p, 1-p) : p \in (0,1)\}$,
+la métrique de Fisher
+
+$$
+ds_F^2 = \frac{dp^2}{p(1-p)}
+$$
+
+est l’**unique** métrique riemannienne monotone sous toutes les
+applications de Markov du crible (en particulier la matrice de
+transfert $T_m$ et ses marginales). « Monotone » signifie que pour
+toute matrice stochastique $T$,
+$g_{T(P)}(T_*v, T_*v) \leq g_P(v,v)$.
+
+<Tag level="THM" />
+
+## Pourquoi ça compte
+
+G3 est le pilier de l’**unicité métrique** dans la chaîne de
+reconstruction de la PT. Avec G1 (unicité de $D_{KL}$), il fixe la
+géométrie de l’information du crible : sans aucun choix arbitraire,
+$\Delta_2$ porte une et une seule métrique riemannienne.
+
+Cette unicité se propage à toute la suite : Fisher → Lemme F
+(reconstruction métrique) → variété riemannienne lorentzienne (au-delà
+du seuil $\mu_c$) → équations d’Einstein. Sans G3, la géométrie
+riemannienne de la branche relativiste serait construite, pas forcée.
+
+## Démonstration — schéma
+
+**Import externe.** Čencov (1982, *Statistical Decision Rules and
+Optimal Inference*, AMS) a prouvé que la métrique de Fisher est
+l’unique métrique riemannienne monotone sur le simplexe de probabilité,
+à constante positive près.
+
+**Contribution PT.**
+1. Vérifier que $\Delta_2$ est un simplexe probabiliste standard (par
+   T1, deux classes de résidus non nulles mod 3) ;
+2. Vérifier que la matrice de transfert $T_m$ est stochastique
+   (lignes positives sommant à 1) ;
+3. Vérifier numériquement la monotonie : toutes les projections du
+   crible donnent un ratio max $= 1{,}000000$.
+
+Le théorème de Čencov s’applique alors directement.
+
+**Élimination.** Métrique euclidienne (396/1200 tests échouent à la
+monotonie), métrique $\chi^2$ $ds^2 = dp^2/p^2$ (non
+Markov-contractive), métriques pondérées $ds^2 = w(p)\,dp^2$ (seul
+$w = 1/(p(1-p))$ — Fisher — survit).
+
+## Voir aussi
+
+- [G1 — Unicité de $D_{KL}$](/theorems/G1) — premier pilier d’unicité
+- [Lemme F — Reconstruction métrique](/theorems/F) — utilise G3 pour Fisher → Riemann
+- [Tous les théorèmes](/theorems)

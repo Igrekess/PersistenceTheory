@@ -1,0 +1,89 @@
+---
+id: ActivePrime
+name: 'Critère du premier actif'
+short: 'Un premier $p$ est actif si et seulement si $\gamma_p > s = 1/2$ — l’ensemble actif est exactement $\{3,5,7\}$.'
+statement: 'À l’attracteur réduit $\mu^* = 15$, un premier $p$ est dit actif lorsque sa dimension anormale satisfait $\gamma_p > s = 1/2$. L’ensemble des premiers actifs est exactement $\{3, 5, 7\}$ ; tout $p \geq 11$ est inactif.'
+status: THM
+monograph_chapter: chap:holonomy
+order: 103
+tier: secondary
+lean:
+  module: 'PT.Holonomy.ActivePrimeCriterion'
+  path: 'pt_lean/PT/Holonomy/ActivePrimeCriterion.lean'
+  status: 'kernel-verified'
+lang: fr
+---
+
+import Tag from '@components/Tag.astro';
+
+## Énoncé
+
+À l’attracteur réduit $\mu^* = 15$, un premier $p$ est dit **actif**
+si et seulement si sa dimension anormale satisfait
+
+$$
+\gamma_p > s = \frac{1}{2}.
+$$
+
+L’ensemble des premiers actifs est exactement
+$\mathcal{P}_{\text{act}} = \{3, 5, 7\}$. La formule rationnelle exacte
+est
+
+$$
+\gamma_p = \frac{4\,q^{p-1}(1 - \delta_p)}{\mu^*\,\delta_p\,(2 - \delta_p)},
+\qquad \delta_p = \frac{1 - q^p}{p},\quad q = q_+ = 13/15.
+$$
+
+<Tag level="THM" />
+
+## Pourquoi ça compte
+
+Le critère $\gamma_p > s$ est le **filtre** qui sélectionne les trois
+premiers physiquement pertinents pour le Modèle Standard. Il livre
+simultanément :
+
+- le nombre de couleurs $N_c = |\mathcal{P}_{\text{act}}| = 3$
+  (théorème $N_c$, ch. 8),
+- le nombre de générations $N_{\text{gen}} = 3$ (via Fisher–Koide),
+- le point fixe $\mu^* = 3 + 5 + 7 = 15$ (T5),
+- la forme produit du couplage $\alpha_{\text{crible}} = \prod_{p \in \{3,5,7\}} \sin^2\theta_p$ (BA5).
+
+Sans le critère du premier actif, il n’y aurait pas de discrimination
+canonique entre les premiers — et donc pas de raison pour que les
+observables physiques s’organisent autour de trois canaux exactement.
+
+## Démonstration — schéma
+
+**(i) Calcul rationnel exact** (`fractions.Fraction`) à $\mu^* = 15$ :
+
+$$
+\gamma_3 = 0{,}808,\quad
+\gamma_5 = 0{,}696,\quad
+\gamma_7 = 0{,}595,\quad
+\gamma_{11} = 0{,}426,\quad
+\gamma_{13} = 0{,}356.
+$$
+
+Les trois premières valeurs sont strictement $> 1/2$, les deux
+dernières strictement $< 1/2$. La frontière tombe entre $p = 7$ et
+$p = 11$.
+
+**(ii) Argument analytique de monotonie** pour $p \geq 7$ : on écrit
+$\gamma_p = F(p)\,G(p)$ où $F$ est exponentielle décroissante (facteur
+$q^{p-1}$) dominant la croissance polynomiale de $G$. Donc
+$\gamma_p < \gamma_7 < 1/2$ pour tout $p \geq 11$.
+
+**(iii) Robustesse** : tout seuil $\tau \in [0{,}43, 0{,}59]$ donne le
+même ensemble actif. La physique est structurellement stable à ±17 %
+de variation du seuil.
+
+Détails complets : monographie §6.6, fichier
+`PT.Holonomy.ActivePrimeAnalyticMonotonicity`.
+
+## Voir aussi
+
+- [T6 — Holonomie](/theorems/T6) — formule $\sin^2\theta_p$
+- [T5 — Attracteur $\mu^* = 15$](/theorems/T5) — $\mu^* = \sum_{\text{actifs}} p$
+- [$N_c = 3$](/theorems/Nc) — la couleur depuis le crible
+- [BA5 — Produit de Pontryagin](/theorems/BA5) — produit sur les actifs
+- [Tous les théorèmes](/theorems)

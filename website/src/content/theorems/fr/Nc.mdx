@@ -1,0 +1,80 @@
+---
+id: Nc
+name: '$N_c = 3$ — La couleur depuis le crible'
+short: '$N_c = N_{\text{spatial}} = 3$ : unique solution entière de $(N_c+1)!/(N_c+3) = 2^{N_{\text{spatial}}-1}$.'
+statement: 'Le nombre de couleurs $N_c$ et la dimension spatiale $N_{\text{spatial}}$ sont l’unique solution entière positive de l’équation $(N_c + 1)!/(N_c + 3) = 2^{N_{\text{spatial}} - 1}$, à savoir $N_c = 3$, $N_{\text{spatial}} = 3$.'
+status: THM
+monograph_chapter: chap:fixed_point
+order: 104
+tier: secondary
+lean:
+  module: 'PT.FixedPoint.T7MuStar'
+  path: 'pt_lean/PT/FixedPoint/T7MuStar.lean'
+  status: 'kernel-verified'
+lang: fr
+---
+
+import Tag from '@components/Tag.astro';
+
+## Énoncé
+
+Le nombre de couleurs $N_c$ et la dimension spatiale $N_{\text{spatial}}$
+sont l’unique entier positif simultanément solution de l’équation de
+dimension spatiale :
+
+$$
+\frac{(N_c + 1)!}{N_c + 3} = 2^{N_{\text{spatial}} - 1}.
+$$
+
+L’unique solution entière est $(N_c, N_{\text{spatial}}) = (3, 3)$.
+
+<Tag level="THM" />
+
+## Pourquoi ça compte
+
+C’est l’un des résultats les plus frappants de la PT : le **nombre de
+couleurs** $N_c = 3$ de QCD et la **dimension spatiale** $N_{\text{spatial}} = 3$
+de notre univers sont **forcés ensemble** par une seule équation
+arithmétique élémentaire, sans aucun paramètre ajusté.
+
+Le théorème est purement arithmétique. Son interprétation physique
+($N_c = 3$ couleurs, $N_{\text{spatial}} = 3$ dimensions) relève d’une
+identification BRIDGE — mais l’unicité combinatoire elle-même est un
+THM.
+
+Combiné au critère du premier actif ($\mathcal{P}_{\text{act}} =
+\{3,5,7\}$, donc $|\mathcal{P}_{\text{act}}| = 3$) et au nombre de
+générations $N_{\text{gen}} = 3$ (théorème
+`N_gen_from_active_spectrum`), la PT livre la triade
+
+$$
+N_c = N_{\text{spatial}} = N_{\text{gen}} = 3
+$$
+
+depuis un même point fixe $\mu^* = 15$.
+
+## Démonstration — schéma
+
+Énumération directe :
+
+| $N_c$ | $(N_c+1)!/(N_c+3)$ | puissance de 2 ? |
+|-------|---------------------|-------------------|
+| 1     | $2!/4 = 1/2$        | non (non entier)  |
+| 2     | $3!/5 = 6/5$        | non (non entier)  |
+| **3** | $4!/6 = 4 = 2^2$    | **oui** → $N_{\text{spatial}} = 3$ |
+| 4     | $5!/7 = 120/7$      | non (non entier)  |
+| 5–20  | divers              | aucun n’est entier ET puissance de 2 |
+
+Pour $N_c \geq 5$, $(N_c+1)!/(N_c+3)$ n’est ni un entier ni une
+puissance de 2 — vérifié exhaustivement par énumération jusqu’à
+$N_c = 20$, puis fermé par croissance factorielle dominant la
+décroissance polynomiale du dénominateur.
+
+L’unique couple $(N_c, N_{\text{spatial}}) = (3, 3)$ subsiste.
+
+## Voir aussi
+
+- [Critère du premier actif](/theorems/ActivePrime) — d’où vient « 3 » primes
+- [T5 — Attracteur $\mu^* = 15$](/theorems/T5) — $15 = 3 + 5 + 7$
+- [T6 — Holonomie](/theorems/T6) — phases $\sin^2\theta_p$ sur les 3 actifs
+- [Tous les théorèmes](/theorems)

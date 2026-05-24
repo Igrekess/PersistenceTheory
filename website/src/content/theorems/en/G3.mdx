@@ -1,0 +1,73 @@
+---
+id: G3
+name: 'G3 — Fisher metric uniqueness (Čencov)'
+short: 'Fisher is the unique Markov-monotone Riemannian metric on the simplex.'
+statement: 'On the sieve state space $\Delta_2$, the Fisher metric $g^F$ is the unique Riemannian metric monotone under all Markov maps of the sieve, up to a positive constant (Čencov 1982 theorem, imported).'
+status: THM
+monograph_chapter: chap:geometry
+order: 101
+tier: secondary
+lean:
+  module: 'PT.Information.G3FisherUniqueness'
+  path: 'pt_lean/PT/Information/G3FisherUniqueness.lean'
+  status: 'kernel-verified'
+lang: en
+---
+
+import Tag from '@components/Tag.astro';
+
+## Statement
+
+On the sieve state space $\Delta_2 = \{(p, 1-p) : p \in (0,1)\}$, the
+Fisher metric
+
+$$
+ds_F^2 = \frac{dp^2}{p(1-p)}
+$$
+
+is the **unique** Riemannian metric monotone under all Markov maps of
+the sieve (in particular the transfer matrix $T_m$ and its marginals).
+"Monotone" means that for every stochastic matrix $T$,
+$g_{T(P)}(T_*v, T_*v) \leq g_P(v,v)$.
+
+<Tag level="THM" />
+
+## Why it matters
+
+G3 is the **metric uniqueness pillar** of the PT reconstruction chain.
+Together with G1 (uniqueness of $D_{KL}$), it pins down the information
+geometry of the sieve: with no arbitrary choice, $\Delta_2$ carries
+one and only one Riemannian metric.
+
+This uniqueness propagates downstream: Fisher → Lemma F (metric
+reconstruction) → Lorentzian Riemannian manifold (beyond the
+threshold $\mu_c$) → Einstein equations. Without G3, the Riemannian
+geometry of the relativistic branch would be constructed, not forced.
+
+## Proof — outline
+
+**External import.** Čencov (1982, *Statistical Decision Rules and
+Optimal Inference*, AMS) proved that the Fisher metric is the unique
+Riemannian metric monotone on the probability simplex, up to a positive
+constant.
+
+**PT contribution.**
+1. Verify that $\Delta_2$ is a standard probability simplex (by T1,
+   two non-zero residue classes mod 3);
+2. Verify that the transfer matrix $T_m$ is stochastic (rows
+   non-negative summing to 1);
+3. Verify monotonicity numerically: all sieve projections give a max
+   ratio $= 1.000000$.
+
+Čencov's theorem then applies directly.
+
+**Elimination.** Euclidean metric (396/1200 tests fail monotonicity),
+$\chi^2$ metric $ds^2 = dp^2/p^2$ (not Markov-contractive), weighted
+metrics $ds^2 = w(p)\,dp^2$ (only $w = 1/(p(1-p))$ — Fisher —
+survives).
+
+## See also
+
+- [G1 — Uniqueness of $D_{KL}$](/en/theorems/G1) — first uniqueness pillar
+- [Lemma F — Metric reconstruction](/en/theorems/F) — uses G3 for Fisher → Riemann
+- [All theorems](/en/theorems)

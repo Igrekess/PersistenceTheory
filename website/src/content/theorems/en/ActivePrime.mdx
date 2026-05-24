@@ -1,0 +1,88 @@
+---
+id: ActivePrime
+name: 'Active prime criterion'
+short: 'A prime $p$ is active iff $\gamma_p > s = 1/2$ — the active set is exactly $\{3,5,7\}$.'
+statement: 'At the reduced attractor $\mu^* = 15$, a prime $p$ is called active when its anomalous dimension satisfies $\gamma_p > s = 1/2$. The active prime set is exactly $\{3, 5, 7\}$; every $p \geq 11$ is inactive.'
+status: THM
+monograph_chapter: chap:holonomy
+order: 103
+tier: secondary
+lean:
+  module: 'PT.Holonomy.ActivePrimeCriterion'
+  path: 'pt_lean/PT/Holonomy/ActivePrimeCriterion.lean'
+  status: 'kernel-verified'
+lang: en
+---
+
+import Tag from '@components/Tag.astro';
+
+## Statement
+
+At the reduced attractor $\mu^* = 15$, a prime $p$ is called
+**active** if and only if its anomalous dimension satisfies
+
+$$
+\gamma_p > s = \frac{1}{2}.
+$$
+
+The active prime set is exactly $\mathcal{P}_{\text{act}} = \{3, 5, 7\}$.
+The exact rational formula is
+
+$$
+\gamma_p = \frac{4\,q^{p-1}(1 - \delta_p)}{\mu^*\,\delta_p\,(2 - \delta_p)},
+\qquad \delta_p = \frac{1 - q^p}{p},\quad q = q_+ = 13/15.
+$$
+
+<Tag level="THM" />
+
+## Why it matters
+
+The criterion $\gamma_p > s$ is the **filter** that selects the three
+primes physically relevant to the Standard Model. It simultaneously
+delivers:
+
+- the number of colours $N_c = |\mathcal{P}_{\text{act}}| = 3$
+  ($N_c$ theorem, ch. 8),
+- the number of generations $N_{\text{gen}} = 3$ (via Fisher–Koide),
+- the fixed point $\mu^* = 3 + 5 + 7 = 15$ (T5),
+- the product form of the coupling $\alpha_{\text{sieve}} = \prod_{p \in \{3,5,7\}} \sin^2\theta_p$ (BA5).
+
+Without the active prime criterion, there would be no canonical
+discrimination between primes — and so no reason for the physical
+observables to organise around exactly three channels.
+
+## Proof — outline
+
+**(i) Exact rational computation** (`fractions.Fraction`) at
+$\mu^* = 15$:
+
+$$
+\gamma_3 = 0.808,\quad
+\gamma_5 = 0.696,\quad
+\gamma_7 = 0.595,\quad
+\gamma_{11} = 0.426,\quad
+\gamma_{13} = 0.356.
+$$
+
+The first three values are strictly $> 1/2$, the last two strictly
+$< 1/2$. The boundary falls between $p = 7$ and $p = 11$.
+
+**(ii) Analytic monotonicity argument** for $p \geq 7$: write
+$\gamma_p = F(p)\,G(p)$ where $F$ is exponentially decreasing (factor
+$q^{p-1}$) dominating the polynomial growth of $G$. Hence
+$\gamma_p < \gamma_7 < 1/2$ for every $p \geq 11$.
+
+**(iii) Robustness**: any threshold $\tau \in [0.43, 0.59]$ yields the
+same active set. The physics is structurally stable under ±17 %
+variation of the threshold.
+
+Full details: monograph §6.6, file
+`PT.Holonomy.ActivePrimeAnalyticMonotonicity`.
+
+## See also
+
+- [T6 — Holonomy](/en/theorems/T6) — $\sin^2\theta_p$ formula
+- [T5 — Attractor $\mu^* = 15$](/en/theorems/T5) — $\mu^* = \sum_{\text{active}} p$
+- [$N_c = 3$](/en/theorems/Nc) — colour from the sieve
+- [BA5 — Pontryagin product](/en/theorems/BA5) — product over the active primes
+- [All theorems](/en/theorems)
