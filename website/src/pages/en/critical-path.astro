@@ -259,8 +259,13 @@ const clickable  = columns.reduce((n, c) => n + c.nodes.filter(x => x.href).leng
 
   <main class="max-w-7xl mx-auto px-4 py-10 md:py-14">
 
+    <!-- Hover hint -->
+    <p class="text-xs italic text-stone-500 mb-4 text-center">
+      Hover over a card to highlight its full dependency chain (ancestors and descendants). On mobile: tap a card to toggle highlight.
+    </p>
+
     <!-- Main grid: 4 cols desktop, 2 tablet, 1 mobile -->
-    <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5 mb-12">
+    <section id="cp-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5 mb-12">
       {columns.map((col, ci) => (
         <div class="space-y-3">
           <header class="border-b border-stone-300 pb-2 mb-3">
@@ -298,8 +303,8 @@ const clickable  = columns.reduce((n, c) => n + c.nodes.filter(x => x.href).leng
               </>
             );
             return isLink
-              ? <a href={node.href} class={cardClasses} title={node.tip} data-tooltip={node.tip}>{inner}</a>
-              : <div class={cardClasses} title={node.tip} data-tooltip={node.tip}>{inner}</div>;
+              ? <a href={node.href} class={cardClasses} title={node.tip} data-tooltip={node.tip} data-node-id={node.id}>{inner}</a>
+              : <div class={cardClasses} title={node.tip} data-tooltip={node.tip} data-node-id={node.id}>{inner}</div>;
           })}
         </div>
       ))}
@@ -371,6 +376,129 @@ const clickable  = columns.reduce((n, c) => n + c.nodes.filter(x => x.href).leng
   .cp-card {
     min-height: 96px;
   }
+  /* Hover-highlight of dependency chain (full transitive closure: ancestors + descendants) */
+  [data-node-id] {
+    transition: opacity 0.2s ease, transform 0.2s ease, border-width 0.2s ease, box-shadow 0.2s ease;
+  }
+  [data-node-id].chain-dimmed {
+    opacity: 0.25;
+  }
+  [data-node-id].chain-active {
+    opacity: 1;
+    transform: scale(1.02);
+    border-width: 3px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+    z-index: 2;
+    position: relative;
+  }
 </style>
+
+<script is:inline>
+  (() => {
+    // Dependency graph extracted from PT_MONOGRAPHY/figures/critical_path_map.tex
+    // (ARROW LAYER sections: \draw[dep], \draw[longdep], \draw[bridgedep])
+    const edges = [
+      // Column I: arithmetic core
+      ['axiom', 'T1'], ['T1', 'T3'], ['T3', 'sh'], ['sh', 'T2'],
+      ['T2', 'L0'], ['L0', 'T6'], ['T6', 'GFT'], ['GFT', 'G1'], ['G1', 'G3'],
+      ['T6', 'sin'], ['sh', 'sin'],
+      // Column II: convergence & fixed point
+      ['T4', 'Mert'], ['Mert', 'apc'], ['apc', 'T7'], ['T7', 'Nc'],
+      ['Nc', 'T0'], ['T0', 'W7'], ['W7', 'PTd'], ['PTd', 'PTl'],
+      ['T2', 'T2b'],
+      // Column III: bridge
+      ['BA5a', 'BA5b'], ['BA5b', 'LemE'], ['LemE', 'LemF'], ['LemF', 'LemG'],
+      ['LemG', 'recT'], ['recT', 'CRT'], ['CRT', 'BC'], ['BC', 'Buch'], ['Buch', 'Stat'],
+      // Column IV: reconstruction & output
+      ['QM', 'GR'], ['GR', 'Thrm'], ['Thrm', 'aEM'], ['aEM', 'asW'],
+      ['asW', 'Gnt'], ['Gnt', 'Obs'], ['Obs', 'Pred'],
+      ['Obs', 'DM'], ['W7', 'RH'],
+      // Inter-column I -> II
+      ['sh', 'T4'], ['T2', 'Mert'], ['sin', 'apc'], ['T6', 'T0'], ['L0', 'apc'],
+      // Inter-column II -> III
+      ['T7', 'BA5a'], ['PTl', 'Stat'], ['T0', 'recT'],
+      // Short-circuit G3 -> LemF (Fisher uniqueness)
+      ['G3', 'LemF'],
+      // Inter-column III -> IV
+      ['LemE', 'QM'], ['LemF', 'GR'], ['LemG', 'Thrm'],
+      ['BA5b', 'aEM'], ['recT', 'Obs'], ['BC', 'Pred'],
+      // Short-circuit sin -> aEM (headline result)
+      ['sin', 'aEM'],
+    ];
+
+    const predecessors = new Map();
+    const successors = new Map();
+    for (const [src, dst] of edges) {
+      if (!successors.has(src)) successors.set(src, new Set());
+      if (!predecessors.has(dst)) predecessors.set(dst, new Set());
+      successors.get(src).add(dst);
+      predecessors.get(dst).add(src);
+    }
+
+    function bfs(start, neighbours) {
+      const visited = new Set();
+      const queue = [start];
+      while (queue.length) {
+        const n = queue.shift();
+        const nb = neighbours.get(n);
+        if (nb) for (const x of nb) {
+          if (!visited.has(x)) { visited.add(x); queue.push(x); }
+        }
+      }
+      return visited;
+    }
+
+    const cards = document.querySelectorAll('[data-node-id]');
+    let activeId = null;
+
+    function applyHighlight(id) {
+      const chain = new Set([id, ...bfs(id, predecessors), ...bfs(id, successors)]);
+      cards.forEach((c) => {
+        if (chain.has(c.dataset.nodeId)) {
+          c.classList.add('chain-active');
+          c.classList.remove('chain-dimmed');
+        } else {
+          c.classList.add('chain-dimmed');
+          c.classList.remove('chain-active');
+        }
+      });
+    }
+
+    function clearHighlight() {
+      cards.forEach((c) => c.classList.remove('chain-active', 'chain-dimmed'));
+      activeId = null;
+    }
+
+    const hasHover = window.matchMedia && window.matchMedia('(hover: hover)').matches;
+
+    cards.forEach((card) => {
+      const id = card.dataset.nodeId;
+      if (!id) return;
+
+      // Desktop: hover
+      card.addEventListener('mouseenter', () => {
+        if (hasHover) applyHighlight(id);
+      });
+      card.addEventListener('mouseleave', () => {
+        if (hasHover) clearHighlight();
+      });
+
+      // Mobile / touch: tap toggle
+      card.addEventListener('click', (ev) => {
+        if (hasHover) return; // let hover handle it + let links be followed
+        // On mobile, first tap highlights and blocks navigation;
+        // second tap follows the link (or clears if no link)
+        if (activeId !== id) {
+          ev.preventDefault();
+          activeId = id;
+          applyHighlight(id);
+        }
+        else if (card.tagName !== 'A') {
+          clearHighlight();
+        }
+      });
+    });
+  })();
+</script>
 </content>
 </invoke>
