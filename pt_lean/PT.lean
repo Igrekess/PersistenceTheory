@@ -178,15 +178,30 @@ import PT.EML.QSheffer
 -- formula, forward direction
 import PT.Analysis.W7SpiralIdentity
 
--- Bridge (5 modules) — math/physics dissolution, derivation chain,
+-- Bridge (19 modules) — math/physics dissolution, derivation chain,
 -- status graph, Buchstab inductive limit (skeleton), Lemma F metric
--- reconstruction (skeleton)
+-- reconstruction (skeleton), plus the K4 closure chain (Cauchy →
+-- Higgs cutoff uniqueness → λ_H = 1/8) and the finite spectral
+-- triple infrastructure (ST_F, scale, scalar spectral action,
+-- heat-kernel postulate, Gibbs-Jaynes framework).
 import PT.Bridge.Buchstab
+import PT.Bridge.CauchyMultiplicativeExp
+import PT.Bridge.CutoffMeanCharacterisation
+import PT.Bridge.FiniteSpectralTriple
+import PT.Bridge.GibbsDistribution
+import PT.Bridge.HeatKernelPostulate
+import PT.Bridge.HiggsCutoffUniqueness
 import PT.Bridge.HilbertReconstruction
+import PT.Bridge.JaynesPrinciple
+import PT.Bridge.K4LambdaH
 import PT.Bridge.MathPhysicsDissolution
 import PT.Bridge.MetricReconstruction
 import PT.Bridge.OS3Uniform
+import PT.Bridge.PartitionFunctionFactorisation
 import PT.Bridge.PTCascadeDerivationChain
+import PT.Bridge.ScaleFromFiniteSpectralTriple
+import PT.Bridge.ShoreJohnsonG1Spectral
+import PT.Bridge.SpectralAction
 import PT.Bridge.StatusGraphFormalisation
 
 -- CRT decoupling (7 modules) — Theorem 6.1 of the PT-CRT preprint,
