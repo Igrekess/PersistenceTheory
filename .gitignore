@@ -15,6 +15,9 @@ build/
 dist/
 *.egg-info/
 
+# Script-generated output (not tracked)
+scripts/**/results/
+
 # Local design source files (Illustrator + working copies — not tracked)
 *.ai
 website/public/pt-symbol_*.svg

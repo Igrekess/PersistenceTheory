@@ -4,3 +4,5 @@ matplotlib
 primesieve
 pandas
 h5py
+mpmath
+sympy
