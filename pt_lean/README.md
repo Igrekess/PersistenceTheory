@@ -3,38 +3,41 @@
 A Lean 4 + Mathlib package formalising the foundational theorems of
 **Persistence Theory** (PT).
 
-Twenty-two foundational theorems on the critical path
+The foundational theorems on the critical path
 
 ```
 T1 → T3 → s = 1/2 → T2 → L0 → T7 → pt_T5_mertens_compactness → W7-1
 ```
 
-are *kernel-verified without `sorry`*. Around 160 additional secondary
+are *kernel-verified without `sorry`*. Around 180 additional secondary
 modules cover the surrounding ecosystem (conservation identities, GFT,
 Bekenstein bound, cyclic phase, active-prime criterion, EML, CRT
-decoupling, …). Across the whole tree, **186 of 187 modules are entirely
-sorry-free** — a single module (`G3FisherUniqueness`) keeps one
-documented `sorry` for a classical uniqueness result that the monograph
-already marks as an external dependency (`\leanExternal`).
+decoupling, the K4 closure chain `λ_H = 1/8`, the finite spectral
+triple infrastructure, …). Across the whole tree, **207 of 208 modules
+are entirely sorry-free** — a single module (`G3FisherUniqueness`)
+keeps one documented `sorry` for a classical uniqueness result that
+the monograph already marks as an external dependency
+(`\leanExternal`).
 
 ## Status
 
-Last verified build: **2026-05-18**, Lean `v4.30.0-rc2`,
+Last verified build: **2026-05-25**, Lean `v4.30.0-rc2`,
 Mathlib `e12bcd0ff19fedc29dbd4dbbab360ea3a0f47a0a`.
 
 - Foundational count (critical path T1 → T7 → W7-1, both directions):
-  **30 named theorems** formally proved without `sorry`, including the
-  extensions added on 2026-05-18: N2 uniqueness, T6b under the full C1-C4
-  axiom system, L0 strict uniqueness, Bekenstein equality case, T2
-  spectral bridge via Kronecker factorisation, W7-1 reverse direction,
-  and active-prime monotonicity for all primes `p ≥ 11`.
-- Full ecosystem: **187 modules / ~2 850 declarations** across the `PT/`
-  sub-directories. **One** documented `sorry` remains, in
-  `PT/Information/G3FisherUniqueness.lean` (Fisher metric uniqueness up
-  to scale — a classical result, marked `\leanExternal` in the
+  **30+ named theorems** formally proved without `sorry`, including
+  N2 uniqueness, T6b under the full C1-C4 axiom system, L0 strict
+  uniqueness, Bekenstein equality case, T2 spectral bridge via
+  Kronecker factorisation, W7-1 reverse direction, active-prime
+  monotonicity for all primes `p ≥ 11`, and the K4 closure chain
+  (Cauchy multiplicative → Higgs cutoff uniqueness → `λ_H = 1/8`).
+- Full ecosystem: **208 modules** across the `PT/` sub-directories.
+  **One** documented `sorry` remains, in
+  `PT/Information/G3FisherUniqueness.lean` (Fisher metric uniqueness
+  up to scale — a classical result, marked `\leanExternal` in the
   monograph).
-- Build status: `lake build` completes successfully (3343 jobs on the
-  newly-extended tree).
+- Build status: `lake build` completes successfully (3599 jobs on the
+  full tree).
 
 ## Module catalog by topic
 
@@ -131,6 +134,32 @@ Source paper: `PT_PROJECTS/PT_CH/paper_phase1/preprint1_cusp_fr.md`
 precision growing in `k` (via the `primesieve` CLI for k = 3 over
 3.4 × 10⁹ primes).
 
+### Bridge (`PT/Bridge/`)
+
+Math/physics dissolution chain, status graph, Buchstab inductive
+limit, Lemma F metric reconstruction, and the **K4 closure chain** for
+the Higgs self-coupling.
+
+| Theorem | File | Statement |
+|---|---|---|
+| **Cauchy multiplicative → exp** | `PT/Bridge/CauchyMultiplicativeExp.lean` | The unique continuous multiplicative solution `f(x+y) = f(x)·f(y)` on `ℝ` is the exponential; specialised to the PT cutoff. **0 PT axiom**, kernel-verified. |
+| **Higgs cutoff uniqueness** | `PT/Bridge/HiggsCutoffUniqueness.lean` | Under Shore–Johnson G1 (system independence) + spectral-action scale identification, the PT cutoff is forced. 2 PT axioms (CRT–SJG1, scale). |
+| **K4 / `λ_H = 1/8`** | `PT/Bridge/K4LambdaH.lean` | `λ_H = 1/(2·N_b²) = 1/8` as pure algebra (`Tr_F(I_F) = N_b = 2`), **0 PT axiom**. The conditional closure `K4_conditional_closure` inherits the 2 axioms above. |
+| **Finite spectral triple** | `PT/Bridge/FiniteSpectralTriple.lean` | The PT spectral triple `ST_F = (ℂ², ℂ², m·σ_x, σ_x)`: defines `σ_x`, `D_F`, `γ_F`, proves `Tr_F(I_F) = 2 = N_b`. **0 PT axiom**. |
+| **Spectral action** | `PT/Bridge/SpectralAction.lean` | Scalar Dirac spectral action; structural shell for Chamseddine–Connes 1996. |
+| **Scale from FST** | `PT/Bridge/ScaleFromFiniteSpectralTriple.lean` | Identifies the PT cutoff with the spectral-action scale. |
+| **Heat kernel postulate** | `PT/Bridge/HeatKernelPostulate.lean` | The PT cutoff is a heat kernel; the SJ G1 multilinear constraint is derived as a theorem via `Real.exp_sum`. |
+| **Partition function factorisation** | `PT/Bridge/PartitionFunctionFactorisation.lean` | Multiplicativity of `Z` on tensor products of finite spectral triples. **0 PT axiom**. |
+| **Gibbs distribution** | `PT/Bridge/GibbsDistribution.lean` | Gibbs state as `Simplex` with proved normalisation. **0 PT axiom**. |
+| **Jaynes principle** | `PT/Bridge/JaynesPrinciple.lean` | Jaynes maximum-entropy → exponential family (classical info-theory axiom) + PT identification of the cutoff with the MaxEnt density. |
+| **Buchstab inductive limit** | `PT/Bridge/Buchstab.lean` | Step error bound + Lee–Yang tail (algebraic skeleton, 0 sorry). |
+| **Metric reconstruction (Lemma F)** | `PT/Bridge/MetricReconstruction.lean` | Wrappers around G3 Fisher uniqueness for the metric reconstruction of spacetime. |
+| **Status graph, dissolution, derivation chain** | `PT/Bridge/{StatusGraphFormalisation,MathPhysicsDissolution,PTCascadeDerivationChain}.lean` | Meta-infrastructure: epistemic graph + math/physics dissolution + PT cascade derivation chain. |
+
+The K4 closure is the main 2026-Q2 result: `λ_H = 1/8` is now
+`[DER strict modulo NCG standard postulates]` rather than `[CONJ]`.
+See `app_y_higgs_zeta_duality.tex` for the monograph-side cross-reference.
+
 ### CRT decoupling (`PT/CrtDecoupling/`)
 
 A self-contained subsystem with its own [`PT/CrtDecoupling/README.md`](PT/CrtDecoupling/README.md).
@@ -142,10 +171,10 @@ sieve dynamical-system instance.
 
 ### Other secondary modules
 
-`PT/Algebra/`, `PT/Anomaly/`, `PT/Appendix/`, `PT/Bridge/`, `PT/CH/`,
-`PT/Conservation/` (extensions and corollaries beyond the T2/ConservationID
-core), … carry the 171 secondary modules (across 2 701 declarations total) that elaborate the
-ecosystem but are not on the critical path.
+`PT/Algebra/`, `PT/Anomaly/`, `PT/CH/`, `PT/Conservation/` (extensions
+and corollaries beyond the T2/ConservationID core), `PT/NashDeGiorgi/`
+(Z1–Z4 + BK–PT consolidated), … carry the remaining secondary modules
+that elaborate the ecosystem but are not on the critical path.
 
 ## Build instructions
 
@@ -173,7 +202,7 @@ lake build PT           # umbrella import
 
 ## Roadmap
 
-Across 187 modules, a single documented `sorry` remains. PT's core
+Across 208 modules, a single documented `sorry` remains. PT's core
 derivation chain is unaffected.
 
 | Open goal | File | Note |
@@ -243,18 +272,6 @@ would not have been noticed without Lean's strict import resolution.
   spiral identity theorem.
 - Mathlib (`master` @ `e12bcd0`) —
   https://github.com/leanprover-community/mathlib4
-
-## How to cite
-
-If you cite this Lean formalisation, please cite both the monograph and the
-Mathematics articles bundle on Zenodo:
-
-- Monograph — [`10.5281/zenodo.18726591`](https://doi.org/10.5281/zenodo.18726591)
-- Mathematics articles (includes M1, the headline paper for T1, T3, `s = 1/2`,
-  T2) — [`10.5281/zenodo.19443954`](https://doi.org/10.5281/zenodo.19443954)
-
-See the [root README](../README.md#citation) for the recommended BibTeX
-entries.
 
 ## License
 

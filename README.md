@@ -1,283 +1,232 @@
 # Persistence Theory
 
-Public repository for the monograph, website, and companion scripts of
-**Persistence Theory**.
+**Persistence Theory (PT) derives the Standard Model of particle physics from
+a single arithmetic axiom (`s = 1/2`).** This repository contains the
+monograph (FR + EN PDFs), the Lean 4 formalisation of the foundational
+theorems, the Python scripts that reproduce every numerical result, and the
+public website source.
 
-I have worked hard for a year, aided by modern tools, to formalize a theory 
-I have been thinking about ever since reading Mark A. Ludwig and seeing the Ulam spiral thirty years ago. 
-I have tried to be as rigorous and scrupulous as possible while remaining pedagogical, within the limits of my modest means. 
-It is with humility that I add my stone to the edifice of human understanding, without claiming it is perfectly carved. 
-Above all, I hope that some of my avenues of thought may inspire others, and that my work will persist in one form or another.
+---
 
-Here is the Theory of Persistence.
+## Status
 
-The monograph is a preprint. It has not yet been peer reviewed. The repository
-is therefore meant to make the work readable, reproducible, and criticisable:
-the mathematics is stated with explicit status tags, the numerical checks are
-scripted, and the physical interpretation is presented as a hypothesis exposed
-to future tests.
+**Preprint.** Not yet peer-reviewed. Single-author work.
 
-- English monograph: [TheTheoryOfPersistence.pdf](TheTheoryOfPersistence.pdf)
-  (902 pages)
-- French monograph: [TheorieDeLaPersistance_FR.pdf](TheorieDeLaPersistance_FR.pdf)
-  (920 pages)
-- Lean 4 formalisation: [`pt_lean/`](pt_lean) — foundational theorems
-  on the critical path T1 → T7 → W7-1 kernel-verified, plus structural
-  skeletons for Lemma F (metric reconstruction, reduced to G3) and
-  Buchstab inductive limit (per-step Frobenius bound + Lee-Yang tail
-  summability proven, ITPS/OS axioms remain external). 181 modules
-  in total, full `lake build` 3585/3585 jobs PASS.
-- Research notes: [`research_notes/`](research_notes) — six
-  standalone working drafts cited by the monograph (Hilbert–Pólya
-  map, $p$-adic PT–Ramanujan, Casimir P29 prediction, Berry–Keating
-  cusp, $A_{\mathrm{PT}}$ algebra, spectral model of zeros of $\zeta$).
-- Website source: [`website/`](website)
-- Companion scripts: [`scripts/`](scripts)
+The mathematics is stated with explicit epistemic tags throughout:
+`[THM]` theorem, `[DER]` derivation, `[DER-PHYS]` physical derivation under
+an interpretation bridge, `[VAL]` validation against data, `[PRED]`
+falsifiable prediction, `[COND]` conditional result. Numerical agreement is
+reported as evidence, not as proof that the underlying ontology is correct.
 
-## The Starting Point
+## Author's note
 
-Persistence Theory does not begin with the Standard Model, the periodic table,
-or even the primes.
+> I have worked hard for a year, aided by modern tools, to formalise a
+> theory I have been thinking about ever since reading Mark A. Ludwig and
+> seeing the Ulam spiral thirty years ago. I have tried to be as rigorous
+> and scrupulous as possible while remaining pedagogical, within the limits
+> of my modest means. It is with humility that I add my stone to the edifice
+> of human understanding, without claiming it is perfectly carved. Above
+> all, I hope that some of my avenues of thought may inspire others, and
+> that my work will persist in one form or another.
+>
+> — Yan Senez
 
-It begins with a simpler question:
+---
 
-> When a system passes through constraints, what disappears, and what persists?
+## What you can do here
 
-The shortest sentence is:
+| Goal | Where to go |
+|---|---|
+| **Read the monograph (English)** | [`TheTheoryOfPersistence.pdf`](TheTheoryOfPersistence.pdf) — 905 pages |
+| **Lire la monographie (français)** | [`TheorieDeLaPersistance_FR.pdf`](TheorieDeLaPersistance_FR.pdf) — 938 pages |
+| **Verify the formal proofs** | [`pt_lean/`](pt_lean) — Lean 4 + Mathlib, `lake build` |
+| **Reproduce the numerical results** | [`scripts/`](scripts) — `python run_all.py` |
+| **Read companion research notes** | [`research_notes/`](research_notes) — six standalone drafts |
+| **Browse the public website source** | [`website/`](website) — Astro 5 + MDX |
 
-> What persists is what remains under constraint.
+---
 
-Here, "remaining" does not mean passive inertia. It means what survives
-admissible filters without losing its structural identity. A pebble on a beach
-is a useful first image: its shape was not chosen by the sea; it is what the
-sea could not remove. Fragile edges disappeared, unstable roughness was taken
-away, and a readable form remains.
+## Key results at a glance
 
-PT proposes that this question is fundamental. A structure is not only present
-or absent. It can dissipate, close, turn into noise, become an echo, or survive
-successive filters. What survives is what can become stable, measurable,
-transmissible, and eventually physical.
+- **One input** (`s = 1/2`, forced by the antidiagonal transfer matrix of the
+  Eratosthenes sieve), **zero adjusted parameters**, **43 Standard Model
+  observables** derived.
+- **Mean relative error 0.303 %**, median 0.059 %, across the full set of
+  derived observables (couplings, masses, mixing matrices, electroweak and
+  QCD quantities, cosmological constants).
+- **10 main theorems kernel-verified in Lean** along the critical path
+  `T1 → T3 → s=1/2 → T2 → L0 → T7 → W7-1`, plus the BA0–BA5 bridge layer
+  and N1–N4 / G1–G3 supporting theorems.
+- **K4 closure** (Higgs self-coupling `λ_H = 1/8`) reduced from `[CONJ]` to
+  `[DER strict modulo standard NCG postulates]`, with the algebraic core
+  fully formalised — see [`scripts/app_y_higgs_zeta_duality/`](scripts/app_y_higgs_zeta_duality)
+  and [`pt_lean/PT/Bridge/`](pt_lean/PT/Bridge).
+- **28 Tier-1 falsifiable predictions** with explicit experimental windows
+  (HL-LHC ~2030, DUNE ~2032, Euclid ~2028, KATRIN, LEGEND, LZ/XENONnT,
+  Einstein Telescope, Cosmic Explorer).
 
-## The Fundamental Principle
-
-In its most compact mathematical form, PT starts from the identity
+The canonical numerical chain is short enough to recite:
 
 ```text
-log2(m) = D_KL(P || U_m) + H(P).
+s = 1/2  →  μ* = 15 = 3 + 5 + 7  →  active primes {3, 5, 7}
+         →  γ_p, sin² θ_p (cyclic phase, holonomy)
+         →  α_EM⁻¹ ≈ ∏ over active primes  ≈ 137.036
+         →  sin² θ_W, m_W/m_Z, CKM/PMNS, m_H, ...
 ```
 
-For a non-specialist, the idea is this:
+No constant in this chain is fitted to data. The fixed point `μ* = 15` is
+the unique solution of the persistence-active sum on `μ ∈ [8, 20]`; the
+active prime set `{3, 5, 7}` is forced by `γ_p > 1/2 ⇔ p ∈ {3, 5, 7}`.
 
-- a system has a total budget of possible distinctions;
-- part of that budget becomes recognizable structure;
-- the rest remains dispersed as entropy.
+---
 
-`D_KL` measures the structured part: what persists. `H` measures the dispersed
-part: what remains entropic. The sum is conserved. This is why the identity
-plays the role of the **fundamental principle of persistence**.
-
-The rest of the theory asks what happens when this principle is made rigid,
-computable, and repeatedly tested.
-
-## Why The Sieve Appears
-
-The sieve of Eratosthenes is not assumed to be "the world". It is used as the
-minimal mathematical laboratory where persistence under constraint can be made
-exact.
-
-The usual school reflex is to look at what the sieve removes. PT asks the
-opposite question: what remains, and why does it remain?
-
-In that setting, the theory studies survivors, gaps, residue classes, cyclic
-phases, fixed points, and anomalous dimensions. The discrete objects are read
-as stable traces of a continuous mechanics under constraint. The sieve is thus
-not an ontology by itself; it is the simplest place where the principle becomes
-calculable.
-
-## What The Theory Then Tests
-
-Once the persistence principle has a computable form, PT asks whether the same
-logic appears in domains that look unrelated at first.
-
-### Mathematics
-
-PT studies the arithmetic of survivors:
-
-- prime gaps and circular gap structure;
-- CRT decomposition and cyclic phases;
-- the forced spin symmetry `s = 1/2`;
-- the fixed point `mu* = 15`;
-- Fisher geometry, anomalous dimensions, and holonomy;
-- theorem-level and script-backed checks for the internal mathematical chain.
-
-The mathematical layer is the place where the strongest unconditional claims
-belong. It is also where the theory defines its vocabulary of persistence,
-entropy, echo, closure, and bridge.
-
-### Physics
-
-PT then asks whether the structures that persist in the mathematical layer can
-reconstruct known physical objects:
-
-- coupling constants;
-- masses and mixing matrices;
-- electroweak and QCD observables;
-- time, Fisher geometry, relativity, and quantum gravity constraints;
-- cosmological quantities and negative predictions.
-
-The physical layer is deliberately status-tagged. Some statements are
-theorems inside the PT framework. Others are derivations under stated
-assumptions, bridge identifications, validations against data, or predictions.
-This distinction is essential: numerical agreement is evidence, not proof that
-the ontology is correct.
-
-### Chemistry
-
-PT also tests the same persistence logic in chemistry:
-
-- the periodic table and period lengths;
-- shell/channel structure;
-- ionization energies;
-- electron affinities;
-- molecular and condensed-matter checks;
-- nuclear shell and magic-number modules.
-
-The goal is not to replace all of quantum chemistry with a single toy formula.
-It is to ask whether the same constrained persistence structure explains why
-major chemical regularities have the shapes they do.
-
-## What Is In This Repository
+## Repository structure
 
 ```text
 .
-├── TheTheoryOfPersistence.pdf          English monograph
-├── TheorieDeLaPersistance_FR.pdf       French monograph
-├── README.md                           This file
-├── requirements.txt                    Top-level Python dependencies
-├── scripts/                            Companion verification scripts
-├── pt_lean/                            Lean 4 formalisation
-├── research_notes/                     Standalone working drafts
-├── website/                            Astro website source
-└── _images/                            Repository images
+├── TheTheoryOfPersistence.pdf       English monograph (905 pages)
+├── TheorieDeLaPersistance_FR.pdf    French monograph (938 pages)
+├── README.md                        This file
+├── requirements.txt                 Top-level Python dependencies
+├── pt_lean/                         Lean 4 formalisation (~3600 modules)
+├── scripts/                         Python scripts, organised by chapter
+├── research_notes/                  Six standalone working drafts
+├── website/                         Astro 5 site source (FR + EN)
+├── _images/                         Repository images
+└── _archive_linguistique/           Historical linguistic notes (archive)
 ```
 
-The `scripts/` directory contains the companion checks used to audit the
-monograph. They are organised by chapter and write machine-readable reports
-under `scripts/reports/`.
+The `pt_lean/` tree is a self-contained Lean 4 package; `scripts/` is the
+Python companion; `website/` and `research_notes/` are self-describing
+through their own READMEs.
 
-The `pt_lean/` directory is a Lean 4 + Mathlib package. The 22
-foundational theorems on the PT critical path
-(T1 → T3 → `s=1/2` → T2 → L0 → T7 → W7-1) are kernel-verified
-without `sorry`; about 150 additional modules cover downstream
-material. Build with `lake build` after installing Lean via
-`elan` (the `lean-toolchain` file pins the exact version). See
-[`pt_lean/README.md`](pt_lean/README.md) for the per-module status
-table.
+---
 
-The `research_notes/` directory collects six standalone drafts that
-the monograph cites as companion artifacts (notably for the
-Hilbert–Pólya map of Part III and for the Casimir P29 prediction).
-None are published yet; each is a working document, status-tagged
-on its own. See [`research_notes/README.md`](research_notes/README.md).
+## Building the Lean library
 
-The public repository currently includes the clean script tree for the current
-monograph, including arithmetic, physics, chemistry, audit, and registered
-QG/Kerr checks. Large external datasets, exploratory notebooks, and early
-research scratch files are not vendored here.
+The Lean 4 formalisation contains the 10 main theorems on the PT critical
+path (`T1, T3, s=1/2, T2, L0, T6a/b/c, T7, W7-1`), the N1–N4 uniqueness
+chain, the G1–G3 Fisher-geometry layer, the BA0–BA5 window-transport
+bridge, and the newly added Bridge modules that close K4 (`λ_H = 1/8`).
 
-## Reproduce The Checks
+Requires [`elan`](https://github.com/leanprover/elan) (the Lean toolchain
+manager). The exact Lean version is pinned in `pt_lean/lean-toolchain`.
 
-```bash
-git clone https://github.com/Igrekess/PersistenceTheory.git
-cd PersistenceTheory
+```sh
+cd pt_lean
+lake exe cache get      # download Mathlib oleans (~1 GB, ~5 min)
+lake build              # compile the PT library
+```
 
+Expected outcome: `lake build` completes with **3599 jobs PASS**. A single
+documented `sorry` remains in `PT/Information/G3FisherUniqueness.lean`
+(Fisher metric uniqueness up to scale, a classical Čencov result the
+monograph marks `\leanExternal`); every other module is sorry-free.
+
+To check a specific theorem:
+
+```sh
+lake build PT.Sieve.T1ForbiddenTransitions
+lake build PT.Stochastic.SHalf
+lake build PT.FixedPoint.T7MuStar
+lake build PT.Bridge.K4LambdaH
+lake build PT.Analysis.W7SpiralIdentity
+lake build PT                       # umbrella import
+```
+
+See [`pt_lean/README.md`](pt_lean/README.md) for the full per-module
+status table.
+
+---
+
+## Running the scripts
+
+The `scripts/` directory is organised by monograph chapter
+(`ch01_sieve/`, `ch10_fine_structure/`, …, `ch22_chemistry/`,
+`app_y_higgs_zeta_duality/`, …). Each chapter directory contains the
+scripts that reproduce the figures, tables, and numerical identities
+cited in that chapter.
+
+```sh
 python3 -m venv venv
-source venv/bin/activate       # macOS / Linux
-# venv\Scripts\activate        # Windows
+source venv/bin/activate          # macOS / Linux
+# venv\Scripts\activate           # Windows
 
 pip install -r scripts/requirements.txt
 
 cd scripts
-python run_all.py --summary
-```
-
-Useful commands:
-
-```bash
-python run_all.py --tree
-python run_all.py ch10
+python run_all.py                 # run the full chapter suite
+python run_all.py --summary       # one-line status per chapter
+python run_all.py ch10            # run a single chapter
 python ch10_fine_structure/proof_alpha_EM.py
-pytest -v
+pytest -v                         # run the test suite
 ```
 
-Some quantum-gravity / Kerr tests can use external LVK/GWTC posterior data when
-`PT_LVK_REMNANTS_DIR` is set. Without that dataset, the structural checks still
-run and the empirical branch exits cleanly.
+Reports land under `scripts/reports/` as CSV / JSON. Some quantum-gravity
+and Kerr checks can ingest external LVK / GWTC posterior data when
+`PT_LVK_REMNANTS_DIR` is set; without that dataset, the structural checks
+still run and the empirical branch exits cleanly.
 
-## Current Epistemic Posture
+Python 3.10+, `sympy`, `mpmath`, `numpy`, `scipy`. See
+[`scripts/README.md`](scripts/README.md) for the full chapter map and the
+script-to-Lean correspondence.
 
-PT must be read with its status labels:
+---
 
-- `[THM]`: theorem inside the mathematical framework;
-- `[IDENTITY]`: exact identity or conservation statement;
-- `[DER]`: derivation under stated assumptions;
-- `[DER-PHYS]`: physical derivation requiring an interpretation bridge;
-- `[VAL]`: validation against known data;
-- `[PRED]`: falsifiable prediction;
-- `[COND]`: conditional result;
-- `[META]`: audit or methodological statement.
+## A note on "no fitted parameter"
 
-The phrase "no fitted parameter" means **no continuously fitted parameter** in
-the canonical chain. It does not mean that there are no units, no structural
-choices, no perturbative ingredients, or no domain assumptions. Those choices
-must be stated and audited.
+The phrase **no fitted parameter** means: no continuously fitted parameter
+in the canonical PT chain. It does **not** mean that there are no units,
+no structural choices, no perturbative ingredients, or no domain
+assumptions. Those are stated and audited inside the monograph (Ch. 23
+audit, Annex E status ledger).
 
-The theory does not claim that physical reality has already been proved to be
-the arithmetic sieve. The stronger claim is more careful:
+The stronger claim is the careful one:
 
-> the same persistence principle appears to generate rigid mathematical
+> The same persistence principle appears to generate rigid mathematical
 > structures whose physical and chemical readings reproduce many observed
-> regularities.
+> regularities, with explicit and inspectable status tags.
 
-That is a serious hypothesis, not a completed consensus theory.
+PT is interesting only if it remains rigid when the tests become harder.
+This repository is built to make that rigidity inspectable.
 
-## Prediction Snapshot
+---
 
-The monograph lists named predictions and negative predictions. Their role is
-to expose PT to failure, not to protect it.
+## Predictions snapshot
 
-Examples:
+A small selection of the 28 Tier-1 falsifiable predictions:
 
 | ID | Claim | Type | Test window |
 |---|---|---|---|
-| P1 | neutrinos are Dirac | PRED | LEGEND / neutrinoless beta decay |
-| P3 | `theta_QCD = 0` exactly | PRED | axion / strong CP searches |
-| P4 | `delta_CP^PMNS = 197.358 deg` | PRED | DUNE |
-| P5 | `m_nu3 ~= 0.0505 eV` | PRED | KATRIN / cosmology |
-| P10 | no QCD axion | NEG | ADMX / IAXO |
-| P11 | no SUSY below 100 TeV | NEG | future colliders |
-| P14 | no WIMPs | NEG | LZ / XENONnT |
-| P15 | `alpha_GW < 10^-3` | PRED | Einstein Telescope / Cosmic Explorer |
+| P1 | neutrinos are Dirac | `[PRED]` | LEGEND / neutrinoless ββ decay |
+| P3 | `θ_QCD = 0` exactly | `[PRED]` | axion / strong-CP searches |
+| P4 | `δ_CP^{PMNS} = 197.358°` | `[PRED]` | DUNE (~2032) |
+| P5 | `m_{ν3} ≈ 0.0505 eV` | `[PRED]` | KATRIN / cosmology |
+| P10 | no QCD axion | `[NEG]` | ADMX / IAXO |
+| P11 | no SUSY below 100 TeV | `[NEG]` | future colliders |
+| P14 | no WIMPs | `[NEG]` | LZ / XENONnT |
+| P15 | `α_GW < 10⁻³` | `[PRED]` | Einstein Telescope / Cosmic Explorer |
+| P29 | Casimir relative shift `ΔP/P = 1.31 × 10⁻⁴` | `[PRED]` | precision Casimir |
 
 Known-value agreements in the Standard Model, chemistry, and cosmology are
-reported in the monograph as validations or explanations, not automatically as
-new predictions.
+reported in the monograph as validations or explanations — they are
+**not** automatically reclassified as new predictions.
 
-## Citation
+---
 
-Each main artefact has a permanent Zenodo DOI. Please use the DOI corresponding
-to what you actually cite.
+## How to cite
+
+Each main artefact has a permanent Zenodo DOI. Please cite the DOI that
+matches what you actually use.
 
 | Artefact | DOI |
 |---|---|
 | Monograph (FR + EN PDFs) | [`10.5281/zenodo.18726591`](https://doi.org/10.5281/zenodo.18726591) |
-| Mathematics articles | [`10.5281/zenodo.19443954`](https://doi.org/10.5281/zenodo.19443954) |
+| Mathematics articles bundle | [`10.5281/zenodo.19443954`](https://doi.org/10.5281/zenodo.19443954) |
 | SCS — Sieve Color Space | [`10.5281/zenodo.19458652`](https://doi.org/10.5281/zenodo.19458652) |
 
-Recommended BibTeX entries:
-
 ```bibtex
-@book{senez2026persistencemonograph,
+@book{senez2026persistence,
   author    = {Senez, Yan},
   title     = {The Theory of Persistence: From the Sieve to the Standard Model},
   year      = {2026},
@@ -305,59 +254,87 @@ Recommended BibTeX entries:
 }
 ```
 
-## Companion Projects
+---
 
-Focused companion repositories:
+## Companion projects
+
+Focused companion repositories with narrower scope:
 
 - [PT-MATHEMATICS](https://github.com/Igrekess/PT_MATHEMATICS)
 - [PT-PHYSICS](https://github.com/Igrekess/PT_PHYSICS)
 - [PT-CHEMISTRY](https://github.com/Igrekess/PT_CHEMISTRY)
 - [Simplex Color Space](https://github.com/Igrekess/SimplexColorSpace)
 
+---
+
 ## Website
 
-The website lives in [`website/`](website). It is designed as a public
-introduction to the theory:
+The Astro 5 site source lives in [`website/`](website). It is designed as
+a public introduction to the theory: a "5-minute idea" essay, the
+mathematical theorem chain, physics and chemistry pages, the predictions
+ledger, and explicit status / limitations pages.
 
-- "The idea in 5 minutes" for the principle of persistence;
-- mathematical pages for the theorem chain;
-- physics pages for time, relativity, quantum gravity, cosmology, and
-  predictions;
-- chemistry pages for the periodic table, ionization energies, and electron
-  affinities;
-- status and limitations pages to keep the epistemic posture explicit.
-
-Local development:
-
-```bash
+```sh
 cd website
 npm install
 npm run dev
 ```
 
-## AI Assistance
+---
 
-The theory is primarily the product of human research and interpretation.
-Large language models, including ChatGPT and Claude, were used as tools for
-drafting, coding, checking scripts, explaining unfamiliar mathematics, and
-accelerating editorial work. Their use is acknowledged here as assistance, not
-as authorship.
+## How to contribute or report issues
 
-The author does not claim that current LLMs understand the full theory. They
-can help manipulate, test, and explain parts of it; they do not replace the
-human responsibility for the claims.
+This is single-author work and the corpus is large, so the most useful
+contributions are:
 
-## How To Read This Repository
+- **Bug reports on the scripts** — open a [GitHub
+  issue](https://github.com/Igrekess/PersistenceTheory/issues) with the
+  command you ran, the platform, and the failing output.
+- **Counter-examples** to derivations or predictions — please cite the
+  monograph section and the exact identity you contest. Status tags
+  (`[THM]` / `[DER]` / `[PRED]`) frame what counts as a refutation.
+- **Lean improvements** — closing the remaining `G3FisherUniqueness`
+  `sorry` or porting a result currently flagged `\leanExternal` is
+  welcome; please open a PR against `pt_lean/`.
+- **Editorial corrections** to the monograph — typos, broken
+  cross-references, ambiguous wording. Use an issue with the chapter and
+  section.
 
-Start with the idea, then follow the evidence:
+The repository is read-only-by-default; please coordinate via issues
+before opening PRs that change physical claims.
 
-1. Read the principle in the website essay:
-   `website/src/content/essays/en/idea-5min.mdx`.
-2. Read the monograph introduction and status ledger.
-3. Check the mathematical core.
-4. Inspect the physical and chemical derivations with their status tags.
-5. Run the scripts and compare the generated reports.
-6. Evaluate the predictions as future failure points.
+---
 
-PT is interesting only if it remains rigid when the tests become harder. This
-repository is built to make that rigidity inspectable.
+## AI assistance
+
+Persistence Theory is primarily the product of human research and
+interpretation. Large language models — ChatGPT, Claude — were used as
+tools for drafting, coding, checking scripts, explaining unfamiliar
+mathematics, and accelerating editorial work. Their use is acknowledged
+here as assistance, not as authorship. The author does not claim that
+current LLMs understand the full theory; they manipulate, test, and
+explain parts of it, but they do not replace the human responsibility for
+the claims.
+
+---
+
+## License
+
+- **Lean library** (`pt_lean/`): Apache 2.0, matching Mathlib's
+  convention.
+- **Python scripts** (`scripts/`): MIT.
+- **Website source** (`website/`): see
+  [`website/LICENSE`](website/LICENSE) for the code license and
+  [`website/LICENSE-CONTENT`](website/LICENSE-CONTENT) for the prose
+  license.
+- **Monograph PDFs and research notes**: © Yan Senez, 2026. Released as
+  preprints; please cite via the Zenodo DOIs above.
+
+---
+
+## Contact
+
+Yan Senez — <yan.senez@gmail.com>
+
+For technical questions on the scripts or the Lean formalisation, prefer
+a GitHub issue so the discussion stays public and searchable.
