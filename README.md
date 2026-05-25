@@ -37,7 +37,7 @@ reported as evidence, not as proof that the underlying ontology is correct.
 
 | Goal | Where to go |
 |---|---|
-| **Read the monograph (English)** | [`TheTheoryOfPersistence.pdf`](TheTheoryOfPersistence.pdf) — 906 pages |
+| **Read the monograph (English)** | [`TheTheoryOfPersistence.pdf`](TheTheoryOfPersistence.pdf) — 907 pages |
 | **Lire la monographie (français)** | [`TheorieDeLaPersistance_FR.pdf`](TheorieDeLaPersistance_FR.pdf) — 939 pages |
 | **Verify the formal proofs** | [`pt_lean/`](pt_lean) — Lean 4 + Mathlib, `lake build` |
 | **Reproduce the numerical results** | [`scripts/`](scripts) — `python run_all.py` |
