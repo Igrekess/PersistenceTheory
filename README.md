@@ -37,8 +37,8 @@ reported as evidence, not as proof that the underlying ontology is correct.
 
 | Goal | Where to go |
 |---|---|
-| **Read the monograph (English)** | [`TheTheoryOfPersistence.pdf`](TheTheoryOfPersistence.pdf) — 908 pages |
-| **Lire la monographie (français)** | [`TheorieDeLaPersistance_FR.pdf`](TheorieDeLaPersistance_FR.pdf) — 940 pages |
+| **Read the monograph (English)** | [`TheTheoryOfPersistence.pdf`](TheTheoryOfPersistence.pdf) — 986 pages |
+| **Lire la monographie (français)** | [`TheorieDeLaPersistance_FR.pdf`](TheorieDeLaPersistance_FR.pdf) — 1025 pages |
 | **Verify the formal proofs** | [`pt_lean/`](pt_lean) — Lean 4 + Mathlib, `lake build` |
 | **Reproduce the numerical results** | [`scripts/`](scripts) — `python run_all.py` |
 | **Read companion research notes** | [`research_notes/`](research_notes) — six standalone drafts |
@@ -84,8 +84,8 @@ active prime set `{3, 5, 7}` is forced by `γ_p > 1/2 ⇔ p ∈ {3, 5, 7}`.
 
 ```text
 .
-├── TheTheoryOfPersistence.pdf       English monograph (905 pages)
-├── TheorieDeLaPersistance_FR.pdf    French monograph (938 pages)
+├── TheTheoryOfPersistence.pdf       English monograph (986 pages)
+├── TheorieDeLaPersistance_FR.pdf    French monograph (1025 pages)
 ├── README.md                        This file
 ├── requirements.txt                 Top-level Python dependencies
 ├── pt_lean/                         Lean 4 formalisation (~3600 modules)
