@@ -406,10 +406,11 @@ theorem master_T3_cesaro :
     8. **Cesàro** (`master_T30_cesaro`) — exact convergence at `N = 2`
        for the `T_2 ⊗ T_3` block.
 
-    The conjunction below holds for *any* `T5Like` data; the
-    `[THM] 10/10` status of the framework guarantees the inputs are all
-    discharged at their home modules. This file does not reprove
-    anything; it merely *assembles*. -/
+    The conjunction below holds for *any* `T5Like` data; the inputs are
+    discharged at their home modules. (Framework status since the B4
+    requalification of 2026-08-14: C1-C12 = 5 `[THM]` + 6 `[DER]/[COND]`
+    + 1 `[VAL]`; the former `10/10 [THM]` claim is superseded.) This file
+    does not reprove anything; it merely *assembles*. -/
 theorem T30_full_spectral_analysis_summary (T5 : T5Like) :
     -- (1) Perron facet
     (IsT30PerronEigenvector T5 (T30_perronVec T5)
